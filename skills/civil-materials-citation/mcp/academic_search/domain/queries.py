@@ -36,7 +36,8 @@ MATERIAL_TERMS: dict[str, tuple[str, ...]] = {
 
 
 def _quote(value: str) -> str:
-    return f'"{value}"'
+    escaped = value.replace("\\", "\\\\").replace('"', '\\"')
+    return f'"{escaped}"'
 
 
 def _or_group(values: Iterable[str]) -> str:

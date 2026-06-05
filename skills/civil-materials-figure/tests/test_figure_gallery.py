@@ -64,6 +64,29 @@ class FigureGalleryAssetsTest(unittest.TestCase):
 
 
 class FigureGalleryDemoScriptTest(unittest.TestCase):
+    def test_plot_svg_reports_missing_required_columns(self):
+        script = SKILL_ROOT / "scripts" / "civil_materials_plot_svg.py"
+        self.assertTrue(script.exists(), "civil_materials_plot_svg.py should exist")
+
+        with tempfile.TemporaryDirectory() as tmp:
+            csv_path = Path(tmp) / "bad.csv"
+            csv_path.write_text("sample,value\ncontrol,1.0\n", encoding="utf-8")
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(script),
+                    str(csv_path),
+                    "--output",
+                    str(Path(tmp) / "out.svg"),
+                ],
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("CSV must include columns: label, value", result.stderr)
+
     def test_gallery_demo_generates_all_svg_examples(self):
         script = SKILL_ROOT / "scripts" / "gallery_demo.py"
         self.assertTrue(script.exists(), "gallery_demo.py should exist")

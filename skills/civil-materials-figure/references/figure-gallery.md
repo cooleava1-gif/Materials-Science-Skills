@@ -14,6 +14,7 @@ The gallery is not a decoration library. Each figure card links visual form to a
 | SEM/fluorescence plate | Compare morphology, phase distribution, interface quality | Microstructure evidence |
 | durability radar | Summarize retained performance under aging/moisture/freeze-thaw | Durability trade-off evidence |
 | mechanism schematic | Explain material design and claim boundaries | Interpretive summary, not direct data |
+| characterization templates | Plan XRD, TG/DTG, FTIR overlay, SEM/TEM, and uncertainty figures | Mechanism or method evidence when measurements support it |
 
 ## Style Presets
 
@@ -41,6 +42,7 @@ Every gallery-derived figure should include:
 - Do not infer durability from short-term bonding strength.
 - For waterborne epoxy modified emulsified asphalt, separate emulsion stability, epoxy curing, interface bonding, viscosity, storage stability, and moisture/aging evidence.
 - Put control, dosage, temperature, curing condition, and test standard in the figure plan or caption when available.
+- For XRD, TG/DTG, FTIR, SEM/TEM, and error-bar choices, load `references/characterization-figures.md`.
 
 ## Recommended Workflow
 

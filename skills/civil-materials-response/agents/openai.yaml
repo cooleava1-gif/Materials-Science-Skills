@@ -3,3 +3,6 @@ interface:
   short_description: "Reviewer response workflows for civil materials manuscripts."
   default_prompt: "Use $civil-materials-response to draft a reviewer response package for this civil materials manuscript."
   brand_color: "#7A5C3E"
+
+policy:
+  allow_implicit_invocation: true

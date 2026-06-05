@@ -8,6 +8,7 @@ from collections.abc import Iterable
 from typing import Any
 
 from .adapters import (
+    AcademicSourceAdapter,
     AdapterDisabled,
     AdapterError,
     CrossrefAdapter,
@@ -16,7 +17,7 @@ from .adapters import (
     normalize_doi,
     normalize_title,
 )
-from .domain.classifier import classify_evidence_layers, evidence_type_for_claim
+from .domain.classifier import DURABILITY_LAYERS, MECHANISM_LAYERS, PERFORMANCE_LAYERS, classify_evidence_layers, evidence_type_for_claim
 from .domain.journals import expand_journal_terms, normalize_to_list
 from .domain.queries import suggest_queries
 
@@ -45,7 +46,7 @@ DEFAULT_CLAIMS = [
 class AcademicSearchService:
     """High-level operations exposed through the MCP tools."""
 
-    def __init__(self, adapters: list[Any] | None = None) -> None:
+    def __init__(self, adapters: list[AcademicSourceAdapter] | None = None) -> None:
         self.adapters = adapters if adapters is not None else [
             CrossrefAdapter(),
             OpenAlexAdapter(),
@@ -54,7 +55,7 @@ class AcademicSearchService:
 
     def search_civil_materials(self, args: dict[str, Any]) -> dict[str, Any]:
         topic = _required(args, "topic")
-        limit = int(args.get("limit") or 10)
+        limit = _safe_limit(args.get("limit"), default=10)
         journal_family = args.get("journal_family")
         evidence_layer = args.get("evidence_layer")
         year_range = args.get("year_range")
@@ -133,7 +134,7 @@ class AcademicSearchService:
                 material_domain=args.get("material_domain") or "asphalt",
                 evidence_layer=args.get("evidence_layer"),
                 year_range=args.get("year_range"),
-                limit=int(args.get("limit") or 6),
+                limit=_safe_limit(args.get("limit"), default=6),
             )
         }
 
@@ -219,8 +220,9 @@ class AcademicSearchService:
         output = io.StringIO()
         writer = csv.DictWriter(output, fieldnames=CSV_FIELDS, lineterminator="\n")
         writer.writeheader()
-        writer.writerows(rows)
-        return {"rows": rows, "csv": output.getvalue()}
+        csv_rows = [_csv_safe_row(row) for row in rows]
+        writer.writerows(csv_rows)
+        return {"rows": csv_rows, "csv": output.getvalue()}
 
 
 def merge_records(raw_records: Iterable[dict[str, Any]], *, fallback_evidence_layer: str | None = None) -> list[dict[str, Any]]:
@@ -336,6 +338,14 @@ def _required(args: dict[str, Any], key: str) -> str:
     return value.strip()
 
 
+def _safe_limit(value: Any, *, default: int, minimum: int = 1, maximum: int = 50) -> int:
+    try:
+        limit = int(value)
+    except (TypeError, ValueError):
+        limit = default
+    return max(minimum, min(limit, maximum))
+
+
 def _claims_from_args(args: dict[str, Any]) -> list[str]:
     claims = args.get("claims")
     if isinstance(claims, list):
@@ -354,7 +364,7 @@ def _matching_records(records: list[dict[str, Any]], layers: list[str], evidence
         record_layers = set(record.get("evidence_layers") or classify_evidence_layers(record.get("title", "")))
         if set(layers) & record_layers:
             matches.append(record)
-        elif evidence_type == evidence_type_for_claim(" ".join(record_layers)):
+        elif not layers and evidence_type == _evidence_type_from_layers(record_layers):
             matches.append(record)
     return matches
 
@@ -372,9 +382,40 @@ def _risk_flags_for_claim(claim: str, evidence_type: str, records: list[dict[str
     return flags
 
 
+def _evidence_type_from_layers(layers: set[str]) -> str:
+    if layers & MECHANISM_LAYERS:
+        return "mechanism"
+    if layers & DURABILITY_LAYERS:
+        return "durability"
+    if layers & PERFORMANCE_LAYERS:
+        return "performance"
+    if "review_positioning" in layers:
+        return "review/positioning"
+    return "primary evidence"
+
+
+def _csv_safe_row(row: dict[str, Any]) -> dict[str, Any]:
+    return {key: _csv_safe(value) for key, value in row.items()}
+
+
+def _csv_safe(value: Any) -> Any:
+    if not isinstance(value, str):
+        return value
+    if value.startswith(("=", "+", "-", "@")):
+        return f"'{value}"
+    return value
+
+
 def _unique(values: Iterable[Any]) -> list[Any]:
     result = []
+    seen_hashable = set()
     for value in values:
-        if value not in result:
+        try:
+            if value in seen_hashable:
+                continue
+            seen_hashable.add(value)
             result.append(value)
+        except TypeError:
+            if value not in result:
+                result.append(value)
     return result

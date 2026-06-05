@@ -14,19 +14,26 @@ axes:
         triggers: ["retention", "water", "aging", "freeze", "durability", "耐久", "水损害", "老化"]
       mechanism:
         path: references/mechanism-figures.md
-        triggers: ["FTIR", "SEM", "fluorescence", "mechanism", "机理", "显微"]
+        triggers: ["mechanism", "curing", "interface", "机制", "机理", "界面"]
+      characterization:
+        path: references/characterization-figures.md
+        triggers: ["FTIR", "XRD", "TG", "DTG", "SEM", "TEM", "fluorescence", "rheology", "表征", "显微", "光谱", "热重"]
       summary:
         path: references/summary-figures.md
         triggers: ["radar", "matrix", "summary", "trade-off", "综合评价"]
       gallery:
         path: references/figure-gallery.md
-        triggers: ["gallery", "figure gallery", "figure example", "style preset", "demo figure", "figure card"]
+        triggers: ["gallery", "figure gallery", "figure example", "style preset", "demo figure", "figure card", "图表示例"]
+
   domain:
     default: civil-materials
     values:
       asphalt:
         path: references/asphalt-figure-package.md
-        triggers: ["asphalt", "emulsified asphalt", "waterborne epoxy", "沥青", "乳化沥青"]
+        triggers: ["asphalt", "emulsified asphalt", "waterborne epoxy", "沥青", "乳化沥青", "水性环氧"]
       cement-concrete:
         path: references/cement-concrete-figure-package.md
-        triggers: ["cement", "concrete", "水泥", "混凝土"]
+        triggers: ["cement", "concrete", "mortar", "水泥", "混凝土", "砂浆"]
+      civil-materials:
+        path: references/summary-figures.md
+        triggers: ["civil materials", "construction materials", "土木材料", "建筑材料"]

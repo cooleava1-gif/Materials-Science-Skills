@@ -1,6 +1,6 @@
 ---
 name: civil-materials-figure
-description: Use when planning, creating, auditing, or polishing manuscript figures and data visualizations for civil engineering and construction materials research, especially asphalt pavement materials, waterborne epoxy modified emulsified asphalt, cement/concrete, durability, sustainability, bonding strength, viscosity, storage stability, FTIR, SEM, fluorescence microscopy, and journal-ready figure packages.
+description: Use when planning, creating, auditing, or polishing manuscript figures and data visualizations for civil engineering and construction materials research, especially asphalt pavement materials, waterborne epoxy modified emulsified asphalt, cement/concrete, durability, sustainability, bonding strength, viscosity, storage stability, FTIR, XRD, TG/DTG, SEM/TEM, fluorescence microscopy, uncertainty plots, and journal-ready figure packages.
 ---
 
 # Civil Materials Figure
@@ -22,5 +22,7 @@ If the user needs complex plotting with matplotlib/R, first check the runtime or
 ## Gallery Workflow
 
 Use the figure gallery when a request needs a polished visual direction before exact data are available. The gallery covers bonding strength bars, dosage-performance curves, FTIR peak annotation, SEM/fluorescence plates, durability radar charts, and mechanism schematics.
+
+Use `references/characterization-figures.md` when the request involves XRD overlays, TG/DTG curves, FTIR overlays, SEM/TEM image annotation, fluorescence microscopy, or error-bar/boxplot choices.
 
 Do not treat gallery demos as evidence. They are layout examples; manuscript claims still need real data, test conditions, and source-grounded captions.

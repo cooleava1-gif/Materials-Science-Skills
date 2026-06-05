@@ -30,6 +30,12 @@ If `CODEX_HOME` is not set, use your Codex home directory, commonly `~/.codex`.
 
 The citation skill includes a local academic-search MCP server.
 
+Install the Python dependency first:
+
+```powershell
+python -m pip install -r .\requirements.txt
+```
+
 Example Codex config:
 
 ```toml

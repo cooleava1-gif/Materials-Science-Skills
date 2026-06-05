@@ -81,6 +81,47 @@ class McpContractTest(unittest.TestCase):
             "waterborne epoxy modified emulsified asphalt",
         )
 
+    def test_all_public_tools_return_structured_content_through_protocol(self):
+        calls = [
+            ("fetch_paper_metadata", {"doi": "10.1000/example"}, "record"),
+            ("suggest_search_queries", {"topic": "waterborne epoxy modified emulsified asphalt"}, "queries"),
+            ("build_claim_source_map", {"claims": ["bonding strength improves"]}, "claim_source_map"),
+            ("audit_reference_gaps", {"claims": ["mechanism is proven"]}, "gaps"),
+            ("export_citation_matrix", {"claims": ["bonding strength improves"]}, "rows"),
+        ]
+
+        for index, (tool_name, arguments, expected_key) in enumerate(calls, start=10):
+            with self.subTest(tool_name=tool_name):
+                response = handle_message(
+                    {
+                        "jsonrpc": "2.0",
+                        "id": index,
+                        "method": "tools/call",
+                        "params": {"name": tool_name, "arguments": arguments},
+                    },
+                    service=StubService(),
+                )
+
+                self.assertIn(expected_key, response["result"]["structuredContent"])
+
+    def test_tool_validation_errors_return_invalid_params(self):
+        class ValidationService(StubService):
+            def fetch_paper_metadata(self, args):
+                raise ValueError("doi, title, or external_id is required")
+
+        response = handle_message(
+            {
+                "jsonrpc": "2.0",
+                "id": 30,
+                "method": "tools/call",
+                "params": {"name": "fetch_paper_metadata", "arguments": {}},
+            },
+            service=ValidationService(),
+        )
+
+        self.assertEqual(response["error"]["code"], -32602)
+        self.assertIn("doi, title, or external_id", response["error"]["message"])
+
     def test_unknown_tool_returns_json_rpc_error(self):
         response = handle_message(
             {

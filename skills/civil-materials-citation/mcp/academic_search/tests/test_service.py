@@ -8,6 +8,7 @@ from pathlib import Path
 PACKAGE_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PACKAGE_ROOT))
 
+from academic_search.adapters import AdapterDisabled, AdapterError
 from academic_search.service import AcademicSearchService
 
 
@@ -27,6 +28,17 @@ class FakeAdapter:
             if title and record.get("title") == title:
                 return record
         return None
+
+
+class FailingAdapter:
+    def __init__(self, exc):
+        self.exc = exc
+
+    def search(self, query, *, journals=None, year_range=None, limit=10):
+        raise self.exc
+
+    def fetch(self, *, doi=None, title=None, external_id=None):
+        raise self.exc
 
 
 class AcademicSearchServiceTest(unittest.TestCase):
@@ -76,6 +88,36 @@ class AcademicSearchServiceTest(unittest.TestCase):
         self.assertIn("source_provenance", record)
         self.assertEqual(len(record["source_provenance"]), 2)
 
+    def test_search_uses_safe_limit_default_and_collects_adapter_warnings(self):
+        service = AcademicSearchService(
+            adapters=[
+                FailingAdapter(AdapterDisabled("disabled source")),
+                FailingAdapter(AdapterError("transient upstream failure")),
+                FakeAdapter(
+                    [
+                        {
+                            "title": "Bonding interface of waterborne epoxy emulsified asphalt",
+                            "doi": "10.1000/bond",
+                            "journal": "Construction and Building Materials",
+                            "year": 2025,
+                            "abstract": "Pull-off bonding interface data.",
+                            "source": "Crossref",
+                        }
+                    ]
+                ),
+            ]
+        )
+
+        result = service.search_civil_materials(
+            {
+                "topic": "waterborne epoxy modified emulsified asphalt bonding performance",
+                "limit": "not-a-number",
+            }
+        )
+
+        self.assertEqual(len(result["records"]), 1)
+        self.assertEqual(result["warnings"], ["disabled source", "transient upstream failure"])
+
     def test_fetch_metadata_marks_missing_fields_and_source_provenance(self):
         service = AcademicSearchService(
             adapters=[
@@ -98,6 +140,30 @@ class AcademicSearchServiceTest(unittest.TestCase):
         self.assertEqual(result["record"]["doi"], "10.1000/storage")
         self.assertIn("abstract", result["record"]["missing_fields"])
         self.assertEqual(result["record"]["source_provenance"][0]["source"], "Crossref")
+
+    def test_build_claim_source_map_matches_records_by_explicit_evidence_type(self):
+        service = AcademicSearchService(adapters=[])
+
+        result = service.build_claim_source_map(
+            {
+                "topic": "waterborne epoxy modified emulsified asphalt",
+                "claims": ["The material improves bonding performance."],
+                "candidate_records": [
+                    {
+                        "title": "Storage stability only",
+                        "evidence_layers": ["storage_stability"],
+                    },
+                    {
+                        "title": "Pull-off bonding strength study",
+                        "evidence_layers": ["bonding_interface"],
+                    },
+                ],
+            }
+        )
+
+        candidates = result["claim_source_map"][0]["candidate_records"]
+
+        self.assertEqual([record["title"] for record in candidates], ["Pull-off bonding strength study"])
 
     def test_export_citation_matrix_matches_existing_csv_schema(self):
         service = AcademicSearchService(adapters=[])
@@ -133,6 +199,21 @@ class AcademicSearchServiceTest(unittest.TestCase):
         self.assertEqual(rows[0]["claim_or_need"], "Bond strength improvement")
         self.assertEqual(rows[0]["evidence_type"], "performance")
         self.assertEqual(rows[1]["evidence_type"], "mechanism")
+
+    def test_export_citation_matrix_escapes_excel_formula_cells(self):
+        service = AcademicSearchService(adapters=[])
+
+        result = service.export_citation_matrix(
+            {
+                "topic": "waterborne epoxy modified emulsified asphalt",
+                "claims": ["=CMD('calc')"],
+                "target_journals": ["CBM"],
+            }
+        )
+
+        row = next(csv.DictReader(io.StringIO(result["csv"])))
+
+        self.assertEqual(row["claim_or_need"], "'=CMD('calc')")
 
 
 if __name__ == "__main__":

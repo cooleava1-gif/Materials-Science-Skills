@@ -12,8 +12,20 @@ from pathlib import Path
 def read_rows(path: Path) -> list[tuple[str, float]]:
     rows: list[tuple[str, float]] = []
     with path.open(newline="", encoding="utf-8") as fh:
-        for row in csv.DictReader(fh):
-            rows.append((row["label"], float(row["value"])))
+        reader = csv.DictReader(fh)
+        required = {"label", "value"}
+        fieldnames = set(reader.fieldnames or [])
+        if not required.issubset(fieldnames):
+            raise ValueError("CSV must include columns: label, value")
+        for row_number, row in enumerate(reader, start=2):
+            label = (row.get("label") or "").strip()
+            if not label:
+                raise ValueError(f"row {row_number}: label must not be empty")
+            try:
+                value = float(row.get("value") or "")
+            except ValueError as exc:
+                raise ValueError(f"row {row_number}: value must be numeric") from exc
+            rows.append((label, value))
     if not rows:
         raise ValueError("CSV has no rows")
     return rows
@@ -60,7 +72,10 @@ def main() -> int:
     parser.add_argument("--output", default="civil-materials-figure.svg")
     args = parser.parse_args()
 
-    rows = read_rows(Path(args.csv_file))
+    try:
+        rows = read_rows(Path(args.csv_file))
+    except ValueError as exc:
+        parser.exit(2, f"error: {exc}\n")
     Path(args.output).write_text(make_svg(rows, args.title, args.ylabel), encoding="utf-8")
     print(args.output)
     return 0

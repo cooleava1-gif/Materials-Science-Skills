@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import re
+
 
 EVIDENCE_LAYER_KEYWORDS: dict[str, tuple[str, ...]] = {
     "demulsification": (
@@ -95,6 +97,18 @@ def _normalize(text: str | None) -> str:
     return " ".join((text or "").lower().replace("_", " ").split())
 
 
+def _contains_keyword(text: str, keyword: str) -> bool:
+    normalized_keyword = _normalize(keyword)
+    if not normalized_keyword:
+        return False
+    pattern = rf"(?<![a-z0-9]){re.escape(normalized_keyword)}(?![a-z0-9])"
+    return re.search(pattern, text) is not None
+
+
+def _contains_any(text: str, keywords: tuple[str, ...]) -> bool:
+    return any(_contains_keyword(text, keyword) for keyword in keywords)
+
+
 def classify_evidence_layers(text: str | None) -> list[str]:
     """Classify text into civil-materials evidence layers."""
 
@@ -104,26 +118,32 @@ def classify_evidence_layers(text: str | None) -> list[str]:
 
     layers: list[str] = []
     for layer, keywords in EVIDENCE_LAYER_KEYWORDS.items():
-        if any(keyword in normalized for keyword in keywords):
+        if _contains_any(normalized, keywords):
             layers.append(layer)
     return layers
 
 
 def evidence_type_for_claim(text: str | None) -> str:
-    """Map a claim to the evidence type reviewers are likely to expect."""
+    """Map a claim to the highest-risk evidence type reviewers are likely to expect.
+
+    Priority is intentional: mechanism claims require direct mechanistic evidence,
+    then durability claims require service/aging evidence, then review positioning,
+    then performance evidence. This avoids upgrading performance-only results into
+    unsupported mechanisms.
+    """
 
     normalized = _normalize(text)
     layers = set(classify_evidence_layers(normalized))
 
-    if any(term in normalized for term in ("mechanism", "microstructure", "chemical", "ftir")):
+    if _contains_any(normalized, ("mechanism", "microstructure", "chemical", "ftir")):
         return "mechanism"
     if layers & MECHANISM_LAYERS:
         return "mechanism"
-    if any(term in normalized for term in ("durability", "moisture", "aging", "freeze", "service")):
+    if _contains_any(normalized, ("durability", "moisture", "aging", "freeze", "service")):
         return "durability"
     if layers & DURABILITY_LAYERS:
         return "durability"
-    if any(term in normalized for term in ("review", "gap", "progress", "state of the art")):
+    if _contains_any(normalized, ("review", "gap", "progress", "state of the art")):
         return "review/positioning"
     if layers & PERFORMANCE_LAYERS:
         return "performance"

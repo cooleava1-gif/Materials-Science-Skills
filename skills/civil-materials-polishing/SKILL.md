@@ -1,6 +1,6 @@
 ---
 name: civil-materials-polishing
-description: Use when polishing, translating, tightening, restructuring, or risk-auditing English manuscript prose for civil engineering and construction materials research, especially claim-strength control, Chinese-to-English academic writing, CBM, CBM in Transportation, CCC, CSCM, JBE, RMPD, IJPE, JRE, asphalt pavement materials, cement/concrete, durability, sustainability, abstracts, highlights, introductions, results, discussions, and cover letters.
+description: Use when polishing, translating, tightening, restructuring, or risk-auditing English manuscript prose for civil engineering and construction materials research, especially claim-strength control, Chinese-to-English academic writing, CBM, CBM in Transportation, CCC, CSCM, JBE, RMPD, IJPE, JRE, asphalt pavement materials, cement/concrete, durability, sustainability, abstracts, highlights, introductions, results, discussions, conclusions, and cover letters.
 ---
 
 # Civil Materials Polishing
@@ -21,6 +21,8 @@ Polish civil materials prose while preserving scientific responsibility.
 Do not make weak evidence sound strong. Civil materials writing should be clear, engineering-grounded, and reviewer-safe.
 
 Use `references/language-rulebook.md` for general manuscript language, `references/claim-strength-ladder.md` when causality or novelty is risky, and `references/chinese-to-english-patterns.md` for Chinese-to-English polishing.
+
+Use `references/conclusions.md` for conclusion sections, especially when performance, mechanism, durability, or field-application claims could be overstated.
 
 Use this module for English polishing. Use `civil-materials-research` first when the argument, journal fit, or evidence chain is unclear.
 

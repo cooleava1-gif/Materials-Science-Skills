@@ -21,17 +21,41 @@ JOURNAL_FAMILIES: dict[str, tuple[str, tuple[str, ...]]] = {
         "Cement and Concrete Composites",
         ("ccc", "cement and concrete composites"),
     ),
-    "CCS": (
-        "Cement and Concrete Sustainability",
-        ("ccs", "cement and concrete sustainability"),
+    "CCR": (
+        "Cement and Concrete Research",
+        ("ccr", "cement and concrete research"),
     ),
     "CSCM": (
         "Case Studies in Construction Materials",
         ("cscm", "case studies in construction materials"),
     ),
+    "JMCE": (
+        "Journal of Materials in Civil Engineering",
+        ("jmce", "asce jmce", "journal of materials in civil engineering"),
+    ),
     "JBE": (
         "Journal of Building Engineering",
         ("jbe", "journal of building engineering"),
+    ),
+    "MAS": (
+        "Materials and Structures",
+        ("mas", "materials and structures", "rilem materials and structures"),
+    ),
+    "JCP": (
+        "Journal of Cleaner Production",
+        ("jcp", "journal of cleaner production"),
+    ),
+    "RCR": (
+        "Resources, Conservation and Recycling",
+        ("rcr", "resources conservation and recycling", "resources, conservation and recycling"),
+    ),
+    "FUEL": (
+        "Fuel",
+        ("fuel",),
+    ),
+    "MCR": (
+        "Magazine of Concrete Research",
+        ("mcr", "magazine of concrete research"),
     ),
     "RMPD": (
         "Road Materials and Pavement Design",
@@ -47,7 +71,7 @@ JOURNAL_FAMILIES: dict[str, tuple[str, tuple[str, ...]]] = {
     ),
 }
 
-DEFAULT_JOURNAL_FAMILIES = ("CBM", "JBE", "RMPD", "IJPE", "JRE", "CSCM")
+DEFAULT_JOURNAL_FAMILIES = ("CBM", "CCC", "CCR", "JBE", "RMPD", "IJPE", "JRE", "CSCM", "JCP")
 
 
 def _normalize(value: str) -> str:

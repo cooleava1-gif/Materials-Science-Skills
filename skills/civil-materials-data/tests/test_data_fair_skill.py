@@ -114,10 +114,11 @@ class CivilMaterialsDataScriptsTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             empty_result = subprocess.run(
                 [sys.executable, str(audit_script), "--dataset-dir", tmp, "--json"],
-                check=True,
+                check=False,
                 capture_output=True,
                 text=True,
             )
+            self.assertEqual(empty_result.returncode, 1)
             empty_report = json.loads(empty_result.stdout)
             self.assertEqual(empty_report["status"], "incomplete")
             self.assertIn("metadata.md", empty_report["missing"])
@@ -151,6 +152,44 @@ class CivilMaterialsDataScriptsTest(unittest.TestCase):
             self.assertEqual(report["status"], "pass")
             for fair_key in ["findable", "accessible", "interoperable", "reusable"]:
                 self.assertIn(fair_key, report["fair"])
+
+    def test_audit_fair_dataset_validates_csv_headers_not_comment_text(self):
+        audit_script = SKILL_ROOT / "scripts" / "audit_fair_dataset.py"
+
+        with tempfile.TemporaryDirectory() as tmp:
+            package_dir = Path(tmp)
+            for relative in ["raw_data", "processed_data", "figures"]:
+                (package_dir / relative).mkdir()
+            (package_dir / "metadata.md").write_text(
+                "\n".join(
+                    [
+                        "test_standard: JTG E20",
+                        "replicate_count: 3",
+                        "temperature: 25 C",
+                        "humidity: 50%",
+                        "curing_condition: 7 d",
+                        "aging_condition: moisture aging",
+                    ]
+                ),
+                encoding="utf-8",
+            )
+            (package_dir / "README.md").write_text("Dataset README", encoding="utf-8")
+            (package_dir / "data_availability_statement.md").write_text("Available on request.", encoding="utf-8")
+            (package_dir / "raw_data" / "experiment.csv").write_text(
+                "comment,value\nthis note mentions sample_id and unit,1\n",
+                encoding="utf-8",
+            )
+
+            result = subprocess.run(
+                [sys.executable, str(audit_script), "--dataset-dir", str(package_dir), "--json"],
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            report = json.loads(result.stdout)
+
+            self.assertEqual(result.returncode, 1)
+            self.assertFalse(report["fair"]["interoperable"])
 
 
 class CivilMaterialsDataRouterIntegrationTest(unittest.TestCase):

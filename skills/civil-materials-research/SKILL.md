@@ -83,6 +83,8 @@ Open `references/` files only when the request needs deeper help:
 - Submission-risk or self-review checklist -> `references/reviewer-risk-checklist.md`.
 - Output templates for abstracts, highlights, cover letters, graphical abstracts, and PPTs -> `references/output-templates.md`.
 - From data to figures to manuscript claims -> `references/data-to-manuscript.md`.
+- Statistical method choice, uncertainty, replicate count, or significance wording -> `references/statistical-methods.md`.
+- ASTM/EN/JTG/GB/AASHTO/RILEM method mapping and test comparability -> `references/test-standards-mapping.md`.
 - Companion skill coordination, including citation, response, data/FAIR, and PPTX handoff -> `references/companion-modules.md`.
 - Full-module pressure testing and failure-mode validation -> `references/pressure-test-suite.md`.
 - Concrete module examples and output shapes -> `examples/library/library-index.md`.

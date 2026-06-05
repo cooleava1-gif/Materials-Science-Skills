@@ -7,7 +7,7 @@ from typing import Any
 
 import httpx
 
-from .base import AdapterDisabled, AdapterError, clean_abstract, normalize_doi
+from .base import AdapterDisabled, AdapterError, clean_abstract, get_json_with_retries, get_response_with_retries, normalize_doi
 
 
 class OpenAlexAdapter:
@@ -31,10 +31,8 @@ class OpenAlexAdapter:
         if filters:
             params["filter"] = filters
         try:
-            with httpx.Client(timeout=self.timeout) as client:
-                response = client.get(self.base_url, params=params)
-                response.raise_for_status()
-                items = response.json().get("results", [])
+            payload = get_json_with_retries(self.base_url, params=params, timeout=self.timeout)
+            items = payload.get("results", [])
         except httpx.HTTPError as exc:
             raise AdapterError(f"OpenAlex search failed: {exc}") from exc
         return [_parse_work(item) for item in items]
@@ -46,12 +44,15 @@ class OpenAlexAdapter:
         if not identifier:
             return None
         try:
-            with httpx.Client(timeout=self.timeout) as client:
-                response = client.get(f"{self.base_url}/{identifier}", params={"api_key": self.api_key})
-                if response.status_code == 404:
-                    return None
-                response.raise_for_status()
-                item = response.json()
+            response = get_response_with_retries(
+                f"{self.base_url}/{identifier}",
+                params={"api_key": self.api_key},
+                timeout=self.timeout,
+            )
+            if response.status_code == 404:
+                return None
+            response.raise_for_status()
+            item = response.json()
         except httpx.HTTPError as exc:
             raise AdapterError(f"OpenAlex fetch failed: {exc}") from exc
         return _parse_work(item)

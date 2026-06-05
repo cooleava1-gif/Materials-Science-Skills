@@ -8,7 +8,7 @@ from urllib.parse import quote
 
 import httpx
 
-from .base import AdapterError, normalize_doi
+from .base import AdapterError, get_json_with_retries, get_response_with_retries, normalize_doi
 
 
 class SemanticScholarAdapter:
@@ -29,10 +29,13 @@ class SemanticScholarAdapter:
         if year_range:
             params["year"] = year_range
         try:
-            with httpx.Client(timeout=self.timeout, headers=self._headers()) as client:
-                response = client.get(f"{self.base_url}/paper/search", params=params)
-                response.raise_for_status()
-                items = response.json().get("data", [])
+            payload = get_json_with_retries(
+                f"{self.base_url}/paper/search",
+                params=params,
+                headers=self._headers(),
+                timeout=self.timeout,
+            )
+            items = payload.get("data", [])
         except httpx.HTTPError as exc:
             raise AdapterError(f"Semantic Scholar search failed: {exc}") from exc
         return [_parse_paper(item) for item in items]
@@ -42,12 +45,16 @@ class SemanticScholarAdapter:
         if not paper_id:
             return None
         try:
-            with httpx.Client(timeout=self.timeout, headers=self._headers()) as client:
-                response = client.get(f"{self.base_url}/paper/{quote(paper_id, safe=':')}", params={"fields": self.fields})
-                if response.status_code == 404:
-                    return None
-                response.raise_for_status()
-                item = response.json()
+            response = get_response_with_retries(
+                f"{self.base_url}/paper/{quote(paper_id, safe=':')}",
+                params={"fields": self.fields},
+                headers=self._headers(),
+                timeout=self.timeout,
+            )
+            if response.status_code == 404:
+                return None
+            response.raise_for_status()
+            item = response.json()
         except httpx.HTTPError as exc:
             raise AdapterError(f"Semantic Scholar fetch failed: {exc}") from exc
         return _parse_paper(item)

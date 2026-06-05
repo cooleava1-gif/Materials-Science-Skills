@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 from pathlib import Path
 
@@ -34,11 +35,12 @@ def audit(dataset_dir: Path) -> dict[str, object]:
     statement_text = _read(dataset_dir / "data_availability_statement.md")
     csv_files = list((dataset_dir / "raw_data").glob("*.csv")) + list((dataset_dir / "processed_data").glob("*.csv"))
     csv_text = "\n".join(_read(path) for path in csv_files)
+    csv_headers = _csv_headers(csv_files)
 
     fair = {
         "findable": bool(metadata_text and readme_text),
         "accessible": bool(statement_text),
-        "interoperable": bool(csv_files and "sample_id" in csv_text and "unit" in csv_text),
+        "interoperable": bool(csv_files and {"sample_id", "unit"}.issubset(csv_headers)),
         "reusable": all(field in metadata_text or field in csv_text for field in REUSABLE_FIELDS),
     }
     status = "pass" if not missing and all(fair.values()) else "incomplete"
@@ -65,6 +67,19 @@ def _read(path: Path) -> str:
     if not path.exists() or path.is_dir():
         return ""
     return path.read_text(encoding="utf-8")
+
+
+def _csv_headers(paths: list[Path]) -> set[str]:
+    headers: set[str] = set()
+    for path in paths:
+        try:
+            with path.open("r", encoding="utf-8-sig", newline="") as handle:
+                reader = csv.reader(handle)
+                first_row = next(reader, [])
+        except OSError:
+            continue
+        headers.update(cell.strip() for cell in first_row if cell.strip())
+    return headers
 
 
 def render_markdown(report: dict[str, object]) -> str:
@@ -102,7 +117,7 @@ def main() -> int:
         print(json.dumps(report, ensure_ascii=False, indent=2))
     else:
         print(render_markdown(report), end="")
-    return 0
+    return 0 if report["status"] == "pass" else 1
 
 
 if __name__ == "__main__":

@@ -8,7 +8,7 @@ from urllib.parse import quote
 
 import httpx
 
-from .base import AdapterError, clean_abstract, first_value, normalize_doi
+from .base import AdapterError, clean_abstract, first_value, get_json_with_retries, get_response_with_retries, normalize_doi
 
 
 class CrossrefAdapter:
@@ -32,10 +32,8 @@ class CrossrefAdapter:
             params["mailto"] = self.mailto
 
         try:
-            with httpx.Client(timeout=self.timeout) as client:
-                response = client.get(f"{self.base_url}/works", params=params)
-                response.raise_for_status()
-                items = response.json().get("message", {}).get("items", [])
+            payload = get_json_with_retries(f"{self.base_url}/works", params=params, timeout=self.timeout)
+            items = payload.get("message", {}).get("items", [])
         except httpx.HTTPError as exc:
             raise AdapterError(f"Crossref search failed: {exc}") from exc
         return [_parse_work(item) for item in items]
@@ -46,12 +44,11 @@ class CrossrefAdapter:
         encoded = quote(normalize_doi(doi), safe="")
         params = {"mailto": self.mailto} if self.mailto else None
         try:
-            with httpx.Client(timeout=self.timeout) as client:
-                response = client.get(f"{self.base_url}/works/{encoded}", params=params)
-                if response.status_code == 404:
-                    return None
-                response.raise_for_status()
-                item = response.json().get("message", {})
+            response = get_response_with_retries(f"{self.base_url}/works/{encoded}", params=params, timeout=self.timeout)
+            if response.status_code == 404:
+                return None
+            response.raise_for_status()
+            item = response.json().get("message", {})
         except httpx.HTTPError as exc:
             raise AdapterError(f"Crossref fetch failed: {exc}") from exc
         return _parse_work(item)

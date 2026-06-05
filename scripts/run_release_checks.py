@@ -59,13 +59,22 @@ def clean_generated_artifacts(root: Path) -> None:
 def collect_release_issues(root: Path) -> dict[str, list[str]]:
     issues = {
         "missing_skills": [],
+        "openai_yaml_format": [],
         "generated_artifacts": [],
         "local_paths": [],
         "possible_secrets": [],
     }
     for skill in REQUIRED_SKILLS:
-        if not (root / "skills" / skill / "SKILL.md").exists():
+        skill_root = root / "skills" / skill
+        if not (skill_root / "SKILL.md").exists():
             issues["missing_skills"].append(skill)
+        openai_yaml = skill_root / "agents" / "openai.yaml"
+        if not openai_yaml.exists():
+            issues["openai_yaml_format"].append(f"{skill}: missing agents/openai.yaml")
+        else:
+            text = openai_yaml.read_text(encoding="utf-8", errors="ignore")
+            if "interface:" not in text or "policy:" not in text or "allow_implicit_invocation" not in text:
+                issues["openai_yaml_format"].append(f"{skill}: expected interface/policy wrapper")
 
     for path in root.rglob("*"):
         if path.is_dir() and path.name == "__pycache__":

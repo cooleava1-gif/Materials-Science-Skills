@@ -5,17 +5,15 @@ from __future__ import annotations
 
 import argparse
 import csv
+import sys
 from pathlib import Path
 
 
-JOURNAL_ALIASES = {
-    "CBM": "Construction and Building Materials",
-    "CCC": "Cement and Concrete Composites",
-    "JBE": "Journal of Building Engineering",
-    "RMPD": "Road Materials and Pavement Design",
-    "IJPE": "International Journal of Pavement Engineering",
-    "CSCM": "Case Studies in Construction Materials",
-}
+MCP_ROOT = Path(__file__).resolve().parents[1] / "mcp"
+sys.path.insert(0, str(MCP_ROOT))
+
+from academic_search.domain.classifier import evidence_type_for_claim
+from academic_search.domain.journals import expand_journal_terms
 
 
 DEFAULT_CLAIMS = [
@@ -28,34 +26,29 @@ DEFAULT_CLAIMS = [
 
 
 def split_items(value: str) -> list[str]:
-    return [item.strip() for item in value.replace(";", ",").split(",") if item.strip()]
+    items = []
+    for item in value.replace(";", ",").split(","):
+        cleaned = item.strip()
+        if cleaned and cleaned not in items:
+            items.append(cleaned)
+    return items
 
 
 def read_claims(path: str | None) -> list[str]:
     if not path:
         return DEFAULT_CLAIMS
-    lines = Path(path).read_text(encoding="utf-8").splitlines()
+    claims_path = Path(path)
+    if not claims_path.exists():
+        raise FileNotFoundError(f"claims file not found: {path}")
+    lines = claims_path.read_text(encoding="utf-8").splitlines()
     claims = [line.strip(" -\t") for line in lines if line.strip()]
     return claims or DEFAULT_CLAIMS
 
 
 def build_query(topic: str, claim: str, journals: list[str]) -> str:
-    journal_terms = " OR ".join(f'"{JOURNAL_ALIASES.get(j, j)}"' for j in journals)
+    journal_terms = " OR ".join(f'"{journal}"' for journal in expand_journal_terms(journals))
     claim_terms = claim.replace("Research gap and novelty", "review OR recent progress")
     return f'("{topic}") AND ({claim_terms}) AND ({journal_terms})'
-
-
-def evidence_type(claim: str) -> str:
-    lower = claim.lower()
-    if "mechanism" in lower or "机理" in lower:
-        return "mechanism"
-    if "durability" in lower or "service" in lower or "耐久" in lower:
-        return "durability"
-    if "performance" in lower or "strength" in lower or "粘结" in lower:
-        return "performance"
-    if "gap" in lower or "novelty" in lower:
-        return "review/positioning"
-    return "primary evidence"
 
 
 def main() -> int:
@@ -66,7 +59,12 @@ def main() -> int:
     parser.add_argument("--output", default="civil-materials-citation-matrix.csv")
     args = parser.parse_args()
 
+    topic = args.topic.strip()
+    if not topic:
+        raise ValueError("--topic must not be empty")
+
     journals = split_items(args.journals)
+    journal_terms = expand_journal_terms(journals)
     claims = read_claims(args.claims_file)
     rows = []
     for idx, claim in enumerate(claims, 1):
@@ -74,9 +72,9 @@ def main() -> int:
             {
                 "priority": "must-fix" if idx <= 2 else "strengthen",
                 "claim_or_need": claim,
-                "search_query": build_query(args.topic, claim, journals),
-                "target_journals": "; ".join(journals),
-                "evidence_type": evidence_type(claim),
+                "search_query": build_query(topic, claim, journals),
+                "target_journals": "; ".join(journal_terms),
+                "evidence_type": evidence_type_for_claim(claim),
                 "candidate_source": "[search needed]",
                 "status": "search needed",
                 "manuscript_location": "[assign section]",

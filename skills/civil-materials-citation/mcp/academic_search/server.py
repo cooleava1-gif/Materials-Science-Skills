@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import logging
 import sys
 from pathlib import Path
 from typing import Any
@@ -17,6 +18,8 @@ else:
 
 SERVER_NAME = "civil-materials-academic-search"
 PROTOCOL_VERSION = "2025-06-18"
+MAX_STDIN_LINE_BYTES = 1_000_000
+logger = logging.getLogger(SERVER_NAME)
 
 
 TOOL_DEFINITIONS: list[dict[str, Any]] = [
@@ -151,6 +154,7 @@ def handle_message(message: dict[str, Any], *, service: AcademicSearchService | 
     except ValueError as exc:
         return _error(request_id, -32602, str(exc))
     except Exception as exc:  # MCP clients should get a machine-readable failure.
+        logger.exception("MCP request failed")
         return _error(request_id, -32603, str(exc))
 
 
@@ -186,6 +190,9 @@ def main() -> int:
     service = AcademicSearchService()
     for line in sys.stdin:
         if not line.strip():
+            continue
+        if len(line.encode("utf-8")) > MAX_STDIN_LINE_BYTES:
+            print(json.dumps(_error(None, -32600, "Request line exceeds 1 MB limit."), ensure_ascii=False), flush=True)
             continue
         try:
             message = json.loads(line)

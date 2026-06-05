@@ -11,31 +11,36 @@ axes:
         triggers: ["abstract", "摘要"]
       introduction:
         path: references/introduction.md
-        triggers: ["introduction", "intro", "引言"]
+        triggers: ["introduction", "intro", "引言", "前言"]
       results-discussion:
         path: references/results-discussion.md
-        triggers: ["results", "discussion", "结果", "讨论"]
+        triggers: ["results", "discussion", "results and discussion", "结果", "讨论"]
+      conclusions:
+        path: references/conclusions.md
+        triggers: ["conclusion", "conclusions", "closing paragraph", "结论"]
       cover-letter:
         path: references/cover-letter.md
-        triggers: ["cover letter", "投稿信"]
+        triggers: ["cover letter", "submission letter", "投稿信", "cover"]
       generic:
         path: references/style-guardrails.md
-        triggers: ["polish", "润色", "translate", "翻译"]
+        triggers: ["polish", "rewrite", "translate", "润色", "翻译", "改写"]
       claim-strength:
         path: references/claim-strength-ladder.md
         triggers: ["overclaim", "claim", "causality", "novelty", "strengthen", "弱化", "因果", "创新性"]
+
   journal_family:
     default: civil-materials
     values:
       civil-materials:
         path: references/style-guardrails.md
-        triggers: ["CBM", "JBE", "CSCM", "civil materials"]
+        triggers: ["CBM", "JBE", "CSCM", "civil materials", "construction materials", "土木材料"]
       pavement:
         path: references/pavement-language.md
-        triggers: ["RMPD", "IJPE", "JRE", "pavement", "asphalt"]
+        triggers: ["RMPD", "IJPE", "JRE", "pavement", "asphalt", "路面", "沥青"]
       cement-concrete:
         path: references/cement-concrete-language.md
-        triggers: ["CCC", "cement", "concrete"]
+        triggers: ["CCC", "CCR", "cement", "concrete", "水泥", "混凝土"]
+
   language_mode:
     default: rulebook
     values:
