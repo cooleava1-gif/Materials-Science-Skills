@@ -11,7 +11,7 @@ This MCP is the upstream search and metadata-verification layer for `civil-mater
 
 ## What It Does
 
-- Searches scholarly sources through Crossref, Semantic Scholar, and OpenAlex when credentials are available.
+- Searches scholarly sources through Crossref, PubMed, Semantic Scholar, and OpenAlex when credentials are available.
 - Resolves DOI, title, year, journal, author, abstract, URL, citation count when available, and source provenance.
 - Filters and labels civil-materials journal families: CBM, CBM in Transportation, CCC, CCS, CSCM, JBE, RMPD, IJPE, and JRE.
 - Classifies evidence layers for asphalt, pavement, cement, concrete, durability, sustainability, and waterborne epoxy modified emulsified asphalt.
@@ -73,6 +73,22 @@ It creates evidence-aware Boolean searches for:
 - waterborne epoxy curing,
 - review and research-gap positioning.
 
+### `lookup_mesh`
+
+Use before PubMed or chemistry-adjacent searching to identify standardized MeSH terms.
+
+Input:
+
+- `topic`
+- `limit`
+
+Output:
+
+- `topic`
+- `mesh_terms`
+- `scope_notes`
+- `source`
+
 ### `build_claim_source_map`
 
 Use when a manuscript paragraph, review subsection, or planned claim needs citations.
@@ -125,19 +141,22 @@ Do not mix mechanism citations and performance citations unless the source direc
 
 1. Use `suggest_search_queries` for search strategy.
 2. Use `search_civil_materials` to retrieve candidates.
-3. Use `fetch_paper_metadata` to verify DOI/title/journal/year before citing.
-4. Use `build_claim_source_map` to map sources to manuscript claims.
-5. Use `audit_reference_gaps` before making novelty, mechanism, or durability claims.
-6. Use `export_citation_matrix` and continue with `civil-materials-citation`.
-7. Use `civil-materials-reader` for deep evidence-chain reading before writing final claims.
+3. Use `lookup_mesh` when PubMed vocabulary may improve topic wording.
+4. Use `fetch_paper_metadata` to verify DOI/title/journal/year before citing.
+5. Use `build_claim_source_map` to map sources to manuscript claims.
+6. Use `audit_reference_gaps` before making novelty, mechanism, or durability claims.
+7. Use `export_citation_matrix` and continue with `civil-materials-citation`.
+8. Use `civil-materials-reader` for deep evidence-chain reading before writing final claims.
 
 ## Source Rules
 
 - Crossref is used for DOI and publisher metadata.
+- PubMed is used for NCBI-indexed biomedical, chemistry-adjacent, sustainability, and materials records; `lookup_mesh` uses the MeSH database.
 - Semantic Scholar is used for abstracts, citation counts, and paper IDs when available.
 - OpenAlex is skipped unless `OPENALEX_API_KEY` is set.
 - `SEMANTIC_SCHOLAR_API_KEY` is optional.
-- `CIVIL_MATERIALS_CONTACT_EMAIL` is optional for Crossref polite-pool requests.
+- `CIVIL_MATERIALS_CONTACT_EMAIL` is optional for Crossref polite-pool requests and recommended for PubMed.
+- `NCBI_API_KEY` is optional for PubMed rate-limit improvement.
 
 ## What It Does Not Do
 

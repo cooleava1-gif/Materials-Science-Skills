@@ -14,6 +14,7 @@ from .adapters import (
     AdapterError,
     CrossrefAdapter,
     OpenAlexAdapter,
+    PubMedAdapter,
     SemanticScholarAdapter,
     normalize_doi,
     normalize_title,
@@ -53,6 +54,7 @@ class AcademicSearchService:
     def __init__(self, adapters: list[AcademicSourceAdapter] | None = None) -> None:
         self.adapters = adapters if adapters is not None else [
             CrossrefAdapter(),
+            PubMedAdapter(),
             OpenAlexAdapter(),
             SemanticScholarAdapter(),
         ]
@@ -145,6 +147,24 @@ class AcademicSearchService:
                 limit=_safe_limit(args.get("limit"), default=6),
             )
         }
+
+    def lookup_mesh(self, args: dict[str, Any]) -> dict[str, Any]:
+        topic = _required(args, "topic")
+        limit = _safe_limit(args.get("limit"), default=10, maximum=20)
+        warnings: list[str] = []
+        for adapter in self.adapters:
+            lookup = getattr(adapter, "lookup_mesh", None)
+            if not lookup:
+                continue
+            try:
+                return lookup(topic, limit=limit)
+            except AdapterDisabled as exc:
+                logger.warning("Academic source disabled during MeSH lookup: %s", exc)
+                warnings.append(str(exc))
+            except AdapterError as exc:
+                logger.warning("Academic source failed during MeSH lookup: %s", exc)
+                warnings.append(str(exc))
+        return {"topic": topic, "mesh_terms": [], "scope_notes": [], "source": "PubMed MeSH", "warnings": warnings}
 
     def build_claim_source_map(self, args: dict[str, Any]) -> dict[str, Any]:
         topic = args.get("topic") or ""

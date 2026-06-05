@@ -152,7 +152,7 @@ references:
       when: "The user asks for master's thesis planning, semester roadmap, paper timeline, weekly research plan, or how to progress from review to experiment to submission."
     companion-modules:
       path: references/companion-modules.md
-      when: "The task should be handed off to civil-materials-reader, civil-materials-citation, civil-materials-polishing, civil-materials-response, civil-materials-paper2ppt, civil-materials-pptx, or civil-materials-figure."
+      when: "The task should be handed off to civil-materials-reader, civil-materials-citation, civil-materials-writing, civil-materials-polishing, civil-materials-response, civil-materials-reviewer, civil-materials-paper2ppt, civil-materials-pptx, or civil-materials-figure."
     pressure-test-suite:
       path: references/pressure-test-suite.md
       when: "The task asks for pressure tests, failure modes, regression coverage, skill validation, or reviewer-safe behavior checks across modules."
@@ -163,8 +163,10 @@ references:
 companion_skills:
   reader: civil-materials-reader
   citation: civil-materials-citation
+  writing: civil-materials-writing
   polishing: civil-materials-polishing
   response: civil-materials-response
+  reviewer: civil-materials-reviewer
   paper2ppt: civil-materials-paper2ppt
   pptx: civil-materials-pptx
   figure: civil-materials-figure

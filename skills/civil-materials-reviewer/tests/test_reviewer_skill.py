@@ -1,0 +1,123 @@
+import subprocess
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+
+SKILL_ROOT = Path(__file__).resolve().parents[1]
+
+
+class ReviewerSkillStructureTest(unittest.TestCase):
+    def test_skill_entrypoint_manifest_and_openai_agent_exist(self):
+        skill = SKILL_ROOT / "SKILL.md"
+        manifest = SKILL_ROOT / "manifest.yaml"
+        openai = SKILL_ROOT / "agents" / "openai.yaml"
+
+        self.assertTrue(skill.exists(), "SKILL.md should exist")
+        self.assertTrue(manifest.exists(), "manifest.yaml should exist")
+        self.assertTrue(openai.exists(), "agents/openai.yaml should exist")
+
+        skill_text = skill.read_text(encoding="utf-8")
+        manifest_text = manifest.read_text(encoding="utf-8")
+        openai_text = openai.read_text(encoding="utf-8")
+
+        self.assertIn("name: civil-materials-reviewer", skill_text)
+        self.assertIn("exactly 2 independent review reports", skill_text)
+        self.assertIn("cross-review synthesis", skill_text)
+        for recommendation in ["Accept", "Minor Revision", "Major Revision", "Reject"]:
+            self.assertIn(recommendation, skill_text)
+        for axis in ["journal_family", "review_depth", "quick-scan", "standard", "detailed", "CBM", "CCC", "RMPD", "JBE"]:
+            self.assertIn(axis, manifest_text)
+        for phrase in ["interface:", "policy:", "allow_implicit_invocation"]:
+            self.assertIn(phrase, openai_text)
+
+    def test_core_and_reference_files_cover_reviewer_axes(self):
+        expected = {
+            "static/core/reviewer-stance.md": ["evidence-driven", "constructive", "referee perspective"],
+            "static/core/workflow.md": ["read manuscript", "independent review", "cross-review synthesis"],
+            "references/editorial-criteria.md": ["CBM", "CCC", "RMPD", "JBE", "desk rejection"],
+            "references/review-axes.md": ["Innovation", "Methodology", "Evidence completeness", "Figure/table quality"],
+            "references/report-structure.md": ["Major comments", "Minor comments", "Recommendation"],
+            "references/civil-materials-criteria.md": ["Asphalt", "Emulsified asphalt", "Epoxy resin", "Evidence hierarchy"],
+            "references/mechanism-evidence-checklist.md": ["FTIR", "SEM", "fluorescence", "rheology"],
+            "references/qa-checklist.md": ["overclaim", "missing test conditions", "replicate", "scale bar"],
+        }
+        for relative, phrases in expected.items():
+            path = SKILL_ROOT / relative
+            self.assertTrue(path.exists(), f"{relative} should exist")
+            text = path.read_text(encoding="utf-8")
+            for phrase in phrases:
+                self.assertIn(phrase, text)
+
+    def test_examples_and_pressure_test_have_required_sections(self):
+        for filename in ["cbm-review-simulation.md", "ccc-review-simulation.md"]:
+            path = SKILL_ROOT / "examples" / filename
+            self.assertTrue(path.exists(), f"{filename} should exist")
+            text = path.read_text(encoding="utf-8")
+            for section in ["## Reviewer A", "## Reviewer B", "## Cross-Review Synthesis"]:
+                self.assertIn(section, text)
+
+        pressure = SKILL_ROOT / "tests" / "pressure-tests" / "weak-manuscript-review.md"
+        self.assertTrue(pressure.exists())
+        pressure_text = pressure.read_text(encoding="utf-8")
+        for section in ["## Prompt", "## Expected Behavior", "## Failure Signs"]:
+            self.assertIn(section, pressure_text)
+
+    def test_release_checks_include_reviewer_skill(self):
+        release_script = SKILL_ROOT.parents[1] / "scripts" / "run_release_checks.py"
+        text = release_script.read_text(encoding="utf-8")
+
+        self.assertIn('"civil-materials-reviewer"', text)
+        self.assertIn('"civil-materials-reviewer" / "tests"', text)
+
+    def test_research_router_lists_reviewer_companion_skill(self):
+        research_root = SKILL_ROOT.parents[0] / "civil-materials-research"
+        skill_text = (research_root / "SKILL.md").read_text(encoding="utf-8")
+        manifest_text = (research_root / "manifest.yaml").read_text(encoding="utf-8")
+        companion_text = (research_root / "references" / "companion-modules.md").read_text(encoding="utf-8")
+
+        self.assertIn("civil-materials-reviewer", skill_text)
+        self.assertIn("reviewer: civil-materials-reviewer", manifest_text)
+        self.assertIn("civil-materials-reviewer", companion_text)
+        self.assertIn("simulated peer review", companion_text.lower())
+
+
+class ReviewerReportScriptTest(unittest.TestCase):
+    def test_build_review_report_creates_two_reviews_and_synthesis(self):
+        script = SKILL_ROOT / "scripts" / "build_review_report.py"
+        self.assertTrue(script.exists(), "build_review_report.py should exist")
+
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp) / "review.md"
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(script),
+                    "--title",
+                    "Waterborne epoxy modified emulsified asphalt tack coat",
+                    "--journal-family",
+                    "CBM",
+                    "--output",
+                    str(output),
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+
+            self.assertIn(str(output), result.stdout)
+            text = output.read_text(encoding="utf-8")
+            for phrase in [
+                "Reviewer A",
+                "Reviewer B",
+                "Cross-review synthesis",
+                "Major Revision",
+                "Innovation and contribution",
+                "Evidence completeness",
+            ]:
+                self.assertIn(phrase, text)
+
+
+if __name__ == "__main__":
+    unittest.main()

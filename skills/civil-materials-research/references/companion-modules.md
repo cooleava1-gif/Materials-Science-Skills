@@ -6,8 +6,10 @@
 |---|---|---|
 | Full paper reading | `civil-materials-reader` | reading PDFs, pasted papers, DOI/HTML, evidence-chain audits, literature matrices, journal-club notes |
 | Literature search and citation mapping | `civil-materials-citation` | building search strategies, citation matrices, reference gap audits, claim-source maps |
+| From-scratch manuscript drafting | `civil-materials-writing` | paper argument chains, abstracts, introductions, results/discussion drafting, review-paper outlines |
 | English polishing | `civil-materials-polishing` | polishing abstracts, introductions, results/discussions, cover letters, Chinese-to-English text, claim-strength audits |
 | Reviewer response | `civil-materials-response` | major/minor revision responses, rebuttal letters, response tables, revision summaries |
+| Simulated peer review | `civil-materials-reviewer` | referee-style reports, pre-submission reviewer-risk audits, two-reviewer simulations, cross-review synthesis |
 | PPT outlines and slide logic | `civil-materials-paper2ppt` | group meeting decks, journal-club slides, thesis/project reports, review talks, slide-ready Markdown |
 | Real PPTX generation | `civil-materials-pptx` | one-click `.pptx` generation, Markdown/JSON-to-PPTX conversion, PowerPoint deck scaffolds |
 | Figures | `civil-materials-figure` | figure plans, SVG plots, figure packages, data-to-caption work |
@@ -23,8 +25,10 @@ Preferred handoff sequence for a full manuscript cycle:
 
 1. `civil-materials-reader` for source notes.
 2. `civil-materials-citation` for claim-source mapping.
-3. `civil-materials-research` for manuscript logic and journal fit.
-4. `civil-materials-polishing` for English.
-5. `civil-materials-data` for FAIR packaging and data availability statements.
-6. `civil-materials-figure` and `civil-materials-pptx` for visual outputs.
-7. `civil-materials-response` after peer review.
+3. `civil-materials-writing` for argument chain and first complete draft.
+4. `civil-materials-research` for manuscript logic and journal fit.
+5. `civil-materials-polishing` for English.
+6. `civil-materials-data` for FAIR packaging and data availability statements.
+7. `civil-materials-figure` and `civil-materials-pptx` for visual outputs.
+8. `civil-materials-reviewer` for simulated peer review before submission.
+9. `civil-materials-response` after peer review.

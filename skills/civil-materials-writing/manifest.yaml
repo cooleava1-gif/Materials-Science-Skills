@@ -1,0 +1,80 @@
+always_load:
+  - static/core/stance.md
+  - static/core/workflow.md
+
+axes:
+  paper_type:
+    default: experimental-manuscript
+    values:
+      experimental-manuscript:
+        path: static/fragments/paper_type/experimental-manuscript.md
+        triggers: ["experiment", "results", "bonding performance", "waterborne epoxy", "test matrix", "mechanism"]
+      review-paper:
+        path: static/fragments/paper_type/review-paper.md
+        triggers: ["review", "mini-review", "small review", "literature review", "research progress"]
+      methods-paper:
+        path: static/fragments/paper_type/methods-paper.md
+        triggers: ["method", "standard", "protocol", "test method", "workflow"]
+
+  section:
+    default: full-argument
+    values:
+      abstract:
+        path: static/fragments/section/abstract.md
+        triggers: ["abstract", "summary", "摘要"]
+      introduction:
+        path: static/fragments/section/introduction.md
+        triggers: ["introduction", "gap", "novelty", "引言"]
+      methods:
+        path: static/fragments/section/methods.md
+        triggers: ["methods", "materials and methods", "experimental", "方法"]
+      results-discussion:
+        path: static/fragments/section/results-discussion.md
+        triggers: ["results", "discussion", "结果", "讨论"]
+      conclusion:
+        path: static/fragments/section/conclusion.md
+        triggers: ["conclusion", "结论"]
+      full-argument:
+        path: references/argument-chain.md
+        triggers: ["outline", "manuscript structure", "paper framework", "论文框架"]
+
+  language:
+    default: en
+    values:
+      en:
+        path: references/journal-positioning-writing.md
+        triggers: ["English", "SCI", "manuscript"]
+      zh-to-en:
+        path: references/chinese-to-english-drafting.md
+        triggers: ["Chinese", "translate", "中译英", "中文"]
+
+  journal_family:
+    default: civil-materials
+    values:
+      CBM:
+        path: references/journal-positioning-writing.md
+        triggers: ["CBM", "Construction and Building Materials"]
+      CCC:
+        path: references/journal-positioning-writing.md
+        triggers: ["CCC", "Cement and Concrete Composites"]
+      RMPD:
+        path: references/journal-positioning-writing.md
+        triggers: ["RMPD", "IJPE", "JRE", "pavement"]
+      JBE:
+        path: references/journal-positioning-writing.md
+        triggers: ["JBE", "CSCM", "building"]
+
+references:
+  on_demand:
+    argument-chain:
+      path: references/argument-chain.md
+      when: "The user needs paper logic, contribution chain, or section-to-section flow."
+    waterborne-epoxy-narrative:
+      path: references/waterborne-epoxy-narrative.md
+      when: "The manuscript concerns waterborne epoxy modified emulsified asphalt."
+    review-paper-strategy:
+      path: references/review-paper-strategy.md
+      when: "The task is a mini-review, small review, or literature review."
+    reviewer-risk-writing:
+      path: references/reviewer-risk-writing.md
+      when: "The draft needs overclaim, missing-evidence, or journal-fit risk checking."

@@ -9,8 +9,10 @@ Civil Materials Skills is a Codex skill bundle for civil engineering and constru
 | `civil-materials-research` | Research router, topic positioning, manuscript strategy, journal fit, pressure tests, example library |
 | `civil-materials-reader` | Evidence-chain reading, paper notes, claim-evidence-mechanism-boundary audits |
 | `civil-materials-citation` | Literature search planning, citation matrices, reference gap audits, academic-search MCP |
+| `civil-materials-writing` | From-scratch manuscript drafting, argument chains, section writing, and review-paper outlines |
 | `civil-materials-polishing` | English polishing, Chinese-to-English academic rewriting, claim-strength control |
 | `civil-materials-response` | Reviewer response packages and point-by-point rebuttal drafting |
+| `civil-materials-reviewer` | Simulated peer review reports and pre-submission referee-risk audits |
 | `civil-materials-paper2ppt` | Paper-to-PPT outlines and slide-ready Markdown |
 | `civil-materials-pptx` | Real `.pptx` generation from structured outlines |
 | `civil-materials-figure` | Figure planning, gallery examples, SVG demos, caption boundaries |
@@ -49,6 +51,9 @@ Optional environment variables:
 - `OPENALEX_API_KEY`
 - `SEMANTIC_SCHOLAR_API_KEY`
 - `CIVIL_MATERIALS_CONTACT_EMAIL`
+- `NCBI_API_KEY`
+
+The MCP can search Crossref, PubMed, OpenAlex, and Semantic Scholar. It also exposes `lookup_mesh` for PubMed MeSH term checks.
 
 No secrets or local Codex config files are included in this repository.
 

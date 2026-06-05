@@ -16,8 +16,10 @@ REQUIRED_SKILLS = [
     "civil-materials-research",
     "civil-materials-reader",
     "civil-materials-citation",
+    "civil-materials-writing",
     "civil-materials-polishing",
     "civil-materials-response",
+    "civil-materials-reviewer",
     "civil-materials-paper2ppt",
     "civil-materials-pptx",
     "civil-materials-figure",
@@ -96,9 +98,11 @@ def run_tests(root: Path) -> None:
         root / "skills" / "civil-materials-research" / "tests",
         root / "skills" / "civil-materials-reader" / "tests",
         root / "skills" / "civil-materials-data" / "tests",
+        root / "skills" / "civil-materials-writing" / "tests",
         root / "skills" / "civil-materials-figure" / "tests",
         root / "skills" / "civil-materials-polishing" / "tests",
         root / "skills" / "civil-materials-response" / "tests",
+        root / "skills" / "civil-materials-reviewer" / "tests",
         root / "skills" / "civil-materials-citation" / "mcp" / "academic_search" / "tests",
     ]
     for test_root in test_roots:

@@ -70,6 +70,18 @@ TOOL_DEFINITIONS: list[dict[str, Any]] = [
         },
     },
     {
+        "name": "lookup_mesh",
+        "description": "Look up PubMed MeSH terms for a civil-materials or chemistry topic.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "topic": {"type": "string"},
+                "limit": {"type": "integer", "default": 10},
+            },
+            "required": ["topic"],
+        },
+    },
+    {
         "name": "build_claim_source_map",
         "description": "Map manuscript claims to evidence type, search query, candidate sources, and reviewer risk.",
         "inputSchema": {
@@ -165,6 +177,8 @@ def _call_tool(service: AcademicSearchService, name: str | None, args: dict[str,
         return service.fetch_paper_metadata(args)
     if name == "suggest_search_queries":
         return service.suggest_search_queries(args)
+    if name == "lookup_mesh":
+        return service.lookup_mesh(args)
     if name == "build_claim_source_map":
         return service.build_claim_source_map(args)
     if name == "audit_reference_gaps":

@@ -41,7 +41,24 @@ class FailingAdapter:
         raise self.exc
 
 
+class MeshAdapter(FakeAdapter):
+    name = "PubMed"
+
+    def lookup_mesh(self, topic, *, limit=10):
+        return {
+            "topic": topic,
+            "mesh_terms": ["Epoxy Resins", "Emulsions"],
+            "scope_notes": ["Polymeric compounds containing epoxy groups."],
+            "source": "PubMed MeSH",
+        }
+
+
 class AcademicSearchServiceTest(unittest.TestCase):
+    def test_default_service_includes_pubmed_adapter(self):
+        service = AcademicSearchService()
+
+        self.assertIn("PubMed", [adapter.name for adapter in service.adapters])
+
     def test_search_merges_records_and_adds_evidence_quality_fields(self):
         adapter_a = FakeAdapter(
             [
@@ -233,6 +250,15 @@ class AcademicSearchServiceTest(unittest.TestCase):
         row = next(csv.DictReader(io.StringIO(result["csv"])))
 
         self.assertEqual(row["claim_or_need"], "'=CMD('calc')")
+
+    def test_lookup_mesh_delegates_to_pubmed_capable_adapter(self):
+        service = AcademicSearchService(adapters=[MeshAdapter([])])
+
+        result = service.lookup_mesh({"topic": "epoxy resin", "limit": 5})
+
+        self.assertEqual(result["topic"], "epoxy resin")
+        self.assertEqual(result["mesh_terms"], ["Epoxy Resins", "Emulsions"])
+        self.assertEqual(result["source"], "PubMed MeSH")
 
 
 if __name__ == "__main__":

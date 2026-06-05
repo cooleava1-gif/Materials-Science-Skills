@@ -98,3 +98,35 @@ def suggest_queries(
             }
         )
     return queries
+
+
+def build_pubmed_query(
+    query: str,
+    *,
+    journals: str | Iterable[str] | None = None,
+    year_range: str | None = None,
+) -> str:
+    """Convert a Boolean query into PubMed syntax with journal/date filters."""
+
+    parts = [f"({query.strip()})"] if query and query.strip() else []
+    journal_terms = normalize_to_list(journals)
+    if journal_terms:
+        journal_group = " OR ".join(f'{_quote(journal)}[Journal]' for journal in journal_terms)
+        parts.append(f"({journal_group})")
+    date_filter = _pubmed_date_filter(year_range)
+    if date_filter:
+        parts.append(date_filter)
+    return " AND ".join(parts)
+
+
+def _pubmed_date_filter(year_range: str | None) -> str:
+    if not year_range or "-" not in str(year_range):
+        return ""
+    start, end = [part.strip() for part in str(year_range).split("-", 1)]
+    if start and end:
+        return f"{start}:{end}[pdat]"
+    if start:
+        return f"{start}:3000[pdat]"
+    if end:
+        return f"1900:{end}[pdat]"
+    return ""

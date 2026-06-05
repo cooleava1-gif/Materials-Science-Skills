@@ -28,6 +28,9 @@ class StubService:
     def export_citation_matrix(self, args):
         return {"rows": [], "csv": "priority,claim_or_need\n"}
 
+    def lookup_mesh(self, args):
+        return {"topic": args["topic"], "mesh_terms": ["Epoxy Resins"], "scope_notes": []}
+
 
 class McpContractTest(unittest.TestCase):
     def test_initialize_response_advertises_tools_capability(self):
@@ -57,6 +60,7 @@ class McpContractTest(unittest.TestCase):
                 "build_claim_source_map",
                 "audit_reference_gaps",
                 "export_citation_matrix",
+                "lookup_mesh",
             },
         )
 
@@ -88,6 +92,7 @@ class McpContractTest(unittest.TestCase):
             ("build_claim_source_map", {"claims": ["bonding strength improves"]}, "claim_source_map"),
             ("audit_reference_gaps", {"claims": ["mechanism is proven"]}, "gaps"),
             ("export_citation_matrix", {"claims": ["bonding strength improves"]}, "rows"),
+            ("lookup_mesh", {"topic": "epoxy resin"}, "mesh_terms"),
         ]
 
         for index, (tool_name, arguments, expected_key) in enumerate(calls, start=10):

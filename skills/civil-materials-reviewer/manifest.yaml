@@ -1,0 +1,46 @@
+always_load:
+  - static/core/reviewer-stance.md
+  - static/core/workflow.md
+
+axes:
+  review_depth:
+    default: standard
+    values:
+      quick-scan:
+        path: references/qa-checklist.md
+        triggers: ["quick review", "desk reject risk", "precheck", "screening"]
+      standard:
+        path: references/review-axes.md
+        triggers: ["peer review", "review report", "pre-submission", "audit"]
+      detailed:
+        path: references/report-structure.md
+        triggers: ["detailed review", "full referee report", "major revision risk"]
+
+  journal_family:
+    default: civil-materials
+    values:
+      CBM:
+        path: references/editorial-criteria.md
+        triggers: ["CBM", "Construction and Building Materials"]
+      CCC:
+        path: references/editorial-criteria.md
+        triggers: ["CCC", "Cement and Concrete Composites", "Cement and Concrete Research"]
+      RMPD:
+        path: references/editorial-criteria.md
+        triggers: ["RMPD", "Road Materials and Pavement Design", "IJPE", "JRE", "pavement"]
+      JBE:
+        path: references/editorial-criteria.md
+        triggers: ["JBE", "Journal of Building Engineering", "CSCM", "building"]
+
+  material_domain:
+    default: asphalt-emulsion
+    values:
+      asphalt-emulsion:
+        path: references/civil-materials-criteria.md
+        triggers: ["asphalt", "emulsified asphalt", "tack coat", "waterborne epoxy"]
+      cement-concrete:
+        path: references/civil-materials-criteria.md
+        triggers: ["cement", "concrete", "hydration", "mortar"]
+      mechanism:
+        path: references/mechanism-evidence-checklist.md
+        triggers: ["mechanism", "FTIR", "SEM", "fluorescence", "rheology", "XRD", "TG"]

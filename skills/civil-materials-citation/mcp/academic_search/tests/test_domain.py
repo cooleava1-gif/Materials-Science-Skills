@@ -8,7 +8,7 @@ sys.path.insert(0, str(PACKAGE_ROOT))
 
 from academic_search.domain.classifier import classify_evidence_layers, evidence_type_for_claim
 from academic_search.domain.journals import JOURNAL_FAMILIES, canonical_journal_family, expand_journal_terms
-from academic_search.domain.queries import suggest_queries
+from academic_search.domain.queries import build_pubmed_query, suggest_queries
 
 
 class DomainRulesTest(unittest.TestCase):
@@ -85,6 +85,18 @@ class DomainRulesTest(unittest.TestCase):
         query = queries[0]["query"]
 
         self.assertIn('"waterborne epoxy \\"fast setting\\" OR fabricated"', query)
+
+    def test_build_pubmed_query_adds_journal_and_publication_date_filters(self):
+        query = build_pubmed_query(
+            '"waterborne epoxy" AND bonding',
+            journals=["Construction and Building Materials", "Road Materials and Pavement Design"],
+            year_range="2020-2026",
+        )
+
+        self.assertIn('("waterborne epoxy" AND bonding)', query)
+        self.assertIn('"Construction and Building Materials"[Journal]', query)
+        self.assertIn('"Road Materials and Pavement Design"[Journal]', query)
+        self.assertIn("2020:2026[pdat]", query)
 
 
 if __name__ == "__main__":

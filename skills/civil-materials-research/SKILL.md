@@ -11,7 +11,7 @@ This skill is a civil-engineering adaptation of the `nature-skills` style:
 - Stable rules live in `static/`.
 - Detailed journal and topic notes live in `references/`.
 - Output must be usable immediately: a topic angle, review outline, experiment matrix, data interpretation, manuscript section, journal fit table, submission package, figure plan, PPT structure, data/FAIR package, or reviewer-risk audit.
-- Dedicated companion skills handle deep reading, polishing, citation mapping, reviewer responses, PPT/PPTX, figures, and data/FAIR packaging.
+- Dedicated companion skills handle deep reading, from-scratch manuscript drafting, polishing, citation mapping, reviewer responses, simulated peer review, PPT/PPTX, figures, and data/FAIR packaging.
 
 Do not answer from this router alone. Always load the manifest and the relevant fragments.
 
@@ -52,9 +52,11 @@ When a request is clearly one of these specialized tasks, prefer the companion s
 - Full paper reading, translation, or literature matrix -> `civil-materials-reader`.
 - Evidence-chain reading audit, claim-evidence-mechanism-boundary table, or paper-to-review extraction -> `civil-materials-reader`.
 - Literature search strategy, citation matrix, reference gap audit, or claim-source map -> `civil-materials-citation`.
+- From-scratch manuscript drafting, paper argument chain, abstract/introduction/results-discussion drafting, or review-paper outline -> `civil-materials-writing`.
 - English polishing, Chinese-to-English polishing, or journal-style language tightening -> `civil-materials-polishing`.
 - Claim strength, overclaiming, causality, novelty, or Chinese-to-English language-rule audit -> `civil-materials-polishing`.
 - Reviewer response, rebuttal letter, major/minor revision response package, or point-by-point replies -> `civil-materials-response`.
+- Simulated peer review, referee-style report, pre-submission review, or cross-review synthesis -> `civil-materials-reviewer`.
 - PPT, group meeting slides, journal-club deck, or thesis-report deck -> `civil-materials-paper2ppt`.
 - Actual `.pptx` file generation, preset deck scaffold, or Markdown/JSON-to-PPTX conversion -> `civil-materials-pptx`.
 - Journal-ready plots, figure package, SVG chart, or figure audit -> `civil-materials-figure`.

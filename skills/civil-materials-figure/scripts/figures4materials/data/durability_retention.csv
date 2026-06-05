@@ -1,0 +1,5 @@
+condition,control_retention_pct,control_sd,modified_retention_pct,modified_sd
+Water soak,66,4,84,3
+Thermal aging,61,5,79,4
+Freeze-thaw,54,6,73,5
+Wet abrasion,58,5,76,4
