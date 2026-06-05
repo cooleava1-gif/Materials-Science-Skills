@@ -67,6 +67,18 @@ axes:
       construction-materials:
         path: static/fragments/domain/construction-materials.md
         triggers: ["construction materials", "building materials", "composite", "repair material", "建筑材料", "土木材料", "复合材料"]
+      steel-metal:
+        path: static/fragments/domain/civil-generic.md
+        triggers: ["steel", "metal", "corrosion", "coating", "weld", "钢结构", "金属", "腐蚀", "涂层"]
+      geotechnical-materials:
+        path: static/fragments/domain/civil-generic.md
+        triggers: ["soil", "rock", "geotechnical", "grouting", "stabilized soil", "岩土", "土体", "注浆", "地基"]
+      timber-masonry:
+        path: static/fragments/domain/civil-generic.md
+        triggers: ["timber", "wood", "bamboo", "masonry", "brick", "木材", "竹材", "砌体", "砖"]
+      waterproofing-sealants:
+        path: static/fragments/domain/civil-generic.md
+        triggers: ["waterproofing", "sealant", "membrane", "防水", "密封胶", "卷材"]
       sustainability-durability:
         path: static/fragments/domain/sustainability-durability.md
         triggers: ["durability", "sustainability", "recycling", "LCA", "carbon", "耐久", "低碳", "再生", "固废"]

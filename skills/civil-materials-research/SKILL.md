@@ -30,7 +30,7 @@ These files define the operating stance, evidence contract, and workflow shared 
 Detect these values from the user request:
 
 - `task`: research-positioning, reading, literature-review, citation-mapping, experiment-design, data-analysis, manuscript-writing, journal-targeting, submission-package, reviewer-response, figure-table, presentation, data-fair, reviewer-audit.
-- `domain`: asphalt-pavement, cement-concrete, construction-materials, sustainability-durability, civil-generic.
+- `domain`: asphalt-pavement, cement-concrete, construction-materials, steel-metal, geotechnical-materials, timber-masonry, waterproofing-sealants, sustainability-durability, civil-generic.
 - `journal`: cbm, cbm-transportation, ccc, cscm, jbe, rmpd-ijpe, jre, generic.
 
 If the user says `CCS`, treat it as ambiguous. If journal choice matters, ask whether they mean `Case Studies in Construction Materials` (`CSCM`) or another journal. If the task is not a submission decision, use `generic` and mention the abbreviation risk.

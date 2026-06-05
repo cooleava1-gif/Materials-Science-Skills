@@ -97,6 +97,26 @@ class AllModulePressureSuiteTest(unittest.TestCase):
         self.assertIn("pressure-test-suite", manifest_text)
         self.assertIn("example-library", manifest_text)
 
+    def test_release_maturity_references_cover_statistics_standards_and_broader_domains(self):
+        manifest_text = (SKILL_ROOT / "manifest.yaml").read_text(encoding="utf-8")
+        skill_text = (SKILL_ROOT / "SKILL.md").read_text(encoding="utf-8")
+        civil_generic = (SKILL_ROOT / "static" / "fragments" / "domain" / "civil-generic.md").read_text(
+            encoding="utf-8"
+        )
+        journal_shortlist = (SKILL_ROOT / "references" / "journal-shortlist.md").read_text(encoding="utf-8")
+
+        for reference in ["statistical-methods.md", "test-standards-mapping.md"]:
+            self.assertTrue((SKILL_ROOT / "references" / reference).exists())
+            self.assertIn(reference, manifest_text)
+            self.assertIn(reference, skill_text)
+
+        for domain in ["steel-metal", "geotechnical-materials", "timber-masonry", "waterproofing-sealants"]:
+            self.assertIn(domain, manifest_text)
+        for phrase in ["steel and metallic structures", "geotechnical and rock-soil", "waterproofing and sealants"]:
+            self.assertIn(phrase, civil_generic)
+        for journal in ["Cement and Concrete Research", "Journal of Materials in Civil Engineering", "Resources, Conservation and Recycling", "Fuel"]:
+            self.assertIn(journal, journal_shortlist)
+
 
 if __name__ == "__main__":
     unittest.main()

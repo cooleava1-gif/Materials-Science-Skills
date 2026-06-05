@@ -42,4 +42,4 @@ Each reviewer comment should become:
 
 Use `scripts/build_response_package.py` to scaffold a point-by-point response package.
 
-Use `examples/cbm-major-revision-response-example.md` as a concrete model. Use `tests/pressure-tests/aggressive-reviewer-mechanism-request.md` to check that responses stay respectful, evidence-bound, and honest about missing data.
+Use `examples/cbm-major-revision-response-example.md`, `examples/ccc-methodology-critique-response-example.md`, and `examples/rmpd-minor-revision-response-example.md` as concrete models. Use `tests/pressure-tests/aggressive-reviewer-mechanism-request.md` to check that responses stay respectful, evidence-bound, and honest about missing data.

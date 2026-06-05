@@ -8,37 +8,39 @@ axes:
     values:
       point-by-point:
         path: references/response-strategy.md
-        triggers: ["reviewer", "comments", "response", "回复审稿人", "逐条回复"]
+        triggers: ["reviewer", "comments", "response", "point-by-point", "逐条回复", "回复审稿人"]
       revision-plan:
         path: references/experiment-revision.md
-        triggers: ["revise", "experiment", "additional test", "补实验", "修改方案"]
+        triggers: ["revise", "experiment", "additional test", "revision plan", "补实验", "修改方案"]
       language-polish:
         path: references/language-bank.md
         triggers: ["polish response", "tone", "rebuttal language", "语气", "润色回复"]
       risk-audit:
         path: references/response-risk-checklist.md
-        triggers: ["risk", "reject", "major revision", "拒稿风险", "大修"]
+        triggers: ["risk", "reject", "major revision", "desk reject", "拒稿风险", "大修"]
+
   comment_type:
     default: mixed
     values:
       mechanism:
         path: references/experiment-revision.md
-        triggers: ["mechanism", "FTIR", "SEM", "fluorescence", "机理", "显微"]
+        triggers: ["mechanism", "FTIR", "SEM", "fluorescence", "XRD", "TG", "机理", "显微"]
       performance:
         path: references/experiment-revision.md
-        triggers: ["strength", "bonding", "durability", "viscosity", "performance", "粘结", "耐久"]
+        triggers: ["strength", "bonding", "durability", "viscosity", "performance", "粘结", "耐久", "黏度"]
       writing:
         path: references/language-bank.md
         triggers: ["grammar", "English", "clarity", "language", "表达", "英文"]
+
   journal_family:
     default: civil-materials
     values:
       cbm-jbe:
         path: references/response-strategy.md
-        triggers: ["CBM", "Construction and Building Materials", "JBE"]
+        triggers: ["CBM", "Construction and Building Materials", "JBE", "Journal of Building Engineering"]
       ccc:
         path: references/response-strategy.md
-        triggers: ["CCC", "Cement and Concrete Composites"]
+        triggers: ["CCC", "Cement and Concrete Composites", "CCR", "Cement and Concrete Research"]
       rmpd-ijpe:
         path: references/response-strategy.md
-        triggers: ["RMPD", "IJPE", "pavement"]
+        triggers: ["RMPD", "IJPE", "JRE", "pavement", "Road Materials and Pavement Design"]

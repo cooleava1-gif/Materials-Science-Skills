@@ -7,11 +7,18 @@ Use this as a starting map. Verify current official pages before final submissio
 | Construction and Building Materials (CBM) | broad construction materials, durability, asphalt/bituminous materials, cementitious materials | broad scope means novelty and engineering relevance must be very clear |
 | Construction and Building Materials in Transportation | road, pavement, asphalt, transport infrastructure materials | check current APC/indexing/status before submission |
 | Cement and Concrete Composites (CCC) | cement/concrete composites with strong mechanism depth | usually not suitable for asphalt-only work |
+| Cement and Concrete Research (CCR) | fundamental cement chemistry, hydration, microstructure, and high-depth cementitious mechanisms | requires strong mechanistic novelty and rigorous characterization |
 | Case Studies in Construction Materials (CSCM) | applied construction-material cases, recycled/waste materials, practical validation | may be less ideal for deep fundamental mechanism papers |
 | Journal of Building Engineering (JBE) | building materials, building systems, envelope/energy/durability | road/pavement topics are usually weak fit |
+| Journal of Materials in Civil Engineering (JMCE, ASCE) | civil engineering materials with clear test standards and engineering interpretation | usually needs practical engineering relevance and method transparency |
+| Materials and Structures (RILEM) | concrete, cementitious materials, durability, testing, and structural-material performance | expects careful standards, curing, exposure, and uncertainty reporting |
 | Road Materials and Pavement Design (RMPD) | asphalt mixtures, binders, pavement materials, road material design | needs pavement-language framing |
 | International Journal of Pavement Engineering (IJPE) | pavement engineering, performance, materials, design, modelling | needs clear pavement engineering significance |
 | Journal of Road Engineering (JRE) | road engineering, pavement materials, road construction, sustainable road materials | verify current indexing/APC/status before submission |
+| Fuel | bitumen/asphalt chemistry, fuel-derived binders, thermal/rheological characterization | pavement-only application papers may need stronger materials chemistry framing |
+| Journal of Cleaner Production (JCP) | low-carbon materials, waste reuse, environmental performance, process sustainability | requires quantified sustainability boundary, not just `green material` wording |
+| Resources, Conservation and Recycling (RCR) | circular materials, recycling systems, resource efficiency, LCA/material-flow evidence | needs strong circularity or resource-accounting contribution |
+| Magazine of Concrete Research (MCR) | concrete and cementitious material behavior, practical durability, and standards-based testing | scope is narrower than broad construction-material outlets |
 
 ## Selection logic for asphalt emulsion papers
 

@@ -96,6 +96,8 @@ def run_tests(root: Path) -> None:
         root / "skills" / "civil-materials-research" / "tests",
         root / "skills" / "civil-materials-data" / "tests",
         root / "skills" / "civil-materials-figure" / "tests",
+        root / "skills" / "civil-materials-polishing" / "tests",
+        root / "skills" / "civil-materials-response" / "tests",
         root / "skills" / "civil-materials-citation" / "mcp" / "academic_search" / "tests",
     ]
     for test_root in test_roots:
