@@ -1,0 +1,32 @@
+always_load:
+  - static/core/figure-contract.md
+  - static/core/workflow.md
+
+axes:
+  figure_type:
+    default: performance
+    values:
+      performance:
+        path: references/performance-figures.md
+        triggers: ["strength", "bonding", "viscosity", "performance", "强度", "粘结", "黏度"]
+      durability:
+        path: references/durability-figures.md
+        triggers: ["retention", "water", "aging", "freeze", "durability", "耐久", "水损害", "老化"]
+      mechanism:
+        path: references/mechanism-figures.md
+        triggers: ["FTIR", "SEM", "fluorescence", "mechanism", "机理", "显微"]
+      summary:
+        path: references/summary-figures.md
+        triggers: ["radar", "matrix", "summary", "trade-off", "综合评价"]
+      gallery:
+        path: references/figure-gallery.md
+        triggers: ["gallery", "figure gallery", "figure example", "style preset", "demo figure", "figure card"]
+  domain:
+    default: civil-materials
+    values:
+      asphalt:
+        path: references/asphalt-figure-package.md
+        triggers: ["asphalt", "emulsified asphalt", "waterborne epoxy", "沥青", "乳化沥青"]
+      cement-concrete:
+        path: references/cement-concrete-figure-package.md
+        triggers: ["cement", "concrete", "水泥", "混凝土"]

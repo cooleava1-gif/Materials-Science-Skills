@@ -1,0 +1,8 @@
+interface:
+  display_name: "Civil Materials Research"
+  short_description: "Router for full-cycle civil materials research and companion skills."
+  brand_color: "#3F6F5E"
+  default_prompt: "Use $civil-materials-research to route this civil materials task and check its journal-ready evidence chain."
+
+policy:
+  allow_implicit_invocation: true

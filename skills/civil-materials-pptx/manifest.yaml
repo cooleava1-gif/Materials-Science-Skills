@@ -1,0 +1,41 @@
+always_load:
+  - static/core/pptx-contract.md
+  - static/core/workflow.md
+
+axes:
+  deck_type:
+    default: research-report
+    values:
+      paper-reading:
+        path: references/deck-structures.md
+        triggers: ["paper", "journal club", "literature", "文献汇报", "精读"]
+      research-report:
+        path: references/deck-structures.md
+        triggers: ["group meeting", "report", "thesis", "组会", "汇报", "开题"]
+      mechanism:
+        path: references/visual-style.md
+        triggers: ["mechanism", "FTIR", "SEM", "fluorescence", "机理", "显微"]
+      review-talk:
+        path: references/deck-structures.md
+        triggers: ["review", "综述", "research progress", "研究进展"]
+  material_domain:
+    default: civil-materials
+    values:
+      asphalt:
+        path: references/deck-structures.md
+        triggers: ["asphalt", "emulsified asphalt", "waterborne epoxy", "pavement", "沥青", "乳化沥青", "水性环氧"]
+      cement-concrete:
+        path: references/deck-structures.md
+        triggers: ["cement", "concrete", "hydration", "水泥", "混凝土"]
+  source_type:
+    default: outline
+    values:
+      outline:
+        path: references/pptx-generation.md
+        triggers: ["outline", "markdown", ".md", "大纲"]
+      json:
+        path: references/pptx-generation.md
+        triggers: ["json", ".json", "JSON outline"]
+      data:
+        path: references/pptx-generation.md
+        triggers: ["data", "csv", "figure", "数据", "图表"]

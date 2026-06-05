@@ -1,0 +1,100 @@
+import sys
+import unittest
+from pathlib import Path
+
+
+PACKAGE_ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(PACKAGE_ROOT))
+
+from academic_search.server import handle_message
+
+
+class StubService:
+    def search_civil_materials(self, args):
+        return {"records": [{"title": args["topic"], "source_provenance": []}], "warnings": []}
+
+    def fetch_paper_metadata(self, args):
+        return {"record": {"doi": args.get("doi"), "source_provenance": []}, "warnings": []}
+
+    def suggest_search_queries(self, args):
+        return {"queries": [{"query": '"topic" AND bonding'}]}
+
+    def build_claim_source_map(self, args):
+        return {"claim_source_map": [{"claim": "bonding", "risk_flags": []}]}
+
+    def audit_reference_gaps(self, args):
+        return {"gaps": [{"claim": "mechanism", "risk": "missing mechanism evidence"}]}
+
+    def export_citation_matrix(self, args):
+        return {"rows": [], "csv": "priority,claim_or_need\n"}
+
+
+class McpContractTest(unittest.TestCase):
+    def test_initialize_response_advertises_tools_capability(self):
+        response = handle_message(
+            {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {}},
+            service=StubService(),
+        )
+
+        self.assertEqual(response["id"], 1)
+        self.assertEqual(response["result"]["serverInfo"]["name"], "civil-materials-academic-search")
+        self.assertIn("tools", response["result"]["capabilities"])
+
+    def test_tools_list_contains_public_academic_search_tools(self):
+        response = handle_message(
+            {"jsonrpc": "2.0", "id": 2, "method": "tools/list", "params": {}},
+            service=StubService(),
+        )
+
+        names = {tool["name"] for tool in response["result"]["tools"]}
+
+        self.assertEqual(
+            names,
+            {
+                "search_civil_materials",
+                "fetch_paper_metadata",
+                "suggest_search_queries",
+                "build_claim_source_map",
+                "audit_reference_gaps",
+                "export_citation_matrix",
+            },
+        )
+
+    def test_tools_call_returns_text_content_and_structured_content(self):
+        response = handle_message(
+            {
+                "jsonrpc": "2.0",
+                "id": 3,
+                "method": "tools/call",
+                "params": {
+                    "name": "search_civil_materials",
+                    "arguments": {"topic": "waterborne epoxy modified emulsified asphalt"},
+                },
+            },
+            service=StubService(),
+        )
+
+        result = response["result"]
+        self.assertEqual(result["content"][0]["type"], "text")
+        self.assertEqual(
+            result["structuredContent"]["records"][0]["title"],
+            "waterborne epoxy modified emulsified asphalt",
+        )
+
+    def test_unknown_tool_returns_json_rpc_error(self):
+        response = handle_message(
+            {
+                "jsonrpc": "2.0",
+                "id": 4,
+                "method": "tools/call",
+                "params": {"name": "missing_tool", "arguments": {}},
+            },
+            service=StubService(),
+        )
+
+        self.assertEqual(response["error"]["code"], -32601)
+        self.assertIn("missing_tool", response["error"]["message"])
+
+
+if __name__ == "__main__":
+    unittest.main()

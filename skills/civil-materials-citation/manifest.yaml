@@ -1,0 +1,41 @@
+always_load:
+  - static/core/citation-contract.md
+  - static/core/workflow.md
+
+axes:
+  task:
+    default: citation-map
+    values:
+      search-plan:
+        path: references/journal-search-profiles.md
+        triggers: ["search", "database", "keyword", "检索", "关键词", "文献检索"]
+      citation-map:
+        path: references/claim-citation-mapping.md
+        triggers: ["citation matrix", "claim", "reference", "引用", "证据链", "文献矩阵"]
+      reference-gap:
+        path: references/reference-gap-audit.md
+        triggers: ["gap", "missing citation", "weak reference", "引用不足", "文献缺口"]
+      academic-search-mcp:
+        path: references/academic-search-mcp.md
+        triggers: ["academic-search MCP", "MCP", "automatic search", "自动检索", "文献检索MCP", "学术检索"]
+  journal_family:
+    default: civil-materials
+    values:
+      cbm-jbe:
+        path: references/journal-search-profiles.md
+        triggers: ["CBM", "Construction and Building Materials", "JBE", "Journal of Building Engineering"]
+      ccc:
+        path: references/journal-search-profiles.md
+        triggers: ["CCC", "Cement and Concrete Composites"]
+      rmpd-ijpe:
+        path: references/journal-search-profiles.md
+        triggers: ["RMPD", "Road Materials and Pavement Design", "IJPE", "International Journal of Pavement Engineering"]
+  material_domain:
+    default: civil-materials
+    values:
+      asphalt:
+        path: references/claim-citation-mapping.md
+        triggers: ["asphalt", "emulsified asphalt", "waterborne epoxy", "bitumen", "pavement", "沥青", "乳化沥青", "水性环氧"]
+      cement-concrete:
+        path: references/claim-citation-mapping.md
+        triggers: ["cement", "concrete", "hydration", "mortar", "水泥", "混凝土"]

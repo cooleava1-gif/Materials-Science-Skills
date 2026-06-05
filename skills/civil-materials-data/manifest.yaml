@@ -1,0 +1,53 @@
+always_load:
+  - static/core/data-contract.md
+  - static/core/workflow.md
+
+axes:
+  task:
+    default: dataset-package
+    values:
+      experiment-template:
+        path: references/dataset-package.md
+        triggers: ["experiment data", "test matrix", "data template", "raw data", "spreadsheet", "CSV"]
+      fair-audit:
+        path: references/fair-checklist.md
+        triggers: ["FAIR", "audit", "data quality", "reproducible", "metadata check"]
+      dataset-package:
+        path: references/dataset-package.md
+        triggers: ["dataset package", "data package", "supplementary data", "submission data", "repository"]
+      data-availability:
+        path: references/data-availability-statements.md
+        triggers: ["data availability", "availability statement", "data statement", "declaration"]
+  domain:
+    default: civil-materials
+    values:
+      asphalt:
+        path: references/asphalt-data-schema.md
+        triggers: ["asphalt", "emulsified asphalt", "waterborne epoxy", "bitumen", "pavement", "bonding", "tack coat"]
+      cement-concrete:
+        path: references/cement-concrete-data-schema.md
+        triggers: ["cement", "concrete", "mortar", "hydration", "UHPC", "geopolymer"]
+      civil-materials:
+        path: references/dataset-package.md
+        triggers: ["civil materials", "construction materials", "durability", "sustainability"]
+  journal:
+    default: generic
+    values:
+      cbm:
+        path: references/data-availability-statements.md
+        triggers: ["CBM", "Construction and Building Materials"]
+      ccc:
+        path: references/data-availability-statements.md
+        triggers: ["CCC", "Cement and Concrete Composites"]
+      jbe:
+        path: references/data-availability-statements.md
+        triggers: ["JBE", "Journal of Building Engineering"]
+      rmpd-ijpe:
+        path: references/data-availability-statements.md
+        triggers: ["RMPD", "Road Materials and Pavement Design", "IJPE", "International Journal of Pavement Engineering"]
+      jre:
+        path: references/data-availability-statements.md
+        triggers: ["JRE", "Journal of Road Engineering"]
+      generic:
+        path: references/data-availability-statements.md
+        triggers: ["journal", "submission", "SCI"]

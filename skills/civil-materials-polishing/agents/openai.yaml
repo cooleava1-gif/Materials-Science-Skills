@@ -1,0 +1,8 @@
+interface:
+  display_name: "Civil Materials Polishing"
+  short_description: "Reviewer-safe English polishing for civil materials manuscripts."
+  brand_color: "#6B5B3E"
+  default_prompt: "Use $civil-materials-polishing to polish this civil materials paragraph without overclaiming."
+
+policy:
+  allow_implicit_invocation: true

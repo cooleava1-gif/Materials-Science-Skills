@@ -1,0 +1,50 @@
+always_load:
+  - static/core/polishing-contract.md
+  - static/core/workflow.md
+
+axes:
+  section:
+    default: generic
+    values:
+      abstract:
+        path: references/abstract.md
+        triggers: ["abstract", "摘要"]
+      introduction:
+        path: references/introduction.md
+        triggers: ["introduction", "intro", "引言"]
+      results-discussion:
+        path: references/results-discussion.md
+        triggers: ["results", "discussion", "结果", "讨论"]
+      cover-letter:
+        path: references/cover-letter.md
+        triggers: ["cover letter", "投稿信"]
+      generic:
+        path: references/style-guardrails.md
+        triggers: ["polish", "润色", "translate", "翻译"]
+      claim-strength:
+        path: references/claim-strength-ladder.md
+        triggers: ["overclaim", "claim", "causality", "novelty", "strengthen", "弱化", "因果", "创新性"]
+  journal_family:
+    default: civil-materials
+    values:
+      civil-materials:
+        path: references/style-guardrails.md
+        triggers: ["CBM", "JBE", "CSCM", "civil materials"]
+      pavement:
+        path: references/pavement-language.md
+        triggers: ["RMPD", "IJPE", "JRE", "pavement", "asphalt"]
+      cement-concrete:
+        path: references/cement-concrete-language.md
+        triggers: ["CCC", "cement", "concrete"]
+  language_mode:
+    default: rulebook
+    values:
+      rulebook:
+        path: references/language-rulebook.md
+        triggers: ["language rules", "SCI style", "academic style", "语言规则", "写作规则"]
+      chinese-to-english:
+        path: references/chinese-to-english-patterns.md
+        triggers: ["Chinese to English", "translate", "中译英", "中文润色"]
+      claim-strength:
+        path: references/claim-strength-ladder.md
+        triggers: ["claim strength", "hedging", "causality", "overclaim", "语气", "强度"]

@@ -1,0 +1,141 @@
+always_load:
+  - static/core/stance.md
+  - static/core/evidence-contract.md
+  - static/core/workflow.md
+
+axes:
+  task:
+    detect: "What deliverable does the user want?"
+    default: manuscript-writing
+    values:
+      research-positioning:
+        path: static/fragments/task/research-positioning.md
+        triggers: ["research topic", "novelty", "gap", "paper angle", "research question", "选题", "创新点", "研究问题", "论文角度", "研究方向"]
+      reading:
+        path: static/fragments/task/reading.md
+        triggers: ["read paper", "translate paper", "paper notes", "精读", "文献阅读", "文献翻译"]
+      literature-review:
+        path: static/fragments/task/literature-review.md
+        triggers: ["review", "综述", "literature review", "research progress", "研究进展"]
+      citation-mapping:
+        path: static/fragments/task/citation-mapping.md
+        triggers: ["citation", "reference", "citation matrix", "literature search", "claim-source", "引用", "参考文献", "文献检索", "引用矩阵", "证据映射"]
+      manuscript-writing:
+        path: static/fragments/task/manuscript-writing.md
+        triggers: ["abstract", "introduction", "discussion", "paper", "manuscript", "摘要", "引言", "讨论", "论文写作"]
+      journal-targeting:
+        path: static/fragments/task/journal-targeting.md
+        triggers: ["journal", "submission", "target", "投稿", "选刊", "期刊"]
+      experiment-design:
+        path: static/fragments/task/experiment-design.md
+        triggers: ["experiment", "test matrix", "实验方案", "实验矩阵", "试验设计"]
+      data-analysis:
+        path: static/fragments/task/data-analysis.md
+        triggers: ["data", "result", "interpret", "statistics", "数据", "结果分析", "数据分析", "强度", "粘度", "黏度", "储存稳定性"]
+      data-fair:
+        path: static/fragments/task/data-analysis.md
+        triggers: ["FAIR", "dataset package", "data availability", "metadata", "raw data", "processed data", "supplementary data"]
+      figure-table:
+        path: static/fragments/task/figure-table.md
+        triggers: ["figure", "table", "plot", "图", "表", "作图", "论文图表"]
+      submission-package:
+        path: static/fragments/task/submission-package.md
+        triggers: ["submission package", "cover letter", "highlights", "graphical abstract", "declaration", "投稿包", "投稿信", "亮点", "图文摘要", "声明"]
+      reviewer-response:
+        path: static/fragments/task/reviewer-response.md
+        triggers: ["response to reviewer", "reviewer response", "rebuttal", "revision response", "审稿回复", "回复审稿人", "返修", "大修", "小修", "rebuttal letter"]
+      presentation:
+        path: static/fragments/task/presentation.md
+        triggers: ["PPT", "PPTX", ".pptx", "slides", "journal club", "PowerPoint", "组会", "汇报", "幻灯片"]
+      pptx-generation:
+        path: static/fragments/task/pptx-generation.md
+        triggers: ["real pptx", "generate pptx", "PowerPoint file", ".pptx", "生成PPTX", "生成PPT", "制作PPT"]
+      reviewer-audit:
+        path: static/fragments/task/reviewer-audit.md
+        triggers: ["reviewer", "risk", "desk reject", "审稿", "拒稿风险", "预审"]
+
+  domain:
+    detect: "Which civil materials field is central?"
+    default: civil-generic
+    values:
+      asphalt-pavement:
+        path: static/fragments/domain/asphalt-pavement.md
+        triggers: ["asphalt", "bitumen", "emulsion", "emulsified asphalt", "waterborne epoxy", "pavement", "乳化沥青", "水性环氧", "沥青", "路面"]
+      cement-concrete:
+        path: static/fragments/domain/cement-concrete.md
+        triggers: ["cement", "concrete", "mortar", "hydration", "UHPC", "geopolymer", "水泥", "混凝土", "砂浆"]
+      construction-materials:
+        path: static/fragments/domain/construction-materials.md
+        triggers: ["construction materials", "building materials", "composite", "repair material", "建筑材料", "土木材料", "复合材料"]
+      sustainability-durability:
+        path: static/fragments/domain/sustainability-durability.md
+        triggers: ["durability", "sustainability", "recycling", "LCA", "carbon", "耐久", "低碳", "再生", "固废"]
+      civil-generic:
+        path: static/fragments/domain/civil-generic.md
+        triggers: ["civil", "engineering", "土木", "工程"]
+
+  journal:
+    detect: "Which target journal or journal family is named?"
+    default: generic
+    values:
+      cbm:
+        path: static/fragments/journal/cbm.md
+        triggers: ["CBM", "Construction and Building Materials"]
+      cbm-transportation:
+        path: static/fragments/journal/cbm-transportation.md
+        triggers: ["CBM Transportation", "Construction and Building Materials in Transportation", "CBM in Transportation"]
+      ccc:
+        path: static/fragments/journal/ccc.md
+        triggers: ["CCC", "Cement and Concrete Composites"]
+      cscm:
+        path: static/fragments/journal/cscm.md
+        triggers: ["CSCM", "Case Studies in Construction Materials"]
+      jbe:
+        path: static/fragments/journal/jbe.md
+        triggers: ["JBE", "Journal of Building Engineering"]
+      rmpd-ijpe:
+        path: static/fragments/journal/rmpd-ijpe.md
+        triggers: ["Road Materials and Pavement Design", "RMPD", "International Journal of Pavement Engineering", "IJPE"]
+      jre:
+        path: static/fragments/journal/jre.md
+        triggers: ["Journal of Road Engineering", "JRE"]
+      generic:
+        path: static/fragments/journal/generic.md
+        triggers: ["journal", "SCI", "CCS", "土木期刊", "材料期刊"]
+
+references:
+  on_demand:
+    asphalt-waterborne-epoxy:
+      path: references/asphalt-waterborne-epoxy.md
+      when: "The task concerns waterborne epoxy modified emulsified asphalt, bonding, interface mechanism, or asphalt emulsion test design."
+    journal-shortlist:
+      path: references/journal-shortlist.md
+      when: "The user asks where to submit, how to compare journals, or how to position a manuscript across civil materials journals."
+    reviewer-risk-checklist:
+      path: references/reviewer-risk-checklist.md
+      when: "The user asks for pre-submission review, desk-reject risk, reviewer simulation, or claim-evidence audit."
+    output-templates:
+      path: references/output-templates.md
+      when: "The user asks for abstract, highlights, title, cover letter, graphical abstract, PPT, or structured manuscript templates."
+    data-to-manuscript:
+      path: references/data-to-manuscript.md
+      when: "The user provides data, tables, or result descriptions and asks for interpretation, figures, result paragraphs, or claim-evidence mapping."
+    companion-modules:
+      path: references/companion-modules.md
+      when: "The task should be handed off to civil-materials-reader, civil-materials-citation, civil-materials-polishing, civil-materials-response, civil-materials-paper2ppt, civil-materials-pptx, or civil-materials-figure."
+    pressure-test-suite:
+      path: references/pressure-test-suite.md
+      when: "The task asks for pressure tests, failure modes, regression coverage, skill validation, or reviewer-safe behavior checks across modules."
+    example-library:
+      path: examples/library/library-index.md
+      when: "The task asks for examples, output shapes, reusable samples, or Nature-style skill behavior demonstrations."
+
+companion_skills:
+  reader: civil-materials-reader
+  citation: civil-materials-citation
+  polishing: civil-materials-polishing
+  response: civil-materials-response
+  paper2ppt: civil-materials-paper2ppt
+  pptx: civil-materials-pptx
+  figure: civil-materials-figure
+  data: civil-materials-data

@@ -1,0 +1,32 @@
+always_load:
+  - static/core/ppt-contract.md
+  - static/core/workflow.md
+
+axes:
+  deck_type:
+    default: journal-club
+    values:
+      journal-club:
+        path: references/journal-club-deck.md
+        triggers: ["journal club", "文献汇报", "组会", "paper presentation"]
+      project-report:
+        path: references/project-report-deck.md
+        triggers: ["project", "thesis", "开题", "课题汇报", "组会汇报"]
+      review-talk:
+        path: references/review-talk-deck.md
+        triggers: ["review", "综述", "research progress", "研究进展"]
+  paper_type:
+    default: experimental
+    values:
+      experimental:
+        path: references/materials-experiment-arc.md
+        triggers: ["experiment", "results", "实验", "结果"]
+      review:
+        path: references/review-talk-deck.md
+        triggers: ["review", "综述"]
+      mechanism:
+        path: references/mechanism-deck.md
+        triggers: ["mechanism", "FTIR", "SEM", "机理"]
+      pptx-ready:
+        path: references/pptx-handoff.md
+        triggers: ["PPTX", ".pptx", "PowerPoint", "生成PPT", "制作PPT"]

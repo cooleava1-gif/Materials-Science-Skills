@@ -1,0 +1,32 @@
+always_load:
+  - static/core/reader-contract.md
+  - static/core/workflow.md
+
+axes:
+  source_type:
+    default: pasted-text
+    values:
+      pdf:
+        path: references/pdf-reading.md
+        triggers: ["PDF", "paper file", "full paper", "文献PDF"]
+      doi-html:
+        path: references/source-grounding.md
+        triggers: ["DOI", "publisher page", "ScienceDirect", "Taylor"]
+      pasted-text:
+        path: references/source-grounding.md
+        triggers: ["abstract", "copied text", "pasted", "粘贴"]
+  output_type:
+    default: full-reader
+    values:
+      full-reader:
+        path: references/full-reader.md
+        triggers: ["full notes", "精读", "全文阅读", "中英对照"]
+      literature-matrix:
+        path: references/literature-matrix.md
+        triggers: ["matrix", "table", "综述表", "文献矩阵"]
+      evidence-chain-audit:
+        path: references/evidence-chain-audit.md
+        triggers: ["evidence chain", "claim evidence", "audit", "证据链", "证据审计", "审稿风险", "claim-evidence"]
+      journal-club:
+        path: references/journal-club-reading.md
+        triggers: ["journal club", "group meeting", "组会", "汇报"]

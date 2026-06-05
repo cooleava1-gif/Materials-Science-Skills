@@ -1,0 +1,8 @@
+interface:
+  display_name: "Civil Materials Citation"
+  short_description: "Search and citation maps for civil materials."
+  default_prompt: "Use $civil-materials-citation to map literature, claims, and references for this civil materials manuscript."
+  brand_color: "#4B6F8A"
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,5 @@
+interface:
+  display_name: "Civil Materials PPTX"
+  short_description: "One-click PPTX deck generation for civil materials research."
+  default_prompt: "Use $civil-materials-pptx to generate a civil materials PowerPoint deck."
+  brand_color: "#6B5F3A"
