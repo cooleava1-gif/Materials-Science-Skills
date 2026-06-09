@@ -1,0 +1,4 @@
+panel,item,value,unit,evidence_layer,source_anchor,boundary
+a,waterborne epoxy resin,template,mechanism,source_map:M001,direct evidence must be inserted
+b,emulsified asphalt phase,template,material-system,source_map:M002,template only
+c,interface bonding link,template,inferred mechanism,source_map:M003,requires direct interface evidence

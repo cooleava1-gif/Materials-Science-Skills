@@ -16,3 +16,4 @@ auth.json
 *.sqlite
 *.sqlite-shm
 *.sqlite-wal
+outputs/wer-ea-30-reading-sample/

@@ -1,0 +1,43 @@
+{
+  "name": "civil-materials-skills",
+  "version": "1.0.0",
+  "description": "Full-cycle civil engineering and construction-materials research skills for literature, writing, figures, data, PPTX, citations, and reviewer responses.",
+  "author": {
+    "name": "Civil Materials Skills contributors"
+  },
+  "homepage": "https://github.com/cooleava1-gif/civil-materials-skills",
+  "repository": "https://github.com/cooleava1-gif/civil-materials-skills",
+  "license": "MIT",
+  "keywords": [
+    "civil-materials",
+    "construction-materials",
+    "asphalt",
+    "cement",
+    "concrete",
+    "research",
+    "citations",
+    "manuscript",
+    "pptx"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Civil Materials Skills",
+    "shortDescription": "Research workflows for civil materials manuscripts.",
+    "longDescription": "Use Civil Materials Skills to route civil engineering and construction-materials research tasks across literature reading, citation mapping, manuscript drafting, English polishing, figures, PPTX decks, FAIR data packages, reviewer simulation, and reviewer-response workflows.",
+    "developerName": "Civil Materials Skills contributors",
+    "category": "Research",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Route this civil materials research task and check the evidence chain.",
+      "Build a source-grounded literature matrix for this manuscript topic.",
+      "Audit my figures, claims, and journal-fit risks before submission."
+    ],
+    "brandColor": "#3F6F5E",
+    "screenshots": []
+  }
+}

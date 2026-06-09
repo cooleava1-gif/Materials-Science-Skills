@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "civil-materials-academic-search": {
+      "command": "python",
+      "args": [
+        "./skills/civil-materials-citation/mcp/academic_search/server.py"
+      ]
+    }
+  }
+}

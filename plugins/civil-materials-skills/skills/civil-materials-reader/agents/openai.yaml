@@ -1,0 +1,8 @@
+interface:
+  display_name: "Civil Materials Reader"
+  short_description: "Figure-aware reading notes for civil materials papers."
+  brand_color: "#456B63"
+  default_prompt: "Use $civil-materials-reader to turn this civil materials paper into source-grounded reading notes."
+
+policy:
+  allow_implicit_invocation: true

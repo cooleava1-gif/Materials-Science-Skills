@@ -1,0 +1,46 @@
+# Civil Materials Pressure Test Suite
+
+Use this reference when validating whether the civil-materials skill bundle is behaving safely across modules.
+
+## Coverage
+
+The suite covers these modules:
+
+- civil-materials-research
+- civil-materials-reader
+- civil-materials-citation
+- civil-materials-polishing
+- civil-materials-response
+- civil-materials-paper2ppt
+- civil-materials-pptx
+- civil-materials-figure
+- civil-materials-data
+
+## Pressure Themes
+
+The suite intentionally includes more than three failure classes:
+
+- overclaim from performance to mechanism
+- fake citation, DOI, impact factor, or citation count
+- journal mismatch across CBM, CCC, RMPD/IJPE, and JBE
+- missing experimental conditions
+- literal translation and claim-strength drift
+- weak novelty and uncited gaps
+- figure caption overinterpretation
+- pptx missing data fabrication
+- FAIR data availability overclaim
+- reviewer response defensiveness
+- statistics, replicate, and unit omissions
+- scope creep and companion-module overuse
+
+## Audit Command
+
+```powershell
+python scripts/audit_pressure_assets.py --skill-root "$CODEX_HOME/skills/civil-materials-research" --json
+```
+
+The audit should report `status: pass`, at least 12 pressure tests, at least 10 example files, all required modules covered, and no missing themes.
+
+## Use In Practice
+
+Before declaring the civil-materials bundle improved, run the audit and read the pressure scenario closest to the requested output. If the output violates any `Failure Signs`, revise the skill, reference, script, or example before treating the behavior as safe.
