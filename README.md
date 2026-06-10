@@ -55,6 +55,19 @@ Starter prompts:
 - `Audit this experimental manuscript for evidence gaps before I draft the discussion.`
 - `Turn this paper package into a journal-club slide outline and then a real PPTX.`
 
+## Guided Demos
+
+- [WER-EA mini-review](docs/workflows/wer-ea-mini-review.md):
+  screening -> reader package -> review outline -> figure planning
+- [Experimental manuscript](docs/workflows/experimental-manuscript.md):
+  manuscript audit -> data/figure tightening -> bounded discussion
+- [Revision loop](docs/workflows/revision-loop.md):
+  reviewer comments -> weakness routing -> proof-backed response package
+- [Paper to presentation](docs/workflows/paper-to-presentation.md):
+  slide-ready Markdown -> real `.pptx`
+
+If you want the index first, open [docs/workflows/README.md](docs/workflows/README.md).
+
 ## Installation Paths
 
 - Codex plugin:
@@ -89,6 +102,10 @@ For fuller human-readable routing notes, see [docs/skills-index.md](docs/skills-
 
 - Human-readable skill guide:
   [docs/skills-index.md](docs/skills-index.md)
+- Guided workflow demos:
+  [docs/workflows/README.md](docs/workflows/README.md)
+- Visual gallery:
+  [docs/gallery/README.md](docs/gallery/README.md)
 - Paper-production system PRD:
   [docs/superpowers/specs/2026-06-09-civil-materials-paper-production-prd.md](docs/superpowers/specs/2026-06-09-civil-materials-paper-production-prd.md)
 - WER-EA sample output package:
@@ -97,6 +114,15 @@ For fuller human-readable routing notes, see [docs/skills-index.md](docs/skills-
   `skills/civil-materials-figure/assets/wer-ea-atlas/generated/`
 - Per-skill README files:
   `skills/civil-materials-*/README.md`
+
+## Visual Gallery
+
+If you want to see the system before reading every skill:
+
+- [Civil Materials Gallery](docs/gallery/README.md) collects real screenshots
+  from the WER-EA atlas and the reader-package sample.
+- The gallery links back to the four guided demos so the visuals and the route
+  logic stay connected.
 
 ## Product Proof
 

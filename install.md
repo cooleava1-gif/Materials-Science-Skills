@@ -129,6 +129,17 @@ Expected shape:
 1. `civil-materials-paper2ppt` creates slide-ready Markdown.
 2. `civil-materials-pptx` turns the outline into a real PowerPoint deck.
 
+## Guided Demo Routes
+
+If you want a curated first-use path instead of jumping in cold, start here:
+
+1. [WER-EA mini-review](docs/workflows/wer-ea-mini-review.md)
+2. [Experimental manuscript](docs/workflows/experimental-manuscript.md)
+3. [Revision loop](docs/workflows/revision-loop.md)
+4. [Paper to presentation](docs/workflows/paper-to-presentation.md)
+
+To see the visual proof side first, open [docs/gallery/README.md](docs/gallery/README.md).
+
 ## Recommended Reading Order
 
 If this is your first time with the bundle, open these in order:

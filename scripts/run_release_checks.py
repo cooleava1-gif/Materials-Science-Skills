@@ -60,6 +60,8 @@ ROOT_README_PRODUCT_MARKERS = [
     "## Four Workflow Entry Points",
     "## Installation Paths",
     "## Skill Status Index",
+    "## Guided Demos",
+    "## Visual Gallery",
 ]
 INSTALL_GUIDE_MARKERS = [
     "# Install Civil Materials Skills",
@@ -67,6 +69,30 @@ INSTALL_GUIDE_MARKERS = [
     "## Option 2: Manual Skills Install",
     "## Verify The Install",
     "## Five-Minute Walkthrough",
+    "## Guided Demo Routes",
+]
+WORKFLOW_DOCS = {
+    "wer-ea-mini-review.md": "WER-EA mini-review",
+    "experimental-manuscript.md": "Experimental manuscript",
+    "revision-loop.md": "Revision loop",
+    "paper-to-presentation.md": "Paper to presentation",
+}
+WORKFLOW_DOC_REQUIRED_MARKERS = [
+    "## Route Summary",
+    "## Demo Prompt",
+    "## Workflow Steps",
+    "## Expected Artifacts",
+    "## What Good Looks Like",
+]
+GALLERY_MARKERS = [
+    "# Civil Materials Gallery",
+    "## Screenshot Gallery",
+    "## Workflow Proof",
+    "## Artifact Deep Dives",
+    "wer_ea_mechanism_map.png",
+    "wer_ea_evidence_heatmap.png",
+    "wer_ea_dosage_window.png",
+    "contact_sheet.png",
 ]
 SKILL_README_REQUIRED_HEADINGS = [
     "## When To Use",
@@ -629,6 +655,37 @@ def collect_skills_index_issues(root: Path, issues: dict[str, list[str]]) -> Non
         for marker in INSTALL_GUIDE_MARKERS:
             if marker not in install_text:
                 issues["skills_index"].append(f"install.md missing marker {marker!r}")
+
+    workflow_root = root / "docs" / "workflows"
+    workflow_index = workflow_root / "README.md"
+    if not workflow_index.is_file():
+        issues["skills_index"].append("docs/workflows/README.md is missing")
+    else:
+        workflow_index_text = workflow_index.read_text(encoding="utf-8", errors="ignore")
+        for marker in ["# Workflow Demos", "## Workflow Index"]:
+            if marker not in workflow_index_text:
+                issues["skills_index"].append(f"docs/workflows/README.md missing marker {marker!r}")
+
+    for filename, title in WORKFLOW_DOCS.items():
+        workflow_path = workflow_root / filename
+        if not workflow_path.is_file():
+            issues["skills_index"].append(f"docs/workflows/{filename} is missing")
+            continue
+        workflow_text = workflow_path.read_text(encoding="utf-8", errors="ignore")
+        if f"# {title}" not in workflow_text:
+            issues["skills_index"].append(f"docs/workflows/{filename} missing title {title!r}")
+        for marker in WORKFLOW_DOC_REQUIRED_MARKERS:
+            if marker not in workflow_text:
+                issues["skills_index"].append(f"docs/workflows/{filename} missing marker {marker!r}")
+
+    gallery_path = root / "docs" / "gallery" / "README.md"
+    if not gallery_path.is_file():
+        issues["skills_index"].append("docs/gallery/README.md is missing")
+    else:
+        gallery_text = gallery_path.read_text(encoding="utf-8", errors="ignore")
+        for marker in GALLERY_MARKERS:
+            if marker not in gallery_text:
+                issues["skills_index"].append(f"docs/gallery/README.md missing marker {marker!r}")
 
     if not index_path.is_file():
         issues["skills_index"].append(f"{SKILLS_INDEX_PATH.as_posix()} is missing")
