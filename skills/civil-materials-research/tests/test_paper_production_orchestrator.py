@@ -162,6 +162,58 @@ class PaperProductionOrchestratorTest(unittest.TestCase):
         self.assertTrue(bad_report["issues"]["weakness_routing"])
         self.assertTrue(bad_report["issues"]["gate_report"])
 
+    def test_audit_script_rejects_invalid_row_values_and_unknown_links(self):
+        audit = load_audit_module()
+
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            bad_weakness = tmp_path / "weakness.csv"
+            bad_gate = tmp_path / "gate.md"
+            bad_weakness.write_text(
+                "\n".join(
+                    [
+                        ",".join(WEAKNESS_FIELDS),
+                        "W-G2-001,gate:G2,major,source_anchor_missing,gap,civil-materials-reader,fix,reader-package/source_map.json,done,maybe",
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            bad_gate.write_text(
+                "\n".join(
+                    [
+                        "# Gate Report",
+                        "",
+                        "| gate_id | gate_name | status | evidence_checked | missing_inputs | routed_weakness_ids | next_skill | reviewer_risk |",
+                        "|---|---|---|---|---|---|---|---|",
+                        "| G1 | Literature Coverage | pass | ok | none | none | civil-materials-citation | controlled |",
+                        "| G2 | Source Anchoring | review-needed | anchors missing | source_map.json | W-G2-404 | civil-materials-reader | unsupported claim |",
+                        "| G3 | Mechanism Boundary | blocked | partial | mechanism evidence table | none | civil-materials-reader; civil-materials-citation | overclaim risk |",
+                        "| G4 | Figure And Table Integrity | pass | ok | none | none | civil-materials-figure | controlled |",
+                        "| G5 | Manuscript Logic | blocked | partial | claim-evidence-boundary table | none | civil-materials-writing | list-like draft |",
+                        "| G6 | Reviewer Simulation | not_applicable | draft missing | manuscript draft | none | civil-materials-reviewer | not yet pressure-tested |",
+                        "| G7 | Submission Fit | not_applicable | journal not chosen | target journal | none | civil-materials-research | stale journal facts |",
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+
+            report = audit.audit_files(bad_weakness, bad_gate)
+
+        self.assertEqual(report["status"], "fail")
+        self.assertTrue(report["issues"]["weakness_routing"])
+        self.assertTrue(report["issues"]["gate_report"])
+        self.assertTrue(
+            any("invalid status" in issue or "unknown weakness id" in issue for issue in report["issues"]["gate_report"]),
+            report,
+        )
+
+    def test_audit_script_accepts_filled_wer_ea_examples(self):
+        audit = load_audit_module()
+        report = audit.audit_files(WEAKNESS_EXAMPLE, GATE_EXAMPLE)
+        self.assertEqual(report["status"], "pass", report)
+
     def test_companion_contracts_consume_paper_production_artifacts(self):
         checks = {
             "civil-materials-writing": [
