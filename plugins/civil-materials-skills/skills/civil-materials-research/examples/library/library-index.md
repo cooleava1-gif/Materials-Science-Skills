@@ -5,6 +5,7 @@ This library gives one high-quality example entry per civil-materials module. Us
 | Module | Example |
 |---|---|
 | civil-materials-research | research-topic-positioning-example.md |
+| paper-production orchestrator | paper-production-mini-review-example.md |
 | civil-materials-reader | reader-evidence-chain-example.md |
 | civil-materials-citation | citation-matrix-example.md |
 | civil-materials-polishing | polishing-claim-strength-example.md |

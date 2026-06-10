@@ -262,6 +262,9 @@ class PaperProductionOrchestratorTest(unittest.TestCase):
         release_text = (REPO_ROOT / "scripts" / "run_release_checks.py").read_text(encoding="utf-8")
         self.assertIn("paper_production_orchestrator", release_text)
         self.assertIn("collect_paper_production_orchestrator_issues", release_text)
+        self.assertIn("paper-production-mini-review-example.md", release_text)
+        self.assertIn("wer-ea-mini-review-weakness-routing.csv", release_text)
+        self.assertIn("wer-ea-mini-review-gate-report.md", release_text)
 
 
 if __name__ == "__main__":

@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -385,6 +386,19 @@ PAPER_PRODUCTION_ORCHESTRATOR_TERMS = [
     "weakness-routing rows",
     "figure_handoff",
 ]
+PAPER_PRODUCTION_PROOF_FILES = [
+    Path("civil-materials-research") / "examples" / "library" / "paper-production-mini-review-example.md",
+    Path("_shared") / "paper-production" / "examples" / "wer-ea-mini-review-weakness-routing.csv",
+    Path("_shared") / "paper-production" / "examples" / "wer-ea-mini-review-gate-report.md",
+]
+PAPER_PRODUCTION_PROOF_TERMS = [
+    "paper-production orchestrator",
+    "reviewer-risk note",
+    "reader-package/source_map.json",
+    "W-G2-001",
+    "regression-checked",
+    "Allowed `status` values",
+]
 
 FIGURE_HARD_WORKFLOW_FILES = [
     Path("civil-materials-figure") / "SKILL.md",
@@ -516,10 +530,40 @@ LOCAL_PATH_MARKERS = [
 ]
 SECRET_MARKERS = ["yujian" + "wudi"]
 SECRET_TOKEN_RE = re.compile("sk-" + r"[A-Za-z0-9]{20,}")
+FALLBACK_PYTHON_CANDIDATES = [
+    Path(os.environ.get("USERPROFILE", "")) / "Miniconda3" / "python.exe",
+]
+_MODULE_PYTHON_CACHE: dict[str, str] = {}
 
 
 def run(command: list[str], cwd: Path) -> None:
     subprocess.run(command, cwd=str(cwd), check=True)
+
+
+def select_python_for_module(module_name: str) -> str:
+    cached = _MODULE_PYTHON_CACHE.get(module_name)
+    if cached:
+        return cached
+
+    candidates = [Path(sys.executable), *FALLBACK_PYTHON_CANDIDATES]
+    for candidate in candidates:
+        if not candidate.is_file():
+            continue
+        result = subprocess.run(
+            [str(candidate), "-c", f"import {module_name}"],
+            cwd=None,
+            check=False,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+        )
+        if result.returncode == 0:
+            _MODULE_PYTHON_CACHE[module_name] = str(candidate)
+            return str(candidate)
+
+    _MODULE_PYTHON_CACHE[module_name] = sys.executable
+    return sys.executable
 
 
 def run_pressure_tests(root: Path, skill_root: Path) -> None:
@@ -867,6 +911,14 @@ def collect_advanced_skill_upgrade_issues(root: Path, issues: dict[str, list[str
             PAPER_PRODUCTION_ORCHESTRATOR_TERMS,
             issues["paper_production_orchestrator"],
         )
+        collect_required_file_terms(
+            root,
+            label,
+            skills_root,
+            PAPER_PRODUCTION_PROOF_FILES,
+            PAPER_PRODUCTION_PROOF_TERMS,
+            issues["paper_production_orchestrator"],
+        )
         collect_reader_standard_package_runtime_issues(root, label, skills_root, issues["reader_standard_package"])
         collect_wer_ea_atlas_runtime_issues(root, label, skills_root, issues["wer_ea_asset_library"])
         collect_paper_production_orchestrator_issues(root, label, skills_root, issues["paper_production_orchestrator"])
@@ -1107,37 +1159,48 @@ def collect_paper_production_orchestrator_issues(
     script = shared_root / "audit_paper_production.py"
     weakness = shared_root / "weakness-routing-template.csv"
     gate = shared_root / "paper-gate-report-template.md"
+    example_weakness = shared_root / "examples" / "wer-ea-mini-review-weakness-routing.csv"
+    example_gate = shared_root / "examples" / "wer-ea-mini-review-gate-report.md"
     if not script.is_file():
         issue_list.append(f"{label}: missing {script.relative_to(root)}")
         return
-    result = subprocess.run(
-        [
-            sys.executable,
-            str(script),
-            "--weakness-routing",
-            str(weakness),
-            "--gate-report",
-            str(gate),
-            "--json",
-        ],
-        cwd=str(root),
-        check=False,
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
-        errors="replace",
-    )
-    if result.returncode != 0:
-        detail = result.stdout.strip() or result.stderr.strip()
-        issue_list.append(f"{label}: audit_paper_production.py failed: {detail}")
-        return
-    try:
-        payload = json.loads(result.stdout)
-    except json.JSONDecodeError as exc:
-        issue_list.append(f"{label}: audit_paper_production.py returned invalid JSON: {exc}")
-        return
-    if payload.get("status") != "pass":
-        issue_list.append(f"{label}: audit_paper_production.py status is {payload.get('status')!r}")
+
+    def run_audit(target_weakness: Path, target_gate: Path, description: str) -> None:
+        result = subprocess.run(
+            [
+                sys.executable,
+                str(script),
+                "--weakness-routing",
+                str(target_weakness),
+                "--gate-report",
+                str(target_gate),
+                "--json",
+            ],
+            cwd=str(root),
+            check=False,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+        )
+        if result.returncode != 0:
+            detail = result.stdout.strip() or result.stderr.strip()
+            issue_list.append(f"{label}: audit_paper_production.py failed for {description}: {detail}")
+            return
+        try:
+            payload = json.loads(result.stdout)
+        except json.JSONDecodeError as exc:
+            issue_list.append(
+                f"{label}: audit_paper_production.py returned invalid JSON for {description}: {exc}"
+            )
+            return
+        if payload.get("status") != "pass":
+            issue_list.append(
+                f"{label}: audit_paper_production.py status for {description} is {payload.get('status')!r}"
+            )
+
+    run_audit(weakness, gate, "paper-production templates")
+    run_audit(example_weakness, example_gate, "paper-production examples")
 
 
 def collect_skill_architecture_issues(root: Path, issue_list: list[str]) -> None:
@@ -1334,6 +1397,8 @@ def collect_plugin_issues(root: Path, issues: dict[str, list[str]]) -> None:
 
 def run_tests(root: Path) -> None:
     run([sys.executable, "-m", "unittest", "discover", "-s", str(root / "tests"), "-p", "test_*.py", "-v"], root)
+    figure_test_root = root / "skills" / "civil-materials-figure" / "tests"
+    figure_python = select_python_for_module("matplotlib")
     test_roots = [
         root / "skills" / "civil-materials-research" / "tests",
         root / "skills" / "civil-materials-reader" / "tests",
@@ -1348,7 +1413,8 @@ def run_tests(root: Path) -> None:
         root / "skills" / "civil-materials-citation" / "mcp" / "academic_search" / "tests",
     ]
     for test_root in test_roots:
-        run([sys.executable, "-m", "unittest", "discover", "-s", str(test_root), "-p", "test_*.py", "-v"], root)
+        python_for_tests = figure_python if test_root == figure_test_root else sys.executable
+        run([python_for_tests, "-m", "unittest", "discover", "-s", str(test_root), "-p", "test_*.py", "-v"], root)
 
     run_pressure_tests(root, root / "skills")
     plugin_skills_root = root / PLUGIN_ROOT / "skills"
