@@ -1,4 +1,4 @@
-version: "1.0.0"
+version: "1.1.0"
 
 always_load:
   - static/core/contract.md
@@ -52,7 +52,8 @@ axes:
       mechanism:
         path: references/mechanism-evidence-checklist.md
         triggers: ["mechanism", "FTIR", "SEM", "fluorescence", "rheology", "XRD", "TG"]
-assets: []
+assets:
+  - assets
 scripts:
   - scripts
 tests:

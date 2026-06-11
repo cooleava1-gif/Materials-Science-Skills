@@ -1,4 +1,4 @@
-version: "1.1.0"
+version: "1.2.0"
 
 always_load:
   - static/core/contract.md
@@ -258,7 +258,8 @@ companion_skills:
   pptx: civil-materials-pptx
   figure: civil-materials-figure
   data: civil-materials-data
-assets: []
+assets:
+  - assets
 scripts:
   - scripts
 tests:

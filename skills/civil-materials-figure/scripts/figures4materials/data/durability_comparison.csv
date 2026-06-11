@@ -1,0 +1,8 @@
+condition,freeze_thaw_cycles,freeze_thaw_retention_pure,freeze_thaw_retention_10pct_wer,aging_days,aging_retention_pure,aging_retention_10pct_wer
+Baseline,0,100.0,100.0,0,100.0,100.0
+Mild,5,92.5,96.8,1,95.2,97.5
+Moderate,10,85.2,93.5,3,88.5,94.2
+Severe,15,78.8,90.2,5,82.0,90.8
+Extreme,20,72.5,87.0,7,76.5,87.5
+Critical,25,66.2,83.8,10,70.0,83.5
+Failure,30,60.0,80.5,14,62.5,78.5

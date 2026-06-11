@@ -1,4 +1,4 @@
-version: "1.1.0"
+version: "1.2.0"
 
 always_load:
   - static/core/contract.md
@@ -56,6 +56,7 @@ assets:
 scripts:
   - scripts
 tests:
+  - tests
   - mcp/academic_search/tests
 quality_gates:
   - release gate must report no issues for this skill

@@ -447,6 +447,12 @@ FIGURE_PACKAGE_SAMPLE_NAMES = [
     "wer-ea-mechanism-map",
     "wer-ea-evidence-heatmap",
     "wer-ea-dosage-window",
+    "creep-recovery",
+    "psd-gradation",
+    "rheology-flow-curve",
+    "stress-strain",
+    "ternary-phase",
+    "tg-dsc-thermal",
 ]
 
 TABLE_SYSTEM_SKILLS = [

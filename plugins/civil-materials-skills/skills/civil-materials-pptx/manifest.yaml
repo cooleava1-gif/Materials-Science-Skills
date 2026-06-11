@@ -1,4 +1,4 @@
-version: "1.0.0"
+version: "1.1.0"
 
 always_load:
   - static/core/contract.md
@@ -14,7 +14,7 @@ axes:
         triggers: ["paper", "journal club", "literature", "文献汇报", "精读"]
       research-report:
         path: references/deck-structures.md
-        triggers: ["group meeting", "report", "thesis", "组会", "汇报", "开题"]
+        triggers: ["group meeting", "report", "thesis", "组会", "汇报", "开�?]
       mechanism:
         path: references/visual-style.md
         triggers: ["mechanism", "FTIR", "SEM", "fluorescence", "机理", "显微"]
@@ -26,10 +26,10 @@ axes:
     values:
       asphalt:
         path: references/deck-structures.md
-        triggers: ["asphalt", "emulsified asphalt", "waterborne epoxy", "pavement", "沥青", "乳化沥青", "水性环氧"]
+        triggers: ["asphalt", "emulsified asphalt", "waterborne epoxy", "pavement", "沥青", "乳化沥青", "水性环�?]
       cement-concrete:
         path: references/deck-structures.md
-        triggers: ["cement", "concrete", "hydration", "水泥", "混凝土"]
+        triggers: ["cement", "concrete", "hydration", "水泥", "混凝�?]
   source_type:
     default: outline
     values:

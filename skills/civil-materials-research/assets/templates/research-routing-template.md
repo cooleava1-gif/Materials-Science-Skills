@@ -1,0 +1,44 @@
+# Research Routing Template
+
+Use this template to plan a civil-materials research workflow.
+
+## Task Detection
+
+| Axis | Question | Default |
+|---|---|---|
+| task | What deliverable does the user want? | manuscript-writing |
+| paper_stage | Where is the manuscript in the lifecycle? | idea |
+| workflow_mode | Single task, full pipeline, or review loop? | single-task |
+| domain | Which civil materials field? | civil-generic |
+| journal | Which target journal? | generic |
+
+## Routing Checklist
+
+- [ ] Task axis detected from user triggers
+- [ ] Paper stage identified
+- [ ] Domain fragment loaded
+- [ ] Journal fragment loaded (if named)
+- [ ] Companion skills listed for handoff
+- [ ] Evidence contract loaded from `_shared`
+
+## Companion Skill Handoff
+
+| Deliverable | Skill | Handoff Artifact |
+|---|---|---|
+| Evidence-chain notes | civil-materials-reader | reader-package |
+| Citation matrix | civil-materials-citation | citation_handoff.csv |
+| Manuscript section | civil-materials-writing | section draft |
+| English polishing | civil-materials-polishing | polished text |
+| Reviewer response | civil-materials-response | response package |
+| Pre-submission audit | civil-materials-reviewer | review report |
+| Slide deck | civil-materials-paper2ppt | slide Markdown |
+| PPTX file | civil-materials-pptx | .pptx file |
+| Figures | civil-materials-figure | figure package |
+| FAIR data | civil-materials-data | data package |
+
+## Quality Gates
+
+- [ ] Claim stays inside evidence boundary
+- [ ] No overclaim from performance to mechanism
+- [ ] Journal format requirements checked
+- [ ] Reviewer-risk flagged for weak evidence
