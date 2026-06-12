@@ -1,0 +1,85 @@
+version: "1.0.0"
+
+always_load:
+  - static/core/contract.md
+  - static/core/stance.md
+  - static/core/workflow.md
+  - ../_shared/core/stance.md
+  - ../_shared/core/evidence-contract.md
+
+axes:
+  design_mode:
+    detect: "Which design-of-experiments approach does the user need?"
+    default: classical
+    values:
+      classical:
+        path: static/reference/classical-doe.md
+        triggers: ["classical", "full factorial", "fractional factorial", "Taguchi", "one-factor-at-a-time", "OFAT", "经典", "全因子", "正交表", "田口"]
+      orthogonal:
+        path: static/reference/orthogonal-doe.md
+        triggers: ["orthogonal", "orthogonal array", "L9", "L16", "L25", "signal-to-noise", "S/N ratio", "极差分析", "方差分析", "信噪比"]
+      mix-design:
+        path: static/reference/mix-design-doe.md
+        triggers: ["mix design", "mixture", "simplex", "D-optimal", "response surface", "RSM", "配合比", "级配", "混合料设计"]
+
+  domain:
+    detect: "Which materials field is the experiment design for?"
+    default: materials
+    values:
+      asphalt:
+        path: static/reference/domain/asphalt-doe.md
+        triggers: ["asphalt", "emulsified asphalt", "waterborne epoxy", "bitumen", "沥青", "乳化沥青", "水性环氧"]
+      cement-concrete:
+        path: static/reference/domain/cement-doe.md
+        triggers: ["cement", "concrete", "mortar", "UHPC", "geopolymer", "水泥", "混凝土", "砂浆"]
+      materials:
+        path: static/reference/domain/materials-doe.md
+        triggers: ["materials", "construction materials", "土木材料", "建筑材料"]
+
+  output:
+    detect: "What deliverable does the user expect?"
+    default: note
+    values:
+      note:
+        path: static/core/workflow.md
+        triggers: ["note", "summary", "plan", "说明", "方案"]
+      matrix:
+        path: static/reference/doe-matrix.md
+        triggers: ["matrix", "test matrix", "experimental matrix", "因子矩阵", "试验矩阵", "试验方案"]
+      figure-package:
+        path: static/reference/doe-figure-package.md
+        triggers: ["figure", "plot", "chart", "图", "图表", "作图"]
+
+references:
+  on_demand:
+    - condition: user needs a factor screening design or Plackett-Burman
+      path: static/reference/factor-screening.md
+    - condition: user needs response surface methodology or central composite design
+      path: static/reference/response-surface.md
+    - condition: user needs a standard table for Taguchi orthogonal arrays
+      path: static/reference/taguchi-tables.md
+    - condition: user asks about sample size, replication, or randomization
+      path: static/reference/sample-size.md
+
+handoffs:
+  provides:
+    doe-handoff:
+      description: "Design-of-experiments plan with factor matrix, levels, and analysis strategy"
+      contract: ../../_shared/contracts/doe-handoff.yaml
+      version: "1.0"
+  consumes:
+    - handoff: citation-handoff
+      from: materials-citation
+      optional: true
+    - handoff: reader-package
+      from: materials-reader
+      optional: true
+
+quality_gates:
+  - release gate must report no issues for this skill
+  - claims must stay inside the skill evidence contract
+
+tests:
+  - tests
+scripts:
+  - scripts
