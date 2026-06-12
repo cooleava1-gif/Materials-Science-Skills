@@ -240,6 +240,18 @@ references:
     thermal-insulation-guide:
       path: references/thermal-insulation-guide.md
       when: "The task involves thermal conductivity measurement, insulation testing, or hygrothermal aging."
+    ceramics-narrative:
+      path: ../materials-writing/references/ceramics-narrative.md
+      when: "The user is writing a ceramics manuscript."
+    insulation-narrative:
+      path: ../materials-writing/references/insulation-narrative.md
+      when: "The user is writing a thermal insulation manuscript."
+    reviewer-ceramics-criteria:
+      path: ../materials-reviewer/references/ceramics-reviewer-criteria.md
+      when: "The user needs reviewer criteria for ceramics."
+    reviewer-insulation-criteria:
+      path: ../materials-reviewer/references/insulation-reviewer-criteria.md
+      when: "The user needs reviewer criteria for thermal insulation."
     thesis-timeline:
       path: references/thesis-timeline.md
       when: "The user asks for master's thesis planning, semester roadmap, paper timeline, weekly research plan, or how to progress from review to experiment to submission."

@@ -102,6 +102,12 @@ references:
     journal-jbe-facts:
       path: ../_shared/journal-formats/jbe.md
       when: "The target journal is JBE, Journal of Building Engineering."
+    ceramics-narrative:
+      path: references/ceramics-narrative.md
+      when: "The user is writing a ceramics manuscript."
+    insulation-narrative:
+      path: references/insulation-narrative.md
+      when: "The user is writing a thermal insulation manuscript."
     table-system:
       path: references/table-system.md
       when: "The user needs table system templates."

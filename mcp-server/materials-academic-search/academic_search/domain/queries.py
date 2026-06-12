@@ -32,6 +32,25 @@ MATERIAL_TERMS: dict[str, tuple[str, ...]] = {
         "microstructure",
         "sustainability",
     ),
+    "ceramics": (
+        "ceramic",
+        "alumina",
+        "zirconia",
+        "silicon carbide",
+        "silicon nitride",
+        "sintering",
+        "advanced ceramic",
+        "refractory",
+    ),
+    "thermal-insulation": (
+        "thermal insulation",
+        "aerogel",
+        "thermal conductivity",
+        "building insulation",
+        "porous material",
+        "heat transfer",
+        "insulation material",
+    ),
 }
 
 

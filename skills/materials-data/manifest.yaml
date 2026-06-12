@@ -88,6 +88,12 @@ references:
     cement-schema:
       path: references/cement-concrete-data-schema.md
       when: "The task involves cement data."
+    ceramics-data-template:
+      path: assets/templates/experiment-data-template-ceramics.csv
+      when: "The user needs a ceramics experiment data template."
+    insulation-data-template:
+      path: assets/templates/experiment-data-template-insulation.csv
+      when: "The user needs a thermal insulation experiment data template."
 
     table-system:
       path: references/table-system.md

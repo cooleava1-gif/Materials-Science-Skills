@@ -53,10 +53,10 @@ axes:
         path: references/mechanism-evidence-checklist.md
         triggers: ["mechanism", "FTIR", "SEM", "fluorescence", "rheology", "XRD", "TG"]
       ceramics:
-        path: references/materials-criteria.md
+        path: references/ceramics-reviewer-criteria.md
         triggers: ["ceramic", "sintering", "alumina", "zirconia", "carbide", "陶瓷"]
       thermal-insulation:
-        path: references/materials-criteria.md
+        path: references/insulation-reviewer-criteria.md
         triggers: ["thermal insulation", "aerogel", "foam", "insulation", "隔热", "保温"]
   review_scope:
     default: full-manuscript
