@@ -81,6 +81,12 @@ class FigureProductionScriptsTest(unittest.TestCase):
         "plot_dosage_window.py",
         "plot_particle_size_distribution.py",
         "plot_sem_analysis.py",
+        "plot_sintering_curve.py",
+        "plot_ceramic_strength.py",
+        "plot_ceramic_conductivity.py",
+        "plot_insulation_conductivity_vs_density.py",
+        "plot_insulation_stress_strain.py",
+        "plot_insulation_conductivity_vs_temp.py",
     ]
     EXPECTED_DATA = [
         "bonding_strength.csv",
@@ -93,6 +99,12 @@ class FigureProductionScriptsTest(unittest.TestCase):
         "dosage_window.csv",
         "particle_size_distribution.csv",
         "sem_analysis.csv",
+        "sintering_curve.csv",
+        "ceramic_composition_strength.csv",
+        "ceramic_conductivity.csv",
+        "insulation_conductivity_vs_density.csv",
+        "insulation_stress_strain.csv",
+        "insulation_conductivity_humidity.csv",
     ]
 
     def test_figures4materials_scripts_and_data_exist(self):

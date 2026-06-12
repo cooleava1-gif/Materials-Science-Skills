@@ -234,6 +234,12 @@ references:
     sustainability-claims-guide:
       path: references/sustainability-claims-guide.md
       when: "The task involves sustainability, low carbon, LCA, environmental impact, recycled materials, waste utilization, or service-life environmental claims."
+    ceramics-guide:
+      path: references/ceramics-guide.md
+      when: "The task involves ceramics characterization, mechanical testing, or sintering."
+    thermal-insulation-guide:
+      path: references/thermal-insulation-guide.md
+      when: "The task involves thermal conductivity measurement, insulation testing, or hygrothermal aging."
     thesis-timeline:
       path: references/thesis-timeline.md
       when: "The user asks for master's thesis planning, semester roadmap, paper timeline, weekly research plan, or how to progress from review to experiment to submission."
