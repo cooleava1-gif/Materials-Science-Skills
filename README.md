@@ -97,6 +97,7 @@ For fuller human-readable routing notes, see [docs/skills-index.md](docs/skills-
 | `materials-pptx` | Stable generation skill | Yes | Yes | PPTX-ready Markdown or JSON | Real `.pptx` deck |
 | `materials-figure` | Stable production skill | Yes | Yes | Data table, reader/citation handoff, figure idea | Figure plan, WER-EA atlas output, caption boundary, figure package |
 | `materials-data` | Stable FAIR skill | Yes | Yes | Raw/processed data, metadata needs | FAIR package, data availability statement |
+| `materials-doe` | Stable design skill | Yes | Yes | Factors, levels, design mode, optimization goal | Experiment plan, analysis script, methods paragraph, data template |
 
 ## What You Can Open Immediately
 
