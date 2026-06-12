@@ -14,18 +14,22 @@ import numpy as np
 
 PUB_RC = {
     "font.family": "sans-serif",
-    "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans"],
+    "font.sans-serif": ["Arial", "Helvetica", "Liberation Sans", "DejaVu Sans"],
     "svg.fonttype": "none",
     "axes.spines.right": False,
     "axes.spines.top": False,
-    "axes.linewidth": 1.4,
+    "axes.linewidth": 1.5,
     "axes.labelsize": 10,
     "axes.titlesize": 11,
     "xtick.labelsize": 9,
     "ytick.labelsize": 9,
+    "xtick.major.width": 1.2,
+    "ytick.major.width": 1.2,
     "legend.frameon": False,
+    "legend.fontsize": 8,
     "savefig.dpi": 300,
     "savefig.bbox": "tight",
+    "figure.dpi": 100,
 }
 
 PALETTE_CBM = {
@@ -47,6 +51,45 @@ PALETTE_CCC = {
     "danger": "#9B2335",
     "neutral": "#6B6B6B",
 }
+
+# Unified low-saturation palette (single hue family for related variants)
+PALETTE_SINGLE_HUE = {
+    "light": "#B4C0E4",
+    "mid":   "#7884B4",
+    "dark":  "#484878",
+    "darker": "#2C2C58",
+}
+
+# Extended semantic palette with more roles
+PALETTE_SEMANTIC = {
+    "control":    "#4B6F8A",
+    "modified":   "#C47B45",
+    "optimal":    "#4F7C6A",
+    "mechanism":  "#8B6F47",
+    "comparison": "#8C8C8C",
+    "danger":     "#B85450",
+    "accent":     "#D4A574",
+    "baseline":   "#A8B8C8",
+}
+
+DEFAULT_COLORS_SINGLE_HUE = [
+    PALETTE_SINGLE_HUE["light"],
+    PALETTE_SINGLE_HUE["mid"],
+    PALETTE_SINGLE_HUE["dark"],
+    PALETTE_SINGLE_HUE["darker"],
+]
+
+
+
+def luminance_text_color(hex_color: str) -> str:
+    """Return 'white' or '#333333' (dark) based on background luminance."""
+    c = hex_color.lstrip('#')
+    if len(c) != 6:
+        return '#333333'
+    r, g, b = int(c[0:2], 16) / 255, int(c[2:4], 16) / 255, int(c[4:6], 16) / 255
+    luminance = 0.299 * r + 0.587 * g + 0.114 * b
+    return 'white' if luminance < 0.5 else '#333333'
+
 
 
 def apply_pub_style(rc: dict | None = None) -> None:
