@@ -44,14 +44,20 @@ axes:
     default: asphalt-emulsion
     values:
       asphalt-emulsion:
-        path: references/materials-criteria.md
-        triggers: ["asphalt", "emulsified asphalt", "tack coat", "waterborne epoxy"]
+        path: references/asphalt-reviewer-criteria.md
+        triggers: ["asphalt", "emulsified asphalt", "tack coat", "waterborne epoxy", "bonding", "沥青", "乳化沥青"]
       cement-concrete:
-        path: references/materials-criteria.md
-        triggers: ["cement", "concrete", "hydration", "mortar"]
+        path: references/cement-reviewer-criteria.md
+        triggers: ["cement", "concrete", "hydration", "mortar", "UHPC", "geopolymer", "水泥", "混凝土", "砂浆"]
       mechanism:
         path: references/mechanism-evidence-checklist.md
         triggers: ["mechanism", "FTIR", "SEM", "fluorescence", "rheology", "XRD", "TG"]
+      ceramics:
+        path: references/ceramics-reviewer-criteria.md
+        triggers: ["ceramic", "sintering", "alumina", "zirconia", "carbide", "陶瓷"]
+      thermal-insulation:
+        path: references/insulation-reviewer-criteria.md
+        triggers: ["thermal insulation", "aerogel", "foam", "insulation", "隔热", "保温"]
   review_scope:
     default: full-manuscript
     values:

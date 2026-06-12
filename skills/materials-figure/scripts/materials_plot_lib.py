@@ -448,6 +448,125 @@ def make_tga_dtg_overlay(
     return ax_tga, ax_dtg
 
 
+def annotate_bars(
+    ax: plt.Axes,
+    bars,
+    values: Sequence[float],
+    *,
+    errors: Sequence[float] | None = None,
+    fmt: str = "{:.0f}",
+    fontsize: int = 7,
+    offset_pts: float = 3,
+) -> None:
+    """Annotate each bar with its value, using luminance-adaptive text color.
+
+    Parameters
+    ----------
+    ax : axes containing the bars
+    bars : BarContainer returned by ax.bar()
+    values : numeric values to print inside/on top of each bar
+    errors : if provided, annotation sits above error bar cap
+    fmt : format string for the value
+    fontsize : text size in pt
+    offset_pts : vertical offset above bar top in points
+    """
+    for bar, val in zip(bars, values):
+        bar_color = bar.get_facecolor()
+        r, g, b = bar_color[0], bar_color[1], bar_color[2]
+        luminance = 0.299 * r + 0.587 * g + 0.114 * b
+        text_color = "white" if luminance < 0.5 else "#333333"
+        y_top = bar.get_height()
+        if errors is not None:
+            idx = list(bars).index(bar) if hasattr(bars, "__iter__") else 0
+            try:
+                y_top += errors[idx]
+            except (IndexError, TypeError):
+                pass
+        ax.annotate(
+            fmt.format(val),
+            xy=(bar.get_x() + bar.get_width() / 2, y_top),
+            xytext=(0, offset_pts),
+            textcoords="offset points",
+            ha="center",
+            va="bottom",
+            fontsize=fontsize,
+            color=text_color,
+            fontweight="bold",
+        )
+
+
+def tighten_ylimits(
+    ax: plt.Axes,
+    data: Sequence[float] | np.ndarray,
+    *,
+    margin: float = 0.1,
+    ymin: float | None = None,
+) -> None:
+    """Tighten y-axis to data range instead of using a fixed 0-max.
+
+    Parameters
+    ----------
+    ax : target axes
+    data : all y values across the plot
+    margin : fraction of data range to add as padding (0.1 = 10%)
+    ymin : explicit lower bound; if None, uses min(data) - margin * range
+    """
+    arr = np.asarray(data, dtype=float)
+    dmin, dmax = float(np.nanmin(arr)), float(np.nanmax(arr))
+    span = dmax - dmin if dmax != dmin else abs(dmax) * 0.1 or 1.0
+    pad = span * margin
+    bottom = ymin if ymin is not None else dmin - pad
+    ax.set_ylim(bottom, dmax + pad)
+
+
+def add_shared_legend(
+    fig: plt.Figure,
+    axes: Sequence[plt.Axes],
+    *,
+    loc: str = "upper center",
+    bbox_to_anchor: tuple[float, float] = (0.5, 1.02),
+    ncol: int | None = None,
+    fontsize: int = 8,
+) -> None:
+    """Create one shared legend for multiple axes, placed above the figure.
+
+    Parameters
+    ----------
+    fig : the figure
+    axes : list of axes whose handles/labels will be merged
+    loc : legend anchor location
+    bbox_to_anchor : position relative to figure
+    ncol : number of legend columns; auto-calculated if None
+    fontsize : legend text size
+    """
+    handles, labels = [], []
+    for ax in axes:
+        h, l = ax.get_legend_handles_labels()
+        handles.extend(h)
+        labels.extend(l)
+    seen = set()
+    unique_handles, unique_labels = [], []
+    for h, l in zip(handles, labels):
+        if l not in seen:
+            seen.add(l)
+            unique_handles.append(h)
+            unique_labels.append(l)
+    if ncol is None:
+        ncol = min(len(unique_labels), 4)
+    for ax in axes:
+        if ax.get_legend():
+            ax.get_legend().remove()
+    fig.legend(
+        unique_handles,
+        unique_labels,
+        loc=loc,
+        bbox_to_anchor=bbox_to_anchor,
+        ncol=ncol,
+        fontsize=fontsize,
+        frameon=False,
+    )
+
+
 def _series_colors(palette: dict[str, str], count: int) -> list[str]:
     preferred = ["control", "modified", "optimal", "mechanism", "accent", "danger", "neutral"]
     colors = [palette[key] for key in preferred if key in palette]

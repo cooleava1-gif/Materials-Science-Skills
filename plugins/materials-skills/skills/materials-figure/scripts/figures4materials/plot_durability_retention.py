@@ -8,7 +8,7 @@ import argparse
 import matplotlib.pyplot as plt
 
 from _script_helpers import column, data_path, print_caption, read_csv
-from materials_plot_lib import PALETTE_CBM, add_panel_label, apply_pub_style, finalize_figure, make_grouped_bar
+from materials_plot_lib import PALETTE_CBM, add_panel_label, annotate_bars, apply_pub_style, finalize_figure, make_grouped_bar, tighten_ylimits
 
 
 def main() -> int:
@@ -24,7 +24,7 @@ def main() -> int:
 
     apply_pub_style()
     fig, ax = plt.subplots(figsize=(6.2, 3.8))
-    make_grouped_bar(
+    bars = make_grouped_bar(
         ax,
         labels,
         ["Control", "Modified"],
@@ -33,8 +33,10 @@ def main() -> int:
         error_bars=errors,
         ylabel="Retention ratio (%)",
     )
-    ax.set_ylim(0, 110)
-    add_panel_label(ax, "(d)")
+    all_vals = [v for group in values for v in group]
+    tighten_ylimits(ax, all_vals, margin=0.12, ymin=40)
+    ax.set_ylim(40, 105)
+    add_panel_label(ax, "a")
     fig.tight_layout()
     finalize_figure(fig, "durability_retention", args.output_dir)
     print_caption(
