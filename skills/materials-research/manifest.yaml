@@ -183,6 +183,24 @@ axes:
       generic:
         path: static/fragments/journal/generic.md
         triggers: ["journal", "SCI", "CCS", "土木期刊", "材料期刊"]
+      jacers:
+        path: static/fragments/journal/jacers.md
+        triggers: ["JACerS", "Journal of the American Ceramic Society", "American Ceramic Society"]
+      ceramics-international:
+        path: static/fragments/journal/ceramics-international.md
+        triggers: ["Ceramics International", "ceram. int.", "ceramic int."]
+      energy-buildings:
+        path: static/fragments/journal/energy-buildings.md
+        triggers: ["Energy and Buildings", "energy build.", "energy buildings"]
+      building-environment:
+        path: static/fragments/journal/building-environment.md
+        triggers: ["Building and Environment", "build. environ.", "building environment"]
+      ceramics:
+        path: static/fragments/domain/ceramics.md
+        triggers: ["ceramic", "ceramics", "sintering", "alumina", "zirconia", "silicon carbide", "nitride", "陶瓷", "烧结"]
+      thermal-insulation:
+        path: static/fragments/domain/thermal-insulation.md
+        triggers: ["thermal insulation", "insulation", "aerogel", "foam", "thermal conductivity", "building envelope", "隔热", "保温", "气凝胶"]
 
 references:
   on_demand:

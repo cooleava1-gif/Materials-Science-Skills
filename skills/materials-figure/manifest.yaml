@@ -84,6 +84,12 @@ axes:
       materials:
         path: references/summary-figures.md
         triggers: ["materials", "construction materials", "土木材料", "建筑材料"]
+      ceramics:
+        path: static/fragments/domain/ceramics.md
+        triggers: ["ceramic", "sintering", "alumina", "zirconia", "carbide", "陶瓷"]
+      thermal-insulation:
+        path: static/fragments/domain/thermal-insulation.md
+        triggers: ["thermal insulation", "aerogel", "foam", "insulation", "隔热", "保温"]
 
 references:
   on_demand:
