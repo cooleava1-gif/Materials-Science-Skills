@@ -1,0 +1,151 @@
+characterization:
+- evidence_tier: strong
+  method: SEM
+  purpose: 'Microstructure: grain size, porosity, fracture surface analysis'
+- evidence_tier: definitive
+  method: XRD
+  purpose: Phase identification, crystalline content, polymorph detection (e.g., t→m
+    ZrO₂ transformation)
+- evidence_tier: strong
+  method: Raman Spectroscopy
+  purpose: Phase identification (especially ZrO₂ polymorphs), stress analysis
+- evidence_tier: strong
+  method: TEM
+  purpose: Grain boundary structure, nanoscale phase distribution, dislocation analysis
+- evidence_tier: strong
+  method: Dilatometry
+  purpose: Sintering shrinkage, thermal expansion, phase transformation temperatures
+claim_types:
+- common_risks:
+  - Reporting only mean strength without Weibull statistics
+  - Fracture toughness from indentation method without validation
+  evidence_required:
+  - Mechanical test data with sample size (≥10 for Weibull)
+  - Density and porosity data
+  - 'Processing conditions: sintering T, time, atmosphere'
+  type: performance_improvement
+- common_risks:
+  - Claiming 'grain refinement improves strength' without Hall-Petch analysis
+  - Over-interpreting toughening mechanism from limited TEM evidence
+  evidence_required:
+  - Microstructure evidence (SEM/TEM of key features)
+  - Phase identification (XRD/Raman)
+  - Clear link between microstructural feature and property change
+  type: mechanism_explanation
+coverage_tier: partial
+cross_references:
+  parent: general-materials
+  related:
+  - functional-ceramics
+  - refractories
+  - bioceramics
+description:
+  engineering_problems:
+  - High-temperature mechanical performance and thermal stability
+  - Fracture toughness improvement in brittle ceramics
+  - Wear resistance for tooling and bearing applications
+  - Thermal barrier and environmental barrier coating systems
+  - Sintering optimization for dense, defect-free microstructures
+  summary: Advanced structural ceramics including alumina, zirconia, silicon carbide,
+    silicon nitride, and related materials
+  typical_applications:
+  - Cutting tools and wear-resistant components
+  - High-temperature furnace components and refractories
+  - Ballistic armor
+  - Biomedical implants (alumina, zirconia)
+  - Heat exchangers and SOFC components
+family: ceramics
+figure_archetypes:
+- description: Weibull distribution of flexural strength for reliability assessment
+  id: weibull_plot
+  type: line_plot
+- description: Dilatometric sintering curve (shrinkage vs. temperature)
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_sintering_curve.py
+  id: sintering_curve
+  type: sintering_curve
+- description: 'Multi-panel ceramic characterization: strength + conductivity + sintering'
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_ceramic_strength.py
+  id: ceramic_strength_comparison
+  type: multi_panel
+- description: Thermal conductivity vs. temperature for ceramic samples
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_ceramic_conductivity.py
+  id: ceramic_conductivity
+  type: conductivity_plot
+- description: Stress-strain curves for ceramic materials
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+  id: stress_strain
+  type: stress_strain
+- description: XRD pattern for phase identification
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
+  id: xrd_pattern
+  type: xrd_pattern
+id: structural-ceramics
+name: Structural and Advanced Ceramics
+narrative:
+  arc: Composition/Microstructure → Processing (Sintering) → Mechanical Properties
+    → Thermal Properties → Application
+  skill_references:
+    domain_fragment: skills/materials-research/static/fragments/domain/structural-ceramics.md
+    narrative_guide: skills/materials-writing/references/structural-ceramics-narrative.md
+    reviewer_criteria: skills/materials-reviewer/references/ceramics-reviewer-criteria.md
+properties:
+- id: flexural_strength
+  name: Flexural Strength
+  test_methods:
+  - ASTM C1161 / EN 843-1
+  typical_range: 300–1200
+  unit: MPa
+- id: fracture_toughness
+  name: Fracture Toughness
+  test_methods:
+  - ASTM C1421 (SENB, CNB)
+  - ISO 23146
+  typical_range: 2–10
+  unit: MPa·m¹/²
+- id: vickers_hardness
+  name: Vickers Hardness
+  test_methods:
+  - ASTM C1327 / ISO 14705
+  typical_range: 10–25
+  unit: GPa
+- id: thermal_conductivity
+  name: Thermal Conductivity
+  test_methods:
+  - ASTM E1461 (laser flash)
+  - ASTM C177 (guarded hot plate)
+  typical_range: 2–300
+  unit: W/(m·K)
+- id: cte
+  name: Coefficient of Thermal Expansion
+  test_methods:
+  - ASTM E228 / ISO 17562
+  typical_range: 3–12
+  unit: 10⁻⁶/K
+- id: weibull_modulus
+  name: Weibull Modulus
+  test_methods:
+  - ASTM C1239 / ISO 20501
+  typical_range: 5–20
+  unit: dimensionless
+skill_mapping:
+  data_schemas: []
+  figure_packages:
+  - skills/materials-figure/examples/figure-packages/stress-strain
+  - skills/materials-figure/examples/figure-packages/tg-dsc-thermal
+  figure_scripts:
+  - skills/materials-figure/scripts/figures4materials/plot_sintering_curve.py
+  - skills/materials-figure/scripts/figures4materials/plot_ceramic_strength.py
+  - skills/materials-figure/scripts/figures4materials/plot_ceramic_conductivity.py
+  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+  - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
+standards:
+- purpose: Flexural strength of advanced ceramics at ambient temperature
+  standard: ASTM C1161 / EN 843-1
+- purpose: Fracture toughness (SENB, CNB methods)
+  standard: ASTM C1421
+- purpose: Vickers indentation hardness
+  standard: ASTM C1327 / ISO 14705
+- purpose: Thermal diffusivity and conductivity (laser flash)
+  standard: ASTM E1461 / ISO 22007-4
+- purpose: Weibull statistical analysis of strength data
+  standard: ASTM C1239 / ISO 20501

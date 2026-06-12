@@ -187,6 +187,24 @@ def main() -> int:
     except Exception as exc:
         all_issues["behavioral_tests"] = [f"behavioral test error: {exc}"]
 
+    # material registry validation
+    try:
+        spec4 = importlib.util.spec_from_file_location(
+            "validate_registry",
+            Path(__file__).parent / "validate_registry.py"
+        )
+        if spec4 and spec4.loader:
+            mod4 = importlib.util.module_from_spec(spec4)
+            spec4.loader.exec_module(mod4)
+            registry_issues = mod4.validate_all()
+            if registry_issues:
+                for key, vals in registry_issues.items():
+                    all_issues.setdefault(key, []).extend(vals)
+    except ImportError:
+        all_issues["material_registry"] = ["validate_registry module not available"]
+    except Exception as exc:
+        all_issues["material_registry"] = [f"registry validation error: {exc}"]
+
     if args.json:
         print(json.dumps({"status": "pass" if not all_issues else "fail", "issues": all_issues}, indent=2))
     else:

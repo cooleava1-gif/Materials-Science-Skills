@@ -1,0 +1,8 @@
+id: generic
+path: static/fragments/journal/generic.md
+triggers:
+- journal
+- SCI
+- CCS
+- 土木期刊
+- 材料期刊

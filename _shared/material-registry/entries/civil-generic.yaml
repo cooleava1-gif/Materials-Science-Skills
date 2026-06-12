@@ -1,0 +1,29 @@
+# Material Registry — civil-generic (generic)
+name: "Civil Engineering Materials (General)"
+id: civil-generic
+family: civil
+coverage_tier: generic
+description:
+  summary: "Catch-all for civil/construction materials research not matching a specific sub-domain; provides general civil-engineering material guidance"
+  engineering_problems:
+    - "Material selection for civil engineering applications"
+    - "Performance optimization of construction materials"
+    - "Quality control and test standard compliance"
+  typical_applications:
+    - "General construction and infrastructure"
+    - "Civil engineering research and education"
+narrative:
+  arc: "Material System → Engineering Requirement → Performance Evaluation → Application"
+  skill_references:
+    domain_fragment: "skills/materials-research/static/fragments/domain/civil-generic.md"
+skill_mapping:
+  figure_scripts:
+    - "skills/materials-figure/scripts/figures4materials/plot_stress_strain.py"
+    - "skills/materials-figure/scripts/figures4materials/plot_mechanical_property_radar.py"
+  figure_packages:
+    - "skills/materials-figure/examples/figure-packages/stress-strain"
+  data_schemas: []
+cross_references:
+  related:
+    - construction-materials
+    - general-materials

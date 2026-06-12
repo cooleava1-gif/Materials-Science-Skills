@@ -1,0 +1,120 @@
+characterization:
+- evidence_tier: definitive
+  method: DSC
+  purpose: Melting T, crystallization T, glass transition, crystallinity %
+- evidence_tier: strong
+  method: TGA
+  purpose: Thermal stability, decomposition temperature, filler content
+- evidence_tier: strong
+  method: FTIR
+  purpose: Polymer identification, oxidation products, blend compatibility
+- evidence_tier: strong
+  method: GPC/SEC
+  purpose: Molecular weight distribution, degree of polymerization
+- evidence_tier: strong
+  method: XRD
+  purpose: Crystalline phase identification, crystallinity index
+- evidence_tier: strong
+  method: DMA
+  purpose: 'Viscoelastic properties: storage/loss modulus, Tg, damping'
+claim_types:
+- common_risks:
+  - No specimen conditioning (moisture strongly affects properties)
+  - Comparing across different testing speeds without noting it
+  evidence_required:
+  - Standardized mechanical test data (ASTM/ISO) with specimen geometry
+  - Replicate count and variability
+  - Processing conditions (temperature, cooling rate)
+  type: performance_improvement
+coverage_tier: partial
+cross_references:
+  parent: general-materials
+  related:
+  - thermosets
+  - polymer-composites
+  - rubber-elastomers
+description:
+  engineering_problems:
+  - Melt processing optimization (injection molding, extrusion, 3D printing)
+  - Mechanical property enhancement via fillers, blends, or annealing
+  - Thermal stability and degradation kinetics
+  - Crystallinity control and its effect on properties
+  - Recycling and reprocessing of thermoplastic waste
+  summary: Thermoplastic polymers including PE, PP, PET, nylon, PEEK, polycarbonate,
+    and engineering thermoplastics
+  typical_applications:
+  - Packaging films and containers
+  - Automotive components and lightweight structures
+  - Biomedical implants (UHMWPE, PEEK)
+  - 3D printing filaments
+  - Membrane filtration materials
+family: polymers
+figure_archetypes:
+- description: Tensile stress-strain curves for different formulations
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+  id: stress_strain
+  type: stress_strain
+- description: DSC heating/cooling curves showing melting and crystallization peaks
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_dsc_curve.py
+  id: dsc_curve
+  type: dsc_curve
+- description: Normalized multi-property radar for formulation comparison
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanical_property_radar.py
+  id: mechanical_radar
+  type: radar_chart
+id: thermoplastics
+name: Thermoplastics
+narrative:
+  arc: Monomer/Polymer Structure → Processing → Morphology → Properties → Application
+  skill_references:
+    domain_fragment: skills/materials-research/static/fragments/domain/thermoplastics.md
+    narrative_guide: skills/materials-writing/references/thermoplastics-narrative.md
+    reviewer_criteria: skills/materials-reviewer/references/polymers-reviewer-criteria.md
+properties:
+- id: tensile_strength
+  name: Tensile Strength
+  test_methods:
+  - ASTM D638 / ISO 527
+  typical_range: 10–100
+  unit: MPa
+- id: elongation_break
+  name: Elongation at Break
+  test_methods:
+  - ASTM D638 / ISO 527
+  typical_range: 2–600
+  unit: '%'
+- id: youngs_modulus
+  name: Young's Modulus
+  test_methods:
+  - ASTM D638 / ISO 527
+  typical_range: 0.1–4
+  unit: GPa
+- id: melting_temperature
+  name: Melting Temperature
+  test_methods:
+  - ASTM D3418 (DSC)
+  typical_range: 120–350
+  unit: °C
+- id: mfi
+  name: MFI (Melt Flow Index)
+  test_methods:
+  - ASTM D1238 / ISO 1133
+  typical_range: 0.1–50
+  unit: g/10 min
+skill_mapping:
+  data_schemas: []
+  figure_packages:
+  - skills/materials-figure/examples/figure-packages/tg-dsc-thermal
+  figure_scripts:
+  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+  - skills/materials-figure/scripts/figures4materials/plot_dsc_curve.py
+  - skills/materials-figure/scripts/figures4materials/plot_mechanical_property_radar.py
+standards:
+- purpose: Tensile properties of plastics
+  standard: ASTM D638 / ISO 527
+- purpose: Transition temperatures by DSC
+  standard: ASTM D3418 / ISO 11357
+- purpose: Melt mass-flow rate (MFR / MFI)
+  standard: ASTM D1238 / ISO 1133
+- purpose: Dynamic mechanical properties (DMA)
+  standard: ASTM D4065 / ISO 6721

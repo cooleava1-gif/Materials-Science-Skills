@@ -1,0 +1,9 @@
+id: ferrous-alloys
+path: static/fragments/domain/ferrous-alloys.md
+triggers:
+- stainless steel
+- carbon steel
+- tool steel
+- ferrous alloy
+- 钢铁
+- 不锈钢

@@ -1,0 +1,5 @@
+id: general
+path: static/fragments/domain/general-materials.md
+triggers:
+- materials
+- 通用

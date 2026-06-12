@@ -1,0 +1,5 @@
+id: cbm
+path: static/fragments/journal/cbm.md
+triggers:
+- CBM
+- Construction and Building Materials

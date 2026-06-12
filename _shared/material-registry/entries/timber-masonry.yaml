@@ -1,0 +1,34 @@
+characterization:
+- evidence_tier: definitive
+  method: Mechanical Testing
+  purpose: Compression, bending, and tension parallel/perpendicular to grain
+- evidence_tier: supporting
+  method: SEM
+  purpose: Wood/bamboo microstructure, adhesive penetration
+coverage_tier: skeleton
+cross_references:
+  parent: civil-generic
+description:
+  engineering_problems:
+  - Moisture-induced degradation and dimensional stability
+  - Connection and joining technology
+  - Fire resistance of timber structures
+  summary: Engineered wood products, masonry units, bamboo composites, and natural
+    building materials
+  typical_applications:
+  - Timber frame buildings
+  - Masonry wall construction
+  - Bamboo reinforcement and structural elements
+family: civil
+id: timber-masonry
+name: Timber, Masonry, and Bamboo Materials
+narrative:
+  arc: Raw Material → Processing → Mechanical Properties → Durability → Structural
+    Application
+  skill_references:
+    domain_fragment: skills/materials-research/static/fragments/domain/civil-generic.md
+    narrative_guide: skills/materials-writing/references/timber-masonry-narrative.md
+skill_mapping:
+  data_schemas: []
+  figure_packages: []
+  figure_scripts: []

@@ -1,0 +1,80 @@
+characterization:
+- evidence_tier: strong
+  method: DMA
+  purpose: 'Viscoelastic properties: storage/loss modulus, tan δ, Tg'
+- evidence_tier: strong
+  method: TGA
+  purpose: Filler content (carbon black), polymer degradation profile
+- evidence_tier: strong
+  method: SEM
+  purpose: Filler dispersion, fracture surface, phase morphology in blends
+coverage_tier: partial
+cross_references:
+  parent: general-materials
+  related:
+  - thermoplastics
+  - thermosets
+description:
+  engineering_problems:
+  - Elastic recovery and hysteresis performance
+  - Aging and ozone resistance
+  - Filler reinforcement (carbon black, silica) optimization
+  - Curing (vulcanization) system design
+  - Oil and chemical resistance
+  summary: Natural rubber, SBR, EPDM, silicone elastomers, polyurethane, and other
+    crosslinked rubber systems
+  typical_applications:
+  - Tires and tire components
+  - Seals, gaskets, and O-rings
+  - Vibration isolators and bushings
+  - Conveyor belts and hose
+family: polymers
+figure_archetypes:
+- description: Tensile stress-strain curves up to failure
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+  id: stress_strain
+  type: stress_strain
+id: rubber-elastomers
+name: Rubbers and Elastomers
+narrative:
+  arc: Compounding → Curing → Crosslink Network → Mechanical Performance → Aging Resistance
+  skill_references:
+    domain_fragment: skills/materials-research/static/fragments/domain/rubber-elastomers.md
+    narrative_guide: skills/materials-writing/references/rubber-elastomers-narrative.md
+    reviewer_criteria: skills/materials-reviewer/references/polymers-reviewer-criteria.md
+properties:
+- id: tensile_strength
+  name: Tensile Strength
+  test_methods:
+  - ASTM D412 / ISO 37
+  typical_range: 5–30
+  unit: MPa
+- id: elongation_break
+  name: Elongation at Break
+  test_methods:
+  - ASTM D412 / ISO 37
+  typical_range: 100–800
+  unit: '%'
+- id: shore_hardness
+  name: Hardness (Shore A)
+  test_methods:
+  - ASTM D2240 / ISO 7619
+  typical_range: 30–90
+  unit: Shore A
+- id: tear_resistance
+  name: Tear Resistance
+  test_methods:
+  - ASTM D624 / ISO 34-1
+  typical_range: 10–100
+  unit: kN/m
+- id: compression_set
+  name: Compression Set
+  test_methods:
+  - ASTM D395 / ISO 815
+  typical_range: 10–50
+  unit: '%'
+skill_mapping:
+  data_schemas: []
+  figure_packages: []
+  figure_scripts:
+  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py

@@ -1,0 +1,9 @@
+id: thermosets
+path: static/fragments/domain/thermosets.md
+triggers:
+- thermoset
+- epoxy resin
+- phenolic
+- polyimide
+- 热固性
+- 环氧树脂

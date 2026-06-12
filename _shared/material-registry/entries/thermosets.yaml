@@ -1,0 +1,81 @@
+characterization:
+- evidence_tier: definitive
+  method: DSC
+  purpose: Curing exotherm, degree of cure, residual heat, Tg
+- evidence_tier: strong
+  method: DMA
+  purpose: Tg, crosslink density (rubbery plateau), viscoelastic properties
+- evidence_tier: strong
+  method: FTIR
+  purpose: Functional group conversion monitoring during cure
+- evidence_tier: strong
+  method: TGA
+  purpose: Thermal stability, decomposition onset, char yield
+coverage_tier: partial
+cross_references:
+  parent: general-materials
+  related:
+  - thermoplastics
+  - polymer-composites
+description:
+  engineering_problems:
+  - Curing kinetics and network formation optimization
+  - Thermomechanical performance above Tg
+  - Adhesion and bonding to substrates (metals, composites, concrete)
+  - Chemical and solvent resistance
+  summary: Epoxy resins, phenolic resins, polyimide, unsaturated polyester, and other
+    crosslinkable polymer systems
+  typical_applications:
+  - Structural adhesives and coatings
+  - Matrix resins for fiber-reinforced composites
+  - Encapsulation and potting compounds
+  - High-temperature electrical insulation
+family: polymers
+figure_archetypes:
+- description: DSC exotherm showing curing peak and residual heat
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_dsc_curve.py
+  id: dsc_curing_curve
+  type: dsc_curve
+- description: DMA temperature sweep showing storage modulus and tan δ
+  id: dma_curve
+  type: line_plot
+id: thermosets
+name: Thermosetting Polymers
+narrative:
+  arc: Resin + Hardener → Curing → Network Structure → Properties → Service Performance
+  skill_references:
+    domain_fragment: skills/materials-research/static/fragments/domain/thermosets.md
+    narrative_guide: skills/materials-writing/references/thermosets-narrative.md
+    reviewer_criteria: skills/materials-reviewer/references/polymers-reviewer-criteria.md
+properties:
+- id: glass_transition_temperature
+  name: Glass Transition Temperature (Tg)
+  test_methods:
+  - ASTM D3418 (DSC)
+  - ASTM D4065 (DMA)
+  typical_range: 50–250
+  unit: °C
+- id: tensile_strength
+  name: Tensile Strength
+  test_methods:
+  - ASTM D638 / ISO 527
+  typical_range: 30–100
+  unit: MPa
+- id: flexural_modulus
+  name: Flexural Modulus
+  test_methods:
+  - ASTM D790 / ISO 178
+  typical_range: 1–5
+  unit: GPa
+- id: crosslink_density
+  name: Crosslink Density
+  test_methods:
+  - DMA (rubbery plateau modulus)
+  typical_range: 0.001–0.01
+  unit: mol/cm³
+skill_mapping:
+  data_schemas: []
+  figure_packages: []
+  figure_scripts:
+  - skills/materials-figure/scripts/figures4materials/plot_dsc_curve.py
+  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py

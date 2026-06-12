@@ -1,0 +1,49 @@
+characterization:
+- evidence_tier: definitive
+  method: XRD
+  purpose: Phase composition after service, reaction layer identification
+- evidence_tier: strong
+  method: SEM/EDS
+  purpose: Slag penetration, corrosion interface, microstructure evolution
+- evidence_tier: strong
+  method: Thermal Shock Testing
+  purpose: Residual strength after thermal cycling
+coverage_tier: skeleton
+cross_references:
+  related:
+  - structural-ceramics
+description:
+  engineering_problems:
+  - Thermal shock resistance optimization
+  - Slag corrosion and erosion resistance in metallurgical applications
+  - High-temperature mechanical strength and creep resistance
+  - Thermal insulation efficiency in furnace linings
+  summary: Fireclay, magnesia, alumina, silicon carbide, and other high-temperature
+    refractory ceramics for industrial furnaces
+  typical_applications:
+  - Steelmaking ladles and converters
+  - Cement kiln linings
+  - Glass furnace refractories
+  - Waste incineration furnace linings
+family: ceramics
+figure_archetypes:
+- description: Residual strength vs. number of thermal cycles
+  id: thermal_cycling
+  type: line_plot
+- description: Densification behavior
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_sintering_curve.py
+  id: sintering_curve
+  type: sintering_curve
+id: refractories
+name: Refractory Materials
+narrative:
+  arc: Raw Materials → Forming → Firing → Properties → Service Performance → Degradation
+  skill_references:
+    domain_fragment: skills/materials-research/static/fragments/domain/refractories.md
+    narrative_guide: skills/materials-writing/references/refractories-narrative.md
+    reviewer_criteria: skills/materials-reviewer/references/ceramics-reviewer-criteria.md
+skill_mapping:
+  data_schemas: []
+  figure_packages: []
+  figure_scripts:
+  - skills/materials-figure/scripts/figures4materials/plot_sintering_curve.py

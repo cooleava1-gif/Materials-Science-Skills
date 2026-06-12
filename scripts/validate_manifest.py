@@ -12,8 +12,11 @@ import sys
 from pathlib import Path
 
 
-SKILLS_ROOT = Path(__file__).resolve().parents[1] / "skills"
-CONTRACTS_DIR = Path(__file__).resolve().parents[1] / "_shared" / "contracts"
+repo_root = Path(__file__).resolve().parents[1]
+SKILLS_ROOT = repo_root / "skills"
+CONTRACTS_DIR = repo_root / "_shared" / "contracts"
+
+REGISTRY_DIR = repo_root / "_shared" / "material-registry" / "entries"
 
 ALL_SKILLS = [
     "materials-citation",
@@ -46,12 +49,31 @@ def _load_yaml(path: Path) -> dict | None:
         return None
 
 
+def _is_registry_referenced(skill_name: str, filename: str) -> bool:
+    """Check if a file is referenced by any Material Registry entry."""
+    if not REGISTRY_DIR.exists():
+        return False
+    for entry_path in sorted(REGISTRY_DIR.glob("*.yaml")):
+        entry = _load_yaml(entry_path)
+        if not entry:
+            continue
+        narrative = entry.get("narrative", {})
+        if not isinstance(narrative, dict):
+            continue
+        refs = narrative.get("skill_references", {}) or {}
+        for ref_key in ("domain_fragment", "narrative_guide", "reviewer_criteria"):
+            ref_path = refs.get(ref_key, "")
+            if isinstance(ref_path, str) and ref_path.endswith(filename) and skill_name in ref_path:
+                return True
+    return False
+
+
 def _collect_paths_from_dict(d: dict, base: Path) -> list[Path]:
-    """Recursively collect all 'path' values from a nested dict structure."""
+    """Recursively collect all 'path' and 'trigger_file' values from a nested dict structure."""
     paths = []
     if isinstance(d, dict):
         for k, v in d.items():
-            if k == "path" and isinstance(v, str):
+            if k in ("path", "trigger_file") and isinstance(v, str):
                 full = (base / v).resolve()
                 paths.append(full)
             else:
@@ -181,7 +203,18 @@ def validate_skill(skill_name: str) -> list[str]:
             for val_name, val_def in values.items():
                 if not isinstance(val_def, dict):
                     continue
+                # Load triggers from inline list or external trigger_file
                 triggers = val_def.get("triggers", [])
+                trigger_file_ref = val_def.get("trigger_file")
+                if trigger_file_ref and isinstance(trigger_file_ref, str):
+                    # Load external trigger file
+                    tf_path = (skill_root / trigger_file_ref).resolve()
+                    if tf_path.exists():
+                        tf_data = _load_yaml(tf_path)
+                        if tf_data and isinstance(tf_data, dict) and "triggers" in tf_data:
+                            triggers = tf_data["triggers"]
+                    else:
+                        issues.append(f"trigger_file not found: {trigger_file_ref} (axis '{axis_name}.{val_name}')")
                 if not isinstance(triggers, list) or len(triggers) < 2:
                     issues.append(
                         f"axis '{axis_name}.{val_name}' has {len(triggers) if isinstance(triggers, list) else 0} triggers (need >=2)"
@@ -244,7 +277,9 @@ def validate_skill(skill_name: str) -> list[str]:
             if ref_file.suffix == ".md" and ref_file.is_file():
                 resolved = ref_file.resolve()
                 if resolved not in all_refs:
-                    # Check if it's referenced in any axes or on_demand path
+                    # Check if it's referenced through the Material Registry
+                    if _is_registry_referenced(skill_name, ref_file.name):
+                        continue
                     rel = resolved.relative_to(skill_root)
                     issues.append(f"dangling reference (not referenced by manifest): {rel}")
 

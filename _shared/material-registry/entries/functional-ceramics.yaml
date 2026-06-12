@@ -1,0 +1,59 @@
+characterization:
+- evidence_tier: definitive
+  method: XRD
+  purpose: Phase identification, tetragonality (c/a ratio), crystallite size
+- evidence_tier: strong
+  method: SEM
+  purpose: Grain size, density, domain structure (etching)
+- evidence_tier: definitive
+  method: Impedance Analyzer
+  purpose: Dielectric constant, loss tangent, resonance/anti-resonance frequencies
+- evidence_tier: strong
+  method: P-E Hysteresis (Ferroelectric Tester)
+  purpose: Remnant polarization, coercive field, saturation polarization
+- evidence_tier: supporting
+  method: Raman Spectroscopy
+  purpose: Phase transition detection, local structure, oxygen octahedral distortion
+coverage_tier: skeleton
+cross_references:
+  related:
+  - structural-ceramics
+  - dielectrics-piezoelectrics
+description:
+  engineering_problems:
+  - Piezoelectric coefficient (d₃₃) optimization via composition and poling
+  - Dielectric constant and loss control for capacitor and RF applications
+  - Temperature stability of dielectric properties
+  - Co-firing compatibility in multilayer devices
+  summary: Piezoelectric ceramics (PZT, BaTiO₃, KNN), dielectric/ferroelectric ceramics,
+    LTCC, and microwave ceramics
+  typical_applications:
+  - Piezoelectric actuators and sensors
+  - Multilayer ceramic capacitors (MLCCs)
+  - Microwave dielectric resonators and filters
+  - LTCC substrates for electronic packaging
+family: ceramics
+figure_archetypes:
+- description: XRD patterns showing phase evolution with composition
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
+  id: xrd_pattern
+  type: xrd_pattern
+- description: Densification behavior during sintering
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_sintering_curve.py
+  id: sintering_curve
+  type: sintering_curve
+id: functional-ceramics
+name: Functional Ceramics (Piezoelectric, Dielectric)
+narrative:
+  arc: Composition → Processing → Structure → Dielectric/Piezoelectric Properties
+    → Device Performance
+  skill_references:
+    domain_fragment: skills/materials-research/static/fragments/domain/functional-ceramics.md
+    narrative_guide: skills/materials-writing/references/functional-ceramics-narrative.md
+    reviewer_criteria: skills/materials-reviewer/references/ceramics-reviewer-criteria.md
+skill_mapping:
+  data_schemas: []
+  figure_packages: []
+  figure_scripts:
+  - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
+  - skills/materials-figure/scripts/figures4materials/plot_sintering_curve.py
