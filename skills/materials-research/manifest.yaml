@@ -123,6 +123,32 @@ axes:
         path: references/paper-production-orchestrator.md
         triggers: ["submission package", "cover letter", "highlights", "投稿包"]
 
+  material_family:
+    detect: "Which materials family is central?"
+    default: general
+    values:
+      civil:
+        path: static/fragments/domain/civil-family.md
+        triggers: ["civil", "construction", "building", "pavement", "土木", "建筑"]
+      polymers:
+        path: static/fragments/domain/polymers-family.md
+        triggers: ["polymer", "resin", "rubber", "epoxy", "高分子", "聚合物", "树脂"]
+      metals:
+        path: static/fragments/domain/metals-family.md
+        triggers: ["metal", "alloy", "steel", "aluminum", "金属", "合金", "钢"]
+      ceramics:
+        path: static/fragments/domain/ceramics-family.md
+        triggers: ["ceramic", "porcelain", "refractory", "陶瓷", "耐火"]
+      functional:
+        path: static/fragments/domain/functional-family.md
+        triggers: ["semiconductor", "dielectric", "piezoelectric", "半导体", "介电", "压电"]
+      nano:
+        path: static/fragments/domain/nano-family.md
+        triggers: ["nano", "nanoparticle", "2D material", "纳米", "纳米材料"]
+      general:
+        path: static/fragments/domain/general-materials.md
+        triggers: ["materials", "通用"]
+
   domain:
     detect: "Which materials field is central?"
     default: civil-generic
@@ -154,6 +180,66 @@ axes:
       civil-generic:
         path: static/fragments/domain/civil-generic.md
         triggers: ["civil", "engineering", "土木", "工程"]
+      thermoplastics:
+        path: static/fragments/domain/thermoplastics.md
+        triggers: ["thermoplastic", "PE", "PP", "PET", "nylon", "PEEK", "polycarbonate", "热塑性"]
+      thermosets:
+        path: static/fragments/domain/thermosets.md
+        triggers: ["thermoset", "epoxy resin", "phenolic", "polyimide", "热固性", "环氧树脂"]
+      rubber-elastomers:
+        path: static/fragments/domain/rubber-elastomers.md
+        triggers: ["rubber", "elastomer", "SBR", "EPDM", "silicone", "橡胶", "弹性体"]
+      polymer-composites:
+        path: static/fragments/domain/polymer-composites.md
+        triggers: ["FRP", "CFRP", "GFRP", "fiber reinforced", "纤维增强"]
+      ferrous-alloys:
+        path: static/fragments/domain/ferrous-alloys.md
+        triggers: ["stainless steel", "carbon steel", "tool steel", "ferrous alloy", "钢铁", "不锈钢"]
+      nonferrous-alloys:
+        path: static/fragments/domain/nonferrous-alloys.md
+        triggers: ["aluminum", "copper", "magnesium alloy", "铝合金", "铜合金"]
+      high-temperature-alloys:
+        path: static/fragments/domain/high-temperature-alloys.md
+        triggers: ["superalloy", "Ni-based", "titanium alloy", "高温合金", "钛合金"]
+      additive-metals:
+        path: static/fragments/domain/additive-metals.md
+        triggers: ["AM metal", "3D printed metal", "SLM", "EBM", "金属增材"]
+      structural-ceramics:
+        path: static/fragments/domain/structural-ceramics.md
+        triggers: ["alumina", "zirconia", "SiC", "silicon carbide", "氧化铝", "氧化锆"]
+      functional-ceramics:
+        path: static/fragments/domain/functional-ceramics.md
+        triggers: ["piezoelectric ceramic", "PZT", "BaTiO3", "LTCC", "压电陶瓷"]
+      refractories:
+        path: static/fragments/domain/refractories.md
+        triggers: ["refractory", "fireclay", "magnesia", "耐火材料"]
+      bioceramics:
+        path: static/fragments/domain/bioceramics.md
+        triggers: ["bioceramic", "hydroxyapatite", "bioactive glass", "生物陶瓷"]
+      semiconductors:
+        path: static/fragments/domain/semiconductors.md
+        triggers: ["semiconductor", "silicon wafer", "GaN", "perovskite", "半导体"]
+      dielectrics-piezoelectrics:
+        path: static/fragments/domain/dielectrics-piezoelectrics.md
+        triggers: ["dielectric", "capacitor", "piezoelectric", "介电", "压电"]
+      photonic-optoelectronic:
+        path: static/fragments/domain/photonic-optoelectronic.md
+        triggers: ["LED", "solar cell", "photodetector", "光电", "太阳能电池"]
+      nanoparticles:
+        path: static/fragments/domain/nanoparticles.md
+        triggers: ["nanoparticle", "quantum dot", "nanopowder", "纳米颗粒"]
+      nano-thin-films:
+        path: static/fragments/domain/nano-thin-films.md
+        triggers: ["thin film", "thin film deposition", "PVD", "CVD", "薄膜"]
+      2d-materials:
+        path: static/fragments/domain/2d-materials.md
+        triggers: ["graphene", "MoS2", "MXene", "2D material", "石墨烯"]
+      nanocomposites:
+        path: static/fragments/domain/nanocomposites.md
+        triggers: ["nanocomposite", "nano-filler", "纳米复合"]
+      general-materials:
+        path: static/fragments/domain/general-materials.md
+        triggers: ["general materials", "materials science", "通用材料"]
 
   journal:
     detect: "Which target journal or journal family is named?"
@@ -201,6 +287,30 @@ axes:
       thermal-insulation:
         path: static/fragments/domain/thermal-insulation.md
         triggers: ["thermal insulation", "insulation", "aerogel", "foam", "thermal conductivity", "building envelope", "隔热", "保温", "气凝胶"]
+      nature-materials:
+        path: static/fragments/journal/nature-materials.md
+        triggers: ["Nature Materials", "Nat. Mater."]
+      advanced-materials:
+        path: static/fragments/journal/advanced-materials.md
+        triggers: ["Advanced Materials", "Adv. Mater."]
+      acs-nano:
+        path: static/fragments/journal/acs-nano.md
+        triggers: ["ACS Nano", "ACS Nano Lett."]
+      nano-letters:
+        path: static/fragments/journal/nano-letters.md
+        triggers: ["Nano Letters", "Nano Lett."]
+      advanced-functional-materials:
+        path: static/fragments/journal/advanced-functional-materials.md
+        triggers: ["Advanced Functional Materials", "Adv. Funct. Mater.", "AFM"]
+      jmca:
+        path: static/fragments/journal/jmca.md
+        triggers: ["J. Mater. Chem. A", "JMCA", "Journal of Materials Chemistry A"]
+      progress-polymer-science:
+        path: static/fragments/journal/progress-polymer-science.md
+        triggers: ["Progress in Polymer Science", "Prog. Polym. Sci."]
+      acta-materialia:
+        path: static/fragments/journal/acta-materialia.md
+        triggers: ["Acta Materialia", "Acta Mater."]
 
 references:
   on_demand:

@@ -1,4 +1,4 @@
-"""Civil materials publication-ready matplotlib helper functions."""
+"""Materials science publication-ready matplotlib helper functions."""
 
 from __future__ import annotations
 

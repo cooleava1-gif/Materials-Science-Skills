@@ -34,7 +34,7 @@ axes:
         triggers: ["journal", "submission", "target", "投稿", "选刊", "期刊"]
       experiment-design:
         path: static/fragments/task/experiment-design.md
-        triggers: ["experiment", "test matrix", "实验方案", "实验矩阵", "试验设计"]
+        triggers: ["experiment", "test matrix", "实验方案", "实验矩阵", "试验设计", "DOE", "factorial", "response surface", "RSM", "Taguchi", "正交试验", "响应面", "因子设计"]
       data-analysis:
         path: static/fragments/task/data-analysis.md
         triggers: ["data", "result", "interpret", "statistics", "数据", "结果分析", "数据分析", "强度", "粘度", "黏度", "储存稳定性"]
@@ -123,6 +123,32 @@ axes:
         path: references/paper-production-orchestrator.md
         triggers: ["submission package", "cover letter", "highlights", "投稿包"]
 
+  material_family:
+    detect: "Which materials family is central?"
+    default: general
+    values:
+      civil:
+        path: static/fragments/domain/civil-family.md
+        triggers: ["civil", "construction", "building", "pavement", "土木", "建筑"]
+      polymers:
+        path: static/fragments/domain/polymers-family.md
+        triggers: ["polymer", "resin", "rubber", "epoxy", "高分子", "聚合物", "树脂"]
+      metals:
+        path: static/fragments/domain/metals-family.md
+        triggers: ["metal", "alloy", "steel", "aluminum", "金属", "合金", "钢"]
+      ceramics:
+        path: static/fragments/domain/ceramics-family.md
+        triggers: ["ceramic", "porcelain", "refractory", "陶瓷", "耐火"]
+      functional:
+        path: static/fragments/domain/functional-family.md
+        triggers: ["semiconductor", "dielectric", "piezoelectric", "半导体", "介电", "压电"]
+      nano:
+        path: static/fragments/domain/nano-family.md
+        triggers: ["nano", "nanoparticle", "2D material", "纳米", "纳米材料"]
+      general:
+        path: static/fragments/domain/general-materials.md
+        triggers: ["materials", "通用"]
+
   domain:
     detect: "Which materials field is central?"
     default: civil-generic
@@ -154,6 +180,66 @@ axes:
       civil-generic:
         path: static/fragments/domain/civil-generic.md
         triggers: ["civil", "engineering", "土木", "工程"]
+      thermoplastics:
+        path: static/fragments/domain/thermoplastics.md
+        triggers: ["thermoplastic", "PE", "PP", "PET", "nylon", "PEEK", "polycarbonate", "热塑性"]
+      thermosets:
+        path: static/fragments/domain/thermosets.md
+        triggers: ["thermoset", "epoxy resin", "phenolic", "polyimide", "热固性", "环氧树脂"]
+      rubber-elastomers:
+        path: static/fragments/domain/rubber-elastomers.md
+        triggers: ["rubber", "elastomer", "SBR", "EPDM", "silicone", "橡胶", "弹性体"]
+      polymer-composites:
+        path: static/fragments/domain/polymer-composites.md
+        triggers: ["FRP", "CFRP", "GFRP", "fiber reinforced", "纤维增强"]
+      ferrous-alloys:
+        path: static/fragments/domain/ferrous-alloys.md
+        triggers: ["stainless steel", "carbon steel", "tool steel", "ferrous alloy", "钢铁", "不锈钢"]
+      nonferrous-alloys:
+        path: static/fragments/domain/nonferrous-alloys.md
+        triggers: ["aluminum", "copper", "magnesium alloy", "铝合金", "铜合金"]
+      high-temperature-alloys:
+        path: static/fragments/domain/high-temperature-alloys.md
+        triggers: ["superalloy", "Ni-based", "titanium alloy", "高温合金", "钛合金"]
+      additive-metals:
+        path: static/fragments/domain/additive-metals.md
+        triggers: ["AM metal", "3D printed metal", "SLM", "EBM", "金属增材"]
+      structural-ceramics:
+        path: static/fragments/domain/structural-ceramics.md
+        triggers: ["alumina", "zirconia", "SiC", "silicon carbide", "氧化铝", "氧化锆"]
+      functional-ceramics:
+        path: static/fragments/domain/functional-ceramics.md
+        triggers: ["piezoelectric ceramic", "PZT", "BaTiO3", "LTCC", "压电陶瓷"]
+      refractories:
+        path: static/fragments/domain/refractories.md
+        triggers: ["refractory", "fireclay", "magnesia", "耐火材料"]
+      bioceramics:
+        path: static/fragments/domain/bioceramics.md
+        triggers: ["bioceramic", "hydroxyapatite", "bioactive glass", "生物陶瓷"]
+      semiconductors:
+        path: static/fragments/domain/semiconductors.md
+        triggers: ["semiconductor", "silicon wafer", "GaN", "perovskite", "半导体"]
+      dielectrics-piezoelectrics:
+        path: static/fragments/domain/dielectrics-piezoelectrics.md
+        triggers: ["dielectric", "capacitor", "piezoelectric", "介电", "压电"]
+      photonic-optoelectronic:
+        path: static/fragments/domain/photonic-optoelectronic.md
+        triggers: ["LED", "solar cell", "photodetector", "光电", "太阳能电池"]
+      nanoparticles:
+        path: static/fragments/domain/nanoparticles.md
+        triggers: ["nanoparticle", "quantum dot", "nanopowder", "纳米颗粒"]
+      nano-thin-films:
+        path: static/fragments/domain/nano-thin-films.md
+        triggers: ["thin film", "thin film deposition", "PVD", "CVD", "薄膜"]
+      2d-materials:
+        path: static/fragments/domain/2d-materials.md
+        triggers: ["graphene", "MoS2", "MXene", "2D material", "石墨烯"]
+      nanocomposites:
+        path: static/fragments/domain/nanocomposites.md
+        triggers: ["nanocomposite", "nano-filler", "纳米复合"]
+      general-materials:
+        path: static/fragments/domain/general-materials.md
+        triggers: ["general materials", "materials science", "通用材料"]
 
   journal:
     detect: "Which target journal or journal family is named?"
@@ -183,6 +269,48 @@ axes:
       generic:
         path: static/fragments/journal/generic.md
         triggers: ["journal", "SCI", "CCS", "土木期刊", "材料期刊"]
+      jacers:
+        path: static/fragments/journal/jacers.md
+        triggers: ["JACerS", "Journal of the American Ceramic Society", "American Ceramic Society"]
+      ceramics-international:
+        path: static/fragments/journal/ceramics-international.md
+        triggers: ["Ceramics International", "ceram. int.", "ceramic int."]
+      energy-buildings:
+        path: static/fragments/journal/energy-buildings.md
+        triggers: ["Energy and Buildings", "energy build.", "energy buildings"]
+      building-environment:
+        path: static/fragments/journal/building-environment.md
+        triggers: ["Building and Environment", "build. environ.", "building environment"]
+      ceramics:
+        path: static/fragments/domain/ceramics.md
+        triggers: ["ceramic", "ceramics", "sintering", "alumina", "zirconia", "silicon carbide", "nitride", "陶瓷", "烧结"]
+      thermal-insulation:
+        path: static/fragments/domain/thermal-insulation.md
+        triggers: ["thermal insulation", "insulation", "aerogel", "foam", "thermal conductivity", "building envelope", "隔热", "保温", "气凝胶"]
+      nature-materials:
+        path: static/fragments/journal/nature-materials.md
+        triggers: ["Nature Materials", "Nat. Mater."]
+      advanced-materials:
+        path: static/fragments/journal/advanced-materials.md
+        triggers: ["Advanced Materials", "Adv. Mater."]
+      acs-nano:
+        path: static/fragments/journal/acs-nano.md
+        triggers: ["ACS Nano", "ACS Nano Lett."]
+      nano-letters:
+        path: static/fragments/journal/nano-letters.md
+        triggers: ["Nano Letters", "Nano Lett."]
+      advanced-functional-materials:
+        path: static/fragments/journal/advanced-functional-materials.md
+        triggers: ["Advanced Functional Materials", "Adv. Funct. Mater.", "AFM"]
+      jmca:
+        path: static/fragments/journal/jmca.md
+        triggers: ["J. Mater. Chem. A", "JMCA", "Journal of Materials Chemistry A"]
+      progress-polymer-science:
+        path: static/fragments/journal/progress-polymer-science.md
+        triggers: ["Progress in Polymer Science", "Prog. Polym. Sci."]
+      acta-materialia:
+        path: static/fragments/journal/acta-materialia.md
+        triggers: ["Acta Materialia", "Acta Mater."]
 
 references:
   on_demand:
@@ -216,12 +344,30 @@ references:
     sustainability-claims-guide:
       path: references/sustainability-claims-guide.md
       when: "The task involves sustainability, low carbon, LCA, environmental impact, recycled materials, waste utilization, or service-life environmental claims."
+    ceramics-guide:
+      path: references/ceramics-guide.md
+      when: "The task involves ceramics characterization, mechanical testing, or sintering."
+    thermal-insulation-guide:
+      path: references/thermal-insulation-guide.md
+      when: "The task involves thermal conductivity measurement, insulation testing, or hygrothermal aging."
+    ceramics-narrative:
+      path: ../materials-writing/references/ceramics-narrative.md
+      when: "The user is writing a ceramics manuscript."
+    insulation-narrative:
+      path: ../materials-writing/references/insulation-narrative.md
+      when: "The user is writing a thermal insulation manuscript."
+    reviewer-ceramics-criteria:
+      path: ../materials-reviewer/references/ceramics-reviewer-criteria.md
+      when: "The user needs reviewer criteria for ceramics."
+    reviewer-insulation-criteria:
+      path: ../materials-reviewer/references/insulation-reviewer-criteria.md
+      when: "The user needs reviewer criteria for thermal insulation."
     thesis-timeline:
       path: references/thesis-timeline.md
       when: "The user asks for master's thesis planning, semester roadmap, paper timeline, weekly research plan, or how to progress from review to experiment to submission."
     companion-modules:
       path: references/companion-modules.md
-      when: "The task should be handed off to materials-reader, materials-citation, materials-writing, materials-polishing, materials-response, materials-reviewer, materials-paper2ppt, materials-pptx, or materials-figure."
+      when: "The task should be handed off to materials-reader, materials-citation, materials-writing, materials-polishing, materials-response, materials-reviewer, materials-paper2ppt, materials-pptx, materials-figure, or materials-doe."
     paper-production-orchestrator:
       path: references/paper-production-orchestrator.md
       when: "The user asks for WER-EA mini-review production, experimental manuscript planning, paper gates, weakness routing, reviewer-risk loops, or end-to-end paper-production control."
@@ -258,6 +404,7 @@ companion_skills:
   pptx: materials-pptx
   figure: materials-figure
   data: materials-data
+  doe: materials-doe
 assets: []
 scripts:
   - scripts

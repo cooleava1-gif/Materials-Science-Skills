@@ -65,6 +65,31 @@ axes:
       journal-club:
         path: references/journal-club-reading.md
         triggers: ["journal club", "group meeting", "组会", "汇报"]
+  material_family:
+    detect: "Which materials family is central?"
+    default: general
+    values:
+      civil:
+        path: ../materials-research/static/fragments/domain/civil-family.md
+        triggers: ["civil", "construction", "building", "pavement", "土木", "建筑"]
+      polymers:
+        path: ../materials-research/static/fragments/domain/polymers-family.md
+        triggers: ["polymer", "resin", "rubber", "epoxy", "高分子", "聚合物", "树脂"]
+      metals:
+        path: ../materials-research/static/fragments/domain/metals-family.md
+        triggers: ["metal", "alloy", "steel", "aluminum", "金属", "合金", "钢"]
+      ceramics:
+        path: ../materials-research/static/fragments/domain/ceramics-family.md
+        triggers: ["ceramic", "porcelain", "refractory", "陶瓷", "耐火"]
+      functional:
+        path: ../materials-research/static/fragments/domain/functional-family.md
+        triggers: ["semiconductor", "dielectric", "piezoelectric", "半导体", "介电", "压电"]
+      nano:
+        path: ../materials-research/static/fragments/domain/nano-family.md
+        triggers: ["nano", "nanoparticle", "2D material", "纳米", "纳米材料"]
+      general:
+        path: ../materials-research/static/fragments/domain/general-materials.md
+        triggers: ["materials", "通用"]
 references:
   on_demand:
     pdf-reading:
