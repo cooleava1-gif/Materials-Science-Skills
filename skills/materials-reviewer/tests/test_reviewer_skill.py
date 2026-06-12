@@ -40,7 +40,10 @@ class ReviewerSkillStructureTest(unittest.TestCase):
             "references/editorial-criteria.md": ["CBM", "CCC", "RMPD", "JBE", "desk rejection"],
             "references/review-axes.md": ["Innovation", "Methodology", "Evidence completeness", "Figure/table quality"],
             "references/report-structure.md": ["Major comments", "Minor comments", "Recommendation"],
-            "references/materials-criteria.md": ["Asphalt", "Emulsified asphalt", "Epoxy resin", "Evidence hierarchy"],
+            "references/asphalt-reviewer-criteria.md": ["Asphalt", "Emulsified asphalt", "Bonding", "Storage stability"],
+            "references/cement-reviewer-criteria.md": ["Cement", "Concrete", "Water-binder ratio", "Compressive strength"],
+            "references/ceramics-reviewer-criteria.md": ["Sintering", "Flexural strength", "XRD", "SEM"],
+            "references/insulation-reviewer-criteria.md": ["Thermal conductivity", "Density", "Compressive strength", "Moisture"],
             "references/mechanism-evidence-checklist.md": ["FTIR", "SEM", "fluorescence", "rheology"],
             "references/qa-checklist.md": ["overclaim", "missing test conditions", "replicate", "scale bar"],
         }
