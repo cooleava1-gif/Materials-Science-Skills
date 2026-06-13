@@ -18,6 +18,20 @@ This index is for people deciding which materials skill to use before invoking C
 | `materials-figure` | Stable production skill | Yes | Yes | Data table, reader/citation handoff, figure idea | Figure plan, review-figure intake, WER-EA atlas, SVG/PNG package, caption boundary |
 | `materials-data` | Stable FAIR skill | Yes | Yes | Raw/processed data, metadata needs | FAIR package, data availability statement |
 
+## Material Coverage Tiers
+
+When you start research with `materials-research`, the router checks your
+material domain's **coverage tier**. This determines what the AI can offer:
+
+| Tier | Icon | What the AI knows |
+|---|---|---|
+| **full** | 🟢 | Deep narrative guide, dedicated figure scripts, reviewer criteria, worked examples |
+| **partial** | 🟡 | Narrative guide + at least one support resource (figures or reviewer criteria) |
+| **skeleton** | 🔵 | Domain fragment + auto-generated narrative template |
+| **generic** | ⚪ | General materials science guidance only |
+
+The full coverage dashboard is at [docs/coverage-dashboard.md](docs/coverage-dashboard.md).
+
 ## Module Notes
 
 ### `materials-research`

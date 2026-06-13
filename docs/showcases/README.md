@@ -11,6 +11,20 @@ surface is real.
 2. [Reviewer response](reviewer-response.md)
 3. [FAIR data package](fair-data-package.md)
 
+## Golden Sample Demos
+
+These walk through the full research pipeline for three material systems,
+demonstrating what each coverage tier (full/partial) looks like in practice:
+
+| Demo | Tier | What it shows |
+|---|---|---|
+| [asphalt-pavement-demo.md](asphalt-pavement-demo.md) | 🟢 full | Search → reader → evidence → DOE → figures → risks → submission |
+| [thermal-insulation-demo.md](thermal-insulation-demo.md) | 🟡 partial | Same pipeline, fewer dedicated figure scripts |
+| [polymer-composites-demo.md](polymer-composites-demo.md) | 🟡 partial | Same pipeline, identifies gaps to reach full tier |
+
+The demos also serve as **contribution guides**: each partial-tiers demo
+lists the specific files needed to reach full tier.
+
 ## How To Use These Pages
 
 - Start here when the desired output is already clear.

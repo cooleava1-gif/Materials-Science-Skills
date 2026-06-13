@@ -86,6 +86,23 @@ If you want the index first, open [docs/workflows/README.md](docs/workflows/READ
 | `materials-data` | FAIR package, data availability statement |
 | `materials-doe` | Experiment plan, analysis script |
 
+## Material Coverage
+
+Different material systems have different support depths. The bundle
+currently covers **30 material systems** with four tiers:
+
+| Tier | Count | Meaning |
+|---|---|---|
+| 🟢 **full** | 1 | Battle-tested (narrative + figures + reviewer criteria + examples) |
+| 🟡 **partial** | 9 | Structured support (narrative + figures or reviewer criteria) |
+| 🔵 **skeleton** | 17 | Routable (domain fragment + auto-generated narrative) |
+| ⚪ **generic** | 3 | Catch-all (general materials guidance) |
+
+**Full dashboard → [docs/coverage-dashboard.md](docs/coverage-dashboard.md)**
+
+To check support for a specific material when working with the AI, ask:
+> *"What is the coverage tier for [material system]?"*
+
 ## What You Can Open Immediately
 
 - Human-readable skill guide:
