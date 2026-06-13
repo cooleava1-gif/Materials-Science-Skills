@@ -1,9 +1,9 @@
 # Golden Sample: Asphalt-Pavement (WER-EA)
 
-> **Coverage Tier**: 🟢 full  
-> **Registry entry**: `_shared/material-registry/entries/asphalt-pavement.yaml`  
-> **Domain fragment**: `skills/materials-research/static/fragments/domain/asphalt-pavement.md`  
-> **Narrative guide**: `skills/materials-writing/references/asphalt-pavement-narrative.md`  
+> **Coverage Tier**: 🟢 full
+> **Registry entry**: `_shared/material-registry/entries/asphalt-pavement.yaml`
+> **Domain fragment**: `skills/materials-research/static/fragments/domain/asphalt-pavement.md`
+> **Narrative guide**: `skills/materials-writing/references/asphalt-pavement-narrative.md`
 > **Reviewer criteria**: `skills/materials-reviewer/references/asphalt-reviewer-criteria.md`
 
 This is the most deeply supported material system in the bundle. It covers

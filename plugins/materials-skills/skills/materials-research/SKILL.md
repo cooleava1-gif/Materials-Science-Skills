@@ -21,3 +21,7 @@ Route research workflows across the materials skill bundle. This is the day-to-d
 - Do not skip to writing or figures before research and citation are grounded.
 - Gate each stage on the previous stage's output contract.
 - Recommend `materials-citation` first when literature gaps exist.
+- **Report coverage_tier**: when routing to a material domain, include its
+  coverage tier (full / partial / skeleton / generic) so the user knows what
+  depth of support to expect. If the tier is skeleton or generic, set
+  expectations accordingly and offer to build custom content.

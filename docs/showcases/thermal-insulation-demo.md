@@ -1,9 +1,9 @@
 # Golden Sample: Thermal Insulation Materials
 
-> **Coverage Tier**: 🟡 partial  
-> **Registry entry**: `_shared/material-registry/entries/thermal-insulation.yaml`  
-> **Domain fragment**: `skills/materials-research/static/fragments/domain/thermal-insulation.md`  
-> **Narrative guide**: `skills/materials-writing/references/thermal-insulation-narrative.md`  
+> **Coverage Tier**: 🟡 partial
+> **Registry entry**: `_shared/material-registry/entries/thermal-insulation.yaml`
+> **Domain fragment**: `skills/materials-research/static/fragments/domain/thermal-insulation.md`
+> **Narrative guide**: `skills/materials-writing/references/thermal-insulation-narrative.md`
 > **Reviewer criteria**: `skills/materials-reviewer/references/insulation-reviewer-criteria.md`
 
 Covers aerogels, foams, fibrous insulation, vacuum insulation panels (VIPs),

@@ -1,9 +1,9 @@
 # Golden Sample: Polymer Composites (FRP/CFRP/GFRP)
 
-> **Coverage Tier**: 🟡 partial  
-> **Registry entry**: `_shared/material-registry/entries/polymer-composites.yaml`  
-> **Domain fragment**: `skills/materials-research/static/fragments/domain/polymer-composites.md`  
-> **Narrative guide**: `skills/materials-writing/references/polymer-composites-narrative.md`  
+> **Coverage Tier**: 🟡 partial
+> **Registry entry**: `_shared/material-registry/entries/polymer-composites.yaml`
+> **Domain fragment**: `skills/materials-research/static/fragments/domain/polymer-composites.md`
+> **Narrative guide**: `skills/materials-writing/references/polymer-composites-narrative.md`
 > **Reviewer criteria**: `skills/materials-reviewer/references/polymers-reviewer-criteria.md`
 
 Covers carbon-, glass-, and aramid-fiber reinforced polymer composites for
