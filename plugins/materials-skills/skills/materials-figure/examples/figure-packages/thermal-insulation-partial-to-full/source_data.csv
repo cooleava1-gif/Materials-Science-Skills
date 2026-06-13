@@ -1,0 +1,5 @@
+panel,item,value,unit,evidence_layer,source_anchor,boundary
+A,conductivity-density,synthetic,W m-1 K-1 and kg m-3,property-performance,row:conductivity_density,dry-state only
+B,pore structure,synthetic,um,process-structure-property,row:pore_structure,placeholder microstructure
+C,hygrothermal aging,synthetic,retention %,durability-aging,row:hygrothermal_aging,protocol must be specified
+D,application window,synthetic,score,comparison-window,row:application_window,weights must be disclosed

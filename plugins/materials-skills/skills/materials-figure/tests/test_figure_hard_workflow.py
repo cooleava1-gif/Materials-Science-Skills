@@ -19,11 +19,9 @@ class FigureHardWorkflowStructureTest(unittest.TestCase):
         workflow_text = (SKILL_ROOT / "static" / "core" / "workflow.md").read_text(encoding="utf-8")
 
         for phrase in [
-            "backend gate",
             "Python or R?",
-            "Do not default",
-            "selected backend is exclusive",
-            "figure package",
+            "BLOCKING",
+            "SVG-first",
         ]:
             self.assertIn(phrase, skill_text)
 
@@ -132,6 +130,9 @@ class FigurePackageAuditScriptTest(unittest.TestCase):
             "wer-ea-mechanism-map",
             "wer-ea-evidence-heatmap",
             "wer-ea-dosage-window",
+            "wer-ea-full",
+            "thermal-insulation-partial-to-full",
+            "polymer-composites-partial-to-full",
             "creep-recovery",
             "psd-gradation",
             "rheology-flow-curve",

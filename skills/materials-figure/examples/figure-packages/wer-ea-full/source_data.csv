@@ -1,0 +1,5 @@
+panel,item,value,unit,evidence_layer,source_anchor,boundary
+A,mechanism,synthetic,FTIR/rheology/SEM,mechanism,row:mechanism,does not prove field service life
+B,performance,synthetic,MPa,property-performance,row:performance,lab bonding only
+C,evidence heatmap,synthetic,coverage grade,review-evidence-map,row:evidence_heatmap,coverage is not certainty
+D,literature screening,synthetic,records,review-evidence-map,row:literature_screening,screening flow is illustrative

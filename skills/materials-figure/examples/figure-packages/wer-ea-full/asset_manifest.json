@@ -1,0 +1,46 @@
+{
+  "layout": "2x2",
+  "title": "WER-EA full evidence-to-application figure",
+  "panels": [
+    {
+      "id": "A",
+      "role": "mechanism-evidence",
+      "title": "Mechanism map",
+      "claim": "Demulsification and epoxy curing jointly support the proposed interfacial bonding mechanism.",
+      "evidence": "Synthetic FTIR/rheology/SEM anchors for WER-EA curing, demulsification, and emulsion stability.",
+      "source": "source_data.csv"
+    },
+    {
+      "id": "B",
+      "role": "property-performance",
+      "title": "Performance window",
+      "claim": "Bonding performance improves within a bounded WER dosage window.",
+      "evidence": "Synthetic pull-off and shear strength rows with curing condition.",
+      "source": "source_data.csv"
+    },
+    {
+      "id": "C",
+      "role": "review-evidence-map",
+      "title": "Evidence heatmap",
+      "claim": "Literature evidence is strongest for bonding and weakest for field durability.",
+      "evidence": "Synthetic evidence heatmap graded by characterization, performance, and durability coverage.",
+      "source": "source_data.csv"
+    },
+    {
+      "id": "D",
+      "role": "review-evidence-map",
+      "title": "Literature screening",
+      "claim": "Screening narrows broad WER-EA records to mechanism-performance evidence rows.",
+      "evidence": "Synthetic literature screening flow with inclusion and exclusion reasons.",
+      "source": "source_data.csv"
+    }
+  ],
+  "outputs": [
+    "figure.svg",
+    "figure.pdf",
+    "figure.png",
+    "figure.tiff",
+    "caption_boundary.md",
+    "figure_qa_report.md"
+  ]
+}

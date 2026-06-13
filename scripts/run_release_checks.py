@@ -54,6 +54,11 @@ FIGURE_HARD_WORKFLOW_FILES = [
     "static/core/stance.md",
     "manifest.yaml",
     "SKILL.md",
+    "references/materials-figure-atlas.md",
+    "references/caption_boundary.md",
+    "references/figure_qa_report.md",
+    "assets/templates/figure_storyboard.yaml",
+    "scripts/compose_multipanel_figure.py",
 ]
 
 FIGURE_HARD_WORKFLOW_EVAL_IDS = [
@@ -68,6 +73,24 @@ PAPER_PRODUCTION_EXAMPLES = [
     "paper-production-mini-review-example.md",
     "wer-ea-mini-review-weakness-routing.csv",
     "wer-ea-mini-review-gate-report.md",
+]
+
+WRITING_MATURITY_FILES = [
+    "references/section-patterns/abstract-claim-arc.md",
+    "references/section-patterns/introduction-gap-ladder.md",
+    "references/section-patterns/results-discussion-evidence-chain.md",
+    "references/section-patterns/conclusion-boundary.md",
+    "references/section-patterns/review-synthesis-patterns.md",
+    "references/phrase-banks/wer-ea.md",
+    "references/phrase-banks/thermal-insulation.md",
+    "references/phrase-banks/polymer-composites.md",
+    "scripts/audit_materials_manuscript.py",
+]
+
+FIGURE_GOLDEN_PACKAGES = [
+    "wer-ea-full",
+    "thermal-insulation-partial-to-full",
+    "polymer-composites-partial-to-full",
 ]
 
 
@@ -88,6 +111,39 @@ def collect_paper_production_orchestrator_issues(skill_root: Path) -> list[str]:
     ]:
         if not (examples / name).exists():
             issues.append(f"missing _shared/paper-production/examples/{name}")
+    return issues
+
+
+def collect_writing_maturity_issues(skill_root: Path) -> list[str]:
+    issues = []
+    writing_root = skill_root / "materials-writing"
+    for name in WRITING_MATURITY_FILES:
+        if not (writing_root / name).exists():
+            issues.append(f"missing materials-writing/{name}")
+    return issues
+
+
+def collect_figure_maturity_issues(skill_root: Path) -> list[str]:
+    issues = []
+    figure_root = skill_root / "materials-figure"
+    packages_root = figure_root / "examples" / "figure-packages"
+    for package in FIGURE_GOLDEN_PACKAGES:
+        package_root = packages_root / package
+        if not package_root.exists():
+            issues.append(f"missing materials-figure/examples/figure-packages/{package}")
+            continue
+        for name in [
+            "README.md",
+            "figure_storyboard.yaml",
+            "caption_boundary.md",
+            "figure_qa_report.md",
+            "figure.svg",
+            "figure.pdf",
+            "figure.png",
+            "figure.tiff",
+        ]:
+            if not (package_root / name).exists():
+                issues.append(f"missing materials-figure/examples/figure-packages/{package}/{name}")
     return issues
 
 
@@ -122,6 +178,10 @@ def main() -> int:
     if orchestrator_issues:
         all_issues["paper_production_orchestrator"] = orchestrator_issues
 
+    writing_maturity_issues = collect_writing_maturity_issues(SKILLS_ROOT)
+    if writing_maturity_issues:
+        all_issues["writing_maturity"] = writing_maturity_issues
+
     # figure_hard_workflow check
     figure_root = SKILLS_ROOT / "materials-figure"
     figure_issues = []
@@ -133,6 +193,10 @@ def main() -> int:
         figure_issues.append("missing scripts/audit_figure_package.py")
     if figure_issues:
         all_issues["figure_hard_workflow"] = figure_issues
+
+    figure_maturity_issues = collect_figure_maturity_issues(SKILLS_ROOT)
+    if figure_maturity_issues:
+        all_issues["figure_maturity"] = figure_maturity_issues
 
     # handoff contract validation
     try:

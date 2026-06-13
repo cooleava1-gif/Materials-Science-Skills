@@ -1,0 +1,46 @@
+{
+  "layout": "2x2",
+  "title": "Thermal insulation partial-to-full evidence package",
+  "panels": [
+    {
+      "id": "A",
+      "role": "property-performance",
+      "title": "Conductivity-density",
+      "claim": "Thermal conductivity is interpreted together with density.",
+      "evidence": "Synthetic conductivity-density rows with dry-state test condition.",
+      "source": "source_data.csv"
+    },
+    {
+      "id": "B",
+      "role": "process-structure-property",
+      "title": "Pore structure",
+      "claim": "Pore structure evidence explains the conductivity-density trend.",
+      "evidence": "Synthetic SEM or micro-CT pore structure descriptor.",
+      "source": "source_data.csv"
+    },
+    {
+      "id": "C",
+      "role": "durability-aging",
+      "title": "Hygrothermal aging",
+      "claim": "Hygrothermal aging retention bounds the service claim.",
+      "evidence": "Synthetic moisture and aging retention rows.",
+      "source": "source_data.csv"
+    },
+    {
+      "id": "D",
+      "role": "comparison-window",
+      "title": "Application window",
+      "claim": "Application window requires conductivity, density, hygrothermal aging, and fire performance together.",
+      "evidence": "Synthetic integrated scoring rows including fire performance.",
+      "source": "source_data.csv"
+    }
+  ],
+  "outputs": [
+    "figure.svg",
+    "figure.pdf",
+    "figure.png",
+    "figure.tiff",
+    "caption_boundary.md",
+    "figure_qa_report.md"
+  ]
+}

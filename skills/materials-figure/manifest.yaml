@@ -160,6 +160,14 @@ references:
       path: references/visual-asset-roadmap.md
     - condition: table system templates for comparison matrices
       path: references/table-system.md
+    - condition: fixed materials figure archetypes, process-structure-property mapping, mechanism evidence chains, durability aging, comparison windows, or review evidence maps
+      path: references/materials-figure-atlas.md
+    - condition: multi-panel storyboard planning, A-F panel narrative order, 2x2, 2x3, or graphical abstract composition
+      path: assets/templates/figure_storyboard.yaml
+    - condition: caption claims, panel-level evidence limits, or caption boundary audit
+      path: references/caption_boundary.md
+    - condition: figure QA, font, font size, legend, units, resolution, or editable SVG text checks
+      path: references/figure_qa_report.md
 assets:
   - assets
 scripts:

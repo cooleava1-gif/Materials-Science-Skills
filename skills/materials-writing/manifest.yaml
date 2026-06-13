@@ -142,6 +142,30 @@ references:
     table-system:
       path: references/table-system.md
       when: "The user needs table system templates."
+    section-patterns-abstract:
+      path: references/section-patterns/abstract-claim-arc.md
+      when: "The user needs a materials-science abstract arc from background pain to application boundary."
+    section-patterns-introduction:
+      path: references/section-patterns/introduction-gap-ladder.md
+      when: "The user needs an introduction gap ladder, novelty chain, or field-progress to evidence-gap structure."
+    section-patterns-results-discussion:
+      path: references/section-patterns/results-discussion-evidence-chain.md
+      when: "The user needs results and discussion logic from observation to mechanism evidence and alternative explanation exclusion."
+    section-patterns-conclusion:
+      path: references/section-patterns/conclusion-boundary.md
+      when: "The user needs a conclusion that states contribution, limitations, next steps, and overclaim boundaries."
+    section-patterns-review:
+      path: references/section-patterns/review-synthesis-patterns.md
+      when: "The user is writing review-paper synthesis, classification, controversy, trend, or research-gap paragraphs."
+    phrase-bank-wer-ea:
+      path: references/phrase-banks/wer-ea.md
+      when: "The manuscript concerns WER-EA bonding, demulsification, curing, interfacial energy, or emulsion stability."
+    phrase-bank-thermal-insulation:
+      path: references/phrase-banks/thermal-insulation.md
+      when: "The manuscript concerns thermal insulation, thermal conductivity, density, pore structure, hygrothermal aging, or fire performance."
+    phrase-bank-polymer-composites:
+      path: references/phrase-banks/polymer-composites.md
+      when: "The manuscript concerns polymer composites, interfacial bonding, fiber orientation, interlaminar shear, fatigue, or fracture mechanism."
 assets:
   - assets
 scripts:
