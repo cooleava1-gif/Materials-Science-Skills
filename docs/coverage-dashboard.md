@@ -10,7 +10,7 @@
 | Material System | Family | Tier | Narrative Guide | Reviewer Criteria | Figure Scripts | Example Package |
 |---|---|---|---|---|---|---|
 | **asphalt-pavement** | civil | 🟢 **full** | ✅ asphalt-pavement-narrative | ✅ asphalt-reviewer-criteria | ✅ 21 scripts | ✅ 3 packages |
-| **cement-concrete** | civil | 🟡 **partial** | ✅ cement-concrete-narrative | ✅ cement-reviewer-criteria | — | — |
+| **cement-concrete** | civil | 🟢 **full** | ✅ cement-concrete-narrative | ✅ cement-reviewer-criteria | ✅ 6 scripts | ✅ 1 package |
 | **construction-materials** | civil | ⚪ **generic** | — | — | — | — |
 | **steel-metal** | civil | 🔵 **skeleton** | ✅ steel-metal-narrative | — | ✅ 2 generic | — |
 | **geotechnical-materials** | civil | 🔵 **skeleton** | ✅ geotechnical-materials-narrative | — | — | — |

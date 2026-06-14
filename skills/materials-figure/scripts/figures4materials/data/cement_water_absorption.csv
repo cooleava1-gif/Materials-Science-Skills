@@ -1,0 +1,8 @@
+mix_design,water_absorption_pct,absorption_sd,porosity_pct,porosity_sd,capillary_absorption_g_per_cm2_h05
+Control,5.8,0.4,12.5,0.8,0.85
+5% FA,5.2,0.3,11.2,0.7,0.72
+10% FA,4.6,0.4,10.1,0.6,0.61
+15% FA,4.2,0.3,9.5,0.5,0.55
+30% GGBS,4.0,0.3,9.2,0.6,0.52
+50% GGBS,3.5,0.2,8.2,0.5,0.42
+10% SF + 30% GGBS,3.0,0.2,7.1,0.4,0.35
