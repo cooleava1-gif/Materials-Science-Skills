@@ -1,0 +1,68 @@
+characterization:
+- evidence_tier: strong
+  method: Load Rating Analysis
+  purpose: Structural capacity evaluation, inventory and operating rating
+- evidence_tier: strong
+  method: Bridge Condition Index (BCI)
+  purpose: Element-level condition assessment, deterioration modeling
+- evidence_tier: strong
+  method: Static Load Test
+  purpose: Deflection and strain measurement under controlled loads
+- evidence_tier: strong
+  method: Dynamic Load Test
+  purpose: Natural frequency, damping ratio, impact factor
+- evidence_tier: strong
+  method: Finite Element Model Updating
+  purpose: Model calibration with field data, parameter identification
+- evidence_tier: supporting
+  method: Acoustic Emission
+  purpose: Crack detection, active damage monitoring
+- evidence_tier: supporting
+  method: Ultrasonic Pulse Velocity
+  purpose: Concrete quality, delamination detection
+- evidence_tier: supporting
+  method: Half-Cell Potential
+  purpose: Corrosion probability of reinforcing steel
+claim_types:
+- common_risks:
+  - Claiming load rating improvement without field validation
+  - Ignoring dynamic amplification in rating calculations
+  evidence_required:
+  - Load test data (static or dynamic) with model correlation
+  - Rating factor calculation per AASHTO LRFR or equivalent
+  type: structural_capacity
+- common_risks:
+  - Extrapolating short-term monitoring to long-term deterioration
+  - Ignoring climate effects on deterioration rate
+  evidence_required:
+  - Minimum 2 years of condition data for deterioration modeling
+  - Climate zone and exposure conditions specified
+  type: deterioration_prediction
+- common_risks:
+  - Claiming 'structural health' from single sensor location
+  - Over-interpreting frequency shifts without statistical basis
+  evidence_required:
+  - Multiple sensor locations with spatial correlation
+  - Statistical significance of measured changes
+  type: shm_validation
+coverage_tier: full
+cross_references:
+  parent: civil-generic
+  related:
+  - steel-metal
+  - cement-concrete
+  - geotechnical-materials
+description:
+  engineering_problems:
+  - Bridge structural assessment and load rating
+  - Deterioration modeling and remaining life prediction
+  - Rehabilitation and strengthening design
+  - Structural health monitoring system design
+  key_methods:
+  - Load rating, load testing, FEM updating, condition survey, SHM
+  target_journals:
+  - Journal of Bridge Engineering
+  - Engineering Structures
+  - Structure and Infrastructure Engineering
+  - Journal of Structural Engineering
+  - Computers and Structures
