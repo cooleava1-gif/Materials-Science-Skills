@@ -1,6 +1,0 @@
-layer_name,thickness_mm,elastic_modulus_mpa,poisson_ratio
-Surface course,40,3500,0.35
-Binder course,60,2800,0.35
-Base course,200,1200,0.35
-Subbase,300,500,0.40
-Subgrade,1000,80,0.45

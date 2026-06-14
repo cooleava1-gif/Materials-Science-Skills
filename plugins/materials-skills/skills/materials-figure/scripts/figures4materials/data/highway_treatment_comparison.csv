@@ -1,7 +1,0 @@
-treatment,initial_cost_per_km,pci_after_treatment,pci_at_5_years,pci_at_10_years,pci_at_15_years,life_extension_years,agency_cost_lifecycle,user_cost_lifecycle
-Do nothing,0,52,38,25,15,0,0,850000
-Crack seal,15000,58,48,35,22,3,45000,780000
-Microsurfacing,45000,72,62,48,32,5,135000,620000
-Thin overlay (25mm),85000,82,75,65,50,8,255000,420000
-Thick overlay (50mm),150000,92,88,82,72,12,45000,280000
-Reconstruction,350000,98,95,92,88,18,350000,150000
