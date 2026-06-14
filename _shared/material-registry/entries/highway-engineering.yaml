@@ -1,0 +1,70 @@
+characterization:
+- evidence_tier: strong
+  method: Falling Weight Deflectometer (FWD)
+  purpose: Structural capacity assessment, back-calculation of layer moduli
+- evidence_tier: strong
+  method: International Roughness Index (IRI)
+  purpose: Ride quality measurement, serviceability evaluation
+- evidence_tier: strong
+  method: Rutting Depth Measurement
+  purpose: Permanent deformation tracking, wheel path assessment
+- evidence_tier: strong
+  method: Pavement Condition Index (PCI)
+  purpose: Overall distress survey, maintenance priority ranking
+- evidence_tier: strong
+  method: Ground Penetrating Radar (GPR)
+  purpose: Layer thickness, void detection, moisture damage
+- evidence_tier: strong
+  method: Traffic Load Spectra (WIM)
+  purpose: Equivalent single axle loads, traffic growth projection
+- evidence_tier: supporting
+  method: Skid Resistance Test
+  purpose: Surface friction, safety evaluation
+- evidence_tier: supporting
+  method: Benkelman Beam
+  purpose: Surface deflection under standard axle load
+claim_types:
+- common_risks:
+  - Claiming pavement life extension without mechanistic basis
+  - Ignoring traffic growth in remaining life prediction
+  evidence_required:
+  - Pavement distress data (rutting, cracking, roughness) with age
+  - Traffic data (ESALs) with growth rate
+  - Climate zone and drainage conditions specified
+  type: performance_prediction
+- common_risks:
+  - Comparing rehabilitation strategies without common baseline
+  - Ignoring life-cycle cost in strategy comparison
+  evidence_required:
+  - Common pavement section and traffic level
+  - Distress measurement at consistent intervals
+  - LCCA or at least initial cost comparison
+  type: strategy_comparison
+- common_risks:
+  - Claiming 'improved performance' from lab-only testing
+  - Not correlating lab results with field performance
+  evidence_required:
+  - Field validation data (test section or case study)
+  - At least one full seasonal cycle of field data
+  type: lab_to_field_correlation
+coverage_tier: full
+cross_references:
+  parent: civil-generic
+  related:
+  - asphalt-pavement
+  - geotechnical-materials
+  - sustainability-durability
+description:
+  engineering_problems:
+  - Pavement structural design and analysis
+  - Performance prediction and remaining life estimation
+  - Maintenance and rehabilitation strategy selection
+  - Pavement management system optimization
+  key_methods:
+  - FWD, IRI, rutting, PCI, GPR, WIM
+  target_journals:
+  - Construction and Building Materials
+  - International Journal of Pavement Engineering
+  - Journal of Transportation Engineering
+  - Road Materials and Pavement Design
+  - Transportation Research Record
