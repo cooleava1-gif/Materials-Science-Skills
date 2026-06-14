@@ -48,7 +48,7 @@ claim_types:
   - Comparison boundary specified (cradle-to-gate, etc.)
   - CO₂ or energy data with source
   type: sustainability_claim
-coverage_tier: full
+coverage_tier: partial
 cross_references:
   parent: civil-generic
   related:
