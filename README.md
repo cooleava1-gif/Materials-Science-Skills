@@ -64,7 +64,7 @@ If you want the index first, open [docs/workflows/README.md](docs/workflows/READ
 ## Installation Paths
 
 - Codex plugin:
-  `codex plugin marketplace add https://github.com/cooleava1-gif/materials-skills.git --ref main`
+  `codex plugin marketplace add https://github.com/cooleava1-gif/Materials-Science-Skills.git --ref main`
   then `codex plugin add materials-skills@materials-skills`
 - Manual skills install:
   run `.\scripts\install.ps1` from the repository root
@@ -111,8 +111,8 @@ To check support for a specific material when working with the AI, ask:
   [docs/workflows/README.md](docs/workflows/README.md)
 - Visual gallery:
   [docs/gallery/README.md](docs/gallery/README.md)
-- WER-EA sample output package:
-  [outputs/wer-ea-30-reading-sample/README.md](outputs/wer-ea-30-reading-sample/README.md)
+- Figure proof assets:
+  `skills/materials-figure/assets/showcase-proof/`
 - Per-skill README files:
   `skills/materials-*/README.md`
 
@@ -121,7 +121,7 @@ To check support for a specific material when working with the AI, ask:
 If you want to see the system before reading every skill:
 
 - [Materials Science Gallery](docs/gallery/README.md) collects editorial multi-panel
-  boards built from reader-package outputs and extracted paper figures.
+  boards built from bundled proof assets and reader-package style handoffs.
 - The front-door boards follow an `overview -> deviation -> relationship`
   narrative so the gallery reads like a product surface instead of a pile of
   screenshots.

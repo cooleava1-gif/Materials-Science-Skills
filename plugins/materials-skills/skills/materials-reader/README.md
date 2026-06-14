@@ -31,8 +31,8 @@ claim-evidence-mechanism-boundary extraction.
 
 - Example:
   `skills/materials-reader/examples/waterborne-epoxy-evidence-chain-example.md`
-- Sample output tree:
-  `outputs/wer-ea-30-reading-sample/`
+- Reader-package protocol:
+  `references/wer-ea-intensive-reading-package.md`
 
 ## Validation
 

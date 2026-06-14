@@ -32,8 +32,8 @@ pavement materials, cement/concrete, durability, or mechanism-heavy topics.
   `skills/materials-citation/assets/templates/citation-matrix-template.csv`
 - Companion example:
   `skills/materials-research/examples/library/citation-matrix-example.md`
-- WER-EA sample package:
-  `outputs/wer-ea-30-reading-sample/review_evidence_matrix.md`
+- WER-EA source-quality reference:
+  `references/wer-ea-screening-and-source-quality.md`
 
 ## Validation
 

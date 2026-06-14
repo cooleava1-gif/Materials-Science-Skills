@@ -9,7 +9,7 @@ between the source repo, plugin mirror, and local Codex installation.
 Add the local marketplace entry and install the plugin:
 
 ```powershell
-codex plugin marketplace add https://github.com/cooleava1-gif/materials-skills.git --ref main
+codex plugin marketplace add https://github.com/cooleava1-gif/Materials-Science-Skills.git --ref main
 codex plugin add materials-skills@materials-skills
 ```
 

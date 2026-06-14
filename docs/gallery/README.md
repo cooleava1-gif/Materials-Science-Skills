@@ -1,9 +1,9 @@
 # Materials Science Gallery
 
 This gallery is the visual proof layer for the bundle. It uses editorial
-multi-panel boards assembled from real reader-package outputs and extracted
-paper figures, so the product surface shows what the system already does
-instead of what it merely claims to do.
+multi-panel boards assembled from bundled proof assets and reader-package style
+handoffs, so the product surface shows what the system already does instead of
+what it merely claims to do.
 
 Template-only atlas cards and style demos still live inside the figure skill as
 internal references, but they no longer serve as the front-door proof surface.
@@ -48,8 +48,6 @@ internal references, but they no longer serve as the front-door proof surface.
 
 ## Artifact Deep Dives
 
-- Reader-package sample:
-  [outputs/wer-ea-30-reading-sample/README.md](../../outputs/wer-ea-30-reading-sample/README.md)
 - Front-door proof board assets:
   `skills/materials-figure/assets/showcase-proof/`
 - Front-door board manifest:

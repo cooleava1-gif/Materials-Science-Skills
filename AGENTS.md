@@ -1,58 +1,60 @@
 # Materials Science Skills
 
-Full-cycle Codex skill bundle for materials science research. Covers 7 material families (civil/construction, polymers, metals, ceramics, functional/electronic, nanomaterials, general) with dual-axis domain routing. Routes work across research, citation, reader, writing, figure, data, polishing, reviewer, response, paper-to-PPT, and PPTX generation.
+Full-cycle Codex skill bundle for materials science research. Covers seven
+material families with dual-axis domain routing, and routes work across
+research, citation, reader, writing, figure, data, polishing, reviewer,
+response, paper-to-PPT, and PPTX generation.
 
 ## Project
 
-- **Stack**: Python 3.11+, skill manifests in YAML, tests with `unittest`
-- **Entry**: any of 12 `materials-*` skills; start with `materials-research` for workflow routing
-- **Plugin mirror**: `plugins/materials-skills/` — installed package mirrored from `skills/`
-- **Design docs**: `docs/superpowers/specs/`
+- **Stack**: Python 3.11+, YAML skill manifests, tests with `unittest`
+- **Entry**: any `materials-*` skill; start with `materials-research` for workflow routing
+- **Plugin mirror**: `plugins/materials-skills/` mirrors the installable skill package
+- **Public docs**: `README.md`, `install.md`, `docs/skills-index.md`, `docs/workflows/`, `docs/showcases/`, `docs/gallery/`
 
 ## Commands
 
 | Purpose | Command |
 |---|---|
-| **Root contract tests** | `python -m unittest discover -s tests -p "test_*.py" -v` |
-| **Single skill tests** | `python -m unittest discover -s skills/materials-<name>/tests -p "test_*.py" -v` |
-| **Citation MCP tests** | `python -m unittest discover -s skills/materials-citation/mcp/academic_search/tests -p "test_*.py" -v` |
-| **Release checks** | `python scripts/run_release_checks.py --json` |
-| **Install** | `.\scripts\install.ps1` (Windows PowerShell) |
+| Root contract tests | `python -m unittest discover -s tests -p "test_*.py" -v` |
+| Single skill tests | `python -m unittest discover -s skills/materials-<name>/tests -p "test_*.py" -v` |
+| Citation MCP tests | `python -m unittest discover -s skills/materials-citation/mcp/academic_search/tests -p "test_*.py" -v` |
+| Release checks | `python scripts/run_release_checks.py --json` |
+| Install | `.\scripts\install.ps1` |
 
 ## Architecture
 
-- **12 skill modules** under `skills/materials-*/`, each with `SKILL.md`, `manifest.yaml`, `agents/openai.yaml`, `tests/`, `README.md`
-- **_shared/** — cross-skill assets: `core/` (stance, ethics, evidence-contract, claim-strength-ladder, source-basis, terminology-ledger), `journal-formats/` (~17 journal format files), `paper-production/` (routing, gate report, weakness templates)
-- **Dual-axis domain routing**: `material_family` (7 coarse: civil/polymers/metals/ceramics/functional/nano/general) + `domain` (29 fine-grained values)
-- **manifest.yaml** — routing axes (`task`, `material_family`, `domain`, `journal`, `paper_stage`, `workflow_mode`, `output_package`) with `always_load`, `detect` triggers, and fragment paths
-- **Output handoffs** — standardized CSV/MD artifacts: `reader-package`, `citation_handoff.csv`, `figure_handoff.csv`, gate reports, doe-handoff
-- **scripts/** — `run_release_checks.py`, `install.ps1`, figure generators, pressure tests
-- **plugins/** — Codex plugin mirror of the source tree
+- 12 skill modules under `skills/materials-*/`, each with `SKILL.md`, `manifest.yaml`, `agents/openai.yaml`, `tests/`, and `README.md`
+- `_shared/` contains cross-skill contracts, paper-production handoffs, material registry entries, and trigger metadata
+- Dual-axis domain routing uses `material_family` plus fine-grained `domain`
+- `manifest.yaml` declares routing axes, `always_load` fragments, assets, scripts, tests, quality gates, handoffs, and release checks
+- Output handoffs use standardized CSV/MD artifacts such as `reader-package`, `citation_handoff.csv`, `figure_handoff.csv`, gate reports, and DOE handoffs
+- `plugins/materials-skills/` should stay synchronized with source skills before release
 
 ## Conventions
 
-- **Naming**: Skills are `materials-*` (not `civil-materials-*`). Plugin dir: `plugins/materials-skills/`. Import: `materials_plot_lib`.
-- Each skill has: `SKILL.md`, `manifest.yaml`, `agents/openai.yaml`, `tests/`, `README.md`
-- Each manifest must include: `assets`, `scripts`, `tests`, `quality_gates`, `handoffs`, `release_checks` blocks
-- Test files: `test_*.py` in `tests/` per skill, using `unittest.TestCase`
-- Citation MCP tests live under `mcp/academic_search/tests/` — separate discovery path
-- No real paper data committed — use synthetic/example data only
-- Paths in scripts use `pathlib.Path`; prefer relative to repo root
-- PowerShell: use `; if ($?) { }` instead of `&&` for command chaining
-- Run `python scripts/run_release_checks.py --json` before declaring any change complete
-- When modifying skills, sync to plugin mirror: `plugins/materials-skills/skills/`
+- Skills are named `materials-*`; plugin directory is `plugins/materials-skills/`
+- Import plotting helpers as `materials_plot_lib`
+- Test files are `test_*.py` and use `unittest.TestCase`
+- Citation MCP tests live under `mcp/academic_search/tests/`
+- Use synthetic/example data only; do not commit real paper data
+- Keep generated work products out of Git. Root-level `outputs/`, local run artifacts, desktop metadata, and internal planning notes are ignored
+- Prefer `pathlib.Path` in scripts
+- On PowerShell, use `; if ($?) { }` instead of `&&`
+- Run `python scripts/run_release_checks.py --json` before declaring a change complete
 
 ## Key Files
 
 | File | Purpose |
 |---|---|
-| `skills/materials-research/manifest.yaml` | Master routing manifest (all 7 axes) |
+| `skills/materials-research/manifest.yaml` | Master routing manifest |
 | `skills/_shared/core/stance.md` | Writing stance and operating principles |
 | `skills/_shared/core/evidence-contract.md` | Evidence standards |
 | `skills/_shared/paper-production/weakness-routing.md` | Weakness routing rules |
-| `scripts/run_release_checks.py` | Architecture validation |
-| `scripts/check_skill_architecture.py` | Manifest lint + mojibake detection |
-| `docs/superpowers/specs/` | Design documents |
+| `scripts/run_release_checks.py` | Release validation |
+| `scripts/check_skill_architecture.py` | Manifest and plugin mirror validation |
+| `docs/workflows/` | Public guided workflow demos |
+| `docs/showcases/` | Public outcome examples |
 
 ## Dependencies
 

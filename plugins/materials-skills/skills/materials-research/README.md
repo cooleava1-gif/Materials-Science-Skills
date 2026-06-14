@@ -32,8 +32,8 @@ evidence-level judgment.
 
 - Example library:
   `skills/materials-research/examples/library/library-index.md`
-- Paper-production PRD:
-  `docs/superpowers/specs/2026-06-09-materials-paper-production-prd.md`
+- Paper-production orchestrator:
+  `references/paper-production-orchestrator.md`
 
 ## Validation
 
