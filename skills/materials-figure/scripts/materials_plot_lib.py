@@ -79,6 +79,96 @@ DEFAULT_COLORS_SINGLE_HUE = [
     PALETTE_SINGLE_HUE["darker"],
 ]
 
+# ── Domain-specific palettes ─────────────────────────────────────────────────
+
+PALETTE_ASPHALT = {
+    "control":    "#6B7B8D",
+    "modified":   "#8B6914",
+    "optimal":    "#4A7C59",
+    "moisture":   "#5B8FA8",
+    "aging":      "#C47B45",
+    "mechanism":  "#8B6F47",
+    "danger":     "#B85450",
+    "neutral":    "#8C8C8C",
+}
+
+PALETTE_CEMENT = {
+    "control":    "#7A7A7A",
+    "modified":   "#4B6F8A",
+    "optimal":    "#4F7C6A",
+    "hydration":  "#C47B45",
+    "mechanism":  "#8B6F47",
+    "durability": "#5B8FA8",
+    "danger":     "#B85450",
+    "neutral":    "#9E9E9E",
+}
+
+PALETTE_POLYMER = {
+    "control":    "#4B6F8A",
+    "modified":   "#9A4D8E",
+    "optimal":    "#4F7C6A",
+    "mechanism":  "#C47B45",
+    "thermal":    "#B85450",
+    "mechanical": "#5B8FA8",
+    "danger":     "#D4574E",
+    "neutral":    "#8C8C8C",
+}
+
+PALETTE_CERAMIC = {
+    "control":    "#8C8C8C",
+    "modified":   "#C47B45",
+    "optimal":    "#4F7C6A",
+    "mechanism":  "#8B6F47",
+    "thermal":    "#B85450",
+    "mechanical": "#4B6F8A",
+    "danger":     "#D4574E",
+    "neutral":    "#9E9E9E",
+}
+
+# ── NMI pastel palette (editorial multi-panel figures) ────────────────────────
+
+PALETTE_NMI_PASTEL = {
+    "baseline_dark":  "#484878",
+    "baseline_mid":   "#7884B4",
+    "baseline_soft":  "#B4C0E4",
+    "ours_tiny":      "#E4E4F0",
+    "ours_base":      "#E4CCD8",
+    "ours_large":     "#F0C0CC",
+    "bg_lilac":       "#E0E0F0",
+    "bg_aqua":        "#E0F0F0",
+    "bg_peach":       "#F0E0D0",
+    "neutral_light":  "#D8D8D8",
+    "neutral_mid":    "#A8A8A8",
+    "neutral_dark":   "#606060",
+    "delta_up":       "#2E9E44",
+    "delta_down":     "#E53935",
+}
+
+DEFAULT_COLORS_NMI_PASTEL = [
+    PALETTE_NMI_PASTEL["baseline_dark"],
+    PALETTE_NMI_PASTEL["baseline_mid"],
+    PALETTE_NMI_PASTEL["baseline_soft"],
+    PALETTE_NMI_PASTEL["ours_tiny"],
+    PALETTE_NMI_PASTEL["ours_base"],
+    PALETTE_NMI_PASTEL["ours_large"],
+]
+
+# ── Domain palette registry (for dynamic lookup) ─────────────────────────────
+
+DOMAIN_PALETTES = {
+    "asphalt":  PALETTE_ASPHALT,
+    "cement":   PALETTE_CEMENT,
+    "polymer":  PALETTE_POLYMER,
+    "ceramic":  PALETTE_CERAMIC,
+    "cbm":      PALETTE_CBM,
+    "ccc":      PALETTE_CCC,
+}
+
+
+def get_domain_palette(domain: str) -> dict[str, str]:
+    """Return the palette for a material domain, falling back to PALETTE_CBM."""
+    return DOMAIN_PALETTES.get(domain.lower(), PALETTE_CBM)
+
 
 
 def luminance_text_color(hex_color: str) -> str:
@@ -568,7 +658,11 @@ def add_shared_legend(
 
 
 def _series_colors(palette: dict[str, str], count: int) -> list[str]:
-    preferred = ["control", "modified", "optimal", "mechanism", "accent", "danger", "neutral"]
+    preferred = [
+        "control", "modified", "optimal", "mechanism", "moisture", "aging",
+        "hydration", "durability", "thermal", "mechanical", "accent", "danger",
+        "comparison", "neutral", "baseline",
+    ]
     colors = [palette[key] for key in preferred if key in palette]
     if not colors:
         colors = list(plt.rcParams["axes.prop_cycle"].by_key().get("color", ["#4B6F8A"]))

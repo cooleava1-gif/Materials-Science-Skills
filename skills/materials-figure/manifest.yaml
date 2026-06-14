@@ -154,6 +154,12 @@ references:
       path: references/paper-derived-visual-patterns.md
     - condition: design theory and visual communication principles
       path: references/figure-design-theory.md
+    - condition: end-to-end figure tutorials, step-by-step plotting walkthroughs, or how-to examples for common materials charts
+      path: references/tutorials.md
+    - condition: R backend workflow, ggplot2 theme, R palettes, R chart patterns, or R export settings
+      path: references/r-workflow.md
+    - condition: R template index, R code templates for grouped bar, dosage curve, FTIR, XRD, heatmap, radar, or multi-panel figures
+      path: references/r-template-index.md
     - condition: paper demo reference for production-quality figures
       path: references/paper-demo-reference.md
     - condition: visual asset roadmap and asset production guide

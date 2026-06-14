@@ -50,6 +50,28 @@ class ResponseExamplesTest(unittest.TestCase):
         for phrase in ["Author Response", "tracked", "cover letter", "Page X", "Lines Y-Z", "conflicting reviewer"]:
             self.assertIn(phrase.lower(), document_text.lower())
 
+    def test_pressure_tests_cover_boundary_scenarios(self):
+        pressure_dir = SKILL_ROOT / "tests" / "pressure-tests"
+        expected_files = [
+            "aggressive-reviewer-mechanism-request.md",
+            "conflicting-reviewers.md",
+            "defensive-draft-audit.md",
+            "impossible-experiment.md",
+            "major-revision-missing-evidence.md",
+            "third-round-reviewer-insists.md",
+            "reviewer-demands-new-theory.md",
+            "statistical-methods-disagreement.md",
+            "scope-creep-out-of-scope-requests.md",
+            "reviewer-misreads-paper.md",
+        ]
+        for filename in expected_files:
+            with self.subTest(filename=filename):
+                path = pressure_dir / filename
+                self.assertTrue(path.exists(), f"pressure test {filename} should exist")
+                text = path.read_text(encoding="utf-8")
+                for section in ["## Expected Behavior", "## Failure Signs"]:
+                    self.assertIn(section, text)
+
     def test_response_document_format_links_to_patterns_instead_of_duplicating_strategy_examples(self):
         document_text = (SKILL_ROOT / "references" / "response-document-format.md").read_text(encoding="utf-8")
 

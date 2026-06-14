@@ -117,6 +117,21 @@ references:
     claim-strength-local:
       path: references/claim-strength-ladder.md
       when: "The user needs a local copy of the claim strength ladder."
+    hourglass-structure:
+      path: references/hourglass-structure.md
+      when: "The user needs to verify section structure, information flow, or paragraph order."
+    vocabulary-upgrade:
+      path: references/vocabulary-upgrade.md
+      when: "The user needs to upgrade weak words, calibrate verbs to evidence level, or replace vague adjectives."
+    citation-integrity:
+      path: references/citation-integrity.md
+      when: "The user needs to audit citations, verify attribution, or check citation density."
+    british-english:
+      path: references/british-english.md
+      when: "The user needs British English spelling, journal-specific English requirements, or consistency checks."
+    proofreading:
+      path: references/proofreading.md
+      when: "The user needs final mechanical checks, proofreading, or pre-submission polish."
 assets:
   - assets
 scripts:
