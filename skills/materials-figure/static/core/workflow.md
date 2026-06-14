@@ -27,14 +27,32 @@ Load `static/fragments/backend/python.md` and follow its execution rules.
 
 Use actual source data, a table-system row, a `source_map.json` anchor, or PDF visual asset metadata. If the user has no evidence yet, produce a plan or template only and label the package `template-only`.
 
-## 5. Create the figure package
+## 5. Use the automatic table loop when possible
+
+If the user provides a CSV/TSV table and asks for plotting, first try the
+automatic Python package loop:
+
+```text
+data table -> data diagnosis -> chart recommendation -> SVG/PNG export -> QA report
+```
+
+Use `scripts/generate_figure_package.py` with `--data`, `--output-dir`,
+`--goal`, and `--figure-name`. The loop writes `figure_intake.yaml`,
+`source_data.csv`, `plot.py`, `figure.svg`, `figure.png`, `caption.md`,
+`qa_report.md`, `asset_manifest.md`, and `figure_contract.md`.
+
+Stop for human clarification only when the table lacks numeric response
+columns, the scientific claim cannot be inferred safely, or the QA report has
+critical issues.
+
+## 6. Create the figure package
 
 Use `references/figure-package-protocol.md` and `assets/templates/figure-package/`. A production package should contain the contract, source data, Python plotting script, SVG/PDF/PNG/TIFF exports, caption, QA report, and asset manifest.
 
-## 6. Run visual QA
+## 7. Run visual QA
 
 Apply `references/figure-qa-contract.md`. Check export formats, final size, text readability, color choices, units, n/error bars/statistics, image scale bars, image provenance, and caption boundary.
 
-## 7. Return the package
+## 8. Return the package
 
 Return the package path, a short claim-evidence summary, the caption boundary, any failed QA items, and the reviewer-risk notes. Do not call a package submission-ready if `scripts/audit_figure_package.py` reports `incomplete`.

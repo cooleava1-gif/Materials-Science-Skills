@@ -23,6 +23,8 @@ full figure package for materials research, especially WER-EA workflows.
 - figure contract and panel logic
 - figure package with script, source data, exports, caption, QA report, and
   asset manifest
+- automatic table-to-figure package with data diagnosis, chart recommendation,
+  SVG/PNG exports, and QA report
 - WER-EA atlas assets and review-figure planning surfaces
 - reviewer-safer caption boundaries that separate measured from inferred claims
 
@@ -64,6 +66,31 @@ Audit the package with
 `skills/materials-figure/scripts/audit_figure_package.py` before calling
 it journal-ready.
 
+## Automatic table-to-figure loop
+
+When a CSV/TSV data table is available, use the automatic Python loop before
+hand-writing a new plot:
+
+```powershell
+python skills/materials-figure/scripts/generate_figure_package.py `
+  --data path/to/source_data.csv `
+  --output-dir outputs/figure-packages/my-figure `
+  --goal "Show the WER dosage trend for bonding strength." `
+  --figure-name my_figure `
+  --json
+```
+
+The loop performs:
+
+```text
+data diagnosis -> chart recommendation -> SVG/PNG export -> QA report
+```
+
+It writes `figure_intake.yaml`, `source_data.csv`, `plot.py`, `figure.svg`,
+`figure.png`, `caption.md`, `qa_report.md`, `asset_manifest.md`, and
+`figure_contract.md`. Use the QA report to decide whether the output is ready,
+needs revision, or is blocked by missing evidence.
+
 ## Example
 
 - Figure package example:
@@ -90,6 +117,7 @@ it journal-ready.
 - export bundle includes SVG, PDF, PNG, and TIFF when possible
 - caption states what the figure supports and what it does not prove
 - QA report covers Python backend exclusivity, export checks, and caption boundary
+- automatic table plots include data diagnosis and chart choice rationale
 - WER-EA mechanism claims stay bounded by real evidence
 
 ## Boundaries

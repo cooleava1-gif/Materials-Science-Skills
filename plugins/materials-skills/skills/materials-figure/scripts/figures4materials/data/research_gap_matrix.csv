@@ -1,0 +1,7 @@
+topic,available_evidence,missing_evidence,reviewer_risk,next_test
+Bonding mechanism,FTIR, SEM,Rheology link,Moderate,Correlation study
+Durability,Aging test,Field validation,High,Long-term monitoring
+Dosage optimization,Laboratory tests,Construction workability,Moderate,Field trial
+Emulsion stability,Storage test,Performance link,Low,Correlation study
+Microstructure,SEM,Quantitative analysis,Moderate,Image analysis
+Sustainability,LCA boundary,Full LCA,High,Complete LCA study

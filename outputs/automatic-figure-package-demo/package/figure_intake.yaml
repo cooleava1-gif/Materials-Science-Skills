@@ -1,0 +1,20 @@
+version: 1
+figure_name: "wer_bond_strength"
+source_data: "outputs\automatic-figure-package-demo\wer_bond_strength.csv"
+goal: "Show the optimum WER dosage window for bonding strength."
+backend: python
+data_profile:
+  row_count: 5
+  numeric_columns:
+    - "WER content (%)"
+    - "Bond strength (MPa)"
+    - "SD"
+  categorical_columns:
+    - "Condition"
+  error_columns:
+    - "SD"
+recommendation:
+  chart_type: "errorbar_trend"
+  x_column: "WER content (%)"
+  y_column: "Bond strength (MPa)"
+  error_column: "SD"

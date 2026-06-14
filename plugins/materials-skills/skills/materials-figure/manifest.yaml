@@ -126,6 +126,8 @@ axes:
 
 references:
   on_demand:
+    - condition: user provides CSV/TSV experimental data and asks for automatic plotting, one-click figure generation, chart recommendation, SVG/PNG export, or QA report
+      path: references/automatic-figure-package.md
     - condition: create a complete figure package or audit a package
       path: references/figure-package-protocol.md
     - condition: before final delivery, journal-ready package, microscopy image plate, or statistics-heavy figure
@@ -164,6 +166,9 @@ assets:
   - assets
 scripts:
   - scripts
+  - scripts/data_diagnose.py
+  - scripts/recommend_chart.py
+  - scripts/generate_figure_package.py
 tests:
   - tests
 quality_gates:

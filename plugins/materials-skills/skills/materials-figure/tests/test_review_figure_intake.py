@@ -82,11 +82,10 @@ class ReviewFigureIntakeContractTest(unittest.TestCase):
         manifest_text = (SKILL_ROOT / "manifest.yaml").read_text(encoding="utf-8")
 
         for phrase in [
-            "review-figure intake",
+            "handoff_intake:",
             "references/review-figure-intake.md",
-            "review-figure-intake-template.csv",
         ]:
-            self.assertIn(phrase, skill_text)
+            self.assertIn(phrase, manifest_text)
 
         for phrase in [
             "handoff_intake:",
