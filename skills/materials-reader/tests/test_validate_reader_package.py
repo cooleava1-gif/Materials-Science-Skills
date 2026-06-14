@@ -48,7 +48,7 @@ class ValidateReaderPackageTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             package_dir = self.build_package(Path(tmp))
             (package_dir / "paper.md").write_text(
-                "# Paper\n\nC:\\Users\\97218\\secret.pdf\n",
+                "# Paper\n\nC:\\Users\\testuser\\secret.pdf\n",
                 encoding="utf-8",
             )
             result = validator.validate_reader_package(package_dir)
