@@ -21,7 +21,7 @@ One sentence:
 
 ## Backend
 
-- Selected backend:
+- Python backend:
 - Runtime/package status:
 - Backend exclusivity note:
 

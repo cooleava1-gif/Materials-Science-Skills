@@ -1,20 +1,20 @@
 # Python Backend Fragment
 
-Use this fragment only after the user has selected Python or supplied a clearly Python-based workflow.
+Use this fragment for all plotting workflows in the Python-only figure skill.
 
-## Exclusive Backend Rule
+## Python-Only Rule
 
-All figure drawing, previewing, exporting, and visual QA renders must use Python. Do not switch to R for convenience.
+All figure drawing, previewing, exporting, and visual QA renders must use Python.
 
 ## Runtime Check
 
 Check Python and required plotting packages early:
 
 ```powershell
-python -c "import matplotlib, pandas, PIL"
+python -c "import matplotlib, numpy, PIL"
 ```
 
-For heatmaps or richer statistical plots, also check seaborn when needed. If packages are missing, stop before rendering and report the selected-backend blocker.
+For heatmaps or richer statistical plots, also check seaborn when needed. If packages are missing, stop before rendering and report the Python-only backend blocker.
 
 ## Publication Defaults
 
@@ -41,4 +41,4 @@ Python is recommended for:
 
 Use `scripts/materials_plot_lib.py` and `scripts/figures4materials/` when a production helper or example exists. Use `scripts/audit_figure_package.py` after exports are written.
 
-The same backend must produce SVG, PDF, TIFF, PNG, previews, and QA render outputs.
+The Python backend must produce SVG, PDF, TIFF, PNG, previews, and QA render outputs.

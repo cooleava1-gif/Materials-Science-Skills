@@ -36,8 +36,106 @@ class MatplotlibProductionLibraryTest(unittest.TestCase):
             "add_panel_label",
             "add_error_bars",
             "finalize_figure",
+            "make_scatter_regression",
+            "make_boxplot_with_points",
+            "make_violin_plot",
+            "make_contour_map",
+            "make_3d_surface",
+            "make_polar_plot",
+            "make_errorbar_trend",
+            "make_dual_axis_trend",
+            "make_correlation_heatmap",
+            "make_stacked_composition_bar",
         ]:
             self.assertTrue(hasattr(lib, name), f"{name} should be exposed")
+
+    def test_expanded_python_helpers_render_core_chart_families(self):
+        lib = self.load_plot_lib()
+        lib.apply_pub_style()
+
+        import matplotlib
+
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+        import numpy as np
+
+        with tempfile.TemporaryDirectory() as tmp:
+            fig, axes = plt.subplots(2, 2, figsize=(8, 6))
+            lib.make_scatter_regression(
+                axes[0, 0],
+                x=[0, 5, 10, 15, 20],
+                y=[0.42, 0.54, 0.70, 0.79, 0.73],
+                palette=lib.PALETTE_ASPHALT,
+                xlabel="WER content (%)",
+                ylabel="Bond strength (MPa)",
+            )
+            lib.make_boxplot_with_points(
+                axes[0, 1],
+                groups=["Control", "10% WER", "15% WER"],
+                data_dict={"Control": [0.41, 0.44, 0.40], "10% WER": [0.58, 0.62, 0.59], "15% WER": [0.74, 0.78, 0.81]},
+                palette=lib.PALETTE_ASPHALT,
+                ylabel="Strength (MPa)",
+            )
+            lib.make_violin_plot(
+                axes[1, 0],
+                groups=["Dry", "Wet"],
+                data_dict={"Dry": [0.70, 0.76, 0.79, 0.82], "Wet": [0.51, 0.55, 0.58, 0.61]},
+                palette=lib.PALETTE_ASPHALT,
+                ylabel="Bond strength (MPa)",
+            )
+            lib.make_errorbar_trend(
+                axes[1, 1],
+                x=[0, 10, 20],
+                y=[0.42, 0.68, 0.61],
+                yerr=[0.03, 0.04, 0.04],
+                palette=lib.PALETTE_ASPHALT,
+                xlabel="WER content (%)",
+                ylabel="Strength (MPa)",
+            )
+            outputs = lib.finalize_figure(fig, "expanded_helpers_a", output_dir=tmp, formats=("svg", "png"), dpi=120)
+            self.assertEqual({Path(path).suffix for path in outputs}, {".svg", ".png"})
+
+            fig2, axes2 = plt.subplots(2, 2, figsize=(8, 6), subplot_kw={"projection": None})
+            xx, yy = np.meshgrid(np.linspace(0, 20, 5), np.linspace(20, 60, 5))
+            zz = 0.3 + 0.02 * xx - 0.001 * (yy - 40) ** 2
+            lib.make_contour_map(axes2[0, 0], xx, yy, zz, xlabel="WER (%)", ylabel="Curing temp (C)")
+            lib.make_dual_axis_trend(
+                axes2[0, 1],
+                x=[0, 10, 20],
+                y_left=[0.42, 0.68, 0.61],
+                y_right=[220, 360, 410],
+                palette=lib.PALETTE_ASPHALT,
+                left_label="Strength (MPa)",
+                right_label="Viscosity (mPa s)",
+            )
+            lib.make_correlation_heatmap(
+                axes2[1, 0],
+                data=np.array([[1, 0.8], [0.8, 1]]),
+                labels=["Strength", "Retention"],
+            )
+            lib.make_stacked_composition_bar(
+                axes2[1, 1],
+                labels=["Control", "WER-EA"],
+                series_dict={"Asphalt": [92, 80], "Water": [8, 10], "WER": [0, 10]},
+                palette=lib.PALETTE_ASPHALT,
+                ylabel="Composition (%)",
+            )
+            outputs2 = lib.finalize_figure(fig2, "expanded_helpers_b", output_dir=tmp, formats=("svg", "png"), dpi=120)
+            self.assertEqual({Path(path).suffix for path in outputs2}, {".svg", ".png"})
+
+            fig3 = plt.figure(figsize=(8, 4))
+            ax3d = fig3.add_subplot(1, 2, 1, projection="3d")
+            lib.make_3d_surface(ax3d, xx, yy, zz, xlabel="WER (%)", ylabel="Temp (C)", zlabel="Strength")
+            axp = fig3.add_subplot(1, 2, 2, projection="polar")
+            lib.make_polar_plot(
+                axp,
+                theta=[0, 1.2, 2.4, 3.6, 4.8],
+                radius=[0.5, 0.7, 0.8, 0.65, 0.55],
+                label="15% WER",
+                palette=lib.PALETTE_ASPHALT,
+            )
+            outputs3 = lib.finalize_figure(fig3, "expanded_helpers_c", output_dir=tmp, formats=("svg", "png"), dpi=120)
+            self.assertEqual({Path(path).suffix for path in outputs3}, {".svg", ".png"})
 
     def test_plot_lib_generates_vector_and_raster_outputs(self):
         lib = self.load_plot_lib()
@@ -76,6 +174,27 @@ class FigureProductionScriptsTest(unittest.TestCase):
         "plot_ftir_curing_evidence.py",
         "plot_durability_retention.py",
         "plot_mechanical_property_radar.py",
+        "plot_rheology_curve.py",
+        "plot_tga_dtg_curve.py",
+        "plot_dosage_window.py",
+        "plot_particle_size_distribution.py",
+        "plot_sem_analysis.py",
+        "plot_sintering_curve.py",
+        "plot_ceramic_strength.py",
+        "plot_ceramic_conductivity.py",
+        "plot_insulation_conductivity_vs_density.py",
+        "plot_insulation_stress_strain.py",
+        "plot_insulation_conductivity_vs_temp.py",
+        "plot_scatter_regression.py",
+        "plot_boxplot_points.py",
+        "plot_violin_distribution.py",
+        "plot_contour_response_map.py",
+        "plot_3d_response_surface.py",
+        "plot_polar_performance.py",
+        "plot_errorbar_trend.py",
+        "plot_dual_axis_trend.py",
+        "plot_correlation_heatmap.py",
+        "plot_stacked_composition.py",
     ]
     EXPECTED_DATA = [
         "bonding_strength.csv",
@@ -83,6 +202,27 @@ class FigureProductionScriptsTest(unittest.TestCase):
         "ftir_spectra.csv",
         "durability_retention.csv",
         "mechanical_properties.csv",
+        "rheology_curve.csv",
+        "tga_dtg_curve.csv",
+        "dosage_window.csv",
+        "particle_size_distribution.csv",
+        "sem_analysis.csv",
+        "sintering_curve.csv",
+        "ceramic_composition_strength.csv",
+        "ceramic_conductivity.csv",
+        "insulation_conductivity_vs_density.csv",
+        "insulation_stress_strain.csv",
+        "insulation_conductivity_humidity.csv",
+        "scatter_regression.csv",
+        "boxplot_points.csv",
+        "violin_distribution.csv",
+        "contour_response_map.csv",
+        "response_surface_grid.csv",
+        "polar_performance.csv",
+        "errorbar_trend.csv",
+        "dual_axis_trend.csv",
+        "correlation_heatmap.csv",
+        "stacked_composition.csv",
     ]
 
     def test_figures4materials_scripts_and_data_exist(self):
@@ -114,9 +254,10 @@ class FigureProductionScriptsTest(unittest.TestCase):
 class FigureDesignReferenceTest(unittest.TestCase):
     def test_production_references_cover_chart_atlas_design_theory_and_qa(self):
         expected = {
-            "chart-atlas.md": ["bonding strength", "dosage-performance", "FTIR", "radar", "code pattern"],
+            "chart-atlas.md": ["bonding strength", "dosage-performance", "FTIR", "radar", "scatter regression", "3D response surface", "code pattern"],
             "figure-design-theory.md": ["information hierarchy", "colorblind", "grayscale", "multi-panel"],
             "figure-qa-contract.md": ["DPI", "error bars", "replicate", "scale bar", "caption boundary"],
+            "tutorials.md": ["Python-only expanded chart gallery", "contour response map", "correlation heatmap"],
         }
         for filename, phrases in expected.items():
             path = SKILL_ROOT / "references" / filename

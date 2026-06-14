@@ -11,7 +11,7 @@ REPO_ROOT = SKILL_ROOT.parents[1]
 
 
 class FigureHardWorkflowStructureTest(unittest.TestCase):
-    def test_router_manifest_and_core_define_backend_gate(self):
+    def test_router_manifest_and_core_define_python_only_backend(self):
         skill_text = (SKILL_ROOT / "SKILL.md").read_text(encoding="utf-8")
         manifest_text = (SKILL_ROOT / "manifest.yaml").read_text(encoding="utf-8")
         contract_text = (SKILL_ROOT / "static" / "core" / "figure-contract.md").read_text(encoding="utf-8")
@@ -19,17 +19,17 @@ class FigureHardWorkflowStructureTest(unittest.TestCase):
         workflow_text = (SKILL_ROOT / "static" / "core" / "workflow.md").read_text(encoding="utf-8")
 
         for phrase in [
-            "Python or R?",
-            "BLOCKING",
+            "Python-only",
+            "Python backend",
             "SVG-first",
         ]:
             self.assertIn(phrase, skill_text)
+        for forbidden in ["Python or R?", "static/fragments/backend/r.md", "plot.R", "ggplot2"]:
+            self.assertNotIn(forbidden, skill_text + manifest_text + contract_text + workflow_text)
 
         for phrase in [
             "backend:",
             "static/fragments/backend/python.md",
-            "static/fragments/backend/r.md",
-            "references/backend-selection.md",
             "references/figure-package-protocol.md",
             "references/figure-qa-contract.md",
         ]:
@@ -39,7 +39,7 @@ class FigureHardWorkflowStructureTest(unittest.TestCase):
             "Core conclusion",
             "Evidence chain",
             "Archetype",
-            "Backend",
+            "Python backend",
             "Journal/export contract",
             "WER-EA boundary",
         ]:
@@ -54,7 +54,7 @@ class FigureHardWorkflowStructureTest(unittest.TestCase):
             self.assertIn(phrase, stance_text)
 
         for phrase in [
-            "Resolve the backend",
+            "Use the Python backend",
             "Build the figure contract",
             "Create the figure package",
             "Run visual QA",
@@ -62,13 +62,11 @@ class FigureHardWorkflowStructureTest(unittest.TestCase):
         ]:
             self.assertIn(phrase, workflow_text)
 
-    def test_backend_fragments_and_package_templates_exist(self):
+    def test_python_backend_fragment_and_package_templates_exist(self):
         expected_files = [
             "README.md",
             "evals/evals.json",
             "static/fragments/backend/python.md",
-            "static/fragments/backend/r.md",
-            "references/backend-selection.md",
             "references/figure-package-protocol.md",
             "assets/templates/figure-contract-template.md",
             "assets/templates/figure-package/figure_contract.md",
@@ -81,15 +79,21 @@ class FigureHardWorkflowStructureTest(unittest.TestCase):
         ]
         for relative in expected_files:
             self.assertTrue((SKILL_ROOT / relative).exists(), f"{relative} should exist")
+        removed_files = [
+            "static/fragments/backend/r.md",
+            "references/r-workflow.md",
+            "references/r-template-index.md",
+            "scripts/r/palettes.R",
+            "scripts/r/theme_materials.R",
+        ]
+        for relative in removed_files:
+            self.assertFalse((SKILL_ROOT / relative).exists(), f"{relative} should be removed from Python-only figure skill")
 
         python_text = (SKILL_ROOT / "static" / "fragments" / "backend" / "python.md").read_text(encoding="utf-8")
-        r_text = (SKILL_ROOT / "static" / "fragments" / "backend" / "r.md").read_text(encoding="utf-8")
         protocol_text = (SKILL_ROOT / "references" / "figure-package-protocol.md").read_text(encoding="utf-8")
 
-        for phrase in ["matplotlib", "seaborn", "SVG", "PDF", "TIFF", "PNG", "same backend"]:
+        for phrase in ["matplotlib", "seaborn", "SVG", "PDF", "TIFF", "PNG", "Python-only"]:
             self.assertIn(phrase, python_text)
-        for phrase in ["ggplot2", "patchwork", "ComplexHeatmap", "SVG", "PDF", "TIFF", "same backend"]:
-            self.assertIn(phrase, r_text)
         for phrase in [
             "figure_contract.md",
             "source_data.csv",
@@ -103,6 +107,7 @@ class FigureHardWorkflowStructureTest(unittest.TestCase):
             "asset_manifest.md",
         ]:
             self.assertIn(phrase, protocol_text)
+        self.assertNotIn("plot.R", protocol_text)
 
 
 class FigurePackageAuditScriptTest(unittest.TestCase):
@@ -174,8 +179,8 @@ class FigurePackageAuditScriptTest(unittest.TestCase):
 
         for phrase in [
             "Nature-style",
-            "Python or R?",
-            "Backend and contract rules",
+            "Python-only",
+            "Python backend and contract rules",
             "Figure package structure",
             "WER-EA",
             "Reproduction checklist",
@@ -186,15 +191,16 @@ class FigurePackageAuditScriptTest(unittest.TestCase):
         ids = {case["id"] for case in evals["evals"]}
         self.assertEqual(
             {
-                "backend-exclusivity-r-missing-runtime",
                 "backend-exclusivity-python-missing-package",
                 "journal-ready-package-audit",
+                "python-only-expanded-chart-gallery",
             },
             ids,
         )
         for case in evals["evals"]:
             text = json.dumps(case, ensure_ascii=False)
-            self.assertIn("Python or R", text)
+            self.assertIn("Python", text)
+            self.assertNotIn("Python or R", text)
             self.assertIn("figure package", text)
 
 

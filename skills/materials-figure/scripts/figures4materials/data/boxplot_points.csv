@@ -1,0 +1,16 @@
+condition,replicate,bond_strength_mpa
+Control,1,0.40
+Control,2,0.43
+Control,3,0.41
+Control,4,0.45
+Control,5,0.42
+10% WER,1,0.56
+10% WER,2,0.61
+10% WER,3,0.58
+10% WER,4,0.63
+10% WER,5,0.60
+15% WER,1,0.73
+15% WER,2,0.79
+15% WER,3,0.76
+15% WER,4,0.82
+15% WER,5,0.78

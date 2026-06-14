@@ -16,9 +16,9 @@ review heatmap
 
 ## Backend
 
-- Selected backend: Python
+- Python backend: required
 - Runtime/package status: to be checked before rendering
-- Backend exclusivity note: all plotting, previews, exports, and QA renders use the selected backend.
+- Backend exclusivity note: all plotting, previews, exports, and QA renders use Python.
 
 ## Journal/Export Contract
 

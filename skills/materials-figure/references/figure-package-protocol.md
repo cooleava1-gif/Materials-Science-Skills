@@ -9,7 +9,6 @@ figure-package/
   figure_contract.md
   source_data.csv
   plot.py
-  plot.R
   figure.svg
   figure.pdf
   figure.png
@@ -19,7 +18,7 @@ figure-package/
   asset_manifest.md
 ```
 
-Only the selected backend script is required: `plot.py` for Python or `plot.R` for R. A package may omit the non-selected script.
+The Python plotting script is required: `plot.py`.
 
 ## Required Fields
 
@@ -28,7 +27,7 @@ Only the selected backend script is required: `plot.py` for Python or `plot.R` f
 - Core conclusion
 - Evidence chain
 - Archetype
-- Backend
+- Python backend
 - Journal/export contract
 - Statistics and image integrity
 - WER-EA boundary
@@ -54,7 +53,7 @@ Only the selected backend script is required: `plot.py` for Python or `plot.R` f
 `asset_manifest.md` must include:
 
 - package name,
-- backend,
+- Python backend,
 - generated files,
 - source data,
 - template-only status,

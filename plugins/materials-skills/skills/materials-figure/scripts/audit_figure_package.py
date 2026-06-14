@@ -108,8 +108,8 @@ def collect_issues(package_dir: Path) -> list[str]:
         if term not in combined:
             issues.append(f"package text missing {term!r}")
 
-    if not any((package_dir / script).is_file() for script in ["plot.py", "plot.R"]):
-        issues.append("missing selected-backend script: plot.py or plot.R")
+    if not (package_dir / "plot.py").is_file():
+        issues.append("missing Python plotting script: plot.py")
     if not any((package_dir / data).is_file() for data in ["source_data.csv", "source_data.tsv", "source_map.json"]):
         issues.append("missing source data or source_map anchor file")
 

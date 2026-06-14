@@ -37,6 +37,16 @@ reviewer risk, and when NOT to use the chart.
 | 18 | Scatter / bubble plot | Two-variable correlation with optional third | `ax.scatter()` | Extrapolating trend from clustered data |
 | 19 | Forest / interval plot | Effect sizes with confidence intervals | `ax.errorbar()` horizontal | Heterogeneous confidence interval widths |
 | 20 | Contour / response surface | DOE response optimization | `ax.contourf()` | Overinterpreting interpolation near edges |
+| 21 | Scatter regression | Source-data association with linear fit | `make_scatter_regression()` | Treating association as mechanism |
+| 22 | Boxplot with points | Small replicate groups with raw data visible | `make_boxplot_with_points()` | Hiding n or outlier rule |
+| 23 | Violin distribution | Replicate-rich retention or strength distributions | `make_violin_plot()` | Using smooth density for low n |
+| 24 | Contour response map | Two-factor response map with measured grid | `make_contour_map()` | Extrapolating beyond measured grid |
+| 25 | 3D response surface | Two-factor optimization surface | `make_3d_surface()` | Over-selling visual curvature |
+| 26 | Polar performance | Normalized multi-index profile | `make_polar_plot()` | Hiding raw values behind normalization |
+| 27 | Errorbar trend | Time, aging, or dosage trend with SD/SE/CI | `make_errorbar_trend()` | Undefined error bars |
+| 28 | Dual-axis trend | Paired responses with different units | `make_dual_axis_trend()` | Implying causal coupling from co-variation |
+| 29 | Correlation heatmap | Property-property correlation matrix | `make_correlation_heatmap()` | Treating correlation as proof |
+| 30 | Stacked composition | Formulation or phase fraction comparison | `make_stacked_composition_bar()` | Comparing totals that do not balance |
 
 ---
 
@@ -597,3 +607,35 @@ cbar.set_label('Response')
   and moisture/aging evidence.
 - Put control, dosage, temperature, curing condition, and test standard in the
   figure plan or caption when available.
+
+## Python-only expanded chart gallery
+
+The Python-only gallery extends the matplotlib coverage with ten publication
+chart families that map cleanly to common materials datasets: scatter
+regression, boxplot with points, violin distribution, contour response map, 3D
+response surface, polar performance, errorbar trend, dual-axis trend,
+correlation heatmap, and stacked composition. Example scripts live in
+`scripts/figures4materials/plot_*.py`, with synthetic CSV inputs under
+`scripts/figures4materials/data/`.
+
+Use these helpers when the source data are tabular and the claim can be kept
+close to measured columns. The safest pattern is: source CSV -> helper function
+-> SVG/PNG exports -> caption boundary. For optimization figures, show the
+measured points or grid so reviewers can see where interpolation begins.
+Use scatter regression only for association claims unless independent mechanism
+evidence is present.
+
+```python
+from materials_plot_lib import (
+    make_scatter_regression, make_contour_map, make_3d_surface,
+    make_correlation_heatmap, make_stacked_composition_bar,
+)
+```
+
+Reviewer rules:
+
+- Scatter regression and correlation heatmap show association, not mechanism.
+- Contour response map and 3D response surface must not imply validity outside
+  the measured factor range.
+- Polar and stacked composition charts need raw values or mass-balance notes in
+  the caption or supplement.

@@ -2,7 +2,7 @@
 
 Nature-style figure production and audit for materials manuscripts. The
 skill treats figures as evidence packages with source data, caption boundaries,
-backend discipline, and export QA instead of as loose images.
+Python-only backend discipline, and export QA instead of as loose images.
 
 ## When To Use
 
@@ -16,7 +16,7 @@ full figure package for materials research, especially WER-EA workflows.
 - target figure archetype such as mechanism map, evidence heatmap, graphical
   abstract, or characterization panel
 - export constraints and journal expectations
-- backend choice: Python or R
+- Python backend and contract rules
 
 ## Outputs
 
@@ -26,12 +26,11 @@ full figure package for materials research, especially WER-EA workflows.
 - WER-EA atlas assets and review-figure planning surfaces
 - reviewer-safer caption boundaries that separate measured from inferred claims
 
-## Backend and contract rules
+## Python backend and contract rules
 
-Ask the user `Python or R?` unless the backend is already fixed by the request
-or file context. Once the backend is chosen, keep the workflow exclusive to that
-backend for plotting, preview, export, and QA. If the runtime or packages are
-missing, stop and report the blocker instead of silently falling back.
+This is a Python-only plotting skill. Use Python for plotting, preview, export,
+and QA. If the Python runtime or packages are missing, stop and report the
+blocker instead of silently falling back to another plotting stack.
 
 Before plotting, make the figure contract explicit:
 
@@ -51,7 +50,7 @@ image:
 figure-package/
   figure_contract.md
   source_data.csv
-  plot.py or plot.R
+  plot.py
   figure.svg
   figure.pdf
   figure.png
@@ -84,13 +83,13 @@ it journal-ready.
 
 ## Reproduction checklist
 
-- backend resolved as `Python or R?`
-- no cross-backend fallback used
+- Python-only backend readiness checked
+- no alternate plotting backend used
 - figure contract written before plotting
 - source data or source-map anchor present
 - export bundle includes SVG, PDF, PNG, and TIFF when possible
 - caption states what the figure supports and what it does not prove
-- QA report covers backend exclusivity, export checks, and caption boundary
+- QA report covers Python backend exclusivity, export checks, and caption boundary
 - WER-EA mechanism claims stay bounded by real evidence
 
 ## Boundaries

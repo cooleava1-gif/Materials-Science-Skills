@@ -9,24 +9,16 @@ always_load:
 
 axes:
   backend:
-    default: unresolved
+    default: python
     detect: |
-      BLOCKING GATE. Determine the plotting backend only from an explicit user
-      choice or a clearly language-specific input file/workflow. If the user has
-      not selected Python or R, ask exactly "Python or R?" and stop. Do not
-      default, guess, generate mock data, write scripts, or create previews
-      before the backend is resolved. Once selected, the backend is exclusive
-      for plotting, previewing, exporting, and visual QA.
+      Python-only plotting gate. All figure drawing, previewing, exporting, and
+      visual QA must use the Python backend. Before rendering, check Python and
+      required plotting packages. If the runtime or packages are unavailable,
+      stop and report the blocker instead of substituting another backend.
     values:
       python:
         path: static/fragments/backend/python.md
-        triggers: ["Python", "matplotlib", "seaborn", "plot.py", "pyplot", ".py"]
-      r:
-        path: static/fragments/backend/r.md
-        triggers: ["R", "ggplot2", "patchwork", "ComplexHeatmap", "Rscript", ".R"]
-      unresolved:
-        path: references/backend-selection.md
-        triggers: ["figure", "plot", "chart", "配图", "图件", "图表"]
+        triggers: ["Python", "matplotlib", "seaborn", "plot.py", "pyplot", ".py", "figure", "plot", "chart"]
 
   figure_type:
     default: performance
@@ -70,7 +62,7 @@ axes:
         triggers: ["reader handoff", "citation matrix", "review figure intake", "figure handoff", "evidence heatmap", "mechanism map", "certainty_tier", "caption_boundary"]
       none:
         path: references/figure-package-protocol.md
-        triggers: ["direct plotting", "source_data.csv", "plot.py", "plot.R"]
+        triggers: ["direct plotting", "source_data.csv", "plot.py"]
 
   material_family:
     detect: "Which materials family is central?"
@@ -134,8 +126,6 @@ axes:
 
 references:
   on_demand:
-    - condition: user has not chosen Python/R, asks for backend recommendation, or workflow could use either backend
-      path: references/backend-selection.md
     - condition: create a complete figure package or audit a package
       path: references/figure-package-protocol.md
     - condition: before final delivery, journal-ready package, microscopy image plate, or statistics-heavy figure
@@ -156,10 +146,6 @@ references:
       path: references/figure-design-theory.md
     - condition: end-to-end figure tutorials, step-by-step plotting walkthroughs, or how-to examples for common materials charts
       path: references/tutorials.md
-    - condition: R backend workflow, ggplot2 theme, R palettes, R chart patterns, or R export settings
-      path: references/r-workflow.md
-    - condition: R template index, R code templates for grouped bar, dosage curve, FTIR, XRD, heatmap, radar, or multi-panel figures
-      path: references/r-template-index.md
     - condition: paper demo reference for production-quality figures
       path: references/paper-demo-reference.md
     - condition: visual asset roadmap and asset production guide

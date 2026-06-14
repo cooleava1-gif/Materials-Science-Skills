@@ -3,7 +3,7 @@
 ## Backend Exclusivity
 
 - Status: pass
-- Note: selected backend only.
+- Note: Python backend only.
 
 ## Export Check
 

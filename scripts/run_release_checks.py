@@ -62,9 +62,9 @@ FIGURE_HARD_WORKFLOW_FILES = [
 ]
 
 FIGURE_HARD_WORKFLOW_EVAL_IDS = [
-    "eval_python_backend_required",
-    "eval_r_backend_required",
-    "eval_contract_enforced",
+    "backend-exclusivity-python-missing-package",
+    "journal-ready-package-audit",
+    "python-only-expanded-chart-gallery",
 ]
 
 paper_production_orchestrator = "paper-production-orchestrator"

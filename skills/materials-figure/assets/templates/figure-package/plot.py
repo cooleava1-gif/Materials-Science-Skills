@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Template-only selected-backend plotting script."""
+"""Template-only Python plotting script."""
 
 from __future__ import annotations
 

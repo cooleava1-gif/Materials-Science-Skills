@@ -2,9 +2,9 @@
 
 Run this workflow for any journal-ready figure, WER-EA review figure, plotted data figure, or figure audit.
 
-## 1. Resolve the backend
+## 1. Use the Python backend
 
-Use the backend gate in `figure-contract.md`. If Python/R is unresolved, ask `Python or R?` and stop.
+Use the Python-only backend gate in `figure-contract.md`. Check Python and the required plotting packages before rendering. If a required package is unavailable, stop and report the blocker.
 
 ## 2. Build the figure contract
 
@@ -13,15 +13,15 @@ Before plotting, write or update `figure_contract.md` with:
 - core conclusion,
 - evidence chain,
 - archetype,
-- selected backend,
+- Python backend readiness,
 - journal/export contract,
 - statistics and image-integrity needs,
 - WER-EA or materials claim boundary,
 - reviewer risks.
 
-## 3. Load The Matching Backend Fragment
+## 3. Load The Python Backend Fragment
 
-Load only `static/fragments/backend/python.md` or `static/fragments/backend/r.md`. Do not load the other backend's execution rules.
+Load `static/fragments/backend/python.md` and follow its execution rules.
 
 ## 4. Check Source Data And Anchors
 
@@ -29,7 +29,7 @@ Use actual source data, a table-system row, a `source_map.json` anchor, or PDF v
 
 ## 5. Create the figure package
 
-Use `references/figure-package-protocol.md` and `assets/templates/figure-package/`. A production package should contain the contract, source data, selected-backend script, SVG/PDF/PNG/TIFF exports, caption, QA report, and asset manifest.
+Use `references/figure-package-protocol.md` and `assets/templates/figure-package/`. A production package should contain the contract, source data, Python plotting script, SVG/PDF/PNG/TIFF exports, caption, QA report, and asset manifest.
 
 ## 6. Run visual QA
 

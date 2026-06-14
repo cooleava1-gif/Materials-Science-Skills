@@ -505,6 +505,252 @@ def make_boxplot(
     return ax
 
 
+def make_scatter_regression(
+    ax: plt.Axes,
+    x: Sequence[float],
+    y: Sequence[float],
+    palette: dict[str, str],
+    *,
+    xlabel: str | None = None,
+    ylabel: str | None = None,
+    label: str | None = None,
+) -> plt.Axes:
+    """Scatter plot with a least-squares regression line and R-squared label."""
+    x_values = np.asarray(x, dtype=float)
+    y_values = np.asarray(y, dtype=float)
+    if x_values.shape != y_values.shape:
+        raise ValueError("x and y must have the same length")
+    color = palette.get("modified", _series_colors(palette, 1)[0])
+    edge = palette.get("neutral", "#8C8C8C")
+    ax.scatter(x_values, y_values, s=42, color=color, edgecolor="white", linewidth=0.8, alpha=0.9, label=label)
+    if len(x_values) >= 2:
+        slope, intercept = np.polyfit(x_values, y_values, 1)
+        x_fit = np.linspace(float(np.nanmin(x_values)), float(np.nanmax(x_values)), 100)
+        y_fit = slope * x_fit + intercept
+        ax.plot(x_fit, y_fit, color=palette.get("control", edge), linewidth=1.8, label="Linear fit")
+        predicted = slope * x_values + intercept
+        ss_res = float(np.sum((y_values - predicted) ** 2))
+        ss_tot = float(np.sum((y_values - np.mean(y_values)) ** 2))
+        r_squared = 1 - ss_res / ss_tot if ss_tot else 1.0
+        ax.text(0.04, 0.94, f"$R^2$ = {r_squared:.2f}", transform=ax.transAxes, ha="left", va="top", fontsize=8)
+    if xlabel:
+        ax.set_xlabel(xlabel)
+    if ylabel:
+        ax.set_ylabel(ylabel)
+    ax.grid(color="#E8E2D6", linewidth=0.8, alpha=0.8)
+    if label:
+        ax.legend()
+    return ax
+
+
+def make_boxplot_with_points(
+    ax: plt.Axes,
+    groups: list[str],
+    data_dict: dict[str, list[float]],
+    palette: dict[str, str],
+    *,
+    ylabel: str | None = None,
+) -> plt.Axes:
+    """Box plot with raw replicate points overlaid."""
+    return make_boxplot(ax, groups, data_dict, palette, ylabel=ylabel, show_points=True)
+
+
+def make_violin_plot(
+    ax: plt.Axes,
+    groups: list[str],
+    data_dict: dict[str, list[float]],
+    palette: dict[str, str],
+    *,
+    ylabel: str | None = None,
+    show_points: bool = True,
+) -> plt.Axes:
+    """Violin plot for replicate-rich distributions with optional raw points."""
+    values = [np.asarray(data_dict.get(group, []), dtype=float) for group in groups]
+    positions = np.arange(1, len(groups) + 1)
+    colors = _series_colors(palette, len(groups))
+    parts = ax.violinplot(values, positions=positions, widths=0.7, showmeans=False, showmedians=True, showextrema=False)
+    for body, color in zip(parts["bodies"], colors):
+        body.set_facecolor(color)
+        body.set_edgecolor("white")
+        body.set_alpha(0.65)
+    if "cmedians" in parts:
+        parts["cmedians"].set_color("#333333")
+        parts["cmedians"].set_linewidth(1.5)
+    if show_points:
+        rng = np.random.default_rng(42)
+        for idx, (vals, color) in enumerate(zip(values, colors), start=1):
+            jitter = rng.uniform(-0.07, 0.07, len(vals))
+            ax.scatter(np.full(len(vals), idx) + jitter, vals, s=12, color=color, edgecolor="white", linewidth=0.3, alpha=0.85)
+    ax.set_xticks(positions)
+    ax.set_xticklabels(groups, fontsize=9)
+    if ylabel:
+        ax.set_ylabel(ylabel)
+    ax.grid(axis="y", color="#E8E2D6", linewidth=0.8, alpha=0.8)
+    return ax
+
+
+def make_contour_map(
+    ax: plt.Axes,
+    x_grid: np.ndarray,
+    y_grid: np.ndarray,
+    z_grid: np.ndarray,
+    *,
+    xlabel: str | None = None,
+    ylabel: str | None = None,
+    cmap: str = "YlOrRd",
+    levels: int = 12,
+) -> plt.Axes:
+    """Filled contour response map for two-factor materials experiments."""
+    contour = ax.contourf(x_grid, y_grid, z_grid, levels=levels, cmap=cmap)
+    ax.contour(x_grid, y_grid, z_grid, levels=max(4, levels // 3), colors="#333333", linewidths=0.5, alpha=0.45)
+    if xlabel:
+        ax.set_xlabel(xlabel)
+    if ylabel:
+        ax.set_ylabel(ylabel)
+    ax.figure.colorbar(contour, ax=ax, shrink=0.86)
+    return ax
+
+
+def make_3d_surface(
+    ax,
+    x_grid: np.ndarray,
+    y_grid: np.ndarray,
+    z_grid: np.ndarray,
+    *,
+    xlabel: str | None = None,
+    ylabel: str | None = None,
+    zlabel: str | None = None,
+    cmap: str = "YlOrRd",
+):
+    """3D response surface for two-factor materials optimization."""
+    surface = ax.plot_surface(x_grid, y_grid, z_grid, cmap=cmap, linewidth=0, antialiased=True, alpha=0.92)
+    ax.contour(x_grid, y_grid, z_grid, zdir="z", offset=float(np.nanmin(z_grid)), cmap=cmap, linewidths=0.7)
+    if xlabel:
+        ax.set_xlabel(xlabel)
+    if ylabel:
+        ax.set_ylabel(ylabel)
+    if zlabel:
+        ax.set_zlabel(zlabel)
+    ax.figure.colorbar(surface, ax=ax, shrink=0.62, pad=0.08)
+    return ax
+
+
+def make_polar_plot(
+    ax: plt.Axes,
+    theta: Sequence[float],
+    radius: Sequence[float],
+    label: str,
+    palette: dict[str, str],
+    *,
+    fill: bool = True,
+) -> plt.Axes:
+    """Polar performance profile for cyclic, angular, or normalized index data."""
+    if getattr(ax, "name", "") != "polar":
+        raise ValueError("make_polar_plot requires a polar axis")
+    angles = np.asarray(theta, dtype=float)
+    values = np.asarray(radius, dtype=float)
+    if angles.shape != values.shape:
+        raise ValueError("theta and radius must have the same length")
+    if len(angles) and (angles[0] != angles[-1] or values[0] != values[-1]):
+        angles = np.r_[angles, angles[0]]
+        values = np.r_[values, values[0]]
+    color = palette.get("optimal", _series_colors(palette, 1)[0])
+    ax.plot(angles, values, color=color, linewidth=2.0, label=label)
+    if fill:
+        ax.fill(angles, values, color=color, alpha=0.18)
+    ax.set_ylim(0, max(float(np.nanmax(values)) * 1.12, 1.0))
+    ax.legend(loc="upper right", bbox_to_anchor=(1.2, 1.15))
+    return ax
+
+
+def make_errorbar_trend(
+    ax: plt.Axes,
+    x: Sequence[float],
+    y: Sequence[float],
+    yerr: Sequence[float],
+    palette: dict[str, str],
+    *,
+    xlabel: str | None = None,
+    ylabel: str | None = None,
+    label: str | None = None,
+) -> plt.Axes:
+    """Line trend with explicit error bars."""
+    color = palette.get("modified", _series_colors(palette, 1)[0])
+    ax.errorbar(x, y, yerr=yerr, fmt="o-", color=color, linewidth=1.9, markersize=5, capsize=3, label=label)
+    if xlabel:
+        ax.set_xlabel(xlabel)
+    if ylabel:
+        ax.set_ylabel(ylabel)
+    ax.grid(color="#E8E2D6", linewidth=0.8, alpha=0.8)
+    if label:
+        ax.legend()
+    return ax
+
+
+def make_dual_axis_trend(
+    ax: plt.Axes,
+    x: Sequence[float],
+    y_left: Sequence[float],
+    y_right: Sequence[float],
+    palette: dict[str, str],
+    *,
+    left_label: str | None = None,
+    right_label: str | None = None,
+) -> tuple[plt.Axes, plt.Axes]:
+    """Dual-axis trend for paired response metrics with distinct units."""
+    colors = _series_colors(palette, 2)
+    ax_left = ax
+    ax_left.plot(x, y_left, "o-", color=colors[0], linewidth=1.9, markersize=5, label=left_label or "Left response")
+    ax_left.set_ylabel(left_label or "Left response", color=colors[0])
+    ax_left.tick_params(axis="y", labelcolor=colors[0])
+    ax_left.grid(color="#E8E2D6", linewidth=0.8, alpha=0.8)
+
+    ax_right = ax_left.twinx()
+    ax_right.plot(x, y_right, "s--", color=colors[1], linewidth=1.7, markersize=5, label=right_label or "Right response")
+    ax_right.set_ylabel(right_label or "Right response", color=colors[1])
+    ax_right.tick_params(axis="y", labelcolor=colors[1])
+    ax_left.set_xlabel("Condition")
+
+    lines_left, labels_left = ax_left.get_legend_handles_labels()
+    lines_right, labels_right = ax_right.get_legend_handles_labels()
+    ax_left.legend(lines_left + lines_right, labels_left + labels_right, fontsize=8)
+    return ax_left, ax_right
+
+
+def make_correlation_heatmap(
+    ax: plt.Axes,
+    data: np.ndarray,
+    labels: Sequence[str],
+    *,
+    cmap: str = "RdBu_r",
+) -> plt.Axes:
+    """Correlation heatmap with symmetric color scale and cell labels."""
+    matrix = np.asarray(data, dtype=float)
+    im = ax.imshow(matrix, cmap=cmap, vmin=-1, vmax=1, aspect="equal")
+    ax.set_xticks(range(len(labels)))
+    ax.set_xticklabels(labels, rotation=45, ha="right", fontsize=8)
+    ax.set_yticks(range(len(labels)))
+    ax.set_yticklabels(labels, fontsize=8)
+    for i in range(matrix.shape[0]):
+        for j in range(matrix.shape[1]):
+            ax.text(j, i, f"{matrix[i, j]:.2f}", ha="center", va="center", fontsize=7, color="#333333")
+    cbar = ax.figure.colorbar(im, ax=ax, shrink=0.82)
+    cbar.set_label("Correlation")
+    return ax
+
+
+def make_stacked_composition_bar(
+    ax: plt.Axes,
+    labels: list[str],
+    series_dict: dict[str, list[float]],
+    palette: dict[str, str],
+    *,
+    ylabel: str | None = None,
+) -> plt.Axes:
+    """Stacked composition bar chart for material fractions or phase shares."""
+    return make_stacked_bar(ax, labels, series_dict, palette, ylabel=ylabel)
+
+
 def make_tga_dtg_overlay(
     ax: plt.Axes,
     temp: "np.ndarray",
