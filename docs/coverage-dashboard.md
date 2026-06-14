@@ -34,7 +34,6 @@
 | **semiconductors** | functional | 🔵 **skeleton** | ✅ semiconductors-narrative | ✅ functional-reviewer-criteria | — | — |
 | **dielectrics-piezoelectrics** | functional | 🔵 **skeleton** | ✅ dielectrics-piezoelectrics-narrative | ✅ functional-reviewer-criteria | ✅ 1 generic | — |
 | **photonic-optoelectronic** | functional | 🔵 **skeleton** | ✅ photonic-optoelectronic-narrative | ✅ functional-reviewer-criteria | — | — |
-| **electrochemistry** | functional | 🟢 **full** | ✅ electrochemistry-narrative | ✅ electrochemistry-reviewer-criteria | ✅ 5 scripts | ✅ 1 package |
 | **nanoparticles** | nano | 🔵 **skeleton** | ✅ nanoparticles-narrative | ✅ nano-reviewer-criteria | — | — |
 | **nano-thin-films** | nano | 🔵 **skeleton** | ✅ nano-thin-films-narrative | ✅ nano-reviewer-criteria | ✅ 1 generic | — |
 | **2d-materials** | nano | 🔵 **skeleton** | ✅ 2d-materials-narrative | ✅ nano-reviewer-criteria | — | — |
