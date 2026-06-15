@@ -11,7 +11,7 @@ polymers, metals, ceramics, functional/electronic materials, and nanomaterials.
 It is strongest where materials research is usually fragile: source anchoring,
 claim boundaries, paper-production routing, and reviewer-risk control.
 
-![WER-EA figure proof board](skills/materials-figure/assets/showcase-proof/wer_ea_figure_proof_board.png)
+![Multi-panel overview: grouped bar, line trend, scatter regression, radar](skills/materials-figure/assets/showcase-proof/showcase_multi_panel_overview.png)
 
 ## Why This Bundle Feels Like A System
 
