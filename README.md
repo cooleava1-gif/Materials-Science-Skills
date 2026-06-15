@@ -11,7 +11,7 @@ polymers, metals, ceramics, functional/electronic materials, and nanomaterials.
 It is strongest where materials research is usually fragile: source anchoring,
 claim boundaries, paper-production routing, and reviewer-risk control.
 
-![Multi-panel overview: grouped bar, line trend, scatter regression, radar](skills/materials-figure/assets/showcase-proof/showcase_multi_panel_overview.png)
+![WER-EA figure proof board](skills/materials-figure/assets/showcase-proof/wer_ea_figure_proof_board.png)
 
 ## Why This Bundle Feels Like A System
 
@@ -122,9 +122,9 @@ If you want to see the system before reading every skill:
 
 - [Materials Science Gallery](docs/gallery/README.md) collects editorial multi-panel
   boards built from bundled proof assets and reader-package style handoffs.
-- The front-door boards follow an `overview -> deviation -> relationship`
-  narrative so the gallery reads like a product surface instead of a pile of
-  screenshots.
+- The front-door boards include `wer_ea_figure_proof_board.png` and follow an
+  `overview -> deviation -> relationship` narrative so the gallery reads like a
+  product surface instead of a pile of screenshots.
 - The gallery links back to the four guided demos so the visuals and the route
   logic stay connected.
 
