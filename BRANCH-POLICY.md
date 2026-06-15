@@ -22,18 +22,29 @@
 
 ## 3. 工作流程
 
+### 3.1 修改文件
+
 ```
-① 确定要修改的内容
+① 确认当前任务对应的 Agent 身份
 ② 切换到对应分支：git checkout <agent-branch>
 ③ 修改并提交
 ④ 推送到远程：git push origin <agent-branch>
-⑤ 提出 Pull Request / Merge Request → main
-⑥ 经人工批准后方可合并入 main
 ```
+
+- **DeepSeek (Reasonix)**: 在 `deepseek` 分支上修改文件
+- **Mimo**: 在 `mimo` 分支上修改文件
+- **Codex**: 在 `codex` 分支上修改文件
+
+### 3.2 跨分支审查
+
+DeepSeek (Reasonix) 可以审查和批准 `mimo` 和 `codex` 分支上的变更，但不允许直接修改这两个分支。审查通过后，由对应 Agent 自行合并或由 DeepSeek 代为合并。
 
 ## 4. 合并审批
 
-任何分支在合并到 `main` 之前，**必须**获得项目负责人的明确批准。未经批准的合并将被回滚。
+任何分支在合并到 `main` 之前，**必须**获得项目负责人（人类）的明确批准。未经批准的合并将被回滚。
+
+- 各 Agent 分支之间的合并（如 `mimo → codex` 或 `codex → deepseek`）可由 DeepSeek 代为审批并执行
+- 任何 → `main` 的合并 **必须** 人工批准
 
 ## 5. 分支同步
 
