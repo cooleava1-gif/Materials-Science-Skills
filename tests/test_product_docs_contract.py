@@ -242,11 +242,16 @@ class ProductDocsContractTests(unittest.TestCase):
         self.assertEqual(entry_ids, listed_ids)
 
     def test_docs_do_not_advertise_removed_general_routes(self):
+        # Internal compose/superpowers notes are ignored local planning files.
+        # This contract covers the tracked public documentation surface.
         docs_to_check = [
             ROOT / "README.md",
+            ROOT / "install.md",
             ROOT / "docs" / "coverage-dashboard.md",
-            ROOT / "docs" / "compose" / "plans" / "2026-06-12-materials-doe.md",
-            ROOT / "docs" / "superpowers" / "specs" / "2026-06-12-materials-expansion-design.md",
+            ROOT / "docs" / "skills-index.md",
+            ROOT / "docs" / "gallery" / "README.md",
+            ROOT / "docs" / "showcases" / "README.md",
+            ROOT / "docs" / "workflows" / "README.md",
         ]
         for path in docs_to_check:
             text = path.read_text(encoding="utf-8")

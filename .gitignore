@@ -28,3 +28,15 @@ reports/
 reviewer-response.md
 submission-package.md
 README.zh-CN.local.md
+
+# Reproducible bundled figure-package exports. Keep source files tracked.
+skills/materials-figure/examples/figure-packages/**/figure.svg
+skills/materials-figure/examples/figure-packages/**/figure.png
+skills/materials-figure/examples/figure-packages/**/figure.pdf
+skills/materials-figure/examples/figure-packages/**/figure.tif
+skills/materials-figure/examples/figure-packages/**/figure.tiff
+plugins/materials-skills/skills/materials-figure/examples/figure-packages/**/figure.svg
+plugins/materials-skills/skills/materials-figure/examples/figure-packages/**/figure.png
+plugins/materials-skills/skills/materials-figure/examples/figure-packages/**/figure.pdf
+plugins/materials-skills/skills/materials-figure/examples/figure-packages/**/figure.tif
+plugins/materials-skills/skills/materials-figure/examples/figure-packages/**/figure.tiff

@@ -23,6 +23,12 @@ REQUIRED_EXPORTS = [
     "figure.tiff",
 ]
 
+SOURCE_ANCHOR_FILES = [
+    "source_data.csv",
+    "source_data.tsv",
+    "source_map.json",
+]
+
 CONTRACT_TERMS = [
     "Core Conclusion",
     "Evidence Chain",
@@ -80,7 +86,26 @@ def audit_image(path: Path, issues: list[str]) -> None:
         issues.append(f"{path.name} cannot be opened: {exc}")
 
 
-def collect_issues(package_dir: Path) -> list[str]:
+def audit_exports(package_dir: Path, issues: list[str]) -> None:
+    svg = package_dir / "figure.svg"
+    if not svg.is_file():
+        issues.append("missing figure.svg")
+    else:
+        svg_text = svg.read_text(encoding="utf-8", errors="ignore")
+        if "<svg" not in svg_text:
+            issues.append("figure.svg does not contain <svg")
+
+    pdf = package_dir / "figure.pdf"
+    if not pdf.is_file():
+        issues.append("missing figure.pdf")
+    elif pdf.stat().st_size < 20:
+        issues.append("figure.pdf is too small")
+
+    audit_image(package_dir / "figure.png", issues)
+    audit_image(package_dir / "figure.tiff", issues)
+
+
+def collect_issues(package_dir: Path, *, source_only: bool = False) -> list[str]:
     issues: list[str] = []
     if not package_dir.is_dir():
         return [f"package directory not found: {package_dir}"]
@@ -110,41 +135,36 @@ def collect_issues(package_dir: Path) -> list[str]:
 
     if not (package_dir / "plot.py").is_file():
         issues.append("missing Python plotting script: plot.py")
-    if not any((package_dir / data).is_file() for data in ["source_data.csv", "source_data.tsv", "source_map.json"]):
+    if not any((package_dir / data).is_file() for data in SOURCE_ANCHOR_FILES):
         issues.append("missing source data or source_map anchor file")
 
-    svg = package_dir / "figure.svg"
-    if not svg.is_file():
-        issues.append("missing figure.svg")
-    else:
-        svg_text = svg.read_text(encoding="utf-8", errors="ignore")
-        if "<svg" not in svg_text:
-            issues.append("figure.svg does not contain <svg")
-
-    pdf = package_dir / "figure.pdf"
-    if not pdf.is_file():
-        issues.append("missing figure.pdf")
-    elif pdf.stat().st_size < 20:
-        issues.append("figure.pdf is too small")
-
-    audit_image(package_dir / "figure.png", issues)
-    audit_image(package_dir / "figure.tiff", issues)
+    if not source_only:
+        audit_exports(package_dir, issues)
     return issues
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--package-dir", required=True)
+    parser.add_argument(
+        "--source-only",
+        action="store_true",
+        help="Audit a reproducible repository example without requiring generated exports.",
+    )
     parser.add_argument("--json", action="store_true")
     args = parser.parse_args(argv)
 
     package_dir = Path(args.package_dir)
-    issues = collect_issues(package_dir)
+    issues = collect_issues(package_dir, source_only=args.source_only)
     status = "pass" if not issues else "incomplete"
+    checked_files = len(REQUIRED_TEXT_FILES) + 2
+    if not args.source_only:
+        checked_files += len(REQUIRED_EXPORTS)
     report = {
         "status": status,
         "package_dir": str(package_dir),
-        "checked_files": len(REQUIRED_TEXT_FILES) + len(REQUIRED_EXPORTS) + 2,
+        "mode": "source-only" if args.source_only else "production",
+        "checked_files": checked_files,
         "issues": issues,
     }
     if args.json:

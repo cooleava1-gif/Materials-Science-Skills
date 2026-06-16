@@ -67,6 +67,16 @@ FIGURE_GOLDEN_PACKAGES = [
     "polymer-composites-partial-to-full",
 ]
 
+FIGURE_GOLDEN_SOURCE_ONLY_FILES = [
+    "README.md",
+    "figure_storyboard.yaml",
+    "caption_boundary.md",
+    "figure_qa_report.md",
+    "plot.py",
+    "source_data.csv",
+    "asset_manifest.json",
+]
+
 
 def collect_paper_production_orchestrator_issues(skill_root: Path) -> list[str]:
     issues = []
@@ -106,16 +116,7 @@ def collect_figure_maturity_issues(skill_root: Path) -> list[str]:
         if not package_root.exists():
             issues.append(f"missing materials-figure/examples/figure-packages/{package}")
             continue
-        for name in [
-            "README.md",
-            "figure_storyboard.yaml",
-            "caption_boundary.md",
-            "figure_qa_report.md",
-            "figure.svg",
-            "figure.pdf",
-            "figure.png",
-            "figure.tiff",
-        ]:
+        for name in FIGURE_GOLDEN_SOURCE_ONLY_FILES:
             if not (package_root / name).exists():
                 issues.append(f"missing materials-figure/examples/figure-packages/{package}/{name}")
     return issues

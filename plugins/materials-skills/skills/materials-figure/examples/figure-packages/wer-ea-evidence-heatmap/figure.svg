@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="420" viewBox="0 0 720 420">
-<rect width="720" height="420" fill="#ffffff"/>
-<text x="36" y="48" font-family="Arial" font-size="20" font-weight="bold">wer-ea-evidence-heatmap</text>
-<rect x="70" y="100" width="150" height="210" fill="#7a9b76"/>
-<rect x="285" y="140" width="150" height="170" fill="#d29f5d"/>
-<rect x="500" y="120" width="150" height="190" fill="#7a9b76"/>
-<text x="70" y="350" font-family="Arial" font-size="13">template only; replace with source-grounded data</text>
-<text x="70" y="375" font-family="Arial" font-size="11">claim boundary visible; not manuscript evidence</text>
-</svg>

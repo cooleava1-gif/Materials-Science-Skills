@@ -159,14 +159,39 @@ class FigurePackageAuditScriptTest(unittest.TestCase):
             package = sample_root / name
             with self.subTest(package=name):
                 result = subprocess.run(
-                    [sys.executable, str(script), "--package-dir", str(package), "--json"],
+                    [
+                        sys.executable,
+                        str(script),
+                        "--package-dir",
+                        str(package),
+                        "--source-only",
+                        "--json",
+                    ],
                     check=True,
                     capture_output=True,
                     text=True,
                 )
                 payload = json.loads(result.stdout)
                 self.assertEqual(payload["status"], "pass")
-                self.assertGreaterEqual(payload["checked_files"], 10)
+                self.assertEqual(payload["mode"], "source-only")
+                self.assertGreaterEqual(payload["checked_files"], 6)
+
+    def test_default_audit_still_requires_production_exports(self):
+        script = SKILL_ROOT / "scripts" / "audit_figure_package.py"
+        package = SKILL_ROOT / "examples" / "figure-packages" / "wer-ea-full"
+        result = subprocess.run(
+            [sys.executable, str(script), "--package-dir", str(package), "--json"],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+
+        self.assertNotEqual(result.returncode, 0)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["status"], "incomplete")
+        self.assertEqual(payload["mode"], "production")
+        self.assertIn("missing figure.svg", payload["issues"])
+        self.assertIn("missing figure.tiff", payload["issues"])
 
     def test_release_check_tracks_figure_hard_workflow(self):
         release_text = (REPO_ROOT / "scripts" / "run_release_checks.py").read_text(encoding="utf-8")

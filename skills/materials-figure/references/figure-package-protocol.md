@@ -2,7 +2,7 @@
 
 Use this protocol for journal-ready materials figures, WER-EA review figures, or figure audits. The package makes the figure traceable from claim to source data to export and QA.
 
-## Required Layout
+## Production Package Layout
 
 ```text
 figure-package/
@@ -18,7 +18,19 @@ figure-package/
   asset_manifest.md
 ```
 
-The Python plotting script is required: `plot.py`.
+The Python plotting script is required: `plot.py`. A production package must
+generate SVG, PDF, PNG, and TIFF exports before it can be called
+`production-ready`.
+
+## Bundled Source-Only Examples
+
+Repository examples under `examples/figure-packages/` are source-only packages.
+They keep the contract, caption, QA report, manifest, plot script, and source
+anchor files tracked, but generated `figure.svg`, `figure.pdf`, `figure.png`,
+`figure.tif`, and `figure.tiff` exports are ignored and should not be committed.
+
+Use `scripts/audit_figure_package.py --source-only` for bundled examples. Use
+the default audit mode for production packages after local export generation.
 
 ## Required Fields
 
