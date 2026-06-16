@@ -226,6 +226,21 @@ def _iter_mirror_files(base: Path) -> dict[str, Path]:
     return files
 
 
+def _mirror_files_equal(source_file: Path, target_file: Path) -> bool:
+    if filecmp.cmp(source_file, target_file, shallow=False):
+        return True
+
+    source_bytes = source_file.read_bytes()
+    target_bytes = target_file.read_bytes()
+    try:
+        source_text = source_bytes.decode("utf-8")
+        target_text = target_bytes.decode("utf-8")
+    except UnicodeDecodeError:
+        return False
+
+    return source_text.replace("\r\n", "\n") == target_text.replace("\r\n", "\n")
+
+
 def _inspect_plugin_mirror(root: Path, plugin_root: Path) -> dict[str, object]:
     missing_plugin_skills: list[str] = []
     missing_plugin_files: list[str] = []
@@ -255,7 +270,7 @@ def _inspect_plugin_mirror(root: Path, plugin_root: Path) -> dict[str, object]:
                 missing_plugin_files.append(exception_key)
                 continue
             compared_files += 1
-            if not filecmp.cmp(source_file, target_file, shallow=False):
+            if not _mirror_files_equal(source_file, target_file):
                 different_files.append(exception_key)
 
     source_files = _iter_mirror_files(root)
@@ -274,7 +289,7 @@ def _inspect_plugin_mirror(root: Path, plugin_root: Path) -> dict[str, object]:
         if exception_key in MIRROR_EXCEPTION_SUFFIXES:
             continue
         compared_files += 1
-        if not filecmp.cmp(source_files[suffix], plugin_files[suffix], shallow=False):
+        if not _mirror_files_equal(source_files[suffix], plugin_files[suffix]):
             different_files.append(suffix)
 
     missing_plugin_files = sorted(set(missing_plugin_files + source_only_files))
