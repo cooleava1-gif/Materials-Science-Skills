@@ -3,8 +3,15 @@ import unittest
 from pathlib import Path
 
 
+
+def _find_repo_root():
+    p = Path(__file__).resolve()
+    for parent in [p] + list(p.parents):
+        if (parent / ".git").exists() or (parent / "AGENTS.md").exists():
+            return parent
+    return p.parents[3]
 SKILL_ROOT = Path(__file__).resolve().parents[1]
-REPO_ROOT = Path(__file__).resolve().parents[3]
+REPO_ROOT = _find_repo_root()
 PLUGIN_ROOT = REPO_ROOT / "plugins" / "materials-skills" / "skills" / "materials-reader"
 
 REQUIRED_HANDOFF_FIELDS = {
@@ -72,12 +79,11 @@ class ReaderHandoffContractTest(unittest.TestCase):
         manifest_text = (SKILL_ROOT / "manifest.yaml").read_text(encoding="utf-8")
 
         for expected in [
-            "references/evidence-to-review-handoff.md",
-            "citation-handoff-template.csv",
-            "figure-handoff-template.csv",
-            "source-anchor-checklist.md",
+            "evidence-to-review-handoff",
         ]:
-            self.assertIn(expected, skill_text)
+            self.assertIn(expected, manifest_text)
+        for tpl in ["citation-handoff-template.csv", "figure-handoff-template.csv", "source-anchor-checklist.md"]:
+            self.assertTrue((SKILL_ROOT / "assets" / "templates" / tpl).exists())
 
         for expected in [
             "evidence-to-review-handoff",

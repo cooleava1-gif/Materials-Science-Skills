@@ -89,16 +89,16 @@ If you want the index first, open [docs/workflows/README.md](docs/workflows/READ
 ## Material Coverage
 
 Different material systems have different support depths. The bundle
-currently covers **30 material systems** with four tiers:
+currently covers **29 material systems** with four tiers:
 
 | Tier | Count | Meaning |
 |---|---|---|
 | 🟢 **full** | 1 | Battle-tested (narrative + figures + reviewer criteria + examples) |
-| 🟡 **partial** | 9 | Structured support (narrative + figures or reviewer criteria) |
-| 🔵 **skeleton** | 17 | Routable (domain fragment + auto-generated narrative) |
-| ⚪ **generic** | 3 | Catch-all (general materials guidance) |
+| 🟡 **partial** | 7 | Structured support (narrative + figures or reviewer criteria) |
+| 🔵 **skeleton** | 19 | Routable (domain fragment + auto-generated narrative) |
+| ⚪ **generic** | 2 | Scoped fallback (family-level guidance, no material-specific content) |
 
-**Full dashboard → [docs/coverage-dashboard.md](docs/coverage-dashboard.md)**
+**Full dashboard -> [docs/coverage-dashboard.md](docs/coverage-dashboard.md)**
 
 To check support for a specific material when working with the AI, ask:
 > *"What is the coverage tier for [material system]?"*

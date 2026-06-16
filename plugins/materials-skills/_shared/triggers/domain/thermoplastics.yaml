@@ -1,0 +1,11 @@
+id: thermoplastics
+path: static/fragments/domain/thermoplastics.md
+triggers:
+- thermoplastic
+- PE
+- PP
+- PET
+- nylon
+- PEEK
+- polycarbonate
+- 热塑性

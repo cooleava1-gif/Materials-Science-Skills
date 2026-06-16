@@ -1,6 +1,8 @@
 # Figure Hard Workflow
 
-Run this workflow for any journal-ready figure, WER-EA review figure, plotted data figure, or figure audit.
+> **Domain context**: The `domain` axis has loaded domain-specific figure guidance. Before plotting, review the domain guide for recommended figure types, panel structures, and format conventions.
+
+Run this workflow for any journal-ready figure, review figure, plotted data figure, or figure audit.
 
 ## 1. Use the Python backend
 

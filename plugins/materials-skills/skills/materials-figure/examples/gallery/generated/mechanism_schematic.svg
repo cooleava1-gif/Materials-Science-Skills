@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="620" viewBox="0 0 960 620">
+<rect width="100%" height="100%" fill="#FFFFFF"/>
+<text x="480.0" y="34" text-anchor="middle" font-family="Arial" font-size="18" font-weight="700">Materials Science Figure Gallery</text>
+<text x="480.0" y="58" text-anchor="middle" font-family="Arial" font-size="24" font-weight="700">Mechanism Schematic</text>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#B65C38"/></marker></defs>
+<rect x="80" y="180" width="145" height="92" rx="12" fill="#E8E2D6" stroke="#2F332F" stroke-width="1.5"/>
+<text x="152.5" y="218.0" text-anchor="middle" font-family="Arial" font-size="14" font-weight="700" fill="#2F332F">Emulsion</text>
+<text x="152.5" y="238.0" text-anchor="middle" font-family="Arial" font-size="14" font-weight="400" fill="#2F332F">stability</text>
+<rect x="265" y="180" width="145" height="92" rx="12" fill="#E8E2D6" stroke="#2F332F" stroke-width="1.5"/>
+<text x="337.5" y="218.0" text-anchor="middle" font-family="Arial" font-size="14" font-weight="700" fill="#2F332F">Demulsification</text>
+<rect x="450" y="180" width="145" height="92" rx="12" fill="#E8E2D6" stroke="#2F332F" stroke-width="1.5"/>
+<text x="522.5" y="218.0" text-anchor="middle" font-family="Arial" font-size="14" font-weight="700" fill="#2F332F">Epoxy</text>
+<text x="522.5" y="238.0" text-anchor="middle" font-family="Arial" font-size="14" font-weight="400" fill="#2F332F">curing</text>
+<rect x="635" y="180" width="145" height="92" rx="12" fill="#E8E2D6" stroke="#2F332F" stroke-width="1.5"/>
+<text x="707.5" y="218.0" text-anchor="middle" font-family="Arial" font-size="14" font-weight="700" fill="#2F332F">Interface</text>
+<text x="707.5" y="238.0" text-anchor="middle" font-family="Arial" font-size="14" font-weight="400" fill="#2F332F">network</text>
+<rect x="450" y="385" width="145" height="92" rx="12" fill="#E8E2D6" stroke="#2F332F" stroke-width="1.5"/>
+<text x="522.5" y="423.0" text-anchor="middle" font-family="Arial" font-size="14" font-weight="700" fill="#2F332F">Bonding and</text>
+<text x="522.5" y="443.0" text-anchor="middle" font-family="Arial" font-size="14" font-weight="400" fill="#2F332F">moisture resistance</text>
+<line x1="225" y1="226" x2="265" y2="226" stroke="#B65C38" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="410" y1="226" x2="450" y2="226" stroke="#B65C38" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="595" y1="226" x2="635" y2="226" stroke="#B65C38" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="522" y1="272" x2="522" y2="385" stroke="#B65C38" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="480.0" y="555.0" text-anchor="middle" font-family="Arial" font-size="13" font-weight="400" fill="#2F332F">Solid arrows require measured support; dashed or missing links must be marked in captions.</text>
+</svg>

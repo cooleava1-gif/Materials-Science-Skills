@@ -29,7 +29,7 @@ ENTRIES_DIR = REGISTRY_DIR / "entries"
 INDEX_FILE = REGISTRY_DIR / "registry-index.yaml"
 SCHEMA_FILE = REGISTRY_DIR / "registry-schema.yaml"
 
-VALID_FAMILIES = {"civil", "polymers", "metals", "ceramics", "functional", "nano", "general"}
+VALID_FAMILIES = {"civil", "polymers", "metals", "ceramics", "functional", "nano"}
 VALID_TIERS = {"full", "partial", "skeleton", "generic"}
 
 

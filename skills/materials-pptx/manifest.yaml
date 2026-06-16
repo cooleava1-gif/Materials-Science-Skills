@@ -21,15 +21,28 @@ axes:
       review-talk:
         path: references/deck-structures.md
         triggers: ["review", "综述", "research progress", "研究进展"]
-  material_domain:
-    default: materials
+  domain:
+    detect: "Which material domain does the PPTX target?"
+    default: civil
     values:
-      asphalt:
-        path: references/deck-structures.md
-        triggers: ["asphalt", "emulsified asphalt", "waterborne epoxy", "pavement", "沥青", "乳化沥青", "水性环氧"]
-      cement-concrete:
-        path: references/deck-structures.md
-        triggers: ["cement", "concrete", "hydration", "水泥", "混凝土"]
+      civil:
+        path: static/fragments/domain/domain-context.md
+        triggers: ["civil", "asphalt", "cement", "concrete", "pavement", "construction", "土木", "建筑"]
+      polymers:
+        path: static/fragments/domain/domain-context.md
+        triggers: ["polymer", "resin", "rubber", "thermoplastic", "高分子"]
+      metals:
+        path: static/fragments/domain/domain-context.md
+        triggers: ["metal", "alloy", "steel", "金属", "合金"]
+      ceramics:
+        path: static/fragments/domain/domain-context.md
+        triggers: ["ceramic", "sintering", "陶瓷"]
+      functional:
+        path: static/fragments/domain/domain-context.md
+        triggers: ["semiconductor", "dielectric", "piezoelectric", "半导体"]
+      nano:
+        path: static/fragments/domain/domain-context.md
+        triggers: ["nano", "nanoparticle", "2D material", "纳米"]
   source_type:
     default: outline
     values:

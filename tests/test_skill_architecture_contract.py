@@ -5,6 +5,9 @@ from pathlib import Path
 from scripts.check_skill_architecture import inspect_all, inspect_skill
 
 
+REPO_ROOT = Path(__file__).resolve().parents[1]
+
+
 def _write_minimal_skill(skill_dir: Path, manifest: str) -> None:
     (skill_dir / "agents").mkdir(parents=True)
     (skill_dir / "static" / "core").mkdir(parents=True)
@@ -132,12 +135,13 @@ axes:
             set(report["missing_manifest_blocks"]),
         )
 
-    def test_plugin_mirror_includes_direction_extension_files(self):
+    def test_architecture_checker_fails_on_unexpected_plugin_mirror_extra(self):
         with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
-            source_skill = root / "skills" / "materials-data"
-            plugin_skill = root / "plugins" / "materials-skills" / "skills" / "materials-data"
-            manifest = """
+            root = Path(tmp) / "skills"
+            skill_dir = root / "materials-fake"
+            _write_minimal_skill(
+                skill_dir,
+                """
 version: "0.0.1"
 always_load:
   - static/core/contract.md
@@ -156,21 +160,69 @@ tests:
 quality_gates: []
 handoffs: []
 release_checks: []
-"""
-            _write_minimal_skill(source_skill, manifest)
-            _write_minimal_skill(plugin_skill, manifest)
-            (source_skill / "references" / "functional-data-schema.md").write_text(
-                "# Functional Data Schema\n", encoding="utf-8"
+""",
             )
+            plugin_skill = Path(tmp) / "plugins" / "materials-skills" / "skills" / "materials-fake"
+            plugin_skill.mkdir(parents=True)
+            for source_file in skill_dir.rglob("*"):
+                if source_file.is_file():
+                    relative = source_file.relative_to(skill_dir)
+                    target = plugin_skill / relative
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    target.write_bytes(source_file.read_bytes())
+            (plugin_skill / "plugin-only.md").write_text("stale\n", encoding="utf-8")
 
-            report = inspect_all(root / "skills")
+            report = inspect_all(root)
 
-        self.assertEqual("fail", report["plugin_mirror"]["status"], report)
         self.assertEqual("fail", report["status"], report)
-        self.assertIn(
-            "materials-data/references/functional-data-schema.md",
-            report["plugin_mirror"]["missing_plugin_files"],
-        )
+        self.assertIn("materials-fake/plugin-only.md", report["plugin_mirror"]["extra_plugin_files"])
+
+    def test_architecture_checker_accepts_text_mirror_line_ending_differences(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / "skills"
+            skill_dir = root / "materials-fake"
+            _write_minimal_skill(
+                skill_dir,
+                """
+version: "0.0.1"
+always_load:
+  - static/core/contract.md
+axes:
+  task:
+    values:
+      ok:
+        path: references/ok.md
+        triggers: ["ok"]
+assets:
+  - assets/templates/ok.md
+scripts:
+  - scripts/ok.py
+tests:
+  - tests/ok_test.py
+quality_gates: []
+handoffs: []
+release_checks: []
+""",
+            )
+            plugin_skill = Path(tmp) / "plugins" / "materials-skills" / "skills" / "materials-fake"
+            plugin_skill.mkdir(parents=True)
+            for source_file in skill_dir.rglob("*"):
+                if source_file.is_file():
+                    relative = source_file.relative_to(skill_dir)
+                    target = plugin_skill / relative
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    target.write_bytes(source_file.read_bytes())
+            (skill_dir / "references" / "ok.md").write_bytes(b"# Reference\nSame content\n")
+            (plugin_skill / "references" / "ok.md").write_bytes(b"# Reference\r\nSame content\r\n")
+
+            report = inspect_all(root)
+
+        self.assertEqual("pass", report["status"], report)
+
+    def test_release_check_includes_architecture_validation(self):
+        release_text = (REPO_ROOT / "scripts" / "run_release_checks.py").read_text(encoding="utf-8")
+        self.assertIn("check_skill_architecture.py", release_text)
+        self.assertIn("inspect_all", release_text)
 
 
 if __name__ == "__main__":

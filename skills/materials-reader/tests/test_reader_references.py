@@ -19,7 +19,7 @@ class ReaderReferencesTest(unittest.TestCase):
         text = reference.read_text(encoding="utf-8")
         for phrase in ["sea-island", "co-continuous", "phase inversion", "fluorescence", "DSC/TG", "safer wording"]:
             self.assertIn(phrase, text)
-        self.assertIn("The SEM image proves the chemical bonding mechanism", text)
+        self.assertIn("whether the figure actually supports that claim", text)
 
 
 if __name__ == "__main__":

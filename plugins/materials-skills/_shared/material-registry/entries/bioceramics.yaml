@@ -1,0 +1,55 @@
+characterization:
+- evidence_tier: definitive
+  method: XRD
+  purpose: Phase purity, crystallinity, apatite formation in SBF
+- evidence_tier: strong
+  method: SEM/EDS
+  purpose: Surface morphology after SBF immersion, cell attachment, porosity
+- evidence_tier: strong
+  method: FTIR/Raman
+  purpose: Functional group identification (phosphate, carbonate, silanol)
+- evidence_tier: strong
+  method: ICP-OES
+  purpose: Ion release kinetics in simulated body fluid
+coverage_tier: skeleton
+cross_references:
+  related:
+  - structural-ceramics
+description:
+  engineering_problems:
+  - Bioactivity and osseointegration surface optimization
+  - Degradation rate control for resorbable bioceramics
+  - Mechanical reliability of load-bearing bioceramic implants
+  - Porosity control for bone tissue engineering scaffolds
+  summary: Hydroxyapatite, beta-tricalcium phosphate, bioactive glasses, calcium phosphates,
+    and alumina/zirconia for biomedical implants
+  typical_applications:
+  - Orthopedic implants (hip, knee, spinal)
+  - Dental implants and restorations
+  - Bone graft substitutes and scaffolds
+  - Drug delivery carriers
+family: ceramics
+figure_archetypes:
+- description: XRD patterns before and after SBF immersion (apatite formation)
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
+  id: xrd_pattern
+  type: xrd_pattern
+- description: Mechanical testing of porous scaffolds
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+  id: stress_strain
+  type: stress_strain
+id: bioceramics
+name: Bioceramics and Bioactive Glasses
+narrative:
+  arc: Composition → Processing → Surface Chemistry → Bioactivity → Mechanical Performance
+    → In Vivo Behavior
+  skill_references:
+    domain_fragment: skills/materials-research/static/fragments/domain/bioceramics.md
+    narrative_guide: skills/materials-writing/references/bioceramics-narrative.md
+    reviewer_criteria: skills/materials-reviewer/references/ceramics-reviewer-criteria.md
+skill_mapping:
+  data_schemas: []
+  figure_packages: []
+  figure_scripts:
+  - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
+  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py

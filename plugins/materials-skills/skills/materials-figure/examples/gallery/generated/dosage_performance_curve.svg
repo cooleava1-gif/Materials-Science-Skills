@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="620" viewBox="0 0 960 620">
+<rect width="100%" height="100%" fill="#FFFFFF"/>
+<text x="480.0" y="34" text-anchor="middle" font-family="Arial" font-size="18" font-weight="700">Materials Science Figure Gallery</text>
+<text x="480.0" y="58" text-anchor="middle" font-family="Arial" font-size="24" font-weight="700">Dosage-Performance Curve</text>
+<line x1="105" y1="475" x2="875" y2="475" stroke="#2F332F" stroke-width="2"/>
+<line x1="105" y1="105" x2="105" y2="475" stroke="#2F332F" stroke-width="2"/>
+<rect x="451.5" y="105" width="192.5" height="370" fill="#E0A04B" opacity="0.16"/>
+<circle cx="105.0" cy="280.8" r="7" fill="#B65C38"/>
+<text x="105.0" y="503.0" text-anchor="middle" font-family="Arial" font-size="12" font-weight="400" fill="#2F332F">0</text>
+<circle cx="336.0" cy="206.8" r="7" fill="#B65C38"/>
+<text x="336.0" y="503.0" text-anchor="middle" font-family="Arial" font-size="12" font-weight="400" fill="#2F332F">3</text>
+<circle cx="490.0" cy="137.4" r="7" fill="#B65C38"/>
+<text x="490.0" y="503.0" text-anchor="middle" font-family="Arial" font-size="12" font-weight="400" fill="#2F332F">5</text>
+<circle cx="644.0" cy="155.9" r="7" fill="#B65C38"/>
+<text x="644.0" y="503.0" text-anchor="middle" font-family="Arial" font-size="12" font-weight="400" fill="#2F332F">7</text>
+<circle cx="875.0" cy="192.9" r="7" fill="#B65C38"/>
+<text x="875.0" y="503.0" text-anchor="middle" font-family="Arial" font-size="12" font-weight="400" fill="#2F332F">10</text>
+<polyline points="105.0,280.8 336.0,206.8 490.0,137.4 644.0,155.9 875.0,192.9" fill="none" stroke="#B65C38" stroke-width="4" stroke-linejoin="round"/>
+<text x="480.0" y="525.0" text-anchor="middle" font-family="Arial" font-size="13" font-weight="400" fill="#2F332F">Preferred range is a hypothesis until viscosity, storage stability, and durability are checked.</text>
+<text x="480.0" y="505.0" text-anchor="middle" font-family="Arial" font-size="15" font-weight="400" fill="#2F332F">Waterborne epoxy dosage (%)</text>
+</svg>

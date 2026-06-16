@@ -1,5 +1,7 @@
 # Conclusions Polishing
 
+> **Domain context**: The `domain` axis has loaded domain-specific polishing guidance for [detected domain]. Conclusion pitfalls vary by domain — the domain guide lists domain-specific overclaim patterns.
+
 Conclusions should compress evidence, not expand claims. Use a short sequence:
 
 1. Restate the material system and test scope.
@@ -12,26 +14,26 @@ Avoid adding new citations, new mechanisms, new sustainability claims, or strong
 
 ## Before/After Examples
 
-### Example 1: Removing Unsupported Universality
+### Example 1: Removing unsupported universality (civil)
 
 Before:
-
 > In conclusion, waterborne epoxy emulsified asphalt has excellent performance and can be widely used in all pavement engineering.
 
 After:
-
 > Under the tested curing and dosage conditions, waterborne epoxy modification improved the measured interlayer bonding performance of the emulsified asphalt system. Further field-scale validation is required before generalizing the formulation to different pavement structures or climates.
 
-Why: the revision keeps the main contribution while removing universal deployment language.
-
-### Example 2: Separating Mechanism and Durability
+### Example 2: Bounded property claims (ceramics)
 
 Before:
-
-> The FTIR and SEM results proved that the waterborne epoxy improved the mechanism and durability of the modified emulsified asphalt, making it suitable for long-term pavement service.
+> The ceramic has excellent mechanical properties and good thermal stability, making it suitable for high-temperature applications.
 
 After:
+> Alumina ceramics sintered at 1600°C achieved 98% relative density and a flexural strength of 480 MPa (Weibull modulus m = 12, n = 20). Thermal conductivity was 28 W m⁻¹ K⁻¹ at 25°C, decreasing to 12 W m⁻¹ K⁻¹ at 800°C. Thermal shock testing (ΔT = 200°C, water quench) resulted in 30% strength retention; further optimization of the grain boundary phase is needed before cyclic thermal exposure applications can be considered.
 
-> FTIR analysis confirmed epoxy ring-opening at ~915 cm-1 after curing, and fluorescence microscopy revealed a co-continuous morphology at 15% epoxy content. Under the tested moisture conditioning (60 degC water soak, 48 h), the 15% epoxy formulation retained 89% of its dry pull-off strength, compared with 64% for the control. These results indicate improved moisture resistance under the specific conditions tested; long-term field performance under traffic loading and environmental cycling remains to be verified.
+### Example 3: Bounded applicability (functional)
 
-Why: mechanism and durability are stated only within the bounds of actual tests. `Proved` is replaced with evidence-specific language, and field service suitability becomes a limitation rather than a conclusion.
+Before:
+> This material is very promising for next-generation electronic devices.
+
+After:
+> The [material] achieved a charge capacity of 320 mAh g⁻¹ at 0.1 C with 92% retention after 200 cycles in a half-cell configuration. Full-cell testing with a commercial cathode and evaluation of volume changes during cycling are needed before practical applicability can be assessed.

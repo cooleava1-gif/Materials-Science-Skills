@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -14,6 +15,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageOps
 REPO_ROOT = Path(__file__).resolve().parents[3]
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT_DIR = SKILL_ROOT / "assets" / "showcase-proof"
+DEFAULT_SOURCE_DIR = SKILL_ROOT / "assets" / "showcase-sources"
 SHOWCASE_MANIFEST = "showcase_manifest.json"
 
 CANVAS_SIZE = (2000, 1280)
@@ -84,24 +86,74 @@ def crop_box(left: float, top: float, right: float, bottom: float) -> Crop:
     return Crop(left=left, top=top, right=right, bottom=bottom)
 
 
-CONTACT_SHEET_015 = REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "015-curing-agent-structure-wer-ea" / "assets" / "contact_sheet.png"
-CONTACT_SHEET_016 = REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "016-sbr-wer-waterproof-binder" / "assets" / "contact_sheet.png"
-CONTACT_SHEET_017 = REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "017-ac-pcc-inclined-shear-fatigue" / "assets" / "contact_sheet.png"
+def source_image(relative_path: str, legacy_path: Path) -> Path:
+    bundled = DEFAULT_SOURCE_DIR / relative_path
+    return bundled if bundled.is_file() else legacy_path
 
-FIG_015_01 = REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "015-curing-agent-structure-wer-ea" / "assets" / "figures" / "f015-01_fig-1-2.png"
-FIG_015_02 = REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "015-curing-agent-structure-wer-ea" / "assets" / "figures" / "f015-02_fig-3.png"
-FIG_015_03 = REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "015-curing-agent-structure-wer-ea" / "assets" / "figures" / "f015-03_fig-8.png"
-FIG_015_08 = REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "015-curing-agent-structure-wer-ea" / "assets" / "figures" / "f015-08_fig-14.png"
 
-FIG_016_02 = REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "016-sbr-wer-waterproof-binder" / "assets" / "figures" / "f016-02_table-5-fm-morphology.png"
-FIG_016_03 = REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "016-sbr-wer-waterproof-binder" / "assets" / "figures" / "f016-03_fig-3-4.png"
-FIG_016_05 = REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "016-sbr-wer-waterproof-binder" / "assets" / "figures" / "f016-05_fig-8-10-table-6.png"
-TABLE_016_01 = REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "016-sbr-wer-waterproof-binder" / "assets" / "tables" / "t016-01_table-7.png"
+CONTACT_SHEET_015 = source_image(
+    "015-curing-agent-structure-wer-ea/assets/contact_sheet.png",
+    REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "015-curing-agent-structure-wer-ea" / "assets" / "contact_sheet.png",
+)
+CONTACT_SHEET_016 = source_image(
+    "016-sbr-wer-waterproof-binder/assets/contact_sheet.png",
+    REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "016-sbr-wer-waterproof-binder" / "assets" / "contact_sheet.png",
+)
+CONTACT_SHEET_017 = source_image(
+    "017-ac-pcc-inclined-shear-fatigue/assets/contact_sheet.png",
+    REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "017-ac-pcc-inclined-shear-fatigue" / "assets" / "contact_sheet.png",
+)
 
-FIG_017_01 = REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "017-ac-pcc-inclined-shear-fatigue" / "assets" / "figures" / "f017-01_fig-4-5-inclined-shear-fatigue-method.png"
-FIG_017_02 = REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "017-ac-pcc-inclined-shear-fatigue" / "assets" / "figures" / "f017-02_fig-8-tack-coat-fatigue-results.png"
-FIG_017_03 = REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "017-ac-pcc-inclined-shear-fatigue" / "assets" / "figures" / "f017-03_fig-9-s-n-fitting.png"
-TABLE_017_01 = REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "017-ac-pcc-inclined-shear-fatigue" / "assets" / "tables" / "t017-01_table-8-tack-coat-fatigue-table.png"
+FIG_015_01 = source_image(
+    "015-curing-agent-structure-wer-ea/assets/figures/f015-01_fig-1-2.png",
+    REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "015-curing-agent-structure-wer-ea" / "assets" / "figures" / "f015-01_fig-1-2.png",
+)
+FIG_015_02 = source_image(
+    "015-curing-agent-structure-wer-ea/assets/figures/f015-02_fig-3.png",
+    REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "015-curing-agent-structure-wer-ea" / "assets" / "figures" / "f015-02_fig-3.png",
+)
+FIG_015_03 = source_image(
+    "015-curing-agent-structure-wer-ea/assets/figures/f015-03_fig-8.png",
+    REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "015-curing-agent-structure-wer-ea" / "assets" / "figures" / "f015-03_fig-8.png",
+)
+FIG_015_08 = source_image(
+    "015-curing-agent-structure-wer-ea/assets/figures/f015-08_fig-14.png",
+    REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "015-curing-agent-structure-wer-ea" / "assets" / "figures" / "f015-08_fig-14.png",
+)
+
+FIG_016_02 = source_image(
+    "016-sbr-wer-waterproof-binder/assets/figures/f016-02_table-5-fm-morphology.png",
+    REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "016-sbr-wer-waterproof-binder" / "assets" / "figures" / "f016-02_table-5-fm-morphology.png",
+)
+FIG_016_03 = source_image(
+    "016-sbr-wer-waterproof-binder/assets/figures/f016-03_fig-3-4.png",
+    REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "016-sbr-wer-waterproof-binder" / "assets" / "figures" / "f016-03_fig-3-4.png",
+)
+FIG_016_05 = source_image(
+    "016-sbr-wer-waterproof-binder/assets/figures/f016-05_fig-8-10-table-6.png",
+    REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "016-sbr-wer-waterproof-binder" / "assets" / "figures" / "f016-05_fig-8-10-table-6.png",
+)
+TABLE_016_01 = source_image(
+    "016-sbr-wer-waterproof-binder/assets/tables/t016-01_table-7.png",
+    REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "016-sbr-wer-waterproof-binder" / "assets" / "tables" / "t016-01_table-7.png",
+)
+
+FIG_017_01 = source_image(
+    "017-ac-pcc-inclined-shear-fatigue/assets/figures/f017-01_fig-4-5-inclined-shear-fatigue-method.png",
+    REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "017-ac-pcc-inclined-shear-fatigue" / "assets" / "figures" / "f017-01_fig-4-5-inclined-shear-fatigue-method.png",
+)
+FIG_017_02 = source_image(
+    "017-ac-pcc-inclined-shear-fatigue/assets/figures/f017-02_fig-8-tack-coat-fatigue-results.png",
+    REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "017-ac-pcc-inclined-shear-fatigue" / "assets" / "figures" / "f017-02_fig-8-tack-coat-fatigue-results.png",
+)
+FIG_017_03 = source_image(
+    "017-ac-pcc-inclined-shear-fatigue/assets/figures/f017-03_fig-9-s-n-fitting.png",
+    REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "017-ac-pcc-inclined-shear-fatigue" / "assets" / "figures" / "f017-03_fig-9-s-n-fitting.png",
+)
+TABLE_017_01 = source_image(
+    "017-ac-pcc-inclined-shear-fatigue/assets/tables/t017-01_table-8-tack-coat-fatigue-table.png",
+    REPO_ROOT / "outputs" / "wer-ea-30-reading-sample" / "017-ac-pcc-inclined-shear-fatigue" / "assets" / "tables" / "t017-01_table-8-tack-coat-fatigue-table.png",
+)
 
 
 BOARDS = (

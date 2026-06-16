@@ -1,0 +1,7 @@
+shear_rate_s1,viscosity_control,viscosity_modified
+0.01,125,95
+0.1,98,72
+1,62,44
+10,24,18
+100,12,9
+200,8,6

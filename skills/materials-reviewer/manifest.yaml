@@ -70,9 +70,6 @@ axes:
       nano:
         path: references/nano-reviewer-criteria.md
         triggers: ["nano", "nanoparticle", "2D material", "纳米"]
-      materials-general:
-        path: references/materials-general-reviewer-criteria.md
-        triggers: ["general review", "cross-domain", "通用审稿"]
   review_scope:
     default: full-manuscript
     values:
@@ -87,7 +84,7 @@ axes:
         triggers: ["method review", "experimental design", "statistical", "方法审稿", "实验设计"]
   material_family:
     detect: "Which materials family is central?"
-    default: general
+    default: civil
     values:
       civil:
         path: ../materials-research/static/fragments/domain/civil-family.md
@@ -107,9 +104,29 @@ axes:
       nano:
         path: ../materials-research/static/fragments/domain/nano-family.md
         triggers: ["nano", "nanoparticle", "2D material", "纳米", "纳米材料"]
-      general:
-        path: ../materials-research/static/fragments/domain/general-materials.md
-        triggers: ["materials", "通用"]
+
+  domain:
+    detect: "Which material domain does the manuscript target?"
+    default: civil
+    values:
+      civil:
+        path: static/fragments/domain/civil.md
+        triggers: ["civil", "asphalt", "cement", "concrete", "pavement", "construction", "土木", "建筑", "道路"]
+      polymers:
+        path: static/fragments/domain/polymers.md
+        triggers: ["polymer", "resin", "rubber", "elastomer", "高分子", "聚合物"]
+      metals:
+        path: static/fragments/domain/metals.md
+        triggers: ["metal", "alloy", "steel", "corrosion", "金属", "合金"]
+      ceramics:
+        path: static/fragments/domain/ceramics.md
+        triggers: ["ceramic", "sintering", "alumina", "zirconia", "carbide", "陶瓷"]
+      functional:
+        path: static/fragments/domain/functional.md
+        triggers: ["semiconductor", "dielectric", "piezoelectric", "半导体", "介电"]
+      nano:
+        path: static/fragments/domain/nano.md
+        triggers: ["nano", "nanoparticle", "2D material", "纳米"]
 
 assets: []
 scripts:

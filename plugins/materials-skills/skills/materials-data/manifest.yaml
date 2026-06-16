@@ -25,7 +25,7 @@ axes:
         triggers: ["data availability", "availability statement", "data statement", "declaration"]
   material_family:
     detect: "Which materials family is central?"
-    default: general
+    default: civil
     values:
       civil:
         path: ../materials-research/static/fragments/domain/civil-family.md
@@ -45,22 +45,20 @@ axes:
       nano:
         path: ../materials-research/static/fragments/domain/nano-family.md
         triggers: ["nano", "nanoparticle", "2D material", "纳米", "纳米材料"]
-      general:
-        path: ../materials-research/static/fragments/domain/general-materials.md
-        triggers: ["materials", "通用"]
 
   domain:
+    detect: "Which material domain does the data package target?"
     default: materials
     values:
       asphalt:
         path: static/fragments/domain/asphalt.md
-        triggers: ["asphalt", "emulsified asphalt", "waterborne epoxy", "bitumen", "pavement", "bonding", "tack coat"]
+        triggers: ["asphalt", "emulsified asphalt", "waterborne epoxy", "bitumen", "pavement", "沥青", "乳化沥青", "水性环氧"]
       cement-concrete:
         path: static/fragments/domain/cement-concrete.md
-        triggers: ["cement", "concrete", "mortar", "hydration", "UHPC", "geopolymer"]
+        triggers: ["cement", "concrete", "mortar", "hydration", "UHPC", "geopolymer", "水泥", "混凝土", "砂浆"]
       materials:
         path: static/fragments/domain/materials.md
-        triggers: ["materials", "construction materials", "durability", "sustainability"]
+        triggers: ["materials", "construction materials", "土木材料", "建筑材料"]
       polymers:
         path: static/fragments/domain/polymers.md
         triggers: ["polymer", "resin", "thermoplastic", "thermoset", "rubber", "composite", "高分子", "聚合物", "橡胶"]
@@ -68,17 +66,17 @@ axes:
         path: static/fragments/domain/metals.md
         triggers: ["metal", "alloy", "steel", "aluminum", "titanium", "superalloy", "金属", "合金", "钢", "铝合金"]
       ceramics:
-        path: ../materials-research/static/fragments/domain/ceramics-family.md
-        triggers: ["ceramic", "陶瓷"]
+        path: static/fragments/domain/ceramics.md
+        triggers: ["ceramic", "sintering", "alumina", "zirconia", "carbide", "陶瓷"]
       functional:
         path: static/fragments/domain/functional.md
-        triggers: ["semiconductor", "dielectric", "piezoelectric", "ferroelectric", "photonic", "半导体", "介电", "压电"]
+        triggers: ["semiconductor", "dielectric", "piezoelectric", "ferroelectric", "photonic", "optoelectronic", "半导体", "介电", "压电"]
       nano:
         path: static/fragments/domain/nano.md
         triggers: ["nano", "nanoparticle", "nanotube", "graphene", "2D material", "quantum dot", "纳米", "纳米材料"]
-      general-materials:
-        path: ../materials-research/static/fragments/domain/general-materials.md
-        triggers: ["general", "通用"]
+      thermal-insulation:
+        path: static/fragments/domain/thermal-insulation.md
+        triggers: ["thermal insulation", "aerogel", "foam", "insulation", "隔热", "保温"]
   journal:
     default: generic
     values:
@@ -100,12 +98,6 @@ axes:
       generic:
         path: references/data-availability-statements.md
         triggers: ["journal", "submission", "SCI"]
-      ceramics:
-        path: static/fragments/domain/ceramics.md
-        triggers: ["ceramic", "sintering", "alumina", "zirconia", "carbide", "陶瓷"]
-      thermal-insulation:
-        path: static/fragments/domain/thermal-insulation.md
-        triggers: ["thermal insulation", "aerogel", "foam", "insulation", "隔热", "保温"]
 references:
   on_demand:
     availability-rules:

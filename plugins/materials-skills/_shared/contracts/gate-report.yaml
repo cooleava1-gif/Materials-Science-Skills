@@ -13,5 +13,5 @@ artifacts:
     required: false
 
 templates:
-  - paper-gate-report-template.md
-  - weakness-routing-template.csv
+  - ../_shared/paper-production/paper-gate-report-template.md
+  - ../_shared/paper-production/weakness-routing-template.csv

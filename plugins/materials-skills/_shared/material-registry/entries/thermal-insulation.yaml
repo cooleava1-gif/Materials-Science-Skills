@@ -1,0 +1,120 @@
+characterization:
+- evidence_tier: strong
+  method: SEM
+  purpose: Pore structure, fiber morphology, aerogel network visualization
+- evidence_tier: strong
+  method: BET/BJH
+  purpose: Specific surface area, pore size distribution of nanoporous insulation
+- evidence_tier: supporting
+  method: TGA/DTG
+  purpose: Thermal stability, organic content, degradation temperature
+- evidence_tier: definitive
+  method: Hot Disk / Transient Plane Source
+  purpose: Thermal conductivity and diffusivity measurement
+claim_types:
+- common_risks:
+  - Reporting conductivity at room T only for high-T application
+  - Ignoring humidity effect on conductivity
+  evidence_required:
+  - Thermal conductivity measured under specified conditions (T, RH)
+  - Comparison with commercial/standard insulation
+  - Density and porosity data
+  type: performance_improvement
+- common_risks:
+  - No aging data at all
+  - Hydrophobic claim without water contact angle or moisture uptake data
+  evidence_required:
+  - Aged/hygrothermal conditioned thermal performance
+  - Mechanical property retention after aging
+  type: durability_validation
+coverage_tier: partial
+cross_references:
+  parent: civil-generic
+  related:
+  - sustainability-durability
+  - civil-generic
+description:
+  engineering_problems:
+  - Building envelope thermal performance and energy efficiency
+  - High-temperature industrial insulation
+  - Fire resistance and thermal barrier performance
+  - Moisture/hygrothermal behavior of insulation systems
+  - Mechanical properties of lightweight porous materials
+  summary: Aerogels, foams, fibrous insulation, vacuum insulation panels, and related
+    thermal management materials
+  typical_applications:
+  - Building insulation (walls, roofs, floors)
+  - Industrial pipe and equipment insulation
+  - Cryogenic insulation
+  - Fireproofing and thermal barrier coatings
+family: civil
+figure_archetypes:
+- description: Thermal conductivity plotted against density for insulation materials
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_insulation_conductivity_vs_density.py
+  id: conductivity_vs_density
+  type: conductivity_plot
+- description: Thermal conductivity vs. temperature at different humidity levels
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_insulation_conductivity_vs_temp.py
+  id: conductivity_vs_temperature
+  type: line_plot
+- description: 'Multi-panel: density vs. conductivity, humidity effect, stress-strain'
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_insulation_multipanel.py
+  id: insulation_multipanel
+  type: multi_panel
+- description: Compressive stress-strain curve for aerogel/fiber insulation
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_insulation_stress_strain.py
+  id: insulation_stress_strain
+  type: stress_strain
+id: thermal-insulation
+name: Thermal Insulation Materials
+narrative:
+  arc: Material Design → Pore Structure → Thermal Performance → Mechanical Integrity
+    → Service Durability
+  skill_references:
+    domain_fragment: skills/materials-research/static/fragments/domain/thermal-insulation.md
+    narrative_guide: skills/materials-writing/references/thermal-insulation-narrative.md
+    reviewer_criteria: skills/materials-reviewer/references/insulation-reviewer-criteria.md
+properties:
+- id: thermal_conductivity
+  name: Thermal Conductivity
+  test_methods:
+  - ASTM C518 (heat flow meter)
+  - ASTM C177 (guarded hot plate)
+  - ISO 8301
+  typical_range: 0.015–0.080
+  unit: W/(m·K)
+- id: density
+  name: Density
+  test_methods:
+  - ASTM C303 / EN 1602
+  typical_range: 10–500
+  unit: kg/m³
+- id: compressive_strength
+  name: Compressive Strength
+  test_methods:
+  - ASTM C165 / EN 826
+  typical_range: 10–500
+  unit: kPa
+- id: thermal_diffusivity
+  name: Thermal Diffusivity
+  test_methods:
+  - ASTM E1461 (laser flash)
+  typical_range: 0.1–1.0
+  unit: mm²/s
+skill_mapping:
+  data_schemas: []
+  figure_packages: []
+  figure_scripts:
+  - skills/materials-figure/scripts/figures4materials/plot_insulation_conductivity_vs_density.py
+  - skills/materials-figure/scripts/figures4materials/plot_insulation_conductivity_vs_temp.py
+  - skills/materials-figure/scripts/figures4materials/plot_insulation_multipanel.py
+  - skills/materials-figure/scripts/figures4materials/plot_insulation_stress_strain.py
+standards:
+- purpose: Thermal conductivity by heat flow meter
+  standard: ASTM C518 / ISO 8301
+- purpose: Thermal conductivity by guarded hot plate
+  standard: ASTM C177
+- purpose: Thermal diffusivity by laser flash
+  standard: ASTM E1461 / ISO 22007-4
+- purpose: Compressive strength of thermal insulation
+  standard: ASTM C165 / EN 826

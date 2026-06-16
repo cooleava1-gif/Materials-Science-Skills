@@ -271,6 +271,28 @@ def main() -> int:
     except Exception as exc:
         all_issues["material_registry"] = [f"registry validation error: {exc}"]
 
+    # architecture and plugin mirror validation
+    try:
+        spec5 = importlib.util.spec_from_file_location(
+            "check_skill_architecture",
+            Path(__file__).parent / "check_skill_architecture.py",
+        )
+        if spec5 and spec5.loader:
+            mod5 = importlib.util.module_from_spec(spec5)
+            spec5.loader.exec_module(mod5)
+            architecture_report = mod5.inspect_all(SKILLS_ROOT)
+            if architecture_report.get("status") != "pass":
+                hard_failures = architecture_report.get("summary", {}).get("hard_failures", [])
+                all_issues.setdefault("architecture", []).append(
+                    f"architecture checker failed: {hard_failures}"
+                )
+                plugin_mirror = architecture_report.get("plugin_mirror", {})
+                for key in ("missing_plugin_skills", "missing_plugin_files", "extra_plugin_files", "different_files"):
+                    for value in plugin_mirror.get(key, []) or []:
+                        all_issues.setdefault("architecture", []).append(f"plugin_mirror.{key}: {value}")
+    except Exception as exc:
+        all_issues["architecture"] = [f"architecture validation error: {exc}"]
+
     if args.json:
         print(json.dumps({"status": "pass" if not all_issues else "fail", "issues": all_issues}, indent=2))
     else:

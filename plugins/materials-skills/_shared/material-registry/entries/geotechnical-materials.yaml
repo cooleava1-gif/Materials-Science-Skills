@@ -1,0 +1,34 @@
+characterization:
+- evidence_tier: definitive
+  method: Unconfined Compression
+  purpose: Strength of stabilized soil
+- evidence_tier: supporting
+  method: SEM
+  purpose: Soil particle bonding, grout penetration morphology
+coverage_tier: skeleton
+cross_references:
+  parent: civil-generic
+description:
+  engineering_problems:
+  - Soil stabilization and improvement (lime, cement, polymers)
+  - Grouting material design for permeability control
+  - Geosynthetic reinforcement of soil structures
+  summary: Soils, rocks, grouting materials, stabilized earth, and geosynthetics for
+    geotechnical engineering
+  typical_applications:
+  - Embankments and retaining structures
+  - Foundation improvement
+  - Tunnel grouting and seepage control
+family: civil
+id: geotechnical-materials
+name: Geotechnical and Geoenvironmental Materials
+narrative:
+  arc: Soil/Ground Condition → Stabilization Method → Mechanical Improvement → Durability
+    → Field Performance
+  skill_references:
+    domain_fragment: skills/materials-research/static/fragments/domain/civil-generic.md
+    narrative_guide: skills/materials-writing/references/geotechnical-materials-narrative.md
+skill_mapping:
+  data_schemas: []
+  figure_packages: []
+  figure_scripts: []

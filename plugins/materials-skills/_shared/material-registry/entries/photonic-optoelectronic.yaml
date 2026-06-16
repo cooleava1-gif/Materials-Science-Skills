@@ -1,0 +1,48 @@
+characterization:
+- evidence_tier: definitive
+  method: UV-Vis Spectroscopy
+  purpose: Absorption edge, bandgap determination (Tauc plot)
+- evidence_tier: strong
+  method: PL/QY
+  purpose: Emission spectrum, quantum yield, defect emission
+- evidence_tier: definitive
+  method: EQE Measurement
+  purpose: External quantum efficiency vs. wavelength
+- evidence_tier: strong
+  method: XRD
+  purpose: Crystal structure, thin film orientation
+coverage_tier: skeleton
+cross_references:
+  related:
+  - semiconductors
+description:
+  engineering_problems:
+  - External quantum efficiency optimization in LEDs and solar cells
+  - Bandgap engineering for specific spectral response
+  - Defect-mediated non-radiative recombination suppression
+  - Light extraction and trapping enhancement
+  summary: LED materials, solar cell absorbers, photodetectors, nonlinear optical
+    materials, and photonic crystals
+  typical_applications:
+  - Light-emitting diodes (visible, UV, IR)
+  - Photovoltaic cells (Si, perovskite, organic, quantum dot)
+  - Photodetectors and image sensors
+  - Integrated photonic devices
+family: functional
+figure_archetypes:
+- description: External quantum efficiency as a function of wavelength
+  id: eqe_curve
+  type: line_plot
+id: photonic-optoelectronic
+name: Photonic and Optoelectronic Materials
+narrative:
+  arc: Material Design → Bandgap Engineering → Optical Properties → Device Fabrication
+    → Efficiency → Stability
+  skill_references:
+    domain_fragment: skills/materials-research/static/fragments/domain/photonic-optoelectronic.md
+    narrative_guide: skills/materials-writing/references/photonic-optoelectronic-narrative.md
+    reviewer_criteria: skills/materials-reviewer/references/functional-reviewer-criteria.md
+skill_mapping:
+  data_schemas: []
+  figure_packages: []
+  figure_scripts: []

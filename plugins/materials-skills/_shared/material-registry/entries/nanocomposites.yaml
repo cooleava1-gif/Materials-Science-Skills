@@ -1,0 +1,56 @@
+characterization:
+- evidence_tier: definitive
+  method: TEM
+  purpose: Filler dispersion, exfoliation degree (for layered fillers), interphase
+- evidence_tier: strong
+  method: SEM
+  purpose: Fracture surface, filler distribution at micro-scale
+- evidence_tier: strong
+  method: Rheology
+  purpose: Melt rheology for dispersion assessment (percolation threshold)
+- evidence_tier: strong
+  method: DMA
+  purpose: Storage modulus enhancement, Tg shift, filler-matrix interaction
+coverage_tier: skeleton
+cross_references:
+  related:
+  - nanoparticles
+  - 2d-materials
+  - polymer-composites
+description:
+  engineering_problems:
+  - Filler dispersion uniformity in matrix (agglomeration prevention)
+  - Interface/interphase design for load transfer
+  - Property enhancement at low filler loading (< 5 wt%)
+  - Processing-structure-property relationships
+  summary: Polymer nanocomposites, ceramic nanocomposites, and metal matrix nanocomposites
+    with nano-filler reinforcement
+  typical_applications:
+  - Lightweight structural nanocomposites
+  - Conductive nanocomposites for EMI shielding
+  - Flame retardant nanocomposites
+  - Barrier films and packaging
+family: nano
+figure_archetypes:
+- description: Tensile stress-strain curves for different filler loadings
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+  id: stress_strain
+  type: stress_strain
+- description: Normalized multi-property radar for nanocomposite comparison
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanical_property_radar.py
+  id: mechanical_radar
+  type: radar_chart
+id: nanocomposites
+name: Nanocomposites and Nano-Filled Systems
+narrative:
+  arc: Matrix + Filler → Dispersion → Interface → Properties → Application
+  skill_references:
+    domain_fragment: skills/materials-research/static/fragments/domain/nanocomposites.md
+    narrative_guide: skills/materials-writing/references/nanocomposites-narrative.md
+    reviewer_criteria: skills/materials-reviewer/references/nano-reviewer-criteria.md
+skill_mapping:
+  data_schemas: []
+  figure_packages: []
+  figure_scripts:
+  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+  - skills/materials-figure/scripts/figures4materials/plot_mechanical_property_radar.py

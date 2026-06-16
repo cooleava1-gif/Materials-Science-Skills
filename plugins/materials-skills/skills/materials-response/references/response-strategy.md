@@ -1,5 +1,7 @@
 # Response Strategy
 
+> **Domain context**: The `domain` axis has loaded domain-specific response guidance for [detected domain]. The universal strategy below works for all domains; the domain guide lists domain-specific reviewer concerns to anticipate.
+
 Use this response pattern:
 
 1. Thank the reviewer.
@@ -17,6 +19,10 @@ Avoid:
 
 Journal nuance:
 
-- CBM/JBE reviewers often care about practical value, test completeness, and material comparison.
-- CCC reviewers often press for mechanism depth and composite-material interpretation.
-- RMPD/IJPE reviewers often press for pavement-service relevance, standards, and durability.
+- CBM/JBE: practical value, test completeness, material comparison.
+- CCC: mechanism depth, composite-material interpretation, hydration chemistry.
+- RMPD/IJPE: pavement-service relevance, standards, durability.
+- Ceramics journals: sintering reproducibility, density evidence, Weibull statistics.
+- Metals journals: heat treatment parameters, microstructure quantification, standard test methods.
+- ACS journals: measurement conditions, device statistics, benchmark comparison.
+- Nature-family journals: mechanistic depth, broad significance, rigorous statistics.

@@ -24,7 +24,7 @@ axes:
 
   material_family:
     detect: "Which materials family is central?"
-    default: general
+    default: civil
     values:
       civil:
         path: ../materials-research/static/fragments/domain/civil-family.md
@@ -44,13 +44,10 @@ axes:
       nano:
         path: ../materials-research/static/fragments/domain/nano-family.md
         triggers: ["nano", "nanoparticle", "2D material", "纳米", "纳米材料"]
-      general:
-        path: ../materials-research/static/fragments/domain/general-materials.md
-        triggers: ["materials", "通用"]
 
   domain:
     detect: "Which materials field is the experiment design for?"
-    default: materials
+    default: asphalt
     values:
       asphalt:
         path: static/reference/asphalt-experiments.md
@@ -58,9 +55,6 @@ axes:
       cement-concrete:
         path: static/reference/cement-experiments.md
         triggers: ["cement", "concrete", "mortar", "UHPC", "geopolymer", "水泥", "混凝土", "砂浆"]
-      materials:
-        path: static/reference/general-experiments.md
-        triggers: ["materials", "construction materials", "土木材料", "建筑材料"]
       polymers:
         path: static/reference/polymers-experiments.md
         triggers: ["polymer", "thermoplastic", "thermoset", "rubber", "composite", "injection molding", "extrusion", "高分子", "聚合物", "橡胶", "注塑"]
@@ -68,7 +62,7 @@ axes:
         path: static/reference/metals-experiments.md
         triggers: ["metal", "alloy", "steel", "aluminum", "titanium", "welding", "heat treatment", "金属", "合金", "钢", "焊接", "热处理"]
       ceramics:
-        path: ../materials-research/static/fragments/domain/ceramics-family.md
+        path: static/reference/ceramics-experiments.md
         triggers: ["ceramic", "陶瓷"]
       functional:
         path: static/reference/functional-experiments.md
@@ -76,9 +70,6 @@ axes:
       nano:
         path: static/reference/nano-experiments.md
         triggers: ["nano", "nanoparticle", "nanotube", "graphene", "2D material", "quantum dot", "纳米", "纳米材料"]
-      general-materials:
-        path: ../materials-research/static/fragments/domain/general-materials.md
-        triggers: ["general", "通用"]
 
   output:
     detect: "What deliverable does the user expect?"

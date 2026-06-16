@@ -1,9 +1,10 @@
-# Polymers Domain Data Rules
+# Polymers Domain Data Guide
 
-For polymer and composite data, track:
+For polymer data, track:
 
-- Polymer type, grade, Mw/Mn/PDI, crosslink density or crystallinity.
-- Processing method and full parameter set (temperature, pressure, speed, cooling rate, curing schedule).
-- Filler type, content, surface treatment, and dispersion method.
-- Thermal history (DSC protocol, annealing, quench) and its link to morphology.
-- Aging protocol (UV, thermal, hydrolysis) with exposure duration and intensity.
+- Polymer type, grade, Mn/Mw/PDI, supplier.
+- Processing: temperature profile, pressure, cooling rate, post-curing.
+- Thermal: Tg (DSC, heating rate, 2nd cycle), Tm, Tc, Td (TGA, atmosphere).
+- Mechanical: test standard, specimen geometry, crosshead speed, conditioning.
+- Rheological: frequency/temperature sweep range, strain amplitude.
+- Composite: filler type, loading (wt%/vol%), surface treatment, dispersion method.

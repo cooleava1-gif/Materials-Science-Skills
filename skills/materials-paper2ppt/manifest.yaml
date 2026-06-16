@@ -44,7 +44,7 @@ axes:
         triggers: ["PPTX", ".pptx", "PowerPoint", "real pptx", "生成PPT", "制作PPT"]
   material_family:
     detect: "Which materials family is central?"
-    default: general
+    default: civil
     values:
       civil:
         path: ../materials-research/static/fragments/domain/civil-family.md
@@ -64,9 +64,29 @@ axes:
       nano:
         path: ../materials-research/static/fragments/domain/nano-family.md
         triggers: ["nano", "nanoparticle", "2D material", "纳米", "纳米材料"]
-      general:
-        path: ../materials-research/static/fragments/domain/general-materials.md
-        triggers: ["materials", "通用"]
+
+  domain:
+    detect: "Which material domain does the presentation target?"
+    default: civil
+    values:
+      civil:
+        path: static/fragments/domain/domain-context.md
+        triggers: ["civil", "asphalt", "cement", "concrete", "pavement", "construction", "土木", "建筑"]
+      polymers:
+        path: static/fragments/domain/domain-context.md
+        triggers: ["polymer", "resin", "rubber", "thermoplastic", "高分子"]
+      metals:
+        path: static/fragments/domain/domain-context.md
+        triggers: ["metal", "alloy", "steel", "金属", "合金"]
+      ceramics:
+        path: static/fragments/domain/domain-context.md
+        triggers: ["ceramic", "sintering", "陶瓷"]
+      functional:
+        path: static/fragments/domain/domain-context.md
+        triggers: ["semiconductor", "dielectric", "piezoelectric", "半导体"]
+      nano:
+        path: static/fragments/domain/domain-context.md
+        triggers: ["nano", "nanoparticle", "2D material", "纳米"]
 
 assets:
   - assets

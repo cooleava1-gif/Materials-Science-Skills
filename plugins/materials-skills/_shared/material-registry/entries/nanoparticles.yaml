@@ -1,0 +1,55 @@
+characterization:
+- evidence_tier: definitive
+  method: TEM/HRTEM
+  purpose: Particle size, shape, crystallinity, lattice fringe analysis
+- evidence_tier: strong
+  method: DLS
+  purpose: Hydrodynamic diameter and size distribution in suspension
+- evidence_tier: strong
+  method: XRD
+  purpose: Crystalline phase, Scherrer crystallite size
+- evidence_tier: strong
+  method: UV-Vis
+  purpose: Surface plasmon resonance (SPR) peak for metallic NPs, bandgap for QDs
+- evidence_tier: strong
+  method: Zeta Potential
+  purpose: Surface charge and colloidal stability assessment
+coverage_tier: skeleton
+cross_references:
+  related:
+  - nanocomposites
+  - 2d-materials
+description:
+  engineering_problems:
+  - Size-controlled synthesis with narrow distribution
+  - Colloidal stability and surface functionalization
+  - Toxicity and environmental impact assessment
+  - Scalable manufacturing from lab to industry
+  summary: Metallic nanoparticles (Au, Ag), metal oxide nanoparticles, quantum dots,
+    and nanopowders for various applications
+  typical_applications:
+  - Catalysis and photocatalysis
+  - Biomedical imaging and drug delivery
+  - Antimicrobial coatings
+  - Nano-enhanced composites
+family: nano
+figure_archetypes:
+- description: TEM/HRTEM images with particle size histogram
+  id: tem_image
+  type: sem_image
+- description: UV-Vis absorption spectrum showing SPR or band edge
+  id: uv_vis_spectrum
+  type: line_plot
+id: nanoparticles
+name: Nanoparticles and Quantum Dots
+narrative:
+  arc: Precursor → Synthesis → Size/Shape Control → Surface → Properties → Application
+    → Toxicity
+  skill_references:
+    domain_fragment: skills/materials-research/static/fragments/domain/nanoparticles.md
+    narrative_guide: skills/materials-writing/references/nanoparticles-narrative.md
+    reviewer_criteria: skills/materials-reviewer/references/nano-reviewer-criteria.md
+skill_mapping:
+  data_schemas: []
+  figure_packages: []
+  figure_scripts: []

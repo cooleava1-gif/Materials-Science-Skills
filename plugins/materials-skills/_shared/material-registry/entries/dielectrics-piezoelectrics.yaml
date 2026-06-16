@@ -1,0 +1,51 @@
+characterization:
+- evidence_tier: definitive
+  method: Impedance Spectroscopy
+  purpose: Dielectric constant, loss tangent, conductivity, relaxation
+- evidence_tier: strong
+  method: P-E Loop (Sawyer-Tower)
+  purpose: 'Ferroelectric hysteresis: Pr, Ec, Psat'
+- evidence_tier: strong
+  method: XRD
+  purpose: Phase identification, tetragonality, texture
+- evidence_tier: strong
+  method: SEM
+  purpose: Microstructure grain size, domain structure, porosity
+coverage_tier: skeleton
+cross_references:
+  related:
+  - functional-ceramics
+  - semiconductors
+description:
+  engineering_problems:
+  - High dielectric constant with low loss for capacitor miniaturization
+  - Piezoelectric performance vs. temperature stability trade-off
+  - Lead-free alternatives to PZT (KNN, BNT-BT)
+  - Thin film integration with semiconductor processes
+  summary: Dielectric ceramics, thin films, and piezoelectric materials for capacitors,
+    actuators, sensors, and energy harvesters
+  typical_applications:
+  - Multilayer ceramic capacitors (MLCC)
+  - Piezoelectric actuators and ultrasonic transducers
+  - Energy harvesting devices
+  - Dielectric resonators and filters
+family: functional
+figure_archetypes:
+- description: XRD patterns for phase identification
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
+  id: xrd_pattern
+  type: xrd_pattern
+id: dielectrics-piezoelectrics
+name: Dielectric and Piezoelectric Materials
+narrative:
+  arc: Composition → Processing → Dielectric/Piezoelectric Properties → Temperature
+    Stability → Device Integration
+  skill_references:
+    domain_fragment: skills/materials-research/static/fragments/domain/dielectrics-piezoelectrics.md
+    narrative_guide: skills/materials-writing/references/dielectrics-piezoelectrics-narrative.md
+    reviewer_criteria: skills/materials-reviewer/references/functional-reviewer-criteria.md
+skill_mapping:
+  data_schemas: []
+  figure_packages: []
+  figure_scripts:
+  - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
