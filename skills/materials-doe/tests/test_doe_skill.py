@@ -66,6 +66,21 @@ class DoeSkillStructureTest(unittest.TestCase):
         self.assertIn("doe", manifest["companion_skills"])
         self.assertEqual(manifest["companion_skills"]["doe"], "materials-doe")
 
+    def test_handoff_templates_live_under_declared_assets_directory(self):
+        manifest = yaml.safe_load((DOE_ROOT / "manifest.yaml").read_text(encoding="utf-8"))
+        self.assertIn("assets/templates", manifest["assets"])
+        self.assertNotIn("templates", manifest["assets"])
+        for template_name in [
+            "analysis-script-template.py",
+            "experiment-plan-template.csv",
+            "methods-paragraph-template.md",
+        ]:
+            with self.subTest(template=template_name):
+                self.assertTrue((DOE_ROOT / "assets" / "templates" / template_name).exists())
+
+    def test_legacy_templates_directory_is_not_part_of_release_layout(self):
+        self.assertFalse((DOE_ROOT / "templates").exists())
+
 
 if __name__ == "__main__":
     unittest.main()

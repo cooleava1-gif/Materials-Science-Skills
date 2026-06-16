@@ -62,20 +62,20 @@ axes:
         path: static/reference/general-experiments.md
         triggers: ["materials", "construction materials", "土木材料", "建筑材料"]
       polymers:
-        path: ../materials-research/static/fragments/domain/polymers-family.md
-        triggers: ["polymer", "resin", "高分子"]
+        path: static/reference/polymers-experiments.md
+        triggers: ["polymer", "thermoplastic", "thermoset", "rubber", "composite", "injection molding", "extrusion", "高分子", "聚合物", "橡胶", "注塑"]
       metals:
-        path: ../materials-research/static/fragments/domain/metals-family.md
-        triggers: ["metal", "alloy", "金属"]
+        path: static/reference/metals-experiments.md
+        triggers: ["metal", "alloy", "steel", "aluminum", "titanium", "welding", "heat treatment", "金属", "合金", "钢", "焊接", "热处理"]
       ceramics:
         path: ../materials-research/static/fragments/domain/ceramics-family.md
         triggers: ["ceramic", "陶瓷"]
       functional:
-        path: ../materials-research/static/fragments/domain/functional-family.md
-        triggers: ["semiconductor", "dielectric", "半导体"]
+        path: static/reference/functional-experiments.md
+        triggers: ["semiconductor", "dielectric", "piezoelectric", "ferroelectric", "photonic", "半导体", "介电", "压电"]
       nano:
-        path: ../materials-research/static/fragments/domain/nano-family.md
-        triggers: ["nano", "纳米"]
+        path: static/reference/nano-experiments.md
+        triggers: ["nano", "nanoparticle", "nanotube", "graphene", "2D material", "quantum dot", "纳米", "纳米材料"]
       general-materials:
         path: ../materials-research/static/fragments/domain/general-materials.md
         triggers: ["general", "通用"]
@@ -106,7 +106,7 @@ references:
       path: static/core/classical-doe.md
 
 assets:
-  - templates
+  - assets/templates
 scripts:
   - scripts
 tests:

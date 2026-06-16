@@ -44,6 +44,42 @@ MIRROR_EXCEPTION_SUFFIXES = {
     # Pre-existing root-only hard workflow exception documented in the plan.
     "materials-figure/tests/test_figure_hard_workflow.py",
 }
+MIRROR_IGNORED_DIRS = {"__pycache__"}
+MIRROR_IGNORED_SUFFIXES = {".pyc", ".pyo"}
+DIRECTION_DOMAINS = ("functional", "metals", "nano", "polymers")
+DIRECTION_MIRROR_PATTERNS = {
+    "materials-citation": [
+        *(f"static/fragments/domain/{domain}.md" for domain in DIRECTION_DOMAINS),
+        "static/fragments/domain/thermal-insulation.md",
+    ],
+    "materials-data": [
+        *(f"references/{domain}-data-schema.md" for domain in DIRECTION_DOMAINS),
+        *(f"static/fragments/domain/{domain}.md" for domain in DIRECTION_DOMAINS),
+    ],
+    "materials-doe": [
+        "assets/templates/analysis-script-template.py",
+        "assets/templates/experiment-plan-template.csv",
+        "assets/templates/methods-paragraph-template.md",
+        *(f"static/reference/{domain}-experiments.md" for domain in DIRECTION_DOMAINS),
+    ],
+    "materials-figure": [
+        *(f"references/{domain}-figure-package.md" for domain in DIRECTION_DOMAINS),
+        "scripts/figures4materials/plot_*_multipanel.py",
+        "scripts/figures4materials/data/functional_*.csv",
+        "scripts/figures4materials/data/metals_*.csv",
+        "scripts/figures4materials/data/nano_*.csv",
+        "scripts/figures4materials/data/polymer_*.csv",
+    ],
+    "materials-polishing": [
+        "references/ceramics-language.md",
+        "references/functional-language.md",
+        "references/insulation-language.md",
+        "references/metals-language.md",
+        "references/nano-language.md",
+        "references/pavement-language.md",
+        "references/polymers-language.md",
+    ],
+}
 
 
 def _read_yaml(path: Path) -> dict[str, Any]:
@@ -100,6 +136,37 @@ def _collect_declared_paths(value: Any) -> list[str]:
     return paths
 
 
+def _collect_top_level_path_block(value: Any) -> list[str]:
+    paths: list[str] = []
+    if isinstance(value, str):
+        paths.append(value)
+    elif isinstance(value, list):
+        for item in value:
+            if isinstance(item, str):
+                paths.append(item)
+            else:
+                paths.extend(_collect_declared_paths(item))
+    elif isinstance(value, dict):
+        paths.extend(_collect_declared_paths(value))
+    return paths
+
+
+def _collect_manifest_paths(manifest: dict[str, Any]) -> list[str]:
+    paths: list[str] = []
+    for path_text in manifest.get("always_load", []) if isinstance(manifest.get("always_load"), list) else []:
+        paths.append(path_text)
+
+    for _, value_data in _iter_axis_values(manifest):
+        path_text = value_data.get("path")
+        if isinstance(path_text, str):
+            paths.append(path_text)
+
+    paths.extend(_collect_declared_paths(manifest.get("references")))
+    for block in ("assets", "scripts", "tests"):
+        paths.extend(_collect_top_level_path_block(manifest.get(block)))
+    return paths
+
+
 def _collect_triggers(value: Any, prefix: str = "") -> list[tuple[str, str]]:
     triggers: list[tuple[str, str]] = []
     if isinstance(value, dict):
@@ -148,26 +215,12 @@ def inspect_skill(skill_dir: Path) -> dict[str, object]:
     core = _core_status(skill_dir)
     missing_manifest_blocks = [block for block in STANDARD_MANIFEST_BLOCKS if block not in manifest]
 
-    missing_manifest_paths: list[str] = []
     checked_manifest_paths: list[str] = []
-    for path_text in manifest.get("always_load", []) if isinstance(manifest.get("always_load"), list) else []:
+    missing_declared_paths: list[str] = []
+    for path_text in _collect_manifest_paths(manifest):
         checked_manifest_paths.append(path_text)
         if not _path_exists(skill_dir, path_text):
-            missing_manifest_paths.append(path_text)
-
-    for _, value_data in _iter_axis_values(manifest):
-        path_text = value_data.get("path")
-        if isinstance(path_text, str):
-            checked_manifest_paths.append(path_text)
-            if not _path_exists(skill_dir, path_text):
-                missing_manifest_paths.append(path_text)
-
-    missing_declared_paths: list[str] = []
-    for block in ("assets", "scripts", "tests"):
-        for path_text in _collect_declared_paths(manifest.get(block)):
-            checked_manifest_paths.append(path_text)
-            if not _path_exists(skill_dir, path_text):
-                missing_declared_paths.append(path_text)
+            missing_declared_paths.append(path_text)
 
     mojibake_triggers = [
         {"location": location, "trigger": trigger}
@@ -175,7 +228,7 @@ def inspect_skill(skill_dir: Path) -> dict[str, object]:
         if any(marker in trigger for marker in MOJIBAKE_MARKERS)
     ]
 
-    hard_issues = missing_router_files + yaml_errors + missing_manifest_paths + missing_declared_paths
+    hard_issues = missing_router_files + yaml_errors + missing_declared_paths
     return {
         "skill": skill_dir.name,
         "path": _as_posix(skill_dir),
@@ -184,7 +237,7 @@ def inspect_skill(skill_dir: Path) -> dict[str, object]:
         "missing_core_files": core["missing_exact"],
         "compatible_core_files": core["compatible_core_files"],
         "missing_manifest_blocks": missing_manifest_blocks,
-        "missing_manifest_paths": sorted(set(missing_manifest_paths)),
+        "missing_manifest_paths": sorted(set(missing_declared_paths)),
         "missing_declared_paths": sorted(set(missing_declared_paths)),
         "checked_manifest_paths": sorted(set(checked_manifest_paths)),
         "mojibake_triggers": mojibake_triggers,
@@ -199,6 +252,19 @@ def inspect_skill(skill_dir: Path) -> dict[str, object]:
 
 def _mirror_suffix(path: Path, source_root: Path) -> str:
     return _as_posix(path.relative_to(source_root))
+
+
+def _is_mirror_file(path: Path) -> bool:
+    if any(part in MIRROR_IGNORED_DIRS for part in path.parts):
+        return False
+    return path.is_file() and path.suffix not in MIRROR_IGNORED_SUFFIXES
+
+
+def _iter_direction_mirror_files(skill_dir: Path) -> list[Path]:
+    files: list[Path] = []
+    for pattern in DIRECTION_MIRROR_PATTERNS.get(skill_dir.name, []):
+        files.extend(path for path in skill_dir.glob(pattern) if _is_mirror_file(path))
+    return files
 
 
 def _inspect_plugin_mirror(root: Path, plugin_root: Path) -> dict[str, object]:
@@ -216,7 +282,8 @@ def _inspect_plugin_mirror(root: Path, plugin_root: Path) -> dict[str, object]:
             continue
         candidates = [skill_dir / path for path in REQUIRED_ROUTER_FILES]
         candidates.extend((skill_dir / "static" / "core").glob("*.md"))
-        for source_file in candidates:
+        candidates.extend(_iter_direction_mirror_files(skill_dir))
+        for source_file in sorted(set(candidates)):
             if not source_file.exists() or not source_file.is_file():
                 continue
             suffix = _mirror_suffix(source_file, skill_dir)
@@ -231,8 +298,9 @@ def _inspect_plugin_mirror(root: Path, plugin_root: Path) -> dict[str, object]:
             if not filecmp.cmp(source_file, target_file, shallow=False):
                 different_files.append(exception_key)
 
+    status = "fail" if missing_plugin_skills or missing_plugin_files or different_files else "pass"
     return {
-        "status": "pass",
+        "status": status,
         "compared_files": compared_files,
         "missing_plugin_skills": missing_plugin_skills,
         "missing_plugin_files": missing_plugin_files,
@@ -259,6 +327,8 @@ def inspect_all(root: Path = Path("skills")) -> dict[str, object]:
         else {"status": "pass", "warnings": {"missing_plugin_root": _as_posix(plugin_root)}}
     )
     hard_failures = [report["skill"] for report in skill_reports if report["status"] != "pass"]
+    if mirror_report.get("status") != "pass":
+        hard_failures.append("plugin_mirror")
 
     warnings = {
         "skills_with_missing_exact_core_files": [

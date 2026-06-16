@@ -6,7 +6,7 @@ An orthogonal experimental design was employed to investigate the effects of mul
 
 ## Single-Factor Experiment
 
-A single-factor experiment was designed to evaluate the effect of {{FACTOR}} on the {{PROPERTY}} of {{MATERIAL}}. {{NUM_LEVELS}} levels of {{FACTOR}} were tested: {{LEVEL_1}}, {{LEVEL_2}}, ..., {{LEVEL_N}}. For each level, {{NUM_REPLICATES}} replicate specimens were prepared and tested in accordance with {{STANDARD}}. The {{PROPERTY}} was measured as the primary response variable. One-way analysis of variance (ANOVA) was performed to determine the statistical significance of the observed differences, followed by {{POST_HOC}} post-hoc comparisons at a significance level of α = 0.05.
+A single-factor experiment was designed to evaluate the effect of {{FACTOR}} on the {{PROPERTY}} of {{MATERIAL}}. {{NUM_LEVELS}} levels of {{FACTOR}} were tested: {{LEVEL_1}}, {{LEVEL_2}}, ..., {{LEVEL_N}}. For each level, {{NUM_REPLICATES}} replicate specimens were prepared and tested in accordance with {{STANDARD}}. The {{PROPERTY}} was measured as the primary response variable. One-way analysis of variance (ANOVA) was performed to determine the statistical significance of the observed differences, followed by {{POST_HOC}} post-hoc comparisons at a significance level of alpha = 0.05.
 
 ## Mix Design
 

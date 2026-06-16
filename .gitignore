@@ -12,6 +12,7 @@ Thumbs.db
 *.log
 .codex/
 .claude/
+.codegraph/
 config.toml
 auth.json
 *.sqlite

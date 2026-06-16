@@ -132,6 +132,46 @@ axes:
             set(report["missing_manifest_blocks"]),
         )
 
+    def test_plugin_mirror_includes_direction_extension_files(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source_skill = root / "skills" / "materials-data"
+            plugin_skill = root / "plugins" / "materials-skills" / "skills" / "materials-data"
+            manifest = """
+version: "0.0.1"
+always_load:
+  - static/core/contract.md
+axes:
+  task:
+    values:
+      ok:
+        path: references/ok.md
+        triggers: ["ok"]
+assets:
+  - assets/templates/ok.md
+scripts:
+  - scripts/ok.py
+tests:
+  - tests/ok_test.py
+quality_gates: []
+handoffs: []
+release_checks: []
+"""
+            _write_minimal_skill(source_skill, manifest)
+            _write_minimal_skill(plugin_skill, manifest)
+            (source_skill / "references" / "functional-data-schema.md").write_text(
+                "# Functional Data Schema\n", encoding="utf-8"
+            )
+
+            report = inspect_all(root / "skills")
+
+        self.assertEqual("fail", report["plugin_mirror"]["status"], report)
+        self.assertEqual("fail", report["status"], report)
+        self.assertIn(
+            "materials-data/references/functional-data-schema.md",
+            report["plugin_mirror"]["missing_plugin_files"],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

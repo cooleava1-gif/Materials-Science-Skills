@@ -17,6 +17,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 ALL_SKILLS = [
     "materials-citation",
     "materials-data",
+    "materials-doe",
     "materials-figure",
     "materials-paper2ppt",
     "materials-polishing",
@@ -32,6 +33,7 @@ ALL_SKILLS = [
 SKILL_TEST_DIRS = [
     '"materials-citation" / "tests"',
     '"materials-data" / "tests"',
+    '"materials-doe" / "tests"',
     '"materials-figure" / "tests"',
     '"materials-paper2ppt" / "tests"',
     '"materials-polishing" / "tests"',

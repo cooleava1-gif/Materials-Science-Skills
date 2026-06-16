@@ -21,6 +21,7 @@ REGISTRY_DIR = repo_root / "_shared" / "material-registry" / "entries"
 ALL_SKILLS = [
     "materials-citation",
     "materials-data",
+    "materials-doe",
     "materials-figure",
     "materials-paper2ppt",
     "materials-polishing",

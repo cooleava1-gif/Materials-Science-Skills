@@ -62,20 +62,20 @@ axes:
         path: static/fragments/domain/materials.md
         triggers: ["materials", "construction materials", "durability", "sustainability"]
       polymers:
-        path: ../materials-research/static/fragments/domain/polymers-family.md
-        triggers: ["polymer", "resin", "高分子"]
+        path: static/fragments/domain/polymers.md
+        triggers: ["polymer", "resin", "thermoplastic", "thermoset", "rubber", "composite", "高分子", "聚合物", "橡胶"]
       metals:
-        path: ../materials-research/static/fragments/domain/metals-family.md
-        triggers: ["metal", "alloy", "金属"]
+        path: static/fragments/domain/metals.md
+        triggers: ["metal", "alloy", "steel", "aluminum", "titanium", "superalloy", "金属", "合金", "钢", "铝合金"]
       ceramics:
         path: ../materials-research/static/fragments/domain/ceramics-family.md
         triggers: ["ceramic", "陶瓷"]
       functional:
-        path: ../materials-research/static/fragments/domain/functional-family.md
-        triggers: ["semiconductor", "dielectric", "半导体"]
+        path: static/fragments/domain/functional.md
+        triggers: ["semiconductor", "dielectric", "piezoelectric", "ferroelectric", "photonic", "半导体", "介电", "压电"]
       nano:
-        path: ../materials-research/static/fragments/domain/nano-family.md
-        triggers: ["nano", "纳米"]
+        path: static/fragments/domain/nano.md
+        triggers: ["nano", "nanoparticle", "nanotube", "graphene", "2D material", "quantum dot", "纳米", "纳米材料"]
       general-materials:
         path: ../materials-research/static/fragments/domain/general-materials.md
         triggers: ["general", "通用"]
@@ -129,6 +129,18 @@ references:
     asphalt-schema:
       path: references/asphalt-data-schema.md
       when: "The task involves asphalt data."
+    polymers-schema:
+      path: references/polymers-data-schema.md
+      when: "The task involves polymer, thermoplastic, thermoset, rubber, or composite data."
+    metals-schema:
+      path: references/metals-data-schema.md
+      when: "The task involves metals, alloys, steel, aluminum, titanium, or superalloy data."
+    nano-schema:
+      path: references/nano-data-schema.md
+      when: "The task involves nanoparticle, nanocomposite, 2D material, thin film, or nanomaterial data."
+    functional-schema:
+      path: references/functional-data-schema.md
+      when: "The task involves semiconductor, dielectric, piezoelectric, ferroelectric, or photonic data."
     cement-schema:
       path: references/cement-concrete-data-schema.md
       when: "The task involves cement data."

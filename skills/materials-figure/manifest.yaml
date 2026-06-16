@@ -109,17 +109,17 @@ axes:
         path: static/fragments/domain/thermal-insulation.md
         triggers: ["thermal insulation", "aerogel", "foam", "insulation", "隔热", "保温"]
       polymers:
-        path: ../materials-research/static/fragments/domain/polymers-family.md
-        triggers: ["polymer", "resin", "高分子"]
+        path: references/polymers-figure-package.md
+        triggers: ["polymer", "thermoplastic", "thermoset", "rubber", "composite", "injection molding", "高分子", "聚合物", "橡胶"]
       metals:
-        path: ../materials-research/static/fragments/domain/metals-family.md
-        triggers: ["metal", "alloy", "金属"]
+        path: references/metals-figure-package.md
+        triggers: ["metal", "alloy", "steel", "aluminum", "titanium", "welding", "heat treatment", "金属", "合金", "钢", "焊接", "热处理"]
       functional:
-        path: ../materials-research/static/fragments/domain/functional-family.md
-        triggers: ["semiconductor", "dielectric", "半导体"]
+        path: references/functional-figure-package.md
+        triggers: ["semiconductor", "dielectric", "piezoelectric", "ferroelectric", "photonic", "半导体", "介电", "压电"]
       nano:
-        path: ../materials-research/static/fragments/domain/nano-family.md
-        triggers: ["nano", "纳米"]
+        path: references/nano-figure-package.md
+        triggers: ["nano", "nanoparticle", "nanotube", "graphene", "2D material", "quantum dot", "纳米", "纳米材料"]
       general-materials:
         path: ../materials-research/static/fragments/domain/general-materials.md
         triggers: ["general", "通用"]

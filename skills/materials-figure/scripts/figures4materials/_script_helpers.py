@@ -129,4 +129,10 @@ def load_mapped_data(path: str | Path, column_map: dict[str, Any]) -> dict[str, 
 
 
 def print_caption(caption: str) -> None:
-    print(f"Caption: {caption}")
+    line = f"Caption: {caption}"
+    try:
+        sys.stdout.write(line + "\n")
+    except UnicodeEncodeError:
+        encoding = sys.stdout.encoding or "utf-8"
+        safe_line = line.encode(encoding, errors="backslashreplace").decode(encoding, errors="replace")
+        sys.stdout.write(safe_line + "\n")

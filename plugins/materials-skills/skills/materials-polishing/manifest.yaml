@@ -49,6 +49,24 @@ axes:
       cement-concrete:
         path: references/cement-concrete-language.md
         triggers: ["CCC", "CCR", "cement", "concrete", "水泥", "混凝土"]
+      polymers:
+        path: references/polymers-language.md
+        triggers: ["polymer", "thermoplastic", "thermoset", "rubber", "composite", "高分子", "聚合物", "橡胶"]
+      ceramics:
+        path: references/ceramics-language.md
+        triggers: ["ceramic", "sintering", "alumina", "zirconia", "carbide", "陶瓷", "烧结"]
+      metals:
+        path: references/metals-language.md
+        triggers: ["metal", "alloy", "steel", "aluminum", "titanium", "金属", "合金", "钢"]
+      insulation:
+        path: references/insulation-language.md
+        triggers: ["thermal insulation", "aerogel", "foam", "insulation", "隔热", "保温"]
+      nano:
+        path: references/nano-language.md
+        triggers: ["nano", "nanoparticle", "nanotube", "graphene", "2D material", "quantum dot", "纳米", "纳米材料"]
+      functional:
+        path: references/functional-language.md
+        triggers: ["semiconductor", "dielectric", "piezoelectric", "ferroelectric", "photonic", "半导体", "介电", "压电"]
 
   language_mode:
     default: rulebook

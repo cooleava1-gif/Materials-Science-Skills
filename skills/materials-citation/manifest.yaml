@@ -60,6 +60,18 @@ axes:
       thermal-insulation:
         path: static/fragments/domain/thermal-insulation.md
         triggers: ["thermal insulation", "aerogel", "foam", "insulation", "隔热", "保温"]
+      polymers:
+        path: static/fragments/domain/polymers.md
+        triggers: ["polymer", "thermoplastic", "thermoset", "rubber", "composite", "高分子", "聚合物", "橡胶"]
+      metals:
+        path: static/fragments/domain/metals.md
+        triggers: ["metal", "alloy", "steel", "aluminum", "titanium", "superalloy", "金属", "合金", "钢", "铝合金"]
+      nano:
+        path: static/fragments/domain/nano.md
+        triggers: ["nano", "nanoparticle", "nanotube", "graphene", "2D material", "quantum dot", "纳米", "纳米材料"]
+      functional:
+        path: static/fragments/domain/functional.md
+        triggers: ["semiconductor", "dielectric", "piezoelectric", "ferroelectric", "photonic", "半导体", "介电", "压电"]
   material_family:
     detect: "Which materials family is central?"
     default: general
