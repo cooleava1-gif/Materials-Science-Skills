@@ -11,14 +11,15 @@ Create Nature-style figures for materials manuscripts and reviews.
 ## Protocol
 
 1. Read [manifest.yaml](manifest.yaml), then load every `always_load` file.
-2. Use the **Python-only** plotting contract and load the Python backend rules.
-3. Detect `figure_type`, `handoff_intake`, and `domain`.
-4. Load only the matching fragments.
-5. If the user provides a CSV/TSV table and asks to plot or visualize it, use the
+2. Apply profile-first routing from `.materials/profile.yaml`; on first use, ask for direction once and save it locally.
+3. Use the **Python-only** plotting contract and load the Python backend rules.
+4. Detect `figure_type`, `handoff_intake`, and `domain`.
+5. Load only the matching fragments.
+6. If the user provides a CSV/TSV table and asks to plot or visualize it, use the
    automatic figure-package loop: data diagnosis -> chart recommendation ->
    Python SVG/PNG export -> QA report.
-6. Produce SVG (vector) and PNG (raster) for each figure.
-7. For review figures: load intake data, apply evidence-certainty mapping.
+7. Produce SVG (vector) and PNG (raster) for each figure.
+8. For review figures: load intake data, apply evidence-certainty mapping.
 
 ## Gates
 

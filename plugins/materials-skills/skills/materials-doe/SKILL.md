@@ -11,11 +11,12 @@ Plan and generate design-of-experiments matrices for materials research. Covers 
 ## Protocol
 
 1. Read [manifest.yaml](manifest.yaml), then load every `always_load` file.
-2. Detect `design_mode`, `domain`, and `output` from the user request.
-3. Load only the matching fragments.
-4. For classical or orthogonal designs: identify factors, levels, and constraints; generate the test matrix.
-5. For mix designs: identify component bounds, constraints, and simplex type; generate the mixture matrix.
-6. Deliver the matrix as a structured table (CSV or markdown) with analysis strategy notes.
+2. Apply profile-first routing from `.materials/profile.yaml`; on first use, ask for direction once and save it locally.
+3. Detect `design_mode`, `domain`, and `output` from the user request.
+4. Load only the matching fragments.
+5. For classical or orthogonal designs: identify factors, levels, and constraints; generate the test matrix.
+6. For mix designs: identify component bounds, constraints, and simplex type; generate the mixture matrix.
+7. Deliver the matrix as a structured table (CSV or markdown) with analysis strategy notes.
 
 ## Gates
 

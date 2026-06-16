@@ -2,6 +2,7 @@ version: "2.0.0"
 
 always_load:
   - static/core/contract.md
+  - ../_shared/core/direction-profile.md
   - static/core/figure-contract.md
   - static/core/stance.md
   - static/core/workflow.md
@@ -66,8 +67,11 @@ axes:
 
   material_family:
     detect: "Which materials family is central?"
-    default: civil
+    default: neutral
     values:
+      neutral:
+        path: ../_shared/core/direction-profile.md
+        triggers: ["neutral family", "profile family fallback", "no saved family"]
       civil:
         path: ../materials-research/static/fragments/domain/civil-family.md
         triggers: ["civil", "construction", "building", "pavement", "土木", "建筑"]
@@ -89,8 +93,11 @@ axes:
 
   domain:
     detect: "Which material domain does the figure target?"
-    default: civil
+    default: general
     values:
+      general:
+        path: ../_shared/core/direction-profile.md
+        triggers: ["general fallback", "profile fallback", "neutral routing"]
       civil:
         path: static/fragments/domain/civil.md
         triggers: ["civil", "asphalt", "cement", "concrete", "pavement", "土木", "建筑", "道路"]

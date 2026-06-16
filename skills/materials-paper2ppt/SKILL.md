@@ -12,10 +12,11 @@ Create materials presentations around the evidence chain, not manuscript section
 ## Protocol
 
 1. Read [manifest.yaml](manifest.yaml), then load every `always_load` file.
-2. Detect `deck_type`, `paper_type`, and `task`.
-3. Load only the matching fragments.
-4. Build a slide outline or PPTX-ready structure with Chinese titles by default.
-5. Keep every figure, claim, and takeaway tied to evidence.
+2. Apply profile-first routing from `.materials/profile.yaml`; on first use, ask for direction once and save it locally.
+3. Detect `deck_type`, `paper_type`, and `task`.
+4. Load only the matching fragments.
+5. Build a slide outline or PPTX-ready structure with Chinese titles by default.
+6. Keep every figure, claim, and takeaway tied to evidence.
 
 ## Gates
 

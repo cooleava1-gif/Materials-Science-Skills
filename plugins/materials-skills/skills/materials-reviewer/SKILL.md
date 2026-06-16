@@ -12,10 +12,11 @@ Simulate 2-3 independent reviewer reports with a cross-review synthesis.
 ## Protocol
 
 1. Read [manifest.yaml](manifest.yaml), then load every `always_load` file.
-2. Detect `review_depth`, `journal_family`, `material_domain`, and `review_scope`.
-3. Load only the matching fragments.
-4. Evaluate claim-evidence alignment, method robustness, and journal fit.
-5. Produce distinct reviewer perspectives + synthesis.
+2. Apply profile-first routing from `.materials/profile.yaml`; on first use, ask for direction once and save it locally.
+3. Detect `review_depth`, `journal_family`, `material_domain`, and `review_scope`.
+4. Load only the matching fragments.
+5. Evaluate claim-evidence alignment, method robustness, and journal fit.
+6. Produce distinct reviewer perspectives + synthesis.
 
 ## Gates
 

@@ -11,10 +11,11 @@ Route research workflows across the materials skill bundle. This is the day-to-d
 ## Protocol
 
 1. Read [manifest.yaml](manifest.yaml), then load every `always_load` file.
-2. Detect `task`, `journal`, and `domain` from the user request.
-3. Load only the matching fragments.
-4. Decide whether the deliverable is in scope for a single skill or needs a multi-skill plan.
-5. If multi-skill: produce a stage-gated plan with handoffs and gate criteria.
+2. Apply profile-first routing from `.materials/profile.yaml`; on first use, ask for direction once and save it locally.
+3. Detect `task`, `journal`, and `domain` from the user request.
+4. Load only the matching fragments.
+5. Decide whether the deliverable is in scope for a single skill or needs a multi-skill plan.
+6. If multi-skill: produce a stage-gated plan with handoffs and gate criteria.
 
 ## Gates
 

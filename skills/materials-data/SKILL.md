@@ -12,10 +12,11 @@ Prepare materials datasets that a reviewer, co-author, or future you can reuse.
 ## Protocol
 
 1. Read [manifest.yaml](manifest.yaml), then load every `always_load` file.
-2. Detect `task`, `domain`, and `journal`.
-3. Load only the matching fragments.
-4. Produce: experiment data template, FAIR audit, dataset package, data availability statement, or submission-ready dataset folder.
-5. Never invent measurements, replicate counts, standards, or environmental conditions.
+2. Apply profile-first routing from `.materials/profile.yaml`; on first use, ask for direction once and save it locally.
+3. Detect `task`, `domain`, and `journal`.
+4. Load only the matching fragments.
+5. Produce: experiment data template, FAIR audit, dataset package, data availability statement, or submission-ready dataset folder.
+6. Never invent measurements, replicate counts, standards, or environmental conditions.
 
 ## Gates
 

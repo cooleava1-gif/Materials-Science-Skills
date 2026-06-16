@@ -1,6 +1,7 @@
 version: 1.1.0
 always_load:
 - static/core/contract.md
+- ../_shared/core/direction-profile.md
 - ../_shared/core/stance.md
 - ../_shared/core/evidence-contract.md
 - ../_shared/paper-production/weakness-routing.md
@@ -326,8 +327,14 @@ axes:
         - 投稿包
   material_family:
     detect: Which materials family is central?
-    default: civil
+    default: neutral
     values:
+      neutral:
+        path: ../_shared/core/direction-profile.md
+        triggers:
+        - neutral family
+        - profile family fallback
+        - no saved family
       civil:
         path: static/fragments/domain/civil-family.md
         trigger_file: ../../_shared/triggers/family/civil.yaml
@@ -348,8 +355,14 @@ axes:
         trigger_file: ../../_shared/triggers/family/nano.yaml
   domain:
     detect: Which materials field is central?
-    default: civil-generic
+    default: general
     values:
+      general:
+        path: ../_shared/core/direction-profile.md
+        triggers:
+        - general fallback
+        - profile fallback
+        - neutral routing
       asphalt-pavement:
         path: static/fragments/domain/asphalt-pavement.md
         trigger_file: ../../_shared/triggers/domain/asphalt-pavement.yaml

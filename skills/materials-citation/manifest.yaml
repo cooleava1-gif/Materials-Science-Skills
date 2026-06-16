@@ -2,6 +2,7 @@ version: "1.1.0"
 
 always_load:
   - static/core/contract.md
+  - ../_shared/core/direction-profile.md
   - static/core/citation-contract.md
   - static/core/workflow.md
 
@@ -47,8 +48,11 @@ axes:
         triggers: ["RMPD", "Road Materials and Pavement Design", "IJPE", "International Journal of Pavement Engineering"]
   material_domain:
     detect: "Which material domain does the literature search target?"
-    default: materials
+    default: general
     values:
+      general:
+        path: ../_shared/core/direction-profile.md
+        triggers: ["general fallback", "profile fallback", "neutral routing"]
       asphalt:
         path: static/fragments/domain/asphalt.md
         triggers: ["asphalt", "emulsified asphalt", "waterborne epoxy", "bitumen", "pavement", "沥青", "乳化沥青", "水性环氧"]
@@ -90,8 +94,11 @@ axes:
         triggers: ["semiconductor", "dielectric", "piezoelectric", "ferroelectric", "photonic", "半导体", "介电", "压电"]
   material_family:
     detect: "Which materials family is central?"
-    default: civil
+    default: neutral
     values:
+      neutral:
+        path: ../_shared/core/direction-profile.md
+        triggers: ["neutral family", "profile family fallback", "no saved family"]
       civil:
         path: ../materials-research/static/fragments/domain/civil-family.md
         triggers: ["civil", "construction", "building", "pavement", "土木", "建筑"]

@@ -2,6 +2,7 @@ version: "1.0.0"
 
 always_load:
   - static/core/contract.md
+  - ../_shared/core/direction-profile.md
   - static/core/pptx-contract.md
   - static/core/workflow.md
 
@@ -23,8 +24,11 @@ axes:
         triggers: ["review", "综述", "research progress", "研究进展"]
   domain:
     detect: "Which material domain does the PPTX target?"
-    default: civil
+    default: general
     values:
+      general:
+        path: ../_shared/core/direction-profile.md
+        triggers: ["general fallback", "profile fallback", "neutral routing"]
       civil:
         path: static/fragments/domain/domain-context.md
         triggers: ["civil", "asphalt", "cement", "concrete", "pavement", "construction", "土木", "建筑"]

@@ -2,6 +2,7 @@ version: "1.1.0"
 
 always_load:
   - static/core/contract.md
+  - ../_shared/core/direction-profile.md
   - ../_shared/core/stance.md
   - ../_shared/core/evidence-contract.md
   - ../_shared/core/claim-strength-ladder.md
@@ -74,8 +75,11 @@ axes:
         triggers: ["JBE", "CSCM", "building"]
   material_family:
     detect: "Which materials family is central?"
-    default: civil
+    default: neutral
     values:
+      neutral:
+        path: ../_shared/core/direction-profile.md
+        triggers: ["neutral family", "profile family fallback", "no saved family"]
       civil:
         path: ../materials-research/static/fragments/domain/civil-family.md
         triggers: ["civil", "construction", "building", "pavement", "土木", "建筑"]
@@ -96,8 +100,11 @@ axes:
         triggers: ["nano", "nanoparticle", "2D material", "纳米", "纳米材料"]
   domain:
     detect: "Which material domain does the manuscript target?"
-    default: civil
+    default: general
     values:
+      general:
+        path: ../_shared/core/direction-profile.md
+        triggers: ["general fallback", "profile fallback", "neutral routing"]
       civil:
         path: static/fragments/domain/civil.md
         triggers: ["civil", "asphalt", "pavement", "cement", "concrete", "construction", "土木", "建筑", "道路"]

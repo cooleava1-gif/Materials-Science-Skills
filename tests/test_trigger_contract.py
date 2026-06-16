@@ -15,6 +15,8 @@ import yaml
 REPO_ROOT = Path(__file__).resolve().parents[1]
 TRIGGERS_DIR = REPO_ROOT / "_shared" / "triggers"
 MANIFEST_FILE = REPO_ROOT / "skills" / "materials-research" / "manifest.yaml"
+ROUTING_ONLY_DOMAINS = {"general"}
+ROUTING_ONLY_FAMILIES = {"neutral"}
 
 
 class TriggerFilePresenceTests(unittest.TestCase):
@@ -28,6 +30,8 @@ class TriggerFilePresenceTests(unittest.TestCase):
         domain_values = self.manifest["axes"]["domain"]["values"]
         missing = []
         for did in domain_values:
+            if did in ROUTING_ONLY_DOMAINS:
+                continue
             if not (TRIGGERS_DIR / "domain" / f"{did}.yaml").exists():
                 missing.append(did)
         self.assertFalse(missing, f"Domain trigger files missing: {missing}")
@@ -36,6 +40,8 @@ class TriggerFilePresenceTests(unittest.TestCase):
         family_values = self.manifest["axes"]["material_family"]["values"]
         missing = []
         for fid in family_values:
+            if fid in ROUTING_ONLY_FAMILIES:
+                continue
             if not (TRIGGERS_DIR / "family" / f"{fid}.yaml").exists():
                 missing.append(fid)
         self.assertFalse(missing, f"Family trigger files missing: {missing}")
@@ -91,10 +97,19 @@ class TriggerRegistryConsistencyTests(unittest.TestCase):
         registry_dir = REPO_ROOT / "_shared" / "material-registry" / "entries"
         registry_ids = {p.stem for p in registry_dir.glob("*.yaml")}
         trigger_ids = {p.stem for p in (TRIGGERS_DIR / "domain").glob("*.yaml")}
+        manifest_domain_ids = set(
+            yaml.safe_load(MANIFEST_FILE.read_text(encoding="utf-8"))["axes"]["domain"]["values"]
+        )
+        routing_only = manifest_domain_ids - registry_ids
         self.assertEqual(
             registry_ids, trigger_ids,
             f"Mismatch: registry has {len(registry_ids)} entries, "
             f"triggers have {len(trigger_ids)} files"
+        )
+        self.assertLessEqual(
+            routing_only,
+            ROUTING_ONLY_DOMAINS,
+            f"Unexpected non-registry domain routes: {sorted(routing_only)}",
         )
 
 

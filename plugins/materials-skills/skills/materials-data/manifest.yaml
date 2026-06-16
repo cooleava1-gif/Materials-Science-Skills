@@ -2,6 +2,7 @@ version: "1.1.0"
 
 always_load:
   - static/core/contract.md
+  - ../_shared/core/direction-profile.md
   - ../_shared/core/stance.md
   - ../_shared/core/ethics.md
   - static/core/data-contract.md
@@ -25,8 +26,11 @@ axes:
         triggers: ["data availability", "availability statement", "data statement", "declaration"]
   material_family:
     detect: "Which materials family is central?"
-    default: civil
+    default: neutral
     values:
+      neutral:
+        path: ../_shared/core/direction-profile.md
+        triggers: ["neutral family", "profile family fallback", "no saved family"]
       civil:
         path: ../materials-research/static/fragments/domain/civil-family.md
         triggers: ["civil", "construction", "building", "pavement", "土木", "建筑"]
@@ -48,8 +52,11 @@ axes:
 
   domain:
     detect: "Which material domain does the data package target?"
-    default: materials
+    default: general
     values:
+      general:
+        path: ../_shared/core/direction-profile.md
+        triggers: ["general fallback", "profile fallback", "neutral routing"]
       asphalt:
         path: static/fragments/domain/asphalt.md
         triggers: ["asphalt", "emulsified asphalt", "waterborne epoxy", "bitumen", "pavement", "沥青", "乳化沥青", "水性环氧"]

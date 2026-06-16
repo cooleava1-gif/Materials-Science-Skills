@@ -2,6 +2,7 @@ version: "1.1.0"
 
 always_load:
   - static/core/contract.md
+  - ../_shared/core/direction-profile.md
   - ../_shared/core/stance.md
   - ../_shared/core/evidence-contract.md
   - ../_shared/core/ethics.md
@@ -68,8 +69,11 @@ axes:
         triggers: ["unreasonable request", "impossible experiment", "scope boundary", "firm", "坚定", "不合理要求"]
   material_family:
     detect: "Which materials family is central?"
-    default: civil
+    default: neutral
     values:
+      neutral:
+        path: ../_shared/core/direction-profile.md
+        triggers: ["neutral family", "profile family fallback", "no saved family"]
       civil:
         path: ../materials-research/static/fragments/domain/civil-family.md
         triggers: ["civil", "construction", "building", "pavement", "土木", "建筑"]
@@ -91,8 +95,11 @@ axes:
 
   domain:
     detect: "Which material domain does the response target?"
-    default: civil
+    default: general
     values:
+      general:
+        path: ../_shared/core/direction-profile.md
+        triggers: ["general fallback", "profile fallback", "neutral routing"]
       civil:
         path: static/fragments/domain/civil.md
         triggers: ["civil", "asphalt", "cement", "concrete", "pavement", "construction", "土木", "建筑", "道路"]

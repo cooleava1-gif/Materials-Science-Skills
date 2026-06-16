@@ -13,6 +13,7 @@ Thumbs.db
 .codex/
 .claude/
 .codegraph/
+.materials/
 config.toml
 auth.json
 *.sqlite

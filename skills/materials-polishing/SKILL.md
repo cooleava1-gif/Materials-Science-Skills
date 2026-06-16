@@ -12,10 +12,11 @@ Polish materials prose while preserving scientific responsibility.
 ## Protocol
 
 1. Read [manifest.yaml](manifest.yaml), then load every `always_load` file.
-2. Detect `section`, `journal_family`, `language_mode`, and `paper_type`.
-3. Load only the matching fragments.
-4. Apply the language rulebook, claim-strength ladder, and domain language fragment.
-5. Preserve facts, evidence strength, units, citations, and author intent.
+2. Apply profile-first routing from `.materials/profile.yaml`; on first use, ask for direction once and save it locally.
+3. Detect `section`, `journal_family`, `language_mode`, and `paper_type`.
+4. Load only the matching fragments.
+5. Apply the language rulebook, claim-strength ladder, and domain language fragment.
+6. Preserve facts, evidence strength, units, citations, and author intent.
 
 ## Gates
 
