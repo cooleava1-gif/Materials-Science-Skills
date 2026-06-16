@@ -1,0 +1,5 @@
+id: acs-nano
+path: static/fragments/journal/acs-nano.md
+triggers:
+- ACS Nano
+- ACS Nano Lett.

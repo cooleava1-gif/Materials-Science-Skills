@@ -1,0 +1,54 @@
+characterization:
+- evidence_tier: strong
+  method: SEM/EDS
+  purpose: γ/γ′ microstructure, precipitate size/fraction, TCP phase identification
+- evidence_tier: strong
+  method: TEM
+  purpose: γ′ morphology, dislocation structure after creep, interfacial analysis
+- evidence_tier: strong
+  method: XRD
+  purpose: Phase identification, lattice parameter measurement, γ′ misfit
+- evidence_tier: definitive
+  method: Creep Testing
+  purpose: Creep rate, rupture life, minimum creep rate vs. Larson-Miller parameter
+coverage_tier: skeleton
+cross_references:
+  related:
+  - ferrous-alloys
+  - nonferrous-alloys
+description:
+  engineering_problems:
+  - Creep resistance at elevated temperatures (>0.4 Tm)
+  - Oxidation and hot corrosion resistance
+  - γ′ precipitate coarsening and microstructural stability
+  - Thermal barrier coating systems for turbine applications
+  summary: Ni-based, Co-based, and Fe-based superalloys for high-temperature service
+    in extreme environments
+  typical_applications:
+  - Gas turbine blades and vanes
+  - Rocket engine components
+  - Nuclear reactor structural materials
+  - High-temperature tooling
+family: metals
+figure_archetypes:
+- description: Creep strain vs. time curves at different stress/temperature conditions
+  id: creep_curve
+  type: line_plot
+- description: Tensile stress-strain at elevated temperatures
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+  id: stress_strain
+  type: stress_strain
+id: high-temperature-alloys
+name: High-Temperature Alloys and Superalloys
+narrative:
+  arc: Alloy Chemistry → Processing → Microstructure (γ/γ′) → Creep/Oxidation → Turbine
+    Application
+  skill_references:
+    domain_fragment: skills/materials-research/static/fragments/domain/high-temperature-alloys.md
+    narrative_guide: skills/materials-writing/references/high-temperature-alloys-narrative.md
+    reviewer_criteria: skills/materials-reviewer/references/metals-reviewer-criteria.md
+skill_mapping:
+  data_schemas: []
+  figure_packages: []
+  figure_scripts:
+  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py

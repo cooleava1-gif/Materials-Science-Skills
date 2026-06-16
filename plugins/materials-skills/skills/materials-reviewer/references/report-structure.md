@@ -1,5 +1,7 @@
 # Report Structure
 
+> **Domain context**: The `domain` axis has loaded domain-specific reviewer guidance for [detected domain]. Use it alongside this report structure to frame domain-specific concerns.
+
 Use this structure for each independent report.
 
 ## Overall assessment

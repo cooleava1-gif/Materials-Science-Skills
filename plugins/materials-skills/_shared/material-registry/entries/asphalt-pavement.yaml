@@ -1,0 +1,328 @@
+characterization:
+- evidence_tier: strong
+  key_features:
+  - 915 cm⁻¹ (epoxide C–O stretching, decreases with curing)
+  - 1240 cm⁻¹ (C–O–C asymmetric stretching)
+  - 1730 cm⁻¹ (carbonyl C=O stretching)
+  - 1610 cm⁻¹ (aromatic C=C from epoxy resin)
+  method: FTIR
+  purpose: Curing degree monitoring via epoxide peak disappearance (915, 1240, 1730
+    cm⁻¹)
+- evidence_tier: strong
+  key_features:
+  - Sea-island morphology at low polymer content
+  - Co-continuous network at optimal polymer dosage
+  - Phase separation at excessive polymer loading
+  method: SEM
+  purpose: Morphology analysis of polymer-modified emulsion films
+- evidence_tier: supporting
+  key_features:
+  - UV-excited epoxy domains appear bright
+  - Uniform distribution indicates good compatibility
+  method: Fluorescence Microscopy
+  purpose: Epoxy resin distribution in asphalt emulsion film
+- evidence_tier: strong
+  key_features:
+  - Time-sweep oscillation for curing monitoring
+  - Frequency sweep for viscoelastic characterization
+  - Temperature ramp for application window
+  method: Rheology
+  purpose: Viscosity curve, storage modulus G', loss modulus G'', and curing behavior
+- evidence_tier: supporting
+  key_features:
+  - 'Weight loss stages: moisture → polymer → asphalt decomposition'
+  - Residue at 600 °C for inorganic content
+  method: TGA/DTG
+  purpose: Thermal stability and composition analysis
+- evidence_tier: supporting
+  method: XRD
+  purpose: Crystalline phase identification (if mineral fillers are present)
+claim_types:
+- common_risks:
+  - Reporting mean without variability or replicate count
+  - Claiming 'significant' without statistical test
+  - Comparing across different test standards
+  evidence_required:
+  - Control group comparison (unmodified vs. modified)
+  - Quantitative bonding strength with error bars
+  - 'Test conditions: curing time, temperature, moisture conditioning'
+  type: performance_improvement
+- common_risks:
+  - Claiming 'curing mechanism confirmed' from FTIR alone
+  - No control over competing explanations (water evaporation vs. cure)
+  evidence_required:
+  - FTIR evidence of epoxy curing (peak ratio change)
+  - SEM morphology showing polymer distribution
+  - Rheology evidence of network formation (G' crossover)
+  type: mechanism_explanation
+- common_risks:
+  - Lab-only aging without field or simulated-service validation
+  - Single aging condition claimed as 'durability proven'
+  evidence_required:
+  - Aged-condition test data (freeze-thaw, UV, moisture, heat)
+  - Retention ratio relative to initial performance
+  - Comparison with unmodified system under same aging protocol
+  type: durability_validation
+- common_risks:
+  - No explanation of why a particular dosage was chosen
+  - Ignoring constructability constraints (viscosity, open time)
+  evidence_required:
+  - Dosage optimization data showing performance vs. dosage trend
+  - Storage stability proof within target dosage window
+  type: material_design_rationale
+coverage_tier: full
+cross_references:
+  parent: civil-generic
+  related:
+  - cement-concrete
+  - waterproofing-sealants
+  - sustainability-durability
+description:
+  engineering_problems:
+  - Tack coat interlayer bonding between asphalt pavement layers
+  - Waterborne epoxy modification to improve adhesion, cohesion, and durability
+  - Storage stability of polymer-modified asphalt emulsions
+  - Curing reaction monitoring and optimization for epoxy-modified systems
+  - Low-temperature and moisture-condition performance retention
+  summary: Modified emulsified asphalt systems for pavement tack coats, waterproofing
+    layers, and pavement maintenance
+  typical_applications:
+  - Tack coats for asphalt pavement overlays
+  - Bridge deck waterproofing membranes
+  - Pavement maintenance and surface treatments
+  - Micro-surfacing and slurry seal modifications
+family: civil
+figure_archetypes:
+- description: Grouped bar chart comparing bonding strength across formulations under
+    dry/wet/aged conditions
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_bonding_strength_comparison.py
+  id: bonding_strength_bar
+  type: grouped_bar
+  column_roles:
+  - x_labels
+  - series
+- description: FTIR spectral overlay showing epoxide peak evolution with curing time
+    or dosage
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_ftir_curing_evidence.py
+  id: ftir_overlay
+  type: ftir_overlay
+  column_roles:
+  - x_values
+  - absorbances
+- description: Dosage–performance trend line with optimal dosage identification
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_dosage_performance_curve.py
+  id: dosage_performance_curve
+  type: line_plot
+  column_roles:
+  - x_labels
+  - series
+- description: Multi-condition durability retention (freeze-thaw, water immersion,
+    UV aging)
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_durability_retention.py
+  id: durability_retention_bar
+  type: grouped_bar
+  column_roles:
+  - x_labels
+  - series
+- description: Normalized multi-index radar chart for comparing formulations across
+    properties
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_dosage_radar.py
+  id: property_radar
+  type: radar_chart
+  column_roles:
+  - categories
+  - series_dict
+- description: Viscosity vs. shear rate or temperature for emulsion systems
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_rheology_curve.py
+  id: rheology_curve
+  type: rheology_curve
+  column_roles:
+  - x_values
+  - y_series
+- description: Bonding strength across dosage range showing optimal window
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_dosage_window.py
+  id: dosage_window
+  type: line_plot
+  column_roles:
+  - x_labels
+  - series
+- description: Strength retention after multiple freeze-thaw cycles
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_freeze_thaw_cycle.py
+  id: freeze_thaw_durability
+  type: grouped_bar
+  column_roles:
+  - x_labels
+  - series
+- description: SEM micrograph panel showing morphology at different dosages
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_sem_analysis.py
+  id: sem_image
+  type: sem_image
+  column_roles:
+  - image_data
+  - histogram
+- description: TGA/DTG overlay for thermal decomposition analysis
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_tga_dtg_curve.py
+  id: tga_dtg
+  type: tga_curve
+  column_roles:
+  - x_values
+  - tga
+  - dtg
+- description: Particle size distribution histogram for emulsion droplets
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_particle_size_distribution.py
+  id: particle_size_distribution
+  type: particle_size_dist
+  column_roles:
+  - x_values
+  - y_series
+- description: Aging test durability comparison across formulations
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_aging_test.py
+  id: aging_test
+  type: grouped_bar
+  column_roles:
+  - x_labels
+  - series
+- description: Multi-panel characterization combining bonding, dosage, FTIR, and durability
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_asphalt_multipanel.py
+  id: multi_panel_asphalt
+  type: multi_panel
+  column_roles:
+  - subfigures
+- description: Durability comparison across different aging conditions
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_durability_comparison.py
+  id: durability_comparison
+  type: grouped_bar
+  column_roles:
+  - x_labels
+  - series
+- description: Proposed curing and bonding mechanism schematic with evidence certainty
+    labeling
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  id: mechanism_diagram
+  type: diagram
+- description: System boundary diagram for life cycle assessment of WER systems
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_lca_boundary.py
+  id: lca_boundary
+  type: diagram
+- description: Literature research gap matrix for topic mapping
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_research_gap_matrix.py
+  id: research_gap_matrix
+  type: heatmap
+- description: Research landscape heatmap showing coverage density
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_research_gap_heatmap.py
+  id: research_gap_heatmap
+  type: heatmap
+- description: Heatmap of property correlations across formulations
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_property_correlation.py
+  id: property_correlation
+  type: heatmap
+- description: PRISMA-style literature screening flow diagram
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_screening_flow.py
+  id: screening_flow
+  type: flow_chart
+- description: Graphical abstract panel for WER-EA review
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_graphical_abstract.py
+  id: graphical_abstract
+  type: diagram
+id: asphalt-pavement
+name: Waterborne Epoxy Modified Emulsified Asphalt
+narrative:
+  arc: Engineering Problem → Material Design → Performance → Mechanism → Durability
+    → Boundary
+  skill_references:
+    domain_fragment: skills/materials-research/static/fragments/domain/asphalt-pavement.md
+    narrative_guide: skills/materials-writing/references/asphalt-pavement-narrative.md
+    reviewer_criteria: skills/materials-reviewer/references/asphalt-reviewer-criteria.md
+properties:
+- id: bonding_strength
+  name: Bonding Strength
+  test_methods:
+  - Pull-off bond test (ASTM D4541 / GB/T 5210)
+  - Shear bond test (ASTM D6931)
+  typical_range: 0.3–1.5
+  unit: MPa
+- id: storage_stability
+  name: Storage Stability
+  test_methods:
+  - ASTM D6930 (emulsion stability)
+  - GB/T 20623 (storage stability at 25 °C)
+  typical_range: < 5%
+  unit: '% (24 h separation)'
+- id: viscosity
+  name: Viscosity
+  test_methods:
+  - Brookfield rotational viscometer (ASTM D2196)
+  typical_range: 100–1000
+  unit: mPa·s
+- id: curing_degree
+  name: Curing Degree
+  test_methods:
+  - FTIR peak ratio (915 cm⁻¹ epoxide / reference)
+  typical_range: 60–90%
+  unit: '% (epoxy conversion)'
+- id: penetration
+  name: Penetration
+  test_methods:
+  - ASTM D5 / GB/T 0604
+  typical_range: 60–120
+  unit: 0.1 mm
+- id: softening_point
+  name: Softening Point
+  test_methods:
+  - ASTM D36 / GB/T 0606
+  typical_range: 45–65
+  unit: °C
+skill_mapping:
+  data_schemas:
+  - skills/materials-figure/scripts/figures4materials/data/bonding_strength.csv
+  - skills/materials-figure/scripts/figures4materials/data/ftir_spectra.csv
+  - skills/materials-figure/scripts/figures4materials/data/dosage_performance.csv
+  - skills/materials-figure/scripts/figures4materials/data/durability_retention.csv
+  - skills/materials-figure/scripts/figures4materials/data/rheology_curve.csv
+  - skills/materials-figure/scripts/figures4materials/data/sem_analysis.csv
+  - skills/materials-figure/scripts/figures4materials/data/tga_dtg_curve.csv
+  - skills/materials-figure/scripts/figures4materials/data/particle_size_distribution.csv
+  - skills/materials-figure/scripts/figures4materials/data/aging_test.csv
+  figure_packages:
+  - skills/materials-figure/examples/figure-packages/wer-ea-dosage-window
+  - skills/materials-figure/examples/figure-packages/wer-ea-evidence-heatmap
+  - skills/materials-figure/examples/figure-packages/wer-ea-mechanism-map
+  figure_scripts:
+  - skills/materials-figure/scripts/figures4materials/plot_bonding_strength_comparison.py
+  - skills/materials-figure/scripts/figures4materials/plot_ftir_curing_evidence.py
+  - skills/materials-figure/scripts/figures4materials/plot_dosage_performance_curve.py
+  - skills/materials-figure/scripts/figures4materials/plot_dosage_radar.py
+  - skills/materials-figure/scripts/figures4materials/plot_dosage_window.py
+  - skills/materials-figure/scripts/figures4materials/plot_durability_retention.py
+  - skills/materials-figure/scripts/figures4materials/plot_durability_comparison.py
+  - skills/materials-figure/scripts/figures4materials/plot_freeze_thaw_cycle.py
+  - skills/materials-figure/scripts/figures4materials/plot_rheology_curve.py
+  - skills/materials-figure/scripts/figures4materials/plot_sem_analysis.py
+  - skills/materials-figure/scripts/figures4materials/plot_tga_dtg_curve.py
+  - skills/materials-figure/scripts/figures4materials/plot_particle_size_distribution.py
+  - skills/materials-figure/scripts/figures4materials/plot_aging_test.py
+  - skills/materials-figure/scripts/figures4materials/plot_asphalt_multipanel.py
+  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  - skills/materials-figure/scripts/figures4materials/plot_lca_boundary.py
+  - skills/materials-figure/scripts/figures4materials/plot_research_gap_matrix.py
+  - skills/materials-figure/scripts/figures4materials/plot_research_gap_heatmap.py
+  - skills/materials-figure/scripts/figures4materials/plot_property_correlation.py
+  - skills/materials-figure/scripts/figures4materials/plot_screening_flow.py
+  - skills/materials-figure/scripts/figures4materials/plot_graphical_abstract.py
+standards:
+- purpose: Pull-off bonding strength of coatings and adhesive systems
+  standard: ASTM D4541 / GB/T 5210
+- purpose: Storage stability of emulsified asphalt
+  standard: ASTM D6930
+- purpose: Rotational viscosity measurement
+  standard: ASTM D2196
+- purpose: Penetration test for bituminous materials
+  standard: ASTM D5 / GB/T 0604
+- purpose: Softening point (ring-and-ball)
+  standard: ASTM D36 / GB/T 0606
+- purpose: Shear bond strength of asphalt mixtures
+  standard: ASTM D6931
+- purpose: Storage stability of polymer emulsions
+  standard: GB/T 20623
+- purpose: Emulsion residue by evaporation
+  standard: ASTM D7405 / JTG E20 T 0666

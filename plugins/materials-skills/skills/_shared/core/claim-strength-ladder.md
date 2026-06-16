@@ -18,7 +18,7 @@ Match language strength to evidence strength.
 - Change `first` or `novel` to a precise gap unless a live literature check supports priority.
 - Change `mechanism was confirmed` to `mechanism was inferred` when only performance data exist.
 
-## Materials Science Red Flags
+## Civil Materials Red Flags
 
 - "The mechanism is..." without FTIR, SEM, fluorescence, rheology, hydration, or equivalent evidence.
 - "Durability was improved" without aging, moisture, freeze-thaw, retained strength, or service-condition data.

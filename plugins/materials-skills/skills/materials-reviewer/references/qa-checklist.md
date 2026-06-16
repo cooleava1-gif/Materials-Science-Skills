@@ -1,5 +1,7 @@
 # Reviewer QA Checklist
 
+> **Domain context**: The `domain` axis has loaded domain-specific reviewer guidance. Supplement this checklist with the domain guide's fatal flaws and typical reviewer questions.
+
 Use this checklist before finalizing the simulated review.
 
 - Flag overclaim where performance data are converted into mechanism claims.

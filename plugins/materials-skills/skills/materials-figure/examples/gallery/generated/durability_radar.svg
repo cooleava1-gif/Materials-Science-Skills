@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="620" viewBox="0 0 960 620">
+<rect width="100%" height="100%" fill="#FFFFFF"/>
+<text x="480.0" y="34" text-anchor="middle" font-family="Arial" font-size="18" font-weight="700">Materials Science Figure Gallery</text>
+<text x="480.0" y="58" text-anchor="middle" font-family="Arial" font-size="24" font-weight="700">Durability Radar</text>
+<polygon points="480.0,272.5 520.4,301.9 505.0,349.4 455.0,349.4 439.6,301.9" fill="none" stroke="#E8E2D6" stroke-width="1"/>
+<polygon points="480.0,230.0 560.8,288.7 530.0,383.8 430.0,383.8 399.2,288.7" fill="none" stroke="#E8E2D6" stroke-width="1"/>
+<polygon points="480.0,187.5 601.3,275.6 554.9,418.1 405.1,418.1 358.7,275.6" fill="none" stroke="#E8E2D6" stroke-width="1"/>
+<polygon points="480.0,145.0 641.7,262.5 579.9,452.5 380.1,452.5 318.3,262.5" fill="none" stroke="#E8E2D6" stroke-width="1"/>
+<line x1="480" y1="315" x2="480.0" y2="145.0" stroke="#E8E2D6" stroke-width="1"/>
+<text x="480.0" y="100.0" text-anchor="middle" font-family="Arial" font-size="12" font-weight="400" fill="#2F332F">Moisture</text>
+<line x1="480" y1="315" x2="641.7" y2="262.5" stroke="#E8E2D6" stroke-width="1"/>
+<text x="684.5" y="248.6" text-anchor="middle" font-family="Arial" font-size="12" font-weight="400" fill="#2F332F">Aging</text>
+<line x1="480" y1="315" x2="579.9" y2="452.5" stroke="#E8E2D6" stroke-width="1"/>
+<text x="606.4" y="488.9" text-anchor="middle" font-family="Arial" font-size="12" font-weight="400" fill="#2F332F">Freeze-thaw</text>
+<line x1="480" y1="315" x2="380.1" y2="452.5" stroke="#E8E2D6" stroke-width="1"/>
+<text x="353.6" y="488.9" text-anchor="middle" font-family="Arial" font-size="12" font-weight="400" fill="#2F332F">Fatigue</text>
+<line x1="480" y1="315" x2="318.3" y2="262.5" stroke="#E8E2D6" stroke-width="1"/>
+<text x="275.5" y="248.6" text-anchor="middle" font-family="Arial" font-size="12" font-weight="400" fill="#2F332F">Rutting</text>
+<polygon points="480.0,209.6 573.8,284.5 535.0,390.6 419.0,398.9 383.0,283.5" fill="#6B7568" opacity="0.20" stroke="#6B7568" stroke-width="3"/>
+<polygon points="480.0,175.6 606.1,274.0 553.9,416.8 401.1,423.7 357.1,275.1" fill="#5D7F4F" opacity="0.34" stroke="#5D7F4F" stroke-width="3"/>
+<text x="480.0" y="575.0" text-anchor="middle" font-family="Arial" font-size="13" font-weight="400" fill="#2F332F">Normalized durability profile; raw values and uncertainty should remain available.</text>
+</svg>

@@ -5,6 +5,13 @@ import unittest
 from pathlib import Path
 
 
+
+def _find_repo_root():
+    p = Path(__file__).resolve()
+    for parent in [p] + list(p.parents):
+        if (parent / ".git").exists() or (parent / "AGENTS.md").exists():
+            return parent
+    return p.parents[3]
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -69,7 +76,7 @@ class ReviewerSkillStructureTest(unittest.TestCase):
             self.assertIn(section, pressure_text)
 
     def test_release_checks_include_reviewer_skill(self):
-        release_script = SKILL_ROOT.parents[1] / "scripts" / "run_release_checks.py"
+        release_script = _find_repo_root() / "scripts" / "run_release_checks.py"
         text = release_script.read_text(encoding="utf-8")
 
         self.assertIn('"materials-reviewer"', text)

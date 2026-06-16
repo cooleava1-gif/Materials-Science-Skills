@@ -1,0 +1,62 @@
+characterization:
+- evidence_tier: definitive
+  method: OM (Optical Microscopy)
+  purpose: Grain size, phase fraction (ferrite, pearlite, martensite, austenite),
+    inclusion rating
+- evidence_tier: strong
+  method: SEM/EDS
+  purpose: Fracture surface analysis, inclusion chemistry, precipitate identification
+- evidence_tier: strong
+  method: XRD
+  purpose: Phase identification, retained austenite quantification, texture analysis
+- evidence_tier: strong
+  method: TEM
+  purpose: Precipitate characterization (carbides, nitrides), dislocation structure
+- evidence_tier: definitive
+  method: Hardness Testing
+  purpose: Brinell, Rockwell, Vickers hardness mapping
+coverage_tier: skeleton
+cross_references:
+  related:
+  - nonferrous-alloys
+  - high-temperature-alloys
+  - additive-metals
+  - steel-metal
+description:
+  engineering_problems:
+  - Strength-ductility trade-off optimization through alloy design and heat treatment
+  - Corrosion resistance of stainless steels in aggressive environments
+  - Weldability and heat-affected zone performance
+  - Fatigue and fracture resistance for cyclic loading applications
+  summary: Carbon steels, alloy steels, stainless steels, tool steels, and cast irons
+    for structural, automotive, and industrial applications
+  typical_applications:
+  - Automotive body and structural components
+  - Oil and gas pipeline steels
+  - Construction and infrastructure (rebar, structural sections)
+  - Cutting tools and wear-resistant surfaces
+family: metals
+figure_archetypes:
+- description: Tensile engineering and true stress-strain curves
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+  id: stress_strain
+  type: stress_strain
+- description: EIS Nyquist and Bode plots for corrosion assessment
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_eis.py
+  id: eis_plot
+  type: eis_plot
+id: ferrous-alloys
+name: Ferrous Alloys and Steels
+narrative:
+  arc: Composition → Heat Treatment → Microstructure → Mechanical Properties → Service
+    Performance
+  skill_references:
+    domain_fragment: skills/materials-research/static/fragments/domain/ferrous-alloys.md
+    narrative_guide: skills/materials-writing/references/ferrous-alloys-narrative.md
+    reviewer_criteria: skills/materials-reviewer/references/metals-reviewer-criteria.md
+skill_mapping:
+  data_schemas: []
+  figure_packages: []
+  figure_scripts:
+  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+  - skills/materials-figure/scripts/figures4materials/plot_eis.py

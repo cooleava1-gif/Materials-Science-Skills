@@ -1,6 +1,6 @@
 # Figure Stance
 
-Civil materials figures should make the scientific logic easier to audit.
+> **Domain context**: The `domain` axis has loaded domain-specific figure guidance for [detected domain]. The stance below is general; the domain guide lists domain-specific figure types, panel structures, and reviewer pitfalls.
 
 ## Operating Stance
 
@@ -13,10 +13,10 @@ Civil materials figures should make the scientific logic easier to audit.
 
 ## Materials Science Priorities
 
-- For asphalt and WER-EA, separate binder, emulsion, interface, mixture, and service-condition evidence.
-- For cement/concrete, separate fresh properties, mechanical performance, durability, hydration/microstructure, and sustainability boundary.
+Refer to the auto-loaded domain figure guide for domain-specific figure types, multi-panel structures, and caption patterns. The domain guide covers: civil, polymers, metals, ceramics, functional, and nanomaterials.
+
 - For SEM/TEM/fluorescence panels, preserve scale bars and image provenance.
-- For FTIR/XRD/TG/DSR/BBR plots, do not overstate chemistry or field durability from a single evidence layer.
+- For FTIR/XRD/TG/DSR spectra, do not overstate chemistry or field durability from a single evidence layer.
 - For review figures, link panels to a table-system row or `source_map.json` anchor when available.
 
 ## Reviewer-Safe Defaults

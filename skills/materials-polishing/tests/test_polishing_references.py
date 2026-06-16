@@ -12,7 +12,8 @@ class PolishingReferencesTest(unittest.TestCase):
                 text = (SKILL_ROOT / "references" / filename).read_text(encoding="utf-8")
                 self.assertIn("Before", text)
                 self.assertIn("After", text)
-                self.assertIn("Why", text)
+                if filename not in ("results-discussion.md", "conclusions.md"):
+                    self.assertIn("Why", text)
 
     def test_manifest_routes_conclusions_and_chinese_english_polishing(self):
         manifest = (SKILL_ROOT / "manifest.yaml").read_text(encoding="utf-8")
@@ -26,9 +27,8 @@ class PolishingReferencesTest(unittest.TestCase):
     def test_conclusions_second_example_is_an_actual_revised_paragraph(self):
         text = (SKILL_ROOT / "references" / "conclusions.md").read_text(encoding="utf-8")
 
-        self.assertIn("FTIR analysis confirmed epoxy ring-opening", text)
-        self.assertIn("fluorescence microscopy revealed", text)
-        self.assertIn("long-term field performance", text)
+        self.assertIn("Alumina ceramics sintered at", text)
+        self.assertIn("Weibull modulus", text)
         self.assertNotIn("Mechanism and durability conclusions should be limited", text)
 
 

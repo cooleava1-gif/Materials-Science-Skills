@@ -1,5 +1,7 @@
 # Reference Gap Audit
 
+> **Domain context**: The `domain` axis has loaded domain-specific citation guidance for [detected domain]. The gap checks below are universal; the domain guide lists domain-specific evidence standards and reviewer expectations.
+
 Flag a citation gap when:
 
 - a paragraph makes a broad field claim without a review or recent primary source,
@@ -15,22 +17,41 @@ Suggested risk labels:
 - `strengthen`: acceptable but thin,
 - `optional`: useful for polish or positioning.
 
-## WER-EA Reviewer-Safe Gap Checks
+## Domain-specific gap checks
 
-Use `references/wer-ea-screening-and-source-quality.md` before closing a WER-EA citation package.
-
+### Civil construction materials
 Flag `must-fix` when:
+- a formulation claim lacks evidence from a directly matched material system,
+- a mechanism claim relies only on strength/bonding values without FTIR, SEM, or thermal evidence,
+- a durability claim uses only short-term data without accelerated aging,
+- field applicability claimed without field validation or engineering boundary.
 
-- a formulation claim lacks `material_formulation` evidence from a directly matched WER-EA or emulsified asphalt system,
-- an interface or tack-coat claim lacks `bonding_interface_performance` evidence,
-- a mechanism claim relies only on strength or bonding values and lacks `curing_demulsification` or `microstructure_chemistry` evidence,
-- a durability claim uses only short-term only bonding, viscosity, or fresh emulsion data,
-- a service or field relevance claim lacks `service_field_relevance`, a standard/specification source, or an explicit engineering boundary,
-- all mapped sources are `weak background`, `review evidence`, or `method evidence` for a claim that needs primary experimental evidence.
+### Ceramics
+Flag `must-fix` when:
+- sintering conditions are claimed without density or phase evidence,
+- mechanical property claims lack Weibull statistics or specimen numbers,
+- phase identification lacks reference pattern matching or Rietveld quantification.
 
-Flag `strengthen` when:
+### Metals
+Flag `must-fix` when:
+- strength improvement claimed without ductility or toughness data,
+- microstructure claims lack quantitative grain size or phase fraction measurements,
+- heat treatment parameters incomplete (especially cooling rate).
 
-- source quality is still `screening needed`,
-- the source has adjacent asphalt/epoxy evidence but not the studied WER-EA system,
-- `reader_anchor` is missing for a claim that may enter Results, Discussion, or a review figure,
-- `figure_handoff` is marked but the source has not been checked for measured-vs-inferred boundaries.
+### Polymers
+Flag `must-fix` when:
+- crosslinking claimed without gel content, DSC exotherm, or FTIR evidence,
+- compatibility claimed without thermal (single Tg) or morphological (SEM/TEM) evidence,
+- mechanical properties reported without thermal characterization (Tg/Tm).
+
+### Functional materials
+Flag `must-fix` when:
+- efficiency/capacity reported without device-to-device variation,
+- stability claims based on unrealistically short test duration,
+- benchmark comparison missing for claimed "high performance."
+
+### Nanomaterials
+Flag `must-fix` when:
+- particle size claimed from XRD alone without TEM confirmation,
+- size distribution statistics missing (≥100 particles required),
+- surface chemistry claims without XPS, FTIR, or zeta potential evidence.

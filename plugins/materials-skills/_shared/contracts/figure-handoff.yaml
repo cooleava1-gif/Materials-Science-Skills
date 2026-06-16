@@ -25,5 +25,5 @@ artifacts:
       review_figure_support: { type: string, required: false }
 
 templates:
-  - assets/templates/figure-handoff-template.csv
-  - assets/templates/review-figure-intake-template.csv
+  - ../../skills/materials-reader/assets/templates/figure-handoff-template.csv
+  - ../../skills/materials-figure/assets/templates/review-figure-intake-template.csv

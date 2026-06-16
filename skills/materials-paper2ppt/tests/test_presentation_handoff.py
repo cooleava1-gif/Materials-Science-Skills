@@ -6,8 +6,15 @@ import zipfile
 from pathlib import Path
 
 
+
+def _find_repo_root():
+    p = Path(__file__).resolve()
+    for parent in [p] + list(p.parents):
+        if (parent / ".git").exists() or (parent / "AGENTS.md").exists():
+            return parent
+    return p.parents[3]
 SKILL_ROOT = Path(__file__).resolve().parents[1]
-REPO_ROOT = SKILL_ROOT.parents[1]
+REPO_ROOT = _find_repo_root()
 
 
 class Paper2PptStructureTest(unittest.TestCase):

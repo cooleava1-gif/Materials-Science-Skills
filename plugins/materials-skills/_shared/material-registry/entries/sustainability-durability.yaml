@@ -1,0 +1,41 @@
+characterization:
+- evidence_tier: definitive
+  method: LCA
+  purpose: Environmental impact quantification (cradle-to-gate, cradle-to-grave)
+- evidence_tier: strong
+  method: Accelerated Durability Testing
+  purpose: Freeze-thaw, carbonation, chloride ingress, alkali-silica reaction
+coverage_tier: skeleton
+cross_references:
+  related:
+  - cement-concrete
+  - asphalt-pavement
+description:
+  engineering_problems:
+  - CO₂ reduction in cement and concrete production
+  - Waste material valorization in construction (slag, fly ash, recycled aggregate,
+    rubber)
+  - Long-term durability prediction under coupled degradation mechanisms
+  - Service-life extension via material modification
+  summary: Life cycle assessment, carbon footprint, durability prediction, recycled/waste
+    materials, and service-life modeling
+  typical_applications:
+  - Low-carbon concrete and cement
+  - Recycled aggregate concrete
+  - Waste-modified asphalt and pavement materials
+  - Durability-based design for infrastructure
+family: civil
+id: sustainability-durability
+name: Sustainability and Durability of Construction Materials
+narrative:
+  arc: Material Sourcing → Processing → Service Performance → End-of-Life → Environmental
+    Impact
+  skill_references:
+    domain_fragment: skills/materials-research/static/fragments/domain/sustainability-durability.md
+    narrative_guide: skills/materials-writing/references/sustainability-durability-narrative.md
+skill_mapping:
+  data_schemas: []
+  figure_packages: []
+  figure_scripts:
+  - skills/materials-figure/scripts/figures4materials/plot_lca_boundary.py
+  - skills/materials-figure/scripts/figures4materials/plot_durability_retention.py

@@ -7,10 +7,25 @@ from pathlib import Path
 import yaml
 
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
+
+def _find_repo_root():
+    p = Path(__file__).resolve()
+    for parent in [p] + list(p.parents):
+        if (parent / ".git").exists() or (parent / "AGENTS.md").exists():
+            return parent
+    return p.parents[3]
+REPO_ROOT = _find_repo_root()
 SKILLS_ROOT = REPO_ROOT / "skills"
 RESEARCH_ROOT = SKILLS_ROOT / "materials-research"
 SHARED_ROOT = SKILLS_ROOT / "_shared" / "paper-production"
+WEAKNESS_EXAMPLE = SHARED_ROOT / "examples" / "wer-ea-mini-review-weakness-routing.csv"
+GATE_EXAMPLE = SHARED_ROOT / "examples" / "wer-ea-mini-review-gate-report.md"
+ROUTE_EXAMPLE = (
+    RESEARCH_ROOT
+    / "examples"
+    / "library"
+    / "paper-production-mini-review-example.md"
+)
 
 
 WEAKNESS_FIELDS = [
@@ -118,6 +133,21 @@ class PaperProductionOrchestratorTest(unittest.TestCase):
         ]:
             self.assertIn(skill, routing_text)
 
+    def test_filled_paper_production_examples_exist_and_are_linked(self):
+        self.assertTrue(WEAKNESS_EXAMPLE.exists())
+        self.assertTrue(GATE_EXAMPLE.exists())
+        self.assertTrue(ROUTE_EXAMPLE.exists())
+
+        route_doc = (RESEARCH_ROOT / "references" / "paper-production-orchestrator.md").read_text(
+            encoding="utf-8"
+        )
+        for phrase in [
+            "paper-production-mini-review-example.md",
+            "wer-ea-mini-review-weakness-routing.csv",
+            "wer-ea-mini-review-gate-report.md",
+        ]:
+            self.assertIn(phrase, route_doc)
+
     def test_audit_script_accepts_valid_files_and_rejects_missing_fields(self):
         audit = load_audit_module()
         valid_weakness = SHARED_ROOT / "weakness-routing-template.csv"
@@ -138,6 +168,58 @@ class PaperProductionOrchestratorTest(unittest.TestCase):
         self.assertEqual(bad_report["status"], "fail")
         self.assertTrue(bad_report["issues"]["weakness_routing"])
         self.assertTrue(bad_report["issues"]["gate_report"])
+
+    def test_audit_script_rejects_invalid_row_values_and_unknown_links(self):
+        audit = load_audit_module()
+
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            bad_weakness = tmp_path / "weakness.csv"
+            bad_gate = tmp_path / "gate.md"
+            bad_weakness.write_text(
+                "\n".join(
+                    [
+                        ",".join(WEAKNESS_FIELDS),
+                        "W-G2-001,gate:G2,major,source_anchor_missing,gap,materials-reader,fix,reader-package/source_map.json,done,maybe",
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            bad_gate.write_text(
+                "\n".join(
+                    [
+                        "# Gate Report",
+                        "",
+                        "| gate_id | gate_name | status | evidence_checked | missing_inputs | routed_weakness_ids | next_skill | reviewer_risk |",
+                        "|---|---|---|---|---|---|---|---|",
+                        "| G1 | Literature Coverage | pass | ok | none | none | materials-citation | controlled |",
+                        "| G2 | Source Anchoring | review-needed | anchors missing | source_map.json | W-G2-404 | materials-reader | unsupported claim |",
+                        "| G3 | Mechanism Boundary | blocked | partial | mechanism evidence table | none | materials-reader; materials-citation | overclaim risk |",
+                        "| G4 | Figure And Table Integrity | pass | ok | none | none | materials-figure | controlled |",
+                        "| G5 | Manuscript Logic | blocked | partial | claim-evidence-boundary table | none | materials-writing | list-like draft |",
+                        "| G6 | Reviewer Simulation | not_applicable | draft missing | manuscript draft | none | materials-reviewer | not yet pressure-tested |",
+                        "| G7 | Submission Fit | not_applicable | journal not chosen | target journal | none | materials-research | stale journal facts |",
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+
+            report = audit.audit_files(bad_weakness, bad_gate)
+
+        self.assertEqual(report["status"], "fail")
+        self.assertTrue(report["issues"]["weakness_routing"])
+        self.assertTrue(report["issues"]["gate_report"])
+        self.assertTrue(
+            any("invalid status" in issue or "unknown weakness id" in issue for issue in report["issues"]["gate_report"]),
+            report,
+        )
+
+    def test_audit_script_accepts_filled_wer_ea_examples(self):
+        audit = load_audit_module()
+        report = audit.audit_files(WEAKNESS_EXAMPLE, GATE_EXAMPLE)
+        self.assertEqual(report["status"], "pass", report)
 
     def test_companion_contracts_consume_paper_production_artifacts(self):
         checks = {
@@ -187,6 +269,9 @@ class PaperProductionOrchestratorTest(unittest.TestCase):
         release_text = (REPO_ROOT / "scripts" / "run_release_checks.py").read_text(encoding="utf-8")
         self.assertIn("paper_production_orchestrator", release_text)
         self.assertIn("collect_paper_production_orchestrator_issues", release_text)
+        self.assertIn("paper-production-mini-review-example.md", release_text)
+        self.assertIn("wer-ea-mini-review-weakness-routing.csv", release_text)
+        self.assertIn("wer-ea-mini-review-gate-report.md", release_text)
 
 
 if __name__ == "__main__":

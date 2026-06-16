@@ -38,7 +38,6 @@
 | **nano-thin-films** | nano | 🔵 **skeleton** | ✅ nano-thin-films-narrative | ✅ nano-reviewer-criteria | ✅ 1 generic | — |
 | **2d-materials** | nano | 🔵 **skeleton** | ✅ 2d-materials-narrative | ✅ nano-reviewer-criteria | — | — |
 | **nanocomposites** | nano | 🔵 **skeleton** | ✅ nanocomposites-narrative | ✅ nano-reviewer-criteria | ✅ 2 generic | — |
-| **general-materials** | general | ⚪ **generic** | — | ✅ general-reviewer-criteria | ✅ 4 generic | ✅ 2 packages |
 
 ## Tier Definitions
 
@@ -47,14 +46,14 @@
 | **full** | 🟢 | Battle-tested | Narrative guide + figure scripts + reviewer criteria + example packages + hand-crafted content |
 | **partial** | 🟡 | Structured support | Narrative guide + at least one of (figure scripts, reviewer criteria) |
 | **skeleton** | 🔵 | Routable | Domain fragment + auto-generated narrative guide (may need human editing) |
-| **generic** | ⚪ | Catch-all | General materials guidance, no material-specific content |
+| **generic** | ⚪ | Scoped fallback | Family-level guidance, no material-specific content |
 
 ## How to Read This
 
 - **Full** materials: route to them confidently. Everything has been tested end-to-end.
 - **Partial** materials: the structure is there but you may need to fill in domain-specific details.
-- **Skeleton** materials: routing works and a template narrative exists, but depth comes from the general materials infrastructure.
-- **Generic**: fallback for anything not explicitly listed.
+- **Skeleton** materials: routing works and a template narrative exists, but depth comes from family-level infrastructure.
+- **Generic**: family-scoped fallback for civil/construction topics that do not match a deeper domain.
 
 ## How Tiers Evolve
 

@@ -24,7 +24,7 @@ artifacts:
     required: false
 
 templates:
-  - assets/templates/paper-md-template.md
-  - assets/templates/source-map-template.json
-  - assets/templates/source-anchor-checklist.md
-  - assets/templates/obsidian-note-template.md
+  - ../../skills/materials-reader/assets/templates/paper-md-template.md
+  - ../../skills/materials-reader/assets/templates/source-map-template.json
+  - ../../skills/materials-reader/assets/templates/source-anchor-checklist.md
+  - ../../skills/materials-reader/assets/templates/obsidian-note-template.md

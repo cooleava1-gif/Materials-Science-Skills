@@ -66,7 +66,7 @@ axes:
 
   material_family:
     detect: "Which materials family is central?"
-    default: general
+    default: civil
     values:
       civil:
         path: ../materials-research/static/fragments/domain/civil-family.md
@@ -86,43 +86,32 @@ axes:
       nano:
         path: ../materials-research/static/fragments/domain/nano-family.md
         triggers: ["nano", "nanoparticle", "2D material", "纳米", "纳米材料"]
-      general:
-        path: ../materials-research/static/fragments/domain/general-materials.md
-        triggers: ["materials", "通用"]
 
   domain:
-    default: materials
+    detect: "Which material domain does the figure target?"
+    default: civil
     values:
-      asphalt:
-        path: references/asphalt-figure-package.md
-        triggers: ["asphalt", "emulsified asphalt", "waterborne epoxy", "沥青", "乳化沥青", "水性环氧"]
-      cement-concrete:
-        path: references/cement-concrete-figure-package.md
-        triggers: ["cement", "concrete", "mortar", "水泥", "混凝土", "砂浆"]
-      materials:
-        path: references/summary-figures.md
-        triggers: ["materials", "construction materials", "土木材料", "建筑材料"]
+      civil:
+        path: static/fragments/domain/civil.md
+        triggers: ["civil", "asphalt", "cement", "concrete", "pavement", "土木", "建筑", "道路"]
+      polymers:
+        path: static/fragments/domain/polymers.md
+        triggers: ["polymer", "resin", "rubber", "thermoplastic", "高分子"]
       ceramics:
         path: static/fragments/domain/ceramics.md
         triggers: ["ceramic", "sintering", "alumina", "zirconia", "carbide", "陶瓷"]
+      metals:
+        path: static/fragments/domain/metals.md
+        triggers: ["metal", "alloy", "steel", "金属"]
+      functional:
+        path: static/fragments/domain/functional.md
+        triggers: ["semiconductor", "dielectric", "piezoelectric", "optoelectronic", "半导体"]
+      nano:
+        path: static/fragments/domain/nano.md
+        triggers: ["nano", "nanoparticle", "2D material", "graphene", "纳米"]
       thermal-insulation:
         path: static/fragments/domain/thermal-insulation.md
-        triggers: ["thermal insulation", "aerogel", "foam", "insulation", "隔热", "保温"]
-      polymers:
-        path: ../materials-research/static/fragments/domain/polymers-family.md
-        triggers: ["polymer", "resin", "高分子"]
-      metals:
-        path: ../materials-research/static/fragments/domain/metals-family.md
-        triggers: ["metal", "alloy", "金属"]
-      functional:
-        path: ../materials-research/static/fragments/domain/functional-family.md
-        triggers: ["semiconductor", "dielectric", "半导体"]
-      nano:
-        path: ../materials-research/static/fragments/domain/nano-family.md
-        triggers: ["nano", "纳米"]
-      general-materials:
-        path: ../materials-research/static/fragments/domain/general-materials.md
-        triggers: ["general", "通用"]
+        triggers: ["thermal insulation", "aerogel", "foam", "insulation", "隔热"]
 
 references:
   on_demand:
@@ -138,6 +127,10 @@ references:
       path: references/wer-ea-review-figure-contract.md
     - condition: WER-EA figure atlas, reusable review-figure library, atlas data templates, or generated SVG/PNG examples
       path: references/wer-ea-figure-atlas.md
+    - condition: ceramics review figures, Weibull plots, sintering curves, XRD patterns, or impedance spectra
+      path: references/ceramics-review-figure-contract.md
+    - condition: ceramics figure atlas, sintering-Weibull-XRD-conductivity figure library, or atlas data templates
+      path: references/ceramics-figure-atlas.md
     - condition: review-figure intake from reader handoff rows, citation matrices, figure handoff CSVs, mechanism maps, or evidence heatmaps
       path: references/review-figure-intake.md
     - condition: chart families, visual hierarchy, and materials plotting recipes

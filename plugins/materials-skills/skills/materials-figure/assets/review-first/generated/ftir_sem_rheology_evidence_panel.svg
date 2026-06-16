@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="720" viewBox="0 0 1120 720">
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#C87538"/></marker>
+<linearGradient id="wash" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFFCF4"/><stop offset="100%" stop-color="#F2E7D2"/></linearGradient>
+</defs>
+<rect width="100%" height="100%" fill="url(#wash)"/>
+<circle cx="1030" cy="92" r="110" fill="#C87538" opacity="0.10"/>
+<circle cx="88" cy="660" r="145" fill="#C87538" opacity="0.08"/>
+<text x="560" y="54" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="18" font-weight="700" fill="#66736D">Materials Science Review Assets</text>
+<text x="560" y="104" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="34" font-weight="700" fill="#26302C">FTIR-SEM-Rheology Evidence Panel</text>
+<text x="560" y="138" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="16" fill="#66736D">chemical cue, morphology cue, rheology cue</text>
+<rect x="90" y="185" width="940" height="90" rx="24" fill="#FFFFFF" stroke="#DED6C6" stroke-width="2"/>
+<text x="126" y="222" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700" fill="#C87538">source learning basis</text>
+<text x="126" y="253" font-family="DejaVu Sans, Arial, sans-serif" font-size="18" fill="#26302C">characterization-evidence-panel; sanitized caption-family pattern; template only</text>
+<rect x="70" y="286" width="980" height="180" rx="30" fill="#FFFFFF" opacity="0.72" stroke="#DED6C6" stroke-width="2"/>
+<rect x="95" y="300" width="140" height="88" rx="20" fill="#FFFFFF" stroke="#C87538" stroke-width="2"/>
+<circle cx="125" cy="334" r="18" fill="#C87538" opacity="0.72"/>
+<text x="125" y="340" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF">1</text>
+<text x="177" y="339" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700" fill="#26302C">FTIR</text>
+<text x="177" y="363" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#66736D">template only</text>
+<path d="M239,344 C253,326 269,326 279,344" fill="none" stroke="#C87538" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="283" y="334" width="140" height="88" rx="20" fill="#FFFFFF" stroke="#C87538" stroke-width="2"/>
+<circle cx="313" cy="368" r="18" fill="#C87538" opacity="0.72"/>
+<text x="313" y="374" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF">2</text>
+<text x="365" y="373" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700" fill="#26302C">SEM/FM</text>
+<text x="365" y="397" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#66736D">template only</text>
+<path d="M427,378 C441,360 457,360 467,378" fill="none" stroke="#C87538" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="471" y="300" width="140" height="88" rx="20" fill="#FFFFFF" stroke="#C87538" stroke-width="2"/>
+<circle cx="501" cy="334" r="18" fill="#C87538" opacity="0.72"/>
+<text x="501" y="340" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF">3</text>
+<text x="553" y="339" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700" fill="#26302C">Rheology</text>
+<text x="553" y="363" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#66736D">template only</text>
+<path d="M615,344 C629,326 645,326 655,344" fill="none" stroke="#C87538" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="659" y="334" width="140" height="88" rx="20" fill="#FFFFFF" stroke="#C87538" stroke-width="2"/>
+<circle cx="689" cy="368" r="18" fill="#C87538" opacity="0.72"/>
+<text x="689" y="374" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF">4</text>
+<text x="741" y="373" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700" fill="#26302C">Bonding</text>
+<text x="741" y="397" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#66736D">template only</text>
+<path d="M803,378 C817,360 833,360 843,378" fill="none" stroke="#C87538" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="847" y="300" width="140" height="88" rx="20" fill="#FFFFFF" stroke="#C87538" stroke-width="2"/>
+<circle cx="877" cy="334" r="18" fill="#C87538" opacity="0.72"/>
+<text x="877" y="340" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF">5</text>
+<text x="929" y="339" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700" fill="#26302C">Limit</text>
+<text x="929" y="363" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#66736D">template only</text>
+<rect x="115" y="520" width="890" height="118" rx="26" fill="#C87538" opacity="0.13" stroke="#C87538" stroke-width="2"/>
+<text x="150" y="557" font-family="DejaVu Sans, Arial, sans-serif" font-size="16" font-weight="700" fill="#26302C">claim boundary</text>
+<text x="150" y="590" font-family="DejaVu Sans, Arial, sans-serif" font-size="17" font-weight="500" fill="#26302C">No single characterization method proves the full mechanism.</text>
+<text x="970" y="690" text-anchor="end" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" fill="#66736D">template only - replace with real data, standards, citations, and original images</text>
+</svg>

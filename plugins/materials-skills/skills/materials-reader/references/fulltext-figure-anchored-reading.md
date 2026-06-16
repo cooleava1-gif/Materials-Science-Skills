@@ -1,18 +1,20 @@
 # Fulltext Figure-Anchored Reading
 
-Use this reference when turning a PDF, publisher HTML, pasted full text, or extracted text into a source-grounded `paper.md` for WER-EA and materials review work.
+> **Domain context**: The `domain` axis has loaded domain-specific reading guidance for [detected domain]. The reader package structure below is universal; the domain guide lists domain-specific evidence to prioritize.
+
+Use this reference when turning a PDF, publisher HTML, pasted full text, or extracted text into a source-grounded `paper.md` for review work across all material domains.
 
 ## Required products
 
-Produce these linked artifacts when the user asks for full reading, intensive reading, paper.md, paper notes, figure/table anchoring, or WER-EA review extraction:
+Produce these linked artifacts when the user asks for full reading, intensive reading, paper.md, paper notes, figure/table anchoring, or review extraction:
 
 - `paper.md`: the human-readable reading note.
 - `source_map.json`: machine-readable anchors linking claims, excerpts, figures, tables, pages, sections, and borrowable writing.
 - `translation_notes.md`: term normalization, Chinese understanding, translation-risk notes, and non-copyable writing moves.
 - `figure_table_cards.md`: structured cards for each important visual or data table.
 - `mechanism_evidence_table.md`: reviewer-safe rows that separate measured evidence, inferred mechanism, and missing evidence.
-- `dosage_window_table.md`: WER dosage, curing-agent ratio, SBR or other modifier dosage, optimum window, overdose risk, and boundary.
-- `review_handoff.md`: mini-review table rows, figure-planning notes, paragraph skeleton, safe synthesis, and reviewer-risk warnings.
+
+For domain-specific tables (e.g., dosage optimization for civil, sintering parameters for ceramics, processing parameters for metals), create supplementary tables as needed.
 - `obsidian_note.md`: three-layer Obsidian note for the user's WER-EA knowledge graph.
 - `visual_asset_spec.json`: source-page and crop-box specification for PDF visual assets.
 - `assets/`: cropped figures, rendered pages, extracted tables, `asset_manifest.md`, `visual_asset_report.json`, `contact_sheet.png`, or explicit failure records.

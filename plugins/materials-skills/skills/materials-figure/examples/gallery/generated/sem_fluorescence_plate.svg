@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="620" viewBox="0 0 960 620">
+<rect width="100%" height="100%" fill="#FFFFFF"/>
+<text x="480.0" y="34" text-anchor="middle" font-family="Arial" font-size="18" font-weight="700">Materials Science Figure Gallery</text>
+<text x="480.0" y="58" text-anchor="middle" font-family="Arial" font-size="24" font-weight="700">SEM/Fluorescence Plate</text>
+<rect x="125" y="110" width="300" height="160" rx="6" fill="#D7D2C8" stroke="#2F332F" stroke-width="1.4"/>
+<circle cx="145" cy="128" r="3" fill="#6B7568" opacity="0.55"/>
+<circle cx="192" cy="159" r="4" fill="#6B7568" opacity="0.55"/>
+<circle cx="239" cy="190" r="5" fill="#6B7568" opacity="0.55"/>
+<circle cx="286" cy="221" r="6" fill="#6B7568" opacity="0.55"/>
+<circle cx="333" cy="252" r="7" fill="#6B7568" opacity="0.55"/>
+<circle cx="380" cy="158" r="3" fill="#6B7568" opacity="0.55"/>
+<circle cx="167" cy="189" r="4" fill="#6B7568" opacity="0.55"/>
+<circle cx="214" cy="220" r="5" fill="#6B7568" opacity="0.55"/>
+<circle cx="261" cy="251" r="6" fill="#6B7568" opacity="0.55"/>
+<circle cx="308" cy="157" r="7" fill="#6B7568" opacity="0.55"/>
+<circle cx="355" cy="188" r="3" fill="#6B7568" opacity="0.55"/>
+<circle cx="402" cy="219" r="4" fill="#6B7568" opacity="0.55"/>
+<circle cx="189" cy="250" r="5" fill="#6B7568" opacity="0.55"/>
+<circle cx="236" cy="156" r="6" fill="#6B7568" opacity="0.55"/>
+<circle cx="283" cy="187" r="7" fill="#6B7568" opacity="0.55"/>
+<circle cx="330" cy="218" r="3" fill="#6B7568" opacity="0.55"/>
+<circle cx="377" cy="249" r="4" fill="#6B7568" opacity="0.55"/>
+<circle cx="164" cy="155" r="5" fill="#6B7568" opacity="0.55"/>
+<circle cx="211" cy="186" r="6" fill="#6B7568" opacity="0.55"/>
+<circle cx="258" cy="217" r="7" fill="#6B7568" opacity="0.55"/>
+<circle cx="305" cy="248" r="3" fill="#6B7568" opacity="0.55"/>
+<circle cx="352" cy="154" r="4" fill="#6B7568" opacity="0.55"/>
+<circle cx="399" cy="185" r="5" fill="#6B7568" opacity="0.55"/>
+<circle cx="186" cy="216" r="6" fill="#6B7568" opacity="0.55"/>
+<text x="143.0" y="133.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#2F332F">a</text>
+<text x="275.0" y="298.0" text-anchor="middle" font-family="Arial" font-size="13" font-weight="400" fill="#2F332F">Control SEM</text>
+<line x1="335" y1="252" x2="405" y2="252" stroke="#FFFFFF" stroke-width="4"/>
+<text x="370.0" y="244.0" text-anchor="middle" font-family="Arial" font-size="11" font-weight="400" fill="#2F332F">20 um</text>
+<rect x="495" y="110" width="300" height="160" rx="6" fill="#D7D2C8" stroke="#2F332F" stroke-width="1.4"/>
+<circle cx="515" cy="128" r="3" fill="#6B7568" opacity="0.55"/>
+<circle cx="562" cy="159" r="4" fill="#6B7568" opacity="0.55"/>
+<circle cx="609" cy="190" r="5" fill="#6B7568" opacity="0.55"/>
+<circle cx="656" cy="221" r="6" fill="#6B7568" opacity="0.55"/>
+<circle cx="703" cy="252" r="7" fill="#6B7568" opacity="0.55"/>
+<circle cx="750" cy="158" r="3" fill="#6B7568" opacity="0.55"/>
+<circle cx="537" cy="189" r="4" fill="#6B7568" opacity="0.55"/>
+<circle cx="584" cy="220" r="5" fill="#6B7568" opacity="0.55"/>
+<circle cx="631" cy="251" r="6" fill="#6B7568" opacity="0.55"/>
+<circle cx="678" cy="157" r="7" fill="#6B7568" opacity="0.55"/>
+<circle cx="725" cy="188" r="3" fill="#6B7568" opacity="0.55"/>
+<circle cx="772" cy="219" r="4" fill="#6B7568" opacity="0.55"/>
+<circle cx="559" cy="250" r="5" fill="#6B7568" opacity="0.55"/>
+<circle cx="606" cy="156" r="6" fill="#6B7568" opacity="0.55"/>
+<circle cx="653" cy="187" r="7" fill="#6B7568" opacity="0.55"/>
+<circle cx="700" cy="218" r="3" fill="#6B7568" opacity="0.55"/>
+<circle cx="747" cy="249" r="4" fill="#6B7568" opacity="0.55"/>
+<circle cx="534" cy="155" r="5" fill="#6B7568" opacity="0.55"/>
+<circle cx="581" cy="186" r="6" fill="#6B7568" opacity="0.55"/>
+<circle cx="628" cy="217" r="7" fill="#6B7568" opacity="0.55"/>
+<circle cx="675" cy="248" r="3" fill="#6B7568" opacity="0.55"/>
+<circle cx="722" cy="154" r="4" fill="#6B7568" opacity="0.55"/>
+<circle cx="769" cy="185" r="5" fill="#6B7568" opacity="0.55"/>
+<circle cx="556" cy="216" r="6" fill="#6B7568" opacity="0.55"/>
+<text x="513.0" y="133.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#2F332F">b</text>
+<text x="645.0" y="298.0" text-anchor="middle" font-family="Arial" font-size="13" font-weight="400" fill="#2F332F">Modified SEM</text>
+<line x1="705" y1="252" x2="775" y2="252" stroke="#FFFFFF" stroke-width="4"/>
+<text x="740.0" y="244.0" text-anchor="middle" font-family="Arial" font-size="11" font-weight="400" fill="#2F332F">20 um</text>
+<rect x="125" y="320" width="300" height="160" rx="6" fill="#17221E" stroke="#2F332F" stroke-width="1.4"/>
+<circle cx="145" cy="338" r="3" fill="#E0A04B" opacity="0.55"/>
+<circle cx="192" cy="369" r="4" fill="#E0A04B" opacity="0.55"/>
+<circle cx="239" cy="400" r="5" fill="#E0A04B" opacity="0.55"/>
+<circle cx="286" cy="431" r="6" fill="#E0A04B" opacity="0.55"/>
+<circle cx="333" cy="462" r="7" fill="#E0A04B" opacity="0.55"/>
+<circle cx="380" cy="368" r="3" fill="#E0A04B" opacity="0.55"/>
+<circle cx="167" cy="399" r="4" fill="#E0A04B" opacity="0.55"/>
+<circle cx="214" cy="430" r="5" fill="#E0A04B" opacity="0.55"/>
+<circle cx="261" cy="461" r="6" fill="#E0A04B" opacity="0.55"/>
+<circle cx="308" cy="367" r="7" fill="#E0A04B" opacity="0.55"/>
+<circle cx="355" cy="398" r="3" fill="#E0A04B" opacity="0.55"/>
+<circle cx="402" cy="429" r="4" fill="#E0A04B" opacity="0.55"/>
+<circle cx="189" cy="460" r="5" fill="#E0A04B" opacity="0.55"/>
+<circle cx="236" cy="366" r="6" fill="#E0A04B" opacity="0.55"/>
+<circle cx="283" cy="397" r="7" fill="#E0A04B" opacity="0.55"/>
+<circle cx="330" cy="428" r="3" fill="#E0A04B" opacity="0.55"/>
+<circle cx="377" cy="459" r="4" fill="#E0A04B" opacity="0.55"/>
+<circle cx="164" cy="365" r="5" fill="#E0A04B" opacity="0.55"/>
+<circle cx="211" cy="396" r="6" fill="#E0A04B" opacity="0.55"/>
+<circle cx="258" cy="427" r="7" fill="#E0A04B" opacity="0.55"/>
+<circle cx="305" cy="458" r="3" fill="#E0A04B" opacity="0.55"/>
+<circle cx="352" cy="364" r="4" fill="#E0A04B" opacity="0.55"/>
+<circle cx="399" cy="395" r="5" fill="#E0A04B" opacity="0.55"/>
+<circle cx="186" cy="426" r="6" fill="#E0A04B" opacity="0.55"/>
+<text x="143.0" y="343.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#2F332F">c</text>
+<text x="275.0" y="508.0" text-anchor="middle" font-family="Arial" font-size="13" font-weight="400" fill="#2F332F">Control fluorescence</text>
+<line x1="335" y1="462" x2="405" y2="462" stroke="#FFFFFF" stroke-width="4"/>
+<text x="370.0" y="454.0" text-anchor="middle" font-family="Arial" font-size="11" font-weight="400" fill="#2F332F">20 um</text>
+<rect x="495" y="320" width="300" height="160" rx="6" fill="#17221E" stroke="#2F332F" stroke-width="1.4"/>
+<circle cx="515" cy="338" r="3" fill="#E0A04B" opacity="0.55"/>
+<circle cx="562" cy="369" r="4" fill="#E0A04B" opacity="0.55"/>
+<circle cx="609" cy="400" r="5" fill="#E0A04B" opacity="0.55"/>
+<circle cx="656" cy="431" r="6" fill="#E0A04B" opacity="0.55"/>
+<circle cx="703" cy="462" r="7" fill="#E0A04B" opacity="0.55"/>
+<circle cx="750" cy="368" r="3" fill="#E0A04B" opacity="0.55"/>
+<circle cx="537" cy="399" r="4" fill="#E0A04B" opacity="0.55"/>
+<circle cx="584" cy="430" r="5" fill="#E0A04B" opacity="0.55"/>
+<circle cx="631" cy="461" r="6" fill="#E0A04B" opacity="0.55"/>
+<circle cx="678" cy="367" r="7" fill="#E0A04B" opacity="0.55"/>
+<circle cx="725" cy="398" r="3" fill="#E0A04B" opacity="0.55"/>
+<circle cx="772" cy="429" r="4" fill="#E0A04B" opacity="0.55"/>
+<circle cx="559" cy="460" r="5" fill="#E0A04B" opacity="0.55"/>
+<circle cx="606" cy="366" r="6" fill="#E0A04B" opacity="0.55"/>
+<circle cx="653" cy="397" r="7" fill="#E0A04B" opacity="0.55"/>
+<circle cx="700" cy="428" r="3" fill="#E0A04B" opacity="0.55"/>
+<circle cx="747" cy="459" r="4" fill="#E0A04B" opacity="0.55"/>
+<circle cx="534" cy="365" r="5" fill="#E0A04B" opacity="0.55"/>
+<circle cx="581" cy="396" r="6" fill="#E0A04B" opacity="0.55"/>
+<circle cx="628" cy="427" r="7" fill="#E0A04B" opacity="0.55"/>
+<circle cx="675" cy="458" r="3" fill="#E0A04B" opacity="0.55"/>
+<circle cx="722" cy="364" r="4" fill="#E0A04B" opacity="0.55"/>
+<circle cx="769" cy="395" r="5" fill="#E0A04B" opacity="0.55"/>
+<circle cx="556" cy="426" r="6" fill="#E0A04B" opacity="0.55"/>
+<text x="513.0" y="343.0" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#2F332F">d</text>
+<text x="645.0" y="508.0" text-anchor="middle" font-family="Arial" font-size="13" font-weight="400" fill="#2F332F">Modified fluorescence</text>
+<line x1="705" y1="462" x2="775" y2="462" stroke="#FFFFFF" stroke-width="4"/>
+<text x="740.0" y="454.0" text-anchor="middle" font-family="Arial" font-size="11" font-weight="400" fill="#2F332F">20 um</text>
+<text x="480.0" y="585.0" text-anchor="middle" font-family="Arial" font-size="13" font-weight="400" fill="#2F332F">Image panels support observed morphology; quantification needs repeated fields or image analysis.</text>
+</svg>

@@ -3,7 +3,14 @@ import unittest
 from pathlib import Path
 
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
+
+def _find_repo_root():
+    p = Path(__file__).resolve()
+    for parent in [p] + list(p.parents):
+        if (parent / ".git").exists() or (parent / "AGENTS.md").exists():
+            return parent
+    return p.parents[3]
+REPO_ROOT = _find_repo_root()
 READER_ROOT = REPO_ROOT / "skills" / "materials-reader"
 PLUGIN_READER_ROOT = (
     REPO_ROOT

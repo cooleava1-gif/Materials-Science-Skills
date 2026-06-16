@@ -1,6 +1,23 @@
 # Characterization Figure Templates
 
+> **Domain context**: The `domain` axis has loaded domain-specific figure guidance. Below is the universal characterization template catalog. Refer to the domain guide for which techniques are standard vs optional for your domain.
+
 Use this reference when a figure involves XRD, TG/DTG, FTIR, SEM/TEM, fluorescence microscopy, rheology, or uncertainty visualization.
+
+## Technique-by-domain relevance
+
+| Technique | Civil | Polymers | Metals | Ceramics | Functional | Nano |
+|---|---|---|---|---|---|---|
+| XRD | ✅ Standard | ✅ Optional | ✅ Standard | ✅ Standard | ✅ Standard | ✅ Standard |
+| SEM | ✅ Standard | ✅ Standard | ✅ Standard | ✅ Standard | ✅ Optional | ✅ Standard |
+| TEM | ❌ Rare | ✅ Optional | ✅ Standard | ✅ Standard | ✅ Standard | ✅ Required |
+| FTIR | ✅ Standard | ✅ Standard | ❌ Rare | ❌ Rare | ❌ Rare | ✅ Optional |
+| TGA/DSC | ✅ Standard | ✅ Required | ✅ Optional | ✅ Optional | ❌ Rare | ✅ Optional |
+| Raman | ❌ Rare | ✅ Optional | ❌ Rare | ✅ Optional | ✅ Standard | ✅ Standard |
+| XPS | ❌ Rare | ❌ Rare | ✅ Optional | ❌ Rare | ✅ Required | ✅ Standard |
+| EBSD | ❌ Rare | ❌ Rare | ✅ Standard | ❌ Rare | ❌ Rare | ❌ Rare |
+
+(The rest of the file unchanged — individual technique templates below)
 
 ## XRD Overlay
 

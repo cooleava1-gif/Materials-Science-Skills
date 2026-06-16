@@ -1,0 +1,8 @@
+id: nonferrous-alloys
+path: static/fragments/domain/nonferrous-alloys.md
+triggers:
+- aluminum
+- copper
+- magnesium alloy
+- 铝合金
+- 铜合金

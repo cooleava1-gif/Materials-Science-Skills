@@ -229,10 +229,6 @@ class FigureGalleryDemoScriptTest(unittest.TestCase):
         script = SKILL_ROOT / "scripts" / "build_showcase_proof_assets.py"
         self.assertTrue(script.exists(), "build_showcase_proof_assets.py should exist")
 
-        sample_image = SKILL_ROOT.parents[1] / "outputs" / "wer-ea-30-reading-sample" / "015-curing-agent-structure-wer-ea" / "assets" / "contact_sheet.png"
-        if not sample_image.exists():
-            self.skipTest("wer-ea-30-reading-sample source images not available")
-
         with tempfile.TemporaryDirectory() as tmp:
             result = subprocess.run(
                 [

@@ -1,5 +1,7 @@
 # Reviewer Stance
 
+> **Domain context**: The `domain` axis has loaded domain-specific reviewer guidance for [detected domain]. The stance below is universal; the domain guide contains domain-specific review axes, fatal flaws, and typical reviewer questions.
+
 Take the referee perspective: evidence-driven, constructive, fair, and specific.
 
 The goal is not to sound harsh. The goal is to find what would block acceptance and explain how the author can fix it. Separate missing evidence from weak writing, weak novelty from weak positioning, and true fatal flaws from addressable revision work.

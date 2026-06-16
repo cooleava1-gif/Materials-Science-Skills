@@ -1,0 +1,55 @@
+characterization:
+- evidence_tier: definitive
+  method: OM/SEM
+  purpose: Melt pool morphology, porosity, lack-of-fusion defects, grain structure
+- evidence_tier: strong
+  method: XRD/EBSD
+  purpose: Phase identification, texture, grain orientation mapping
+- evidence_tier: strong
+  method: Micro-CT
+  purpose: 3D porosity distribution and defect characterization
+- evidence_tier: definitive
+  method: Density Measurement
+  purpose: Archimedes method for relative density
+coverage_tier: skeleton
+cross_references:
+  related:
+  - ferrous-alloys
+  - nonferrous-alloys
+  - high-temperature-alloys
+description:
+  engineering_problems:
+  - Process parameter optimization for density and defect minimization
+  - Microstructure control via thermal history (columnar vs. equiaxed)
+  - Residual stress and post-processing heat treatment
+  - Surface finish and support structure design
+  summary: Additively manufactured metallic materials via PBF-LB, DED, binder jetting,
+    and related AM processes
+  typical_applications:
+  - Complex geometry aerospace components
+  - Patient-specific biomedical implants
+  - Tooling with conformal cooling channels
+  - Lightweight lattice structures
+family: metals
+figure_archetypes:
+- description: Tensile stress-strain for as-built vs. heat-treated conditions
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+  id: stress_strain
+  type: stress_strain
+- description: EBSD inverse pole figure map showing grain orientation
+  id: ebsd_map
+  type: sem_image
+id: additive-metals
+name: Additively Manufactured Metals
+narrative:
+  arc: Powder/Wire → Process Parameters → As-Built Microstructure → Post-Processing
+    → Mechanical Performance
+  skill_references:
+    domain_fragment: skills/materials-research/static/fragments/domain/additive-metals.md
+    narrative_guide: skills/materials-writing/references/additive-metals-narrative.md
+    reviewer_criteria: skills/materials-reviewer/references/metals-reviewer-criteria.md
+skill_mapping:
+  data_schemas: []
+  figure_packages: []
+  figure_scripts:
+  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
