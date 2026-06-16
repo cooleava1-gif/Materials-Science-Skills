@@ -31,6 +31,17 @@ response, paper-to-PPT, and PPTX generation.
 - Output handoffs use standardized CSV/MD artifacts such as `reader-package`, `citation_handoff.csv`, `figure_handoff.csv`, gate reports, and DOE handoffs
 - `plugins/materials-skills/` should stay synchronized with source skills before release
 
+## Agent Handoff Rules
+
+- Treat `main` as the source-of-truth branch. Start by fetching `origin/main`, checking out `main`, and pulling with `--ff-only`.
+- Treat `gemini` and `mimo` as audit/comparison branches only unless a maintainer explicitly promotes a change.
+- Check `git status --short --branch` before editing and never discard unrelated user or agent work.
+- Change source skills under `skills/materials-*` first, then synchronize matching files under `plugins/materials-skills/skills/`.
+- Do not commit generated work products. Bundled `materials-figure/examples/figure-packages` examples are source-only; regenerated `figure.svg/png/pdf/tif/tiff` exports are ignored.
+- Keep `skills/materials-figure/assets/showcase-proof/*.png` and plugin mirror copies tracked because README, gallery docs, and plugin metadata use them as product screenshots.
+- Do not rewrite Git history unless following `docs/architecture/git-history-slimming-plan.md` during an approved freeze window.
+- Run `python scripts/run_release_checks.py --json` before declaring any change complete.
+
 ## Conventions
 
 - Skills are named `materials-*`; plugin directory is `plugins/materials-skills/`

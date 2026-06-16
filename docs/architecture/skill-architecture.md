@@ -8,6 +8,10 @@ plugin mirror.
 For day-to-day maintenance, extension workflows, and current technical-debt
 warnings, read [Maintainer Handoff Guide](maintenance-handoff.md).
 
+For future Git history cleanup, read
+[Git History Slimming Plan](git-history-slimming-plan.md). Do not rewrite
+`main` history without that coordination plan and explicit maintainer approval.
+
 ## Architecture Contract
 
 | Layer | Required files | Responsibility | Release gate |
