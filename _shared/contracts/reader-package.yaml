@@ -5,6 +5,7 @@ produced_by: materials-reader
 consumed_by:
   - materials-figure
   - materials-writing
+  - materials-doe
   - materials-research
 
 artifacts:

@@ -15,36 +15,17 @@ from __future__ import annotations
 import argparse
 import json
 import re
-import sys
-from datetime import datetime
 from pathlib import Path
 
+from skill_manifest import discover_skill_names
 
 SKILLS_ROOT = Path(__file__).resolve().parents[1] / "skills"
-
-ALL_SKILLS = [
-    "materials-citation",
-    "materials-data",
-    "materials-figure",
-    "materials-paper2ppt",
-    "materials-polishing",
-    "materials-pptx",
-    "materials-reader",
-    "materials-research",
-    "materials-response",
-    "materials-reviewer",
-    "materials-writing",
-]
-
-# Hard-coded scenarios (to be discovered from tests/scenarios/ directories)
-# Format: {skill_name: [scenario_name, ...]}
-KNOWN_SCENARIOS: dict[str, list[str]] = {}
 
 
 def _discover_scenarios() -> dict[str, list[Path]]:
     """Discover all .md scenario files under skills/*/tests/scenarios/."""
     scenarios: dict[str, list[Path]] = {}
-    for skill_name in ALL_SKILLS:
+    for skill_name in discover_skill_names(SKILLS_ROOT):
         scenarios_dir = SKILLS_ROOT / skill_name / "tests" / "scenarios"
         if scenarios_dir.exists():
             files = sorted(scenarios_dir.glob("*.md"))
@@ -180,7 +161,7 @@ def run_skill(skill_name: str, silent: bool = False) -> list[dict]:
 def run_all(silent: bool = True) -> dict[str, list[dict]]:
     """Run all scenarios across all skills."""
     all_results: dict[str, list[dict]] = {}
-    for skill_name in ALL_SKILLS:
+    for skill_name in discover_skill_names(SKILLS_ROOT):
         results = run_skill(skill_name, silent=silent)
         if results:
             all_results[skill_name] = results
@@ -199,8 +180,9 @@ def main() -> int:
         return 0
 
     if args.skill:
-        skill_map = {s.replace('materials-', ''): s for s in ALL_SKILLS}
-        skill_map.update({s: s for s in ALL_SKILLS})
+        skill_names = discover_skill_names(SKILLS_ROOT)
+        skill_map = {s.replace('materials-', ''): s for s in skill_names}
+        skill_map.update({s: s for s in skill_names})
         skill_name = skill_map.get(args.skill, args.skill)
         results = run_skill(skill_name, silent=args.json)
     else:

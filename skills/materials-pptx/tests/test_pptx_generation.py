@@ -5,6 +5,8 @@ import unittest
 import zipfile
 from pathlib import Path
 
+from scripts.skill_manifest import discover_skill_names
+
 
 
 def _find_repo_root():
@@ -44,7 +46,8 @@ class PptxStructureTest(unittest.TestCase):
         self.assertNotIn("tests: []", manifest_text)
         self.assertIn("ppt/media/", contract_text)
         self.assertIn("ppt/notesSlides/", contract_text)
-        self.assertIn('"materials-pptx" / "tests"', release_text)
+        self.assertIn("discover_skill_names", release_text)
+        self.assertIn("materials-pptx", discover_skill_names(REPO_ROOT / "skills"))
 
 
 class PptxScriptTest(unittest.TestCase):

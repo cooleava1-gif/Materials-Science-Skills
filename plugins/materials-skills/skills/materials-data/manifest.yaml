@@ -168,7 +168,10 @@ handoffs:
       description: "FAIR dataset package with metadata and data availability"
       contract: ../../_shared/contracts/data-package.yaml
       version: "1.0"
-  consumes: []
+  consumes:
+    - handoff: doe-handoff
+      from: materials-doe
+      optional: true
 release_checks:
   - scripts/run_release_checks.py --json
   - scripts/check_skill_architecture.py --json

@@ -691,6 +691,9 @@ handoffs:
   - handoff: data-package
     from: materials-data
     optional: false
+  - handoff: doe-handoff
+    from: materials-doe
+    optional: true
   - handoff: gate-report
     from: materials-research
     optional: true

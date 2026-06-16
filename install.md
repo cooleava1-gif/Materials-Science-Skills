@@ -43,11 +43,11 @@ Copy-Item -Recurse -Force .\skills\_shared $skillsDir
 
 ## Optional Academic Search MCP
 
-If you want the citation skill's local academic-search MCP, install the Python
-dependencies first:
+If you want the local academic-search MCP, install the Python dependencies
+first:
 
 ```powershell
-python -m pip install -r .\requirements.txt
+python -m pip install -r .\mcp-server\materials-academic-search\requirements.txt
 ```
 
 Example Codex MCP configuration:
@@ -55,7 +55,8 @@ Example Codex MCP configuration:
 ```toml
 [mcp_servers."materials-academic-search"]
 command = "python"
-args = ["$CODEX_HOME/skills/materials-citation/mcp/academic_search/server.py"]
+args = ["server.py"]
+cwd = "mcp-server/materials-academic-search"
 ```
 
 Optional environment variables:

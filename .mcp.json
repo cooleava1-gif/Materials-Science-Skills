@@ -3,8 +3,7 @@
     "materials-academic-search": {
       "command": "python",
       "args": [
-        "-m",
-        "server"
+        "server.py"
       ],
       "cwd": "mcp-server/materials-academic-search",
       "env": {}

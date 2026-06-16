@@ -5,6 +5,8 @@ import unittest
 import zipfile
 from pathlib import Path
 
+from scripts.skill_manifest import discover_skill_names
+
 
 
 def _find_repo_root():
@@ -30,7 +32,8 @@ class Paper2PptStructureTest(unittest.TestCase):
         self.assertNotIn("tests: []", manifest_text)
         self.assertIn("speaker notes", contract_text.lower())
         self.assertIn("limitations", contract_text.lower())
-        self.assertIn('"materials-paper2ppt" / "tests"', release_text)
+        self.assertIn("discover_skill_names", release_text)
+        self.assertIn("materials-paper2ppt", discover_skill_names(REPO_ROOT / "skills"))
 
 
 class Paper2PptScriptTest(unittest.TestCase):

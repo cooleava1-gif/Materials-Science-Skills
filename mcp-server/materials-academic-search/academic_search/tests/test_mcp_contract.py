@@ -1,4 +1,4 @@
-"""Test the FastMCP MCP server via stdio JSON-RPC."""
+"""Test the stdio JSON-RPC MCP server."""
 import json
 import subprocess
 import sys
@@ -11,8 +11,8 @@ SERVER_SCRIPT = SERVER_DIR / "server.py"
 PACKAGE_ROOT = Path(__file__).resolve().parents[2]
 
 
-class FastMCPContractTest(unittest.TestCase):
-    """Test that the FastMCP server responds correctly to MCP protocol messages."""
+class StdioMCPContractTest(unittest.TestCase):
+    """Test that the server responds correctly to MCP protocol messages."""
 
     def _send(self, message: dict) -> dict:
         """Send a JSON-RPC message to the server and return the response."""

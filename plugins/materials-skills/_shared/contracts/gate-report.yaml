@@ -2,7 +2,8 @@ name: gate-report
 version: "1.0"
 description: "Paper-production stage gate report with weakness routing and go/no-go decision"
 produced_by: materials-research
-consumed_by: []
+consumed_by:
+  - materials-research
 
 artifacts:
   gate-report.md:
@@ -13,5 +14,5 @@ artifacts:
     required: false
 
 templates:
-  - ../_shared/paper-production/paper-gate-report-template.md
-  - ../_shared/paper-production/weakness-routing-template.csv
+  - ../../skills/_shared/paper-production/paper-gate-report-template.md
+  - ../../skills/_shared/paper-production/weakness-routing-template.csv

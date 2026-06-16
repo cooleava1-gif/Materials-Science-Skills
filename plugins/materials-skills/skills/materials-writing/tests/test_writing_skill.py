@@ -4,6 +4,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from scripts.skill_manifest import discover_skill_names
+
 
 
 def _find_repo_root():
@@ -42,8 +44,8 @@ class WritingSkillStructureTest(unittest.TestCase):
             self.assertIn(phrase, manifest_text)
         for phrase in ["interface:", "policy:", "allow_implicit_invocation"]:
             self.assertIn(phrase, openai_text)
-        self.assertIn('"materials-writing"', release_text)
-        self.assertIn('"materials-writing" / "tests"', release_text)
+        self.assertIn("discover_skill_names", release_text)
+        self.assertIn("materials-writing", discover_skill_names(REPO_ROOT / "skills"))
         self.assertIn("materials-writing", readme_text)
 
     def test_core_fragments_references_templates_examples_and_pressure_tests(self):

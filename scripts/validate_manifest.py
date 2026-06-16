@@ -8,31 +8,15 @@ from __future__ import annotations
 
 import argparse
 import json
-import sys
 from pathlib import Path
 
+from skill_manifest import discover_skill_names
 
 repo_root = Path(__file__).resolve().parents[1]
 SKILLS_ROOT = repo_root / "skills"
 CONTRACTS_DIR = repo_root / "_shared" / "contracts"
 
 REGISTRY_DIR = repo_root / "_shared" / "material-registry" / "entries"
-
-ALL_SKILLS = [
-    "materials-citation",
-    "materials-data",
-    "materials-doe",
-    "materials-figure",
-    "materials-paper2ppt",
-    "materials-polishing",
-    "materials-pptx",
-    "materials-reader",
-    "materials-research",
-    "materials-response",
-    "materials-reviewer",
-    "materials-writing",
-]
-
 
 def _parse_yaml_text(text: str) -> dict:
     """Parse YAML text, handling encoding issues."""
@@ -290,7 +274,7 @@ def validate_skill(skill_name: str) -> list[str]:
 def validate_all(skill_names: list[str] | None = None) -> dict[str, list[str]]:
     """Validate all (or specific) skills. Returns {skill_name: [issues]}."""
     if skill_names is None:
-        skill_names = ALL_SKILLS
+        skill_names = discover_skill_names(SKILLS_ROOT)
 
     all_issues: dict[str, list[str]] = {}
     for name in skill_names:
@@ -306,7 +290,7 @@ def main() -> int:
     parser.add_argument("--json", action="store_true", help="JSON output")
     args = parser.parse_args()
 
-    skills = [args.skill] if args.skill else ALL_SKILLS
+    skills = [args.skill] if args.skill else discover_skill_names(SKILLS_ROOT)
     issues = validate_all(skills)
 
     if args.json:

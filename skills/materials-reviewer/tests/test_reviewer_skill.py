@@ -4,6 +4,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from scripts.skill_manifest import discover_skill_names
+
 
 
 def _find_repo_root():
@@ -13,6 +15,7 @@ def _find_repo_root():
             return parent
     return p.parents[3]
 SKILL_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = _find_repo_root()
 
 
 class ReviewerSkillStructureTest(unittest.TestCase):
@@ -76,11 +79,11 @@ class ReviewerSkillStructureTest(unittest.TestCase):
             self.assertIn(section, pressure_text)
 
     def test_release_checks_include_reviewer_skill(self):
-        release_script = _find_repo_root() / "scripts" / "run_release_checks.py"
+        release_script = REPO_ROOT / "scripts" / "run_release_checks.py"
         text = release_script.read_text(encoding="utf-8")
 
-        self.assertIn('"materials-reviewer"', text)
-        self.assertIn('"materials-reviewer" / "tests"', text)
+        self.assertIn("discover_skill_names", text)
+        self.assertIn("materials-reviewer", discover_skill_names(REPO_ROOT / "skills"))
 
     def test_research_router_lists_reviewer_companion_skill(self):
         research_root = SKILL_ROOT.parents[0] / "materials-research"

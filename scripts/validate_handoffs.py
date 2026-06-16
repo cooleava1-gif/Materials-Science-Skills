@@ -1,183 +1,220 @@
 #!/usr/bin/env python3
-"""Round 2: validate_handoffs.py - Handoff contract validator."""
+"""Validate handoff contracts across all discovered materials skills."""
+
 from __future__ import annotations
 
 import argparse
 import json
-import os
-import sys
 from pathlib import Path
+from typing import Any
+
+try:
+    from skill_manifest import iter_skill_manifests, load_yaml
+except ModuleNotFoundError:  # pragma: no cover - supports import as scripts.validate_handoffs
+    from scripts.skill_manifest import iter_skill_manifests, load_yaml
+
 
 SKILLS_ROOT = Path(__file__).resolve().parents[1] / "skills"
 REPO_ROOT = Path(__file__).resolve().parents[1]
 CONTRACTS_DIR = REPO_ROOT / "_shared" / "contracts"
 
-ALL_SKILLS = [
-    "materials-citation",
-    "materials-data",
-    "materials-figure",
-    "materials-paper2ppt",
-    "materials-polishing",
-    "materials-pptx",
-    "materials-reader",
-    "materials-research",
-    "materials-response",
-    "materials-reviewer",
-    "materials-writing",
-]
 
-# Expected handoff topology (declared both in manifest and in contracts)
-EXPECTED_PROVIDES: dict[str, list[str]] = {
-    "materials-citation": ["citation-handoff"],
-    "materials-reader": ["reader-package"],
-    "materials-figure": ["figure-handoff"],
-    "materials-data": ["data-package"],
-    "materials-research": ["gate-report"],
-}
+def load_contract(name: str) -> dict[str, Any] | None:
+    """Load a contract YAML by handoff name."""
 
-EXPECTED_CONSUMES: dict[str, list[dict]] = {
-    "materials-reader": [{"handoff": "citation-handoff", "optional": True}],
-    "materials-figure": [
-        {"handoff": "citation-handoff", "optional": True},
-        {"handoff": "reader-package", "optional": True},
-        {"handoff": "data-package", "optional": True},
-    ],
-    "materials-research": [
-        {"handoff": "citation-handoff", "optional": False},
-        {"handoff": "reader-package", "optional": False},
-        {"handoff": "figure-handoff", "optional": False},
-        {"handoff": "data-package", "optional": False},
-        {"handoff": "gate-report", "optional": True},
-    ],
-    "materials-writing": [{"handoff": "reader-package", "optional": True}],
-    "materials-paper2ppt": [{"handoff": "figure-handoff", "optional": True}],
-    "materials-pptx": [{"handoff": "figure-handoff", "optional": True}],
-}
-
-
-def load_contract(name: str) -> dict | None:
-    """Load a contract YAML by name."""
-    import yaml
     path = CONTRACTS_DIR / f"{name}.yaml"
     if not path.exists():
         return None
     try:
-        with open(path, "r", encoding="utf-8") as f:
-            return yaml.safe_load(f)
+        return load_yaml(path)
     except Exception:
         return None
 
 
-def validate_all() -> dict[str, list[str]]:
-    """Run all handoff contract checks. Returns {skill_or_category: [issues]}."""
+def _normalize_consumes(consumes: object) -> list[dict[str, Any]]:
+    """Normalize manifest handoff consumers to dictionaries."""
+
+    if not isinstance(consumes, list):
+        return []
+    normalized: list[dict[str, Any]] = []
+    for item in consumes:
+        if isinstance(item, str) and item:
+            normalized.append({"handoff": item})
+        elif isinstance(item, dict) and item.get("handoff"):
+            normalized.append(dict(item))
+    return normalized
+
+
+def collect_manifest_handoff_topology(
+    skills_root: Path = SKILLS_ROOT,
+) -> dict[str, object]:
+    """Collect providers and consumers from current skill manifests."""
+
+    provides_by_skill: dict[str, list[str]] = {}
+    consumes_by_skill: dict[str, list[dict[str, Any]]] = {}
+    provider_by_handoff: dict[str, str] = {}
+    consumers_by_handoff: dict[str, set[str]] = {}
     issues: dict[str, list[str]] = {}
 
-    # Gather all provides and consumes from manifests
-    manifest_provides: dict[str, list[str]] = {}
-    manifest_consumes: dict[str, list[dict]] = {}
-    for skill_name in ALL_SKILLS:
-        manifest_path = SKILLS_ROOT / skill_name / "manifest.yaml"
-        if not manifest_path.exists():
-            continue
-        import yaml
-        try:
-            with open(manifest_path, "r", encoding="utf-8") as f:
-                manifest = yaml.safe_load(f)
-        except Exception:
-            issues[skill_name] = [f"could not parse manifest.yaml"]
+    for skill_name, _, manifest in iter_skill_manifests(skills_root):
+        handoffs = manifest.get("handoffs", {})
+        if not isinstance(handoffs, dict):
+            if handoffs:
+                issues.setdefault(skill_name, []).append("handoffs must be a mapping")
+            provides_by_skill[skill_name] = []
+            consumes_by_skill[skill_name] = []
             continue
 
-        h = manifest.get("handoffs", {})
-        if isinstance(h, dict):
-            manifest_provides[skill_name] = list(h.get("provides", {}).keys())
-            manifest_consumes[skill_name] = h.get("consumes", [])
-        elif isinstance(h, list):
-            # Legacy format — will be flagged
-            manifest_provides[skill_name] = []
-            manifest_consumes[skill_name] = []
+        provides = handoffs.get("provides", {})
+        if not isinstance(provides, dict):
+            issues.setdefault(skill_name, []).append("handoffs.provides must be a mapping")
+            provides = {}
 
-    # Check 1: Every EXPECTED_PROVIDES matches manifest
-    for skill, expected_provides in EXPECTED_PROVIDES.items():
-        actual = manifest_provides.get(skill, [])
-        for p in expected_provides:
-            if p not in actual:
-                issues.setdefault(skill, []).append(
-                    f"expected provides '{p}' but not found in manifest"
+        provides_by_skill[skill_name] = sorted(str(name) for name in provides)
+        for handoff_name in provides_by_skill[skill_name]:
+            existing_provider = provider_by_handoff.get(handoff_name)
+            if existing_provider and existing_provider != skill_name:
+                issues.setdefault("handoffs", []).append(
+                    f"handoff '{handoff_name}' is provided by both "
+                    f"{existing_provider} and {skill_name}"
                 )
-        for p in actual:
-            if p not in expected_provides:
-                issues.setdefault(skill, []).append(
-                    f"unexpected provides '{p}' (not in expected topology)"
-                )
+            provider_by_handoff[handoff_name] = skill_name
 
-    # Check 2: Every EXPECTED_CONSUMES matches manifest
-    for skill, expected_list in EXPECTED_CONSUMES.items():
-        actual_list = manifest_consumes.get(skill, [])
-        actual_handoff_names = {
-            c["handoff"] if isinstance(c, dict) else c
-            for c in actual_list
-        }
-        for expected in expected_list:
-            name = expected["handoff"]
-            if name not in actual_handoff_names:
-                issues.setdefault(skill, []).append(
-                    f"expected consumes '{name}' but not found in manifest"
-                )
+        consumes = _normalize_consumes(handoffs.get("consumes", []))
+        consumes_by_skill[skill_name] = consumes
+        for consume in consumes:
+            consumers_by_handoff.setdefault(str(consume["handoff"]), set()).add(skill_name)
 
-    # Check 3: Contract file existence
-    all_handoff_names = set()
-    for provides in manifest_provides.values():
-        all_handoff_names.update(provides)
-    for clist in manifest_consumes.values():
-        for c in clist:
-            name = c["handoff"] if isinstance(c, dict) else c
-            all_handoff_names.add(name)
+    return {
+        "provides_by_skill": provides_by_skill,
+        "consumes_by_skill": consumes_by_skill,
+        "provider_by_handoff": provider_by_handoff,
+        "consumers_by_handoff": consumers_by_handoff,
+        "issues": issues,
+    }
 
-    for name in sorted(all_handoff_names):
-        if not (CONTRACTS_DIR / f"{name}.yaml").exists():
-            issues.setdefault("contracts", []).append(
-                f"contract '{name}.yaml' referenced but not found in _shared/contracts/"
+
+def _contract_names() -> set[str]:
+    return {path.stem for path in CONTRACTS_DIR.glob("*.yaml")}
+
+
+def _contract_consumers(contract: dict[str, Any]) -> set[str]:
+    consumed_by = contract.get("consumed_by", [])
+    if not isinstance(consumed_by, list):
+        return set()
+    return {str(item) for item in consumed_by if str(item)}
+
+
+def _add_issue(issues: dict[str, list[str]], key: str, message: str) -> None:
+    issues.setdefault(key, []).append(message)
+
+
+def _validate_template_paths(
+    contract_name: str,
+    contract: dict[str, Any],
+    issues: dict[str, list[str]],
+) -> None:
+    templates = contract.get("templates", [])
+    if not isinstance(templates, list):
+        return
+    for template_ref in templates:
+        if not isinstance(template_ref, str):
+            continue
+        template_path = (CONTRACTS_DIR / template_ref).resolve()
+        if not template_path.exists():
+            _add_issue(
+                issues,
+                "contracts",
+                f"template not found: {template_ref} (referenced by contract '{contract_name}')",
             )
 
-    # Check 4: No orphan provides (not consumed by any skill)
-    all_consumed: set[str] = set()
-    for clist in manifest_consumes.values():
-        for c in clist:
-            name = c["handoff"] if isinstance(c, dict) else c
-            all_consumed.add(name)
-    for skill, p_list in manifest_provides.items():
-        for p in p_list:
-            if p not in all_consumed:
-                issues.setdefault(skill, []).append(
-                    f"provides '{p}' is not consumed by any skill (orphan)"
+
+def validate_all() -> dict[str, list[str]]:
+    """Run all handoff checks and return {skill_or_category: [issues]}."""
+
+    topology = collect_manifest_handoff_topology()
+    issues: dict[str, list[str]] = {
+        key: list(values)
+        for key, values in (topology["issues"]).items()  # type: ignore[union-attr]
+    }
+    provides_by_skill = topology["provides_by_skill"]  # type: ignore[assignment]
+    consumes_by_skill = topology["consumes_by_skill"]  # type: ignore[assignment]
+    provider_by_handoff = topology["provider_by_handoff"]  # type: ignore[assignment]
+    consumers_by_handoff = topology["consumers_by_handoff"]  # type: ignore[assignment]
+
+    manifest_handoffs = set(provider_by_handoff) | set(consumers_by_handoff)
+    contract_handoffs = _contract_names()
+
+    for name in sorted(manifest_handoffs - contract_handoffs):
+        _add_issue(
+            issues,
+            "contracts",
+            f"contract '{name}.yaml' referenced but not found in _shared/contracts/",
+        )
+
+    for skill, consumes in consumes_by_skill.items():
+        for consume in consumes:
+            name = str(consume["handoff"])
+            actual_provider = provider_by_handoff.get(name)
+            expected_provider = consume.get("from")
+            if not actual_provider:
+                _add_issue(
+                    issues,
+                    skill,
+                    f"consumes '{name}' but no skill provides it (dangling)",
+                )
+            elif expected_provider and expected_provider != actual_provider:
+                _add_issue(
+                    issues,
+                    skill,
+                    f"consumes '{name}' from {expected_provider} but actual provider is {actual_provider}",
                 )
 
-    # Check 5: No dangling consumes (references non-existent provide)
-    all_provided: set[str] = set()
-    for p_list in manifest_provides.values():
-        all_provided.update(p_list)
-    for skill, clist in manifest_consumes.items():
-        for c in clist:
-            name = c["handoff"] if isinstance(c, dict) else c
-            if name not in all_provided:
-                issues.setdefault(skill, []).append(
-                    f"consumes '{name}' but no skill provides it (dangling)"
-                )
-
-    # Check 6: Contract produced_by matches actual provider
-    for name in sorted(all_handoff_names):
+    for name in sorted(manifest_handoffs | contract_handoffs):
         contract = load_contract(name)
         if contract is None:
             continue
-        expected_producer = contract.get("produced_by")
-        if expected_producer:
-            actual_providers = [
-                s for s, p in manifest_provides.items() if name in p
-            ]
-            if expected_producer not in actual_providers:
-                issues.setdefault("contracts", []).append(
-                    f"contract '{name}' says produced_by={expected_producer} "
-                    f"but actual providers are {actual_providers}"
+        _validate_template_paths(name, contract, issues)
+
+        actual_provider = provider_by_handoff.get(name)
+        expected_provider = contract.get("produced_by")
+        if expected_provider and actual_provider and expected_provider != actual_provider:
+            _add_issue(
+                issues,
+                "contracts",
+                f"contract '{name}' says produced_by={expected_provider} but actual provider is {actual_provider}",
+            )
+        elif expected_provider and not actual_provider:
+            _add_issue(
+                issues,
+                "contracts",
+                f"contract '{name}' says produced_by={expected_provider} but no manifest provides it",
+            )
+
+        expected_consumers = _contract_consumers(contract)
+        actual_consumers = consumers_by_handoff.get(name, set())
+        missing_in_manifests = expected_consumers - actual_consumers
+        missing_in_contract = actual_consumers - expected_consumers
+        if missing_in_manifests:
+            _add_issue(
+                issues,
+                "contracts",
+                f"contract '{name}' consumed_by not declared in manifests: {sorted(missing_in_manifests)}",
+            )
+        if missing_in_contract:
+            _add_issue(
+                issues,
+                "contracts",
+                f"contract '{name}' missing consumed_by entries for manifest consumers: {sorted(missing_in_contract)}",
+            )
+
+    for skill, provides in provides_by_skill.items():
+        for name in provides:
+            if not consumers_by_handoff.get(name):
+                _add_issue(
+                    issues,
+                    skill,
+                    f"provides '{name}' is not consumed by any skill (orphan)",
                 )
 
     return issues

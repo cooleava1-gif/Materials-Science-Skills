@@ -8,42 +8,14 @@ from __future__ import annotations
 
 import argparse
 import json
+import subprocess
 import sys
 from pathlib import Path
 
+from skill_manifest import discover_skill_names
+
 SKILLS_ROOT = Path(__file__).resolve().parents[1] / "skills"
 REPO_ROOT = Path(__file__).resolve().parents[1]
-
-ALL_SKILLS = [
-    "materials-citation",
-    "materials-data",
-    "materials-doe",
-    "materials-figure",
-    "materials-paper2ppt",
-    "materials-polishing",
-    "materials-pptx",
-    "materials-reader",
-    "materials-research",
-    "materials-response",
-    "materials-reviewer",
-    "materials-writing",
-]
-
-# Each skill's test directory, checked for presence
-SKILL_TEST_DIRS = [
-    '"materials-citation" / "tests"',
-    '"materials-data" / "tests"',
-    '"materials-doe" / "tests"',
-    '"materials-figure" / "tests"',
-    '"materials-paper2ppt" / "tests"',
-    '"materials-polishing" / "tests"',
-    '"materials-pptx" / "tests"',
-    '"materials-reader" / "tests"',
-    '"materials-research" / "tests"',
-    '"materials-response" / "tests"',
-    '"materials-reviewer" / "tests"',
-    '"materials-writing" / "tests"',
-]
 
 FIGURE_PACKAGE_SAMPLE_NAMES = [
     "kong-2024-cbm-bonding",
@@ -161,13 +133,42 @@ def check_skill_basics(skill_name: str) -> list[str]:
     return issues
 
 
+def collect_mcp_server_issues() -> list[str]:
+    """Run root academic-search MCP tests so release gates cover the configured server."""
+
+    tests_root = REPO_ROOT / "mcp-server" / "materials-academic-search" / "academic_search" / "tests"
+    if not tests_root.exists():
+        return ["missing mcp-server/materials-academic-search/academic_search/tests"]
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            str(tests_root),
+            "-p",
+            "test_*.py",
+            "-v",
+        ],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if result.returncode == 0:
+        return []
+    output = "\n".join(part for part in (result.stdout, result.stderr) if part).strip()
+    return [output[-4000:] or f"MCP server tests failed with exit {result.returncode}"]
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--json", action="store_true", help="JSON output.")
     parser.add_argument("--skill", help="Check one skill only.")
     args = parser.parse_args()
 
-    skills = [args.skill] if args.skill else ALL_SKILLS
+    skills = [args.skill] if args.skill else discover_skill_names(SKILLS_ROOT)
     all_issues: dict[str, list[str]] = {}
 
     for skill in skills:
@@ -292,6 +293,10 @@ def main() -> int:
                         all_issues.setdefault("architecture", []).append(f"plugin_mirror.{key}: {value}")
     except Exception as exc:
         all_issues["architecture"] = [f"architecture validation error: {exc}"]
+
+    mcp_issues = collect_mcp_server_issues()
+    if mcp_issues:
+        all_issues["mcp_server"] = mcp_issues
 
     if args.json:
         print(json.dumps({"status": "pass" if not all_issues else "fail", "issues": all_issues}, indent=2))

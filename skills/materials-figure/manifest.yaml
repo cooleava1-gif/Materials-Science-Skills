@@ -198,6 +198,9 @@ handoffs:
     - handoff: data-package
       from: materials-data
       optional: true
+    - handoff: doe-handoff
+      from: materials-doe
+      optional: true
 release_checks:
   - scripts/run_release_checks.py --json
   - scripts/check_skill_architecture.py --json

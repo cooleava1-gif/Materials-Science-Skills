@@ -5,6 +5,9 @@ This document defines the final static/dynamic architecture for every
 truth, and `plugins/materials-skills/skills/<skill>/` is the installed
 plugin mirror.
 
+For day-to-day maintenance, extension workflows, and current technical-debt
+warnings, read [Maintainer Handoff Guide](maintenance-handoff.md).
+
 ## Architecture Contract
 
 | Layer | Required files | Responsibility | Release gate |
