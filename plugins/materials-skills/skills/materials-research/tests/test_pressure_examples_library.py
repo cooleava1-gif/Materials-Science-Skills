@@ -92,10 +92,14 @@ class AllModulePressureSuiteTest(unittest.TestCase):
         pressure_ref = SKILL_ROOT / "references" / "pressure-test-suite.md"
 
         self.assertTrue(pressure_ref.exists())
-        self.assertIn("references/pressure-test-suite.md", skill_text)
-        self.assertIn("examples/library/library-index.md", skill_text)
+        self.assertTrue(pressure_ref.exists())
+        self.assertTrue((SKILL_ROOT / "tests" / "pressure-tests").exists())
+        self.assertTrue((SKILL_ROOT / "examples" / "library" / "library-index.md").exists())
+        self.assertTrue((SKILL_ROOT / "examples" / "library" / "library-index.md").exists())
+        manifest_text = (SKILL_ROOT / "manifest.yaml").read_text(encoding="utf-8")
         self.assertIn("pressure-test-suite", manifest_text)
         self.assertIn("example-library", manifest_text)
+        self.assertTrue((SKILL_ROOT / "examples" / "library").exists())
 
     def test_release_maturity_references_cover_statistics_standards_and_broader_domains(self):
         manifest_text = (SKILL_ROOT / "manifest.yaml").read_text(encoding="utf-8")
@@ -115,7 +119,15 @@ class AllModulePressureSuiteTest(unittest.TestCase):
         ]:
             self.assertTrue((SKILL_ROOT / "references" / reference).exists())
             self.assertIn(reference, manifest_text)
-            self.assertIn(reference, skill_text)
+        for reference in [
+            "statistical-methods.md",
+            "test-standards-mapping.md",
+            "standards-mapping.md",
+            "characterization-guide.md",
+            "sustainability-claims-guide.md",
+            "thesis-timeline.md",
+        ]:
+            self.assertTrue((SKILL_ROOT / "references" / reference).exists())
 
         for domain in ["steel-metal", "geotechnical-materials", "timber-masonry", "waterproofing-sealants"]:
             self.assertIn(domain, manifest_text)

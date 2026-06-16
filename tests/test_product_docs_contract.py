@@ -1,12 +1,15 @@
 import json
 import unittest
+from collections import Counter
 from pathlib import Path
 
+import yaml
 from PIL import Image
 
 
 ROOT = Path(__file__).resolve().parents[1]
 PLUGIN_ROOT = ROOT / "plugins" / "materials-skills"
+REGISTRY_ENTRIES = ROOT / "_shared" / "material-registry" / "entries"
 SKILLS = [
     "materials-citation",
     "materials-data",
@@ -65,6 +68,14 @@ LEGACY_PLACEHOLDER_ASSETS = [
     "wer_ea_evidence_heatmap.png",
     "wer_ea_dosage_window.png",
 ]
+REMOVED_GENERAL_ROUTE_MARKERS = [
+    "general-materials",
+    "general-experiments.md",
+    "materials-general-reviewer-criteria.md",
+    "default: general",
+    "universal fallback",
+    "anything not explicitly listed",
+]
 
 
 def image_has_visual_signal(path: Path) -> bool:
@@ -74,6 +85,13 @@ def image_has_visual_signal(path: Path) -> bool:
         return rgba.width >= 1200 and rgba.height >= 700 and any(
             (high - low) >= 40 for low, high in extrema[:3]
         )
+
+
+def load_registry_entries() -> list[dict]:
+    return [
+        yaml.safe_load(path.read_text(encoding="utf-8"))
+        for path in sorted(REGISTRY_ENTRIES.glob("*.yaml"))
+    ]
 
 
 class ProductDocsContractTests(unittest.TestCase):
@@ -195,6 +213,46 @@ class ProductDocsContractTests(unittest.TestCase):
         self.assertTrue(any("WER-EA" in prompt for prompt in prompts), prompts)
         self.assertTrue(any("manuscript" in prompt.lower() for prompt in prompts), prompts)
         self.assertTrue(any("PPT" in prompt or "ppt" in prompt for prompt in prompts), prompts)
+
+    def test_material_coverage_docs_match_registry(self):
+        entries = load_registry_entries()
+        entry_ids = {entry["id"] for entry in entries}
+        tier_counts = Counter(entry["coverage_tier"] for entry in entries)
+
+        readme_text = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn(
+            f"currently covers **{len(entries)} material systems**",
+            readme_text,
+        )
+        for tier, label in {
+            "full": "🟢 **full**",
+            "partial": "🟡 **partial**",
+            "skeleton": "🔵 **skeleton**",
+            "generic": "⚪ **generic**",
+        }.items():
+            self.assertIn(f"| {label} | {tier_counts[tier]} |", readme_text)
+
+        dashboard_text = (ROOT / "docs" / "coverage-dashboard.md").read_text(encoding="utf-8")
+        material_table = dashboard_text.split("## Tier Definitions", 1)[0]
+        listed_ids = {
+            line.split("**", 2)[1]
+            for line in material_table.splitlines()
+            if line.startswith("| **") and line.count("**") >= 2
+        }
+        self.assertEqual(entry_ids, listed_ids)
+
+    def test_docs_do_not_advertise_removed_general_routes(self):
+        docs_to_check = [
+            ROOT / "README.md",
+            ROOT / "docs" / "coverage-dashboard.md",
+            ROOT / "docs" / "compose" / "plans" / "2026-06-12-materials-doe.md",
+            ROOT / "docs" / "superpowers" / "specs" / "2026-06-12-materials-expansion-design.md",
+        ]
+        for path in docs_to_check:
+            text = path.read_text(encoding="utf-8")
+            for marker in REMOVED_GENERAL_ROUTE_MARKERS:
+                with self.subTest(path=path.relative_to(ROOT), marker=marker):
+                    self.assertNotIn(marker, text)
 
 
 if __name__ == "__main__":

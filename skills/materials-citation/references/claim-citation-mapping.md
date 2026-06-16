@@ -1,23 +1,32 @@
 # Claim-Citation Mapping
 
+> **Domain context**: The `domain` axis has loaded domain-specific citation guidance for [detected domain]. The table below is universal; supplement with domain-specific evidence layers from the domain guide.
+
 Map citations by claim type.
 
 | Claim type | Strong evidence | Weak evidence |
 |---|---|---|
 | Novelty | recent reviews plus directly related studies | uncited "few studies" statements |
-| Mechanism | FTIR, SEM, fluorescence, rheology, hydration, microstructure | performance-only speculation |
+| Mechanism | characterization evidence (2+ complementary techniques) | performance-only speculation |
 | Performance | test matrix with controls and statistics | single value without repeatability |
-| Durability | aging, moisture, freeze-thaw, service condition tests | short-term strength only |
+| Durability | standardized aging/environmental tests with conditions | short-term or single-condition data |
 | Engineering use | standard tests, constructability, cost or feasibility | lab mechanism with no application boundary |
 
-For waterborne epoxy modified emulsified asphalt, keep citations for demulsification, epoxy curing, asphalt-resin compatibility, interface bonding, storage stability, viscosity, and moisture durability in separate rows.
+## Domain-specific evidence layers
+
+- **Civil**: separate citations by emulsion/binder, interface/bonding, mixture, construction, service-condition layers.
+- **Polymers**: separate by polymer class, thermal transitions, mechanical performance, rheology, composite interface, aging.
+- **Metals**: separate by alloy class, processing, microstructure, mechanical, environmental performance.
+- **Ceramics**: separate by processing (sintering), phase composition, microstructure, mechanical, functional properties.
+- **Functional**: separate by synthesis, structure (XRD/Raman/XPS), functional property, device performance, stability.
+- **Nanomaterials**: separate by synthesis, size/morphology, structural characterization, surface chemistry, size-dependent property.
 
 ## Citation Matrix Fields
 
-For WER-EA and review-package work, use `assets/templates/citation-matrix-template.csv` and fill these screening fields before treating a source as reviewer-safe:
+Use `assets/templates/citation-matrix-template.csv` and fill these screening fields before treating a source as reviewer-safe:
 
 - `claim_id`: stable claim key such as `CIT-001`.
-- `evidence_layer`: one WER-EA layer from `references/wer-ea-screening-and-source-quality.md`.
+- `evidence_layer`: one layer from the domain-specific evidence layers above.
 - `source_role`: `primary experimental evidence`, `review evidence`, `method evidence`, `standard/specification`, or `weak background`.
 - `source_quality`: `high`, `medium`, `low`, or `screening needed`.
 - `mechanism_directness`: whether mechanism support is direct, inferred, absent, or not applicable.

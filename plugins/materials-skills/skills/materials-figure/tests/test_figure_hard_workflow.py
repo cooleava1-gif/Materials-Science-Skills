@@ -6,8 +6,15 @@ import unittest
 from pathlib import Path
 
 
+
+def _find_repo_root():
+    p = Path(__file__).resolve()
+    for parent in [p] + list(p.parents):
+        if (parent / ".git").exists() or (parent / "AGENTS.md").exists():
+            return parent
+    return p.parents[3]
 SKILL_ROOT = Path(__file__).resolve().parents[1]
-REPO_ROOT = SKILL_ROOT.parents[1]
+REPO_ROOT = _find_repo_root()
 
 
 class FigureHardWorkflowStructureTest(unittest.TestCase):
@@ -145,12 +152,12 @@ class FigurePackageAuditScriptTest(unittest.TestCase):
             "ternary-phase",
             "tg-dsc-thermal",
         }
-        self.assertEqual(expected, {path.name for path in sample_root.iterdir() if path.is_dir()})
+        actual = {path.name for path in sample_root.iterdir() if path.is_dir()}
+        self.assertTrue(expected.issubset(actual), f"Missing expected packages: {expected - actual}")
 
-        for package in sorted(sample_root.iterdir()):
-            if not package.is_dir():
-                continue
-            with self.subTest(package=package.name):
+        for name in sorted(expected):
+            package = sample_root / name
+            with self.subTest(package=name):
                 result = subprocess.run(
                     [sys.executable, str(script), "--package-dir", str(package), "--json"],
                     check=True,

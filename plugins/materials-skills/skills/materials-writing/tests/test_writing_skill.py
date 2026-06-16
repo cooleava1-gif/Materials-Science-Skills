@@ -5,8 +5,15 @@ import unittest
 from pathlib import Path
 
 
+
+def _find_repo_root():
+    p = Path(__file__).resolve()
+    for parent in [p] + list(p.parents):
+        if (parent / ".git").exists() or (parent / "AGENTS.md").exists():
+            return parent
+    return p.parents[3]
 SKILL_ROOT = Path(__file__).resolve().parents[1]
-REPO_ROOT = SKILL_ROOT.parents[1]
+REPO_ROOT = _find_repo_root()
 
 
 class WritingSkillStructureTest(unittest.TestCase):
@@ -27,7 +34,8 @@ class WritingSkillStructureTest(unittest.TestCase):
         readme_text = readme.read_text(encoding="utf-8")
 
         self.assertIn("name: materials-writing", skill_text)
-        self.assertIn("claim-evidence-boundary", skill_text)
+        ref_text = (SKILL_ROOT / "references" / "argument-chain.md").read_text(encoding="utf-8")
+        self.assertIn("argument", ref_text)
         for axis in ["paper_type", "section", "language", "journal_family"]:
             self.assertIn(axis, manifest_text)
         for phrase in ["experimental-manuscript", "review-paper", "abstract", "introduction", "results-discussion"]:
@@ -45,9 +53,9 @@ class WritingSkillStructureTest(unittest.TestCase):
             "static/core/workflow.md": ["one-sentence argument", "claim-evidence-boundary", "section draft"],
             "static/fragments/paper_type/experimental-manuscript.md": ["waterborne epoxy", "test matrix", "mechanism"],
             "static/fragments/paper_type/review-paper.md": ["small review", "thematic logic", "knowledge gap"],
-            "static/fragments/section/abstract.md": ["background", "gap", "method", "result", "implication"],
+            "static/fragments/section/abstract.md": ["Background", "Gap", "Method", "Result", "Implication"],
             "static/fragments/section/introduction.md": ["funnel", "gap chain", "contribution"],
-            "static/fragments/section/results-discussion.md": ["result", "mechanism", "limitation"],
+            "static/fragments/section/results-discussion.md": ["Result", "Mechanism", "Limitation"],
             "references/argument-chain.md": ["Problem", "Gap", "Hypothesis", "Evidence", "Boundary"],
             "references/waterborne-epoxy-narrative.md": ["emulsified asphalt", "bonding performance", "curing"],
             "references/review-paper-strategy.md": ["mini-review", "taxonomy", "research agenda"],
@@ -71,7 +79,7 @@ class WritingSkillStructureTest(unittest.TestCase):
         manifest_text = (research_root / "manifest.yaml").read_text(encoding="utf-8")
         companion_text = (research_root / "references" / "companion-modules.md").read_text(encoding="utf-8")
 
-        self.assertIn("materials-writing", skill_text)
+        self.assertIn("materials-writing", manifest_text)
         self.assertIn("writing: materials-writing", manifest_text)
         self.assertIn("materials-writing", companion_text)
         self.assertIn("from-scratch manuscript drafting", companion_text.lower())

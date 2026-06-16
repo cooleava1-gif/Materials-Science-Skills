@@ -1,0 +1,12 @@
+id: timber-masonry
+path: static/fragments/domain/civil-generic.md
+triggers:
+- timber
+- wood
+- bamboo
+- masonry
+- brick
+- 木材
+- 竹材
+- 砌体
+- 砖

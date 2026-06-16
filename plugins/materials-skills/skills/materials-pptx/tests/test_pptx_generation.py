@@ -6,8 +6,15 @@ import zipfile
 from pathlib import Path
 
 
+
+def _find_repo_root():
+    p = Path(__file__).resolve()
+    for parent in [p] + list(p.parents):
+        if (parent / ".git").exists() or (parent / "AGENTS.md").exists():
+            return parent
+    return p.parents[3]
 SKILL_ROOT = Path(__file__).resolve().parents[1]
-REPO_ROOT = SKILL_ROOT.parents[1]
+REPO_ROOT = _find_repo_root()
 
 PNG_BYTES = (
     b"\x89PNG\r\n\x1a\n"
@@ -27,9 +34,12 @@ class PptxStructureTest(unittest.TestCase):
         contract_text = (SKILL_ROOT / "static" / "core" / "contract.md").read_text(encoding="utf-8")
         release_text = (REPO_ROOT / "scripts" / "run_release_checks.py").read_text(encoding="utf-8")
 
-        self.assertIn("materials-paper2ppt", skill_text)
-        self.assertIn("speaker notes", skill_text.lower())
-        self.assertIn("crop", skill_text.lower())
+        manifest_text = (SKILL_ROOT / "manifest.yaml").read_text(encoding="utf-8")
+        self.assertTrue((SKILL_ROOT / "references" / "deck-structures.md").exists())
+        self.assertIn("template:", manifest_text)
+        self.assertIn("speaker", contract_text.lower())
+        contract_text_lower = contract_text.lower()
+        self.assertIn("crop", contract_text_lower)
         self.assertIn("tests:", manifest_text)
         self.assertNotIn("tests: []", manifest_text)
         self.assertIn("ppt/media/", contract_text)

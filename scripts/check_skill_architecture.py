@@ -44,6 +44,17 @@ MIRROR_EXCEPTION_SUFFIXES = {
     # Pre-existing root-only hard workflow exception documented in the plan.
     "materials-figure/tests/test_figure_hard_workflow.py",
 }
+MIRROR_SOURCE_ONLY_SUFFIXES = {
+    ".gitignore",
+}
+MIRROR_IGNORED_DIRS = {
+    "__pycache__",
+    ".pytest_cache",
+}
+MIRROR_IGNORED_SUFFIXES = {
+    ".pyc",
+    ".pyo",
+}
 
 
 def _read_yaml(path: Path) -> dict[str, Any]:
@@ -201,9 +212,25 @@ def _mirror_suffix(path: Path, source_root: Path) -> str:
     return _as_posix(path.relative_to(source_root))
 
 
+def _iter_mirror_files(base: Path) -> dict[str, Path]:
+    files: dict[str, Path] = {}
+    for path in base.rglob("*"):
+        if not path.is_file():
+            continue
+        relative_parts = path.relative_to(base).parts
+        if any(part in MIRROR_IGNORED_DIRS for part in relative_parts):
+            continue
+        if path.suffix in MIRROR_IGNORED_SUFFIXES:
+            continue
+        files[_as_posix(path.relative_to(base))] = path
+    return files
+
+
 def _inspect_plugin_mirror(root: Path, plugin_root: Path) -> dict[str, object]:
     missing_plugin_skills: list[str] = []
     missing_plugin_files: list[str] = []
+    extra_plugin_files: list[str] = []
+    source_only_files: list[str] = []
     different_files: list[str] = []
     compared_files = 0
 
@@ -231,17 +258,43 @@ def _inspect_plugin_mirror(root: Path, plugin_root: Path) -> dict[str, object]:
             if not filecmp.cmp(source_file, target_file, shallow=False):
                 different_files.append(exception_key)
 
+    source_files = _iter_mirror_files(root)
+    plugin_files = _iter_mirror_files(plugin_root)
+    source_keys = set(source_files)
+    plugin_keys = set(plugin_files)
+
+    for suffix in sorted(source_keys - plugin_keys):
+        if suffix in MIRROR_SOURCE_ONLY_SUFFIXES:
+            continue
+        source_only_files.append(suffix)
+    for suffix in sorted(plugin_keys - source_keys):
+        extra_plugin_files.append(suffix)
+    for suffix in sorted(source_keys & plugin_keys):
+        exception_key = suffix
+        if exception_key in MIRROR_EXCEPTION_SUFFIXES:
+            continue
+        compared_files += 1
+        if not filecmp.cmp(source_files[suffix], plugin_files[suffix], shallow=False):
+            different_files.append(suffix)
+
+    missing_plugin_files = sorted(set(missing_plugin_files + source_only_files))
+    different_files = sorted(set(different_files))
+    hard_issues = missing_plugin_skills or missing_plugin_files or extra_plugin_files or different_files
+
     return {
-        "status": "pass",
+        "status": "fail" if hard_issues else "pass",
         "compared_files": compared_files,
         "missing_plugin_skills": missing_plugin_skills,
         "missing_plugin_files": missing_plugin_files,
+        "extra_plugin_files": extra_plugin_files,
         "different_files": different_files,
         "warnings": {
             "missing_plugin_skills": missing_plugin_skills,
             "missing_plugin_files": missing_plugin_files,
+            "extra_plugin_files": extra_plugin_files,
             "different_files": different_files,
             "mirror_exceptions": sorted(MIRROR_EXCEPTION_SUFFIXES),
+            "source_only_exceptions": sorted(MIRROR_SOURCE_ONLY_SUFFIXES),
         },
     }
 
@@ -259,6 +312,8 @@ def inspect_all(root: Path = Path("skills")) -> dict[str, object]:
         else {"status": "pass", "warnings": {"missing_plugin_root": _as_posix(plugin_root)}}
     )
     hard_failures = [report["skill"] for report in skill_reports if report["status"] != "pass"]
+    if mirror_report.get("status") != "pass":
+        hard_failures.append("plugin_mirror")
 
     warnings = {
         "skills_with_missing_exact_core_files": [

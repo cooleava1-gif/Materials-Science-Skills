@@ -16,8 +16,9 @@ REGISTRY_DIR = REPO_ROOT / "_shared" / "material-registry"
 ENTRIES_DIR = REGISTRY_DIR / "entries"
 INDEX_FILE = REGISTRY_DIR / "registry-index.yaml"
 SCHEMA_FILE = REGISTRY_DIR / "registry-schema.yaml"
+FAMILY_TRIGGER_DIR = REPO_ROOT / "_shared" / "triggers" / "family"
 
-VALID_FAMILIES = {"civil", "polymers", "metals", "ceramics", "functional", "nano", "general"}
+VALID_FAMILIES = {"civil", "polymers", "metals", "ceramics", "functional", "nano"}
 VALID_TIERS = {"full", "partial", "skeleton", "generic"}
 
 EXPECTED_ENTRIES = {  # id -> coverage_tier
@@ -49,7 +50,6 @@ EXPECTED_ENTRIES = {  # id -> coverage_tier
     "nano-thin-films": "skeleton",
     "2d-materials": "skeleton",
     "nanocomposites": "skeleton",
-    "general-materials": "generic",
 }
 
 
@@ -73,6 +73,12 @@ class RegistrySchemaTests(unittest.TestCase):
         fields = schema.get("fields", {})
         for field_name in ("name", "id", "family", "coverage_tier", "description", "skill_mapping"):
             self.assertIn(field_name, fields, f"schema missing field definition: {field_name}")
+
+    def test_schema_family_values_match_family_triggers(self):
+        schema = _load_yaml(SCHEMA_FILE)
+        schema_families = set(schema["fields"]["family"]["values"])
+        trigger_families = {path.stem for path in FAMILY_TRIGGER_DIR.glob("*.yaml")}
+        self.assertEqual(trigger_families, schema_families)
 
 
 class RegistryEntryTests(unittest.TestCase):

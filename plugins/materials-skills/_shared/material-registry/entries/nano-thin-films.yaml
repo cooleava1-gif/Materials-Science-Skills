@@ -1,0 +1,50 @@
+characterization:
+- evidence_tier: definitive
+  method: XRR
+  purpose: Film thickness, density, roughness
+- evidence_tier: strong
+  method: XRD/GIXRD
+  purpose: Phase identification, texture, residual stress
+- evidence_tier: strong
+  method: SEM/FIB
+  purpose: Cross-section thickness, columnar microstructure, interface
+- evidence_tier: strong
+  method: AFM
+  purpose: Surface roughness, grain size, topography
+coverage_tier: skeleton
+cross_references:
+  related:
+  - semiconductors
+  - nanocomposites
+description:
+  engineering_problems:
+  - Film thickness uniformity and step coverage optimization
+  - Adhesion and residual stress management
+  - Microstructure control from amorphous to epitaxial
+  - Barrier and functional coating performance
+  summary: PVD/CVD thin films, ALD coatings, spin-coated films, and nanostructured
+    coatings for functional surfaces
+  typical_applications:
+  - Hard coatings (TiN, DLC) for cutting tools
+  - Transparent conductive oxides (ITO, AZO)
+  - Thin film solar cells and battery electrodes
+  - Corrosion and wear protection coatings
+family: nano
+figure_archetypes:
+- description: GIXRD patterns showing film orientation
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
+  id: xrd_pattern
+  type: xrd_pattern
+id: nano-thin-films
+name: Thin Films and Coatings (Nanoscale)
+narrative:
+  arc: Precursor/Target → Deposition → Film Growth → Microstructure → Functional Properties
+  skill_references:
+    domain_fragment: skills/materials-research/static/fragments/domain/nano-thin-films.md
+    narrative_guide: skills/materials-writing/references/nano-thin-films-narrative.md
+    reviewer_criteria: skills/materials-reviewer/references/nano-reviewer-criteria.md
+skill_mapping:
+  data_schemas: []
+  figure_packages: []
+  figure_scripts:
+  - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py

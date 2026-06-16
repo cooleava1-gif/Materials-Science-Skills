@@ -1,0 +1,40 @@
+characterization:
+- evidence_tier: definitive
+  method: Tensile/Elongation Testing
+  purpose: Mechanical properties of membranes and sealants
+- evidence_tier: strong
+  method: Adhesion Testing (Pull-off)
+  purpose: Bond strength to substrate
+- evidence_tier: strong
+  method: Accelerated Aging
+  purpose: UV, heat, and water immersion durability
+coverage_tier: skeleton
+cross_references:
+  parent: civil-generic
+  related:
+  - asphalt-pavement
+description:
+  engineering_problems:
+  - Water ingress prevention in below-grade and wet-area construction
+  - Joint movement accommodation and long-term sealant durability
+  - Membrane-substrate adhesion under wet conditions
+  summary: Bituminous membranes, liquid-applied membranes, sealant materials, and
+    waterstops for construction
+  typical_applications:
+  - Below-grade waterproofing
+  - Roofing membranes
+  - Expansion joint sealants
+family: civil
+id: waterproofing-sealants
+name: Waterproofing and Sealant Materials
+narrative:
+  arc: Material Selection → Application → Adhesion → Service Performance → Long-Term
+    Durability
+  skill_references:
+    domain_fragment: skills/materials-research/static/fragments/domain/civil-generic.md
+    narrative_guide: skills/materials-writing/references/waterproofing-sealants-narrative.md
+    reviewer_criteria: skills/materials-reviewer/references/asphalt-reviewer-criteria.md
+skill_mapping:
+  data_schemas: []
+  figure_packages: []
+  figure_scripts: []

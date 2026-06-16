@@ -28,7 +28,7 @@ artifacts:
     required: true
 
 templates:
-  - assets/templates/metadata-template.md
-  - assets/templates/dataset-readme-template.md
-  - assets/templates/data-availability-template.md
-  - assets/templates/experiment-data-template.csv
+  - ../../skills/materials-data/assets/templates/metadata-template.md
+  - ../../skills/materials-data/assets/templates/dataset-readme-template.md
+  - ../../skills/materials-data/assets/templates/data-availability-template.md
+  - ../../skills/materials-data/assets/templates/experiment-data-template.csv

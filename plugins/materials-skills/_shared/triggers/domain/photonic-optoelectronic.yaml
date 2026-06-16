@@ -1,0 +1,8 @@
+id: photonic-optoelectronic
+path: static/fragments/domain/photonic-optoelectronic.md
+triggers:
+- LED
+- solar cell
+- photodetector
+- 光电
+- 太阳能电池

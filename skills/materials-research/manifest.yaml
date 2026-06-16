@@ -326,7 +326,7 @@ axes:
         - 投稿包
   material_family:
     detect: Which materials family is central?
-    default: general
+    default: civil
     values:
       civil:
         path: static/fragments/domain/civil-family.md
@@ -346,9 +346,6 @@ axes:
       nano:
         path: static/fragments/domain/nano-family.md
         trigger_file: ../../_shared/triggers/family/nano.yaml
-      general:
-        path: static/fragments/domain/general-materials.md
-        trigger_file: ../../_shared/triggers/family/general.yaml
   domain:
     detect: Which materials field is central?
     default: civil-generic
@@ -465,10 +462,6 @@ axes:
         path: static/fragments/domain/nanocomposites.md
         trigger_file: ../../_shared/triggers/domain/nanocomposites.yaml
         coverage_tier: skeleton
-      general-materials:
-        path: static/fragments/domain/general-materials.md
-        trigger_file: ../../_shared/triggers/domain/general-materials.yaml
-        coverage_tier: generic
       thermal-insulation:
         path: static/fragments/domain/thermal-insulation.md
         trigger_file: ../../_shared/triggers/domain/thermal-insulation.yaml

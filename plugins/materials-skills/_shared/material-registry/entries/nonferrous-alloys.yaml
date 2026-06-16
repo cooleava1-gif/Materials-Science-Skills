@@ -1,0 +1,51 @@
+characterization:
+- evidence_tier: strong
+  method: SEM/EDS
+  purpose: Precipitate analysis, fracture surface, corrosion morphology
+- evidence_tier: strong
+  method: XRD
+  purpose: Phase identification, texture, precipitate identification
+- evidence_tier: strong
+  method: TEM
+  purpose: Precipitate size, distribution, and coherency analysis
+- evidence_tier: strong
+  method: DSC
+  purpose: Precipitation/dissolution events, melting range
+coverage_tier: skeleton
+cross_references:
+  related:
+  - ferrous-alloys
+  - high-temperature-alloys
+  - additive-metals
+description:
+  engineering_problems:
+  - Lightweight design via Al/Mg/Ti alloys for aerospace and automotive
+  - Corrosion protection of Al and Mg alloys (anodizing, coatings)
+  - Age-hardening and precipitation control for strength optimization
+  summary: Aluminum alloys, copper alloys, magnesium alloys, titanium alloys, and
+    other non-ferrous metallic systems
+  typical_applications:
+  - Aerospace structural components
+  - Automotive lightweight body and chassis
+  - Heat exchangers and electrical conductors
+  - Biomedical implants (Ti alloys)
+family: metals
+figure_archetypes:
+- description: Tensile stress-strain curves
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+  id: stress_strain
+  type: stress_strain
+id: nonferrous-alloys
+name: Non-Ferrous Alloys (Al, Cu, Mg, Ti)
+narrative:
+  arc: Alloy Composition → Thermomechanical Processing → Microstructure → Properties
+    → Application
+  skill_references:
+    domain_fragment: skills/materials-research/static/fragments/domain/nonferrous-alloys.md
+    narrative_guide: skills/materials-writing/references/nonferrous-alloys-narrative.md
+    reviewer_criteria: skills/materials-reviewer/references/metals-reviewer-criteria.md
+skill_mapping:
+  data_schemas: []
+  figure_packages: []
+  figure_scripts:
+  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py

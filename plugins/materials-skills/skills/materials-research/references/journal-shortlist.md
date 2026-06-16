@@ -43,3 +43,38 @@ Before recommending a review to a target journal, verify:
 For the user's direction, a strong review title would be narrow:
 
 `Waterborne epoxy resin modified emulsified asphalt for pavement interface bonding: performance evaluation, modification mechanisms and durability challenges`
+
+
+## Ceramics
+
+| Journal | Best for | Caution |
+|---|---|---|
+| J. Am. Ceramic Soc. (JACerS) | processing, phase equilibria, microstructure, properties | fundamental science, not applied |
+| Ceramics International | applied ceramics, processing, characterization | broad, competitive |
+| J. European Ceramic Soc. (JECS) | advanced ceramics, high-temp materials | high standards |
+| J. Advanced Ceramics | structural/functional ceramics, processing | growing journal |
+| Int. J. Applied Ceramic Tech. | applied ceramic technology, industrial | application focus |
+
+## Thermal Insulation and Building Physics
+
+| Journal | Best for | Caution |
+|---|---|---|
+| Energy and Buildings | building energy, thermal insulation, envelope | energy framing expected |
+| Building and Environment | indoor env, building physics, moisture | building physics focus |
+| Int. J. Thermal Sciences | thermal science, heat transfer | fundamental science |
+| Applied Thermal Engineering | applied thermal, heat transfer systems | engineering focus |
+| J. Building Physics | building envelope, hygrothermal, durability | specialized |
+
+## Selection logic for ceramics papers
+
+- Processing + microstructure + properties -> JACerS, JECS.
+- Applied ceramics with clear application -> Ceramics International.
+- Novel processing routes or composition design -> J. Advanced Ceramics.
+- Industrial or application-oriented -> Int. J. Applied Ceramic Tech.
+
+## Selection logic for thermal insulation papers
+
+- Building energy + insulation material -> Energy and Buildings.
+- Building physics + hygrothermal performance -> Building and Environment, J. Building Physics.
+- Fundamental thermal transport -> Int. J. Thermal Sciences.
+- Applied thermal engineering -> Applied Thermal Engineering.

@@ -3,8 +3,15 @@ import unittest
 from pathlib import Path
 
 
+
+def _find_repo_root():
+    p = Path(__file__).resolve()
+    for parent in [p] + list(p.parents):
+        if (parent / ".git").exists() or (parent / "AGENTS.md").exists():
+            return parent
+    return p.parents[3]
 SKILL_ROOT = Path(__file__).resolve().parents[1]
-REPO_ROOT = Path(__file__).resolve().parents[3]
+REPO_ROOT = _find_repo_root()
 PLUGIN_ROOT = REPO_ROOT / "plugins" / "materials-skills" / "skills" / "materials-reader"
 
 REQUIRED_HANDOFF_FIELDS = {

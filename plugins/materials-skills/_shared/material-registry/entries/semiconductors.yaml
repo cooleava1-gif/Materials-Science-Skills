@@ -1,0 +1,51 @@
+characterization:
+- evidence_tier: strong
+  method: XRD
+  purpose: Epitaxial quality, strain, composition (Vegard's law)
+- evidence_tier: strong
+  method: PL (Photoluminescence)
+  purpose: Bandgap, defect states, quantum well emission
+- evidence_tier: definitive
+  method: Hall Effect
+  purpose: Carrier concentration, mobility, resistivity
+- evidence_tier: strong
+  method: XPS/UPS
+  purpose: Surface chemistry, band alignment, work function
+coverage_tier: skeleton
+cross_references:
+  related:
+  - photonic-optoelectronic
+description:
+  engineering_problems:
+  - Bandgap engineering via composition and strain
+  - Doping control and carrier mobility optimization
+  - Defect passivation and interface quality improvement
+  - Device efficiency and stability under operation
+  summary: Elemental and compound semiconductors (Si, GaN, GaAs, SiC, perovskites)
+    for electronic and optoelectronic devices
+  typical_applications:
+  - Integrated circuits and logic devices
+  - Power electronics (SiC, GaN)
+  - Solar cells and photodetectors
+  - Light-emitting diodes (LEDs)
+family: functional
+figure_archetypes:
+- description: Current density-voltage characteristics for solar cells or diodes
+  id: jv_curve
+  type: line_plot
+- description: Photoluminescence spectra showing band-edge and defect emission
+  id: pl_spectrum
+  type: line_plot
+id: semiconductors
+name: Semiconductor Materials
+narrative:
+  arc: Material Growth → Doping/Defect Engineering → Band Structure → Device Performance
+    → Stability
+  skill_references:
+    domain_fragment: skills/materials-research/static/fragments/domain/semiconductors.md
+    narrative_guide: skills/materials-writing/references/semiconductors-narrative.md
+    reviewer_criteria: skills/materials-reviewer/references/functional-reviewer-criteria.md
+skill_mapping:
+  data_schemas: []
+  figure_packages: []
+  figure_scripts: []

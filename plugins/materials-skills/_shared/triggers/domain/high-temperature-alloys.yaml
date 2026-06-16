@@ -1,0 +1,8 @@
+id: high-temperature-alloys
+path: static/fragments/domain/high-temperature-alloys.md
+triggers:
+- superalloy
+- Ni-based
+- titanium alloy
+- 高温合金
+- 钛合金

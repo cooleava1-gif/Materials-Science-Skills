@@ -44,3 +44,16 @@ The audit should report `status: pass`, at least 12 pressure tests, at least 10 
 ## Use In Practice
 
 Before declaring the materials bundle improved, run the audit and read the pressure scenario closest to the requested output. If the output violates any `Failure Signs`, revise the skill, reference, script, or example before treating the behavior as safe.
+
+
+### Ceramics
+
+| File | Theme |
+|---|---|
+| ceramics-overclaim-strength.md | Overclaiming mechanical properties without Weibull statistics |
+
+### Thermal Insulation
+
+| File | Theme |
+|---|---|
+| insulation-missing-standard.md | Reporting conductivity without standard or mean temperature |

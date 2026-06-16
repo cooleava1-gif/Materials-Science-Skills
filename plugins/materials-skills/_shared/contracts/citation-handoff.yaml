@@ -28,5 +28,5 @@ artifacts:
       missing_evidence_flag: { type: string, required: false }
 
 templates:
-  - assets/templates/citation-matrix-template.csv
-  - assets/templates/citation-handoff-template.csv
+  - ../../skills/materials-citation/assets/templates/citation-matrix-template.csv
+  - ../../skills/materials-reader/assets/templates/citation-handoff-template.csv

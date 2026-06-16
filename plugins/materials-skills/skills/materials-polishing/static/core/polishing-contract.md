@@ -1,5 +1,7 @@
 # Polishing Contract
 
+> **Domain context**: The `domain` axis has loaded domain-specific polishing guidance for [detected domain]. The contract below is universal; the domain guide contains domain-specific terminology checks, overclaim patterns, and hedging standards.
+
 Preserve:
 
 - data,

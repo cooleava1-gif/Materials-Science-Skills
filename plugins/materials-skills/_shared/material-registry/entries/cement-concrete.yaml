@@ -1,0 +1,157 @@
+characterization:
+- evidence_tier: strong
+  method: XRD
+  purpose: Phase identification of clinker minerals and hydration products (C₃S, C₂S,
+    C₃A, C₄AF, ettringite, portlandite, C-S-H)
+- evidence_tier: strong
+  method: SEM/EDS
+  purpose: Microstructure analysis of hydrated paste, ITZ characterization, and elemental
+    mapping
+- evidence_tier: strong
+  method: TGA/DTG
+  purpose: 'Quantification of hydration products: portlandite (450 °C), C-S-H (100–300
+    °C), carbonates (600–800 °C)'
+- evidence_tier: strong
+  method: Isothermal Calorimetry
+  purpose: 'Hydration kinetics: induction period, acceleration, deceleration'
+- evidence_tier: supporting
+  method: FTIR
+  purpose: Hydration product identification and polymer modification (if applicable)
+- evidence_tier: strong
+  method: MIP (Mercury Intrusion Porosimetry)
+  purpose: Pore size distribution and porosity measurement
+- evidence_tier: supporting
+  method: NMR
+  purpose: C-S-H structure, aluminate speciation, water state in pores
+claim_types:
+- common_risks:
+  - Comparing across different specimen geometries without conversion factor
+  - No statistics for 'significantly improved' claim
+  evidence_required:
+  - Control mix comparison with w/c ratio, binder content reported
+  - Replicate count and variability (SD or COV)
+  - Curing conditions specified (temperature, RH, age)
+  type: performance_improvement
+- common_risks:
+  - Attributing strength gain to 'denser C-S-H' without direct evidence
+  - Over-interpreting small XRD peak changes
+  evidence_required:
+  - Hydration product evidence from XRD, TGA, or NMR
+  - Microstructure support from SEM
+  - Correlation between measured properties and observed mechanism
+  type: mechanism_explanation
+- common_risks:
+  - Claiming 'green' or 'low-carbon' without LCA
+  - Ignoring trade-offs (lower strength, longer curing)
+  evidence_required:
+  - Functional unit defined
+  - Comparison boundary specified (cradle-to-gate, etc.)
+  - CO₂ or energy data with source
+  type: sustainability_claim
+coverage_tier: partial
+cross_references:
+  parent: civil-generic
+  related:
+  - sustainability-durability
+  - construction-materials
+description:
+  engineering_problems:
+  - Concrete strength and workability optimization
+  - Hydration kinetics and microstructure development
+  - Durability under freeze-thaw, chemical attack, and chloride ingress
+  - Sustainable cementitious materials (SCMs, geopolymers, low-carbon binders)
+  - UHPC and advanced concrete composite design
+  summary: Portland cement, supplementary cementitious materials, concrete mixtures,
+    hydration chemistry, and durability
+  typical_applications:
+  - Structural concrete for buildings and infrastructure
+  - Pavement and highway concrete
+  - Precast and prestressed concrete elements
+  - Repair mortars and grouts
+family: civil
+figure_archetypes:
+- description: Compressive strength development over curing time for different mix
+    designs
+  id: compressive_strength_bar
+  type: grouped_bar
+- description: Heat flow vs. time from isothermal calorimetry showing hydration stages
+  id: hydration_curve
+  type: line_plot
+- description: XRD pattern overlay showing phase evolution with hydration or SCM addition
+  id: xrd_pattern
+  type: xrd_pattern
+- description: TGA/DTG curves showing hydration product quantification
+  id: tga_overlay
+  type: tga_curve
+- description: Pore size distribution from MIP or NMR
+  id: pore_size_distribution
+  type: line_plot
+- description: Durability indicators comparison (chloride, freeze-thaw, carbonation)
+  id: durability_chart
+  type: radar_chart
+id: cement-concrete
+name: Cement and Concrete Materials
+narrative:
+  arc: Mix Design → Fresh Properties → Hardened Properties → Microstructure → Durability
+    → Sustainability
+  skill_references:
+    domain_fragment: skills/materials-research/static/fragments/domain/cement-concrete.md
+    narrative_guide: skills/materials-writing/references/cement-concrete-narrative.md
+    reviewer_criteria: skills/materials-reviewer/references/cement-reviewer-criteria.md
+properties:
+- id: compressive_strength
+  name: Compressive Strength
+  test_methods:
+  - ASTM C39 / GB/T 50081
+  - EN 12390-3
+  typical_range: 20–150
+  unit: MPa
+- id: flexural_strength
+  name: Flexural Strength
+  test_methods:
+  - ASTM C78 / EN 12390-5
+  typical_range: 3–15
+  unit: MPa
+- id: slump
+  name: Slump
+  test_methods:
+  - ASTM C143 / GB/T 50080
+  typical_range: 10–220
+  unit: mm
+- id: setting_time
+  name: Setting Time
+  test_methods:
+  - ASTM C191 / EN 196-3
+  typical_range: 30–600
+  unit: min
+- id: chloride_permeability
+  name: Chloride Permeability
+  test_methods:
+  - ASTM C1202 (RCPT)
+  typical_range: 500–4000
+  unit: Coulombs
+- id: heat_of_hydration
+  name: Heat of Hydration
+  test_methods:
+  - ASTM C1702 (isothermal calorimetry)
+  typical_range: 200–500
+  unit: J/g
+skill_mapping:
+  data_schemas: []
+  figure_packages: []
+  figure_scripts: []
+standards:
+- purpose: Compressive strength of cylindrical/cubic specimens
+  standard: ASTM C39 / GB/T 50081
+- purpose: Slump test for workability
+  standard: ASTM C143 / GB/T 50080
+- purpose: Rapid chloride permeability (RCPT)
+  standard: ASTM C1202
+- purpose: Freeze-thaw resistance
+  standard: ASTM C666
+- purpose: Coal fly ash and raw or calcined natural pozzolan for use in concrete
+  standard: ASTM C618
+- purpose: Setting time and soundness of cement
+  standard: EN 196 / GB/T 1346
+- purpose: Isothermal calorimetry for hydration heat
+  standard: ASTM C1702 / GB/T 12959

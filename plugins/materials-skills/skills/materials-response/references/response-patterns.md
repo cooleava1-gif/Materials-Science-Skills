@@ -1,31 +1,35 @@
 # Reviewer Response Patterns
 
+> **Domain context**: The `domain` axis has loaded domain-specific response guidance. The patterns below are universal; the domain guide lists domain-specific reviewer concerns and response strategies.
+
 Use this reference when the reviewer comment is common but the response strategy is not obvious. Each pattern separates what to revise, what to say, and what not to overpromise.
 
 ## 1. English Needs Major Revision
 
 Strategy:
-
 - acknowledge readability concern.
 - state that the manuscript was fully edited.
 - mention technical terminology consistency.
 - do not claim professional editing unless it happened.
 
-Example:
-
+Example (civil):
 > We have thoroughly revised the manuscript for grammar, clarity, and technical consistency. In particular, the descriptions of bonding strength, curing condition, and moisture conditioning were rewritten to reduce ambiguity. The revised text can be found throughout the manuscript, especially in Sections [x-y].
+
+Example (metals):
+> The manuscript has been revised for technical English clarity. Microstructure descriptions (grain size, phase identification, fracture mode) and mechanical property reporting have been rewritten for precision. Revisions are marked in Sections [x-y].
 
 ## 2. Add More References
 
 Strategy:
-
 - classify requested references: review, primary mechanism, performance comparison, standards.
 - add only relevant sources.
 - explain where they were used.
 
-Example:
-
+Example (civil):
 > We added recent references on waterborne epoxy emulsified asphalt, tack coat bonding, and moisture-conditioned interlayer performance. These references are now used to clarify the research gap in the Introduction and to compare the pull-off strength results in Section [x].
+
+Example (ceramics):
+> Additional references on [specific ceramic] sintering behavior, phase evolution, and mechanical properties have been added. These are cited in the Introduction to strengthen the processing rationale and in the Discussion to contextualize our density and strength values.
 
 ## 3. Incremental or Local-Condition Novelty
 

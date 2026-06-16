@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="620" viewBox="0 0 960 620">
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#4F7C6A"/></marker>
+</defs>
+<rect width="100%" height="100%" fill="#FFFDF8"/>
+<text x="480.0" y="42" text-anchor="middle" font-family="DejaVu Sans" font-size="18" font-weight="700" fill="#69746F">Materials Science Rich Gallery</text>
+<text x="480.0" y="84" text-anchor="middle" font-family="DejaVu Sans" font-size="30" font-weight="700" fill="#27312D">Cement Hydration Evidence</text>
+<text x="480.0" y="116" text-anchor="middle" font-family="DejaVu Sans" font-size="17" fill="#69746F">hydration products and pore refinement</text>
+<rect x="78" y="145" width="804" height="270" rx="26" fill="#FFFFFF" stroke="#E7E1D4" stroke-width="2"/>
+<rect x="100" y="175" width="145" height="82" rx="16" fill="#4F7C6A" opacity="0.18" stroke="#4F7C6A" stroke-width="2"/>
+<circle cx="135" cy="216" r="18" fill="#4F7C6A" opacity="0.55"/>
+<text x="178" y="221" text-anchor="middle" font-family="DejaVu Sans" font-size="13" fill="#27312D">Step 1</text>
+<path d="M248,216 C265,210 278,210 288,216" fill="none" stroke="#4F7C6A" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="290" y="295" width="145" height="82" rx="16" fill="#4F7C6A" opacity="0.26" stroke="#4F7C6A" stroke-width="2"/>
+<circle cx="325" cy="336" r="21" fill="#4F7C6A" opacity="0.55"/>
+<text x="368" y="341" text-anchor="middle" font-family="DejaVu Sans" font-size="13" fill="#27312D">Step 2</text>
+<path d="M438,336 C455,330 468,330 478,336" fill="none" stroke="#4F7C6A" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="480" y="175" width="145" height="82" rx="16" fill="#4F7C6A" opacity="0.34" stroke="#4F7C6A" stroke-width="2"/>
+<circle cx="515" cy="216" r="24" fill="#4F7C6A" opacity="0.55"/>
+<text x="558" y="221" text-anchor="middle" font-family="DejaVu Sans" font-size="13" fill="#27312D">Step 3</text>
+<path d="M628,216 C645,210 658,210 668,216" fill="none" stroke="#4F7C6A" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="670" y="295" width="145" height="82" rx="16" fill="#4F7C6A" opacity="0.42" stroke="#4F7C6A" stroke-width="2"/>
+<circle cx="705" cy="336" r="27" fill="#4F7C6A" opacity="0.55"/>
+<text x="748" y="341" text-anchor="middle" font-family="DejaVu Sans" font-size="13" fill="#27312D">Step 4</text>
+<rect x="120" y="462" width="720" height="84" rx="18" fill="#4F7C6A" opacity="0.12"/>
+<text x="480" y="497" text-anchor="middle" font-family="DejaVu Sans" font-size="16" font-weight="700" fill="#27312D">Claim boundary</text>
+<text x="480" y="526" text-anchor="middle" font-family="DejaVu Sans" font-size="15" fill="#27312D">CCC claims require mechanism depth, not only strength.</text>
+</svg>

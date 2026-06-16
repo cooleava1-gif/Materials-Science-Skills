@@ -30,6 +30,9 @@ axes:
       academic-search-mcp:
         path: references/academic-search-mcp.md
         triggers: ["academic-search MCP", "MCP", "automatic search", "自动检索", "文献检索MCP", "学术检索"]
+      ceramics-screening:
+        path: references/ceramics-screening-and-source-quality.md
+        triggers: ["ceramics screening", "phase identification evidence", "sintering evidence", "Weibull source quality", "陶瓷筛选", "陶瓷证据层"]
   journal_family:
     default: materials
     values:
@@ -43,6 +46,7 @@ axes:
         path: references/journal-search-profiles.md
         triggers: ["RMPD", "Road Materials and Pavement Design", "IJPE", "International Journal of Pavement Engineering"]
   material_domain:
+    detect: "Which material domain does the literature search target?"
     default: materials
     values:
       asphalt:
@@ -54,15 +58,27 @@ axes:
       materials:
         path: static/fragments/domain/materials.md
         triggers: ["materials", "construction materials", "土木材料", "建筑材料"]
+      polymers:
+        path: static/fragments/domain/polymers.md
+        triggers: ["polymer", "resin", "thermoplastic", "thermoset", "高分子"]
+      metals:
+        path: static/fragments/domain/metals.md
+        triggers: ["metal", "alloy", "steel", "金属", "合金"]
       ceramics:
         path: static/fragments/domain/ceramics.md
         triggers: ["ceramic", "sintering", "alumina", "zirconia", "carbide", "陶瓷"]
+      functional:
+        path: static/fragments/domain/functional.md
+        triggers: ["semiconductor", "dielectric", "piezoelectric", "optoelectronic", "半导体"]
+      nano:
+        path: static/fragments/domain/nano.md
+        triggers: ["nano", "nanoparticle", "2D material", "纳米"]
       thermal-insulation:
         path: static/fragments/domain/thermal-insulation.md
         triggers: ["thermal insulation", "aerogel", "foam", "insulation", "隔热", "保温"]
   material_family:
     detect: "Which materials family is central?"
-    default: general
+    default: civil
     values:
       civil:
         path: ../materials-research/static/fragments/domain/civil-family.md
@@ -82,9 +98,7 @@ axes:
       nano:
         path: ../materials-research/static/fragments/domain/nano-family.md
         triggers: ["nano", "nanoparticle", "2D material", "纳米", "纳米材料"]
-      general:
-        path: ../materials-research/static/fragments/domain/general-materials.md
-        triggers: ["materials", "通用"]
+
 assets:
   - assets
 scripts:
