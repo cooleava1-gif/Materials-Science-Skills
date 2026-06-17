@@ -49,6 +49,27 @@ axes:
       nano-screening:
         path: references/nano-screening-and-source-quality.md
         triggers: ["nano screening", "nanomaterial screening", "size distribution evidence", "2D material evidence", "纳米筛选", "纳米材料证据层"]
+      semiconductors-screening:
+        path: references/semiconductors-screening-and-source-quality.md
+        triggers: ["semiconductors screening", "thin-film device evidence", "Hall mobility evidence", "carrier transport evidence", "半导体筛选", "薄膜器件证据"]
+      dielectrics-screening:
+        path: references/dielectrics-piezoelectrics-screening-and-source-quality.md
+        triggers: ["dielectric screening", "piezoelectric screening", "ferroelectric evidence", "P-E loop evidence", "介电筛选", "压电证据"]
+      photonic-screening:
+        path: references/photonic-optoelectronic-screening-and-source-quality.md
+        triggers: ["photonic screening", "optoelectronic screening", "EQE evidence", "PLQY evidence", "光电子筛选", "光电证据"]
+      nanoparticles-screening:
+        path: references/nanoparticles-screening-and-source-quality.md
+        triggers: ["nanoparticle screening", "colloidal nanomaterial screening", "nanoparticle size distribution", "nanoparticle catalysis evidence", "纳米颗粒筛选", "胶体纳米证据"]
+      nano-thin-films-screening:
+        path: references/nano-thin-films-screening-and-source-quality.md
+        triggers: ["nano thin film screening", "nanostructured coating screening", "thickness evidence", "barrier coating evidence", "纳米薄膜筛选", "纳米涂层证据"]
+      2d-materials-screening:
+        path: references/2d-materials-screening-and-source-quality.md
+        triggers: ["2D materials screening", "graphene screening", "TMD screening", "layer number evidence", "二维材料筛选", "石墨烯证据"]
+      nanocomposites-screening:
+        path: references/nanocomposites-screening-and-source-quality.md
+        triggers: ["nanocomposite screening", "nanofiller dispersion evidence", "nanocomposite mechanical evidence", "percolation threshold evidence", "纳米复合材料筛选", "纳米复合证据"]
   journal_family:
     default: materials
     values:
