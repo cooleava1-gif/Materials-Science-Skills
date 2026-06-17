@@ -34,6 +34,21 @@ axes:
       ceramics-screening:
         path: references/ceramics-screening-and-source-quality.md
         triggers: ["ceramics screening", "phase identification evidence", "sintering evidence", "Weibull source quality", "陶瓷筛选", "陶瓷证据层"]
+      civil-screening:
+        path: references/civil-screening-and-source-quality.md
+        triggers: ["civil screening", "construction materials screening", "concrete evidence", "mix design evidence", "土木筛选", "建筑材料证据层"]
+      polymers-screening:
+        path: references/polymers-screening-and-source-quality.md
+        triggers: ["polymer screening", "composite screening", "filler dispersion evidence", "curing evidence", "高分子筛选", "聚合物证据层"]
+      metals-screening:
+        path: references/metals-screening-and-source-quality.md
+        triggers: ["metal screening", "alloy screening", "heat treatment evidence", "microstructure evidence", "金属筛选", "合金证据层"]
+      functional-screening:
+        path: references/functional-screening-and-source-quality.md
+        triggers: ["functional screening", "electronic materials screening", "device performance evidence", "dielectric evidence", "功能材料筛选", "电子材料证据层"]
+      nano-screening:
+        path: references/nano-screening-and-source-quality.md
+        triggers: ["nano screening", "nanomaterial screening", "size distribution evidence", "2D material evidence", "纳米筛选", "纳米材料证据层"]
   journal_family:
     default: materials
     values:
