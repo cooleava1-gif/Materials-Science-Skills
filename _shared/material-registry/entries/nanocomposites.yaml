@@ -11,7 +11,7 @@ characterization:
 - evidence_tier: strong
   method: DMA
   purpose: Storage modulus enhancement, Tg shift, filler-matrix interaction
-coverage_tier: skeleton
+coverage_tier: partial
 cross_references:
   related:
   - nanoparticles
@@ -49,7 +49,9 @@ narrative:
     narrative_guide: skills/materials-writing/references/nanocomposites-narrative.md
     reviewer_criteria: skills/materials-reviewer/references/nano-reviewer-criteria.md
 skill_mapping:
-  data_schemas: []
+  data_schemas:
+  - skills/materials-figure/scripts/figures4materials/data/stress_strain.csv
+  - skills/materials-figure/scripts/figures4materials/data/mechanical_properties.csv
   figure_packages: []
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py

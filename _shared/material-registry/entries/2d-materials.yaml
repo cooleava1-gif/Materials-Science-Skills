@@ -11,7 +11,7 @@ characterization:
 - evidence_tier: strong
   method: XPS
   purpose: Chemical composition, oxidation state, functional groups
-coverage_tier: skeleton
+coverage_tier: partial
 cross_references:
   related:
   - nanocomposites
@@ -46,6 +46,8 @@ narrative:
     narrative_guide: skills/materials-writing/references/2d-materials-narrative.md
     reviewer_criteria: skills/materials-reviewer/references/nano-reviewer-criteria.md
 skill_mapping:
-  data_schemas: []
+  data_schemas:
+  - skills/materials-figure/scripts/figures4materials/data/nano_xrd.csv
   figure_packages: []
-  figure_scripts: []
+  figure_scripts:
+  - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py

@@ -14,7 +14,7 @@ characterization:
 - evidence_tier: strong
   method: Zeta Potential
   purpose: Surface charge and colloidal stability assessment
-coverage_tier: skeleton
+coverage_tier: partial
 cross_references:
   related:
   - nanocomposites
@@ -50,6 +50,8 @@ narrative:
     narrative_guide: skills/materials-writing/references/nanoparticles-narrative.md
     reviewer_criteria: skills/materials-reviewer/references/nano-reviewer-criteria.md
 skill_mapping:
-  data_schemas: []
+  data_schemas:
+  - skills/materials-figure/scripts/figures4materials/data/particle_size_distribution.csv
   figure_packages: []
-  figure_scripts: []
+  figure_scripts:
+  - skills/materials-figure/scripts/figures4materials/plot_particle_size_distribution.py

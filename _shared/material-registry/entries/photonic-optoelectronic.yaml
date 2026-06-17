@@ -11,7 +11,7 @@ characterization:
 - evidence_tier: strong
   method: XRD
   purpose: Crystal structure, thin film orientation
-coverage_tier: skeleton
+coverage_tier: partial
 cross_references:
   related:
   - semiconductors
@@ -43,6 +43,8 @@ narrative:
     narrative_guide: skills/materials-writing/references/photonic-optoelectronic-narrative.md
     reviewer_criteria: skills/materials-reviewer/references/functional-reviewer-criteria.md
 skill_mapping:
-  data_schemas: []
+  data_schemas:
+  - skills/materials-figure/scripts/figures4materials/data/nano_xrd.csv
   figure_packages: []
-  figure_scripts: []
+  figure_scripts:
+  - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py

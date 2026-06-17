@@ -128,37 +128,37 @@ materials:
   - id: semiconductors
     name: "Semiconductor Materials"
     family: functional
-    coverage_tier: skeleton
+    coverage_tier: partial
 
   - id: dielectrics-piezoelectrics
     name: "Dielectric and Piezoelectric Materials"
     family: functional
-    coverage_tier: skeleton
+    coverage_tier: partial
 
   - id: photonic-optoelectronic
     name: "Photonic and Optoelectronic Materials"
     family: functional
-    coverage_tier: skeleton
+    coverage_tier: partial
 
   # ── Nanomaterials ──────────────────────────────────────────────────
   - id: nanoparticles
     name: "Nanoparticles and Quantum Dots"
     family: nano
-    coverage_tier: skeleton
+    coverage_tier: partial
 
   - id: nano-thin-films
     name: "Thin Films and Coatings (Nanoscale)"
     family: nano
-    coverage_tier: skeleton
+    coverage_tier: partial
 
   - id: 2d-materials
     name: "Two-Dimensional Materials (Graphene, MoS₂, MXene)"
     family: nano
-    coverage_tier: skeleton
+    coverage_tier: partial
 
   - id: nanocomposites
     name: "Nanocomposites and Nano-Filled Systems"
     family: nano
-    coverage_tier: skeleton
+    coverage_tier: partial
 
   # (general removed — expand domain by domain)
