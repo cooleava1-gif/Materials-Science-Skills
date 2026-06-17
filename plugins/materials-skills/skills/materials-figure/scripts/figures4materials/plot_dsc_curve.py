@@ -12,6 +12,14 @@ from _script_helpers import column, data_path, print_caption, read_csv
 from materials_plot_lib import PALETTE_CBM, add_panel_label, apply_pub_style, finalize_figure
 
 
+import json
+
+COLUMN_MAP = {
+    "temperature": {"column": "temperature"},
+    "y_series": [],
+}
+
+
 def _annotate_peaks(ax, temp: list[float], hf: list[float], color: str, threshold: float = 0.5):
     arr = np.array(hf)
     t_arr = np.array(temp)
@@ -28,11 +36,24 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data", default=str(data_path("dsc_curve.csv")))
     parser.add_argument("--output-dir", default=str(data_path("../figures")))
+    parser.add_argument("--column-map", help="JSON override for COLUMN_MAP")
     args = parser.parse_args()
 
+    cmap = dict(COLUMN_MAP)
+    if args.column_map:
+        cmap.update(json.loads(args.column_map))
+
     rows = read_csv(args.data)
-    temperature = column(rows, "temperature", as_float=True)
-    sample_cols = [k for k in rows[0] if k != "temperature"]
+    temp_col = cmap.get("temperature", {}).get("column", "temperature")
+    temperature = column(rows, temp_col, as_float=True)
+
+    y_spec = cmap.get("y_series", [])
+    if y_spec:
+        sample_cols = [entry.get("column", "") for entry in y_spec]
+        labels = [entry.get("key", entry.get("column", "")) for entry in y_spec]
+    else:
+        sample_cols = [k for k in rows[0] if k != temp_col]
+        labels = sample_cols
 
     apply_pub_style()
     fig, ax = plt.subplots(figsize=(6.2, 4.2))
@@ -41,7 +62,8 @@ def main() -> int:
     for idx, col_name in enumerate(sample_cols):
         heat_flow = column(rows, col_name, as_float=True)
         color = colors[idx % len(colors)]
-        ax.plot(temperature, heat_flow, linewidth=1.8, label=col_name, color=color)
+        label = labels[idx]
+        ax.plot(temperature, heat_flow, linewidth=1.8, label=label, color=color)
         _annotate_peaks(ax, temperature, heat_flow, color)
 
     ax.set_xlabel("Temperature (\u00b0C)")

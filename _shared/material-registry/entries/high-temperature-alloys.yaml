@@ -11,7 +11,7 @@ characterization:
 - evidence_tier: definitive
   method: Creep Testing
   purpose: Creep rate, rupture life, minimum creep rate vs. Larson-Miller parameter
-coverage_tier: skeleton
+coverage_tier: full
 cross_references:
   related:
   - ferrous-alloys
@@ -32,12 +32,19 @@ description:
 family: metals
 figure_archetypes:
 - description: Creep strain vs. time curves at different stress/temperature conditions
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_aging_test.py
   id: creep_curve
   type: line_plot
+  column_roles:
+  - time
+  - strain
 - description: Tensile stress-strain at elevated temperatures
   figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   id: stress_strain
   type: stress_strain
+  column_roles:
+  - strain
+  - stress
 id: high-temperature-alloys
 name: High-Temperature Alloys and Superalloys
 narrative:
@@ -47,8 +54,42 @@ narrative:
     domain_fragment: skills/materials-research/static/fragments/domain/high-temperature-alloys.md
     narrative_guide: skills/materials-writing/references/high-temperature-alloys-narrative.md
     reviewer_criteria: skills/materials-reviewer/references/metals-reviewer-criteria.md
+properties:
+- id: creep_rupture_life
+  name: Creep Rupture Life
+  test_methods:
+  - ASTM E139
+  typical_range: 10–1000
+  unit: hours
+- id: yield_strength_high_temp
+  name: High-Temperature Yield Strength
+  test_methods:
+  - ASTM E21
+  typical_range: 200–1200
+  unit: MPa
+- id: minimum_creep_rate
+  name: Minimum Creep Rate
+  test_methods:
+  - ASTM E139
+  typical_range: 1e-8–1e-4
+  unit: 1/h
+- id: oxidation_rate_constant
+  name: High-Temperature Oxidation Rate Constant
+  test_methods:
+  - Thermogravimetry (TGA)
+  typical_range: 1e-13–1e-10
+  unit: g²/(cm⁴·s)
 skill_mapping:
-  data_schemas: []
-  figure_packages: []
+  data_schemas:
+  - skills/materials-figure/scripts/figures4materials/data/metals_stress_strain.csv
+  - skills/materials-figure/scripts/figures4materials/data/aging_test.csv
+  figure_packages:
+  - skills/materials-figure/examples/figure-packages/stress-strain
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+  - skills/materials-figure/scripts/figures4materials/plot_aging_test.py
+standards:
+- purpose: Uniaxial creep and stress-rupture testing of metallic materials
+  standard: ASTM E139 / ISO 204
+- purpose: Elevated temperature tension testing of metallic materials
+  standard: ASTM E21

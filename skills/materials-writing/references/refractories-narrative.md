@@ -24,7 +24,7 @@ For Fireclay, magnesia, alumina, silicon carbide, and other high-temperature ref
 
 ## Useful keywords
 
-XRD, SEM/EDS, Thermal Shock Testing
+XRD, SEM/EDS, Thermal Shock Testing, Thermal Shock Resistance, Cold Compressive Strength (CCS), Hot Modulus of Rupture (HMOR), Refractoriness Under Load (RUL), Apparent Porosity
 
 ## Reviewer-safe language
 

@@ -5,7 +5,7 @@ characterization:
 - evidence_tier: strong
   method: Accelerated Durability Testing
   purpose: Freeze-thaw, carbonation, chloride ingress, alkali-silica reaction
-coverage_tier: skeleton
+coverage_tier: full
 cross_references:
   related:
   - cement-concrete
@@ -25,6 +25,21 @@ description:
   - Waste-modified asphalt and pavement materials
   - Durability-based design for infrastructure
 family: civil
+figure_archetypes:
+- description: LCA system boundary or environmental impact stage chart
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_lca_boundary.py
+  id: lca_boundary
+  type: diagram
+  column_roles:
+  - x_values
+  - y_series
+- description: Relative durability properties retention over weathering/coupled cycles
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_durability_retention.py
+  id: durability_retention_bar
+  type: grouped_bar
+  column_roles:
+  - x_labels
+  - series
 id: sustainability-durability
 name: Sustainability and Durability of Construction Materials
 narrative:
@@ -33,9 +48,34 @@ narrative:
   skill_references:
     domain_fragment: skills/materials-research/static/fragments/domain/sustainability-durability.md
     narrative_guide: skills/materials-writing/references/sustainability-durability-narrative.md
+    reviewer_criteria: skills/materials-reviewer/references/cement-reviewer-criteria.md
+properties:
+- id: carbon_footprint
+  name: Global Warming Potential (GWP)
+  test_methods:
+  - ISO 14040 / ISO 14044 (LCA assessment)
+  typical_range: 50–400
+  unit: kg CO₂ eq/t binder
+- id: durability_retention
+  name: Relative Strength Retention Ratio
+  test_methods:
+  - ASTM C666 (freeze-thaw retention)
+  typical_range: 60–100
+  unit: '%'
+standards:
+- purpose: Life cycle assessment principles and framework
+  standard: ISO 14040
+- purpose: Life cycle assessment requirements and guidelines
+  standard: ISO 14044
+- purpose: Resistance of concrete to rapid freezing and thawing
+  standard: ASTM C666
 skill_mapping:
-  data_schemas: []
-  figure_packages: []
+  data_schemas:
+  - skills/materials-figure/scripts/figures4materials/data/lca_boundary.csv
+  - skills/materials-figure/scripts/figures4materials/data/durability_retention.csv
+  figure_packages:
+  - skills/materials-figure/examples/figure-packages/wer-ea-full
+  - skills/materials-figure/examples/figure-packages/wer-ea-dosage-window
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_lca_boundary.py
   - skills/materials-figure/scripts/figures4materials/plot_durability_retention.py

@@ -24,7 +24,7 @@ For Aluminum alloys, copper alloys, magnesium alloys, titanium alloys, and other
 
 ## Useful keywords
 
-SEM/EDS, XRD, TEM, DSC
+SEM/EDS, XRD, TEM, DSC, Yield Strength (YS), Ultimate Tensile Strength (UTS), Elongation at Break, Density, Electrical Conductivity
 
 ## Reviewer-safe language
 

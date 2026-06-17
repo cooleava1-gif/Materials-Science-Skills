@@ -24,7 +24,7 @@ For Life cycle assessment, carbon footprint, durability prediction, recycled/was
 
 ## Useful keywords
 
-LCA, Accelerated Durability Testing
+LCA, Accelerated Durability Testing, Global Warming Potential (GWP), Relative Strength Retention Ratio
 
 ## Reviewer-safe language
 

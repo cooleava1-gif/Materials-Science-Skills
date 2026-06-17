@@ -11,7 +11,7 @@ characterization:
 - evidence_tier: strong
   method: EIS
   purpose: Corrosion rate measurement for coated systems
-coverage_tier: skeleton
+coverage_tier: full
 cross_references:
   parent: civil-generic
   related:
@@ -34,10 +34,24 @@ figure_archetypes:
   figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   id: stress_strain
   type: stress_strain
-- description: Nyquist and Bode plots for corrosion impedance
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_eis.py
-  id: eis_plot
-  type: eis_plot
+  column_roles:
+  - strain
+  - stress
+  column_map:
+    x_values: {"column": "strain_pct"}
+    y_values: {"column": "stress_mpa"}
+    group_by: {"column": "condition"}
+- description: Potentiodynamic polarization curves for corrosion assessment
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_polarization_curve.py
+  id: polarization_curve
+  type: line_plot
+  column_roles:
+  - potential
+  - current_density
+  column_map:
+    x_values: {"column": "potential_mv"}
+    y_values: {"column": "current_log_a_cm2"}
+    group_by: {"column": "condition"}
 id: steel-metal
 name: Steel and Metal Structures
 narrative:
@@ -46,9 +60,48 @@ narrative:
   skill_references:
     domain_fragment: skills/materials-research/static/fragments/domain/civil-generic.md
     narrative_guide: skills/materials-writing/references/steel-metal-narrative.md
+    reviewer_criteria: skills/materials-reviewer/references/metals-reviewer-criteria.md
+properties:
+- id: yield_strength
+  name: Yield Strength
+  test_methods:
+  - ASTM E8 / GB/T 228.1
+  typical_range: 235–690
+  unit: MPa
+- id: tensile_strength
+  name: Ultimate Tensile Strength
+  test_methods:
+  - ASTM E8 / GB/T 228.1
+  typical_range: 360–800
+  unit: MPa
+- id: elongation
+  name: Elongation at Fracture
+  test_methods:
+  - ASTM E8 / GB/T 228.1
+  typical_range: 15–30
+  unit: '%'
+- id: corrosion_rate
+  name: Corrosion Rate
+  test_methods:
+  - ASTM G1 / ASTM G31 (immersion weight loss)
+  - Electrochemical polarization (ASTM G5)
+  typical_range: 0.01–0.5
+  unit: mm/a
+standards:
+- purpose: Tension testing of metallic materials
+  standard: ASTM E8 / GB/T 228.1
+- purpose: Preparing, cleaning, and evaluating corrosion test specimens
+  standard: ASTM G1
+- purpose: Laboratory immersion corrosion testing of metals
+  standard: ASTM G31
+- purpose: Making potentiostatic and potentiodynamic anodic polarization measurements
+  standard: ASTM G5
 skill_mapping:
-  data_schemas: []
-  figure_packages: []
+  data_schemas:
+  - skills/materials-figure/scripts/figures4materials/data/metals_stress_strain.csv
+  - skills/materials-figure/scripts/figures4materials/data/metals_corrosion.csv
+  figure_packages:
+  - skills/materials-figure/examples/figure-packages/stress-strain
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
-  - skills/materials-figure/scripts/figures4materials/plot_eis.py
+  - skills/materials-figure/scripts/figures4materials/plot_polarization_curve.py

@@ -19,110 +19,110 @@ materials:
   - id: cement-concrete
     name: "Cement and Concrete Materials"
     family: civil
-    coverage_tier: partial
+    coverage_tier: full
 
   - id: construction-materials
     name: "Construction and Building Materials"
     family: civil
-    coverage_tier: generic
+    coverage_tier: full
 
   - id: steel-metal
     name: "Steel and Metal Structures"
     family: civil
-    coverage_tier: skeleton
+    coverage_tier: full
 
   - id: geotechnical-materials
     name: "Geotechnical and Geoenvironmental Materials"
     family: civil
-    coverage_tier: skeleton
+    coverage_tier: full
 
   - id: timber-masonry
     name: "Timber, Masonry, and Bamboo Materials"
     family: civil
-    coverage_tier: skeleton
+    coverage_tier: full
 
   - id: waterproofing-sealants
     name: "Waterproofing and Sealant Materials"
     family: civil
-    coverage_tier: skeleton
+    coverage_tier: full
 
   - id: sustainability-durability
     name: "Sustainability and Durability of Construction Materials"
     family: civil
-    coverage_tier: skeleton
+    coverage_tier: full
 
   - id: thermal-insulation
     name: "Thermal Insulation Materials (Aerogels, Foams, Fibrous)"
     family: civil
-    coverage_tier: partial
+    coverage_tier: full
 
   - id: civil-generic
     name: "Civil Engineering Materials (General)"
     family: civil
-    coverage_tier: generic
+    coverage_tier: full
 
   # ── Polymers ───────────────────────────────────────────────────────
   - id: thermoplastics
     name: "Thermoplastics"
     family: polymers
-    coverage_tier: partial
+    coverage_tier: full
 
   - id: thermosets
     name: "Thermosetting Polymers"
     family: polymers
-    coverage_tier: partial
+    coverage_tier: full
 
   - id: rubber-elastomers
     name: "Rubbers and Elastomers"
     family: polymers
-    coverage_tier: partial
+    coverage_tier: full
 
   - id: polymer-composites
     name: "Polymer Matrix Composites (FRP, CFRP, GFRP)"
     family: polymers
-    coverage_tier: partial
+    coverage_tier: full
 
   # ── Metals ─────────────────────────────────────────────────────────
   - id: ferrous-alloys
     name: "Ferrous Alloys and Steels"
     family: metals
-    coverage_tier: skeleton
+    coverage_tier: full
 
   - id: nonferrous-alloys
     name: "Non-Ferrous Alloys (Al, Cu, Mg, Ti)"
     family: metals
-    coverage_tier: skeleton
+    coverage_tier: full
 
   - id: high-temperature-alloys
     name: "High-Temperature Alloys and Superalloys"
     family: metals
-    coverage_tier: skeleton
+    coverage_tier: full
 
   - id: additive-metals
     name: "Additively Manufactured Metals"
     family: metals
-    coverage_tier: skeleton
+    coverage_tier: full
 
   # ── Ceramics ───────────────────────────────────────────────────────
   - id: structural-ceramics
     name: "Structural and Advanced Ceramics"
     family: ceramics
-    coverage_tier: partial
+    coverage_tier: full
 
   - id: functional-ceramics
     name: "Functional Ceramics (Piezoelectric, Dielectric)"
     family: ceramics
-    coverage_tier: skeleton
+    coverage_tier: full
 
   - id: refractories
     name: "Refractory Materials"
     family: ceramics
-    coverage_tier: skeleton
+    coverage_tier: full
 
   - id: bioceramics
     name: "Bioceramics and Bioactive Glasses"
     family: ceramics
-    coverage_tier: skeleton
+    coverage_tier: full
 
   # ── Functional / Electronic ────────────────────────────────────────
   - id: semiconductors

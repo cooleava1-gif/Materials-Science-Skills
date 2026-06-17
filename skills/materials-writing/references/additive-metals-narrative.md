@@ -24,7 +24,7 @@ For Additively manufactured metallic materials via PBF-LB, DED, binder jetting, 
 
 ## Useful keywords
 
-OM/SEM, XRD/EBSD, Micro-CT, Density Measurement
+OM/SEM, XRD/EBSD, Micro-CT, Density Measurement, Yield Strength (YS), Relative Density, Surface Roughness (Ra), Residual Stress
 
 ## Reviewer-safe language
 

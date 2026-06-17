@@ -12,6 +12,7 @@ import json
 import sys
 import tempfile
 import unittest
+import ast
 from pathlib import Path
 
 import yaml
@@ -135,7 +136,9 @@ class RegistryFigureArchetypeTest(unittest.TestCase):
         "ftir_overlay": ["x_values", "absorbances"],
         "durability_retention_bar": ["x_labels", "series"],
         "property_radar": ["categories", "series_dict"],
+        "mechanical_radar": ["categories", "series_dict"],
         "stress_strain": ["x_values", "y_series"],
+        "polarization_curve": ["x_values", "y_values"],
         "xrd_pattern": ["two_theta", "intensities"],
         "dsc_curve": ["x_values", "y_signals"],
         "tga_curve": ["x_values", "tga", "dtg"],
@@ -143,7 +146,67 @@ class RegistryFigureArchetypeTest(unittest.TestCase):
         "conductivity_plot": ["x_values", "y_values"],
         "rheology_curve": ["x_values", "y_series"],
         "heatmap": ["data_matrix", "row_labels", "col_labels"],
+        "impedance_nyquist": ["real", "imaginary"],
     }
+
+    def _find_matching_csv(self, data_schemas: list[str], arch_id: str, script_name: str) -> str | None:
+        keywords = {
+            "stress_strain": ["stress_strain", "tensile"],
+            "cg_stress_strain": ["stress_strain", "tensile"],
+            "cm_stress_strain": ["stress_strain", "tensile"],
+            "polarization_curve": ["corrosion", "polarization"],
+            "eis_plot": ["corrosion", "impedance", "eis"],
+            "impedance_nyquist": ["impedance", "corrosion", "eis"],
+            "hardness_profile": ["hardness", "profile", "trend"],
+            "age_hardening_curve": ["hardness", "profile", "trend"],
+            "process_window": ["window", "contour", "response_map"],
+            "bonding_strength_bar": ["bonding", "strength"],
+            "compressive_strength_bar": ["bonding", "strength"],
+            "ucs_bar": ["bonding", "strength"],
+            "adhesion_strength_bar": ["bonding", "strength"],
+            "ftir_overlay": ["ftir", "spectra"],
+            "dosage_performance_curve": ["dosage_performance", "dosage"],
+            "durability_retention_bar": ["durability", "retention"],
+            "property_radar": ["dosage_window"],
+            "durability_chart": ["dosage_window"],
+            "mechanical_radar": ["radar", "properties", "mechanical"],
+            "xrd_pattern": ["xrd", "pattern"],
+            "sintering_curve": ["sintering"],
+            "dsc_curve": ["dsc", "thermal"],
+            "tga_curve": ["tga", "thermal"],
+            "lca_boundary": ["lca"],
+            "durability_retention": ["durability"],
+            "pore_size_distribution": ["particle", "size"],
+            "particle_size_distribution": ["particle", "size"],
+        }
+
+        # Check by ID in filename
+        for schema in data_schemas:
+            schema_name = Path(schema).name.lower()
+            if arch_id.lower() in schema_name:
+                return schema
+            if arch_id in keywords:
+                for kw in keywords[arch_id]:
+                    if kw in schema_name:
+                        return schema
+
+        # Check by script name
+        script_base = Path(script_name).stem.lower().replace("plot_", "")
+        for schema in data_schemas:
+            schema_name = Path(schema).name.lower()
+            if script_base in schema_name:
+                return schema
+
+        # Check by existence fallback
+        for schema in data_schemas:
+            if REPO_ROOT.joinpath(schema).exists():
+                return schema
+
+        # First one in list
+        if data_schemas:
+            return data_schemas[0]
+
+        return None
 
     def test_figure_archetypes_reference_known_roles(self):
         """Every registry figure_archetype.id should have documented role expectations."""
@@ -157,6 +220,109 @@ class RegistryFigureArchetypeTest(unittest.TestCase):
                     self.assertTrue(
                         isinstance(expected_roles, list) and len(expected_roles) > 0,
                         f"{path.stem}/{arch_id}: no expected roles defined"
+                    )
+
+    def test_runnable_figure_script_contracts(self):
+        """Verify that every figure archetype runs successfully on its matched dataset."""
+        import subprocess
+        import tempfile
+
+        for path in sorted(REGISTRY_DIR.glob("*.yaml")):
+            # Only test full coverage tier to maintain focus and prevent skeleton failures
+            with path.open(encoding="utf-8") as f:
+                entry = yaml.safe_load(f)
+            if entry.get("coverage_tier") != "full":
+                continue
+
+            sm = entry.get("skill_mapping", {})
+            data_schemas = sm.get("data_schemas", []) or []
+
+            for archetype in entry.get("figure_archetypes", []) or []:
+                with self.subTest(entry=path.name, archetype=archetype.get("id")):
+                    script_path_rel = archetype.get("figure_script")
+                    if not script_path_rel:
+                        continue
+
+                    script_path = REPO_ROOT / script_path_rel
+                    self.assertTrue(script_path.exists(), f"{path.name}: script {script_path_rel} does not exist")
+
+                    # Find matching CSV
+                    csv_path_rel = self._find_matching_csv(data_schemas, archetype.get("id"), script_path_rel)
+                    self.assertIsNotNone(
+                        csv_path_rel,
+                        f"{path.name}: Could not find matching CSV in data_schemas for archetype {archetype.get('id')}"
+                    )
+                    csv_path = REPO_ROOT / csv_path_rel
+                    self.assertTrue(csv_path.exists(), f"{path.name}: CSV {csv_path_rel} does not exist")
+
+                    with tempfile.TemporaryDirectory() as temp_dir:
+                        with script_path.open(encoding="utf-8") as sf:
+                            script_content = sf.read()
+
+                        cmd = [sys.executable, str(script_path)]
+                        if "--data" in script_content or "'--data'" in script_content:
+                            cmd.extend(["--data", str(csv_path)])
+                        cmd.extend(["--output-dir", temp_dir])
+
+                        # Pass column map if specified
+                        cmap = archetype.get("column_map")
+                        if cmap:
+                            cmd.extend(["--column-map", json.dumps(cmap)])
+
+                        res = subprocess.run(cmd, capture_output=True, text=True)
+                        self.assertEqual(
+                            res.returncode, 0,
+                            f"Failed executing figure script {script_path_rel} for entry {path.name}.\n"
+                            f"Command: {' '.join(cmd)}\n"
+                            f"STDOUT:\n{res.stdout}\n"
+                            f"STDERR:\n{res.stderr}"
+                        )
+
+    def test_full_registry_declares_hardcoded_script_data_dependencies(self):
+        """Full entries must list every CSV read by figure scripts without --data."""
+        for path in sorted(REGISTRY_DIR.glob("*.yaml")):
+            with path.open(encoding="utf-8") as f:
+                entry = yaml.safe_load(f)
+            if entry.get("coverage_tier") != "full":
+                continue
+
+            declared = set((entry.get("skill_mapping", {}) or {}).get("data_schemas", []) or [])
+            for archetype in entry.get("figure_archetypes", []) or []:
+                with self.subTest(entry=path.name, archetype=archetype.get("id")):
+                    script_path_rel = archetype.get("figure_script")
+                    if not script_path_rel:
+                        continue
+                    script_path = REPO_ROOT / script_path_rel
+                    if not script_path.exists():
+                        continue
+
+                    script_text = script_path.read_text(encoding="utf-8")
+                    if "--data" in script_text or '"--data"' in script_text or "'--data'" in script_text:
+                        continue
+
+                    tree = ast.parse(script_text)
+                    required = set()
+                    for node in ast.walk(tree):
+                        if not (
+                            isinstance(node, ast.Call)
+                            and isinstance(node.func, ast.Name)
+                            and node.func.id == "data_path"
+                            and node.args
+                            and isinstance(node.args[0], ast.Constant)
+                            and isinstance(node.args[0].value, str)
+                            and node.args[0].value.endswith(".csv")
+                        ):
+                            continue
+                        required.add(
+                            "skills/materials-figure/scripts/figures4materials/data/"
+                            + node.args[0].value
+                        )
+
+                    missing = sorted(required - declared)
+                    self.assertFalse(
+                        missing,
+                        f"{path.name}/{archetype.get('id')}: data_schemas missing "
+                        f"hardcoded CSV dependencies from {Path(script_path_rel).name}: {missing}"
                     )
 
 

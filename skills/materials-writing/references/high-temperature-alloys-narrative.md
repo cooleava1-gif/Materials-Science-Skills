@@ -24,7 +24,7 @@ For Ni-based, Co-based, and Fe-based superalloys for high-temperature service in
 
 ## Useful keywords
 
-SEM/EDS, TEM, XRD, Creep Testing
+SEM/EDS, TEM, XRD, Creep Testing, Creep Rupture Life, High-Temperature Yield Strength, Minimum Creep Rate, High-Temperature Oxidation Rate Constant
 
 ## Reviewer-safe language
 

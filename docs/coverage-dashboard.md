@@ -10,27 +10,27 @@
 | Material System | Family | Tier | Narrative Guide | Reviewer Criteria | Figure Scripts | Example Package |
 |---|---|---|---|---|---|---|
 | **asphalt-pavement** | civil | 🟢 **full** | ✅ asphalt-pavement-narrative | ✅ asphalt-reviewer-criteria | ✅ 21 scripts | ✅ 3 packages |
-| **cement-concrete** | civil | 🟡 **partial** | ✅ cement-concrete-narrative | ✅ cement-reviewer-criteria | — | — |
-| **construction-materials** | civil | ⚪ **generic** | — | — | — | — |
-| **steel-metal** | civil | 🔵 **skeleton** | ✅ steel-metal-narrative | — | ✅ 2 generic | — |
-| **geotechnical-materials** | civil | 🔵 **skeleton** | ✅ geotechnical-materials-narrative | — | — | — |
-| **timber-masonry** | civil | 🔵 **skeleton** | ✅ timber-masonry-narrative | — | — | — |
-| **waterproofing-sealants** | civil | 🔵 **skeleton** | ✅ waterproofing-sealants-narrative | — | — | — |
-| **sustainability-durability** | civil | 🔵 **skeleton** | ✅ sustainability-durability-narrative | — | ✅ 2 generic | — |
-| **thermal-insulation** | civil | 🟡 **partial** | ✅ thermal-insulation-narrative | ✅ insulation-reviewer-criteria | ✅ 4 scripts | — |
-| **civil-generic** | civil | ⚪ **generic** | — | — | — | — |
-| **thermoplastics** | polymers | 🟡 **partial** | ✅ thermoplastics-narrative | ✅ polymers-reviewer-criteria | ✅ 3 generic | — |
-| **thermosets** | polymers | 🟡 **partial** | ✅ thermosets-narrative | ✅ polymers-reviewer-criteria | ✅ 2 generic | — |
-| **rubber-elastomers** | polymers | 🟡 **partial** | ✅ rubber-elastomers-narrative | ✅ polymers-reviewer-criteria | ✅ 1 generic | — |
-| **polymer-composites** | polymers | 🟡 **partial** | ✅ polymer-composites-narrative | ✅ polymers-reviewer-criteria | ✅ 2 generic | — |
-| **ferrous-alloys** | metals | 🔵 **skeleton** | ✅ ferrous-alloys-narrative | ✅ metals-reviewer-criteria | ✅ 2 generic | — |
-| **nonferrous-alloys** | metals | 🔵 **skeleton** | ✅ nonferrous-alloys-narrative | ✅ metals-reviewer-criteria | ✅ 1 generic | — |
-| **high-temperature-alloys** | metals | 🔵 **skeleton** | ✅ high-temperature-alloys-narrative | ✅ metals-reviewer-criteria | ✅ 1 generic | — |
-| **additive-metals** | metals | 🔵 **skeleton** | ✅ additive-metals-narrative | ✅ metals-reviewer-criteria | ✅ 1 generic | — |
-| **structural-ceramics** | ceramics | 🟡 **partial** | ✅ structural-ceramics-narrative | ✅ ceramics-reviewer-criteria | ✅ 5 scripts | ✅ 2 packages |
-| **functional-ceramics** | ceramics | 🔵 **skeleton** | ✅ functional-ceramics-narrative | ✅ ceramics-reviewer-criteria | ✅ 2 generic | — |
-| **refractories** | ceramics | 🔵 **skeleton** | ✅ refractories-narrative | ✅ ceramics-reviewer-criteria | ✅ 1 generic | — |
-| **bioceramics** | ceramics | 🔵 **skeleton** | ✅ bioceramics-narrative | ✅ ceramics-reviewer-criteria | ✅ 2 generic | — |
+| **cement-concrete** | civil | 🟢 **full** | ✅ cement-concrete-narrative | ✅ cement-reviewer-criteria | ✅ 3 scripts | ✅ 1 package |
+| **construction-materials** | civil | 🟢 **full** | ✅ construction-materials-narrative | ✅ editorial-criteria | ✅ 2 scripts | — |
+| **steel-metal** | civil | 🟢 **full** | ✅ steel-metal-narrative | ✅ metals-reviewer-criteria | ✅ 2 scripts | ✅ 1 package |
+| **geotechnical-materials** | civil | 🟢 **full** | ✅ geotechnical-materials-narrative | ✅ cement-reviewer-criteria | ✅ 1 script | — |
+| **timber-masonry** | civil | 🟢 **full** | ✅ timber-masonry-narrative | ✅ editorial-criteria | ✅ 1 script | ✅ 1 package |
+| **waterproofing-sealants** | civil | 🟢 **full** | ✅ waterproofing-sealants-narrative | ✅ asphalt-reviewer-criteria | ✅ 2 scripts | ✅ 1 package |
+| **sustainability-durability** | civil | 🟢 **full** | ✅ sustainability-durability-narrative | ✅ cement-reviewer-criteria | ✅ 2 scripts | — |
+| **thermal-insulation** | civil | 🟢 **full** | ✅ thermal-insulation-narrative | ✅ insulation-reviewer-criteria | ✅ 4 scripts | ✅ 2 packages |
+| **civil-generic** | civil | 🟢 **full** | ✅ civil-generic-narrative | ✅ editorial-criteria | ✅ 2 scripts | ✅ 1 package |
+| **thermoplastics** | polymers | 🟢 **full** | ✅ thermoplastics-narrative | ✅ polymers-reviewer-criteria | ✅ 3 scripts | ✅ 2 packages |
+| **thermosets** | polymers | 🟢 **full** | ✅ thermosets-narrative | ✅ polymers-reviewer-criteria | ✅ 3 scripts | ✅ 1 package |
+| **rubber-elastomers** | polymers | 🟢 **full** | ✅ rubber-elastomers-narrative | ✅ polymers-reviewer-criteria | ✅ 2 scripts | ✅ 1 package |
+| **polymer-composites** | polymers | 🟢 **full** | ✅ polymer-composites-narrative | ✅ polymers-reviewer-criteria | ✅ 3 scripts | ✅ 2 packages |
+| **ferrous-alloys** | metals | 🟢 **full** | ✅ ferrous-alloys-narrative | ✅ metals-reviewer-criteria | ✅ 3 scripts | ✅ 1 package |
+| **nonferrous-alloys** | metals | 🟢 **full** | ✅ nonferrous-alloys-narrative | ✅ metals-reviewer-criteria | ✅ 2 scripts | ✅ 1 package |
+| **high-temperature-alloys** | metals | 🟢 **full** | ✅ high-temperature-alloys-narrative | ✅ metals-reviewer-criteria | ✅ 2 scripts | ✅ 1 package |
+| **additive-metals** | metals | 🟢 **full** | ✅ additive-metals-narrative | ✅ metals-reviewer-criteria | ✅ 2 scripts | ✅ 1 package |
+| **structural-ceramics** | ceramics | 🟢 **full** | ✅ structural-ceramics-narrative | ✅ ceramics-reviewer-criteria | ✅ 6 scripts | ✅ 5 packages |
+| **functional-ceramics** | ceramics | 🟢 **full** | ✅ functional-ceramics-narrative | ✅ ceramics-reviewer-criteria | ✅ 3 scripts | ✅ 2 packages |
+| **refractories** | ceramics | 🟢 **full** | ✅ refractories-narrative | ✅ ceramics-reviewer-criteria | ✅ 3 scripts | ✅ 2 packages |
+| **bioceramics** | ceramics | 🟢 **full** | ✅ bioceramics-narrative | ✅ ceramics-reviewer-criteria | ✅ 3 scripts | ✅ 2 packages |
 | **semiconductors** | functional | 🔵 **skeleton** | ✅ semiconductors-narrative | ✅ functional-reviewer-criteria | — | — |
 | **dielectrics-piezoelectrics** | functional | 🔵 **skeleton** | ✅ dielectrics-piezoelectrics-narrative | ✅ functional-reviewer-criteria | ✅ 1 generic | — |
 | **photonic-optoelectronic** | functional | 🔵 **skeleton** | ✅ photonic-optoelectronic-narrative | ✅ functional-reviewer-criteria | — | — |

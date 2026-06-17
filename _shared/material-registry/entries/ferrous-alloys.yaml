@@ -15,7 +15,7 @@ characterization:
 - evidence_tier: definitive
   method: Hardness Testing
   purpose: Brinell, Rockwell, Vickers hardness mapping
-coverage_tier: skeleton
+coverage_tier: full
 cross_references:
   related:
   - nonferrous-alloys
@@ -41,10 +41,35 @@ figure_archetypes:
   figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   id: stress_strain
   type: stress_strain
-- description: EIS Nyquist and Bode plots for corrosion assessment
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_eis.py
-  id: eis_plot
-  type: eis_plot
+  column_roles:
+  - strain
+  - stress
+  column_map:
+    x_values: {"column": "strain_pct"}
+    y_values: {"column": "stress_mpa"}
+    group_by: {"column": "condition"}
+- description: Potentiodynamic polarization curves for corrosion assessment
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_polarization_curve.py
+  id: polarization_curve
+  type: line_plot
+  column_roles:
+  - potential
+  - current_density
+  column_map:
+    x_values: {"column": "potential_mv"}
+    y_values: {"column": "current_log_a_cm2"}
+    group_by: {"column": "condition"}
+- description: Hardness profile across the heat-affected zone (HAZ) or carburized layer
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
+  id: hardness_profile
+  type: line_plot
+  column_roles:
+  - distance
+  - hardness
+  column_map:
+    x_values: {"column": "distance_mm"}
+    y_values: {"column": "hardness_HV"}
+    figure_name: {"value": "metals_hardness_profile"}
 id: ferrous-alloys
 name: Ferrous Alloys and Steels
 narrative:
@@ -54,9 +79,54 @@ narrative:
     domain_fragment: skills/materials-research/static/fragments/domain/ferrous-alloys.md
     narrative_guide: skills/materials-writing/references/ferrous-alloys-narrative.md
     reviewer_criteria: skills/materials-reviewer/references/metals-reviewer-criteria.md
+properties:
+- id: yield_strength
+  name: Yield Strength (YS)
+  test_methods:
+  - ASTM E8 / ISO 6892-1
+  typical_range: 200–1500
+  unit: MPa
+- id: tensile_strength
+  name: Ultimate Tensile Strength (UTS)
+  test_methods:
+  - ASTM E8 / ISO 6892-1
+  typical_range: 300–2000
+  unit: MPa
+- id: elongation
+  name: Elongation at Break
+  test_methods:
+  - ASTM E8 / ISO 6892-1
+  typical_range: 5–50
+  unit: "%"
+- id: vickers_hardness
+  name: Vickers Hardness
+  test_methods:
+  - ASTM E92 / ISO 6507-1
+  typical_range: 100–800
+  unit: HV
+- id: impact_energy
+  name: Charpy V-Notch Impact Energy
+  test_methods:
+  - ASTM E23 / ISO 148-1
+  typical_range: 10–300
+  unit: J
 skill_mapping:
-  data_schemas: []
-  figure_packages: []
+  data_schemas:
+  - skills/materials-figure/scripts/figures4materials/data/metals_stress_strain.csv
+  - skills/materials-figure/scripts/figures4materials/data/metals_corrosion.csv
+  - skills/materials-figure/scripts/figures4materials/data/metals_hardness_profile.csv
+  figure_packages:
+  - skills/materials-figure/examples/figure-packages/stress-strain
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
-  - skills/materials-figure/scripts/figures4materials/plot_eis.py
+  - skills/materials-figure/scripts/figures4materials/plot_polarization_curve.py
+  - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
+standards:
+- purpose: Tension testing of metallic materials at room temperature
+  standard: ASTM E8 / E8M
+- purpose: Metallic materials tensile testing method at room temperature
+  standard: ISO 6892-1
+- purpose: Notched bar impact testing of metallic materials (Charpy)
+  standard: ASTM E23 / ISO 148-1
+- purpose: Vickers hardness testing of metallic materials
+  standard: ASTM E92 / ISO 6507-1

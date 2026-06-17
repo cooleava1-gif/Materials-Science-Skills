@@ -11,7 +11,7 @@ characterization:
 - evidence_tier: strong
   method: DSC
   purpose: Precipitation/dissolution events, melting range
-coverage_tier: skeleton
+coverage_tier: full
 cross_references:
   related:
   - ferrous-alloys
@@ -35,6 +35,16 @@ figure_archetypes:
   figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   id: stress_strain
   type: stress_strain
+  column_roles:
+  - strain
+  - stress
+- description: Age-hardening response (hardness vs. aging time) at different temperatures
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
+  id: age_hardening_curve
+  type: line_plot
+  column_roles:
+  - time
+  - hardness
 id: nonferrous-alloys
 name: Non-Ferrous Alloys (Al, Cu, Mg, Ti)
 narrative:
@@ -44,8 +54,52 @@ narrative:
     domain_fragment: skills/materials-research/static/fragments/domain/nonferrous-alloys.md
     narrative_guide: skills/materials-writing/references/nonferrous-alloys-narrative.md
     reviewer_criteria: skills/materials-reviewer/references/metals-reviewer-criteria.md
+properties:
+- id: yield_strength
+  name: Yield Strength (YS)
+  test_methods:
+  - ASTM E8 / ISO 6892-1
+  typical_range: 50–1000
+  unit: MPa
+- id: tensile_strength
+  name: Ultimate Tensile Strength (UTS)
+  test_methods:
+  - ASTM E8 / ISO 6892-1
+  typical_range: 100–1200
+  unit: MPa
+- id: elongation
+  name: Elongation at Break
+  test_methods:
+  - ASTM E8 / ISO 6892-1
+  typical_range: 2–60
+  unit: "%"
+- id: density
+  name: Density
+  test_methods:
+  - ASTM B311
+  typical_range: 1700–8500
+  unit: kg/m³
+- id: electrical_conductivity
+  name: Electrical Conductivity
+  test_methods:
+  - ASTM E1004
+  typical_range: 5–101
+  unit: "% IACS"
 skill_mapping:
-  data_schemas: []
-  figure_packages: []
+  data_schemas:
+  - skills/materials-figure/scripts/figures4materials/data/metals_stress_strain.csv
+  - skills/materials-figure/scripts/figures4materials/data/metals_hardness_profile.csv
+  figure_packages:
+  - skills/materials-figure/examples/figure-packages/stress-strain
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+  - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
+standards:
+- purpose: Tension testing of metallic materials at room temperature
+  standard: ASTM E8 / E8M
+- purpose: Metallic materials tensile testing method at room temperature
+  standard: ISO 6892-1
+- purpose: Electrical conductivity determination using eddy currents
+  standard: ASTM E1004
+- purpose: Density measurement of powder metallurgy materials
+  standard: ASTM B311

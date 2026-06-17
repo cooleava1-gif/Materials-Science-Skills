@@ -24,7 +24,7 @@ For Hydroxyapatite, beta-tricalcium phosphate, bioactive glasses, calcium phosph
 
 ## Useful keywords
 
-XRD, SEM/EDS, FTIR/Raman, ICP-OES
+XRD, SEM/EDS, FTIR/Raman, ICP-OES, Apatite Formation Rate, Compressive Strength, Biodegradation Rate, Porosity, Ion Dissolution Rate
 
 ## Reviewer-safe language
 

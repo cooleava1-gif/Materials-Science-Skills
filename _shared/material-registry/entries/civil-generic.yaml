@@ -1,8 +1,14 @@
-# Material Registry — civil-generic (generic)
-name: "Civil Engineering Materials (General)"
-id: civil-generic
-family: civil
-coverage_tier: generic
+characterization:
+- evidence_tier: definitive
+  method: Mechanical Testing
+  purpose: Load-deformation, mechanical strength evaluation
+- evidence_tier: strong
+  method: SEM
+  purpose: Microstructure, pore morphology analysis
+coverage_tier: full
+cross_references:
+  related:
+    - construction-materials
 description:
   summary: "Catch-all for civil/construction materials research not matching a specific sub-domain; provides general civil-engineering material guidance"
   engineering_problems:
@@ -12,17 +18,54 @@ description:
   typical_applications:
     - "General construction and infrastructure"
     - "Civil engineering research and education"
+family: civil
+figure_archetypes:
+- description: Stress-strain response under load
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+  id: cg_stress_strain
+  type: stress_strain
+  column_roles:
+  - strain
+  - stress
+- description: Multi-property radar comparison
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanical_property_radar.py
+  id: cg_mechanical_radar
+  type: radar_chart
+  column_roles:
+  - categories
+  - series_dict
+id: civil-generic
+name: "Civil Engineering Materials (General)"
 narrative:
   arc: "Material System → Engineering Requirement → Performance Evaluation → Application"
   skill_references:
     domain_fragment: "skills/materials-research/static/fragments/domain/civil-generic.md"
+    narrative_guide: "skills/materials-writing/references/civil-generic-narrative.md"
+    reviewer_criteria: "skills/materials-reviewer/references/editorial-criteria.md"
+properties:
+- id: compressive_strength
+  name: Compressive Strength
+  test_methods:
+  - ASTM C39 / ASTM C109
+  typical_range: 10–80
+  unit: MPa
+- id: elastic_modulus
+  name: Modulus of Elasticity
+  test_methods:
+  - ASTM C469
+  typical_range: 10–40
+  unit: GPa
+standards:
+- purpose: Compressive strength of concrete cylinders
+  standard: ASTM C39
+- purpose: Static modulus of elasticity of concrete in compression
+  standard: ASTM C469
 skill_mapping:
+  data_schemas:
+  - skills/materials-figure/scripts/figures4materials/data/mechanical_properties.csv
+  - skills/materials-figure/scripts/figures4materials/data/stress_strain.csv
+  figure_packages:
+    - "skills/materials-figure/examples/figure-packages/stress-strain"
   figure_scripts:
     - "skills/materials-figure/scripts/figures4materials/plot_stress_strain.py"
     - "skills/materials-figure/scripts/figures4materials/plot_mechanical_property_radar.py"
-  figure_packages:
-    - "skills/materials-figure/examples/figure-packages/stress-strain"
-  data_schemas: []
-cross_references:
-  related:
-    - construction-materials

@@ -5,7 +5,7 @@ characterization:
 - evidence_tier: supporting
   method: SEM
   purpose: Soil particle bonding, grout penetration morphology
-coverage_tier: skeleton
+coverage_tier: full
 cross_references:
   parent: civil-generic
 description:
@@ -20,6 +20,14 @@ description:
   - Foundation improvement
   - Tunnel grouting and seepage control
 family: civil
+figure_archetypes:
+- description: Unconfined compressive strength of stabilized soils with binder content
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_grouped_bar.py
+  id: ucs_bar
+  type: grouped_bar
+  column_roles:
+  - x_labels
+  - series
 id: geotechnical-materials
 name: Geotechnical and Geoenvironmental Materials
 narrative:
@@ -28,7 +36,41 @@ narrative:
   skill_references:
     domain_fragment: skills/materials-research/static/fragments/domain/civil-generic.md
     narrative_guide: skills/materials-writing/references/geotechnical-materials-narrative.md
+    reviewer_criteria: skills/materials-reviewer/references/cement-reviewer-criteria.md
+properties:
+- id: unconfined_compressive_strength
+  name: Unconfined Compressive Strength (UCS)
+  test_methods:
+  - ASTM D2166 (soil)
+  - ASTM D1633 (soil-cement)
+  typical_range: 0.5–10
+  unit: MPa
+- id: permeability_coefficient
+  name: Coefficient of Permeability
+  test_methods:
+  - ASTM D5084 (flexible wall permeameter)
+  typical_range: 1.0e-9–1.0e-5
+  unit: cm/s
+- id: elastic_modulus
+  name: Secant Modulus (E50)
+  test_methods:
+  - ASTM D2166 / ASTM D2850
+  typical_range: 50–500
+  unit: MPa
+standards:
+- purpose: Unconfined compressive strength of cohesive soil
+  standard: ASTM D2166
+- purpose: Compressive strength of mold soil-cement cylinders
+  standard: ASTM D1633
+- purpose: Hydraulic conductivity of saturated porous materials using a flexible wall permeameter
+  standard: ASTM D5084
 skill_mapping:
-  data_schemas: []
-  figure_packages: []
-  figure_scripts: []
+  data_schemas:
+  - skills/materials-figure/scripts/figures4materials/data/mechanical_properties.csv
+  - skills/materials-figure/scripts/figures4materials/data/bonding_strength.csv
+  - skills/materials-figure/scripts/figures4materials/data/psd_gradation.csv
+  figure_packages:
+  - skills/materials-figure/examples/figure-packages/psd-gradation
+  - skills/materials-figure/examples/figure-packages/stress-strain
+  figure_scripts:
+  - skills/materials-figure/scripts/figures4materials/plot_grouped_bar.py

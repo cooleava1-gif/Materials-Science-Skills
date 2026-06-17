@@ -1,16 +1,16 @@
-# Bioceramics and Bioactive Glasses Narrative
+# Civil Engineering Materials (General) Narrative
 
-For Hydroxyapatite, beta-tricalcium phosphate, bioactive glasses, calcium phosphates, and alumina/zirconia for biomedical implants, the strongest manuscript narrative arc is usually:
+For Catch-all for civil/construction materials research not matching a specific sub-domain; provides general civil-engineering material guidance, the strongest manuscript narrative arc is usually:
 
-1. Bioactivity and osseointegration surface optimization,
-2. Degradation rate control for resorbable bioceramics,
+1. Material selection for civil engineering applications,
+2. Performance optimization of construction materials,
 3. this paper addresses **specific gap in current understanding or performance** through material design and characterization approach,
 4. we demonstrate that key evidence while maintaining competing design requirements,
 5. the results suggest a pathway toward relevant application by resolving the performance trade-off.
 
 ## Key evidence chain
 
-- Processing → structure → properties → performance relationships must be systematically established for Hydroxyapatite, beta-tricalcium phosphate, bioactive glasses, calcium phosphates, and alumina/zirconia for biomedical implants.
+- Processing → structure → properties → performance relationships must be systematically established for Catch-all for civil/construction materials research not matching a specific sub-domain; provides general civil-engineering material guidance.
 - Each claim should be supported by at least one characterization technique.
 - Mechanism claims require complementary characterization evidence.
 
@@ -24,7 +24,7 @@ For Hydroxyapatite, beta-tricalcium phosphate, bioactive glasses, calcium phosph
 
 ## Useful keywords
 
-XRD, SEM/EDS, FTIR/Raman, ICP-OES, Apatite Formation Rate, Compressive Strength, Biodegradation Rate, Porosity, Ion Dissolution Rate
+Mechanical Testing, SEM, Compressive Strength, Modulus of Elasticity
 
 ## Reviewer-safe language
 

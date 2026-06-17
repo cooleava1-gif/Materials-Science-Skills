@@ -24,7 +24,7 @@ For Soils, rocks, grouting materials, stabilized earth, and geosynthetics for ge
 
 ## Useful keywords
 
-Unconfined Compression, SEM
+Unconfined Compression, SEM, Unconfined Compressive Strength (UCS), Coefficient of Permeability, Secant Modulus (E50)
 
 ## Reviewer-safe language
 

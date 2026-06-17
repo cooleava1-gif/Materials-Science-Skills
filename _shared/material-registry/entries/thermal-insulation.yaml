@@ -27,7 +27,7 @@ claim_types:
   - Aged/hygrothermal conditioned thermal performance
   - Mechanical property retention after aging
   type: durability_validation
-coverage_tier: partial
+coverage_tier: full
 cross_references:
   parent: civil-generic
   related:
@@ -53,18 +53,29 @@ figure_archetypes:
   figure_script: skills/materials-figure/scripts/figures4materials/plot_insulation_conductivity_vs_density.py
   id: conductivity_vs_density
   type: conductivity_plot
+  column_roles:
+  - x_labels
+  - series
 - description: Thermal conductivity vs. temperature at different humidity levels
   figure_script: skills/materials-figure/scripts/figures4materials/plot_insulation_conductivity_vs_temp.py
   id: conductivity_vs_temperature
   type: line_plot
+  column_roles:
+  - x_values
+  - y_series
 - description: 'Multi-panel: density vs. conductivity, humidity effect, stress-strain'
   figure_script: skills/materials-figure/scripts/figures4materials/plot_insulation_multipanel.py
   id: insulation_multipanel
   type: multi_panel
+  column_roles:
+  - subfigures
 - description: Compressive stress-strain curve for aerogel/fiber insulation
   figure_script: skills/materials-figure/scripts/figures4materials/plot_insulation_stress_strain.py
   id: insulation_stress_strain
   type: stress_strain
+  column_roles:
+  - strain
+  - stress
 id: thermal-insulation
 name: Thermal Insulation Materials
 narrative:
@@ -102,8 +113,13 @@ properties:
   typical_range: 0.1–1.0
   unit: mm²/s
 skill_mapping:
-  data_schemas: []
-  figure_packages: []
+  data_schemas:
+  - skills/materials-figure/scripts/figures4materials/data/insulation_conductivity_vs_density.csv
+  - skills/materials-figure/scripts/figures4materials/data/insulation_conductivity_humidity.csv
+  - skills/materials-figure/scripts/figures4materials/data/insulation_stress_strain.csv
+  figure_packages:
+  - skills/materials-figure/examples/figure-packages/thermal-insulation-partial-to-full
+  - skills/materials-figure/examples/figure-packages/tg-dsc-thermal
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_insulation_conductivity_vs_density.py
   - skills/materials-figure/scripts/figures4materials/plot_insulation_conductivity_vs_temp.py

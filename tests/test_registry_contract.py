@@ -23,26 +23,27 @@ VALID_TIERS = {"full", "partial", "skeleton", "generic"}
 
 EXPECTED_ENTRIES = {  # id -> coverage_tier
     "asphalt-pavement": "full",
-    "cement-concrete": "partial",
-    "construction-materials": "generic",
-    "steel-metal": "skeleton",
-    "geotechnical-materials": "skeleton",
-    "timber-masonry": "skeleton",
-    "waterproofing-sealants": "skeleton",
-    "sustainability-durability": "skeleton",
-    "civil-generic": "generic",
-    "thermoplastics": "partial",
-    "thermosets": "partial",
-    "rubber-elastomers": "partial",
-    "polymer-composites": "partial",
-    "ferrous-alloys": "skeleton",
-    "nonferrous-alloys": "skeleton",
-    "high-temperature-alloys": "skeleton",
-    "additive-metals": "skeleton",
-    "structural-ceramics": "partial",
-    "functional-ceramics": "skeleton",
-    "refractories": "skeleton",
-    "bioceramics": "skeleton",
+    "cement-concrete": "full",
+    "construction-materials": "full",
+    "steel-metal": "full",
+    "geotechnical-materials": "full",
+    "timber-masonry": "full",
+    "waterproofing-sealants": "full",
+    "sustainability-durability": "full",
+    "civil-generic": "full",
+    "thermoplastics": "full",
+    "thermosets": "full",
+    "rubber-elastomers": "full",
+    "polymer-composites": "full",
+    "thermal-insulation": "full",
+    "ferrous-alloys": "full",
+    "nonferrous-alloys": "full",
+    "high-temperature-alloys": "full",
+    "additive-metals": "full",
+    "structural-ceramics": "full",
+    "functional-ceramics": "full",
+    "refractories": "full",
+    "bioceramics": "full",
     "semiconductors": "skeleton",
     "dielectrics-piezoelectrics": "skeleton",
     "photonic-optoelectronic": "skeleton",
@@ -171,6 +172,19 @@ class RegistryEntryTests(unittest.TestCase):
                     self.assertIn(
                         "domain_fragment", skill_refs,
                         f"{path.name}: {data['coverage_tier']}-tier entry missing domain_fragment"
+                    )
+
+    def test_full_tier_entry_has_figure_packages(self):
+        """Tier 'full' entries must have a non-empty list of figure_packages."""
+        for path in self.entry_files:
+            data = _load_yaml(path)
+            if data.get("coverage_tier") == "full":
+                with self.subTest(entry=path.stem):
+                    sm = data.get("skill_mapping", {})
+                    fps = sm.get("figure_packages", [])
+                    self.assertTrue(
+                        isinstance(fps, list) and len(fps) > 0,
+                        f"{path.name}: full-tier entry must have a non-empty figure_packages list"
                     )
 
     def test_referenced_files_exist(self):

@@ -11,7 +11,7 @@ characterization:
 - evidence_tier: definitive
   method: TGA
   purpose: Fiber/matrix ratio by thermal decomposition
-coverage_tier: partial
+coverage_tier: full
 cross_references:
   related:
   - thermosets
@@ -36,10 +36,33 @@ figure_archetypes:
   figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   id: stress_strain
   type: stress_strain
+  column_roles:
+  - strain
+  - stress
+  column_map:
+    x_values: {"column": "strain_pct"}
+    y_values: {"column": "stress_mpa"}
+    group_by: {"column": "sample_id"}
 - description: Normalized multi-property radar for composite comparison
   figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanical_property_radar.py
   id: mechanical_radar
   type: radar_chart
+  column_roles:
+  - categories
+  - series_dict
+  column_map:
+    categories: {"column": "property"}
+    series:
+    - key: Control
+      column: control_index
+    - key: Modified
+      column: modified_index
+- description: Composite multi-panel characterization combining stress-strain and interface properties
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_polymers_multipanel.py
+  id: composite_multipanel
+  type: multi_panel
+  column_roles:
+  - subfigures
 id: polymer-composites
 name: Polymer Matrix Composites (FRP, CFRP, GFRP)
 narrative:
@@ -75,8 +98,16 @@ properties:
   typical_range: 40–70
   unit: '%'
 skill_mapping:
-  data_schemas: []
-  figure_packages: []
+  data_schemas:
+  - skills/materials-figure/scripts/figures4materials/data/polymer_stress_strain.csv
+  - skills/materials-figure/scripts/figures4materials/data/polymer_tensile.csv
+  - skills/materials-figure/scripts/figures4materials/data/polymer_dsc.csv
+  - skills/materials-figure/scripts/figures4materials/data/polymer_aging.csv
+  - skills/materials-figure/scripts/figures4materials/data/mechanical_properties.csv
+  figure_packages:
+  - skills/materials-figure/examples/figure-packages/polymer-composites-partial-to-full
+  - skills/materials-figure/examples/figure-packages/stress-strain
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   - skills/materials-figure/scripts/figures4materials/plot_mechanical_property_radar.py
+  - skills/materials-figure/scripts/figures4materials/plot_polymers_multipanel.py

@@ -8,7 +8,7 @@ characterization:
 - evidence_tier: strong
   method: Accelerated Aging
   purpose: UV, heat, and water immersion durability
-coverage_tier: skeleton
+coverage_tier: full
 cross_references:
   parent: civil-generic
   related:
@@ -25,6 +25,25 @@ description:
   - Roofing membranes
   - Expansion joint sealants
 family: civil
+figure_archetypes:
+- description: Adhesion pull-off bonding strength on different substrates
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_grouped_bar.py
+  id: adhesion_strength_bar
+  type: grouped_bar
+  column_roles:
+  - x_labels
+  - series
+- description: Tensile properties of sealant materials
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+  id: tensile_properties
+  type: stress_strain
+  column_roles:
+  - strain
+  - stress
+  column_map:
+    x_values: {"column": "strain_pct"}
+    y_values: {"column": "stress_mpa"}
+    group_by: {"column": "sample_id"}
 id: waterproofing-sealants
 name: Waterproofing and Sealant Materials
 narrative:
@@ -34,7 +53,40 @@ narrative:
     domain_fragment: skills/materials-research/static/fragments/domain/civil-generic.md
     narrative_guide: skills/materials-writing/references/waterproofing-sealants-narrative.md
     reviewer_criteria: skills/materials-reviewer/references/asphalt-reviewer-criteria.md
+properties:
+- id: tensile_strength
+  name: Tensile Strength
+  test_methods:
+  - ASTM D412 / GB/T 328.9
+  typical_range: 1.5–15
+  unit: MPa
+- id: elongation_break
+  name: Elongation at Break
+  test_methods:
+  - ASTM D412 / GB/T 328.9
+  typical_range: 100–800
+  unit: '%'
+- id: adhesion_strength
+  name: Adhesion Strength (Pull-off)
+  test_methods:
+  - ASTM D4541 / GB/T 16777
+  typical_range: 0.2–2.0
+  unit: MPa
+standards:
+- purpose: Tension testing of vulcanized rubber and thermoplastic elastomers
+  standard: ASTM D412
+- purpose: Pull-off strength of coatings
+  standard: ASTM D4541
+- purpose: Testing methods for construction waterproofing membranes
+  standard: GB/T 328
+- purpose: Test methods for building waterproofing coatings
+  standard: GB/T 16777
 skill_mapping:
-  data_schemas: []
-  figure_packages: []
-  figure_scripts: []
+  data_schemas:
+  - skills/materials-figure/scripts/figures4materials/data/polymer_stress_strain.csv
+  - skills/materials-figure/scripts/figures4materials/data/bonding_strength.csv
+  figure_packages:
+  - skills/materials-figure/examples/figure-packages/stress-strain
+  figure_scripts:
+  - skills/materials-figure/scripts/figures4materials/plot_grouped_bar.py
+  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py

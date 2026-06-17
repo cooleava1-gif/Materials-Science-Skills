@@ -48,7 +48,7 @@ claim_types:
   - Comparison boundary specified (cradle-to-gate, etc.)
   - CO₂ or energy data with source
   type: sustainability_claim
-coverage_tier: partial
+coverage_tier: full
 cross_references:
   parent: civil-generic
   related:
@@ -72,23 +72,48 @@ family: civil
 figure_archetypes:
 - description: Compressive strength development over curing time for different mix
     designs
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_grouped_bar.py
   id: compressive_strength_bar
   type: grouped_bar
+  column_roles:
+  - x_labels
+  - series
 - description: Heat flow vs. time from isothermal calorimetry showing hydration stages
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_hydration_heat.py
   id: hydration_curve
   type: line_plot
+  column_roles:
+  - x_values
+  - heat_flow
 - description: XRD pattern overlay showing phase evolution with hydration or SCM addition
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
   id: xrd_pattern
   type: xrd_pattern
+  column_roles:
+  - angle
+  - intensity
 - description: TGA/DTG curves showing hydration product quantification
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_tga_dtg_curve.py
   id: tga_overlay
   type: tga_curve
+  column_roles:
+  - x_values
+  - tga
+  - dtg
 - description: Pore size distribution from MIP or NMR
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_particle_size_distribution.py
   id: pore_size_distribution
   type: line_plot
+  column_roles:
+  - x_values
+  - y_series
 - description: Durability indicators comparison (chloride, freeze-thaw, carbonation)
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_dosage_radar.py
   id: durability_chart
   type: radar_chart
+  column_roles:
+  - categories
+  - series_dict
 id: cement-concrete
 name: Cement and Concrete Materials
 narrative:
@@ -137,9 +162,22 @@ properties:
   typical_range: 200–500
   unit: J/g
 skill_mapping:
-  data_schemas: []
-  figure_packages: []
-  figure_scripts: []
+  data_schemas:
+  - skills/materials-figure/scripts/figures4materials/data/hydration_heat.csv
+  - skills/materials-figure/scripts/figures4materials/data/xrd_pattern.csv
+  - skills/materials-figure/scripts/figures4materials/data/tga_dtg_curve.csv
+  - skills/materials-figure/scripts/figures4materials/data/dosage_window.csv
+  - skills/materials-figure/scripts/figures4materials/data/bonding_strength.csv
+  - skills/materials-figure/scripts/figures4materials/data/particle_size_distribution.csv
+  figure_packages:
+  - skills/materials-figure/examples/figure-packages/tg-dsc-thermal
+  figure_scripts:
+  - skills/materials-figure/scripts/figures4materials/plot_grouped_bar.py
+  - skills/materials-figure/scripts/figures4materials/plot_hydration_heat.py
+  - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
+  - skills/materials-figure/scripts/figures4materials/plot_tga_dtg_curve.py
+  - skills/materials-figure/scripts/figures4materials/plot_dosage_radar.py
+  - skills/materials-figure/scripts/figures4materials/plot_particle_size_distribution.py
 standards:
 - purpose: Compressive strength of cylindrical/cubic specimens
   standard: ASTM C39 / GB/T 50081

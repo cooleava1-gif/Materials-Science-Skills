@@ -24,7 +24,7 @@ For Structural steel, reinforcement bars, corrosion protection, and metal compon
 
 ## Useful keywords
 
-Tensile Testing, SEM/EDS, XRD, EIS
+Tensile Testing, SEM/EDS, XRD, EIS, Yield Strength, Ultimate Tensile Strength, Elongation at Fracture, Corrosion Rate
 
 ## Reviewer-safe language
 

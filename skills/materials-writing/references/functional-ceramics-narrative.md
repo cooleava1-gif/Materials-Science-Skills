@@ -24,7 +24,7 @@ For Piezoelectric ceramics (PZT, BaTiO₃, KNN), dielectric/ferroelectric cerami
 
 ## Useful keywords
 
-XRD, SEM, Impedance Analyzer, P-E Hysteresis (Ferroelectric Tester), Raman Spectroscopy
+XRD, SEM, Impedance Analyzer, P-E Hysteresis (Ferroelectric Tester), Raman Spectroscopy, Dielectric Constant, Dielectric Loss (tan δ), Piezoelectric Coefficient (d₃₃), Remnant Polarization (Pr), Coercive Field (Ec)
 
 ## Reviewer-safe language
 

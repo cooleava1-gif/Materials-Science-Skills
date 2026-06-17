@@ -166,6 +166,14 @@ fields:
         type: string
         required: false
         description: "Path to a figure script that produces this archetype"
+      column_roles:
+        type: list_of_strings
+        required: false
+        description: "Semantic roles mapped to columns"
+      column_map:
+        type: dict
+        required: false
+        description: "Explicit mapping overrides for figure script"
 
   narrative:
     type: dict

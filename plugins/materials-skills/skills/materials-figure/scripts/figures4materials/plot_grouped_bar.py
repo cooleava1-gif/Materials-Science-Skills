@@ -19,7 +19,6 @@ import json
 import matplotlib.pyplot as plt
 
 from _script_helpers import data_path, load_mapped_data, print_caption
-from _script_helpers import COLUMN_MAP as _  # noqa: ensure module-level docs load
 from materials_plot_lib import PALETTE_CBM, add_panel_label, annotate_bars, apply_pub_style, finalize_figure, make_grouped_bar, tighten_ylimits
 
 # ── Column map ────────────────────────────────────────────────────────────

@@ -24,7 +24,7 @@ For Engineered wood products, masonry units, bamboo composites, and natural buil
 
 ## Useful keywords
 
-Mechanical Testing, SEM
+Mechanical Testing, SEM, Compressive Strength Parallel to Grain, Flexural Strength (MOR), Moisture Content
 
 ## Reviewer-safe language
 

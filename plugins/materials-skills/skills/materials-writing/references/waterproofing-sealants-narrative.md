@@ -24,7 +24,7 @@ For Bituminous membranes, liquid-applied membranes, sealant materials, and water
 
 ## Useful keywords
 
-Tensile/Elongation Testing, Adhesion Testing (Pull-off), Accelerated Aging
+Tensile/Elongation Testing, Adhesion Testing (Pull-off), Accelerated Aging, Tensile Strength, Elongation at Break, Adhesion Strength (Pull-off)
 
 ## Reviewer-safe language
 

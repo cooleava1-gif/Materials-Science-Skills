@@ -903,7 +903,415 @@ def add_shared_legend(
     )
 
 
-def _series_colors(palette: dict[str, str], count: int) -> list[str]:
+def make_heat_flow_curve(
+    ax: plt.Axes,
+    time_hours: Sequence[float],
+    heat_flow: Sequence[Sequence[float]],
+    labels: Sequence[str],
+    palette: dict[str, str],
+    *,
+    cumulative_heat: Sequence[Sequence[float]] | None = None,
+    cum_labels: Sequence[str] | None = None,
+    xlabel: str = "Time (h)",
+) -> list:
+    """Isothermal calorimetry: heat flow vs time, optional cumulative heat."""
+    x = np.asarray(time_hours, dtype=float)
+    colors = _series_colors(palette, len(heat_flow))
+    lines = []
+    for index, hf in enumerate(heat_flow):
+        y = np.asarray(hf, dtype=float)
+        line = ax.plot(x, y, linewidth=1.8, label=labels[index], color=colors[index])
+        lines.extend(line)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel("Heat flow (mW/g)")
+    ax.grid(color="#E8E2D6", linewidth=0.7, alpha=0.65)
+    if cumulative_heat is not None:
+        ax_cum = ax.twinx()
+        all_colors = _series_colors(palette, len(heat_flow) + len(cumulative_heat))
+        cum_colors = all_colors[len(heat_flow):]
+        cum_names = cum_labels or [f"{l} cum." for l in labels]
+        for index, ch in enumerate(cumulative_heat):
+            ax_cum.plot(x, np.asarray(ch, dtype=float), linewidth=1.5, linestyle="--",
+                        label=cum_names[index], color=cum_colors[index])
+        ax_cum.set_ylabel("Cumulative heat (J/g)")
+        lines1, labels1 = ax.get_legend_handles_labels()
+        lines2, labels2 = ax_cum.get_legend_handles_labels()
+        ax.legend(lines1 + lines2, labels1 + labels2, fontsize=8, frameon=False)
+    else:
+        ax.legend(fontsize=8, frameon=False)
+    return lines
+
+
+def make_flow_curve(
+    ax: plt.Axes,
+    shear_rate: Sequence[float],
+    viscosity: Sequence[Sequence[float]],
+    labels: Sequence[str],
+    palette: dict[str, str],
+    *,
+    xlabel: str = "Shear rate (s$^{-1}$)",
+    ylabel: str = "Viscosity (Pa·s)",
+    log_x: bool = True,
+    log_y: bool = True,
+) -> list:
+    """Rheology flow curve: viscosity vs shear rate, optionally log-log."""
+    x = np.asarray(shear_rate, dtype=float)
+    colors = _series_colors(palette, len(viscosity))
+    lines = []
+    for index, visc in enumerate(viscosity):
+        y = np.asarray(visc, dtype=float)
+        line = ax.plot(x, y, marker="o", linewidth=2, label=labels[index], color=colors[index])
+        lines.extend(line)
+    if log_x:
+        ax.set_xscale("log")
+    if log_y:
+        ax.set_yscale("log")
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    ax.grid(color="#E8E2D6", linewidth=0.7, alpha=0.65)
+    ax.legend()
+    return lines
+
+
+def make_psd_curve(
+    ax: plt.Axes,
+    sieve_size: Sequence[float],
+    cumulative_passing: Sequence[Sequence[float]],
+    labels: Sequence[str],
+    palette: dict[str, str],
+    *,
+    xlabel: str = "Sieve size (mm)",
+    ylabel: str = "Cumulative passing (%)",
+) -> list:
+    """Particle size distribution: cumulative % passing vs log sieve size."""
+    x = np.asarray(sieve_size, dtype=float)
+    colors = _series_colors(palette, len(cumulative_passing))
+    lines = []
+    for index, cp in enumerate(cumulative_passing):
+        y = np.asarray(cp, dtype=float)
+        line = ax.plot(x, y, marker="s", linewidth=2, label=labels[index], color=colors[index])
+        lines.extend(line)
+    ax.set_xscale("log")
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    ax.set_ylim(0, 105)
+    ax.grid(color="#E8E2D6", linewidth=0.7, alpha=0.65)
+    ax.legend()
+    return lines
+
+
+def make_creep_recovery(
+    ax: plt.Axes,
+    time: Sequence[float],
+    strain: Sequence[Sequence[float]],
+    labels: Sequence[str],
+    palette: dict[str, str],
+    *,
+    xlabel: str = "Time (s)",
+    ylabel: str = "Strain (%)",
+    recovery_zones: list[tuple[float, float]] | None = None,
+) -> list:
+    """Creep-recovery curves: strain vs time, optional recovery zone shading."""
+    x = np.asarray(time, dtype=float)
+    colors = _series_colors(palette, len(strain))
+    lines = []
+    for index, s in enumerate(strain):
+        y = np.asarray(s, dtype=float)
+        line = ax.plot(x, y, linewidth=2, label=labels[index], color=colors[index])
+        lines.extend(line)
+    if recovery_zones:
+        for start, end in recovery_zones:
+            ax.axvspan(start, end, color=palette.get("accent", "#D4A574"), alpha=0.15)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    ax.grid(color="#E8E2D6", linewidth=0.7, alpha=0.65)
+    ax.legend()
+    return lines
+
+
+def make_sn_curve(
+    ax: plt.Axes,
+    cycles: Sequence[float],
+    stress_amplitude: Sequence[Sequence[float]],
+    labels: Sequence[str],
+    palette: dict[str, str],
+    *,
+    xlabel: str = "Cycles to failure",
+    ylabel: str = "Stress amplitude (MPa)",
+    runout_markers: dict[str, list[float]] | None = None,
+) -> list:
+    """S-N fatigue curve: stress amplitude vs log cycles to failure."""
+    x = np.asarray(cycles, dtype=float)
+    colors = _series_colors(palette, len(stress_amplitude))
+    lines = []
+    for index, sa in enumerate(stress_amplitude):
+        y = np.asarray(sa, dtype=float)
+        line = ax.plot(x, y, marker="o", linewidth=2, label=labels[index], color=colors[index])
+        lines.extend(line)
+    if runout_markers:
+        marker_color = palette.get("neutral", "#8C8C8C")
+        for label, runouts in runout_markers.items():
+            ax.scatter(runouts, [0] * len(runouts), marker="→", s=80,
+                       color=marker_color, label=f"{label} (runout)", zorder=5)
+    ax.set_xscale("log")
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    ax.grid(color="#E8E2D6", linewidth=0.7, alpha=0.65)
+    ax.legend()
+    return lines
+
+
+def make_tg_dsc_overlay(
+    ax: plt.Axes,
+    temp: Sequence[float],
+    tga_pct: Sequence[float],
+    dsc_heatflow: Sequence[float] | None = None,
+    *,
+    tga_label: str = "TGA",
+    dsc_label: str = "DSC",
+    xlabel: str = "Temperature (°C)",
+    palette: dict[str, str] | None = None,
+) -> tuple[plt.Axes, plt.Axes | None]:
+    """TG-DSC combined thermal analysis: TGA mass loss + DSC heat flow.
+
+    Returns (ax_tga, ax_dsc) for further customization. ax_dsc is None if no DSC data.
+    """
+    colors = _series_colors(palette or PALETTE_CBM, 2)
+    x = np.asarray(temp, dtype=float)
+    ax_tga = ax
+    ax_tga.plot(x, tga_pct, color=colors[0], linewidth=1.8, label=tga_label)
+    ax_tga.set_xlabel(xlabel)
+    ax_tga.set_ylabel("Mass (%)", color=colors[0])
+    ax_tga.tick_params(axis="y", labelcolor=colors[0])
+
+    ax_dsc = None
+    if dsc_heatflow is not None:
+        ax_dsc = ax_tga.twinx()
+        ax_dsc.plot(x, np.asarray(dsc_heatflow, dtype=float),
+                     color=colors[1], linewidth=1.5, linestyle="--", label=dsc_label)
+        ax_dsc.set_ylabel("Heat flow (mW/mg)", color=colors[1])
+        ax_dsc.tick_params(axis="y", labelcolor=colors[1])
+        lines1, labels1 = ax_tga.get_legend_handles_labels()
+        lines2, labels2 = ax_dsc.get_legend_handles_labels()
+        ax_tga.legend(lines1 + lines2, labels1 + labels2, fontsize=8, frameon=False)
+    else:
+        ax_tga.legend(fontsize=8, frameon=False)
+    return ax_tga, ax_dsc
+
+
+def make_ternary(
+    ax: plt.Axes,
+    a_pct: Sequence[float],
+    b_pct: Sequence[float],
+    c_pct: Sequence[float],
+    labels: Sequence[str],
+    palette: dict[str, str],
+    *,
+    a_label: str = "A",
+    b_label: str = "B",
+    c_label: str = "C",
+) -> plt.Axes:
+    """Ternary scatter plot on a pre-configured triangular axis."""
+    a_arr = np.asarray(a_pct, dtype=float)
+    b_arr = np.asarray(b_pct, dtype=float)
+    c_arr = np.asarray(c_pct, dtype=float)
+    total = a_arr + b_arr + c_arr
+    a_norm, b_norm, c_norm = a_arr / total, b_arr / total, c_arr / total
+
+    # Cartesian mapping for equilateral ternary
+    x = b_norm + c_norm / 2
+    y = c_norm * np.sqrt(3) / 2
+
+    colors = _series_colors(palette, len(labels))
+
+    # Draw ternary frame
+    tri_x = [0, 1, 0.5, 0]
+    tri_y = [0, 0, np.sqrt(3) / 2, 0]
+    ax.plot(tri_x, tri_y, color="#333", linewidth=1.2)
+    ax.text(0, -0.05, a_label, ha="center", va="top", fontsize=10, fontweight="bold")
+    ax.text(1, -0.05, b_label, ha="center", va="top", fontsize=10, fontweight="bold")
+    ax.text(0.5, np.sqrt(3) / 2 + 0.03, c_label, ha="center", va="bottom", fontsize=10, fontweight="bold")
+
+    # Grid lines
+    for t in np.arange(0.1, 1.0, 0.1):
+        ax.plot([t, t / 2], [0, t * np.sqrt(3) / 2], color="#E8E2D6", linewidth=0.5, alpha=0.7)
+        ax.plot([1 - t / 2, t / 2 + (1 - t)], [t * np.sqrt(3) / 2, 0], color="#E8E2D6", linewidth=0.5, alpha=0.7)
+        ax.plot([t / 2, 1 - t / 2], [t * np.sqrt(3) / 2, t * np.sqrt(3) / 2], color="#E8E2D6", linewidth=0.5, alpha=0.7)
+
+    for idx, label in enumerate(labels):
+        color = colors[idx % len(colors)]
+        ax.scatter(x[idx], y[idx], color=color, s=80, label=label, zorder=5, edgecolor="white", linewidth=0.8)
+
+    ax.set_aspect("equal")
+    ax.axis("off")
+    ax.legend(fontsize=8, frameon=False, loc="upper right")
+    return ax
+
+
+def make_weibull_plot(
+    ax: plt.Axes,
+    strength: Sequence[float],
+    labels: Sequence[str] | None = None,
+    palette: dict[str, str] | None = None,
+    *,
+    xlabel: str = "ln(strength)",
+    ylabel: str = "ln(ln(1/(1-P)))",
+) -> plt.Axes:
+    """Weibull probability plot for strength distribution analysis."""
+    data = np.asarray(strength, dtype=float)
+    n = len(data)
+    sorted_data = np.sort(data)
+    ranks = np.arange(1, n + 1)
+    p = (ranks - 0.5) / n  # median rank
+    y = np.log(np.log(1 / (1 - p)))
+    x = np.log(sorted_data)
+
+    color = _series_colors(palette or PALETTE_CBM, 1)[0]
+    label = labels[0] if labels else "Data"
+    ax.scatter(x, y, color=color, s=40, label=label, zorder=5)
+
+    # Linear fit
+    mask = np.isfinite(y)
+    if mask.sum() >= 4:
+        coeffs = np.polyfit(x[mask], y[mask], 1)
+        fit_line = np.poly1d(coeffs)
+        x_fit = np.linspace(x[mask].min(), x[mask].max(), 100)
+        ax.plot(x_fit, fit_line(x_fit), color=color, linewidth=1.5, linestyle="--",
+                label=f"Weibull fit (m={coeffs[0]:.2f})")
+
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    ax.grid(color="#E8E2D6", linewidth=0.7, alpha=0.65)
+    ax.legend(fontsize=8, frameon=False)
+    return ax
+
+
+def make_stress_strain(
+    ax: plt.Axes,
+    strain: Sequence[float],
+    stress: Sequence[Sequence[float]],
+    labels: Sequence[str],
+    palette: dict[str, str],
+    *,
+    xlabel: str = "Strain (%)",
+    ylabel: str = "Stress (MPa)",
+    failure_points: dict[str, tuple[float, float]] | None = None,
+) -> list:
+    """Stress-strain curves with optional failure point markers."""
+    x = np.asarray(strain, dtype=float)
+    colors = _series_colors(palette, len(stress))
+    lines = []
+    for index, s in enumerate(stress):
+        y = np.asarray(s, dtype=float)
+        line = ax.plot(x, y, linewidth=2, label=labels[index], color=colors[index])
+        lines.extend(line)
+    if failure_points:
+        for label, (sx, sy) in failure_points.items():
+            color = palette.get("danger", "#B85450")
+            ax.scatter([sx], [sy], marker="X", s=100, color=color, zorder=6)
+            ax.annotate(label, (sx, sy), textcoords="offset points", xytext=(8, 8), fontsize=8, color=color)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    ax.grid(color="#E8E2D6", linewidth=0.7, alpha=0.65)
+    ax.legend()
+    return lines
+
+
+def make_dma_curve(
+    ax: plt.Axes,
+    temp: Sequence[float],
+    storage_modulus: Sequence[float],
+    loss_modulus: Sequence[float] | None = None,
+    tan_delta: Sequence[float] | None = None,
+    *,
+    tga_label: str = "E'",
+    loss_label: str = "E''",
+    tan_label: str = "tan δ",
+    xlabel: str = "Temperature (°C)",
+    palette: dict[str, str] | None = None,
+) -> tuple[plt.Axes, plt.Axes | None]:
+    """DMA curve: storage/loss modulus + tan delta vs temperature."""
+    colors = _series_colors(palette or PALETTE_CBM, 3)
+    x = np.asarray(temp, dtype=float)
+    ax_mod = ax
+    ax_mod.plot(x, storage_modulus, color=colors[0], linewidth=1.8, label=tga_label)
+    ax_mod.set_xlabel(xlabel)
+    ax_mod.set_ylabel("Modulus (MPa)", color=colors[0])
+    ax_mod.tick_params(axis="y", labelcolor=colors[0])
+    ax_mod.set_yscale("log")
+
+    if loss_modulus is not None:
+        ax_mod.plot(x, loss_modulus, color=colors[1], linewidth=1.5, linestyle="--", label=loss_label)
+
+    ax_dma = None
+    if tan_delta is not None:
+        ax_dma = ax_mod.twinx()
+        ax_dma.plot(x, np.asarray(tan_delta, dtype=float),
+                     color=colors[2], linewidth=1.8, label=tan_label)
+        ax_dma.set_ylabel("tan δ", color=colors[2])
+        ax_dma.tick_params(axis="y", labelcolor=colors[2])
+
+    lines1, labels1 = ax_mod.get_legend_handles_labels()
+    if ax_dma is not None:
+        lines2, labels2 = ax_dma.get_legend_handles_labels()
+        ax_mod.legend(lines1 + lines2, labels1 + labels2, fontsize=8, frameon=False)
+    else:
+        ax_mod.legend(fontsize=8, frameon=False)
+    ax_mod.grid(color="#E8E2D6", linewidth=0.7, alpha=0.65)
+    return ax_mod, ax_dma
+
+
+def make_absorption_curve(
+    ax: plt.Axes,
+    time_days: Sequence[float],
+    mass_gain_pct: Sequence[Sequence[float]],
+    labels: Sequence[str],
+    palette: dict[str, str],
+    *,
+    xlabel: str = "Time (days$^{1/2}$)",
+    ylabel: str = "Mass gain (%)",
+    sqrt_time: bool = True,
+) -> list:
+    """Water absorption curve: mass gain % vs sqrt(time) or log(time)."""
+    t = np.asarray(time_days, dtype=float)
+    x = np.sqrt(t) if sqrt_time else t
+    colors = _series_colors(palette, len(mass_gain_pct))
+    lines = []
+    for index, mg in enumerate(mass_gain_pct):
+        y = np.asarray(mg, dtype=float)
+        line = ax.plot(x, y, marker="s", linewidth=2, label=labels[index], color=colors[index])
+        lines.extend(line)
+    if sqrt_time:
+        ax.set_xlabel(xlabel)
+    else:
+        ax.set_xlabel("Time (days)")
+    ax.set_ylabel(ylabel)
+    ax.grid(color="#E8E2D6", linewidth=0.7, alpha=0.65)
+    ax.legend()
+    return lines
+
+
+def make_multi_panel(
+    nrows: int,
+    ncols: int,
+    *,
+    figsize: tuple[float, float] | None = None,
+    panel_labels: bool = True,
+) -> tuple[plt.Figure, np.ndarray]:
+    """Create a multi-panel figure with optional (a), (b), (c)... auto-labels."""
+    default_size = (ncols * 3.8, nrows * 3.2)
+    figsize = figsize or default_size
+    fig, axes = plt.subplots(nrows, ncols, figsize=figsize)
+    axes_flat = np.asarray(axes).flatten()
+    if panel_labels:
+        letters = [chr(97 + i) for i in range(len(axes_flat))]  # a, b, c, ...
+        for idx, axi in enumerate(axes_flat):
+            if idx < len(letters):
+                add_panel_label(axi, f"({letters[idx]})")
+    return fig, axes_flat
+
+
+def _series_colors(palette: dict[str, str], count: int, offset: int = 0) -> list[str]:
     preferred = [
         "control", "modified", "optimal", "mechanism", "moisture", "aging",
         "hydration", "durability", "thermal", "mechanical", "accent", "danger",
@@ -912,6 +1320,6 @@ def _series_colors(palette: dict[str, str], count: int) -> list[str]:
     colors = [palette[key] for key in preferred if key in palette]
     if not colors:
         colors = list(plt.rcParams["axes.prop_cycle"].by_key().get("color", ["#4B6F8A"]))
-    while len(colors) < count:
+    while len(colors) < count + offset:
         colors.extend(colors)
-    return colors[:count]
+    return colors[offset:offset + count]
