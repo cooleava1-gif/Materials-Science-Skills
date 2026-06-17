@@ -241,6 +241,56 @@ class ProductDocsContractTests(unittest.TestCase):
         }
         self.assertEqual(entry_ids, listed_ids)
 
+    def test_dashboard_per_row_tier_matches_registry(self):
+        """Every dashboard row must show the same tier as the registry entry."""
+        entries = {e["id"]: e for e in load_registry_entries()}
+        dashboard_text = (ROOT / "docs" / "coverage-dashboard.md").read_text(encoding="utf-8")
+        material_table = dashboard_text.split("## Tier Definitions", 1)[0]
+        tier_markers = {
+            "full": "🟢 **full**",
+            "partial": "🟡 **partial**",
+            "skeleton": "🔵 **skeleton**",
+            "generic": "⚪ **generic**",
+        }
+        mismatches = []
+        for line in material_table.splitlines():
+            if not line.startswith("| **") or line.count("**") < 2:
+                continue
+            domain_id = line.split("**", 2)[1]
+            if domain_id not in entries:
+                continue
+            expected_marker = tier_markers[entries[domain_id]["coverage_tier"]]
+            if expected_marker not in line:
+                mismatches.append(
+                    f"{domain_id}: registry={entries[domain_id]['coverage_tier']}, "
+                    f"dashboard line does not contain '{expected_marker}'"
+                )
+        self.assertEqual([], mismatches, "Dashboard tier drift detected:\n" + "\n".join(mismatches))
+
+    def test_manifest_domain_tiers_match_registry(self):
+        """The materials-research manifest domain coverage_tier must match the registry."""
+        entries = {e["id"]: e for e in load_registry_entries()}
+        manifest_path = ROOT / "skills" / "materials-research" / "manifest.yaml"
+        manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+        domain_values = manifest["axes"]["domain"]["values"]
+        mismatches = []
+        for domain_id, config in domain_values.items():
+            if domain_id == "general":
+                continue
+            if domain_id not in entries:
+                continue
+            manifest_tier = config.get("coverage_tier", "(missing)")
+            registry_tier = entries[domain_id]["coverage_tier"]
+            if manifest_tier != registry_tier:
+                mismatches.append(
+                    f"{domain_id}: manifest={manifest_tier}, registry={registry_tier}"
+                )
+        self.assertEqual(
+            [],
+            mismatches,
+            "Manifest ↔ registry tier drift detected:\n" + "\n".join(mismatches),
+        )
+
     def test_docs_do_not_advertise_removed_general_routes(self):
         # Internal compose/superpowers notes are ignored local planning files.
         # This contract covers the tracked public documentation surface.
