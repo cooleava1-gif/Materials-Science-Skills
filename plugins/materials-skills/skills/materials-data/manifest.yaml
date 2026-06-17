@@ -143,6 +143,15 @@ references:
     cement-schema:
       path: references/cement-concrete-data-schema.md
       when: "The task involves cement data."
+    civil-schema:
+      path: references/civil-data-schema.md
+      when: "The task involves civil, construction, soil, aggregate, asphalt, or pavement data."
+    ceramics-schema:
+      path: references/ceramics-data-schema.md
+      when: "The task involves ceramic, refractory, or sintered inorganic material data."
+    insulation-schema:
+      path: references/thermal-insulation-data-schema.md
+      when: "The task involves thermal insulation, foam, aerogel, or VIP data."
     ceramics-data-template:
       path: assets/templates/experiment-data-template-ceramics.csv
       when: "The user needs a ceramics experiment data template."
