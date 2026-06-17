@@ -44,13 +44,13 @@ EXPECTED_ENTRIES = {  # id -> coverage_tier
     "functional-ceramics": "full",
     "refractories": "full",
     "bioceramics": "full",
-    "semiconductors": "partial",
-    "dielectrics-piezoelectrics": "partial",
-    "photonic-optoelectronic": "partial",
-    "nanoparticles": "partial",
-    "nano-thin-films": "partial",
-    "2d-materials": "partial",
-    "nanocomposites": "partial",
+    "semiconductors": "full",
+    "dielectrics-piezoelectrics": "full",
+    "photonic-optoelectronic": "full",
+    "nanoparticles": "full",
+    "nano-thin-films": "full",
+    "2d-materials": "full",
+    "nanocomposites": "full",
 }
 
 

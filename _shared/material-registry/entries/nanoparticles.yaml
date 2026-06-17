@@ -14,7 +14,7 @@ characterization:
 - evidence_tier: strong
   method: Zeta Potential
   purpose: Surface charge and colloidal stability assessment
-coverage_tier: partial
+coverage_tier: full
 cross_references:
   related:
   - nanocomposites
@@ -34,12 +34,36 @@ description:
   - Nano-enhanced composites
 family: nano
 figure_archetypes:
-- description: TEM/HRTEM images with particle size histogram
-  id: tem_image
-  type: sem_image
-- description: UV-Vis absorption spectrum showing SPR or band edge
-  id: uv_vis_spectrum
-  type: line_plot
+- id: xrd_pattern
+  description: X-ray diffraction pattern for phase identification
+  required_columns:
+  - two_theta
+  - gold_np
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
+  data_schema: skills/materials-figure/scripts/figures4materials/data/nanoparticles_xrd.csv
+  column_map:
+    x_values:
+      column: two_theta
+    y_series:
+    - key: Gold Np
+      column: gold_np
+    - key: Silver Np
+      column: silver_np
+- id: trend_curve
+  description: Average particle diameter trend with uncertainty
+  required_columns:
+  - reaction_time_h
+  - mean_diameter_nm
+  - mean_diameter_nm_std
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
+  data_schema: skills/materials-figure/scripts/figures4materials/data/nanoparticles_trend_curve.csv
+  column_map:
+    x_values:
+      column: reaction_time_h
+    y_values:
+      column: mean_diameter_nm
+    y_errors:
+      column: mean_diameter_nm_std
 id: nanoparticles
 name: Nanoparticles and Quantum Dots
 narrative:
@@ -48,10 +72,13 @@ narrative:
   skill_references:
     domain_fragment: skills/materials-research/static/fragments/domain/nanoparticles.md
     narrative_guide: skills/materials-writing/references/nanoparticles-narrative.md
-    reviewer_criteria: skills/materials-reviewer/references/nano-reviewer-criteria.md
+    reviewer_criteria: skills/materials-reviewer/references/nanoparticles-reviewer-criteria.md
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/particle_size_distribution.csv
-  figure_packages: []
+  - skills/materials-figure/scripts/figures4materials/data/nanoparticles_xrd.csv
+  - skills/materials-figure/scripts/figures4materials/data/nanoparticles_trend_curve.csv
+  figure_packages:
+  - skills/materials-figure/examples/figure-packages/nanoparticles-demo
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_particle_size_distribution.py
+  - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
+  - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py

@@ -11,7 +11,7 @@ characterization:
 - evidence_tier: strong
   method: XRD
   purpose: Crystal structure, thin film orientation
-coverage_tier: partial
+coverage_tier: full
 cross_references:
   related:
   - semiconductors
@@ -30,9 +30,36 @@ description:
   - Integrated photonic devices
 family: functional
 figure_archetypes:
-- description: External quantum efficiency as a function of wavelength
-  id: eqe_curve
-  type: line_plot
+- id: xrd_pattern
+  description: X-ray diffraction pattern for phase identification
+  required_columns:
+  - two_theta
+  - bulk_perovskite
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
+  data_schema: skills/materials-figure/scripts/figures4materials/data/photonic-optoelectronic_xrd.csv
+  column_map:
+    x_values:
+      column: two_theta
+    y_series:
+    - key: Bulk Perovskite
+      column: bulk_perovskite
+    - key: Nanocrystal Perovskite
+      column: nanocrystal_perovskite
+- id: trend_curve
+  description: External quantum efficiency trend with uncertainty
+  required_columns:
+  - wavelength_nm
+  - EQE_percent
+  - EQE_percent_std
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
+  data_schema: skills/materials-figure/scripts/figures4materials/data/photonic-optoelectronic_trend_curve.csv
+  column_map:
+    x_values:
+      column: wavelength_nm
+    y_values:
+      column: EQE_percent
+    y_errors:
+      column: EQE_percent_std
 id: photonic-optoelectronic
 name: Photonic and Optoelectronic Materials
 narrative:
@@ -41,10 +68,13 @@ narrative:
   skill_references:
     domain_fragment: skills/materials-research/static/fragments/domain/photonic-optoelectronic.md
     narrative_guide: skills/materials-writing/references/photonic-optoelectronic-narrative.md
-    reviewer_criteria: skills/materials-reviewer/references/functional-reviewer-criteria.md
+    reviewer_criteria: skills/materials-reviewer/references/photonic-optoelectronic-reviewer-criteria.md
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/nano_xrd.csv
-  figure_packages: []
+  - skills/materials-figure/scripts/figures4materials/data/photonic-optoelectronic_xrd.csv
+  - skills/materials-figure/scripts/figures4materials/data/photonic-optoelectronic_trend_curve.csv
+  figure_packages:
+  - skills/materials-figure/examples/figure-packages/photonic-optoelectronic-demo
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
+  - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py

@@ -11,7 +11,7 @@ characterization:
 - evidence_tier: strong
   method: DMA
   purpose: Storage modulus enhancement, Tg shift, filler-matrix interaction
-coverage_tier: partial
+coverage_tier: full
 cross_references:
   related:
   - nanoparticles
@@ -32,14 +32,38 @@ description:
   - Barrier films and packaging
 family: nano
 figure_archetypes:
-- description: Tensile stress-strain curves for different filler loadings
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
-  id: stress_strain
-  type: stress_strain
-- description: Normalized multi-property radar for nanocomposite comparison
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanical_property_radar.py
-  id: mechanical_radar
-  type: radar_chart
+- id: xrd_pattern
+  description: X-ray diffraction pattern for phase identification
+  required_columns:
+  - two_theta
+  - neat_matrix
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
+  data_schema: skills/materials-figure/scripts/figures4materials/data/nanocomposites_xrd.csv
+  column_map:
+    x_values:
+      column: two_theta
+    y_series:
+    - key: Neat Matrix
+      column: neat_matrix
+    - key: 0.5Wt Filler
+      column: 0.5wt_filler
+    - key: 1.0Wt Filler
+      column: 1.0wt_filler
+- id: trend_curve
+  description: Tensile strength trend with uncertainty
+  required_columns:
+  - filler_loading_wt
+  - tensile_strength_MPa
+  - tensile_strength_MPa_std
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
+  data_schema: skills/materials-figure/scripts/figures4materials/data/nanocomposites_trend_curve.csv
+  column_map:
+    x_values:
+      column: filler_loading_wt
+    y_values:
+      column: tensile_strength_MPa
+    y_errors:
+      column: tensile_strength_MPa_std
 id: nanocomposites
 name: Nanocomposites and Nano-Filled Systems
 narrative:
@@ -47,12 +71,13 @@ narrative:
   skill_references:
     domain_fragment: skills/materials-research/static/fragments/domain/nanocomposites.md
     narrative_guide: skills/materials-writing/references/nanocomposites-narrative.md
-    reviewer_criteria: skills/materials-reviewer/references/nano-reviewer-criteria.md
+    reviewer_criteria: skills/materials-reviewer/references/nanocomposites-reviewer-criteria.md
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/stress_strain.csv
-  - skills/materials-figure/scripts/figures4materials/data/mechanical_properties.csv
-  figure_packages: []
+  - skills/materials-figure/scripts/figures4materials/data/nanocomposites_xrd.csv
+  - skills/materials-figure/scripts/figures4materials/data/nanocomposites_trend_curve.csv
+  figure_packages:
+  - skills/materials-figure/examples/figure-packages/nanocomposites-demo
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanical_property_radar.py
+  - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
+  - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py

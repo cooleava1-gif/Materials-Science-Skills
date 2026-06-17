@@ -31,13 +31,13 @@
 | **functional-ceramics** | ceramics | 🟢 **full** | ✅ functional-ceramics-narrative | ✅ ceramics-reviewer-criteria | ✅ 3 scripts | ✅ 2 packages |
 | **refractories** | ceramics | 🟢 **full** | ✅ refractories-narrative | ✅ ceramics-reviewer-criteria | ✅ 3 scripts | ✅ 2 packages |
 | **bioceramics** | ceramics | 🟢 **full** | ✅ bioceramics-narrative | ✅ ceramics-reviewer-criteria | ✅ 3 scripts | ✅ 2 packages |
-| **semiconductors** | functional | 🟡 **partial** | ✅ semiconductors-narrative | ✅ functional-reviewer-criteria | ✅ 1 generic | — |
-| **dielectrics-piezoelectrics** | functional | 🟡 **partial** | ✅ dielectrics-piezoelectrics-narrative | ✅ functional-reviewer-criteria | ✅ 1 generic | — |
-| **photonic-optoelectronic** | functional | 🟡 **partial** | ✅ photonic-optoelectronic-narrative | ✅ functional-reviewer-criteria | ✅ 1 generic | — |
-| **nanoparticles** | nano | 🟡 **partial** | ✅ nanoparticles-narrative | ✅ nano-reviewer-criteria | ✅ 1 generic | — |
-| **nano-thin-films** | nano | 🟡 **partial** | ✅ nano-thin-films-narrative | ✅ nano-reviewer-criteria | ✅ 1 generic | — |
-| **2d-materials** | nano | 🟡 **partial** | ✅ 2d-materials-narrative | ✅ nano-reviewer-criteria | ✅ 1 generic | — |
-| **nanocomposites** | nano | 🟡 **partial** | ✅ nanocomposites-narrative | ✅ nano-reviewer-criteria | ✅ 2 generic | — |
+| **semiconductors** | functional | 🟢 **full** | ✅ semiconductors-narrative | ✅ semiconductors-reviewer-criteria | ✅ 2 scripts | ✅ 1 package |
+| **dielectrics-piezoelectrics** | functional | 🟢 **full** | ✅ dielectrics-piezoelectrics-narrative | ✅ dielectrics-piezoelectrics-reviewer-criteria | ✅ 2 scripts | ✅ 1 package |
+| **photonic-optoelectronic** | functional | 🟢 **full** | ✅ photonic-optoelectronic-narrative | ✅ photonic-optoelectronic-reviewer-criteria | ✅ 2 scripts | ✅ 1 package |
+| **nanoparticles** | nano | 🟢 **full** | ✅ nanoparticles-narrative | ✅ nanoparticles-reviewer-criteria | ✅ 2 scripts | ✅ 1 package |
+| **nano-thin-films** | nano | 🟢 **full** | ✅ nano-thin-films-narrative | ✅ nano-thin-films-reviewer-criteria | ✅ 2 scripts | ✅ 1 package |
+| **2d-materials** | nano | 🟢 **full** | ✅ 2d-materials-narrative | ✅ 2d-materials-reviewer-criteria | ✅ 2 scripts | ✅ 1 package |
+| **nanocomposites** | nano | 🟢 **full** | ✅ nanocomposites-narrative | ✅ nanocomposites-reviewer-criteria | ✅ 2 scripts | ✅ 1 package |
 
 ## Tier Definitions
 

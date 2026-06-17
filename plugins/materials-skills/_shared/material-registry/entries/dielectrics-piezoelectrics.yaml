@@ -11,7 +11,7 @@ characterization:
 - evidence_tier: strong
   method: SEM
   purpose: Microstructure grain size, domain structure, porosity
-coverage_tier: partial
+coverage_tier: full
 cross_references:
   related:
   - functional-ceramics
@@ -31,10 +31,36 @@ description:
   - Dielectric resonators and filters
 family: functional
 figure_archetypes:
-- description: XRD patterns for phase identification
+- id: xrd_pattern
+  description: X-ray diffraction pattern for phase identification
+  required_columns:
+  - two_theta
+  - pure_BTO
   figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
-  id: xrd_pattern
-  type: xrd_pattern
+  data_schema: skills/materials-figure/scripts/figures4materials/data/dielectrics-piezoelectrics_xrd.csv
+  column_map:
+    x_values:
+      column: two_theta
+    y_series:
+    - key: Pure Bto
+      column: pure_BTO
+    - key: Doped Bto
+      column: doped_BTO
+- id: trend_curve
+  description: Relative permittivity trend with uncertainty
+  required_columns:
+  - frequency_Hz
+  - dielectric_constant
+  - dielectric_constant_std
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
+  data_schema: skills/materials-figure/scripts/figures4materials/data/dielectrics-piezoelectrics_trend_curve.csv
+  column_map:
+    x_values:
+      column: frequency_Hz
+    y_values:
+      column: dielectric_constant
+    y_errors:
+      column: dielectric_constant_std
 id: dielectrics-piezoelectrics
 name: Dielectric and Piezoelectric Materials
 narrative:
@@ -43,10 +69,13 @@ narrative:
   skill_references:
     domain_fragment: skills/materials-research/static/fragments/domain/dielectrics-piezoelectrics.md
     narrative_guide: skills/materials-writing/references/dielectrics-piezoelectrics-narrative.md
-    reviewer_criteria: skills/materials-reviewer/references/functional-reviewer-criteria.md
+    reviewer_criteria: skills/materials-reviewer/references/dielectrics-piezoelectrics-reviewer-criteria.md
 skill_mapping:
   data_schemas:
-    - skills/materials-figure/scripts/figures4materials/data/functional_freq_sweep.csv
-  figure_packages: []
+  - skills/materials-figure/scripts/figures4materials/data/dielectrics-piezoelectrics_xrd.csv
+  - skills/materials-figure/scripts/figures4materials/data/dielectrics-piezoelectrics_trend_curve.csv
+  figure_packages:
+  - skills/materials-figure/examples/figure-packages/dielectrics-piezoelectrics-demo
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
+  - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py

@@ -11,7 +11,7 @@ characterization:
 - evidence_tier: strong
   method: AFM
   purpose: Surface roughness, grain size, topography
-coverage_tier: partial
+coverage_tier: full
 cross_references:
   related:
   - semiconductors
@@ -31,10 +31,36 @@ description:
   - Corrosion and wear protection coatings
 family: nano
 figure_archetypes:
-- description: GIXRD patterns showing film orientation
+- id: xrd_pattern
+  description: X-ray diffraction pattern for phase identification
+  required_columns:
+  - two_theta
+  - as_deposited
   figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
-  id: xrd_pattern
-  type: xrd_pattern
+  data_schema: skills/materials-figure/scripts/figures4materials/data/nano-thin-films_xrd.csv
+  column_map:
+    x_values:
+      column: two_theta
+    y_series:
+    - key: As Deposited
+      column: as_deposited
+    - key: Annealed
+      column: annealed
+- id: trend_curve
+  description: Nanoindentation hardness trend with uncertainty
+  required_columns:
+  - film_thickness_nm
+  - hardness_GPa
+  - hardness_GPa_std
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
+  data_schema: skills/materials-figure/scripts/figures4materials/data/nano-thin-films_trend_curve.csv
+  column_map:
+    x_values:
+      column: film_thickness_nm
+    y_values:
+      column: hardness_GPa
+    y_errors:
+      column: hardness_GPa_std
 id: nano-thin-films
 name: Thin Films and Coatings (Nanoscale)
 narrative:
@@ -42,10 +68,13 @@ narrative:
   skill_references:
     domain_fragment: skills/materials-research/static/fragments/domain/nano-thin-films.md
     narrative_guide: skills/materials-writing/references/nano-thin-films-narrative.md
-    reviewer_criteria: skills/materials-reviewer/references/nano-reviewer-criteria.md
+    reviewer_criteria: skills/materials-reviewer/references/nano-thin-films-reviewer-criteria.md
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/nano_xrd.csv
-  figure_packages: []
+  - skills/materials-figure/scripts/figures4materials/data/nano-thin-films_xrd.csv
+  - skills/materials-figure/scripts/figures4materials/data/nano-thin-films_trend_curve.csv
+  figure_packages:
+  - skills/materials-figure/examples/figure-packages/nano-thin-films-demo
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
+  - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py

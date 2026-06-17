@@ -11,7 +11,7 @@ characterization:
 - evidence_tier: strong
   method: XPS/UPS
   purpose: Surface chemistry, band alignment, work function
-coverage_tier: partial
+coverage_tier: full
 cross_references:
   related:
   - photonic-optoelectronic
@@ -30,12 +30,36 @@ description:
   - Light-emitting diodes (LEDs)
 family: functional
 figure_archetypes:
-- description: Current density-voltage characteristics for solar cells or diodes
-  id: jv_curve
-  type: line_plot
-- description: Photoluminescence spectra showing band-edge and defect emission
-  id: pl_spectrum
-  type: line_plot
+- id: xrd_pattern
+  description: X-ray diffraction pattern for phase identification
+  required_columns:
+  - two_theta
+  - bulk_silicon
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
+  data_schema: skills/materials-figure/scripts/figures4materials/data/semiconductors_xrd.csv
+  column_map:
+    x_values:
+      column: two_theta
+    y_series:
+    - key: Bulk Silicon
+      column: bulk_silicon
+    - key: Nanowire Silicon
+      column: nanowire_silicon
+- id: trend_curve
+  description: Hall mobility trend with uncertainty
+  required_columns:
+  - annealing_temp_C
+  - mobility_cm2_Vs
+  - mobility_cm2_Vs_std
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
+  data_schema: skills/materials-figure/scripts/figures4materials/data/semiconductors_trend_curve.csv
+  column_map:
+    x_values:
+      column: annealing_temp_C
+    y_values:
+      column: mobility_cm2_Vs
+    y_errors:
+      column: mobility_cm2_Vs_std
 id: semiconductors
 name: Semiconductor Materials
 narrative:
@@ -44,10 +68,13 @@ narrative:
   skill_references:
     domain_fragment: skills/materials-research/static/fragments/domain/semiconductors.md
     narrative_guide: skills/materials-writing/references/semiconductors-narrative.md
-    reviewer_criteria: skills/materials-reviewer/references/functional-reviewer-criteria.md
+    reviewer_criteria: skills/materials-reviewer/references/semiconductors-reviewer-criteria.md
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/nano_xrd.csv
-  figure_packages: []
+  - skills/materials-figure/scripts/figures4materials/data/semiconductors_xrd.csv
+  - skills/materials-figure/scripts/figures4materials/data/semiconductors_trend_curve.csv
+  figure_packages:
+  - skills/materials-figure/examples/figure-packages/semiconductors-demo
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
+  - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py

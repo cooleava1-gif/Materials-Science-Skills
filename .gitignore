@@ -41,3 +41,7 @@ plugins/materials-skills/skills/materials-figure/examples/figure-packages/**/fig
 plugins/materials-skills/skills/materials-figure/examples/figure-packages/**/figure.pdf
 plugins/materials-skills/skills/materials-figure/examples/figure-packages/**/figure.tif
 plugins/materials-skills/skills/materials-figure/examples/figure-packages/**/figure.tiff
+
+# Generated script outputs (regenerated on demand; keep source CSVs tracked)
+skills/materials-figure/scripts/figures4materials/figures/
+plugins/materials-skills/skills/materials-figure/scripts/figures4materials/figures/

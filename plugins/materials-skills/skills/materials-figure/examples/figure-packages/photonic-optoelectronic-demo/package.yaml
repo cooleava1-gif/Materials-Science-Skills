@@ -1,0 +1,11 @@
+name: photonic-optoelectronic-demo
+domain: photonic-optoelectronic
+family: functional
+coverage_tier: full
+figures:
+- id: xrd_pattern
+  script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
+  data: skills/materials-figure/scripts/figures4materials/data/photonic-optoelectronic_xrd.csv
+- id: trend_curve
+  script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
+  data: skills/materials-figure/scripts/figures4materials/data/photonic-optoelectronic_trend_curve.csv

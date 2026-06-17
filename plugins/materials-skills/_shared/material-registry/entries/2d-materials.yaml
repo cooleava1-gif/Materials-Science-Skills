@@ -11,7 +11,7 @@ characterization:
 - evidence_tier: strong
   method: XPS
   purpose: Chemical composition, oxidation state, functional groups
-coverage_tier: partial
+coverage_tier: full
 cross_references:
   related:
   - nanocomposites
@@ -31,12 +31,36 @@ description:
   - Membranes for separation and filtration
 family: nano
 figure_archetypes:
-- description: Raman spectra showing characteristic peaks for different layer numbers
-  id: raman_spectrum
-  type: line_plot
-- description: AFM topography with height profile
-  id: afm_image
-  type: sem_image
+- id: xrd_pattern
+  description: X-ray diffraction pattern for phase identification
+  required_columns:
+  - two_theta
+  - monolayer
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
+  data_schema: skills/materials-figure/scripts/figures4materials/data/2d-materials_xrd.csv
+  column_map:
+    x_values:
+      column: two_theta
+    y_series:
+    - key: Monolayer
+      column: monolayer
+    - key: Few Layer
+      column: few_layer
+- id: trend_curve
+  description: Photocurrent trend with uncertainty
+  required_columns:
+  - laser_power_mW
+  - photocurrent_uA
+  - photocurrent_uA_std
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
+  data_schema: skills/materials-figure/scripts/figures4materials/data/2d-materials_trend_curve.csv
+  column_map:
+    x_values:
+      column: laser_power_mW
+    y_values:
+      column: photocurrent_uA
+    y_errors:
+      column: photocurrent_uA_std
 id: 2d-materials
 name: Two-Dimensional Materials (Graphene, MoS₂, MXene)
 narrative:
@@ -44,10 +68,13 @@ narrative:
   skill_references:
     domain_fragment: skills/materials-research/static/fragments/domain/2d-materials.md
     narrative_guide: skills/materials-writing/references/2d-materials-narrative.md
-    reviewer_criteria: skills/materials-reviewer/references/nano-reviewer-criteria.md
+    reviewer_criteria: skills/materials-reviewer/references/2d-materials-reviewer-criteria.md
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/nano_xrd.csv
-  figure_packages: []
+  - skills/materials-figure/scripts/figures4materials/data/2d-materials_xrd.csv
+  - skills/materials-figure/scripts/figures4materials/data/2d-materials_trend_curve.csv
+  figure_packages:
+  - skills/materials-figure/examples/figure-packages/2d-materials-demo
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
+  - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
