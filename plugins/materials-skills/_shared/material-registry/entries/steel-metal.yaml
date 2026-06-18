@@ -58,6 +58,9 @@ figure_archetypes:
       column: current_log_a_cm2
     group_by:
       column: condition
+- id: errorbar-trend
+- id: line-trend
+- id: grouped-bar
 id: steel-metal
 name: Steel and Metal Structures
 narrative:
@@ -104,10 +107,13 @@ standards:
   standard: ASTM G5
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/metals_stress_strain.csv
   - skills/materials-figure/scripts/figures4materials/data/metals_corrosion.csv
+  - skills/materials-figure/scripts/figures4materials/data/metals_stress_strain.csv
   figure_packages:
+  - skills/materials-figure/examples/figure-packages/steel-corrosion-trend
   - skills/materials-figure/examples/figure-packages/stress-strain
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+  - skills/materials-figure/scripts/figures4materials/plot_civil_durability_retention.py
+  - skills/materials-figure/scripts/figures4materials/plot_civil_errorbar_trend.py
   - skills/materials-figure/scripts/figures4materials/plot_polarization_curve.py
+  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py

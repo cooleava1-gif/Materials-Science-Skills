@@ -1,0 +1,13 @@
+{
+  "name": "civil-generic-property-comparison",
+  "domain": "civil",
+  "figures": [
+    "main"
+  ],
+  "source_data": [
+    "grouped_bar.csv"
+  ],
+  "scripts": [
+    "plot_grouped_bar.py"
+  ]
+}

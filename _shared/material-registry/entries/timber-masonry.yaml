@@ -28,6 +28,9 @@ figure_archetypes:
   column_roles:
   - strain
   - stress
+- id: water-absorption
+- id: boxplot
+- id: grouped-bar
 id: timber-masonry
 name: Timber, Masonry, and Bamboo Materials
 narrative:
@@ -68,5 +71,8 @@ skill_mapping:
   - skills/materials-figure/scripts/figures4materials/data/stress_strain.csv
   figure_packages:
   - skills/materials-figure/examples/figure-packages/stress-strain
+  - skills/materials-figure/examples/figure-packages/timber-water-absorption
   figure_scripts:
+  - skills/materials-figure/scripts/figures4materials/plot_civil_boxplot_points.py
+  - skills/materials-figure/scripts/figures4materials/plot_civil_water_absorption.py
   - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py

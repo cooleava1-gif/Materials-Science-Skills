@@ -40,6 +40,9 @@ figure_archetypes:
   column_roles:
   - x_labels
   - series
+- id: freeze-thaw-durability
+- id: water-absorption
+- id: line-trend
 id: sustainability-durability
 name: Sustainability and Durability of Construction Materials
 narrative:
@@ -71,11 +74,14 @@ standards:
   standard: ASTM C666
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/lca_boundary.csv
   - skills/materials-figure/scripts/figures4materials/data/durability_retention.csv
+  - skills/materials-figure/scripts/figures4materials/data/lca_boundary.csv
   figure_packages:
-  - skills/materials-figure/examples/figure-packages/wer-ea-full
+  - skills/materials-figure/examples/figure-packages/sustainability-freeze-thaw
   - skills/materials-figure/examples/figure-packages/wer-ea-dosage-window
+  - skills/materials-figure/examples/figure-packages/wer-ea-full
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_lca_boundary.py
+  - skills/materials-figure/scripts/figures4materials/plot_civil_durability_retention.py
+  - skills/materials-figure/scripts/figures4materials/plot_civil_water_absorption.py
   - skills/materials-figure/scripts/figures4materials/plot_durability_retention.py
+  - skills/materials-figure/scripts/figures4materials/plot_lca_boundary.py

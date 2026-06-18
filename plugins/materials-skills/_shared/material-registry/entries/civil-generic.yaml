@@ -35,6 +35,9 @@ figure_archetypes:
   column_roles:
   - categories
   - series_dict
+- id: boxplot
+- id: errorbar-trend
+- id: grouped-bar
 id: civil-generic
 name: Civil Engineering Materials (General)
 narrative:
@@ -66,7 +69,10 @@ skill_mapping:
   - skills/materials-figure/scripts/figures4materials/data/mechanical_properties.csv
   - skills/materials-figure/scripts/figures4materials/data/stress_strain.csv
   figure_packages:
+  - skills/materials-figure/examples/figure-packages/civil-generic-property-comparison
   - skills/materials-figure/examples/figure-packages/stress-strain
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+  - skills/materials-figure/scripts/figures4materials/plot_civil_boxplot_points.py
+  - skills/materials-figure/scripts/figures4materials/plot_civil_errorbar_trend.py
   - skills/materials-figure/scripts/figures4materials/plot_mechanical_property_radar.py
+  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py

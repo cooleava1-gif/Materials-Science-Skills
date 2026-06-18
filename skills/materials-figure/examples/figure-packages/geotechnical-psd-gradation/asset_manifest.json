@@ -1,0 +1,13 @@
+{
+  "name": "geotechnical-psd-gradation",
+  "domain": "geotechnical",
+  "figures": [
+    "main"
+  ],
+  "source_data": [
+    "psd_gradation.csv"
+  ],
+  "scripts": [
+    "plot_psd_gradation.py"
+  ]
+}

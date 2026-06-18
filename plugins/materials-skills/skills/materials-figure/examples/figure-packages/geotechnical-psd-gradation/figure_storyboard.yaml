@@ -1,0 +1,7 @@
+figure_name: geotechnical-psd-gradation
+panels:
+  - panel: a
+    chart_type: main
+    script: skills/materials-figure/scripts/figures4materials/plot_psd_gradation.py
+    data: skills/materials-figure/scripts/figures4materials/data/psd_gradation.csv
+    caption: Particle size distribution of geotechnical materials.

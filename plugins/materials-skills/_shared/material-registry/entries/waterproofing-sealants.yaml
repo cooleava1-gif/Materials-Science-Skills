@@ -47,6 +47,9 @@ figure_archetypes:
       column: stress_mpa
     group_by:
       column: sample_id
+- id: water-absorption
+- id: boxplot
+- id: errorbar-trend
 id: waterproofing-sealants
 name: Waterproofing and Sealant Materials
 narrative:
@@ -86,10 +89,13 @@ standards:
   standard: GB/T 16777
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/polymer_stress_strain.csv
   - skills/materials-figure/scripts/figures4materials/data/bonding_strength.csv
+  - skills/materials-figure/scripts/figures4materials/data/polymer_stress_strain.csv
   figure_packages:
   - skills/materials-figure/examples/figure-packages/stress-strain
+  - skills/materials-figure/examples/figure-packages/waterproofing-tensile-boxplot
   figure_scripts:
+  - skills/materials-figure/scripts/figures4materials/plot_civil_boxplot_points.py
+  - skills/materials-figure/scripts/figures4materials/plot_civil_water_absorption.py
   - skills/materials-figure/scripts/figures4materials/plot_grouped_bar.py
   - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py

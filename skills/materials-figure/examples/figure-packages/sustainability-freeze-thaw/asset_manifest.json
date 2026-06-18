@@ -1,0 +1,13 @@
+{
+  "name": "sustainability-freeze-thaw",
+  "domain": "sustainability",
+  "figures": [
+    "main"
+  ],
+  "source_data": [
+    "freeze_thaw_cycle.csv"
+  ],
+  "scripts": [
+    "plot_freeze_thaw_cycle.py"
+  ]
+}

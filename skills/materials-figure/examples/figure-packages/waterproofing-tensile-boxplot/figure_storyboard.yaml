@@ -1,0 +1,7 @@
+figure_name: waterproofing-tensile-boxplot
+panels:
+  - panel: a
+    chart_type: main
+    script: skills/materials-figure/scripts/figures4materials/plot_civil_boxplot_points.py
+    data: skills/materials-figure/scripts/figures4materials/data/civil_boxplot_points.csv
+    caption: Tensile or adhesion property distribution of waterproofing materials.

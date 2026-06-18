@@ -28,6 +28,9 @@ figure_archetypes:
   column_roles:
   - x_labels
   - series
+- id: psd-curve
+- id: water-absorption
+- id: boxplot
 id: geotechnical-materials
 name: Geotechnical and Geoenvironmental Materials
 narrative:
@@ -67,11 +70,14 @@ standards:
   standard: ASTM D5084
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/mechanical_properties.csv
   - skills/materials-figure/scripts/figures4materials/data/bonding_strength.csv
+  - skills/materials-figure/scripts/figures4materials/data/mechanical_properties.csv
   - skills/materials-figure/scripts/figures4materials/data/psd_gradation.csv
   figure_packages:
+  - skills/materials-figure/examples/figure-packages/geotechnical-psd-gradation
   - skills/materials-figure/examples/figure-packages/psd-gradation
   - skills/materials-figure/examples/figure-packages/stress-strain
   figure_scripts:
+  - skills/materials-figure/scripts/figures4materials/plot_civil_boxplot_points.py
+  - skills/materials-figure/scripts/figures4materials/plot_civil_water_absorption.py
   - skills/materials-figure/scripts/figures4materials/plot_grouped_bar.py

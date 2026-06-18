@@ -1,0 +1,13 @@
+{
+  "name": "steel-corrosion-trend",
+  "domain": "steel",
+  "figures": [
+    "main"
+  ],
+  "source_data": [
+    "civil_errorbar_trend.csv"
+  ],
+  "scripts": [
+    "plot_civil_errorbar_trend.py"
+  ]
+}

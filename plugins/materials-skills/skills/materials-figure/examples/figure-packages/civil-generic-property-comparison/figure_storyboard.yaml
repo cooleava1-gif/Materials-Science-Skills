@@ -1,0 +1,7 @@
+figure_name: civil-generic-property-comparison
+panels:
+  - panel: a
+    chart_type: main
+    script: skills/materials-figure/scripts/figures4materials/plot_grouped_bar.py
+    data: skills/materials-figure/scripts/figures4materials/data/grouped_bar.csv
+    caption: Generic grouped comparison of civil material properties.

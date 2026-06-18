@@ -1,0 +1,7 @@
+figure_name: timber-water-absorption
+panels:
+  - panel: a
+    chart_type: main
+    script: skills/materials-figure/scripts/figures4materials/plot_civil_water_absorption.py
+    data: skills/materials-figure/scripts/figures4materials/data/civil_water_absorption.csv
+    caption: Water absorption kinetics of timber or bio-based materials.

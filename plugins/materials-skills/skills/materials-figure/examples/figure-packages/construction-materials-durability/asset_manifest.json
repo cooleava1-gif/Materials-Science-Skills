@@ -1,0 +1,13 @@
+{
+  "name": "construction-materials-durability",
+  "domain": "construction",
+  "figures": [
+    "main"
+  ],
+  "source_data": [
+    "civil_durability_retention.csv"
+  ],
+  "scripts": [
+    "plot_civil_durability_retention.py"
+  ]
+}

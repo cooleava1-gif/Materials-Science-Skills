@@ -1,0 +1,7 @@
+figure_name: construction-materials-durability
+panels:
+  - panel: a
+    chart_type: main
+    script: skills/materials-figure/scripts/figures4materials/plot_civil_durability_retention.py
+    data: skills/materials-figure/scripts/figures4materials/data/civil_durability_retention.csv
+    caption: Durability retention of construction materials under conditioning.
