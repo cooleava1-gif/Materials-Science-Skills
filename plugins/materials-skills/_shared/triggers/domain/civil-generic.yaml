@@ -3,5 +3,13 @@ path: static/fragments/domain/civil-generic.md
 triggers:
 - civil
 - engineering
+- construction
+- infrastructure
+- building
+- pavement
+- structural material
 - 土木
 - 工程
+- 建筑材料
+- 基础设施
+- 结构材料

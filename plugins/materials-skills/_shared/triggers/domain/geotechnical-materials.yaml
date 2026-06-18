@@ -1,12 +1,23 @@
 id: geotechnical-materials
-path: static/fragments/domain/civil-generic.md
+path: static/fragments/domain/geotechnical-materials.md
 triggers:
 - soil
 - rock
 - geotechnical
 - grouting
 - stabilized soil
+- soil stabilization
+- cement-treated soil
+- lime stabilization
+- geosynthetic
+- deep mixing
+- ground improvement
 - 岩土
 - 土体
 - 注浆
 - 地基
+- 土壤固化
+- 水泥土
+- 石灰固化
+- 土工合成材料
+- 地基处理

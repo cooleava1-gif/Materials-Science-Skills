@@ -3,17 +3,69 @@ characterization:
   method: TEM/HRTEM
   purpose: Particle size, shape, crystallinity, lattice fringe analysis
 - evidence_tier: strong
+  key_features:
+  - Hydrodynamic diameter and PDI from cumulant analysis
+  - Intensity/volume/number distributions for polydispersity assessment
   method: DLS
   purpose: Hydrodynamic diameter and size distribution in suspension
 - evidence_tier: strong
+  key_features:
+  - Scherrer crystallite size from peak broadening
+  - Phase identification (FCC Au: 38.2°, 44.4°, 64.6°, 77.6°)
   method: XRD
   purpose: Crystalline phase, Scherrer crystallite size
 - evidence_tier: strong
+  key_features:
+  - SPR peak position correlates with size (Au ~520 nm, Ag ~410 nm)
+  - Tauc plot for semiconductor bandgap of quantum dots
   method: UV-Vis
   purpose: Surface plasmon resonance (SPR) peak for metallic NPs, bandgap for QDs
 - evidence_tier: strong
+  key_features:
+  - '|z| > 30 mV generally indicates good colloidal stability'
+  - pH and ionic strength dependence of surface charge
   method: Zeta Potential
   purpose: Surface charge and colloidal stability assessment
+- evidence_tier: supporting
+  key_features:
+  - BET specific surface area from N2 adsorption isotherm
+  - Pore size distribution from BJH or DFT methods
+  method: BET
+  purpose: Specific surface area and porosity of nanopowders
+claim_types:
+- common_risks:
+  - Reporting mean size without PDI or replicate count
+  - Claiming 'significant' improvement without statistical test
+  - Comparing performance across different size regimes without normalization
+  evidence_required:
+  - Control group comparison (bare vs. functionalized NPs)
+  - Quantitative size/performance data with error bars
+  - 'Test conditions: precursor concentration, temperature, reaction time'
+  type: performance_improvement
+- common_risks:
+  - Claiming 'growth mechanism confirmed' from size data alone
+  - No control over competing explanations (Ostwald ripening vs. coalescence)
+  evidence_required:
+  - Time-resolved size evolution (DLS/TEM) showing growth kinetics
+  - Surface characterization (zeta potential, FTIR) for surface effect evidence
+  - XRD evidence of crystallinity and phase purity
+  type: mechanism_explanation
+- common_risks:
+  - Single-condition zeta potential claimed as 'stable'
+  - Ignoring ionic strength and pH effects on aggregation
+  evidence_required:
+  - Zeta potential across pH and ionic strength range
+  - DLS size monitoring over time (aging stability)
+  - Critical coagulation concentration (CCC) determination
+  type: colloidal_stability
+- common_risks:
+  - In vitro-only toxicity claimed as 'safe for in vivo'
+  - Single cell line claimed as 'biocompatible'
+  evidence_required:
+  - Dose-response cytotoxicity across multiple cell lines
+  - ROS generation and membrane integrity assays
+  - 'Size- and dose-dependent viability data with IC50'
+  type: toxicity_assessment
 coverage_tier: full
 cross_references:
   related:
@@ -34,36 +86,61 @@ description:
   - Nano-enhanced composites
 family: nano
 figure_archetypes:
-- id: xrd_pattern
-  description: X-ray diffraction pattern for phase identification
-  required_columns:
-  - two_theta
-  - gold_np
+- description: XRD pattern overlay for Au/Ag nanoparticle phase identification and crystallinity
+    comparison
   figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
-  data_schema: skills/materials-figure/scripts/figures4materials/data/nanoparticles_xrd.csv
-  column_map:
-    x_values:
-      column: two_theta
-    y_series:
-    - key: Gold Np
-      column: gold_np
-    - key: Silver Np
-      column: silver_np
-- id: trend_curve
-  description: Average particle diameter trend with uncertainty
-  required_columns:
-  - reaction_time_h
-  - mean_diameter_nm
-  - mean_diameter_nm_std
+  id: xrd_pattern
+  type: xrd_pattern
+  column_roles:
+  - x_values
+  - y_series
+- description: Average particle diameter trend with uncertainty across reaction time
+    or precursor concentration
   figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
-  data_schema: skills/materials-figure/scripts/figures4materials/data/nanoparticles_trend_curve.csv
-  column_map:
-    x_values:
-      column: reaction_time_h
-    y_values:
-      column: mean_diameter_nm
-    y_errors:
-      column: mean_diameter_nm_std
+  id: size_trend
+  type: line_plot
+  column_roles:
+  - x_values
+  - y_values
+  - y_errors
+- description: Particle size distribution histogram for colloidal nanoparticles across
+    synthesis conditions
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_particle_size_distribution.py
+  id: particle_size_distribution
+  type: particle_size_dist
+  column_roles:
+  - x_values
+  - y_series
+- description: SEM/TEM micrograph panel showing nanoparticle morphology and size at
+    different synthesis conditions
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_sem_analysis.py
+  id: sem_image
+  type: sem_image
+  column_roles:
+  - image_data
+  - histogram
+- description: Multi-panel nanomaterial characterization combining size distribution,
+    loading effect, XRD, and UV-Vis
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_nano_multipanel.py
+  id: nano_multipanel
+  type: multi_panel
+  column_roles:
+  - subfigures
+- description: UV-Vis absorbance or SPR peak versus particle size scatter regression
+    for optical property correlation
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
+  id: uv_vis_scatter
+  type: scatter
+  column_roles:
+  - x_values
+  - y_values
+- description: Proposed nucleation and growth mechanism schematic with evidence certainty
+    labeling
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  id: mechanism_diagram
+  type: diagram
+  column_roles:
+  - components
 id: nanoparticles
 name: Nanoparticles and Quantum Dots
 narrative:
@@ -73,12 +150,74 @@ narrative:
     domain_fragment: skills/materials-research/static/fragments/domain/nanoparticles.md
     narrative_guide: skills/materials-writing/references/nanoparticles-narrative.md
     reviewer_criteria: skills/materials-reviewer/references/nanoparticles-reviewer-criteria.md
+properties:
+- id: hydrodynamic_diameter
+  name: Hydrodynamic Diameter
+  test_methods:
+  - Dynamic light scattering (ISO 22412)
+  typical_range: 5–200
+  unit: nm
+- id: zeta_potential
+  name: Zeta Potential
+  test_methods:
+  - Electrophoretic light scattering (ISO 13099)
+  typical_range: -60 to +60
+  unit: mV
+- id: specific_surface_area
+  name: Specific Surface Area
+  test_methods:
+  - BET nitrogen adsorption (ASTM E2651)
+  typical_range: 10–200
+  unit: m²/g
+- id: crystallite_size
+  name: Crystallite Size
+  test_methods:
+  - XRD Scherrer equation
+  typical_range: 2–50
+  unit: nm
+- id: bandgap
+  name: Bandgap
+  test_methods:
+  - UV-Vis diffuse reflectance (Tauc plot)
+  typical_range: 1.5–4.5
+  unit: eV
+- id: polydispersity_index
+  name: Polydispersity Index
+  test_methods:
+  - DLS cumulant analysis (ISO 22412)
+  typical_range: 0.05–0.5
+  unit: PDI
 skill_mapping:
   data_schemas:
   - skills/materials-figure/scripts/figures4materials/data/nanoparticles_xrd.csv
   - skills/materials-figure/scripts/figures4materials/data/nanoparticles_trend_curve.csv
+  - skills/materials-figure/scripts/figures4materials/data/nano_size_dist.csv
+  - skills/materials-figure/scripts/figures4materials/data/nano_uvis.csv
+  - skills/materials-figure/scripts/figures4materials/data/nano_xrd.csv
+  - skills/materials-figure/scripts/figures4materials/data/nano_loading.csv
+  - skills/materials-figure/scripts/figures4materials/data/sem_analysis.csv
+  - skills/materials-figure/scripts/figures4materials/data/scatter_regression.csv
+  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   figure_packages:
   - skills/materials-figure/examples/figure-packages/nanoparticles-demo
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
   - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
+  - skills/materials-figure/scripts/figures4materials/plot_particle_size_distribution.py
+  - skills/materials-figure/scripts/figures4materials/plot_sem_analysis.py
+  - skills/materials-figure/scripts/figures4materials/plot_nano_multipanel.py
+  - skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
+  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+standards:
+- purpose: Particle size analysis by dynamic light scattering (DLS)
+  standard: ISO 22412
+- purpose: Standard guide for particle size characterization by BET surface area
+  standard: ASTM E2651
+- purpose: Particle size analysis by laser diffraction methods
+  standard: ISO 13320
+- purpose: Standard guide for nanomaterial characterization
+  standard: ASTM E2867
+- purpose: Zeta potential measurement by electrophoretic light scattering
+  standard: ISO 13099
+- purpose: Nanotechnologies — vocabulary and core concepts
+  standard: ISO/TS 80004

@@ -15,6 +15,36 @@ characterization:
 - evidence_tier: definitive
   method: Hardness Testing
   purpose: Brinell, Rockwell, Vickers hardness mapping
+claim_types:
+- common_risks:
+  - Reporting single-condition YS/UTS without a baseline heat treatment for comparison
+  - Claiming strength-ductility synergy without showing the full stress-strain curve
+  - Ignoring strain rate and specimen orientation effects on the trade-off
+  evidence_required:
+  - Tensile data (YS, UTS, elongation) per ASTM E8/E8M with specimen geometry
+  - Comparison across different heat treatment conditions (e.g., quench & temper, anneal,
+    normalize)
+  - Processing condition documentation (austenitizing temperature, cooling rate, tempering)
+  type: strength_ductility_balance
+- common_risks:
+  - Claiming precipitation strengthening without TEM evidence of precipitate characteristics
+  - Inferring phase transformation mechanism from hardness alone without microstructural
+    proof
+  - Over-interpreting XRD peaks without quantitative phase analysis
+  evidence_required:
+  - TEM/SEM microstructure showing precipitate size, distribution, and morphology
+  - XRD phase analysis identifying retained austenite, martensite, or carbide phases
+  - Hardness curve versus tempering temperature or aging time
+  type: mechanism_explanation
+- common_risks:
+  - Reporting corrosion potential without polarization resistance or rate
+  - Extrapolating short-term lab tests to long-term service without validation
+  - Ignoring pitting and crevice corrosion localized attack
+  evidence_required:
+  - Electrochemical data (potentiodynamic polarization, EIS) with test electrolyte
+  - Salt spray or immersion exposure results with stated duration
+  - Corrosion rate (mm/year) quantified from weight loss or polarization resistance
+  type: corrosion_resistance
 coverage_tier: full
 cross_references:
   related:
@@ -70,6 +100,27 @@ figure_archetypes:
     x_values: {"column": "distance_mm"}
     y_values: {"column": "hardness_HV"}
     figure_name: {"value": "metals_hardness_profile"}
+- description: 'Multi-panel metals characterization: tensile comparison, stress-strain,
+    hardness profile, and corrosion polarization'
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_metals_multipanel.py
+  id: metals_multipanel
+  type: multi_panel
+  column_roles:
+  - subfigures
+- description: S-N fatigue curve (stress amplitude vs. cycles to failure) for cyclic
+    loading assessment
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_sn_fatigue.py
+  id: sn_fatigue
+  type: line_plot
+  column_roles:
+  - stress_amplitude
+  - cycles
+- description: Mechanism diagram linking alloy composition, heat treatment, and strengthening
+    routes with evidence certainty
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  id: mechanism_diagram
+  type: diagram
+  column_roles: []
 id: ferrous-alloys
 name: Ferrous Alloys and Steels
 narrative:
@@ -115,12 +166,18 @@ skill_mapping:
   - skills/materials-figure/scripts/figures4materials/data/metals_stress_strain.csv
   - skills/materials-figure/scripts/figures4materials/data/metals_corrosion.csv
   - skills/materials-figure/scripts/figures4materials/data/metals_hardness_profile.csv
+  - skills/materials-figure/scripts/figures4materials/data/metals_tensile.csv
+  - skills/materials-figure/scripts/figures4materials/data/sn_fatigue.csv
+  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   figure_packages:
   - skills/materials-figure/examples/figure-packages/stress-strain
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   - skills/materials-figure/scripts/figures4materials/plot_polarization_curve.py
   - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
+  - skills/materials-figure/scripts/figures4materials/plot_metals_multipanel.py
+  - skills/materials-figure/scripts/figures4materials/plot_sn_fatigue.py
+  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
 standards:
 - purpose: Tension testing of metallic materials at room temperature
   standard: ASTM E8 / E8M
@@ -130,3 +187,8 @@ standards:
   standard: ASTM E23 / ISO 148-1
 - purpose: Vickers hardness testing of metallic materials
   standard: ASTM E92 / ISO 6507-1
+- purpose: Determining average grain size of metallic materials
+  standard: ASTM E112
+- purpose: Verification of corrosion polarization resistance measurement and data
+    analysis
+  standard: ASTM G106

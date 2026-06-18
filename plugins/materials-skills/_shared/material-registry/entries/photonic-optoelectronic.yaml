@@ -11,16 +11,52 @@ characterization:
 - evidence_tier: strong
   method: XRD
   purpose: Crystal structure, thin film orientation
+- evidence_tier: strong
+  method: I-V Characterization (Solar Simulator)
+  purpose: Power conversion efficiency, Voc, Jsc, fill factor
+- evidence_tier: supporting
+  method: Integrating Sphere
+  purpose: Photoluminescence quantum yield, total photon flux
+claim_types:
+- common_risks:
+  - Claiming EQE/PCE improvement without spectral EQE measurement
+  - Reporting efficiency without standard solar simulator I-V characterization
+  - Omitting integrating sphere calibration for quantum yield
+  evidence_required:
+  - EQE spectrum across the relevant wavelength range
+  - I-V characteristic curves under standard illumination (AM1.5G)
+  - Integrating sphere measurement for absolute efficiency/yield
+  type: efficiency_improvement
+- common_risks:
+  - Attributing emission/absorption change without PL spectral evidence
+  - Claiming bandgap shift without Tauc plot analysis
+  - Ignoring defect-state contribution to non-radiative recombination
+  evidence_required:
+  - PL spectrum evidence of emission mechanism
+  - Bandgap analysis (UV-Vis Tauc plot)
+  - Defect-state evidence (PL, transient absorption, or DLTS)
+  type: mechanism_explanation
+- common_risks:
+  - Claiming stability without defined aging test protocol
+  - Reporting initial efficiency only without degradation curve
+  - Omitting illumination intensity and temperature during aging
+  evidence_required:
+  - Aging test data under defined illumination and thermal stress
+  - Performance degradation curve over specified duration
+  - Retention rate of key metrics (PCE, EQE, PLQY) over time
+  type: stability_validation
 coverage_tier: full
 cross_references:
   related:
   - semiconductors
+  - functional-ceramics
 description:
   engineering_problems:
   - External quantum efficiency optimization in LEDs and solar cells
   - Bandgap engineering for specific spectral response
   - Defect-mediated non-radiative recombination suppression
   - Light extraction and trapping enhancement
+  - Long-term operational stability under illumination and heat
   summary: LED materials, solar cell absorbers, photodetectors, nonlinear optical
     materials, and photonic crystals
   typical_applications:
@@ -30,36 +66,65 @@ description:
   - Integrated photonic devices
 family: functional
 figure_archetypes:
-- id: xrd_pattern
-  description: X-ray diffraction pattern for phase identification
-  required_columns:
-  - two_theta
-  - bulk_perovskite
+- description: X-ray diffraction pattern for crystal structure and thin film orientation
   figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
-  data_schema: skills/materials-figure/scripts/figures4materials/data/photonic-optoelectronic_xrd.csv
+  id: xrd_pattern
+  type: xrd_pattern
+  column_roles:
+  - angle
+  - intensity
   column_map:
-    x_values:
-      column: two_theta
+    x_values: {"column": "two_theta"}
     y_series:
     - key: Bulk Perovskite
       column: bulk_perovskite
     - key: Nanocrystal Perovskite
       column: nanocrystal_perovskite
-- id: trend_curve
-  description: External quantum efficiency trend with uncertainty
-  required_columns:
-  - wavelength_nm
-  - EQE_percent
-  - EQE_percent_std
+- description: External quantum efficiency trend with uncertainty across wavelength
   figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
-  data_schema: skills/materials-figure/scripts/figures4materials/data/photonic-optoelectronic_trend_curve.csv
+  id: eqe_trend
+  type: line_plot
+  column_roles:
+  - wavelength
+  - eqe
   column_map:
-    x_values:
-      column: wavelength_nm
-    y_values:
-      column: EQE_percent
-    y_errors:
-      column: EQE_percent_std
+    x_values: {"column": "wavelength_nm"}
+    y_values: {"column": "EQE_percent"}
+    y_errors: {"column": "EQE_percent_std"}
+- description: UV-Vis absorption spectrum for bandgap determination (Tauc plot)
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
+  id: uvis_absorption
+  type: line_plot
+  column_roles:
+  - wavelength
+  - absorbance
+  column_map:
+    x_values: {"column": "wavelength_nm"}
+    y_values: {"column": "absorbance"}
+- description: 'Multi-panel optoelectronic characterization: EQE + absorption + PL'
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_functional_multipanel.py
+  id: optoelectronic_multipanel
+  type: multi_panel
+  column_roles:
+  - subfigures
+- description: Energy band diagram illustrating absorption, transport and recombination
+    mechanisms
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  id: band_diagram
+  type: diagram
+  column_roles: []
+- description: Scatter regression of EQE versus absorber thickness
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
+  id: eqe_vs_thickness
+  type: scatter
+  column_roles:
+  - x_values
+  - y_values
+- description: Graphical abstract summarizing optoelectronic device design and performance
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_graphical_abstract.py
+  id: graphical_abstract
+  type: diagram
+  column_roles: []
 id: photonic-optoelectronic
 name: Photonic and Optoelectronic Materials
 narrative:
@@ -69,12 +134,66 @@ narrative:
     domain_fragment: skills/materials-research/static/fragments/domain/photonic-optoelectronic.md
     narrative_guide: skills/materials-writing/references/photonic-optoelectronic-narrative.md
     reviewer_criteria: skills/materials-reviewer/references/photonic-optoelectronic-reviewer-criteria.md
+properties:
+- id: external_quantum_efficiency
+  name: External Quantum Efficiency
+  test_methods:
+  - EQE measurement (monochromatic illumination)
+  typical_range: 1–95
+  unit: '%'
+- id: power_conversion_efficiency
+  name: Power Conversion Efficiency
+  test_methods:
+  - Solar simulator I-V (AM1.5G)
+  typical_range: 1–30
+  unit: '%'
+- id: photoluminescence_quantum_yield
+  name: Photoluminescence Quantum Yield
+  test_methods:
+  - Integrating sphere
+  typical_range: 1–90
+  unit: '%'
+- id: bandgap
+  name: Bandgap
+  test_methods:
+  - UV-Vis Tauc plot
+  typical_range: 1.0–4.0
+  unit: eV
+- id: open_circuit_voltage
+  name: Open-Circuit Voltage (Voc)
+  test_methods:
+  - I-V measurement under illumination
+  typical_range: 0.3–2.0
+  unit: V
+- id: short_circuit_current_density
+  name: Short-Circuit Current Density (Jsc)
+  test_methods:
+  - I-V measurement under illumination
+  typical_range: 5–50
+  unit: mA/cm²
 skill_mapping:
   data_schemas:
   - skills/materials-figure/scripts/figures4materials/data/photonic-optoelectronic_xrd.csv
   - skills/materials-figure/scripts/figures4materials/data/photonic-optoelectronic_trend_curve.csv
+  - skills/materials-figure/scripts/figures4materials/data/nano_uvis.csv
+  - skills/materials-figure/scripts/figures4materials/data/scatter_regression.csv
+  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
+  - skills/materials-figure/scripts/figures4materials/data/graphical_abstract.csv
   figure_packages:
   - skills/materials-figure/examples/figure-packages/photonic-optoelectronic-demo
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
   - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
+  - skills/materials-figure/scripts/figures4materials/plot_functional_multipanel.py
+  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  - skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
+  - skills/materials-figure/scripts/figures4materials/plot_graphical_abstract.py
+standards:
+- purpose: Solar simulator performance requirements for PV testing
+  standard: IEC 60904-9
+- purpose: Spectral response measurement of photovoltaic devices
+  standard: ASTM E1021
+- purpose: Reference solar irradiance and spectral distribution
+  standard: IEC 60904-3
+- purpose: OLED luminance and photometric measurement
+  standard: ISO 24014

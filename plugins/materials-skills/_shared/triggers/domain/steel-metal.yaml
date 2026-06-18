@@ -6,7 +6,17 @@ triggers:
 - corrosion
 - coating
 - weld
+- rebar
+- reinforcing steel
+- structural steel
+- weathering steel
+- galvanized steel
+- HSLA
 - 钢结构
 - 金属
 - 腐蚀
 - 涂层
+- 钢筋
+- 结构钢
+- 耐候钢
+- 镀锌钢

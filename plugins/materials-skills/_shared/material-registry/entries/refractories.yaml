@@ -8,6 +8,37 @@ characterization:
 - evidence_tier: strong
   method: Thermal Shock Testing
   purpose: Residual strength after thermal cycling
+claim_types:
+- common_risks:
+  - Claiming thermal shock resistance without residual strength vs cycle data
+  - Reporting single-cycle quench test without critical temperature difference
+  - Omitting post-shock microstructure evidence of crack propagation
+  - Using water quench results to infer air-quench performance
+  evidence_required:
+  - Residual strength vs number of thermal cycles curve
+  - Critical temperature difference (ΔTc) measurement
+  - Post-thermal-shock microstructure evidence (SEM of crack patterns)
+  type: thermal_shock_resistance
+- common_risks:
+  - Claiming slag corrosion resistance without interface SEM/EDS analysis
+  - Reporting qualitative corrosion observation without depth quantification
+  - Missing XRD phase analysis of corrosion reaction layer
+  - Ignoring slag composition effect on corrosion mechanism
+  evidence_required:
+  - Slag corrosion interface SEM/EDS elemental mapping
+  - Quantitative corrosion depth measurement
+  - XRD phase composition change across corrosion layer
+  type: slag_corrosion_resistance
+- common_risks:
+  - Claiming high-temperature strength without HMOR data
+  - Extrapolating cold strength to service temperature
+  - Omitting creep deformation data for load-bearing applications
+  - Missing RUL measurement for refractoriness under load
+  evidence_required:
+  - Hot modulus of rupture (HMOR) data at service temperature
+  - Refractoriness under load (RUL) curve
+  - High-temperature creep deformation data
+  type: high_temp_mechanical
 coverage_tier: full
 cross_references:
   related:
@@ -44,10 +75,28 @@ figure_archetypes:
 - description: Cold crushing strength compared across refractory formulations
   figure_script: skills/materials-figure/scripts/figures4materials/plot_ceramic_strength.py
   id: cold_crushing_strength
-  type: bar_chart
+  type: grouped_bar
   column_roles:
   - category
   - strength
+- description: Refractory degradation and slag corrosion mechanism diagram
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  id: mechanism_diagram
+  type: diagram
+  column_roles: []
+- description: SEM microstructure analysis of refractory corrosion interface
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_sem_analysis.py
+  id: sem_analysis
+  type: sem_image
+  column_roles:
+  - image_path
+- description: Scatter regression of cold crushing strength versus porosity
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
+  id: scatter_regression
+  type: scatter
+  column_roles:
+  - x_values
+  - y_values
 id: refractories
 name: Refractory Materials
 narrative:
@@ -93,6 +142,9 @@ skill_mapping:
   - skills/materials-figure/scripts/figures4materials/data/ceramic_composition_strength.csv
   - skills/materials-figure/scripts/figures4materials/data/ceramic_conductivity.csv
   - skills/materials-figure/scripts/figures4materials/data/aging_test.csv
+  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
+  - skills/materials-figure/scripts/figures4materials/data/sem_analysis.csv
+  - skills/materials-figure/scripts/figures4materials/data/scatter_regression.csv
   figure_packages:
   - skills/materials-figure/examples/figure-packages/ceramics-sintering-optimization
   - skills/materials-figure/examples/figure-packages/ceramics-weibull-reliability
@@ -100,6 +152,9 @@ skill_mapping:
   - skills/materials-figure/scripts/figures4materials/plot_sintering_curve.py
   - skills/materials-figure/scripts/figures4materials/plot_aging_test.py
   - skills/materials-figure/scripts/figures4materials/plot_ceramic_strength.py
+  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  - skills/materials-figure/scripts/figures4materials/plot_sem_analysis.py
+  - skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
 standards:
 - purpose: Cold crushing strength and modulus of rupture of refractories
   standard: ASTM C133

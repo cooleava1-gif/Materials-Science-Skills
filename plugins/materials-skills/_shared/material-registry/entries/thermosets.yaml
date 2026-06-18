@@ -11,6 +11,34 @@ characterization:
 - evidence_tier: strong
   method: TGA
   purpose: Thermal stability, decomposition onset, char yield
+claim_types:
+- common_risks:
+  - Reporting strength or Tg without a control resin or curing schedule
+  - Comparing systems cured under different conditions as if they were formulation-driven
+  - Claiming thermal improvement without measuring Tg or TGA onset
+  evidence_required:
+  - Tensile/flexural data per ASTM D638/D790 with specimen geometry
+  - Tg measurement (DSC per ASTM D3418 or DMA per ASTM D4065)
+  - Control resin and curing schedule (temperature, time, stoichiometry)
+  type: performance_improvement
+- common_risks:
+  - Claiming complete cure without DSC residual-heat or FTIR conversion evidence
+  - Inferring crosslink density from Tg alone without rubbery plateau measurement
+  - Over-interpreting FTIR peak changes without quantitative conversion analysis
+  evidence_required:
+  - DSC curing curve (exotherm, residual heat, degree of cure)
+  - FTIR conversion of reactive functional groups
+  - DMA crosslink density from rubbery plateau modulus
+  type: mechanism_explanation
+- common_risks:
+  - Reporting decomposition onset without char yield or DTG peak
+  - Claiming thermal stability from short-term TGA without aging data
+  - Ignoring Tg retention after thermal exposure
+  evidence_required:
+  - TGA decomposition curve (onset, DTG peak, char yield) per ASTM E1131
+  - Tg retention after thermal aging
+  - Thermal aging data with time and temperature
+  type: thermal_stability
 coverage_tier: full
 cross_references:
   related:
@@ -48,6 +76,41 @@ figure_archetypes:
   - temperature
   - storage_modulus
   - tan_delta
+- description: TGA decomposition curve (weight vs. temperature) for thermal stability
+    and char yield assessment
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_tga_dtg_curve.py
+  id: tga_thermal
+  type: tga_curve
+  column_roles:
+  - temperature
+  - weight
+- description: FTIR overlay of uncured and cured resin with difference spectrum for
+    curing conversion evidence
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_ftir_curing_evidence.py
+  id: ftir_cure
+  type: ftir_overlay
+  column_roles:
+  - x_values
+  - absorbances
+- description: 'Multi-panel polymer characterization: tensile comparison, DSC, stress-strain,
+    and aging retention'
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_polymers_multipanel.py
+  id: polymers_multipanel
+  type: multi_panel
+  column_roles:
+  - subfigures
+- description: Tensile stress-strain curves for different resin formulations and cure
+    schedules
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+  id: stress_strain
+  type: stress_strain
+  column_roles:
+  - strain
+  - stress
+  column_map:
+    x_values: {"column": "strain_pct"}
+    y_values: {"column": "stress_mpa"}
+    group_by: {"column": "sample_id"}
 id: thermosets
 name: Thermosetting Polymers
 narrative:
@@ -86,9 +149,31 @@ skill_mapping:
   data_schemas:
   - skills/materials-figure/scripts/figures4materials/data/dsc_curve.csv
   - skills/materials-figure/scripts/figures4materials/data/dma_thermomechanical.csv
+  - skills/materials-figure/scripts/figures4materials/data/tga_dtg_curve.csv
+  - skills/materials-figure/scripts/figures4materials/data/ftir_spectra.csv
+  - skills/materials-figure/scripts/figures4materials/data/polymer_tensile.csv
+  - skills/materials-figure/scripts/figures4materials/data/polymer_dsc.csv
+  - skills/materials-figure/scripts/figures4materials/data/polymer_aging.csv
+  - skills/materials-figure/scripts/figures4materials/data/polymer_stress_strain.csv
   figure_packages:
   - skills/materials-figure/examples/figure-packages/tg-dsc-thermal
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_dsc_curve.py
   - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   - skills/materials-figure/scripts/figures4materials/plot_dma_thermomechanical.py
+  - skills/materials-figure/scripts/figures4materials/plot_tga_dtg_curve.py
+  - skills/materials-figure/scripts/figures4materials/plot_ftir_curing_evidence.py
+  - skills/materials-figure/scripts/figures4materials/plot_polymers_multipanel.py
+standards:
+- purpose: Tensile properties of plastics
+  standard: ASTM D638 / ISO 527
+- purpose: Transition temperatures and enthalpies by DSC
+  standard: ASTM D3418 / ISO 11357
+- purpose: Dynamic mechanical properties (DMA) testing
+  standard: ASTM D4065
+- purpose: Compositional analysis by thermogravimetry (TGA)
+  standard: ASTM E1131
+- purpose: Flexural properties of unreinforced and reinforced plastics
+  standard: ASTM D790 / ISO 178
+- purpose: Differential scanning calorimetry (DSC) of plastics
+  standard: ISO 11357

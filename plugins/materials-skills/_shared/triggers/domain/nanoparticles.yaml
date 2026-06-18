@@ -2,6 +2,22 @@ id: nanoparticles
 path: static/fragments/domain/nanoparticles.md
 triggers:
 - nanoparticle
-- quantum dot
+- nanoparticles
 - nanopowder
+- quantum dot
+- quantum dots
+- QD
+- Au nanoparticle
+- gold nanoparticle
+- Ag nanoparticle
+- silver nanoparticle
+- metal oxide nanoparticle
+- colloidal nanoparticle
+- colloidal
+- nanocrystal
 - 纳米颗粒
+- 纳米粉体
+- 纳米金
+- 纳米银
+- 量子点
+- 胶体

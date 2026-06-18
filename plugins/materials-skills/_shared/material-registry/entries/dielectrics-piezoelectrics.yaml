@@ -11,6 +11,41 @@ characterization:
 - evidence_tier: strong
   method: SEM
   purpose: Microstructure grain size, domain structure, porosity
+- evidence_tier: supporting
+  method: TEM
+  purpose: Domain wall structure, nanoscale phase distribution, ferroelectric domains
+- evidence_tier: supporting
+  method: d33 Meter (Quasi-static)
+  purpose: Piezoelectric coefficient d33 measurement
+claim_types:
+- common_risks:
+  - Claiming dielectric/piezoelectric improvement without P-E hysteresis data
+  - Reporting d33 without specifying measurement mode (quasi-static vs resonance)
+  - Omitting frequency dependence of dielectric properties
+  evidence_required:
+  - P-E hysteresis loop data (Pr, Ec, Psat)
+  - d33 measurement with defined method and poling conditions
+  - Frequency-dependent dielectric constant and loss data
+  type: performance_improvement
+- common_risks:
+  - Attributing property change to ferroelectric phase transition without XRD phase
+    analysis
+  - Over-interpreting domain wall motion from limited TEM evidence
+  - Missing composition-structure correlation for mechanism claims
+  evidence_required:
+  - XRD phase analysis showing tetragonality or phase fraction change
+  - TEM evidence of domain structure or wall motion
+  - Clear link between phase/domain evolution and dielectric/piezoelectric property
+  type: mechanism_explanation
+- common_risks:
+  - Claiming temperature stability without variable-temperature dielectric data
+  - Omitting Curie temperature measurement
+  - Reporting single-temperature performance only
+  evidence_required:
+  - Variable-temperature dielectric constant and loss data
+  - Curie temperature measurement (DSC or dielectric vs T)
+  - Property retention over the claimed operating temperature range
+  type: temperature_stability
 coverage_tier: full
 cross_references:
   related:
@@ -22,6 +57,7 @@ description:
   - Piezoelectric performance vs. temperature stability trade-off
   - Lead-free alternatives to PZT (KNN, BNT-BT)
   - Thin film integration with semiconductor processes
+  - Ferroelectric phase and domain engineering for enhanced response
   summary: Dielectric ceramics, thin films, and piezoelectric materials for capacitors,
     actuators, sensors, and energy harvesters
   typical_applications:
@@ -31,36 +67,73 @@ description:
   - Dielectric resonators and filters
 family: functional
 figure_archetypes:
-- id: xrd_pattern
-  description: X-ray diffraction pattern for phase identification
-  required_columns:
-  - two_theta
-  - pure_BTO
+- description: X-ray diffraction pattern for phase identification and tetragonality
   figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
-  data_schema: skills/materials-figure/scripts/figures4materials/data/dielectrics-piezoelectrics_xrd.csv
+  id: xrd_pattern
+  type: xrd_pattern
+  column_roles:
+  - angle
+  - intensity
   column_map:
-    x_values:
-      column: two_theta
+    x_values: {"column": "two_theta"}
     y_series:
-    - key: Pure Bto
+    - key: Pure BTO
       column: pure_BTO
-    - key: Doped Bto
+    - key: Doped BTO
       column: doped_BTO
-- id: trend_curve
-  description: Relative permittivity trend with uncertainty
-  required_columns:
-  - frequency_Hz
-  - dielectric_constant
-  - dielectric_constant_std
+- description: Dielectric constant trend with uncertainty across frequency
   figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
-  data_schema: skills/materials-figure/scripts/figures4materials/data/dielectrics-piezoelectrics_trend_curve.csv
+  id: dielectric_trend
+  type: line_plot
+  column_roles:
+  - frequency
+  - dielectric_constant
   column_map:
-    x_values:
-      column: frequency_Hz
-    y_values:
-      column: dielectric_constant
-    y_errors:
-      column: dielectric_constant_std
+    x_values: {"column": "frequency_Hz"}
+    y_values: {"column": "dielectric_constant"}
+    y_errors: {"column": "dielectric_constant_std"}
+- description: Ferroelectric P-E hysteresis loop showing remanent polarization and
+    coercive field
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_polarization_curve.py
+  id: pe_loop
+  type: line_plot
+  column_roles:
+  - electric_field
+  - polarization
+  column_map:
+    x_values: {"column": "field_kV_per_cm"}
+    y_values: {"column": "polarization"}
+    group_by: {"column": "sample_id"}
+- description: Impedance spectroscopy Nyquist plot for grain and grain boundary contributions
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_eis.py
+  id: eis_nyquist
+  type: eis_plot
+  column_roles:
+  - z_real
+  - z_imag
+  column_map:
+    frequency: {"column": "log_freq_hz"}
+    z_real: {"column": "z_real"}
+    z_imag: {"column": "z_imag"}
+- description: 'Multi-panel dielectric characterization: permittivity + loss + P-E
+    loop'
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_functional_multipanel.py
+  id: dielectric_multipanel
+  type: multi_panel
+  column_roles:
+  - subfigures
+- description: Ferroelectric phase transition and domain wall motion mechanism diagram
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  id: mechanism_diagram
+  type: diagram
+  column_roles: []
+- description: Scatter regression of piezoelectric coefficient d33 versus composition
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
+  id: d33_vs_composition
+  type: scatter
+  column_roles:
+  - x_values
+  - y_values
 id: dielectrics-piezoelectrics
 name: Dielectric and Piezoelectric Materials
 narrative:
@@ -70,12 +143,69 @@ narrative:
     domain_fragment: skills/materials-research/static/fragments/domain/dielectrics-piezoelectrics.md
     narrative_guide: skills/materials-writing/references/dielectrics-piezoelectrics-narrative.md
     reviewer_criteria: skills/materials-reviewer/references/dielectrics-piezoelectrics-reviewer-criteria.md
+properties:
+- id: dielectric_constant
+  name: Dielectric Constant
+  test_methods:
+  - ASTM D150 (impedance spectroscopy)
+  typical_range: 10–10000
+  unit: dimensionless
+- id: loss_tangent
+  name: Loss Tangent (tan δ)
+  test_methods:
+  - ASTM D150 (impedance spectroscopy)
+  typical_range: 0.001–0.1
+  unit: dimensionless
+- id: remanent_polarization
+  name: Remanent Polarization (Pr)
+  test_methods:
+  - Sawyer-Tower P-E loop
+  typical_range: 1–80
+  unit: μC/cm²
+- id: coercive_field
+  name: Coercive Field (Ec)
+  test_methods:
+  - Sawyer-Tower P-E loop
+  typical_range: 5–100
+  unit: kV/cm
+- id: piezoelectric_coefficient_d33
+  name: Piezoelectric Coefficient (d33)
+  test_methods:
+  - Quasi-static d33 meter
+  - IEEE 180 resonance method
+  typical_range: 2–600
+  unit: pC/N
+- id: curie_temperature
+  name: Curie Temperature
+  test_methods:
+  - DSC
+  - Dielectric constant vs temperature
+  typical_range: 50–600
+  unit: °C
 skill_mapping:
   data_schemas:
   - skills/materials-figure/scripts/figures4materials/data/dielectrics-piezoelectrics_xrd.csv
   - skills/materials-figure/scripts/figures4materials/data/dielectrics-piezoelectrics_trend_curve.csv
+  - skills/materials-figure/scripts/figures4materials/data/functional_pe_loop.csv
+  - skills/materials-figure/scripts/figures4materials/data/functional_impedance.csv
+  - skills/materials-figure/scripts/figures4materials/data/scatter_regression.csv
+  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   figure_packages:
   - skills/materials-figure/examples/figure-packages/dielectrics-piezoelectrics-demo
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
   - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
+  - skills/materials-figure/scripts/figures4materials/plot_polarization_curve.py
+  - skills/materials-figure/scripts/figures4materials/plot_eis.py
+  - skills/materials-figure/scripts/figures4materials/plot_functional_multipanel.py
+  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  - skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
+standards:
+- purpose: Dielectric constant and dissipation factor of insulating materials
+  standard: ASTM D150
+- purpose: Piezoelectric measurements and definitions
+  standard: IEEE 180
+- purpose: Measurement of relative permittivity and loss of insulating liquids
+  standard: IEC 60247
+- purpose: Ferroelectric hysteresis loop measurement and analysis
+  standard: ASTM E2034

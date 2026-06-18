@@ -11,6 +11,36 @@ characterization:
 - evidence_tier: definitive
   method: TGA
   purpose: Fiber/matrix ratio by thermal decomposition
+claim_types:
+- type: performance_improvement
+  evidence_required:
+  - Tensile data in 0° and 90° fiber directions per ASTM D3039
+  - Interlaminar shear strength (ILSS) per ASTM D2344
+  - Flexural strength per ASTM D7264
+  - Control laminate comparison with identical layup and fiber volume fraction
+  common_risks:
+  - Reporting only the 0° direction without 90° transverse data
+  - Claiming improvement without normalizing by fiber volume fraction
+  - No replicate statistics (SD or COV) for strength claims
+- type: interface_optimization
+  evidence_required:
+  - SEM fracture surface analysis showing failure mode (fiber pull-out vs debonding)
+  - ILSS data per ASTM D2344
+  - Fiber volume fraction per ASTM D3171
+  - Single-fiber fragmentation or micro-droplet pull-out test results
+  common_risks:
+  - Inferring interface improvement from bulk strength alone
+  - No direct interfacial characterization
+  - Ignoring fiber volume fraction differences between groups
+- type: fatigue_durability
+  evidence_required:
+  - S-N fatigue curve across multiple stress levels
+  - Stiffness degradation curve over cycles
+  - Environmental aging data (hygrothermal, UV) with property retention
+  common_risks:
+  - Fatigue claim based on a single stress level
+  - No stiffness degradation monitoring
+  - Extrapolating lab fatigue life to service without environmental factors
 coverage_tier: full
 cross_references:
   related:
@@ -63,6 +93,44 @@ figure_archetypes:
   type: multi_panel
   column_roles:
   - subfigures
+  column_map:
+    subfigures:
+    - key: Stress-Strain
+      column: strain_pct
+      column2: stress_mpa
+    - key: ILSS
+      column: ilss_mpa
+    - key: Fiber Volume
+      column: fiber_vol_pct
+- description: Multi-panel fatigue and durability characterization with S-N curve and stiffness degradation
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_polymers_multipanel.py
+  id: fatigue_durability_multipanel
+  type: multi_panel
+  column_roles:
+  - subfigures
+  column_map:
+    subfigures:
+    - key: S-N Curve
+      column: stress_amplitude
+      column2: cycles_to_failure
+    - key: Stiffness Degradation
+      column: cycle_fraction
+      column2: modulus_retention_pct
+    - key: Aging Retention
+      column: aging_time_h
+      column2: strength_retention_pct
+- description: Mechanism diagram illustrating fiber-matrix load transfer and interface failure modes
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  id: mechanism_diagram
+  type: diagram
+  column_roles: []
+- description: Scatter regression of laminate strength versus fiber volume fraction
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
+  id: scatter_regression
+  type: scatter
+  column_roles:
+  - x_values
+  - y_values
 id: polymer-composites
 name: Polymer Matrix Composites (FRP, CFRP, GFRP)
 narrative:
@@ -104,6 +172,8 @@ skill_mapping:
   - skills/materials-figure/scripts/figures4materials/data/polymer_dsc.csv
   - skills/materials-figure/scripts/figures4materials/data/polymer_aging.csv
   - skills/materials-figure/scripts/figures4materials/data/mechanical_properties.csv
+  - skills/materials-figure/scripts/figures4materials/data/scatter_regression.csv
+  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   figure_packages:
   - skills/materials-figure/examples/figure-packages/polymer-composites-partial-to-full
   - skills/materials-figure/examples/figure-packages/stress-strain
@@ -111,3 +181,14 @@ skill_mapping:
   - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   - skills/materials-figure/scripts/figures4materials/plot_mechanical_property_radar.py
   - skills/materials-figure/scripts/figures4materials/plot_polymers_multipanel.py
+  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  - skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
+standards:
+- purpose: Tension testing of polymer matrix composite materials
+  standard: ASTM D3039
+- purpose: Flexural properties of polymer matrix composites
+  standard: ASTM D7264
+- purpose: Short-beam strength (interlaminar shear strength) of polymer matrix composites
+  standard: ASTM D2344
+- purpose: Constituent content of composite materials by fiber volume fraction
+  standard: ASTM D3171

@@ -1,16 +1,69 @@
 characterization:
 - evidence_tier: definitive
+  key_features:
+  - Kiessig fringes for film thickness and roughness
+  - Critical angle shift for electron density determination
   method: XRR
   purpose: Film thickness, density, roughness
 - evidence_tier: strong
+  key_features:
+  - GIXRD for thin film phase identification with enhanced surface sensitivity
+  - Texture (pole figure) for preferred orientation
+  - sin²ψ method for residual stress
   method: XRD/GIXRD
   purpose: Phase identification, texture, residual stress
 - evidence_tier: strong
+  key_features:
+  - Cross-section thickness and columnar microstructure
+  - Interface quality and delamination evidence
   method: SEM/FIB
   purpose: Cross-section thickness, columnar microstructure, interface
 - evidence_tier: strong
+  key_features:
+  - Ra/Rq roughness parameters from topography maps
+  - Grain size and columnar feature analysis
   method: AFM
   purpose: Surface roughness, grain size, topography
+- evidence_tier: strong
+  key_features:
+  - Load-displacement curve for hardness and modulus extraction
+  - Substrate effect correction for thin films
+  method: Nanoindentation
+  purpose: Hardness, elastic modulus, film-substrate mechanical response
+claim_types:
+- common_risks:
+  - Reporting hardness without substrate effect correction
+  - Claiming 'high hardness' without indentation depth relative to thickness
+  - Single-load data claimed as representative
+  evidence_required:
+  - Control comparison (bare substrate vs. coated)
+  - Hardness/modulus data with error bars across indentation depths
+  - 'Test conditions: load range, indentation depth, tip geometry'
+  type: performance_improvement
+- common_risks:
+  - Claiming 'growth mechanism confirmed' from morphology alone
+  - No control over competing explanations (Volmer-Weber vs. Frank-van der Merwe)
+  evidence_required:
+  - Cross-section SEM/TEM evidence of growth mode and microstructure
+  - XRD texture evolution across deposition conditions
+  - Interface characterization (adhesion, interdiffusion)
+  type: mechanism_explanation
+- common_risks:
+  - Qualitative tape test claimed as 'good adhesion'
+  - No quantitative critical load from scratch test
+  evidence_required:
+  - Scratch test critical load (Lc) with failure mode classification
+  - Cross-cut or pull-off test for quantitative adhesion strength
+  - 'Test conditions: indenter radius, loading rate, scratch length'
+  type: adhesion_quality
+- common_risks:
+  - Single-point thickness claimed as 'uniform'
+  - No step coverage or edge uniformity data
+  evidence_required:
+  - Thickness mapping across wafer or substrate area
+  - Step coverage data for feature sidewalls and trenches
+  - 'Deposition parameters: power, pressure, temperature, time'
+  type: thickness_control
 coverage_tier: full
 cross_references:
   related:
@@ -31,36 +84,60 @@ description:
   - Corrosion and wear protection coatings
 family: nano
 figure_archetypes:
-- id: xrd_pattern
-  description: X-ray diffraction pattern for phase identification
-  required_columns:
-  - two_theta
-  - as_deposited
+- description: XRD pattern overlay for thin film phase identification comparing as-deposited
+    and annealed states
   figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
-  data_schema: skills/materials-figure/scripts/figures4materials/data/nano-thin-films_xrd.csv
-  column_map:
-    x_values:
-      column: two_theta
-    y_series:
-    - key: As Deposited
-      column: as_deposited
-    - key: Annealed
-      column: annealed
-- id: trend_curve
-  description: Nanoindentation hardness trend with uncertainty
-  required_columns:
-  - film_thickness_nm
-  - hardness_GPa
-  - hardness_GPa_std
+  id: xrd_pattern
+  type: xrd_pattern
+  column_roles:
+  - x_values
+  - y_series
+- description: Nanoindentation hardness trend with uncertainty across film thickness
+    or deposition power
   figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
-  data_schema: skills/materials-figure/scripts/figures4materials/data/nano-thin-films_trend_curve.csv
-  column_map:
-    x_values:
-      column: film_thickness_nm
-    y_values:
-      column: hardness_GPa
-    y_errors:
-      column: hardness_GPa_std
+  id: hardness_trend
+  type: line_plot
+  column_roles:
+  - x_values
+  - y_values
+  - y_errors
+- description: Nanoindentation stress-strain or load-displacement curves for thin film
+    mechanical response comparison
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+  id: stress_strain
+  type: stress_strain
+  column_roles:
+  - x_values
+  - y_series
+- description: Multi-panel thin film characterization combining XRD, hardness, roughness,
+    and adhesion data
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_nano_multipanel.py
+  id: nano_multipanel
+  type: multi_panel
+  column_roles:
+  - subfigures
+- description: Film growth mode and interface bonding mechanism schematic with evidence
+    certainty labeling
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  id: mechanism_diagram
+  type: diagram
+  column_roles:
+  - components
+- description: Hardness versus film thickness scatter regression for thickness-dependent
+    mechanical property
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
+  id: hardness_thickness_scatter
+  type: scatter
+  column_roles:
+  - x_values
+  - y_values
+- description: Graphical abstract panel for thin film review summarizing deposition,
+    microstructure, and performance
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_graphical_abstract.py
+  id: graphical_abstract
+  type: diagram
+  column_roles:
+  - panels
 id: nano-thin-films
 name: Thin Films and Coatings (Nanoscale)
 narrative:
@@ -69,12 +146,75 @@ narrative:
     domain_fragment: skills/materials-research/static/fragments/domain/nano-thin-films.md
     narrative_guide: skills/materials-writing/references/nano-thin-films-narrative.md
     reviewer_criteria: skills/materials-reviewer/references/nano-thin-films-reviewer-criteria.md
+properties:
+- id: film_thickness
+  name: Film Thickness
+  test_methods:
+  - X-ray reflectometry (XRR)
+  - Profilometer step height (ASTM B748)
+  typical_range: 5–2000
+  unit: nm
+- id: hardness
+  name: Hardness
+  test_methods:
+  - Instrumented indentation (ISO 14577)
+  typical_range: 1–40
+  unit: GPa
+- id: surface_roughness
+  name: Surface Roughness
+  test_methods:
+  - AFM topography (ISO 25178)
+  typical_range: 0.2–50
+  unit: nm
+- id: adhesion_strength
+  name: Adhesion Strength
+  test_methods:
+  - Scratch test (ASTM C1624)
+  - Pull-off test
+  typical_range: 5–80
+  unit: MPa
+- id: residual_stress
+  name: Residual Stress
+  test_methods:
+  - Curvature method (Stoney equation)
+  - XRD sin²ψ method
+  typical_range: -4 to +4
+  unit: GPa
+- id: refractive_index
+  name: Refractive Index
+  test_methods:
+  - Spectroscopic ellipsometry
+  typical_range: 1.3–2.6
+  unit: dimensionless
 skill_mapping:
   data_schemas:
   - skills/materials-figure/scripts/figures4materials/data/nano-thin-films_xrd.csv
   - skills/materials-figure/scripts/figures4materials/data/nano-thin-films_trend_curve.csv
+  - skills/materials-figure/scripts/figures4materials/data/stress_strain.csv
+  - skills/materials-figure/scripts/figures4materials/data/scatter_regression.csv
+  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
+  - skills/materials-figure/scripts/figures4materials/data/graphical_abstract.csv
+  - skills/materials-figure/scripts/figures4materials/data/nano_xrd.csv
   figure_packages:
   - skills/materials-figure/examples/figure-packages/nano-thin-films-demo
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
   - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
+  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+  - skills/materials-figure/scripts/figures4materials/plot_nano_multipanel.py
+  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  - skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
+  - skills/materials-figure/scripts/figures4materials/plot_graphical_abstract.py
+standards:
+- purpose: Measurement of thickness of metallic and oxide coatings by microscopical
+    examination of cross section
+  standard: ASTM B748
+- purpose: Instrumented indentation testing for hardness and materials parameters
+  standard: ISO 14577
+- purpose: Adhesion strength and mechanical failure modes of ceramic coatings by quantitative
+    scratch test
+  standard: ASTM C1624
+- purpose: Surface texture — areal method for roughness measurement
+  standard: ISO 25178
+- purpose: Standard test method for adhesion of metallic and inorganic coatings
+  standard: ASTM B571

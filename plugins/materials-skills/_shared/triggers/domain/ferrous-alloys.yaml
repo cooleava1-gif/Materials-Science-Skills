@@ -3,7 +3,19 @@ path: static/fragments/domain/ferrous-alloys.md
 triggers:
 - stainless steel
 - carbon steel
+- alloy steel
 - tool steel
+- cast iron
 - ferrous alloy
+- martensite
+- austenite
+- pearlite
+- quenching
+- tempering
 - 钢铁
 - 不锈钢
+- 合金钢
+- 铸铁
+- 马氏体
+- 淬火
+- 回火

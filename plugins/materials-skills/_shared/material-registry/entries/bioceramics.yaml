@@ -11,6 +11,37 @@ characterization:
 - evidence_tier: strong
   method: ICP-OES
   purpose: Ion release kinetics in simulated body fluid
+claim_types:
+- common_risks:
+  - Claiming bioactivity without SBF immersion XRD/SEM evidence
+  - Reporting apatite formation without time-series data
+  - Missing FTIR confirmation of phosphate functional groups
+  - Using non-standard SBF protocols without validation
+  evidence_required:
+  - SBF immersion XRD/SEM evidence of apatite formation
+  - Apatite formation time-series data (immersion duration progression)
+  - FTIR evidence of phosphate group formation
+  type: bioactivity_assessment
+- common_risks:
+  - Reporting mean strength without Weibull statistical analysis
+  - Omitting sample size for mechanical reliability claims
+  - Missing porosity-strength relationship data
+  - Ignoring brittle fracture scatter in load-bearing applications
+  evidence_required:
+  - Weibull statistical analysis of strength distribution
+  - Compressive strength distribution with sample size
+  - Porosity-strength relationship data
+  type: mechanical_reliability
+- common_risks:
+  - Claiming controlled degradation without ion release kinetics
+  - Reporting single-timepoint mass loss without curve
+  - Omitting pH change data during degradation
+  - Extrapolating in vitro degradation to in vivo without validation
+  evidence_required:
+  - ICP ion release kinetics curve (Ca, Si, P vs time)
+  - Mass loss curve over immersion time
+  - pH change data during degradation period
+  type: degradation_control
 coverage_tier: full
 cross_references:
   related:
@@ -51,6 +82,25 @@ figure_archetypes:
   column_roles:
   - time
   - concentration
+- description: Bioceramic bioactivity and degradation mechanism diagram
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  id: mechanism_diagram
+  type: diagram
+  column_roles: []
+- description: SEM microstructure analysis of apatite formation on bioceramic surface
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_sem_analysis.py
+  id: sem_analysis
+  type: sem_image
+  column_roles:
+  - image_path
+- description: Weibull distribution of bioceramic compressive strength for reliability
+    assessment
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_weibull_strength.py
+  id: weibull_strength
+  type: line_plot
+  column_roles:
+  - failure_probability
+  - strength
 id: bioceramics
 name: Bioceramics and Bioactive Glasses
 narrative:
@@ -96,13 +146,20 @@ skill_mapping:
   - skills/materials-figure/scripts/figures4materials/data/xrd_pattern.csv
   - skills/materials-figure/scripts/figures4materials/data/stress_strain.csv
   - skills/materials-figure/scripts/figures4materials/data/errorbar_trend.csv
+  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
+  - skills/materials-figure/scripts/figures4materials/data/sem_analysis.csv
+  - skills/materials-figure/scripts/figures4materials/data/weibull_strength.csv
   figure_packages:
   - skills/materials-figure/examples/figure-packages/ceramics-xrd-phase-identification
   - skills/materials-figure/examples/figure-packages/stress-strain
+  - skills/materials-figure/examples/figure-packages/ceramics-weibull-reliability
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
   - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
+  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  - skills/materials-figure/scripts/figures4materials/plot_sem_analysis.py
+  - skills/materials-figure/scripts/figures4materials/plot_weibull_strength.py
 standards:
 - purpose: In vitro evaluation for apatite-forming ability of implant materials
   standard: ISO 23317
@@ -112,3 +169,7 @@ standards:
   standard: ASTM C1424
 - purpose: Biological evaluation of medical devices degradation products from ceramics
   standard: ISO 10993-14
+- purpose: In vitro cytotoxicity testing of medical devices and biomaterials
+  standard: ISO 10993-5
+- purpose: Composition specification for hydroxyapatite ceramic materials
+  standard: ASTM F1185

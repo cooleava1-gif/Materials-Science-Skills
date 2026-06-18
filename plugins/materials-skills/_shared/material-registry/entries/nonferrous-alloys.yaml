@@ -11,6 +11,34 @@ characterization:
 - evidence_tier: strong
   method: DSC
   purpose: Precipitation/dissolution events, melting range
+claim_types:
+- common_risks:
+  - Reporting single-condition YS/UTS without a baseline alloy for comparison
+  - Comparing properties from different processing or aging conditions as if they were alloy-driven
+  - Ignoring anisotropy in wrought or extruded Al and Mg products
+  evidence_required:
+  - Tensile data (YS, UTS, elongation) per ASTM E8/E8M or ASTM B557 with specimen geometry
+  - Control/baseline alloy and processing conditions (heat treatment, deformation route)
+  - Replicate measurements with reported variability
+  type: performance_improvement
+- common_risks:
+  - Claiming precipitation strengthening without TEM evidence of precipitate size and density
+  - Inferring a strengthening mechanism from hardness alone without microstructural proof
+  - Over-interpreting DSC peaks without correlating them to specific phases
+  evidence_required:
+  - TEM/SEM precipitate analysis (size, distribution, coherency)
+  - Hardness evolution curve versus aging time/temperature
+  - DSC precipitation/dissolution peaks correlated with phase identification
+  type: mechanism_explanation
+- common_risks:
+  - Reporting corrosion potential without polarization resistance or rate
+  - Extrapolating short-term lab tests to long-term service without validation
+  - Ignoring galvanic coupling effects in multi-material assemblies
+  evidence_required:
+  - Electrochemical data (potentiodynamic polarization, EIS) with test electrolyte
+  - Salt spray or immersion exposure results with stated duration
+  - Corrosion rate (mm/year) or polarization resistance
+  type: corrosion_resistance
 coverage_tier: full
 cross_references:
   related:
@@ -45,6 +73,35 @@ figure_archetypes:
   column_roles:
   - time
   - hardness
+- description: 'Multi-panel metals characterization: tensile comparison, stress-strain,
+    hardness profile, and corrosion polarization'
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_metals_multipanel.py
+  id: metals_multipanel
+  type: multi_panel
+  column_roles:
+  - subfigures
+- description: S-N fatigue curve (stress amplitude vs. cycles to failure) for cyclic
+    loading assessment
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_sn_fatigue.py
+  id: sn_fatigue
+  type: line_plot
+  column_roles:
+  - stress_amplitude
+  - cycles
+- description: Mechanism diagram linking alloy composition, precipitates, and strengthening
+    routes with evidence certainty
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  id: mechanism_diagram
+  type: diagram
+  column_roles: []
+- description: Scatter regression of yield strength versus grain size for Hall-Petch
+    analysis
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
+  id: scatter_regression
+  type: scatter
+  column_roles:
+  - x_values
+  - y_values
 id: nonferrous-alloys
 name: Non-Ferrous Alloys (Al, Cu, Mg, Ti)
 narrative:
@@ -89,17 +146,33 @@ skill_mapping:
   data_schemas:
   - skills/materials-figure/scripts/figures4materials/data/metals_stress_strain.csv
   - skills/materials-figure/scripts/figures4materials/data/metals_hardness_profile.csv
+  - skills/materials-figure/scripts/figures4materials/data/metals_tensile.csv
+  - skills/materials-figure/scripts/figures4materials/data/metals_corrosion.csv
+  - skills/materials-figure/scripts/figures4materials/data/sn_fatigue.csv
+  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
+  - skills/materials-figure/scripts/figures4materials/data/scatter_regression.csv
   figure_packages:
   - skills/materials-figure/examples/figure-packages/stress-strain
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
+  - skills/materials-figure/scripts/figures4materials/plot_metals_multipanel.py
+  - skills/materials-figure/scripts/figures4materials/plot_sn_fatigue.py
+  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  - skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
 standards:
 - purpose: Tension testing of metallic materials at room temperature
   standard: ASTM E8 / E8M
 - purpose: Metallic materials tensile testing method at room temperature
   standard: ISO 6892-1
+- purpose: Tension testing of wrought and cast aluminum and magnesium alloy products
+  standard: ASTM B557
 - purpose: Electrical conductivity determination using eddy currents
   standard: ASTM E1004
 - purpose: Density measurement of powder metallurgy materials
   standard: ASTM B311
+- purpose: Determining average grain size of metallic materials
+  standard: ASTM E112
+- purpose: Verification of corrosion polarization resistance measurement and data
+    analysis
+  standard: ASTM G106

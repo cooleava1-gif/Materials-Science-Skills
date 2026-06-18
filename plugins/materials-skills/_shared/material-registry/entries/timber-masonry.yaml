@@ -5,6 +5,34 @@ characterization:
 - evidence_tier: supporting
   method: SEM
   purpose: Wood/bamboo microstructure, adhesive penetration
+claim_types:
+- type: mechanical_performance
+  evidence_required:
+  - Strength data parallel and perpendicular to grain
+  - Flexural strength (MOR) data
+  - Control comparison with replicate statistics
+  common_risks:
+  - Reporting only one grain orientation
+  - No replicate statistics for strength claims
+  - Comparing species or grades without normalization
+- type: moisture_durability
+  evidence_required:
+  - Water absorption rate data
+  - Swelling/shrinkage (dimensional stability) curve
+  - Moisture content vs. strength relationship
+  common_risks:
+  - Durability claim from short-term wetting only
+  - No dimensional stability data
+  - Ignoring moisture-strength coupling
+- type: connection_performance
+  evidence_required:
+  - Joint/connection strength data
+  - Pull-out or withdrawal force
+  - Shear strength at the connection
+  common_risks:
+  - Connection claim based on member strength alone
+  - No failure mode identification
+  - Ignoring moisture effects on joint behavior
 coverage_tier: full
 cross_references:
   parent: civil-generic
@@ -28,9 +56,39 @@ figure_archetypes:
   column_roles:
   - strain
   - stress
-- id: water-absorption
-- id: boxplot
-- id: grouped-bar
+- description: Water absorption curve of timber or masonry units over immersion time
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_civil_water_absorption.py
+  id: water-absorption
+  type: line_plot
+  column_roles:
+  - time
+  - weight_gain
+- description: Grouped comparison of mechanical property variability across species
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_civil_boxplot_points.py
+  id: boxplot
+  type: grouped_bar
+  column_roles:
+  - x_labels
+  - series
+- description: Grouped bar chart comparing mechanical performance across timber grades
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_grouped_bar.py
+  id: grouped-bar
+  type: grouped_bar
+  column_roles:
+  - x_labels
+  - series
+- description: Mechanism diagram of timber/masonry failure and moisture transport
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  id: mechanism_diagram
+  type: diagram
+  column_roles: []
+- description: Scatter regression of mechanical strength versus density
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
+  id: scatter_regression
+  type: scatter
+  column_roles:
+  - x_values
+  - y_values
 id: timber-masonry
 name: Timber, Masonry, and Bamboo Materials
 narrative:
@@ -66,9 +124,17 @@ standards:
   standard: ASTM D4442
 - purpose: Physical and mechanical properties of wood testing standards
   standard: ISO 13061
+- purpose: Structural lumber in-grade testing of mechanical properties
+  standard: ASTM D198
+- purpose: Bending properties of wood (ISO 13061-3)
+  standard: ISO 13061-3
 skill_mapping:
   data_schemas:
   - skills/materials-figure/scripts/figures4materials/data/stress_strain.csv
+  - skills/materials-figure/scripts/figures4materials/data/civil_water_absorption.csv
+  - skills/materials-figure/scripts/figures4materials/data/civil_boxplot_points.csv
+  - skills/materials-figure/scripts/figures4materials/data/scatter_regression.csv
+  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   figure_packages:
   - skills/materials-figure/examples/figure-packages/stress-strain
   - skills/materials-figure/examples/figure-packages/timber-water-absorption
@@ -76,3 +142,6 @@ skill_mapping:
   - skills/materials-figure/scripts/figures4materials/plot_civil_boxplot_points.py
   - skills/materials-figure/scripts/figures4materials/plot_civil_water_absorption.py
   - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+  - skills/materials-figure/scripts/figures4materials/plot_grouped_bar.py
+  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  - skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py

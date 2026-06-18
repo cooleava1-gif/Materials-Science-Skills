@@ -32,6 +32,15 @@ claim_types:
   - Phase identification (XRD/Raman)
   - Clear link between microstructural feature and property change
   type: mechanism_explanation
+- common_risks:
+  - Reporting sintered density without grain size or microstructure evidence
+  - Claiming full densification without residual porosity measurement
+  - Ignoring atmospheric effects (oxidation of non-oxide ceramics)
+  evidence_required:
+  - Sintering curve with density vs. temperature/time
+  - Grain size measurement (SEM/lineal intercept, ≥200 grains)
+  - Phase composition before and after sintering (XRD)
+  type: sintering_optimization
 coverage_tier: full
 cross_references:
   related:

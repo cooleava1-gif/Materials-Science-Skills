@@ -8,6 +8,34 @@ characterization:
 - evidence_tier: strong
   method: SEM
   purpose: Filler dispersion, fracture surface, phase morphology in blends
+claim_types:
+- common_risks:
+  - Reporting tensile strength without elongation or without a control compound
+  - Comparing compounds cured under different conditions as if they were filler-driven
+  - Ignoring hysteresis and permanent set when claiming elastic recovery
+  evidence_required:
+  - Stress-strain curve (tensile strength, elongation at break) per ASTM D412
+  - Control compound and filler loading/curative level
+  - Elastic recovery or compression set data where recovery is claimed
+  type: performance_improvement
+- common_risks:
+  - Claiming filler reinforcement without SEM evidence of dispersion
+  - Inferring crosslink density from hardness alone without DMA or swelling measurement
+  - Over-interpreting tan δ peaks without linking them to network structure
+  evidence_required:
+  - DMA data (storage/loss modulus, tan δ) showing network response
+  - SEM/TEM filler dispersion and morphology
+  - Crosslink density measurement (DMA rubbery plateau, swelling, or equilibrium)
+  type: mechanism_explanation
+- common_risks:
+  - Reporting property change after aging without a baseline retention value
+  - Using lab aging conditions unrepresentative of service temperature or ozone
+  - Claiming aging resistance without FTIR evidence of oxidation products
+  evidence_required:
+  - Heat/ozone aging data with time, temperature, and atmosphere
+  - Property retention (%) for tensile strength and elongation
+  - FTIR evidence of oxidation or crosslink changes
+  type: aging_resistance
 coverage_tier: full
 cross_references:
   related:
@@ -48,6 +76,35 @@ figure_archetypes:
   - temperature
   - storage_modulus
   - tan_delta
+- description: 'Multi-panel polymer characterization: tensile comparison, DSC, stress-strain,
+    and aging retention'
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_polymers_multipanel.py
+  id: polymers_multipanel
+  type: multi_panel
+  column_roles:
+  - subfigures
+- description: Aging test showing property retention (tensile and elongation) versus
+    aging time across formulations
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_aging_test.py
+  id: aging_test
+  type: grouped_bar
+  column_roles:
+  - x_labels
+  - series
+- description: TGA curve (weight vs. temperature) for filler content and thermal decomposition
+    assessment
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_tga_dtg_curve.py
+  id: tga_filler_content
+  type: tga_curve
+  column_roles:
+  - temperature
+  - weight
+- description: Mechanism diagram of crosslink network and filler reinforcement with
+    evidence certainty
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  id: mechanism_diagram
+  type: diagram
+  column_roles: []
 id: rubber-elastomers
 name: Rubbers and Elastomers
 narrative:
@@ -91,8 +148,31 @@ skill_mapping:
   data_schemas:
   - skills/materials-figure/scripts/figures4materials/data/polymer_stress_strain.csv
   - skills/materials-figure/scripts/figures4materials/data/dma_thermomechanical.csv
+  - skills/materials-figure/scripts/figures4materials/data/polymer_tensile.csv
+  - skills/materials-figure/scripts/figures4materials/data/polymer_dsc.csv
+  - skills/materials-figure/scripts/figures4materials/data/polymer_aging.csv
+  - skills/materials-figure/scripts/figures4materials/data/aging_test.csv
+  - skills/materials-figure/scripts/figures4materials/data/tga_dtg_curve.csv
+  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   figure_packages:
   - skills/materials-figure/examples/figure-packages/stress-strain
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   - skills/materials-figure/scripts/figures4materials/plot_dma_thermomechanical.py
+  - skills/materials-figure/scripts/figures4materials/plot_polymers_multipanel.py
+  - skills/materials-figure/scripts/figures4materials/plot_aging_test.py
+  - skills/materials-figure/scripts/figures4materials/plot_tga_dtg_curve.py
+  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+standards:
+- purpose: Vulcanized rubber and thermoplastic elastomers tension testing
+  standard: ASTM D412 / ISO 37
+- purpose: Rubber property Durometer hardness
+  standard: ASTM D2240 / ISO 7619
+- purpose: Tear strength of conventional vulcanized rubber and thermoplastic elastomers
+  standard: ASTM D624 / ISO 34-1
+- purpose: Compression set properties of rubber
+  standard: ASTM D395 / ISO 815
+- purpose: Accelerated aging and heat resistance testing of rubber
+  standard: ISO 188
+- purpose: Rubber deterioration in an air oven
+  standard: ASTM D573

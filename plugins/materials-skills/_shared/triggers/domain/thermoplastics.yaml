@@ -3,9 +3,19 @@ path: static/fragments/domain/thermoplastics.md
 triggers:
 - thermoplastic
 - PE
+- polyethylene
 - PP
+- polypropylene
 - PET
 - nylon
 - PEEK
 - polycarbonate
+- UHMWPE
+- ABS
+- PMMA
+- injection molding
 - 热塑性
+- 聚乙烯
+- 聚丙烯
+- 尼龙
+- 注塑

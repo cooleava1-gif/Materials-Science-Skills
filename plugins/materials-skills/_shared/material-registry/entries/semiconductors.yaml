@@ -11,16 +11,52 @@ characterization:
 - evidence_tier: strong
   method: XPS/UPS
   purpose: Surface chemistry, band alignment, work function
+- evidence_tier: strong
+  method: Four-Point Probe
+  purpose: Sheet resistance and resistivity of thin films and wafers
+- evidence_tier: supporting
+  method: TRPL (Time-Resolved Photoluminescence)
+  purpose: Minority carrier lifetime, recombination dynamics
+claim_types:
+- common_risks:
+  - Reporting carrier mobility without Hall effect confirmation
+  - Claiming efficiency improvement without I-V characterization under standard illumination
+  - Omitting control/baseline comparison for device performance
+  evidence_required:
+  - Hall effect data (carrier concentration, mobility, resistivity)
+  - I-V characteristic curves under defined bias and illumination
+  - Control/baseline comparison with reference device or material
+  type: performance_improvement
+- common_risks:
+  - Attributing property change to a defect/dopant without PL or XPS evidence
+  - Over-interpreting mechanism from a single characterization technique
+  - Missing carrier concentration data to support doping claims
+  evidence_required:
+  - PL and/or XPS evidence of defect states or dopant incorporation
+  - Carrier concentration data (Hall effect) correlated with composition
+  - Clear link between defect/dopant and observed property change
+  type: mechanism_explanation
+- common_risks:
+  - Claiming stability without defined aging test protocol
+  - Reporting initial performance only without retention rate over time
+  - Ignoring bias/temperature stress conditions during aging
+  evidence_required:
+  - Aging test data under defined stress (temperature, bias, illumination)
+  - Performance retention rate over specified duration
+  - Failure-mode analysis when degradation is observed
+  type: device_stability
 coverage_tier: full
 cross_references:
   related:
   - photonic-optoelectronic
+  - functional-ceramics
 description:
   engineering_problems:
   - Bandgap engineering via composition and strain
   - Doping control and carrier mobility optimization
   - Defect passivation and interface quality improvement
   - Device efficiency and stability under operation
+  - Wide-bandgap power device reliability (SiC, GaN)
   summary: Elemental and compound semiconductors (Si, GaN, GaAs, SiC, perovskites)
     for electronic and optoelectronic devices
   typical_applications:
@@ -28,38 +64,72 @@ description:
   - Power electronics (SiC, GaN)
   - Solar cells and photodetectors
   - Light-emitting diodes (LEDs)
+  - RF and microwave devices (GaAs, GaN)
 family: functional
 figure_archetypes:
-- id: xrd_pattern
-  description: X-ray diffraction pattern for phase identification
-  required_columns:
-  - two_theta
-  - bulk_silicon
+- description: X-ray diffraction pattern for phase identification and epitaxial quality
   figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
-  data_schema: skills/materials-figure/scripts/figures4materials/data/semiconductors_xrd.csv
+  id: xrd_pattern
+  type: xrd_pattern
+  column_roles:
+  - angle
+  - intensity
   column_map:
-    x_values:
-      column: two_theta
+    x_values: {"column": "two_theta"}
     y_series:
     - key: Bulk Silicon
       column: bulk_silicon
     - key: Nanowire Silicon
       column: nanowire_silicon
-- id: trend_curve
-  description: Hall mobility trend with uncertainty
-  required_columns:
-  - annealing_temp_C
-  - mobility_cm2_Vs
-  - mobility_cm2_Vs_std
+- description: Hall mobility trend with uncertainty across annealing temperature
   figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
-  data_schema: skills/materials-figure/scripts/figures4materials/data/semiconductors_trend_curve.csv
+  id: hall_mobility_trend
+  type: line_plot
+  column_roles:
+  - x_values
+  - y_values
   column_map:
-    x_values:
-      column: annealing_temp_C
-    y_values:
-      column: mobility_cm2_Vs
-    y_errors:
-      column: mobility_cm2_Vs_std
+    x_values: {"column": "annealing_temp_C"}
+    y_values: {"column": "mobility_cm2_Vs"}
+    y_errors: {"column": "mobility_cm2_Vs_std"}
+- description: Cyclic voltammetry curve for electrochemical interface characterization
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_cv.py
+  id: cv_curve
+  type: cv_curve
+  column_roles:
+  - voltage
+  - current
+- description: Electrochemical impedance spectroscopy Nyquist plot for carrier transport
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_eis.py
+  id: eis_nyquist
+  type: eis_plot
+  column_roles:
+  - z_real
+  - z_imag
+  column_map:
+    frequency: {"column": "log_freq_hz"}
+    z_real: {"column": "z_real"}
+    z_imag: {"column": "z_imag"}
+- description: 'Multi-panel semiconductor characterization: mobility + resistivity +
+    bandgap'
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_functional_multipanel.py
+  id: semiconductor_multipanel
+  type: multi_panel
+  column_roles:
+  - subfigures
+- description: Defect and doping mechanism diagram linking microstructure to carrier
+    transport
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  id: mechanism_diagram
+  type: diagram
+  column_roles: []
+- description: Scatter regression of carrier mobility versus carrier concentration
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
+  id: mobility_vs_concentration
+  type: scatter
+  column_roles:
+  - x_values
+  - y_values
 id: semiconductors
 name: Semiconductor Materials
 narrative:
@@ -69,12 +139,67 @@ narrative:
     domain_fragment: skills/materials-research/static/fragments/domain/semiconductors.md
     narrative_guide: skills/materials-writing/references/semiconductors-narrative.md
     reviewer_criteria: skills/materials-reviewer/references/semiconductors-reviewer-criteria.md
+properties:
+- id: carrier_concentration
+  name: Carrier Concentration
+  test_methods:
+  - ASTM F76 (Hall effect)
+  typical_range: 1e14–1e19
+  unit: cm⁻³
+- id: carrier_mobility
+  name: Carrier Mobility
+  test_methods:
+  - ASTM F43 (Hall mobility)
+  typical_range: 1–10000
+  unit: cm²/(V·s)
+- id: resistivity
+  name: Resistivity
+  test_methods:
+  - ASTM F76 (four-point probe)
+  typical_range: 1e-4–1e6
+  unit: Ω·cm
+- id: bandgap
+  name: Bandgap
+  test_methods:
+  - UV-Vis Tauc plot
+  - Spectroscopic ellipsometry
+  typical_range: 0.5–6.0
+  unit: eV
+- id: sheet_resistance
+  name: Sheet Resistance
+  test_methods:
+  - ASTM F76 (four-point probe)
+  typical_range: 1–10000
+  unit: Ω/sq
+- id: minority_carrier_lifetime
+  name: Minority Carrier Lifetime
+  test_methods:
+  - TRPL (time-resolved photoluminescence)
+  typical_range: 0.1–1000
+  unit: μs
 skill_mapping:
   data_schemas:
   - skills/materials-figure/scripts/figures4materials/data/semiconductors_xrd.csv
   - skills/materials-figure/scripts/figures4materials/data/semiconductors_trend_curve.csv
+  - skills/materials-figure/scripts/figures4materials/data/functional_impedance.csv
+  - skills/materials-figure/scripts/figures4materials/data/scatter_regression.csv
+  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   figure_packages:
   - skills/materials-figure/examples/figure-packages/semiconductors-demo
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
   - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
+  - skills/materials-figure/scripts/figures4materials/plot_cv.py
+  - skills/materials-figure/scripts/figures4materials/plot_eis.py
+  - skills/materials-figure/scripts/figures4materials/plot_functional_multipanel.py
+  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  - skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
+standards:
+- purpose: Resistivity of semiconductor materials (four-point probe and Hall method)
+  standard: ASTM F76
+- purpose: Hall mobility and Hall coefficient measurement
+  standard: ASTM F43
+- purpose: Photoluminescence measurement of semiconductor wafers
+  standard: SEMI MF523
+- purpose: Semiconductor device reliability and stress testing
+  standard: IEC 60749

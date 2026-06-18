@@ -11,6 +11,34 @@ characterization:
 - evidence_tier: strong
   method: EIS
   purpose: Corrosion rate measurement for coated systems
+claim_types:
+- common_risks:
+  - Reporting single-grade properties without a baseline for comparison
+  - Claiming structural adequacy without code-specified strength and ductility limits
+  - Ignoring size effect and statistical variability in structural members
+  evidence_required:
+  - Tensile data (YS, UTS, elongation) per ASTM E8 / GB/T 228.1 with specimen geometry
+  - Control/baseline grade comparison under identical conditions
+  - Compliance with structural design code requirements (e.g., GB/T 1591 grade)
+  type: structural_performance
+- common_risks:
+  - Reporting corrosion potential without polarization resistance or rate
+  - Claiming coating protection without adhesion or defect tolerance evidence
+  - Extrapolating short-term lab tests to service life without validation
+  evidence_required:
+  - Electrochemical data (potentiodynamic polarization, EIS) with test electrolyte
+  - Coating adhesion test results (pull-off or cross-cut)
+  - Corrosion rate (mm/year) quantified from weight loss or polarization resistance
+  type: corrosion_protection
+- common_risks:
+  - Reporting weld strength without HAZ hardness or microstructure
+  - Ignoring fracture location (base metal, HAZ, or weld metal) in interpretation
+  - Claiming weldability without procedure qualification data
+  evidence_required:
+  - HAZ hardness profile across the weld cross-section
+  - Welded joint tensile strength with fracture location documented
+  - Welding procedure qualification (parameters, consumables, heat input)
+  type: weld_performance
 coverage_tier: full
 cross_references:
   parent: civil-generic
@@ -58,9 +86,43 @@ figure_archetypes:
       column: current_log_a_cm2
     group_by:
       column: condition
-- id: errorbar-trend
-- id: line-trend
-- id: grouped-bar
+- description: Performance trend with error bars across experimental groups (e.g.,
+    strength retention vs. exposure time)
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_civil_errorbar_trend.py
+  id: errorbar-trend
+  type: line_plot
+  column_roles:
+  - x_values
+  - y_values
+  column_map:
+    x_values: {"column": "x_value"}
+    y_values: {"column": "y_value"}
+    group_by: {"column": "group"}
+- description: Errorbar trend of corrosion rate or strength versus aging or exposure
+    duration
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
+  id: line-trend
+  type: line_plot
+  column_roles:
+  - x_values
+  - y_values
+  column_map:
+    x_values: {"column": "aging_day"}
+    y_values: {"column": "strength_mean_mpa"}
+- description: Grouped bar comparison of mechanical or durability property indices
+    across conditions
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_grouped_bar.py
+  id: grouped-bar
+  type: grouped_bar
+  column_roles:
+  - x_labels
+  - series
+- description: Mechanism diagram linking steel grade, processing, and corrosion or
+    protection routes with evidence certainty
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  id: mechanism_diagram
+  type: diagram
+  column_roles: []
 id: steel-metal
 name: Steel and Metal Structures
 narrative:
@@ -96,6 +158,31 @@ properties:
   - Electrochemical polarization (ASTM G5)
   typical_range: 0.01–0.5
   unit: mm/a
+- id: weld_strength
+  name: Weld Joint Strength
+  test_methods:
+  - ASTM E8
+  typical_range: 200–800
+  unit: MPa
+skill_mapping:
+  data_schemas:
+  - skills/materials-figure/scripts/figures4materials/data/metals_corrosion.csv
+  - skills/materials-figure/scripts/figures4materials/data/metals_stress_strain.csv
+  - skills/materials-figure/scripts/figures4materials/data/civil_errorbar_trend.csv
+  - skills/materials-figure/scripts/figures4materials/data/errorbar_trend.csv
+  - skills/materials-figure/scripts/figures4materials/data/mechanical_properties.csv
+  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
+  figure_packages:
+  - skills/materials-figure/examples/figure-packages/steel-corrosion-trend
+  - skills/materials-figure/examples/figure-packages/stress-strain
+  figure_scripts:
+  - skills/materials-figure/scripts/figures4materials/plot_civil_durability_retention.py
+  - skills/materials-figure/scripts/figures4materials/plot_civil_errorbar_trend.py
+  - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
+  - skills/materials-figure/scripts/figures4materials/plot_grouped_bar.py
+  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  - skills/materials-figure/scripts/figures4materials/plot_polarization_curve.py
+  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
 standards:
 - purpose: Tension testing of metallic materials
   standard: ASTM E8 / GB/T 228.1
@@ -105,15 +192,7 @@ standards:
   standard: ASTM G31
 - purpose: Making potentiostatic and potentiodynamic anodic polarization measurements
   standard: ASTM G5
-skill_mapping:
-  data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/metals_corrosion.csv
-  - skills/materials-figure/scripts/figures4materials/data/metals_stress_strain.csv
-  figure_packages:
-  - skills/materials-figure/examples/figure-packages/steel-corrosion-trend
-  - skills/materials-figure/examples/figure-packages/stress-strain
-  figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_civil_durability_retention.py
-  - skills/materials-figure/scripts/figures4materials/plot_civil_errorbar_trend.py
-  - skills/materials-figure/scripts/figures4materials/plot_polarization_curve.py
-  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+- purpose: Conducting potentiodynamic polarization resistance measurements
+  standard: ASTM G59
+- purpose: High-strength low-alloy structural steels
+  standard: GB/T 1591

@@ -1,12 +1,24 @@
 id: timber-masonry
-path: static/fragments/domain/civil-generic.md
+path: static/fragments/domain/timber-masonry.md
 triggers:
 - timber
 - wood
 - bamboo
 - masonry
 - brick
+- glulam
+- CLT
+- cross-laminated timber
+- engineered wood
+- bamboo composite
+- fired brick
+- concrete block
+- stone masonry
 - 木材
 - 竹材
 - 砌体
 - 砖
+- 胶合木
+- 正交胶合木
+- 竹复合材料
+- 烧结砖

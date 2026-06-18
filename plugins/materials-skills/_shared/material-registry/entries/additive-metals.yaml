@@ -11,6 +11,35 @@ characterization:
 - evidence_tier: definitive
   method: Density Measurement
   purpose: Archimedes method for relative density
+claim_types:
+- common_risks:
+  - Reporting single-parameter density without a process window map
+  - Claiming full density without Micro-CT verification of internal porosity
+  - Ignoring lack-of-fusion defects that Archimedes cannot detect
+  evidence_required:
+  - Archimedes relative density measurements per ASTM B962 with replicate samples
+  - Micro-CT porosity analysis showing pore size, distribution, and lack-of-fusion
+    defects
+  - Process parameter window (laser power, scan speed, hatch spacing) mapping to density
+  type: density_optimization
+- common_risks:
+  - Claiming grain refinement without EBSD evidence of grain size and orientation
+  - Inferring microstructure from process parameters without direct characterization
+  - Ignoring anisotropy from columnar grain growth along build direction
+  evidence_required:
+  - EBSD grain orientation and texture mapping
+  - SEM melt pool morphology and microstructure characterization
+  - XRD phase analysis and texture measurement
+  type: microstructure_control
+- common_risks:
+  - Reporting single-orientation tensile data without addressing anisotropy
+  - Claiming as-built performance without post-processing comparison
+  - Ignoring surface roughness and defect effects on fatigue life
+  evidence_required:
+  - Tensile data (YS, UTS, elongation) with build orientation (anisotropy) documented
+  - Hardness distribution mapping across the build
+  - Fatigue (S-N) data and post-processing (HIP/heat treatment) comparison
+  type: mechanical_performance
 coverage_tier: full
 cross_references:
   related:
@@ -43,7 +72,9 @@ figure_archetypes:
     x_values: {"column": "strain_pct"}
     y_values: {"column": "stress_mpa"}
     group_by: {"column": "condition"}
-- description: EBSD inverse pole figure map showing grain orientation
+- description: SEM/EBSD microstructure image showing melt pool morphology and grain
+    orientation
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_sem_analysis.py
   id: ebsd_map
   type: sem_image
   column_roles:
@@ -51,7 +82,7 @@ figure_archetypes:
 - description: Relative density vs. laser power/scan speed process window
   figure_script: skills/materials-figure/scripts/figures4materials/plot_contour_response_map.py
   id: process_window
-  type: contour_plot
+  type: heatmap
   column_roles:
   - power
   - speed
@@ -63,6 +94,27 @@ figure_archetypes:
     xlabel: {"value": "Laser Power (W)"}
     ylabel: {"value": "Scan Speed (mm/s)"}
     figure_name: {"value": "additive_metals_process_window"}
+- description: 'Multi-panel metals characterization: tensile comparison, stress-strain,
+    hardness profile, and corrosion polarization'
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_metals_multipanel.py
+  id: metals_multipanel
+  type: multi_panel
+  column_roles:
+  - subfigures
+- description: Mechanism diagram linking AM process, microstructure, and performance
+    routes with evidence certainty
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  id: mechanism_diagram
+  type: diagram
+  column_roles: []
+- description: S-N fatigue curve (stress amplitude vs. cycles to failure) for cyclic
+    loading assessment
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_sn_fatigue.py
+  id: sn_fatigue
+  type: line_plot
+  column_roles:
+  - stress_amplitude
+  - cycles
 id: additive-metals
 name: Additively Manufactured Metals
 narrative:
@@ -101,11 +153,19 @@ skill_mapping:
   data_schemas:
   - skills/materials-figure/scripts/figures4materials/data/metals_stress_strain.csv
   - skills/materials-figure/scripts/figures4materials/data/contour_response_map.csv
+  - skills/materials-figure/scripts/figures4materials/data/metals_tensile.csv
+  - skills/materials-figure/scripts/figures4materials/data/sem_analysis.csv
+  - skills/materials-figure/scripts/figures4materials/data/sn_fatigue.csv
+  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   figure_packages:
   - skills/materials-figure/examples/figure-packages/stress-strain
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   - skills/materials-figure/scripts/figures4materials/plot_contour_response_map.py
+  - skills/materials-figure/scripts/figures4materials/plot_sem_analysis.py
+  - skills/materials-figure/scripts/figures4materials/plot_metals_multipanel.py
+  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  - skills/materials-figure/scripts/figures4materials/plot_sn_fatigue.py
 standards:
 - purpose: Evaluating mechanical properties of metal materials produced via AM
   standard: ASTM F3122
@@ -113,3 +173,7 @@ standards:
   standard: ASTM F2924
 - purpose: Relative density of AM parts using Archimedes principle
   standard: ASTM B962
+- purpose: Specification for AM Ti-6Al-4V ELI with powder bed fusion
+  standard: ASTM F3001
+- purpose: Additive manufacturing general principles terminology
+  standard: ISO/ASTM 52900

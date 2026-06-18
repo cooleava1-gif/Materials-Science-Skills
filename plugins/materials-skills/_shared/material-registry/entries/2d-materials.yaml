@@ -1,16 +1,69 @@
 characterization:
 - evidence_tier: definitive
+  key_features:
+  - G/2D ratio for graphene layer number estimation
+  - D/G ratio for defect density quantification
+  - E2g/A1u peak positions for TMD phase and strain
   method: Raman Spectroscopy
   purpose: Layer number (G/2D ratio), defect density (D/G ratio), doping level
 - evidence_tier: definitive
+  key_features:
+  - Monolayer thickness ~0.34 nm (graphene), ~0.65 nm (MoS2)
+  - Flake lateral size and uniformity statistics
   method: AFM
   purpose: Thickness measurement, surface morphology, flake size
 - evidence_tier: strong
+  key_features:
+  - SAED pattern for crystal orientation and layer stacking
+  - Lattice resolution for grain boundary and Moiré pattern analysis
   method: TEM/SAED
   purpose: Crystal structure, layer number, Moiré patterns, grain boundaries
 - evidence_tier: strong
+  key_features:
+  - C 1s, Mo 3d, S 2p binding energies for composition and oxidation state
+  - Functional group identification for GO/rGO differentiation
   method: XPS
   purpose: Chemical composition, oxidation state, functional groups
+- evidence_tier: strong
+  key_features:
+  - (002) peak shift for interlayer spacing (d-spacing) measurement
+  - Peak width for crystallite size along c-axis
+  method: XRD
+  purpose: Phase identification, interlayer spacing, layer stacking order
+claim_types:
+- common_risks:
+  - Reporting mobility without contact resistance correction
+  - Claiming 'high performance' without benchmarking to literature
+  - Single-device data claimed as representative
+  evidence_required:
+  - Control device comparison (e.g., Si MOSFET or bulk crystal)
+  - Transfer and output curves with extracted mobility and on/off ratio
+  - 'Device geometry: channel length, dielectric, contact metal'
+  type: performance_improvement
+- common_risks:
+  - Claiming 'interface coupling confirmed' from Raman shift alone
+  - No control over substrate and environmental effects
+  evidence_required:
+  - Raman evidence of layer coupling (peak shift/splitting)
+  - TEM/AFM evidence of interface structure and layer registry
+  - Electrical or optical evidence of coupling-induced property change
+  type: mechanism_explanation
+- common_risks:
+  - Small-area sample claimed as 'scalable synthesis'
+  - No uniformity statistics across wafer-scale area
+  evidence_required:
+  - Large-area coverage map with thickness uniformity statistics
+  - Defect density comparison (Raman D/G) across synthesis conditions
+  - 'Synthesis parameters: temperature, precursor flow, pressure'
+  type: synthesis_quality
+- common_risks:
+  - Short-term ambient exposure claimed as 'environmentally stable'
+  - No accelerated aging or encapsulation comparison
+  evidence_required:
+  - Performance retention after humidity, temperature, and UV exposure
+  - Comparison of bare vs. encapsulated devices under same protocol
+  - 'Aging conditions: time, temperature, humidity, atmosphere'
+  type: stability_validation
 coverage_tier: full
 cross_references:
   related:
@@ -31,36 +84,60 @@ description:
   - Membranes for separation and filtration
 family: nano
 figure_archetypes:
-- id: xrd_pattern
-  description: X-ray diffraction pattern for phase identification
-  required_columns:
-  - two_theta
-  - monolayer
+- description: XRD pattern overlay for 2D material phase identification and layer stacking
+    comparison (monolayer vs. few-layer)
   figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
-  data_schema: skills/materials-figure/scripts/figures4materials/data/2d-materials_xrd.csv
-  column_map:
-    x_values:
-      column: two_theta
-    y_series:
-    - key: Monolayer
-      column: monolayer
-    - key: Few Layer
-      column: few_layer
-- id: trend_curve
-  description: Photocurrent trend with uncertainty
-  required_columns:
-  - laser_power_mW
-  - photocurrent_uA
-  - photocurrent_uA_std
+  id: xrd_pattern
+  type: xrd_pattern
+  column_roles:
+  - x_values
+  - y_series
+- description: Photocurrent or carrier mobility trend with uncertainty across laser
+    power or layer number
   figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
-  data_schema: skills/materials-figure/scripts/figures4materials/data/2d-materials_trend_curve.csv
-  column_map:
-    x_values:
-      column: laser_power_mW
-    y_values:
-      column: photocurrent_uA
-    y_errors:
-      column: photocurrent_uA_std
+  id: photocurrent_trend
+  type: line_plot
+  column_roles:
+  - x_values
+  - y_values
+  - y_errors
+- description: Multi-panel 2D material characterization combining Raman, AFM thickness,
+    XRD, and electrical data
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_nano_multipanel.py
+  id: nano_multipanel
+  type: multi_panel
+  column_roles:
+  - subfigures
+- description: Layer coupling and interface effect mechanism schematic with evidence
+    certainty labeling
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  id: mechanism_diagram
+  type: diagram
+  column_roles:
+  - components
+- description: Carrier mobility versus layer number scatter regression for thickness-dependent
+    transport property
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
+  id: carrier_mobility_scatter
+  type: scatter
+  column_roles:
+  - x_values
+  - y_values
+- description: Graphical abstract panel for 2D materials review summarizing synthesis,
+    properties, and applications
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_graphical_abstract.py
+  id: graphical_abstract
+  type: diagram
+  column_roles:
+  - panels
+- description: SEM/AFM micrograph panel showing 2D flake morphology, lateral size,
+    and surface topography
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_sem_analysis.py
+  id: sem_image
+  type: sem_image
+  column_roles:
+  - image_data
+  - histogram
 id: 2d-materials
 name: Two-Dimensional Materials (Graphene, MoS₂, MXene)
 narrative:
@@ -69,12 +146,72 @@ narrative:
     domain_fragment: skills/materials-research/static/fragments/domain/2d-materials.md
     narrative_guide: skills/materials-writing/references/2d-materials-narrative.md
     reviewer_criteria: skills/materials-reviewer/references/2d-materials-reviewer-criteria.md
+properties:
+- id: carrier_mobility
+  name: Carrier Mobility
+  test_methods:
+  - Hall effect measurement (IEC 62607)
+  - FET transfer characteristics
+  typical_range: 1–15000
+  unit: cm²/V·s
+- id: on_off_ratio
+  name: On/Off Ratio
+  test_methods:
+  - FET transfer curve (IEC 62607)
+  typical_range: 10³–10⁸
+  unit: dimensionless
+- id: layer_thickness
+  name: Layer Thickness
+  test_methods:
+  - AFM step height (ISO/TS 21357)
+  typical_range: 0.34–10
+  unit: nm
+- id: sheet_resistance
+  name: Sheet Resistance
+  test_methods:
+  - Four-point probe (ASTM F1711)
+  typical_range: 10–5000
+  unit: Ω/sq
+- id: bandgap
+  name: Bandgap
+  test_methods:
+  - UV-Vis absorption / Tauc plot
+  - STS (scanning tunneling spectroscopy)
+  typical_range: 0–6
+  unit: eV
+- id: d_spacing
+  name: Interlayer Spacing
+  test_methods:
+  - XRD Bragg equation (ISO/TS 21357)
+  typical_range: 3.0–7.0
+  unit: Å
 skill_mapping:
   data_schemas:
   - skills/materials-figure/scripts/figures4materials/data/2d-materials_xrd.csv
   - skills/materials-figure/scripts/figures4materials/data/2d-materials_trend_curve.csv
+  - skills/materials-figure/scripts/figures4materials/data/sem_analysis.csv
+  - skills/materials-figure/scripts/figures4materials/data/scatter_regression.csv
+  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
+  - skills/materials-figure/scripts/figures4materials/data/graphical_abstract.csv
+  - skills/materials-figure/scripts/figures4materials/data/nano_xrd.csv
   figure_packages:
   - skills/materials-figure/examples/figure-packages/2d-materials-demo
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
   - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
+  - skills/materials-figure/scripts/figures4materials/plot_nano_multipanel.py
+  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  - skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
+  - skills/materials-figure/scripts/figures4materials/plot_graphical_abstract.py
+  - skills/materials-figure/scripts/figures4materials/plot_sem_analysis.py
+standards:
+- purpose: Standard guide for characterization of graphene and related 2D materials
+  standard: ASTM F1711
+- purpose: Matrix of properties and measurement techniques for graphene and related
+    2D materials
+  standard: ISO/TS 21357
+- purpose: Nanomanufacturing — key control characteristics for graphene electrical
+    properties
+  standard: IEC 62607
+- purpose: Nanotechnologies — vocabulary including 2D material terminology
+  standard: ISO/TS 80004

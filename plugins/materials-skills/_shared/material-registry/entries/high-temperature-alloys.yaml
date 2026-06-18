@@ -11,6 +11,37 @@ characterization:
 - evidence_tier: definitive
   method: Creep Testing
   purpose: Creep rate, rupture life, minimum creep rate vs. Larson-Miller parameter
+claim_types:
+- common_risks:
+  - Reporting rupture life without minimum creep rate or the steady-state regime
+  - Extrapolating short-duration creep data across orders of magnitude in time/temperature
+    without Larson-Miller validation
+  - Ignoring scatter in creep data and not reporting replicate tests
+  evidence_required:
+  - Creep strain-time curve with primary, steady, and tertiary regimes identified
+  - Minimum creep rate with applied stress and temperature conditions
+  - Larson-Miller parameter or other time-temperature extrapolation basis
+  type: creep_resistance
+- common_risks:
+  - Claiming γ′ strengthening without TEM evidence of precipitate size, fraction, and
+    coherency
+  - Inferring microstructural stability from the as-processed condition without aging/exposure
+    evidence
+  - Over-interpreting lattice misfit without high-resolution XRD or TEM measurement
+  evidence_required:
+  - SEM/TEM microstructure showing γ/γ′ morphology and precipitate distribution
+  - γ′ size distribution and volume fraction measurement
+  - Lattice misfit analysis (XRD/TEM) where misfit strengthening is claimed
+  type: mechanism_explanation
+- common_risks:
+  - Reporting single-temperature isothermal oxidation without cyclic oxidation data
+  - Claiming oxidation resistance without oxide scale cross-section or phase analysis
+  - Ignoring spallation and mass-loss events in cyclic tests
+  evidence_required:
+  - TGA oxidation mass-change curve with temperature, time, and atmosphere
+  - Oxide scale analysis (SEM/EDS/XRD of cross-section and phase composition)
+  - Cyclic oxidation data with spallation behavior where relevant
+  type: oxidation_resistance
 coverage_tier: full
 cross_references:
   related:
@@ -45,6 +76,35 @@ figure_archetypes:
   column_roles:
   - strain
   - stress
+- description: 'Multi-panel metals characterization: tensile comparison, stress-strain,
+    hardness profile, and corrosion polarization'
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_metals_multipanel.py
+  id: metals_multipanel
+  type: multi_panel
+  column_roles:
+  - subfigures
+- description: Creep-recovery response under multi-cycle loading showing elastic/plastic/viscous
+    strain partitioning
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_creep_recovery.py
+  id: creep_recovery
+  type: line_plot
+  column_roles:
+  - time
+  - strain
+- description: Mechanism diagram of γ′ precipitate strengthening and coarsening with
+    evidence certainty
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  id: mechanism_diagram
+  type: diagram
+  column_roles: []
+- description: TGA oxidation mass-change curve (weight vs. temperature) for high-temperature
+    oxidation assessment
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_tga_dtg_curve.py
+  id: tga_oxidation
+  type: tga_curve
+  column_roles:
+  - temperature
+  - weight_change
 id: high-temperature-alloys
 name: High-Temperature Alloys and Superalloys
 narrative:
@@ -83,13 +143,26 @@ skill_mapping:
   data_schemas:
   - skills/materials-figure/scripts/figures4materials/data/metals_stress_strain.csv
   - skills/materials-figure/scripts/figures4materials/data/aging_test.csv
+  - skills/materials-figure/scripts/figures4materials/data/metals_tensile.csv
+  - skills/materials-figure/scripts/figures4materials/data/metals_corrosion.csv
+  - skills/materials-figure/scripts/figures4materials/data/creep_recovery.csv
+  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
+  - skills/materials-figure/scripts/figures4materials/data/tga_dtg_curve.csv
   figure_packages:
   - skills/materials-figure/examples/figure-packages/stress-strain
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   - skills/materials-figure/scripts/figures4materials/plot_aging_test.py
+  - skills/materials-figure/scripts/figures4materials/plot_metals_multipanel.py
+  - skills/materials-figure/scripts/figures4materials/plot_creep_recovery.py
+  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  - skills/materials-figure/scripts/figures4materials/plot_tga_dtg_curve.py
 standards:
 - purpose: Uniaxial creep and stress-rupture testing of metallic materials
   standard: ASTM E139 / ISO 204
 - purpose: Elevated temperature tension testing of metallic materials
   standard: ASTM E21
+- purpose: Static oxidation testing of metallic materials at elevated temperatures
+  standard: ASTM G54
+- purpose: Nickel-base superalloy (Inconel 718) bar, forging, and ring specification
+  standard: AMS 5661

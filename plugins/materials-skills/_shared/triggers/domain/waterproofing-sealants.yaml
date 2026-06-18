@@ -1,9 +1,18 @@
 id: waterproofing-sealants
-path: static/fragments/domain/civil-generic.md
+path: static/fragments/domain/waterproofing-sealants.md
 triggers:
 - waterproofing
 - sealant
 - membrane
+- bituminous membrane
+- SBS modified
+- polyurethane coating
+- waterstop
+- expansion joint
 - 防水
 - 密封胶
 - 卷材
+- SBS改性沥青
+- 聚氨酯涂料
+- 止水带
+- 伸缩缝

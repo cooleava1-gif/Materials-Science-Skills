@@ -200,30 +200,37 @@ figure_archetypes:
   figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
   id: mechanism_diagram
   type: diagram
+  column_roles: []
 - description: System boundary diagram for life cycle assessment of WER systems
   figure_script: skills/materials-figure/scripts/figures4materials/plot_lca_boundary.py
   id: lca_boundary
   type: diagram
+  column_roles: []
 - description: Literature research gap matrix for topic mapping
   figure_script: skills/materials-figure/scripts/figures4materials/plot_research_gap_matrix.py
   id: research_gap_matrix
   type: heatmap
+  column_roles: []
 - description: Research landscape heatmap showing coverage density
   figure_script: skills/materials-figure/scripts/figures4materials/plot_research_gap_heatmap.py
   id: research_gap_heatmap
   type: heatmap
+  column_roles: []
 - description: Heatmap of property correlations across formulations
   figure_script: skills/materials-figure/scripts/figures4materials/plot_property_correlation.py
   id: property_correlation
   type: heatmap
+  column_roles: []
 - description: PRISMA-style literature screening flow diagram
   figure_script: skills/materials-figure/scripts/figures4materials/plot_screening_flow.py
   id: screening_flow
   type: flow_chart
+  column_roles: []
 - description: Graphical abstract panel for WER-EA review
   figure_script: skills/materials-figure/scripts/figures4materials/plot_graphical_abstract.py
   id: graphical_abstract
   type: diagram
+  column_roles: []
 id: asphalt-pavement
 name: Waterborne Epoxy Modified Emulsified Asphalt
 narrative:

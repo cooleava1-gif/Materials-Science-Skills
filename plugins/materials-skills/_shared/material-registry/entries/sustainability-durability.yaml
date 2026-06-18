@@ -5,6 +5,35 @@ characterization:
 - evidence_tier: strong
   method: Accelerated Durability Testing
   purpose: Freeze-thaw, carbonation, chloride ingress, alkali-silica reaction
+claim_types:
+- type: sustainability_assessment
+  evidence_required:
+  - LCA data (GWP, embodied energy) per ISO 14040/14044
+  - System boundary condition statement (cradle-to-gate, etc.)
+  - Comparison baseline (reference material or process)
+  common_risks:
+  - Claiming 'green' or 'low-carbon' without LCA data
+  - No defined functional unit or system boundary
+  - Cherry-picked impact categories without full disclosure
+- type: durability_prediction
+  evidence_required:
+  - Freeze-thaw cycle data with strength retention
+  - Carbonation depth measurement
+  - Chloride penetration (diffusion coefficient) data
+  - Performance degradation model with time
+  common_risks:
+  - Durability prediction from a single degradation mechanism
+  - No service-life model linking lab data to field exposure
+  - Ignoring coupled degradation (e.g. freeze-thaw plus chloride)
+- type: waste_valorization
+  evidence_required:
+  - Waste dosage vs. performance curve
+  - Leaching toxicity data for heavy metals or organics
+  - Compatibility evidence with the host matrix
+  common_risks:
+  - Valorization claim based on strength alone
+  - No leaching/toxicity assessment
+  - Ignoring adverse effects on durability or workability
 coverage_tier: full
 cross_references:
   related:
@@ -40,9 +69,32 @@ figure_archetypes:
   column_roles:
   - x_labels
   - series
-- id: freeze-thaw-durability
-- id: water-absorption
-- id: line-trend
+- description: Strength retention over freeze-thaw cycles
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_freeze_thaw_cycle.py
+  id: freeze-thaw-durability
+  type: line_plot
+  column_roles:
+  - cycles
+  - strength_retention
+- description: Water absorption curve of durable/recycled materials over immersion time
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_civil_water_absorption.py
+  id: water-absorption
+  type: line_plot
+  column_roles:
+  - time
+  - weight_gain
+- description: Property retention trend over aging or exposure time with error bars
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_civil_errorbar_trend.py
+  id: line-trend
+  type: line_plot
+  column_roles:
+  - x_values
+  - y_values
+- description: Mechanism diagram of coupled durability degradation processes
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  id: mechanism_diagram
+  type: diagram
+  column_roles: []
 id: sustainability-durability
 name: Sustainability and Durability of Construction Materials
 narrative:
@@ -65,6 +117,18 @@ properties:
   - ASTM C666 (freeze-thaw retention)
   typical_range: 60–100
   unit: '%'
+- id: chloride_diffusion_coefficient
+  name: Chloride Diffusion Coefficient
+  test_methods:
+  - ASTM C1556 (bulk diffusion)
+  typical_range: 1.0e-12–1.0e-10
+  unit: m²/s
+- id: carbonation_depth
+  name: Carbonation Depth
+  test_methods:
+  - ASTM C876 (half-cell potential indicator)
+  typical_range: 1–30
+  unit: mm
 standards:
 - purpose: Life cycle assessment principles and framework
   standard: ISO 14040
@@ -72,10 +136,20 @@ standards:
   standard: ISO 14044
 - purpose: Resistance of concrete to rapid freezing and thawing
   standard: ASTM C666
+- purpose: Determining the apparent chloride diffusion coefficient of cementitious
+    mixtures by bulk diffusion
+  standard: ASTM C1556
+- purpose: Half-cell potential for uncoated reinforcing steel in concrete (corrosion
+    and carbonation indication)
+  standard: ASTM C876
 skill_mapping:
   data_schemas:
   - skills/materials-figure/scripts/figures4materials/data/durability_retention.csv
   - skills/materials-figure/scripts/figures4materials/data/lca_boundary.csv
+  - skills/materials-figure/scripts/figures4materials/data/freeze_thaw_cycle.csv
+  - skills/materials-figure/scripts/figures4materials/data/civil_water_absorption.csv
+  - skills/materials-figure/scripts/figures4materials/data/civil_errorbar_trend.csv
+  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   figure_packages:
   - skills/materials-figure/examples/figure-packages/sustainability-freeze-thaw
   - skills/materials-figure/examples/figure-packages/wer-ea-dosage-window
@@ -85,3 +159,6 @@ skill_mapping:
   - skills/materials-figure/scripts/figures4materials/plot_civil_water_absorption.py
   - skills/materials-figure/scripts/figures4materials/plot_durability_retention.py
   - skills/materials-figure/scripts/figures4materials/plot_lca_boundary.py
+  - skills/materials-figure/scripts/figures4materials/plot_freeze_thaw_cycle.py
+  - skills/materials-figure/scripts/figures4materials/plot_civil_errorbar_trend.py
+  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py

@@ -14,6 +14,39 @@ characterization:
 - evidence_tier: supporting
   method: Raman Spectroscopy
   purpose: Phase transition detection, local structure, oxygen octahedral distortion
+claim_types:
+- common_risks:
+  - Claiming dielectric/piezoelectric improvement without P-E hysteresis data
+  - Reporting d33 without specifying measurement mode (quasi-static vs resonance)
+  - Omitting frequency dependence of dielectric properties
+  - Missing control comparison against baseline composition
+  evidence_required:
+  - P-E hysteresis loop data (Pr, Ec, Psat)
+  - d33 measurement with defined method and poling conditions
+  - Frequency-dependent dielectric constant and loss curves
+  - Control comparison against baseline composition
+  type: performance_improvement
+- common_risks:
+  - Attributing property change to ferroelectric phase transition without XRD phase
+    analysis
+  - Over-interpreting domain wall motion from limited TEM evidence
+  - Missing Raman spectroscopy confirmation of phase transition
+  - Lacking temperature-dependent data to support mechanism
+  evidence_required:
+  - XRD phase analysis showing tetragonality or phase fraction change
+  - Raman spectroscopy evidence of phase transition or octahedral distortion
+  - Temperature-dependent property data supporting the mechanism
+  type: mechanism_explanation
+- common_risks:
+  - Claiming temperature stability without variable-temperature dielectric data
+  - Omitting Curie temperature measurement
+  - Reporting single-temperature performance only
+  - Missing thermal stability curves over operating range
+  evidence_required:
+  - Variable-temperature dielectric constant and loss data
+  - Curie temperature measurement (DSC or dielectric vs T)
+  - Thermal stability curves over the claimed operating temperature range
+  type: temperature_stability
 coverage_tier: full
 cross_references:
   related:
@@ -74,6 +107,26 @@ figure_archetypes:
     frequency: {"column": "log_freq_hz"}
     z_real: {"column": "z_real"}
     z_imag: {"column": "z_imag"}
+- description: Ferroelectric P-E hysteresis loop showing remnant polarization and
+    coercive field
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_functional_multipanel.py
+  id: pe_hysteresis
+  type: line_plot
+  column_roles:
+  - electric_field
+  - polarization
+- description: Ferroelectric phase transition and domain wall motion mechanism diagram
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  id: mechanism_diagram
+  type: diagram
+  column_roles: []
+- description: Scatter regression of piezoelectric coefficient d33 versus composition
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
+  id: scatter_regression
+  type: scatter
+  column_roles:
+  - x_values
+  - y_values
 id: functional-ceramics
 name: Functional Ceramics (Piezoelectric, Dielectric)
 narrative:
@@ -120,6 +173,8 @@ skill_mapping:
   - skills/materials-figure/scripts/figures4materials/data/functional_pe_loop.csv
   - skills/materials-figure/scripts/figures4materials/data/xrd_pattern.csv
   - skills/materials-figure/scripts/figures4materials/data/sintering_curve.csv
+  - skills/materials-figure/scripts/figures4materials/data/scatter_regression.csv
+  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   figure_packages:
   - skills/materials-figure/examples/figure-packages/ceramics-sintering-optimization
   - skills/materials-figure/examples/figure-packages/ceramics-xrd-phase-identification
@@ -127,6 +182,9 @@ skill_mapping:
   - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
   - skills/materials-figure/scripts/figures4materials/plot_sintering_curve.py
   - skills/materials-figure/scripts/figures4materials/plot_eis.py
+  - skills/materials-figure/scripts/figures4materials/plot_functional_multipanel.py
+  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  - skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
 standards:
 - purpose: Permittivity and dielectric dissipation factor determined under AC voltage
   standard: ASTM D150
@@ -134,3 +192,5 @@ standards:
   standard: IEEE Std 176
 - purpose: Recommended determination methods of permittivity and dielectric loss
   standard: IEC 60250
+- purpose: Ferroelectric hysteresis loop measurement and analysis
+  standard: ASTM E2034

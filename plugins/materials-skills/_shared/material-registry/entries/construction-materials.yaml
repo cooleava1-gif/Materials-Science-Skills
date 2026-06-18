@@ -5,6 +5,34 @@ characterization:
 - evidence_tier: strong
   method: SEM
   purpose: Pore structure, interface, bonding morphology
+claim_types:
+- type: performance_improvement
+  evidence_required:
+  - Strength data with control comparison
+  - Replicate statistics (SD or COV)
+  - Code or specification compliance verification
+  common_risks:
+  - Claiming improvement without a control group
+  - No replicate statistics for strength claims
+  - Ignoring mix design or curing condition differences
+- type: durability_assessment
+  evidence_required:
+  - Aging cycle data (freeze-thaw, wet-dry, thermal)
+  - Performance retention rate after cycling
+  - Microstructure evidence (SEM, porosity) of degradation
+  common_risks:
+  - Durability claim from a single cycle count
+  - No retention rate quantification
+  - Inferring durability without microstructure evidence
+- type: multi_material_compatibility
+  evidence_required:
+  - Interfacial bond strength between materials
+  - Volumetric stability (shrinkage, expansion) data
+  - Chemical compatibility evidence (no adverse reaction)
+  common_risks:
+  - Compatibility claim based on strength alone
+  - Ignoring dimensional stability at interfaces
+  - No chemical interaction analysis
 coverage_tier: full
 cross_references:
   parent: civil-generic
@@ -35,9 +63,32 @@ figure_archetypes:
   column_roles:
   - categories
   - series_dict
-- id: line-trend
-- id: errorbar-trend
-- id: grouped-bar
+- description: Property trend over curing time or parameter variation with error bars
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_civil_errorbar_trend.py
+  id: line-trend
+  type: line_plot
+  column_roles:
+  - x_values
+  - y_values
+- description: Error-bar trend of strength development or dosage response
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
+  id: errorbar-trend
+  type: line_plot
+  column_roles:
+  - x_values
+  - y_values
+- description: Grouped bar chart comparing performance metrics across material groups
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_grouped_bar.py
+  id: grouped-bar
+  type: grouped_bar
+  column_roles:
+  - x_labels
+  - series
+- description: Mechanism diagram of building material hardening and bonding mechanisms
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  id: mechanism_diagram
+  type: diagram
+  column_roles: []
 id: construction-materials
 name: Construction and Building Materials
 narrative:
@@ -59,6 +110,18 @@ properties:
   - ASTM C642 / ISO 5017
   typical_range: 200–2500
   unit: kg/m³
+- id: elastic_modulus
+  name: Modulus of Elasticity
+  test_methods:
+  - ASTM C469
+  typical_range: 10–40
+  unit: GPa
+- id: water_absorption
+  name: Water Absorption
+  test_methods:
+  - ASTM C642
+  typical_range: 1–15
+  unit: '%'
 standards:
 - purpose: Compressive strength of concrete cylinders
   standard: ASTM C39
@@ -66,15 +129,22 @@ standards:
   standard: ASTM C109
 - purpose: Density, absorption, and voids in hardened concrete
   standard: ASTM C642
+- purpose: Static modulus of elasticity of concrete in compression
+  standard: ASTM C469
 skill_mapping:
   data_schemas:
   - skills/materials-figure/scripts/figures4materials/data/mechanical_properties.csv
   - skills/materials-figure/scripts/figures4materials/data/stress_strain.csv
+  - skills/materials-figure/scripts/figures4materials/data/errorbar_trend.csv
+  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   figure_packages:
   - skills/materials-figure/examples/figure-packages/construction-materials-durability
   - skills/materials-figure/examples/figure-packages/stress-strain
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_civil_durability_retention.py
   - skills/materials-figure/scripts/figures4materials/plot_civil_errorbar_trend.py
+  - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
+  - skills/materials-figure/scripts/figures4materials/plot_grouped_bar.py
   - skills/materials-figure/scripts/figures4materials/plot_mechanical_property_radar.py
   - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py

@@ -1,16 +1,70 @@
 characterization:
 - evidence_tier: definitive
+  key_features:
+  - Individual filler dispersion and exfoliation degree (layered fillers)
+  - Interphase thickness and filler-matrix interface imaging
   method: TEM
   purpose: Filler dispersion, exfoliation degree (for layered fillers), interphase
 - evidence_tier: strong
+  key_features:
+  - Fracture surface filler distribution at micro-scale
+  - Agglomeration and pull-out evidence for interface quality
   method: SEM
   purpose: Fracture surface, filler distribution at micro-scale
 - evidence_tier: strong
+  key_features:
+  - Storage modulus upturn indicating percolation network formation
+  - Complex viscosity scaling for dispersion and percolation threshold
   method: Rheology
   purpose: Melt rheology for dispersion assessment (percolation threshold)
 - evidence_tier: strong
+  key_features:
+  - Storage modulus enhancement in rubbery plateau
+  - Tg shift indicating filler-matrix interaction strength
   method: DMA
   purpose: Storage modulus enhancement, Tg shift, filler-matrix interaction
+- evidence_tier: supporting
+  key_features:
+  - Filler peak intensity for loading quantification
+  - Interlayer spacing change for exfoliation/intercalation assessment
+  method: XRD
+  purpose: Phase identification, intercalation/exfoliation, filler crystallinity
+claim_types:
+- common_risks:
+  - Reporting strength without elongation or modulus trade-off
+  - Claiming 'significant enhancement' without statistical test
+  - Comparing across different matrix or processing conditions
+  evidence_required:
+  - Control group comparison (neat matrix vs. nanocomposite)
+  - Quantitative mechanical data with error bars across loadings
+  - 'Test conditions: filler loading, dispersion method, processing parameters'
+  type: performance_improvement
+- common_risks:
+  - Claiming 'load transfer confirmed' from modulus data alone
+  - No control over competing explanations (volume fraction vs. interface)
+  evidence_required:
+  - Stress-strain data with modulus enhancement quantification
+  - TEM/SEM evidence of interface and filler orientation
+  - DMA evidence of constrained polymer fraction (Tg shift)
+  type: mechanism_explanation
+- common_risks:
+  - Low-magnification SEM claimed as 'well dispersed'
+  - No quantitative dispersion metric (e.g., inter-particle distance)
+  evidence_required:
+  - TEM/SEM image analysis with dispersion statistics (area fraction, agglomerate
+    size)
+  - Rheological evidence of percolation or network formation
+  - 'Dispersion parameters: mixing method, time, shear rate'
+  type: dispersion_quality
+- common_risks:
+  - Single-loading data claimed as 'percolation threshold'
+  - No rheological or conductivity transition evidence
+  evidence_required:
+  - Loading-dependent property curve showing sigmoidal transition
+  - Rheological percolation (storage modulus vs. loading) or electrical percolation
+    (conductivity vs. loading)
+  - 'Fitted percolation threshold with confidence interval'
+  type: percolation_analysis
 coverage_tier: full
 cross_references:
   related:
@@ -32,38 +86,61 @@ description:
   - Barrier films and packaging
 family: nano
 figure_archetypes:
-- id: xrd_pattern
-  description: X-ray diffraction pattern for phase identification
-  required_columns:
-  - two_theta
-  - neat_matrix
+- description: XRD pattern overlay for nanocomposite phase identification comparing neat
+    matrix and different filler loadings
   figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
-  data_schema: skills/materials-figure/scripts/figures4materials/data/nanocomposites_xrd.csv
-  column_map:
-    x_values:
-      column: two_theta
-    y_series:
-    - key: Neat Matrix
-      column: neat_matrix
-    - key: 0.5Wt Filler
-      column: 0.5wt_filler
-    - key: 1.0Wt Filler
-      column: 1.0wt_filler
-- id: trend_curve
-  description: Tensile strength trend with uncertainty
-  required_columns:
-  - filler_loading_wt
-  - tensile_strength_MPa
-  - tensile_strength_MPa_std
+  id: xrd_pattern
+  type: xrd_pattern
+  column_roles:
+  - x_values
+  - y_series
+- description: Tensile strength or modulus trend with uncertainty across filler loading
+    showing optimal reinforcement window
   figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
-  data_schema: skills/materials-figure/scripts/figures4materials/data/nanocomposites_trend_curve.csv
-  column_map:
-    x_values:
-      column: filler_loading_wt
-    y_values:
-      column: tensile_strength_MPa
-    y_errors:
-      column: tensile_strength_MPa_std
+  id: tensile_trend
+  type: line_plot
+  column_roles:
+  - x_values
+  - y_values
+  - y_errors
+- description: Stress-strain curves comparing neat matrix and nanocomposite for reinforcement
+    and ductility trade-off
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+  id: stress_strain
+  type: stress_strain
+  column_roles:
+  - x_values
+  - y_series
+- description: Multi-panel nanocomposite characterization combining dispersion, loading
+    effect, XRD, and mechanical data
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_nano_multipanel.py
+  id: nano_multipanel
+  type: multi_panel
+  column_roles:
+  - subfigures
+- description: Interface enhancement and load transfer mechanism schematic with evidence
+    certainty labeling
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  id: mechanism_diagram
+  type: diagram
+  column_roles:
+  - components
+- description: Modulus versus filler loading scatter regression for reinforcement efficiency
+    and percolation assessment
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
+  id: modulus_loading_scatter
+  type: scatter
+  column_roles:
+  - x_values
+  - y_values
+- description: Property correlation heatmap across nanocomposite formulations showing
+    inter-property relationships
+  figure_script: skills/materials-figure/scripts/figures4materials/plot_property_correlation.py
+  id: property_correlation
+  type: heatmap
+  column_roles:
+  - matrix
+  - labels
 id: nanocomposites
 name: Nanocomposites and Nano-Filled Systems
 narrative:
@@ -72,12 +149,72 @@ narrative:
     domain_fragment: skills/materials-research/static/fragments/domain/nanocomposites.md
     narrative_guide: skills/materials-writing/references/nanocomposites-narrative.md
     reviewer_criteria: skills/materials-reviewer/references/nanocomposites-reviewer-criteria.md
+properties:
+- id: tensile_strength
+  name: Tensile Strength
+  test_methods:
+  - Tensile test (ASTM D638)
+  typical_range: 20–150
+  unit: MPa
+- id: youngs_modulus
+  name: Young's Modulus
+  test_methods:
+  - Tensile test (ASTM D638)
+  typical_range: 0.5–15
+  unit: GPa
+- id: elongation_break
+  name: Elongation at Break
+  test_methods:
+  - Tensile test (ASTM D638)
+  typical_range: 2–300
+  unit: '%'
+- id: percolation_threshold
+  name: Percolation Threshold
+  test_methods:
+  - Rheological percolation (ASTM D4065)
+  - Electrical conductivity vs. loading
+  typical_range: 0.1–10
+  unit: wt%
+- id: storage_modulus
+  name: Storage Modulus
+  test_methods:
+  - Dynamic mechanical analysis (ASTM D4065)
+  typical_range: 100–10000
+  unit: MPa
+- id: glass_transition_temp
+  name: Glass Transition Temperature
+  test_methods:
+  - DMA tan δ peak (ASTM D4065)
+  - DSC midpoint (ISO 11357)
+  typical_range: -100 to 250
+  unit: °C
 skill_mapping:
   data_schemas:
   - skills/materials-figure/scripts/figures4materials/data/nanocomposites_xrd.csv
   - skills/materials-figure/scripts/figures4materials/data/nanocomposites_trend_curve.csv
+  - skills/materials-figure/scripts/figures4materials/data/stress_strain.csv
+  - skills/materials-figure/scripts/figures4materials/data/scatter_regression.csv
+  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
+  - skills/materials-figure/scripts/figures4materials/data/property_correlation.csv
+  - skills/materials-figure/scripts/figures4materials/data/nano_loading.csv
   figure_packages:
   - skills/materials-figure/examples/figure-packages/nanocomposites-demo
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
   - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
+  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+  - skills/materials-figure/scripts/figures4materials/plot_nano_multipanel.py
+  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
+  - skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
+  - skills/materials-figure/scripts/figures4materials/plot_property_correlation.py
+standards:
+- purpose: Tensile properties of plastics for nanocomposite mechanical characterization
+  standard: ASTM D638
+- purpose: Dynamic mechanical analysis for storage modulus and Tg measurement
+  standard: ASTM D4065
+- purpose: Density determination of nanocomposite samples
+  standard: ISO 1183
+- purpose: Microindentation hardness of materials for filler-matrix interface assessment
+  standard: ASTM E384
+- purpose: Plastics — differential scanning calorimetry (DSC) for Tg and crystallinity
+  standard: ISO 11357
