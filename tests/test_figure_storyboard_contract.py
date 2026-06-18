@@ -7,7 +7,8 @@ from pathlib import Path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-FIGURE_ROOT = REPO_ROOT / "skills" / "materials-figure"
+PLUGIN_ROOT = REPO_ROOT / "plugins" / "materials-skills"
+FIGURE_ROOT = PLUGIN_ROOT / "skills" / "materials-figure"
 
 
 class FigureStoryboardContractTest(unittest.TestCase):

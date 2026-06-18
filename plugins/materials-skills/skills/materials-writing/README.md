@@ -29,16 +29,16 @@ figures.
 ## Example
 
 - Example:
-  `skills/materials-writing/examples/review-outline-example.md`
+  `plugins/materials-skills/skills/materials-writing/examples/review-outline-example.md`
 - Additional example:
-  `skills/materials-writing/examples/waterborne-epoxy-abstract-example.md`
+  `plugins/materials-skills/skills/materials-writing/examples/waterborne-epoxy-abstract-example.md`
 
 ## Validation
 
 - Core regression test:
-  `skills/materials-writing/tests/test_writing_skill.py`
+  `plugins/materials-skills/skills/materials-writing/tests/test_writing_skill.py`
 - Pressure test:
-  `skills/materials-writing/tests/pressure-tests/missing-data-writing.md`
+  `plugins/materials-skills/skills/materials-writing/tests/pressure-tests/missing-data-writing.md`
 - Bundle verification:
   `python .\scripts\run_release_checks.py --json`
 

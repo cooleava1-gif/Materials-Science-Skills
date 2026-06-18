@@ -1,10 +1,10 @@
-# Golden Sample: Polymer Composites (FRP/CFRP/GFRP)
+﻿# Golden Sample: Polymer Composites (FRP/CFRP/GFRP)
 
 > **Coverage Tier**: 🟡 partial
-> **Registry entry**: `_shared/material-registry/entries/polymer-composites.yaml`
-> **Domain fragment**: `skills/materials-research/static/fragments/domain/polymer-composites.md`
-> **Narrative guide**: `skills/materials-writing/references/polymer-composites-narrative.md`
-> **Reviewer criteria**: `skills/materials-reviewer/references/polymers-reviewer-criteria.md`
+> **Registry entry**: `plugins/materials-skills/_shared/material-registry/entries/polymer-composites.yaml`
+> **Domain fragment**: `plugins/materials-skills/skills/materials-research/static/fragments/domain/polymer-composites.md`
+> **Narrative guide**: `plugins/materials-skills/skills/materials-writing/references/polymer-composites-narrative.md`
+> **Reviewer criteria**: `plugins/materials-skills/skills/materials-reviewer/references/polymers-reviewer-criteria.md`
 
 Covers carbon-, glass-, and aramid-fiber reinforced polymer composites for
 aerospace, automotive, wind energy, and civil infrastructure applications.
@@ -94,5 +94,5 @@ Recommended additions to reach 🟢 full:
 
 1. Create `plot_laminate_strength.py` with COLUMN_MAP support
 2. Create `plot_sn_curve.py` for fatigue data
-3. Create a sample figure package in `skills/materials-figure/examples/figure-packages/`
+3. Create a sample figure package in `plugins/materials-skills/skills/materials-figure/examples/figure-packages/`
 4. Add composite-specific data CSVs in `figures4materials/data/`

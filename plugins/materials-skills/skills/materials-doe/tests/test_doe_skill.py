@@ -4,11 +4,11 @@ from pathlib import Path
 import yaml
 
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
-SKILLS_ROOT = REPO_ROOT / "skills"
-DOE_ROOT = SKILLS_ROOT / "materials-doe"
+DOE_ROOT = Path(__file__).resolve().parents[1]
+SKILLS_ROOT = DOE_ROOT.parent
+PLUGIN_ROOT = SKILLS_ROOT.parent
 RESEARCH_ROOT = SKILLS_ROOT / "materials-research"
-CONTRACT_PATH = REPO_ROOT / "_shared" / "contracts" / "doe-handoff.yaml"
+CONTRACT_PATH = PLUGIN_ROOT / "_shared" / "contracts" / "doe-handoff.yaml"
 
 
 class DoeSkillStructureTest(unittest.TestCase):

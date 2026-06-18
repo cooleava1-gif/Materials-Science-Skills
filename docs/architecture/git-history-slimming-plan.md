@@ -20,23 +20,17 @@ coordination with every clone and every audit branch.
 
 - Do not delete source data, plot scripts, package manifests, README files,
   storyboards, caption boundaries, QA reports, or contracts.
-- Do not remove `skills/materials-figure/assets/showcase-proof/*.png` or the
-  plugin mirror copies.
+- Do not remove `plugins/materials-skills/skills/materials-figure/assets/showcase-proof/*.png`.
 - Do not change release gates during the history rewrite unless verification
   finds a mismatch.
 - Do not rewrite history while other agents are actively committing to `main`.
 
 ## Target Paths
 
-The primary historical targets are generated exports under both source and
-plugin mirror example packages:
+The primary historical targets are generated exports under the plugin package
+example packages:
 
 ```text
-skills/materials-figure/examples/figure-packages/*/figure.svg
-skills/materials-figure/examples/figure-packages/*/figure.png
-skills/materials-figure/examples/figure-packages/*/figure.pdf
-skills/materials-figure/examples/figure-packages/*/figure.tif
-skills/materials-figure/examples/figure-packages/*/figure.tiff
 plugins/materials-skills/skills/materials-figure/examples/figure-packages/*/figure.svg
 plugins/materials-skills/skills/materials-figure/examples/figure-packages/*/figure.png
 plugins/materials-skills/skills/materials-figure/examples/figure-packages/*/figure.pdf
@@ -90,11 +84,6 @@ Requires `git-filter-repo`.
 
 ```powershell
 git filter-repo --force `
-  --path-glob 'skills/materials-figure/examples/figure-packages/*/figure.svg' `
-  --path-glob 'skills/materials-figure/examples/figure-packages/*/figure.png' `
-  --path-glob 'skills/materials-figure/examples/figure-packages/*/figure.pdf' `
-  --path-glob 'skills/materials-figure/examples/figure-packages/*/figure.tif' `
-  --path-glob 'skills/materials-figure/examples/figure-packages/*/figure.tiff' `
   --path-glob 'plugins/materials-skills/skills/materials-figure/examples/figure-packages/*/figure.svg' `
   --path-glob 'plugins/materials-skills/skills/materials-figure/examples/figure-packages/*/figure.png' `
   --path-glob 'plugins/materials-skills/skills/materials-figure/examples/figure-packages/*/figure.pdf' `
@@ -113,7 +102,7 @@ Run these checks before force-pushing:
 ```powershell
 git status --short --branch
 git ls-files '*figure.tiff'
-git ls-files 'skills/materials-figure/examples/figure-packages/**/figure.*' 'plugins/materials-skills/skills/materials-figure/examples/figure-packages/**/figure.*'
+git ls-files 'plugins/materials-skills/skills/materials-figure/examples/figure-packages/**/figure.*'
 git count-objects -vH
 python -m unittest tests.test_figure_asset_slimming -v
 python scripts\check_skill_architecture.py --json

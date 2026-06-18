@@ -1,10 +1,10 @@
-# Golden Sample: Thermal Insulation Materials
+﻿# Golden Sample: Thermal Insulation Materials
 
 > **Coverage Tier**: 🟡 partial
-> **Registry entry**: `_shared/material-registry/entries/thermal-insulation.yaml`
-> **Domain fragment**: `skills/materials-research/static/fragments/domain/thermal-insulation.md`
-> **Narrative guide**: `skills/materials-writing/references/thermal-insulation-narrative.md`
-> **Reviewer criteria**: `skills/materials-reviewer/references/insulation-reviewer-criteria.md`
+> **Registry entry**: `plugins/materials-skills/_shared/material-registry/entries/thermal-insulation.yaml`
+> **Domain fragment**: `plugins/materials-skills/skills/materials-research/static/fragments/domain/thermal-insulation.md`
+> **Narrative guide**: `plugins/materials-skills/skills/materials-writing/references/thermal-insulation-narrative.md`
+> **Reviewer criteria**: `plugins/materials-skills/skills/materials-reviewer/references/insulation-reviewer-criteria.md`
 
 Covers aerogels, foams, fibrous insulation, vacuum insulation panels (VIPs),
 phase-change materials (PCMs), and related thermal management materials.
@@ -85,6 +85,6 @@ Available scripts:
 
 ## Next Steps to Reach 🟢 Full
 
-1. Create an example data package in `skills/materials-figure/examples/figure-packages/`
+1. Create an example data package in `plugins/materials-skills/skills/materials-figure/examples/figure-packages/`
 2. Add a worked workflow output in `outputs/`
 3. Create a ceramic-composites variant of the figure scripts

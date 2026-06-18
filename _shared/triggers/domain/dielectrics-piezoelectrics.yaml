@@ -1,8 +1,0 @@
-id: dielectrics-piezoelectrics
-path: static/fragments/domain/dielectrics-piezoelectrics.md
-triggers:
-- dielectric
-- capacitor
-- piezoelectric
-- 介电
-- 压电

@@ -1,4 +1,4 @@
-# FAIR data package
+﻿# FAIR data package
 
 ## Outcome Snapshot
 
@@ -16,14 +16,14 @@ Package this WER-EA bonding dataset into a FAIR-ready submission bundle and flag
 ## Proof Assets
 
 - Data showcase example:
-  `skills/materials-data/examples/waterborne-epoxy-fair-package.md`
+  `plugins/materials-skills/skills/materials-data/examples/waterborne-epoxy-fair-package.md`
 - Generated FAIR package sample:
-  `skills/materials-data/examples/generated/waterborne_epoxy_modified_emulsified_asphalt_bonding_performance_cbm_fair_package/README.md`
+  `plugins/materials-skills/skills/materials-data/examples/generated/waterborne_epoxy_modified_emulsified_asphalt_bonding_performance_cbm_fair_package/README.md`
 - Data templates:
-  `skills/materials-data/assets/templates/data-availability-template.md`
-  and `skills/materials-data/assets/templates/metadata-template.md`
+  `plugins/materials-skills/skills/materials-data/assets/templates/data-availability-template.md`
+  and `plugins/materials-skills/skills/materials-data/assets/templates/metadata-template.md`
 - Data skill contract:
-  `skills/materials-data/README.md`
+  `plugins/materials-skills/skills/materials-data/README.md`
 
 ## Build Path
 

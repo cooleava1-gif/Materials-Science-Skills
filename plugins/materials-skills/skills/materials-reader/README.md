@@ -30,13 +30,13 @@ claim-evidence-mechanism-boundary extraction.
 ## Example
 
 - Example:
-  `skills/materials-reader/examples/waterborne-epoxy-evidence-chain-example.md`
+  `plugins/materials-skills/skills/materials-reader/examples/waterborne-epoxy-evidence-chain-example.md`
 - Reader-package protocol:
   `references/wer-ea-intensive-reading-package.md`
 
 ## Validation
 
-- Contract tests live under `skills/materials-reader/tests/`
+- Contract tests live under `plugins/materials-skills/skills/materials-reader/tests/`
 - Important checks include `test_reader_package_contract.py`,
   `test_reader_handoff.py`, and `test_validate_reader_package.py`
 - Bundle verification:

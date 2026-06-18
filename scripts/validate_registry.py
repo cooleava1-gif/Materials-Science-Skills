@@ -24,7 +24,8 @@ from typing import Any
 import yaml
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-REGISTRY_DIR = REPO_ROOT / "_shared" / "material-registry"
+PLUGIN_ROOT = REPO_ROOT / "plugins" / "materials-skills"
+REGISTRY_DIR = PLUGIN_ROOT / "_shared" / "material-registry"
 ENTRIES_DIR = REGISTRY_DIR / "entries"
 INDEX_FILE = REGISTRY_DIR / "registry-index.yaml"
 SCHEMA_FILE = REGISTRY_DIR / "registry-schema.yaml"
@@ -91,12 +92,12 @@ def validate_entry(path: Path) -> list[str]:
     if not isinstance(skill, dict):
         issues.append(f"{path.name}: skill_mapping must be a dict")
 
-    # Validate referenced file paths (if they are under skills/)
+    # Validate referenced file paths (relative to the plugin package)
     if isinstance(skill, dict):
         for key in ("figure_scripts", "figure_packages", "data_schemas"):
             for ref in skill.get(key, []) or []:
                 if isinstance(ref, str):
-                    full = REPO_ROOT / ref
+                    full = PLUGIN_ROOT / ref
                     if not full.exists():
                         issues.append(f"{path.name}: skill_mapping.{key} references non-existent: {ref}")
 
@@ -107,7 +108,7 @@ def validate_entry(path: Path) -> list[str]:
         if isinstance(skill_refs, dict):
             for ref_key, ref_path in skill_refs.items():
                 if isinstance(ref_path, str):
-                    full = REPO_ROOT / ref_path
+                    full = PLUGIN_ROOT / ref_path
                     if not full.exists():
                         issues.append(f"{path.name}: narrative.skill_references.{ref_key} non-existent: {ref_path}")
 

@@ -18,10 +18,11 @@ from pathlib import Path
 import yaml
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-SCRIPTS_DIR = REPO_ROOT / "skills" / "materials-figure" / "scripts" / "figures4materials"
+PLUGIN_ROOT = REPO_ROOT / "plugins" / "materials-skills"
+SCRIPTS_DIR = PLUGIN_ROOT / "skills" / "materials-figure" / "scripts" / "figures4materials"
 HELPERS_FILE = SCRIPTS_DIR / "_script_helpers.py"
-PLOT_LIB_FILE = REPO_ROOT / "skills" / "materials-figure" / "scripts" / "materials_plot_lib.py"
-REGISTRY_DIR = REPO_ROOT / "_shared" / "material-registry" / "entries"
+PLOT_LIB_FILE = PLUGIN_ROOT / "skills" / "materials-figure" / "scripts" / "materials_plot_lib.py"
+REGISTRY_DIR = PLUGIN_ROOT / "_shared" / "material-registry" / "entries"
 
 
 def _import_helpers():
@@ -243,7 +244,7 @@ class RegistryFigureArchetypeTest(unittest.TestCase):
                     if not script_path_rel:
                         continue
 
-                    script_path = REPO_ROOT / script_path_rel
+                    script_path = PLUGIN_ROOT / script_path_rel
                     self.assertTrue(script_path.exists(), f"{path.name}: script {script_path_rel} does not exist")
 
                     # Find matching CSV
@@ -252,7 +253,7 @@ class RegistryFigureArchetypeTest(unittest.TestCase):
                         csv_path_rel,
                         f"{path.name}: Could not find matching CSV in data_schemas for archetype {archetype.get('id')}"
                     )
-                    csv_path = REPO_ROOT / csv_path_rel
+                    csv_path = PLUGIN_ROOT / csv_path_rel
                     self.assertTrue(csv_path.exists(), f"{path.name}: CSV {csv_path_rel} does not exist")
 
                     with tempfile.TemporaryDirectory() as temp_dir:
@@ -292,7 +293,7 @@ class RegistryFigureArchetypeTest(unittest.TestCase):
                     script_path_rel = archetype.get("figure_script")
                     if not script_path_rel:
                         continue
-                    script_path = REPO_ROOT / script_path_rel
+                    script_path = PLUGIN_ROOT / script_path_rel
                     if not script_path.exists():
                         continue
 

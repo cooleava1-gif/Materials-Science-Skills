@@ -12,9 +12,10 @@ import yaml
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-REGISTRY_DIR = REPO_ROOT / "_shared" / "material-registry"
+PLUGIN_ROOT = REPO_ROOT / "plugins" / "materials-skills"
+REGISTRY_DIR = PLUGIN_ROOT / "_shared" / "material-registry"
 ENTRIES_DIR = REGISTRY_DIR / "entries"
-NARRATIVE_DIR = REPO_ROOT / "skills" / "materials-writing" / "references"
+NARRATIVE_DIR = PLUGIN_ROOT / "skills" / "materials-writing" / "references"
 GENERATOR_SCRIPT = REPO_ROOT / "scripts" / "generate_narrative.py"
 
 REQUIRED_SECTIONS = [
@@ -136,7 +137,7 @@ class RegistryNarrativeConsistencyTests(unittest.TestCase):
             if not guide_path:
                 continue
             with self.subTest(entry=path.stem, ref=guide_path):
-                full = REPO_ROOT / guide_path
+                full = PLUGIN_ROOT / guide_path
                 self.assertTrue(full.exists(), f"{path.stem}: narrative_guide '{guide_path}' not found")
 
     def test_registry_references_match_generated_files(self):

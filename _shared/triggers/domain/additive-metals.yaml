@@ -1,8 +1,0 @@
-id: additive-metals
-path: static/fragments/domain/additive-metals.md
-triggers:
-- AM metal
-- 3D printed metal
-- SLM
-- EBM
-- 金属增材

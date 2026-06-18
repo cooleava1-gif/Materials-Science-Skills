@@ -7,7 +7,8 @@ from pathlib import Path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-WRITING_ROOT = REPO_ROOT / "skills" / "materials-writing"
+PLUGIN_ROOT = REPO_ROOT / "plugins" / "materials-skills"
+WRITING_ROOT = PLUGIN_ROOT / "skills" / "materials-writing"
 
 
 class WritingMaturityContractTest(unittest.TestCase):

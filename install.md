@@ -2,7 +2,7 @@
 
 This guide is for the polished, day-to-day use of the bundle: install it, run a
 five-minute workflow, verify the installed state, and avoid stale-skill drift
-between the source repo, plugin mirror, and local Codex installation.
+between the plugin source and the local Codex installation.
 
 ## Option 1: Codex Plugin
 
@@ -36,9 +36,11 @@ If you need the manual fallback commands:
 
 ```powershell
 $skillsDir = if ($env:CODEX_HOME) { Join-Path $env:CODEX_HOME "skills" } else { Join-Path $HOME ".codex\skills" }
+$codexHome = Split-Path -Parent $skillsDir
 New-Item -ItemType Directory -Force $skillsDir | Out-Null
-Copy-Item -Recurse -Force .\skills\materials-* $skillsDir
-Copy-Item -Recurse -Force .\skills\_shared $skillsDir
+Copy-Item -Recurse -Force .\plugins\materials-skills\skills\materials-* $skillsDir
+Copy-Item -Recurse -Force .\plugins\materials-skills\skills\_shared $skillsDir
+Copy-Item -Recurse -Force .\plugins\materials-skills\_shared $codexHome
 ```
 
 ## Optional Academic Search MCP
@@ -47,7 +49,7 @@ If you want the local academic-search MCP, install the Python dependencies
 first:
 
 ```powershell
-python -m pip install -r .\mcp-server\materials-academic-search\requirements.txt
+python -m pip install -r .\plugins\materials-skills\skills\materials-citation\mcp\academic_search\requirements.txt
 ```
 
 Example Codex MCP configuration:
@@ -55,8 +57,8 @@ Example Codex MCP configuration:
 ```toml
 [mcp_servers."materials-academic-search"]
 command = "python"
-args = ["server.py"]
-cwd = "mcp-server/materials-academic-search"
+args = ["./skills/materials-citation/mcp/academic_search/server.py"]
+cwd = "/absolute/path/to/plugins/materials-skills"
 ```
 
 Optional environment variables:
@@ -76,10 +78,9 @@ python .\scripts\run_release_checks.py --json
 
 Then check that the installed state is not stale:
 
-1. If you changed root skill files, rerun `.\scripts\install.ps1`.
-2. Confirm the plugin mirror under `plugins/materials-skills/skills/`
-   still matches the source skills you edited.
-3. Judge the release by the final JSON `status`, not by expected negative-test
+1. If you changed skill files under `plugins/materials-skills/skills/`, rerun
+   `.\scripts\install.ps1`.
+2. Judge the release by the final JSON `status`, not by expected negative-test
    lines such as `source PDF not found: ...missing.pdf`.
 
 ## Five-Minute Walkthrough
@@ -155,7 +156,7 @@ If this is your first time with the bundle, open these in order:
 
 1. [README.md](README.md)
 2. [docs/skills-index.md](docs/skills-index.md)
-3. `skills/materials-research/README.md`
+3. `plugins/materials-skills/skills/materials-research/README.md`
 4. the README for the production skill you actually need
 
 ## Troubleshooting
@@ -163,7 +164,8 @@ If this is your first time with the bundle, open these in order:
 - Installed skill seems stale:
   rerun `.\scripts\install.ps1`, then run the release checks again.
 - Repo tests pass but Codex behaves like an older version:
-  compare source skills, plugin mirror skills, and installed skills.
+  compare the skills under `plugins/materials-skills/skills/` with the installed
+  skills.
 - Journal facts are old:
   live-check official journal pages before submission advice.
 - Search results look strong but claims still feel weak:

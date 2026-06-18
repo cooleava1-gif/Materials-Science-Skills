@@ -13,8 +13,9 @@ from pathlib import Path
 import yaml
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-TRIGGERS_DIR = REPO_ROOT / "_shared" / "triggers"
-MANIFEST_FILE = REPO_ROOT / "skills" / "materials-research" / "manifest.yaml"
+PLUGIN_ROOT = REPO_ROOT / "plugins" / "materials-skills"
+TRIGGERS_DIR = PLUGIN_ROOT / "_shared" / "triggers"
+MANIFEST_FILE = PLUGIN_ROOT / "skills" / "materials-research" / "manifest.yaml"
 ROUTING_ONLY_DOMAINS = {"general"}
 ROUTING_ONLY_FAMILIES = {"neutral"}
 
@@ -94,7 +95,7 @@ class TriggerRegistryConsistencyTests(unittest.TestCase):
     """Trigger file ids should match registry entry ids (for domain triggers)."""
 
     def test_domain_triggers_match_registry_entries(self):
-        registry_dir = REPO_ROOT / "_shared" / "material-registry" / "entries"
+        registry_dir = PLUGIN_ROOT / "_shared" / "material-registry" / "entries"
         registry_ids = {p.stem for p in registry_dir.glob("*.yaml")}
         trigger_ids = {p.stem for p in (TRIGGERS_DIR / "domain").glob("*.yaml")}
         manifest_domain_ids = set(

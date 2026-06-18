@@ -1,4 +1,4 @@
-# Submission package
+﻿# Submission package
 
 ## Outcome Snapshot
 
@@ -16,13 +16,13 @@ Build me a submission package checklist for this CBM-targeted manuscript, includ
 ## Proof Assets
 
 - Output templates:
-  `skills/materials-research/references/output-templates.md`
+  `plugins/materials-skills/skills/materials-research/references/output-templates.md`
 - Paper gate structure:
-  `skills/_shared/paper-production/paper-gate-report-template.md`
+  `plugins/materials-skills/skills/_shared/paper-production/paper-gate-report-template.md`
 - Journal fact layer:
-  `skills/_shared/journal-formats/cbm.md`
+  `plugins/materials-skills/skills/_shared/journal-formats/cbm.md`
 - Orchestrator route:
-  `skills/materials-research/references/paper-production-orchestrator.md`
+  `plugins/materials-skills/skills/materials-research/references/paper-production-orchestrator.md`
 
 ## Build Path
 

@@ -27,16 +27,16 @@ before submission or revision.
 ## Example
 
 - Example:
-  `skills/materials-reviewer/examples/cbm-review-simulation.md`
+  `plugins/materials-skills/skills/materials-reviewer/examples/cbm-review-simulation.md`
 - Additional example:
-  `skills/materials-reviewer/examples/ccc-review-simulation.md`
+  `plugins/materials-skills/skills/materials-reviewer/examples/ccc-review-simulation.md`
 
 ## Validation
 
 - Core regression test:
-  `skills/materials-reviewer/tests/test_reviewer_skill.py`
+  `plugins/materials-skills/skills/materials-reviewer/tests/test_reviewer_skill.py`
 - Pressure test:
-  `skills/materials-reviewer/tests/pressure-tests/weak-manuscript-review.md`
+  `plugins/materials-skills/skills/materials-reviewer/tests/pressure-tests/weak-manuscript-review.md`
 - Bundle verification:
   `python .\scripts\run_release_checks.py --json`
 

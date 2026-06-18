@@ -1,8 +1,0 @@
-interface:
-  display_name: "Materials Science Paper2PPT"
-  short_description: "Chinese slide decks for materials papers and projects."
-  brand_color: "#4D6687"
-  default_prompt: "Use $materials-paper2ppt to make a Chinese group-meeting deck from this materials paper."
-
-policy:
-  allow_implicit_invocation: true

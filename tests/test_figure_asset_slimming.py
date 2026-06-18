@@ -22,7 +22,6 @@ def git_ls_files(*patterns: str) -> list[str]:
 class FigureAssetSlimmingTests(unittest.TestCase):
     def test_figure_package_generated_exports_are_not_tracked(self):
         tracked = git_ls_files(
-            "skills/materials-figure/examples/figure-packages/**/figure.*",
             "plugins/materials-skills/skills/materials-figure/examples/figure-packages/**/figure.*",
         )
         generated_exports = [
@@ -39,16 +38,13 @@ class FigureAssetSlimmingTests(unittest.TestCase):
         )
         screenshots = plugin_json["interface"]["screenshots"]
         tracked = set(git_ls_files(
-            "skills/materials-figure/assets/showcase-proof/*.png",
             "plugins/materials-skills/skills/materials-figure/assets/showcase-proof/*.png",
         ))
 
         self.assertGreaterEqual(len(screenshots), 3)
         for screenshot in screenshots:
             plugin_relative = screenshot.removeprefix("./")
-            source_relative = plugin_relative.removeprefix("skills/")
             self.assertIn(f"plugins/materials-skills/{plugin_relative}", tracked)
-            self.assertIn(f"skills/{source_relative}", tracked)
 
 
 if __name__ == "__main__":

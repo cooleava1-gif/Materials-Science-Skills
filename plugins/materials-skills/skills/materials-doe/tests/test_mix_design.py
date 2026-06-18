@@ -2,8 +2,7 @@ import sys
 import unittest
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
-SCRIPTS_DIR = REPO_ROOT / "skills" / "materials-doe" / "scripts"
+SCRIPTS_DIR = Path(__file__).resolve().parents[1] / "scripts"
 
 sys.path.insert(0, str(SCRIPTS_DIR))
 from mix_design_calc import dense_packing, empirical_correction, volume_method

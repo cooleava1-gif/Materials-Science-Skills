@@ -6,17 +6,10 @@ from pathlib import Path
 
 import yaml
 
-
-
-def _find_repo_root():
-    p = Path(__file__).resolve()
-    for parent in [p] + list(p.parents):
-        if (parent / ".git").exists() or (parent / "AGENTS.md").exists():
-            return parent
-    return p.parents[3]
-REPO_ROOT = _find_repo_root()
-SKILLS_ROOT = REPO_ROOT / "skills"
-RESEARCH_ROOT = SKILLS_ROOT / "materials-research"
+RESEARCH_ROOT = Path(__file__).resolve().parents[1]
+SKILLS_ROOT = RESEARCH_ROOT.parent
+PLUGIN_ROOT = SKILLS_ROOT.parent
+REPO_ROOT = PLUGIN_ROOT.parents[1]
 SHARED_ROOT = SKILLS_ROOT / "_shared" / "paper-production"
 WEAKNESS_EXAMPLE = SHARED_ROOT / "examples" / "wer-ea-mini-review-weakness-routing.csv"
 GATE_EXAMPLE = SHARED_ROOT / "examples" / "wer-ea-mini-review-gate-report.md"

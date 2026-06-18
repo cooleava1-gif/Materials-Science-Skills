@@ -1,9 +1,0 @@
-id: functional
-path: static/fragments/domain/functional-family.md
-triggers:
-- semiconductor
-- dielectric
-- piezoelectric
-- 半导体
-- 介电
-- 压电

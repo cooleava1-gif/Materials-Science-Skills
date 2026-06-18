@@ -1,10 +1,10 @@
-# Golden Sample: Asphalt-Pavement (WER-EA)
+﻿# Golden Sample: Asphalt-Pavement (WER-EA)
 
 > **Coverage Tier**: 🟢 full
-> **Registry entry**: `_shared/material-registry/entries/asphalt-pavement.yaml`
-> **Domain fragment**: `skills/materials-research/static/fragments/domain/asphalt-pavement.md`
-> **Narrative guide**: `skills/materials-writing/references/asphalt-pavement-narrative.md`
-> **Reviewer criteria**: `skills/materials-reviewer/references/asphalt-reviewer-criteria.md`
+> **Registry entry**: `plugins/materials-skills/_shared/material-registry/entries/asphalt-pavement.yaml`
+> **Domain fragment**: `plugins/materials-skills/skills/materials-research/static/fragments/domain/asphalt-pavement.md`
+> **Narrative guide**: `plugins/materials-skills/skills/materials-writing/references/asphalt-pavement-narrative.md`
+> **Reviewer criteria**: `plugins/materials-skills/skills/materials-reviewer/references/asphalt-reviewer-criteria.md`
 
 This is the most deeply supported material system in the bundle. It covers
 waterborne epoxy modified emulsified asphalt (WER-EA) for pavement tack coats,
@@ -67,7 +67,7 @@ A full-factorial 5×4×3 = 60 runs, or a Taguchi L16 for screening.
 
 ## 📈 5. Typical Figures
 
-Available figure scripts in `skills/materials-figure/scripts/figures4materials/`:
+Available figure scripts in `plugins/materials-skills/skills/materials-figure/scripts/figures4materials/`:
 
 | Script | Output | Column roles |
 |---|---|---|
@@ -107,16 +107,16 @@ From `asphalt-reviewer-criteria.md` and registry `claim_types`:
 ## Key Files Summary
 
 ```
-_shared/material-registry/entries/asphalt-pavement.yaml  # Structured registry
-_shared/triggers/domain/asphalt-pavement.yaml            # Routing triggers
-skills/materials-writing/references/asphalt-pavement-narrative.md
-skills/materials-reviewer/references/asphalt-reviewer-criteria.md
-skills/materials-figure/scripts/figures4materials/
+plugins/materials-skills/_shared/material-registry/entries/asphalt-pavement.yaml  # Structured registry
+plugins/materials-skills/_shared/triggers/domain/asphalt-pavement.yaml            # Routing triggers
+plugins/materials-skills/skills/materials-writing/references/asphalt-pavement-narrative.md
+plugins/materials-skills/skills/materials-reviewer/references/asphalt-reviewer-criteria.md
+plugins/materials-skills/skills/materials-figure/scripts/figures4materials/
 ├── plot_bonding_strength_comparison.py
 ├── plot_ftir_curing_evidence.py
 ├── plot_dosage_performance_curve.py
 ├── ... (+18 more WER-EA scripts)
-skills/materials-figure/examples/figure-packages/
+plugins/materials-skills/skills/materials-figure/examples/figure-packages/
 ├── wer-ea-dosage-window/
 ├── wer-ea-evidence-heatmap/
 └── wer-ea-mechanism-map/

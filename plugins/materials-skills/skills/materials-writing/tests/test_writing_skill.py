@@ -45,7 +45,7 @@ class WritingSkillStructureTest(unittest.TestCase):
         for phrase in ["interface:", "policy:", "allow_implicit_invocation"]:
             self.assertIn(phrase, openai_text)
         self.assertIn("discover_skill_names", release_text)
-        self.assertIn("materials-writing", discover_skill_names(REPO_ROOT / "skills"))
+        self.assertIn("materials-writing", discover_skill_names())
         self.assertIn("materials-writing", readme_text)
 
     def test_core_fragments_references_templates_examples_and_pressure_tests(self):
@@ -76,7 +76,7 @@ class WritingSkillStructureTest(unittest.TestCase):
                 self.assertIn(phrase, text)
 
     def test_research_router_lists_writing_companion_skill(self):
-        research_root = REPO_ROOT / "skills" / "materials-research"
+        research_root = SKILL_ROOT.parents[0] / "materials-research"
         skill_text = (research_root / "SKILL.md").read_text(encoding="utf-8")
         manifest_text = (research_root / "manifest.yaml").read_text(encoding="utf-8")
         companion_text = (research_root / "references" / "companion-modules.md").read_text(encoding="utf-8")

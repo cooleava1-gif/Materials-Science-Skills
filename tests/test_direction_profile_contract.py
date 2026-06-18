@@ -8,9 +8,10 @@ import yaml
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-SKILLS_ROOT = REPO_ROOT / "skills"
+PLUGIN_ROOT = REPO_ROOT / "plugins" / "materials-skills"
+SKILLS_ROOT = PLUGIN_ROOT / "skills"
 PROFILE_SCRIPT = REPO_ROOT / "scripts" / "materials_profile.py"
-PLUGIN_PROFILE_SCRIPT = REPO_ROOT / "plugins" / "materials-skills" / "scripts" / "materials_profile.py"
+PLUGIN_PROFILE_SCRIPT = PLUGIN_ROOT / "scripts" / "materials_profile.py"
 PROFILE_RULE = SKILLS_ROOT / "_shared" / "core" / "direction-profile.md"
 MATERIAL_AXIS_NAMES = {"material_family", "domain", "material_domain"}
 NEUTRAL_DEFAULTS = {"neutral", "general", "materials"}

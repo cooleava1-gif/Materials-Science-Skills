@@ -63,7 +63,7 @@ figure-package/
 ```
 
 Audit the package with
-`skills/materials-figure/scripts/audit_figure_package.py` before calling
+`plugins/materials-skills/skills/materials-figure/scripts/audit_figure_package.py` before calling
 it journal-ready.
 
 ## Automatic table-to-figure loop
@@ -72,7 +72,7 @@ When a CSV/TSV data table is available, use the automatic Python loop before
 hand-writing a new plot:
 
 ```powershell
-python skills/materials-figure/scripts/generate_figure_package.py `
+python plugins/materials-skills/skills/materials-figure/scripts/generate_figure_package.py `
   --data path/to/source_data.csv `
   --output-dir outputs/figure-packages/my-figure `
   --goal "Show the WER dosage trend for bonding strength." `
@@ -94,17 +94,17 @@ needs revision, or is blocked by missing evidence.
 ## Example
 
 - Figure package example:
-  `skills/materials-figure/examples/figure-packages/wer-ea-dosage-window/`
+  `plugins/materials-skills/skills/materials-figure/examples/figure-packages/wer-ea-dosage-window/`
 - Additional package:
-  `skills/materials-figure/examples/figure-packages/wer-ea-evidence-heatmap/`
+  `plugins/materials-skills/skills/materials-figure/examples/figure-packages/wer-ea-evidence-heatmap/`
 - Atlas gallery:
-  `skills/materials-figure/assets/wer-ea-atlas/generated/`
+  `plugins/materials-skills/skills/materials-figure/assets/wer-ea-atlas/generated/`
 
 ## Validation
 
 - Audit script:
-  `skills/materials-figure/scripts/audit_figure_package.py`
-- Core tests live under `skills/materials-figure/tests/`
+  `plugins/materials-skills/skills/materials-figure/scripts/audit_figure_package.py`
+- Core tests live under `plugins/materials-skills/skills/materials-figure/tests/`
 - Bundle verification:
   `python .\scripts\run_release_checks.py --json`
 

@@ -1,4 +1,5 @@
 import json
+import re
 import unittest
 from collections import Counter
 from pathlib import Path
@@ -9,7 +10,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 PLUGIN_ROOT = ROOT / "plugins" / "materials-skills"
-REGISTRY_ENTRIES = ROOT / "_shared" / "material-registry" / "entries"
+REGISTRY_ENTRIES = PLUGIN_ROOT / "_shared" / "material-registry" / "entries"
 SKILLS = [
     "materials-citation",
     "materials-data",
@@ -155,9 +156,15 @@ class ProductDocsContractTests(unittest.TestCase):
         ]:
             self.assertIn(marker, gallery_text)
 
-        showcase_root = ROOT / "skills" / "materials-figure" / "assets" / "showcase-proof"
+        showcase_root = PLUGIN_ROOT / "skills" / "materials-figure" / "assets" / "showcase-proof"
         for asset in GALLERY_PROOF_ASSETS:
             self.assertIn(asset, gallery_text)
+            image_refs = re.findall(r"!\[[^\]]*\]\(([^)]+)\)", gallery_text)
+            matching_refs = [ref for ref in image_refs if ref.endswith(asset)]
+            self.assertTrue(matching_refs, f"{asset} must be linked from gallery")
+            for ref in matching_refs:
+                resolved_ref = (gallery_path.parent / ref).resolve()
+                self.assertTrue(resolved_ref.is_file(), f"{ref} should resolve to a tracked proof asset")
             asset_path = showcase_root / asset
             self.assertTrue(asset_path.is_file(), f"{asset_path} must exist")
             self.assertTrue(image_has_visual_signal(asset_path), f"{asset_path} should be a content-bearing image")
@@ -186,7 +193,7 @@ class ProductDocsContractTests(unittest.TestCase):
 
     def test_every_skill_has_a_human_readme_with_core_sections(self):
         for skill in SKILLS:
-            readme_path = ROOT / "skills" / skill / "README.md"
+            readme_path = PLUGIN_ROOT / "skills" / skill / "README.md"
             self.assertTrue(readme_path.is_file(), f"{readme_path} must exist")
             readme_text = readme_path.read_text(encoding="utf-8")
             self.assertIn(f"# {skill}", readme_text)
@@ -270,7 +277,7 @@ class ProductDocsContractTests(unittest.TestCase):
     def test_manifest_domain_tiers_match_registry(self):
         """The materials-research manifest domain coverage_tier must match the registry."""
         entries = {e["id"]: e for e in load_registry_entries()}
-        manifest_path = ROOT / "skills" / "materials-research" / "manifest.yaml"
+        manifest_path = PLUGIN_ROOT / "skills" / "materials-research" / "manifest.yaml"
         manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
         domain_values = manifest["axes"]["domain"]["values"]
         mismatches = []

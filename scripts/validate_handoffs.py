@@ -16,9 +16,9 @@ except ModuleNotFoundError:  # pragma: no cover - supports import as scripts.val
     from scripts.skill_manifest import iter_skill_manifests, load_yaml
 
 
-SKILLS_ROOT = Path(__file__).resolve().parents[1] / "skills"
+SKILLS_ROOT = Path(__file__).resolve().parents[1] / "plugins" / "materials-skills" / "skills"
 REPO_ROOT = Path(__file__).resolve().parents[1]
-CONTRACTS_DIR = REPO_ROOT / "_shared" / "contracts"
+CONTRACTS_DIR = REPO_ROOT / "plugins" / "materials-skills" / "_shared" / "contracts"
 
 
 def load_contract(name: str) -> dict[str, Any] | None:
@@ -151,7 +151,7 @@ def validate_all() -> dict[str, list[str]]:
         _add_issue(
             issues,
             "contracts",
-            f"contract '{name}.yaml' referenced but not found in _shared/contracts/",
+            f"contract '{name}.yaml' referenced but not found in plugins/materials-skills/_shared/contracts/",
         )
 
     for skill, consumes in consumes_by_skill.items():

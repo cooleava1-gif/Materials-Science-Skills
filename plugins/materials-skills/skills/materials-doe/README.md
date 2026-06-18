@@ -34,7 +34,7 @@ guidance on sample size and replication for materials testing.
 
 ## Validation
 
-- Core tests live under `skills/materials-doe/tests/`
+- Core tests live under `plugins/materials-skills/skills/materials-doe/tests/`
 - Bundle verification: `python .\scripts\run_release_checks.py --json`
 
 ## Boundaries

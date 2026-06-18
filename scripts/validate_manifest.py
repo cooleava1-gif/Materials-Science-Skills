@@ -14,10 +14,10 @@ import yaml
 from skill_manifest import discover_skill_names
 
 repo_root = Path(__file__).resolve().parents[1]
-SKILLS_ROOT = repo_root / "skills"
-CONTRACTS_DIR = repo_root / "_shared" / "contracts"
-
-REGISTRY_DIR = repo_root / "_shared" / "material-registry" / "entries"
+plugin_root = repo_root / "plugins" / "materials-skills"
+SKILLS_ROOT = plugin_root / "skills"
+CONTRACTS_DIR = plugin_root / "_shared" / "contracts"
+REGISTRY_DIR = plugin_root / "_shared" / "material-registry" / "entries"
 
 
 def _parse_yaml_text(text: str) -> dict:
@@ -249,8 +249,8 @@ def validate_skill(skill_name: str) -> list[str]:
                                         if isinstance(tpl_ref, str):
                                             tpl_path = (skill_root / tpl_ref).resolve()
                                             if not tpl_path.exists():
-                                                # Try relative to contracts dir
-                                                alt_path = (CONTRACTS_DIR.parent.parent / skill_name / tpl_ref).resolve()
+                                                # Try relative to the plugin skills root
+                                                alt_path = (SKILLS_ROOT / skill_name / tpl_ref).resolve()
                                                 if not alt_path.exists():
                                                     issues.append(
                                                         f"template not found: {tpl_ref} (referenced by contract '{name}')"

@@ -29,7 +29,7 @@ header and `- bullet` for content. Speaker notes go in `> blockquote` format.
 ## Command
 
 ```powershell
-python skills/materials-pptx/scripts/build_materials_pptx.py `
+python plugins/materials-skills/skills/materials-pptx/scripts/build_materials_pptx.py `
   --input journal-club-outline.md `
   --output wer-ea-journal-club.pptx `
   --deck-type journal-club `

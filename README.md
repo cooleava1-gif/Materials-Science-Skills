@@ -11,7 +11,7 @@ polymers, metals, ceramics, functional/electronic materials, and nanomaterials.
 It is strongest where materials research is usually fragile: source anchoring,
 claim boundaries, paper-production routing, and reviewer-risk control.
 
-![Multi-panel overview: grouped bar, line trend, scatter regression, radar](skills/materials-figure/assets/showcase-proof/showcase_multi_panel_overview.png)
+![Multi-panel overview: grouped bar, line trend, scatter regression, radar](plugins/materials-skills/skills/materials-figure/assets/showcase-proof/showcase_multi_panel_overview.png)
 
 ## Why This Bundle Feels Like A System
 
@@ -112,9 +112,9 @@ To check support for a specific material when working with the AI, ask:
 - Visual gallery:
   [docs/gallery/README.md](docs/gallery/README.md)
 - Figure proof assets:
-  `skills/materials-figure/assets/showcase-proof/`
+  `plugins/materials-skills/skills/materials-figure/assets/showcase-proof/`
 - Per-skill README files:
-  `skills/materials-*/README.md`
+  `plugins/materials-skills/skills/materials-*/README.md`
 
 ## Visual Gallery
 

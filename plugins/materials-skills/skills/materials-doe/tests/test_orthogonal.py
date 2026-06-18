@@ -4,8 +4,7 @@ from pathlib import Path
 
 import pandas as pd
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
-SCRIPTS_DIR = REPO_ROOT / "skills" / "materials-doe" / "scripts"
+SCRIPTS_DIR = Path(__file__).resolve().parents[1] / "scripts"
 
 sys.path.insert(0, str(SCRIPTS_DIR))
 from orthogonal_analysis import anova_analysis, predict_optimal, range_analysis

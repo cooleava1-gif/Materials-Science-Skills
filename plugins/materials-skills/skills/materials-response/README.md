@@ -27,17 +27,17 @@ resubmission note set for a materials manuscript.
 ## Example
 
 - Example:
-  `skills/materials-response/examples/cbm-major-revision-response-example.md`
+  `plugins/materials-skills/skills/materials-response/examples/cbm-major-revision-response-example.md`
 - Additional examples:
-  `skills/materials-response/examples/ccc-methodology-critique-response-example.md`
-  and `skills/materials-response/examples/rmpd-minor-revision-response-example.md`
+  `plugins/materials-skills/skills/materials-response/examples/ccc-methodology-critique-response-example.md`
+  and `plugins/materials-skills/skills/materials-response/examples/rmpd-minor-revision-response-example.md`
 
 ## Validation
 
 - Core regression test:
-  `skills/materials-response/tests/test_response_examples.py`
+  `plugins/materials-skills/skills/materials-response/tests/test_response_examples.py`
 - Pressure test:
-  `skills/materials-response/tests/pressure-tests/aggressive-reviewer-mechanism-request.md`
+  `plugins/materials-skills/skills/materials-response/tests/pressure-tests/aggressive-reviewer-mechanism-request.md`
 - Bundle verification:
   `python .\scripts\run_release_checks.py --json`
 

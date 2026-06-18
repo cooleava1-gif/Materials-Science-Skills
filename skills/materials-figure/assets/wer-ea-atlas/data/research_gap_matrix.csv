@@ -1,4 +1,0 @@
-gap_id,evidence_layer,available_evidence,missing_evidence,reviewer_risk
-G1,bonding_interface_performance,lab pull-off and shear,long term field validation,service overclaim
-G2,microstructure_chemistry,FTIR and images,time resolved curing,mechanism overclaim
-G3,moisture_aging_durability,immersion retention,freeze thaw and UV aging,durability gap

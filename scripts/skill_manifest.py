@@ -10,7 +10,7 @@ import yaml
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_SKILLS_ROOT = REPO_ROOT / "skills"
+DEFAULT_SKILLS_ROOT = REPO_ROOT / "plugins" / "materials-skills" / "skills"
 
 
 def discover_skill_dirs(skills_root: Path = DEFAULT_SKILLS_ROOT) -> list[Path]:

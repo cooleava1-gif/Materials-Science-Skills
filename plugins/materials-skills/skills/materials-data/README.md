@@ -27,14 +27,14 @@ or journal submission workflows that require clearer provenance and metadata.
 ## Example
 
 - Example package:
-  `skills/materials-data/examples/waterborne-epoxy-fair-package.md`
+  `plugins/materials-skills/skills/materials-data/examples/waterborne-epoxy-fair-package.md`
 - Shared paper-production handoff context:
-  `skills/_shared/paper-production/paper-gate-report-template.md`
+  `plugins/materials-skills/skills/_shared/paper-production/paper-gate-report-template.md`
 
 ## Validation
 
 - Core regression test:
-  `skills/materials-data/tests/test_data_fair_skill.py`
+  `plugins/materials-skills/skills/materials-data/tests/test_data_fair_skill.py`
 - Bundle verification:
   `python .\scripts\run_release_checks.py --json`
 

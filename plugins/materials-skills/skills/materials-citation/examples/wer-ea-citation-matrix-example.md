@@ -12,7 +12,7 @@ emulsified asphalt (WER-EA) mini-review targeting CBM.
 ## Command
 
 ```powershell
-python skills/materials-citation/scripts/build_citation_matrix.py `
+python plugins/materials-skills/skills/materials-citation/scripts/build_citation_matrix.py `
   --topic "waterborne epoxy emulsified asphalt tack coat" `
   --journals "CBM,JBE,RMPD" `
   --output wer-ea-citation-matrix.csv

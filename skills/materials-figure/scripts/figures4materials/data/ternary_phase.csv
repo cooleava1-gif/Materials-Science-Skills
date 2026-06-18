@@ -1,7 +1,0 @@
-cement_pct,slag_pct,silica_fume_pct,group_label
-100,0,0,Reference
-70,30,0,Slag-blended
-60,30,10,Slag+SF
-50,40,10,High-SCM
-35,50,15,Very-high-SCM
-80,10,10,Ternary-low

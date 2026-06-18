@@ -1,5 +1,0 @@
-step_id,operation,control_variable,quality_check,field_relevance
-W1,surface preparation,dust and moisture,cleanliness inspection,site dependent
-W2,spraying,application rate,nozzle and coverage check,equipment dependent
-W3,curing,time and temperature,residual water or tack check,weather dependent
-W4,overlay,traffic opening,interlayer bond check,requires field validation

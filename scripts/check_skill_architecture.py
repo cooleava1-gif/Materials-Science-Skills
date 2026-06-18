@@ -8,7 +8,6 @@ rolled out are reported as warnings for the first architecture pass.
 from __future__ import annotations
 
 import argparse
-import filecmp
 import json
 from pathlib import Path
 from typing import Any
@@ -40,21 +39,6 @@ MOJIBAKE_MARKERS = (
     "璇",
     "姘存",
 )
-MIRROR_EXCEPTION_SUFFIXES = {
-    # Pre-existing root-only hard workflow exception documented in the plan.
-    "materials-figure/tests/test_figure_hard_workflow.py",
-}
-MIRROR_SOURCE_ONLY_SUFFIXES = {
-    ".gitignore",
-}
-MIRROR_IGNORED_DIRS = {
-    "__pycache__",
-    ".pytest_cache",
-}
-MIRROR_IGNORED_SUFFIXES = {
-    ".pyc",
-    ".pyo",
-}
 
 
 def _read_yaml(path: Path) -> dict[str, Any]:
@@ -208,173 +192,13 @@ def inspect_skill(skill_dir: Path) -> dict[str, object]:
     }
 
 
-def _mirror_suffix(path: Path, source_root: Path) -> str:
-    return _as_posix(path.relative_to(source_root))
-
-
-def _iter_mirror_files(base: Path) -> dict[str, Path]:
-    files: dict[str, Path] = {}
-    for path in base.rglob("*"):
-        if not path.is_file():
-            continue
-        relative_parts = path.relative_to(base).parts
-        if any(part in MIRROR_IGNORED_DIRS for part in relative_parts):
-            continue
-        if path.suffix in MIRROR_IGNORED_SUFFIXES:
-            continue
-        files[_as_posix(path.relative_to(base))] = path
-    return files
-
-
-def _mirror_files_equal(source_file: Path, target_file: Path) -> bool:
-    if filecmp.cmp(source_file, target_file, shallow=False):
-        return True
-
-    source_bytes = source_file.read_bytes()
-    target_bytes = target_file.read_bytes()
-    try:
-        source_text = source_bytes.decode("utf-8")
-        target_text = target_bytes.decode("utf-8")
-    except UnicodeDecodeError:
-        return False
-
-    return source_text.replace("\r\n", "\n") == target_text.replace("\r\n", "\n")
-
-
-def _inspect_plugin_mirror(root: Path, plugin_root: Path) -> dict[str, object]:
-    missing_plugin_skills: list[str] = []
-    missing_plugin_files: list[str] = []
-    extra_plugin_files: list[str] = []
-    source_only_files: list[str] = []
-    different_files: list[str] = []
-    compared_files = 0
-
-    for skill_dir in sorted(root.glob("materials-*")):
-        if not skill_dir.is_dir():
-            continue
-        plugin_skill = plugin_root / skill_dir.name
-        if not plugin_skill.exists():
-            missing_plugin_skills.append(skill_dir.name)
-            continue
-        candidates = [skill_dir / path for path in REQUIRED_ROUTER_FILES]
-        candidates.extend((skill_dir / "static" / "core").glob("*.md"))
-        for source_file in candidates:
-            if not source_file.exists() or not source_file.is_file():
-                continue
-            suffix = _mirror_suffix(source_file, skill_dir)
-            exception_key = f"{skill_dir.name}/{suffix}"
-            if exception_key in MIRROR_EXCEPTION_SUFFIXES:
-                continue
-            target_file = plugin_skill / suffix
-            if not target_file.exists():
-                missing_plugin_files.append(exception_key)
-                continue
-            compared_files += 1
-            if not _mirror_files_equal(source_file, target_file):
-                different_files.append(exception_key)
-
-    source_files = _iter_mirror_files(root)
-    plugin_files = _iter_mirror_files(plugin_root)
-    source_keys = set(source_files)
-    plugin_keys = set(plugin_files)
-
-    for suffix in sorted(source_keys - plugin_keys):
-        if suffix in MIRROR_SOURCE_ONLY_SUFFIXES:
-            continue
-        source_only_files.append(suffix)
-    for suffix in sorted(plugin_keys - source_keys):
-        extra_plugin_files.append(suffix)
-    for suffix in sorted(source_keys & plugin_keys):
-        exception_key = suffix
-        if exception_key in MIRROR_EXCEPTION_SUFFIXES:
-            continue
-        compared_files += 1
-        if not _mirror_files_equal(source_files[suffix], plugin_files[suffix]):
-            different_files.append(suffix)
-
-    missing_plugin_files = sorted(set(missing_plugin_files + source_only_files))
-    different_files = sorted(set(different_files))
-    hard_issues = missing_plugin_skills or missing_plugin_files or extra_plugin_files or different_files
-
-    return {
-        "status": "fail" if hard_issues else "pass",
-        "compared_files": compared_files,
-        "missing_plugin_skills": missing_plugin_skills,
-        "missing_plugin_files": missing_plugin_files,
-        "extra_plugin_files": extra_plugin_files,
-        "different_files": different_files,
-        "warnings": {
-            "missing_plugin_skills": missing_plugin_skills,
-            "missing_plugin_files": missing_plugin_files,
-            "extra_plugin_files": extra_plugin_files,
-            "different_files": different_files,
-            "mirror_exceptions": sorted(MIRROR_EXCEPTION_SUFFIXES),
-            "source_only_exceptions": sorted(MIRROR_SOURCE_ONLY_SUFFIXES),
-        },
-    }
-
-
-def _inspect_shared_mirror(source_root: Path, plugin_root: Path) -> dict[str, object]:
-    """Compare repo-root _shared/ against plugins/materials-skills/_shared/."""
-    source_shared = source_root / "_shared"
-    plugin_shared = plugin_root / "_shared"
-
-    if not source_shared.exists() and not plugin_shared.exists():
-        return {"status": "pass", "compared_files": 0, "missing_files": [], "extra_files": [], "different_files": [], "warnings": {}}
-
-    missing_files: list[str] = []
-    extra_files: list[str] = []
-    different_files: list[str] = []
-    compared_files = 0
-
-    source_files = _iter_mirror_files(source_shared) if source_shared.exists() else {}
-    plugin_files = _iter_mirror_files(plugin_shared) if plugin_shared.exists() else {}
-    source_keys = set(source_files)
-    plugin_keys = set(plugin_files)
-
-    for suffix in sorted(source_keys - plugin_keys):
-        missing_files.append(suffix)
-    for suffix in sorted(plugin_keys - source_keys):
-        extra_files.append(suffix)
-    for suffix in sorted(source_keys & plugin_keys):
-        compared_files += 1
-        if not _mirror_files_equal(source_files[suffix], plugin_files[suffix]):
-            different_files.append(suffix)
-
-    hard_issues = missing_files or extra_files or different_files
-    return {
-        "status": "fail" if hard_issues else "pass",
-        "compared_files": compared_files,
-        "missing_files": missing_files,
-        "extra_files": extra_files,
-        "different_files": different_files,
-        "warnings": {
-            "missing_files": missing_files,
-            "extra_files": extra_files,
-            "different_files": different_files,
-        },
-    }
-
-
-def inspect_all(root: Path = Path("skills")) -> dict[str, object]:
+def inspect_all(root: Path = Path("plugins/materials-skills/skills")) -> dict[str, object]:
     """Inspect every materials-* skill and return a JSON-safe report."""
 
     root = Path(root)
-    repo_root = root.parent
     skills = [path for path in sorted(root.glob("materials-*")) if path.is_dir()]
     skill_reports = [inspect_skill(skill_dir) for skill_dir in skills]
-    plugin_root = repo_root / "plugins" / "materials-skills" / "skills"
-    mirror_report = (
-        _inspect_plugin_mirror(root, plugin_root)
-        if plugin_root.exists()
-        else {"status": "pass", "warnings": {"missing_plugin_root": _as_posix(plugin_root)}}
-    )
-    shared_mirror_report = _inspect_shared_mirror(repo_root, repo_root / "plugins" / "materials-skills")
     hard_failures = [report["skill"] for report in skill_reports if report["status"] != "pass"]
-    if mirror_report.get("status") != "pass":
-        hard_failures.append("plugin_mirror")
-    if shared_mirror_report.get("status") != "pass":
-        hard_failures.append("shared_mirror")
 
     warnings = {
         "skills_with_missing_exact_core_files": [
@@ -386,8 +210,6 @@ def inspect_all(root: Path = Path("skills")) -> dict[str, object]:
         "skills_with_mojibake_triggers": [
             report["skill"] for report in skill_reports if report["mojibake_triggers"]
         ],
-        "plugin_mirror": mirror_report.get("warnings", {}),
-        "shared_mirror": shared_mirror_report.get("warnings", {}),
     }
     return {
         "status": "fail" if hard_failures else "pass",
@@ -397,8 +219,6 @@ def inspect_all(root: Path = Path("skills")) -> dict[str, object]:
             "warning_buckets": {key: len(value) if isinstance(value, list) else value for key, value in warnings.items()},
         },
         "skills": skill_reports,
-        "plugin_mirror": mirror_report,
-        "shared_mirror": shared_mirror_report,
         "warnings": warnings,
     }
 
@@ -407,7 +227,7 @@ def main(argv: list[str] | None = None) -> int:
     """Print JSON. Exit 0 only when every required architecture check passes."""
 
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--root", type=Path, default=Path("skills"))
+    parser.add_argument("--root", type=Path, default=Path("plugins/materials-skills/skills"))
     parser.add_argument("--json", action="store_true", help="Print machine-readable JSON.")
     args = parser.parse_args(argv)
 

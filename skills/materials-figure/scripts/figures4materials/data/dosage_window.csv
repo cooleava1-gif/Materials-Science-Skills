@@ -1,6 +1,0 @@
-dosage,bonding_strength,bonding_sd,viscosity,stability,workability,normalized_strength,normalized_viscosity,normalized_stability,normalized_workability
-0%,0.43,0.02,1250,85,70,0.00,1.00,0.00,0.00
-5%,0.49,0.03,1850,88,75,0.27,0.83,0.43,0.50
-10%,0.55,0.02,2450,92,82,0.55,0.57,0.79,0.80
-15%,0.61,0.03,2100,95,90,0.82,0.71,1.00,1.00
-20%,0.57,0.04,1620,90,78,0.64,0.88,0.57,0.60

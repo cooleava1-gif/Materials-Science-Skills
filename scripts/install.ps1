@@ -1,7 +1,9 @@
 $ErrorActionPreference = "Stop"
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
-$sourceSkillsDir = Join-Path $repoRoot "skills"
+$pluginRoot = Join-Path $repoRoot "plugins\materials-skills"
+$sourceSkillsDir = Join-Path $repoRoot "plugins\materials-skills\skills"
+$sourcePackageSharedDir = Join-Path $pluginRoot "_shared"
 
 if ($env:CODEX_HOME) {
     $targetSkillsDir = Join-Path $env:CODEX_HOME "skills"
@@ -11,6 +13,10 @@ if ($env:CODEX_HOME) {
 
 if (-not (Test-Path -LiteralPath $sourceSkillsDir -PathType Container)) {
     Write-Error "Source skills directory not found: $sourceSkillsDir"
+    exit 1
+}
+if (-not (Test-Path -LiteralPath $sourcePackageSharedDir -PathType Container)) {
+    Write-Error "Required package shared directory not found: $sourcePackageSharedDir"
     exit 1
 }
 
@@ -60,6 +66,22 @@ foreach ($skillDir in $civilSkillDirs) {
 }
 Remove-ExistingInstallDir -Name "_shared"
 Copy-Item -LiteralPath $sharedDir -Destination $targetSkillsDir -Recurse -Force
+
+$targetPackageSharedDir = Join-Path (Split-Path -Parent $targetSkillsDir) "_shared"
+if (Test-Path -LiteralPath $targetPackageSharedDir) {
+    $resolvedTargetPackageSharedDir = (Resolve-Path -LiteralPath $targetPackageSharedDir).Path
+    $resolvedTargetRoot = (Resolve-Path -LiteralPath (Split-Path -Parent $targetSkillsDir)).Path
+    if (-not $resolvedTargetPackageSharedDir.StartsWith($resolvedTargetRoot, [System.StringComparison]::OrdinalIgnoreCase)) {
+        Write-Error "Refusing to remove shared package directory outside Codex home: $resolvedTargetPackageSharedDir"
+        exit 1
+    }
+    if ($resolvedTargetPackageSharedDir -eq $resolvedTargetRoot) {
+        Write-Error "Refusing to remove Codex home root: $resolvedTargetPackageSharedDir"
+        exit 1
+    }
+    Remove-Item -LiteralPath $resolvedTargetPackageSharedDir -Recurse -Force
+}
+Copy-Item -LiteralPath $sourcePackageSharedDir -Destination (Split-Path -Parent $targetSkillsDir) -Recurse -Force
 
 Write-Output "Installed materials skills to: $targetSkillsDir"
 Write-Output "Installed directories:"

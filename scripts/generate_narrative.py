@@ -19,10 +19,11 @@ from typing import Any
 import yaml
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-REGISTRY_DIR = REPO_ROOT / "_shared" / "material-registry"
+PLUGIN_ROOT = REPO_ROOT / "plugins" / "materials-skills"
+REGISTRY_DIR = PLUGIN_ROOT / "_shared" / "material-registry"
 ENTRIES_DIR = REGISTRY_DIR / "entries"
 TEMPLATE_FILE = REGISTRY_DIR / "narrative-template.md"
-OUTPUT_DIR = REPO_ROOT / "skills" / "materials-writing" / "references"
+OUTPUT_DIR = PLUGIN_ROOT / "skills" / "materials-writing" / "references"
 
 # ── Material-specific narrative data ──────────────────────────────────────
 # These override or fill in details that can't be derived from the registry alone.
@@ -388,7 +389,13 @@ def generate_narrative(material_id: str) -> str:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--material-id", help="Registry material id (e.g., 'asphalt-pavement')")
-    parser.add_argument("--output", help="Output file path (default: skills/materials-writing/references/<id>-narrative.md)")
+    parser.add_argument(
+        "--output",
+        help=(
+            "Output file path (default: "
+            "plugins/materials-skills/skills/materials-writing/references/<id>-narrative.md)"
+        ),
+    )
     parser.add_argument("--all", action="store_true", help="Generate for all non-generic materials")
     parser.add_argument("--upgrade", action="store_true", help="Include skeleton-tier materials (upgrade to partial)")
     parser.add_argument("--stdout", action="store_true", help="Print to stdout instead of file")

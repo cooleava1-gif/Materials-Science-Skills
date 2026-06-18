@@ -1,9 +1,0 @@
-id: civil
-path: static/fragments/domain/civil-family.md
-triggers:
-- civil
-- construction
-- building
-- pavement
-- 土木
-- 建筑

@@ -28,16 +28,16 @@ cover letters.
 ## Example
 
 - Example:
-  `skills/materials-polishing/examples/claim-strength-polishing-example.md`
+  `plugins/materials-skills/skills/materials-polishing/examples/claim-strength-polishing-example.md`
 - Related library example:
-  `skills/materials-research/examples/library/polishing-claim-strength-example.md`
+  `plugins/materials-skills/skills/materials-research/examples/library/polishing-claim-strength-example.md`
 
 ## Validation
 
 - Core regression test:
-  `skills/materials-polishing/tests/test_polishing_references.py`
+  `plugins/materials-skills/skills/materials-polishing/tests/test_polishing_references.py`
 - Pressure test:
-  `skills/materials-polishing/tests/pressure-tests/overclaim-and-literal-translation.md`
+  `plugins/materials-skills/skills/materials-polishing/tests/pressure-tests/overclaim-and-literal-translation.md`
 - Bundle verification:
   `python .\scripts\run_release_checks.py --json`
 

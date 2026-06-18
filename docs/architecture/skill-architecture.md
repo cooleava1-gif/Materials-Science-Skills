@@ -1,9 +1,9 @@
 # Materials Science Skill Architecture
 
 This document defines the final static/dynamic architecture for every
-`materials-*` skill. The root `skills/<skill>/` directory is the source of
-truth, and `plugins/materials-skills/skills/<skill>/` is the installed
-plugin mirror.
+`materials-*` skill. The source-of-truth directory is
+`plugins/materials-skills/skills/<skill>/`, which is packaged directly into the
+Codex plugin.
 
 For day-to-day maintenance, extension workflows, and current technical-debt
 warnings, read [Maintainer Handoff Guide](maintenance-handoff.md).
@@ -23,7 +23,7 @@ For future Git history cleanup, read
 | Templates | assets/templates/* | Output schemas | required fields checked |
 | Scripts | scripts/*.py | Reusable production helpers | targeted tests |
 | Tests | tests/* | Regression and contract checks | release gate |
-| Plugin mirror | plugins/materials-skills/skills/<skill>/ | Installed package copy | byte identity check |
+| Plugin package | plugins/materials-skills/skills/<skill>/ | Installed package copy | structure and path checks |
 
 ## Router
 
@@ -90,13 +90,8 @@ automation-facing operations when practical.
 anti-overclaim constraints. Skills may also declare nested test folders, such as
 the citation MCP test suite.
 
-## Plugin Mirror
+## Plugin Package
 
-Root skill files are source-of-truth files. The plugin mirror must match changed
-skill files byte-for-byte unless a documented exception applies. The mirror lets
-the installed plugin package behave exactly like the root development copy.
-
-The architecture checker compares router files and static core files between
-root and plugin mirror as a first-pass identity gate. Later release gates can
-expand the comparison to all touched skill assets, references, scripts, and
-tests.
+All skill files live under `plugins/materials-skills/skills/<skill>/` and are
+packaged directly into the Codex plugin. There is no separate root skill tree to
+maintain, so release gates only need to validate the plugin package structure.

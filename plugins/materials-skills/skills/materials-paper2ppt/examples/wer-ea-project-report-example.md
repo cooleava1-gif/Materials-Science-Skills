@@ -12,7 +12,7 @@ project report presentation.
 ## Command
 
 ```powershell
-python skills/materials-paper2ppt/scripts/build_ppt_markdown.py `
+python plugins/materials-skills/skills/materials-paper2ppt/scripts/build_ppt_markdown.py `
   --title "水性环氧改性乳化沥青粘结层性能研究" `
   --deck-type project-report `
   --language zh `
@@ -45,7 +45,7 @@ Each slide enforces:
 The Markdown output can be passed to `materials-pptx` for PPTX generation:
 
 ```powershell
-python skills/materials-pptx/scripts/build_materials_pptx.py `
+python plugins/materials-skills/skills/materials-pptx/scripts/build_materials_pptx.py `
   --input wer-ea-project-report.md `
   --output wer-ea-project-report.pptx
 ```

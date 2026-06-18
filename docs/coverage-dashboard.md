@@ -61,5 +61,5 @@ A material moves up tiers when a researcher contributes:
 1. **skeleton → partial**: a reviewed narrative guide + one figure script or data schema
 2. **partial → full**: end-to-end example package + reviewer criteria + figure script suite
 
-See `_shared/material-registry/` for the current registry entries and
-`_shared/triggers/` for the routing keyword files.
+See `plugins/materials-skills/_shared/material-registry/` for the current registry entries and
+`plugins/materials-skills/_shared/triggers/` for the routing keyword files.

@@ -27,14 +27,14 @@ real PowerPoint file.
 ## Example
 
 - Library example:
-  `skills/materials-research/examples/library/paper2ppt-group-meeting-example.md`
+  `plugins/materials-skills/skills/materials-research/examples/library/paper2ppt-group-meeting-example.md`
 - Companion real deck handoff:
-  `skills/materials-research/examples/library/pptx-outline-json-example.md`
+  `plugins/materials-skills/skills/materials-research/examples/library/pptx-outline-json-example.md`
 
 ## Validation
 
 - Core regression test:
-  `skills/materials-paper2ppt/tests/test_presentation_handoff.py`
+  `plugins/materials-skills/skills/materials-paper2ppt/tests/test_presentation_handoff.py`
 - Bundle verification:
   `python .\scripts\run_release_checks.py --json`
 

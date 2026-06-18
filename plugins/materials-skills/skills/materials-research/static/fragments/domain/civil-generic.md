@@ -30,3 +30,5 @@ A general civil-materials manuscript must define:
 ## Subdomain triage
 
 If the topic matches asphalt, cement/concrete, steel, geotechnical, timber/masonry, waterproofing, or sustainability/durability, prefer that subdomain fragment.
+
+Use the more specific route when the scope is steel and metallic structures, geotechnical and rock-soil systems, timber/masonry assemblies, or waterproofing and sealants.

@@ -125,13 +125,15 @@ Elsevier wants 300 DPI TIFF at 85 mm single-column width. Taylor & Francis wants
 
 ```powershell
 # Copy skills into your Codex skills directory
-Copy-Item -Recurse .\skills\materials-* "$env:CODEX_HOME\skills\"
+Copy-Item -Recurse .\plugins\materials-skills\skills\materials-* "$env:CODEX_HOME\skills\"
+Copy-Item -Recurse .\plugins\materials-skills\skills\_shared "$env:CODEX_HOME\skills\_shared"
+Copy-Item -Recurse .\plugins\materials-skills\_shared "$env:CODEX_HOME\_shared"
 
 # Install root dependencies for figure/data workflows
 pip install -r requirements.txt
 
 # Install the local academic-search MCP dependencies when using the repo MCP server
-pip install -r .\mcp-server\materials-academic-search\requirements.txt
+pip install -r .\plugins\materials-skills\skills\materials-citation\mcp\academic_search\requirements.txt
 ```
 
 Optional: configure the academic-search MCP server in your Codex config:
@@ -139,8 +141,8 @@ Optional: configure the academic-search MCP server in your Codex config:
 ```toml
 [mcp_servers."materials-academic-search"]
 command = "python"
-args = ["server.py"]
-cwd = "mcp-server/materials-academic-search"
+args = ["./skills/materials-citation/mcp/academic_search/server.py"]
+cwd = "/absolute/path/to/plugins/materials-skills"
 
 # Optional environment variables
 # OPENALEX_API_KEY=...

@@ -83,7 +83,7 @@ class ReviewerSkillStructureTest(unittest.TestCase):
         text = release_script.read_text(encoding="utf-8")
 
         self.assertIn("discover_skill_names", text)
-        self.assertIn("materials-reviewer", discover_skill_names(REPO_ROOT / "skills"))
+        self.assertIn("materials-reviewer", discover_skill_names())
 
     def test_research_router_lists_reviewer_companion_skill(self):
         research_root = SKILL_ROOT.parents[0] / "materials-research"

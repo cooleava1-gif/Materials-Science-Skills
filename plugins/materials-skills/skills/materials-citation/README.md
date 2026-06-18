@@ -29,16 +29,16 @@ pavement materials, cement/concrete, durability, or mechanism-heavy topics.
 ## Example
 
 - Template:
-  `skills/materials-citation/assets/templates/citation-matrix-template.csv`
+  `plugins/materials-skills/skills/materials-citation/assets/templates/citation-matrix-template.csv`
 - Companion example:
-  `skills/materials-research/examples/library/citation-matrix-example.md`
+  `plugins/materials-skills/skills/materials-research/examples/library/citation-matrix-example.md`
 - WER-EA source-quality reference:
   `references/wer-ea-screening-and-source-quality.md`
 
 ## Validation
 
 - MCP and service tests live under
-  `skills/materials-citation/mcp/academic_search/tests/`
+  `plugins/materials-skills/skills/materials-citation/mcp/academic_search/tests/`
 - Release checks verify citation handoff files and academic-search assets
 - The bundle-level verification entrypoint is
   `python .\scripts\run_release_checks.py --json`

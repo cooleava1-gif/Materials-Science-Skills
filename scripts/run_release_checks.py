@@ -14,7 +14,7 @@ from pathlib import Path
 
 from skill_manifest import discover_skill_names
 
-SKILLS_ROOT = Path(__file__).resolve().parents[1] / "skills"
+SKILLS_ROOT = Path(__file__).resolve().parents[1] / "plugins" / "materials-skills" / "skills"
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 FIGURE_HARD_WORKFLOW_FILES = [
@@ -67,14 +67,18 @@ def collect_paper_production_orchestrator_issues(skill_root: Path) -> list[str]:
         "paper-gate-report-template.md",
     ]:
         if not (shared / name).exists():
-            issues.append(f"missing _shared/paper-production/{name}")
+            issues.append(f"missing skills/_shared/paper-production/{name}")
     examples = shared / "examples"
     for name in [
         "wer-ea-mini-review-weakness-routing.csv",
         "wer-ea-mini-review-gate-report.md",
     ]:
         if not (examples / name).exists():
-            issues.append(f"missing _shared/paper-production/examples/{name}")
+            issues.append(f"missing skills/_shared/paper-production/examples/{name}")
+    research_examples = skill_root / "materials-research" / "examples" / "library"
+    for name in ["paper-production-mini-review-example.md"]:
+        if not (research_examples / name).exists():
+            issues.append(f"missing materials-research/examples/library/{name}")
     return issues
 
 
@@ -117,42 +121,18 @@ def check_skill_basics(skill_name: str) -> list[str]:
 def collect_mcp_server_drift_issues() -> list[str]:
     """Detect drift between the canonical MCP server and the skill/plugin copy.
 
-    server.py and per-copy README/tests are allowed to differ by design;
-    business logic files must remain byte-identical.
+    Deprecated: the canonical MCP server now lives inside the plugin package.
+    This check is kept for API compatibility and always returns an empty list.
     """
-
-    canonical = REPO_ROOT / "mcp-server" / "materials-academic-search" / "academic_search"
-    skill = SKILLS_ROOT / "materials-citation" / "mcp" / "academic_search"
-    if not canonical.exists() or not skill.exists():
-        return []
-
-    ignored = {"server.py", "README.md", "__pycache__"}
-    issues: list[str] = []
-
-    for source_file in canonical.rglob("*"):
-        if not source_file.is_file():
-            continue
-        rel = source_file.relative_to(canonical).as_posix()
-        if any(part in ignored for part in source_file.relative_to(canonical).parts):
-            continue
-        if rel.startswith("tests/"):
-            continue
-        target_file = skill / rel
-        if not target_file.exists():
-            issues.append(f"skill MCP missing {rel}")
-            continue
-        if source_file.read_bytes() != target_file.read_bytes():
-            issues.append(f"skill MCP drift {rel}")
-
-    return issues
+    return []
 
 
 def collect_mcp_server_issues() -> list[str]:
-    """Run root academic-search MCP tests so release gates cover the configured server."""
+    """Run academic-search MCP tests inside the plugin package."""
 
-    tests_root = REPO_ROOT / "mcp-server" / "materials-academic-search" / "academic_search" / "tests"
+    tests_root = SKILLS_ROOT / "materials-citation" / "mcp" / "academic_search" / "tests"
     if not tests_root.exists():
-        return ["missing mcp-server/materials-academic-search/academic_search/tests"]
+        return ["missing plugins/materials-skills/skills/materials-citation/mcp/academic_search/tests"]
     result = subprocess.run(
         [
             sys.executable,
@@ -165,7 +145,7 @@ def collect_mcp_server_issues() -> list[str]:
             "test_*.py",
             "-v",
         ],
-        cwd=REPO_ROOT,
+        cwd=SKILLS_ROOT.parent,
         capture_output=True,
         text=True,
         check=False,
@@ -263,7 +243,7 @@ def main() -> int:
             total_scenarios = sum(len(v) for v in bt_issues.values())
             if total_scenarios == 0:
                 all_issues.setdefault("behavioral_tests", []).append(
-                    "no behavioral test scenarios found under skills/*/tests/scenarios/"
+                    "no behavioral test scenarios found under plugins/materials-skills/skills/*/tests/scenarios/"
                 )
     except Exception as exc:
         all_issues["behavioral_tests"] = [f"behavioral test error: {exc}"]

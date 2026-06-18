@@ -741,7 +741,7 @@ The expanded gallery adds ten Python scripts under
 `scripts/figures4materials/data/`. Run any script with:
 
 ```powershell
-python skills/materials-figure/scripts/figures4materials/plot_contour_response_map.py --output-dir outputs/figures
+python plugins/materials-skills/skills/materials-figure/scripts/figures4materials/plot_contour_response_map.py --output-dir outputs/figures
 ```
 
 Available chart families:

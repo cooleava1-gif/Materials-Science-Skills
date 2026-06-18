@@ -25,14 +25,14 @@ presentation.
 ## Example
 
 - Outline example:
-  `skills/materials-research/examples/library/pptx-outline-json-example.md`
+  `plugins/materials-skills/skills/materials-research/examples/library/pptx-outline-json-example.md`
 - Upstream slide-outline companion:
-  `skills/materials-research/examples/library/paper2ppt-group-meeting-example.md`
+  `plugins/materials-skills/skills/materials-research/examples/library/paper2ppt-group-meeting-example.md`
 
 ## Validation
 
 - Core regression test:
-  `skills/materials-pptx/tests/test_pptx_generation.py`
+  `plugins/materials-skills/skills/materials-pptx/tests/test_pptx_generation.py`
 - Bundle verification:
   `python .\scripts\run_release_checks.py --json`
 

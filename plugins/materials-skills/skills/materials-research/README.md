@@ -31,17 +31,17 @@ evidence-level judgment.
 ## Example
 
 - Example library:
-  `skills/materials-research/examples/library/library-index.md`
+  `plugins/materials-skills/skills/materials-research/examples/library/library-index.md`
 - Paper-production orchestrator:
   `references/paper-production-orchestrator.md`
 
 ## Validation
 
 - Core regression tests:
-  `skills/materials-research/tests/test_paper_production_orchestrator.py`
+  `plugins/materials-skills/skills/materials-research/tests/test_paper_production_orchestrator.py`
   and `test_pressure_examples_library.py`
 - Pressure tests live under
-  `skills/materials-research/tests/pressure-tests/`
+  `plugins/materials-skills/skills/materials-research/tests/pressure-tests/`
 - Bundle verification:
   `python .\scripts\run_release_checks.py --json`
 

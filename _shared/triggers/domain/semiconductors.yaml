@@ -1,8 +1,0 @@
-id: semiconductors
-path: static/fragments/domain/semiconductors.md
-triggers:
-- semiconductor
-- silicon wafer
-- GaN
-- perovskite
-- 半导体

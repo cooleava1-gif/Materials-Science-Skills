@@ -1,7 +1,0 @@
-figure_name: steel-corrosion-trend
-panels:
-  - panel: a
-    chart_type: main
-    script: skills/materials-figure/scripts/figures4materials/plot_civil_errorbar_trend.py
-    data: skills/materials-figure/scripts/figures4materials/data/civil_errorbar_trend.csv
-    caption: Corrosion or mechanical trend of steel with experimental variability.

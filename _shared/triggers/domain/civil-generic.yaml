@@ -1,7 +1,0 @@
-id: civil-generic
-path: static/fragments/domain/civil-generic.md
-triggers:
-- civil
-- engineering
-- 土木
-- 工程

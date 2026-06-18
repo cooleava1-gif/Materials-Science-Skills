@@ -12,11 +12,12 @@ import yaml
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-REGISTRY_DIR = REPO_ROOT / "_shared" / "material-registry"
+PLUGIN_ROOT = REPO_ROOT / "plugins" / "materials-skills"
+REGISTRY_DIR = PLUGIN_ROOT / "_shared" / "material-registry"
 ENTRIES_DIR = REGISTRY_DIR / "entries"
 INDEX_FILE = REGISTRY_DIR / "registry-index.yaml"
 SCHEMA_FILE = REGISTRY_DIR / "registry-schema.yaml"
-FAMILY_TRIGGER_DIR = REPO_ROOT / "_shared" / "triggers" / "family"
+FAMILY_TRIGGER_DIR = PLUGIN_ROOT / "_shared" / "triggers" / "family"
 
 VALID_FAMILIES = {"civil", "polymers", "metals", "ceramics", "functional", "nano"}
 VALID_TIERS = {"full", "partial", "skeleton", "generic"}
@@ -198,7 +199,7 @@ class RegistryEntryTests(unittest.TestCase):
                 for key in ("figure_scripts", "figure_packages", "data_schemas"):
                     for ref in sm.get(key, []) or []:
                         if isinstance(ref, str) and ref.startswith("skills/"):
-                            full_path = REPO_ROOT / ref
+                            full_path = PLUGIN_ROOT / ref
                             self.assertTrue(
                                 full_path.exists(),
                                 f"{path.name}: skill_mapping.{key} '{ref}' not found"
@@ -209,7 +210,7 @@ class RegistryEntryTests(unittest.TestCase):
                 skill_refs = narrative.get("skill_references", {}) if isinstance(narrative, dict) else {}
                 for ref_key, ref_path in skill_refs.items():
                     if isinstance(ref_path, str) and ref_path.startswith("skills/"):
-                        full_path = REPO_ROOT / ref_path
+                        full_path = PLUGIN_ROOT / ref_path
                         self.assertTrue(
                             full_path.exists(),
                             f"{path.name}: narrative.skill_references.{ref_key} '{ref_path}' not found"

@@ -1,4 +1,4 @@
-# Reviewer response
+﻿# Reviewer response
 
 ## Outcome Snapshot
 
@@ -16,14 +16,14 @@ Take these reviewer comments and build a revision-ready response package with pr
 ## Proof Assets
 
 - Major revision example:
-  `skills/materials-response/examples/cbm-major-revision-response-example.md`
+  `plugins/materials-skills/skills/materials-response/examples/cbm-major-revision-response-example.md`
 - Additional response examples:
-  `skills/materials-response/examples/ccc-methodology-critique-response-example.md`
-  and `skills/materials-response/examples/rmpd-minor-revision-response-example.md`
+  `plugins/materials-skills/skills/materials-response/examples/ccc-methodology-critique-response-example.md`
+  and `plugins/materials-skills/skills/materials-response/examples/rmpd-minor-revision-response-example.md`
 - Response skill contract:
-  `skills/materials-response/README.md`
+  `plugins/materials-skills/skills/materials-response/README.md`
 - Weakness-routing backbone:
-  `skills/_shared/paper-production/weakness-routing.md`
+  `plugins/materials-skills/skills/_shared/paper-production/weakness-routing.md`
 
 ## Build Path
 

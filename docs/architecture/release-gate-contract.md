@@ -8,17 +8,12 @@ matrix, or slide deck is publication-ready without expert review.
 ## Buckets
 
 `skill_architecture` proves that each `materials-*` skill has router
-files, manifest metadata, static core files, declared paths, and a plugin mirror
-inspection report. It does not prove that every reference is scientifically
-complete.
+files, manifest metadata, static core files, and declared paths. It does not
+prove that every reference is scientifically complete.
 
 `manifest_routes` proves that `always_load` and `axes.*.values.*.path` entries
 resolve to files. It does not prove that every possible user request chooses the
 best route.
-
-`plugin_mirror_identity` proves that root and plugin mirror copies match for the
-files included in the comparison. It does not prove identity for files outside
-the checked set unless that set is expanded by the final release script.
 
 `all_skill_mojibake` proves that checked trigger strings and selected text
 surfaces do not contain known mojibake markers. It does not prove translation
@@ -47,28 +42,16 @@ Existing buckets such as `coverage`, `skill_assets`, `generated_artifacts`, and
 machine-readable JSON with top-level `status`, `coverage`, `issues`, and test
 summaries.
 
-## Mirror Exceptions
+## Plugin Package Layout
 
-The default rule is byte identity between:
+The release gate validates the package under:
 
 ```text
-skills/<skill>/
 plugins/materials-skills/skills/<skill>/
 ```
 
-Accepted exceptions must be documented and named in the checker or release gate.
-Current known exceptions:
-
-- `materials-figure/tests/test_figure_hard_workflow.py`: pre-existing
-  root-only hard-workflow exception.
-- `_shared/SKILL.md`: allowed only if the final packaging decision keeps
-  `_shared` as a non-production support folder rather than a plugin skill.
-- `_shared/agents/openai.yaml`: allowed only under the same support-folder
-  decision as `_shared/SKILL.md`.
-
-If `_shared` is promoted to a production skill-like package, its router and
-agent metadata should be mirrored like any other skill. If it remains support
-material, the release gate should keep the exception explicit.
+There is no separate root skill tree. All skill assets, references, scripts,
+tests, and manifests must be present inside the plugin package.
 
 ## Interpreting Results
 

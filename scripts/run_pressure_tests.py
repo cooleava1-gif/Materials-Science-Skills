@@ -188,7 +188,7 @@ def render_markdown(tests: list[PressureTest], coverage: dict[str, Any]) -> str:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Validate pressure test coverage.")
-    parser.add_argument("--skill-root", type=Path, default=None, help="Root directory containing skills/")
+    parser.add_argument("--skill-root", type=Path, default=None, help="Root directory containing the skills/ tree")
     parser.add_argument("--json", action="store_true", help="Output JSON instead of markdown")
     args = parser.parse_args(argv)
 
@@ -197,8 +197,8 @@ def main(argv: list[str] | None = None) -> int:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-    root = args.skill_root or Path(__file__).resolve().parents[1]
-    skills_dir = root / "skills" if (root / "skills").is_dir() else root
+    root = args.skill_root or Path(__file__).resolve().parents[1] / "plugins" / "materials-skills" / "skills"
+    skills_dir = root if root.is_dir() else root / "skills"
 
     tests = discover_pressure_tests(skills_dir)
     coverage = validate_coverage(tests)

@@ -47,7 +47,7 @@ class PptxStructureTest(unittest.TestCase):
         self.assertIn("ppt/media/", contract_text)
         self.assertIn("ppt/notesSlides/", contract_text)
         self.assertIn("discover_skill_names", release_text)
-        self.assertIn("materials-pptx", discover_skill_names(REPO_ROOT / "skills"))
+        self.assertIn("materials-pptx", discover_skill_names())
 
 
 class PptxScriptTest(unittest.TestCase):

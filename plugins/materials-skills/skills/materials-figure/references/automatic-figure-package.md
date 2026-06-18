@@ -16,7 +16,7 @@ source table -> data diagnosis -> chart recommendation -> SVG/PNG export -> QA r
 Use when the user gives a table and a clear goal. Run the generator directly:
 
 ```powershell
-python skills/materials-figure/scripts/generate_figure_package.py `
+python plugins/materials-skills/skills/materials-figure/scripts/generate_figure_package.py `
   --data path/to/source_data.csv `
   --output-dir outputs/figure-packages/my-figure `
   --goal "Show the WER dosage trend for bonding strength." `

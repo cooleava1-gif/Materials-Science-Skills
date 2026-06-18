@@ -2,23 +2,11 @@ import json
 import unittest
 from pathlib import Path
 
-
-
-def _find_repo_root():
-    p = Path(__file__).resolve()
-    for parent in [p] + list(p.parents):
-        if (parent / ".git").exists() or (parent / "AGENTS.md").exists():
-            return parent
-    return p.parents[3]
-REPO_ROOT = _find_repo_root()
-READER_ROOT = REPO_ROOT / "skills" / "materials-reader"
-PLUGIN_READER_ROOT = (
-    REPO_ROOT
-    / "plugins"
-    / "materials-skills"
-    / "skills"
-    / "materials-reader"
-)
+READER_ROOT = Path(__file__).resolve().parents[1]
+SKILLS_ROOT = READER_ROOT.parent
+PLUGIN_ROOT = SKILLS_ROOT.parent
+REPO_ROOT = PLUGIN_ROOT.parents[1]
+REMOVED_TOP_LEVEL_READER_ROOT = REPO_ROOT.joinpath("skills", "materials-reader")
 
 
 class ReaderPackageContractTests(unittest.TestCase):
@@ -61,7 +49,7 @@ class ReaderPackageContractTests(unittest.TestCase):
                 self.assertEqual("object", schema["type"])
                 self.assertIn("required", schema)
 
-    def test_root_and_plugin_reader_package_files_match(self):
+    def test_reader_package_files_live_only_in_plugin_layout(self):
         relative_paths = [
             "references/standard-output-package.md",
             "assets/schemas/source-map.schema.json",
@@ -78,14 +66,9 @@ class ReaderPackageContractTests(unittest.TestCase):
             "tests/test_validate_reader_package.py",
         ]
         for relative_path in relative_paths:
-            root_path = READER_ROOT / relative_path
-            plugin_path = PLUGIN_READER_ROOT / relative_path
             with self.subTest(path=relative_path):
-                self.assertEqual(
-                    root_path.read_bytes(),
-                    plugin_path.read_bytes(),
-                    f"{relative_path} differs between root and plugin mirror",
-                )
+                self.assertTrue((READER_ROOT / relative_path).exists())
+                self.assertFalse((REMOVED_TOP_LEVEL_READER_ROOT / relative_path).exists())
 
 
 if __name__ == "__main__":

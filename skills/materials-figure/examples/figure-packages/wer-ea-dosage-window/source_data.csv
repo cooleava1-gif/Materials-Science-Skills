@@ -1,4 +1,0 @@
-panel,item,value,unit,evidence_layer,source_anchor,boundary
-a,Low WER,0.35,relative performance,D001,template only
-b,Middle WER,0.70,relative performance,D002,replace with measured data
-c,High WER,0.52,relative performance,D003,overdose risk must be source-grounded

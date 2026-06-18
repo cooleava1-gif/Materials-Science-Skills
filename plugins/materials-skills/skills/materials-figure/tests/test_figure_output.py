@@ -9,8 +9,8 @@ import unittest
 from pathlib import Path
 
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
-FIGURE_SCRIPTS = REPO_ROOT / "skills" / "materials-figure" / "scripts" / "figures4materials"
+FIGURE_ROOT = Path(__file__).resolve().parents[1]
+FIGURE_SCRIPTS = FIGURE_ROOT / "scripts" / "figures4materials"
 DATA_DIR = FIGURE_SCRIPTS / "data"
 
 SCRIPTS_TO_TEST = [
@@ -111,7 +111,7 @@ class FigureOutputTest(unittest.TestCase):
 class ChartAtlasOutputTest(unittest.TestCase):
     """Verify chart atlas generator produces all expected outputs."""
 
-    ATLAS_SCRIPT = REPO_ROOT / "skills" / "materials-figure" / "scripts" / "generate_chart_atlas.py"
+    ATLAS_SCRIPT = FIGURE_ROOT / "scripts" / "generate_chart_atlas.py"
     EXPECTED_ATLASES = [
         "atlas-bar-charts",
         "atlas-line-trends",

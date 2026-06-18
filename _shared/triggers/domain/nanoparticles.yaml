@@ -1,7 +1,0 @@
-id: nanoparticles
-path: static/fragments/domain/nanoparticles.md
-triggers:
-- nanoparticle
-- quantum dot
-- nanopowder
-- 纳米颗粒

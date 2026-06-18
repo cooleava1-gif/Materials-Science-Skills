@@ -33,7 +33,7 @@ class Paper2PptStructureTest(unittest.TestCase):
         self.assertIn("speaker notes", contract_text.lower())
         self.assertIn("limitations", contract_text.lower())
         self.assertIn("discover_skill_names", release_text)
-        self.assertIn("materials-paper2ppt", discover_skill_names(REPO_ROOT / "skills"))
+        self.assertIn("materials-paper2ppt", discover_skill_names())
 
 
 class Paper2PptScriptTest(unittest.TestCase):

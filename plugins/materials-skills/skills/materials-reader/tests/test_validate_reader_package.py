@@ -4,8 +4,7 @@ import unittest
 from pathlib import Path
 
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
-READER_ROOT = REPO_ROOT / "skills" / "materials-reader"
+READER_ROOT = Path(__file__).resolve().parents[1]
 
 
 def load_script(name):

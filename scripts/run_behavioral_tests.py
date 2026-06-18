@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Behavioral contract test runner — semi-automated.
 
-Loads Markdown scenario files from skills/<name>/tests/scenarios/,
+Loads Markdown scenario files from plugins/materials-skills/skills/<name>/tests/scenarios/,
 presents them for manual evaluation, and records results.
 
 Usage:
@@ -19,11 +19,11 @@ from pathlib import Path
 
 from skill_manifest import discover_skill_names
 
-SKILLS_ROOT = Path(__file__).resolve().parents[1] / "skills"
+SKILLS_ROOT = Path(__file__).resolve().parents[1] / "plugins" / "materials-skills" / "skills"
 
 
 def _discover_scenarios() -> dict[str, list[Path]]:
-    """Discover all .md scenario files under skills/*/tests/scenarios/."""
+    """Discover all .md scenario files under plugins/materials-skills/skills/*/tests/scenarios/."""
     scenarios: dict[str, list[Path]] = {}
     for skill_name in discover_skill_names(SKILLS_ROOT):
         scenarios_dir = SKILLS_ROOT / skill_name / "tests" / "scenarios"
@@ -70,7 +70,7 @@ def list_scenarios() -> None:
     """List all discovered scenarios."""
     scenarios = _discover_scenarios()
     if not scenarios:
-        print("No scenario files found under skills/*/tests/scenarios/")
+        print("No scenario files found under plugins/materials-skills/skills/*/tests/scenarios/")
         return
 
     total = 0

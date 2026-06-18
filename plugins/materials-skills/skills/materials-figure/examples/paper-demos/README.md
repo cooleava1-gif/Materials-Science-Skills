@@ -19,11 +19,11 @@ Each demo reproduces a key figure from the paper using the
 
 ```powershell
 # Run a single demo
-python skills/materials-figure/examples/paper-demos/kong-2024-cbm-bonding/plot_bonding_strength.py --output-dir ./my-figures
+python plugins/materials-skills/skills/materials-figure/examples/paper-demos/kong-2024-cbm-bonding/plot_bonding_strength.py --output-dir ./my-figures
 
 # Run all demos in a paper
-python skills/materials-figure/examples/paper-demos/kong-2024-cbm-bonding/plot_bonding_strength.py --output-dir ./figures
-python skills/materials-figure/examples/paper-demos/kong-2024-cbm-bonding/plot_shear_vs_temperature.py --output-dir ./figures
+python plugins/materials-skills/skills/materials-figure/examples/paper-demos/kong-2024-cbm-bonding/plot_bonding_strength.py --output-dir ./figures
+python plugins/materials-skills/skills/materials-figure/examples/paper-demos/kong-2024-cbm-bonding/plot_shear_vs_temperature.py --output-dir ./figures
 ```
 
 ## Data Sources

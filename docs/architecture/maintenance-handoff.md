@@ -34,16 +34,14 @@ break the package.
 
 The repository is a Codex skill bundle, not a single Python application.
 
-- `skills/materials-*` is the source skill tree.
-- `plugins/materials-skills/skills/materials-*` is the installable plugin
-  mirror and must stay synchronized with source skills.
+- `plugins/materials-skills/skills/materials-*` is the source skill tree and the
+  installable plugin package.
 - `manifest.yaml` is the source of truth for routing axes, loaded files,
   assets, scripts, tests, quality gates, handoffs, and release checks.
-- `_shared/contracts/*.yaml` is the source of truth for cross-skill artifact
-  handoff schemas.
+- `plugins/materials-skills/_shared/contracts/*.yaml` is the source of truth for
+  cross-skill artifact handoff schemas.
 - `scripts/run_release_checks.py` is the release gate entry point.
-- `scripts/check_skill_architecture.py` validates manifest structure and plugin
-  mirror identity.
+- `scripts/check_skill_architecture.py` validates manifest structure.
 
 When in doubt, prefer making structure discoverable from manifests and contracts
 instead of adding hard-coded skill lists to scripts.
@@ -56,9 +54,8 @@ instead of adding hard-coded skill lists to scripts.
   artifacts, desktop metadata, and internal planning notes are ignored.
 - Use synthetic/example data only. Do not commit real paper data or private
   user data.
-- For source skill changes, update the plugin mirror in the same change.
 - For template or handoff field changes, update the producer, consumer,
-  `_shared/contracts`, tests, and plugin mirror together.
+  `plugins/materials-skills/_shared/contracts`, and tests together.
 - For public docs changes, run the product docs tests or the full root test
   suite when practical.
 - Before claiming completion, run `python scripts\run_release_checks.py --json`
@@ -76,18 +73,17 @@ Production figure packages still must generate SVG, PDF, PNG, and TIFF exports
 before being called production-ready. Use:
 
 ```powershell
-python skills\materials-figure\scripts\audit_figure_package.py --package-dir <package>
+python plugins\materials-skills\skills\materials-figure\scripts\audit_figure_package.py --package-dir <package>
 ```
 
 Use source-only audit only for bundled examples:
 
 ```powershell
-python skills\materials-figure\scripts\audit_figure_package.py --package-dir <package> --source-only
+python plugins\materials-skills\skills\materials-figure\scripts\audit_figure_package.py --package-dir <package> --source-only
 ```
 
-Do not delete `skills/materials-figure/assets/showcase-proof/*.png` or the
-plugin mirror copies. Those are product screenshots referenced by README,
-gallery docs, and plugin metadata.
+Do not delete `plugins/materials-skills/skills/materials-figure/assets/showcase-proof/*.png`.
+Those are product screenshots referenced by README, gallery docs, and plugin metadata.
 
 ## Validation Matrix
 
@@ -95,23 +91,20 @@ gallery docs, and plugin metadata.
 |---|---|
 | Any release candidate | `python scripts\run_release_checks.py --json` |
 | Root contracts | `python -m unittest discover -s tests -p "test_*.py" -v` |
-| One skill | `python -m unittest discover -s skills\materials-<name>\tests -p "test_*.py" -v` |
-| Plugin mirror or manifests | `python scripts\check_skill_architecture.py --json` |
-| Citation MCP | `python -m unittest discover -s skills\materials-citation\mcp\academic_search\tests -p "test_*.py" -v` |
-| Root MCP | `python -m unittest discover -s mcp-server\materials-academic-search\academic_search\tests -p "test_*.py" -v` |
+| One skill | `python -m unittest discover -s plugins\materials-skills\skills\materials-<name>\tests -p "test_*.py" -v` |
+| Plugin manifests | `python scripts\check_skill_architecture.py --json` |
+| Citation MCP | `python -m unittest discover -s plugins\materials-skills\skills\materials-citation\mcp\academic_search\tests -p "test_*.py" -v` |
 | Product docs/gallery/showcases | `python -m unittest tests.test_product_docs_contract -v` |
-| Figure package behavior | `python -m unittest discover -s skills\materials-figure\tests -p "test_*.py" -v` |
+| Figure package behavior | `python -m unittest discover -s plugins\materials-skills\skills\materials-figure\tests -p "test_*.py" -v` |
 
 Broaden the validation when touching shared contracts, scripts, MCP surfaces,
-plugin mirror files, or release gates.
+release gates, or plugin metadata.
 
 ## High-Risk Areas
 
 | Area | Risk | Control |
 |---|---|---|
-| Plugin mirror | Source and plugin copies drift | Run architecture checker after source changes |
-| MCP server copies | Root and skill MCP schemas drift | Run root and skill MCP tests together |
-| Handoff fields | Producer and consumer disagree | Update `_shared/contracts` and both manifests |
+| Shared contracts | Producer and consumer schemas drift | Update `plugins/materials-skills/_shared/contracts` and manifests together |
 | Release gates | One-off exceptions hide drift | Keep validators manifest-driven |
 | Figure assets | Generated exports bloat Git | Track source-only examples and ignore exports |
 | Public docs | Product surface contradicts registry | Run product docs contract tests |
@@ -121,7 +114,7 @@ plugin mirror files, or release gates.
 When handing work to another agent, include:
 
 - Current branch and latest commit.
-- Files changed and whether plugin mirror was synchronized.
+- Files changed and whether any synchronized files were updated.
 - Commands run and their exit status.
 - Any known skipped checks and why they were skipped.
 - Whether generated assets were created locally and whether they are ignored.

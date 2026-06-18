@@ -1,5 +1,0 @@
-panel,item,value,unit,evidence_layer,source_anchor,boundary
-A,stress-strain,synthetic,MPa and strain,property-performance,row:stress_strain,static loading only
-B,fiber orientation and interface mechanism,synthetic,orientation index,process-structure-property,row:fiber_interface,requires real microscopy
-C,fatigue,synthetic,retention %,durability-aging,row:fatigue,cycle condition required
-D,interlaminar shear and fracture mechanism,synthetic,MPa and morphology,mechanism-evidence,row:ilss_fracture,fractography placeholder

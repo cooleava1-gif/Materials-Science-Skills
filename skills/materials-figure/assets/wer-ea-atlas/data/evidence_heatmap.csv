@@ -1,5 +1,0 @@
-paper_id,evidence_layer,certainty_tier,source_role,reviewer_risk
-P01,bonding_interface_performance,measured,primary experimental evidence,method mismatch
-P01,microstructure_chemistry,inferred,primary experimental evidence,overclaim risk
-P02,service_field_relevance,missing,weak background,missing field validation
-P03,rheology,measured,method evidence,temperature sensitivity
