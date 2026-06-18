@@ -2,19 +2,14 @@ id: functional-ceramics
 path: static/fragments/domain/functional-ceramics.md
 triggers:
 - piezoelectric ceramic
-- PZT
-- BaTiO3
 - LTCC
 - 压电陶瓷
-- ferroelectric
-- KNN
-- lead-free piezoelectric
-- MLCC
-- actuator
 - dielectric ceramic
 - microwave ceramic
 - LTCC substrate
-- 铁电
-- 无铅压电
-- 多层陶瓷电容
+- functional ceramic
+- electroceramic
+- multilayer ceramic
 - 介质陶瓷
+- 功能陶瓷
+- 电子陶瓷
