@@ -8,7 +8,7 @@ characterization:
 - evidence_tier: strong
   method: Accelerated Aging
   purpose: UV, heat, and water immersion durability
-coverage_tier: full
+coverage_tier: partial
 cross_references:
   parent: civil-generic
   related:

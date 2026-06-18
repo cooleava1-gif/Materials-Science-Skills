@@ -5,7 +5,7 @@ characterization:
 - evidence_tier: supporting
   method: SEM
   purpose: Wood/bamboo microstructure, adhesive penetration
-coverage_tier: full
+coverage_tier: partial
 cross_references:
   parent: civil-generic
 description:

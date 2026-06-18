@@ -1,6 +1,9 @@
 httpx>=0.27,<1
 matplotlib>=3.8,<4
 numpy>=1.26,<3
+pandas>=2.0,<3
 pillow>=10,<13
 pymupdf>=1.24,<2
+pytest>=8.0,<9
+pyyaml>=6.0,<7
 scipy>=1.11,<2

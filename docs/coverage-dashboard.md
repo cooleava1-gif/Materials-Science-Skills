@@ -11,14 +11,14 @@
 |---|---|---|---|---|---|---|
 | **asphalt-pavement** | civil | 🟢 **full** | ✅ asphalt-pavement-narrative | ✅ asphalt-reviewer-criteria | ✅ 21 scripts | ✅ 3 packages |
 | **cement-concrete** | civil | 🟢 **full** | ✅ cement-concrete-narrative | ✅ cement-reviewer-criteria | ✅ 3 scripts | ✅ 1 package |
-| **construction-materials** | civil | 🟢 **full** | ✅ construction-materials-narrative | ✅ editorial-criteria | ✅ 2 scripts | ✅ 1 package |
-| **steel-metal** | civil | 🟢 **full** | ✅ steel-metal-narrative | ✅ metals-reviewer-criteria | ✅ 2 scripts | ✅ 1 package |
-| **geotechnical-materials** | civil | 🟢 **full** | ✅ geotechnical-materials-narrative | ✅ cement-reviewer-criteria | ✅ 1 script | ✅ 2 packages |
-| **timber-masonry** | civil | 🟢 **full** | ✅ timber-masonry-narrative | ✅ editorial-criteria | ✅ 1 script | ✅ 1 package |
-| **waterproofing-sealants** | civil | 🟢 **full** | ✅ waterproofing-sealants-narrative | ✅ asphalt-reviewer-criteria | ✅ 2 scripts | ✅ 1 package |
-| **sustainability-durability** | civil | 🟢 **full** | ✅ sustainability-durability-narrative | ✅ cement-reviewer-criteria | ✅ 2 scripts | ✅ 2 packages |
+| **construction-materials** | civil | 🟡 **partial** | ✅ construction-materials-narrative | ✅ editorial-criteria | ✅ 2 scripts | ✅ 1 package |
+| **steel-metal** | civil | 🟡 **partial** | ✅ steel-metal-narrative | ✅ metals-reviewer-criteria | ✅ 2 scripts | ✅ 1 package |
+| **geotechnical-materials** | civil | 🟡 **partial** | ✅ geotechnical-materials-narrative | ✅ cement-reviewer-criteria | ✅ 1 script | ✅ 2 packages |
+| **timber-masonry** | civil | 🟡 **partial** | ✅ timber-masonry-narrative | ✅ editorial-criteria | ✅ 1 script | ✅ 1 package |
+| **waterproofing-sealants** | civil | 🟡 **partial** | ✅ waterproofing-sealants-narrative | ✅ asphalt-reviewer-criteria | ✅ 2 scripts | ✅ 1 package |
+| **sustainability-durability** | civil | 🟡 **partial** | ✅ sustainability-durability-narrative | ✅ cement-reviewer-criteria | ✅ 2 scripts | ✅ 2 packages |
 | **thermal-insulation** | civil | 🟢 **full** | ✅ thermal-insulation-narrative | ✅ insulation-reviewer-criteria | ✅ 4 scripts | ✅ 2 packages |
-| **civil-generic** | civil | 🟢 **full** | ✅ civil-generic-narrative | ✅ editorial-criteria | ✅ 2 scripts | ✅ 1 package |
+| **civil-generic** | civil | ⚪ **generic** | ✅ civil-generic-narrative | ✅ editorial-criteria | ✅ 2 scripts | ✅ 1 package |
 | **thermoplastics** | polymers | 🟢 **full** | ✅ thermoplastics-narrative | ✅ polymers-reviewer-criteria | ✅ 3 scripts | ✅ 2 packages |
 | **thermosets** | polymers | 🟢 **full** | ✅ thermosets-narrative | ✅ polymers-reviewer-criteria | ✅ 3 scripts | ✅ 1 package |
 | **rubber-elastomers** | polymers | 🟢 **full** | ✅ rubber-elastomers-narrative | ✅ polymers-reviewer-criteria | ✅ 2 scripts | ✅ 1 package |

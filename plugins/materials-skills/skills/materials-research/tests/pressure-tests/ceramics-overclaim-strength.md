@@ -1,5 +1,15 @@
 # Pressure test: Ceramics — claiming high strength without Weibull statistics
 
+## Theme
+
+overclaim
+
+## Modules Covered
+
+- materials-research
+- materials-figure
+- materials-data
+
 ## Prompt
 Draft a Results section for an alumina ceramic paper. The flexural strength data are: 380, 420, 350, 395, 410 MPa (n=5). Write the results.
 

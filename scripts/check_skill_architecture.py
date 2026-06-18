@@ -314,21 +314,67 @@ def _inspect_plugin_mirror(root: Path, plugin_root: Path) -> dict[str, object]:
     }
 
 
+def _inspect_shared_mirror(source_root: Path, plugin_root: Path) -> dict[str, object]:
+    """Compare repo-root _shared/ against plugins/materials-skills/_shared/."""
+    source_shared = source_root / "_shared"
+    plugin_shared = plugin_root / "_shared"
+
+    if not source_shared.exists() and not plugin_shared.exists():
+        return {"status": "pass", "compared_files": 0, "missing_files": [], "extra_files": [], "different_files": [], "warnings": {}}
+
+    missing_files: list[str] = []
+    extra_files: list[str] = []
+    different_files: list[str] = []
+    compared_files = 0
+
+    source_files = _iter_mirror_files(source_shared) if source_shared.exists() else {}
+    plugin_files = _iter_mirror_files(plugin_shared) if plugin_shared.exists() else {}
+    source_keys = set(source_files)
+    plugin_keys = set(plugin_files)
+
+    for suffix in sorted(source_keys - plugin_keys):
+        missing_files.append(suffix)
+    for suffix in sorted(plugin_keys - source_keys):
+        extra_files.append(suffix)
+    for suffix in sorted(source_keys & plugin_keys):
+        compared_files += 1
+        if not _mirror_files_equal(source_files[suffix], plugin_files[suffix]):
+            different_files.append(suffix)
+
+    hard_issues = missing_files or extra_files or different_files
+    return {
+        "status": "fail" if hard_issues else "pass",
+        "compared_files": compared_files,
+        "missing_files": missing_files,
+        "extra_files": extra_files,
+        "different_files": different_files,
+        "warnings": {
+            "missing_files": missing_files,
+            "extra_files": extra_files,
+            "different_files": different_files,
+        },
+    }
+
+
 def inspect_all(root: Path = Path("skills")) -> dict[str, object]:
     """Inspect every materials-* skill and return a JSON-safe report."""
 
     root = Path(root)
+    repo_root = root.parent
     skills = [path for path in sorted(root.glob("materials-*")) if path.is_dir()]
     skill_reports = [inspect_skill(skill_dir) for skill_dir in skills]
-    plugin_root = root.parent / "plugins" / "materials-skills" / "skills"
+    plugin_root = repo_root / "plugins" / "materials-skills" / "skills"
     mirror_report = (
         _inspect_plugin_mirror(root, plugin_root)
         if plugin_root.exists()
         else {"status": "pass", "warnings": {"missing_plugin_root": _as_posix(plugin_root)}}
     )
+    shared_mirror_report = _inspect_shared_mirror(repo_root, repo_root / "plugins" / "materials-skills")
     hard_failures = [report["skill"] for report in skill_reports if report["status"] != "pass"]
     if mirror_report.get("status") != "pass":
         hard_failures.append("plugin_mirror")
+    if shared_mirror_report.get("status") != "pass":
+        hard_failures.append("shared_mirror")
 
     warnings = {
         "skills_with_missing_exact_core_files": [
@@ -341,6 +387,7 @@ def inspect_all(root: Path = Path("skills")) -> dict[str, object]:
             report["skill"] for report in skill_reports if report["mojibake_triggers"]
         ],
         "plugin_mirror": mirror_report.get("warnings", {}),
+        "shared_mirror": shared_mirror_report.get("warnings", {}),
     }
     return {
         "status": "fail" if hard_failures else "pass",
@@ -351,6 +398,7 @@ def inspect_all(root: Path = Path("skills")) -> dict[str, object]:
         },
         "skills": skill_reports,
         "plugin_mirror": mirror_report,
+        "shared_mirror": shared_mirror_report,
         "warnings": warnings,
     }
 

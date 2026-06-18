@@ -93,10 +93,10 @@ currently covers **29 material systems** with four tiers:
 
 | Tier | Count | Meaning |
 |---|---|---|
-| 🟢 **full** | 29 | Battle-tested (narrative + figures + reviewer criteria + examples) |
-| 🟡 **partial** | 0 | Structured support (narrative + figures or reviewer criteria) |
+| 🟢 **full** | 22 | Battle-tested (narrative + figures + reviewer criteria + examples) |
+| 🟡 **partial** | 6 | Structured support (narrative + figures or reviewer criteria) |
 | 🔵 **skeleton** | 0 | Routable (domain fragment + auto-generated narrative) |
-| ⚪ **generic** | 0 | Scoped fallback (family-level guidance, no material-specific content) |
+| ⚪ **generic** | 1 | Scoped fallback (family-level guidance, no material-specific content) |
 
 **Full dashboard -> [docs/coverage-dashboard.md](docs/coverage-dashboard.md)**
 

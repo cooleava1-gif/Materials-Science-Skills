@@ -24,32 +24,32 @@ materials:
   - id: construction-materials
     name: "Construction and Building Materials"
     family: civil
-    coverage_tier: full
+    coverage_tier: partial
 
   - id: steel-metal
     name: "Steel and Metal Structures"
     family: civil
-    coverage_tier: full
+    coverage_tier: partial
 
   - id: geotechnical-materials
     name: "Geotechnical and Geoenvironmental Materials"
     family: civil
-    coverage_tier: full
+    coverage_tier: partial
 
   - id: timber-masonry
     name: "Timber, Masonry, and Bamboo Materials"
     family: civil
-    coverage_tier: full
+    coverage_tier: partial
 
   - id: waterproofing-sealants
     name: "Waterproofing and Sealant Materials"
     family: civil
-    coverage_tier: full
+    coverage_tier: partial
 
   - id: sustainability-durability
     name: "Sustainability and Durability of Construction Materials"
     family: civil
-    coverage_tier: full
+    coverage_tier: partial
 
   - id: thermal-insulation
     name: "Thermal Insulation Materials (Aerogels, Foams, Fibrous)"
@@ -59,7 +59,7 @@ materials:
   - id: civil-generic
     name: "Civil Engineering Materials (General)"
     family: civil
-    coverage_tier: full
+    coverage_tier: generic
 
   # ── Polymers ───────────────────────────────────────────────────────
   - id: thermoplastics

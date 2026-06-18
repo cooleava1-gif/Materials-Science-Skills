@@ -472,8 +472,21 @@ class AcademicSearchService:
 
         # Content negotiation for text-based styles (APA, Nature, IEEE)
         if fmt in ("apa", "nature", "ieee"):
+            # Collect DOIs from explicit args and from pre-fetched records.
+            record_dois = [
+                normalize_doi(record.get("doi", ""))
+                for record in records
+                if record and record.get("doi")
+            ]
+            doi_pool = [d for d in (dois or record_dois) if d]
+            if not doi_pool:
+                warnings.append(
+                    f"Style '{fmt}' requires DOIs; falling back to structured export."
+                )
+                content = export_citations(records, fmt)
+                return {"format": fmt, "count": len(records), "content": content, "warnings": warnings}
             citations = []
-            for doi in dois:
+            for doi in doi_pool:
                 citation = _crossref_content_negotiation(doi, style=fmt)
                 citations.append({"doi": doi, "citation": citation})
             return {"format": fmt, "citations": citations, "warnings": warnings}

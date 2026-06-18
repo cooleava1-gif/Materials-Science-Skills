@@ -198,8 +198,6 @@ class FigurePackageAuditScriptTest(unittest.TestCase):
         for phrase in [
             "figure_hard_workflow",
             "FIGURE_HARD_WORKFLOW_FILES",
-            "FIGURE_HARD_WORKFLOW_EVAL_IDS",
-            "FIGURE_PACKAGE_SAMPLE_NAMES",
             "audit_figure_package.py",
         ]:
             self.assertIn(phrase, release_text)

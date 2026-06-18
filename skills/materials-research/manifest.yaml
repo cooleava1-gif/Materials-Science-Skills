@@ -5,8 +5,6 @@ always_load:
 - ../_shared/core/stance.md
 - ../_shared/core/evidence-contract.md
 - ../_shared/paper-production/weakness-routing.md
-- static/core/stance.md
-- static/core/evidence-contract.md
 - static/core/workflow.md
 axes:
   task:
@@ -108,7 +106,7 @@ axes:
         - 黏度
         - 储存稳定性
       data-fair:
-        path: static/fragments/task/data-analysis.md
+        path: static/fragments/task/data-fair.md
         triggers:
         - FAIR
         - dataset package
@@ -374,31 +372,31 @@ axes:
       construction-materials:
         path: static/fragments/domain/construction-materials.md
         trigger_file: ../../_shared/triggers/domain/construction-materials.yaml
-        coverage_tier: full
+        coverage_tier: partial
       steel-metal:
         path: static/fragments/domain/civil-generic.md
         trigger_file: ../../_shared/triggers/domain/steel-metal.yaml
-        coverage_tier: full
+        coverage_tier: partial
       geotechnical-materials:
         path: static/fragments/domain/civil-generic.md
         trigger_file: ../../_shared/triggers/domain/geotechnical-materials.yaml
-        coverage_tier: full
+        coverage_tier: partial
       timber-masonry:
         path: static/fragments/domain/civil-generic.md
         trigger_file: ../../_shared/triggers/domain/timber-masonry.yaml
-        coverage_tier: full
+        coverage_tier: partial
       waterproofing-sealants:
         path: static/fragments/domain/civil-generic.md
         trigger_file: ../../_shared/triggers/domain/waterproofing-sealants.yaml
-        coverage_tier: full
+        coverage_tier: partial
       sustainability-durability:
         path: static/fragments/domain/sustainability-durability.md
         trigger_file: ../../_shared/triggers/domain/sustainability-durability.yaml
-        coverage_tier: full
+        coverage_tier: partial
       civil-generic:
         path: static/fragments/domain/civil-generic.md
         trigger_file: ../../_shared/triggers/domain/civil-generic.yaml
-        coverage_tier: full
+        coverage_tier: generic
       thermoplastics:
         path: static/fragments/domain/thermoplastics.md
         trigger_file: ../../_shared/triggers/domain/thermoplastics.yaml

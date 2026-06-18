@@ -1,5 +1,14 @@
 # Pressure test: Ceramics — missing sintering conditions
 
+## Theme
+
+missing experimental conditions
+
+## Modules Covered
+
+- materials-research
+- materials-data
+
 ## Prompt
 Review the Methods section: "Alumina samples were sintered at 1500 C. The final density was 96% of theoretical."
 

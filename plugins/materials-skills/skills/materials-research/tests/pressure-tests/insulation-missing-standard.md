@@ -1,5 +1,15 @@
 # Pressure test: Thermal insulation — reporting conductivity without standard or temperature
 
+## Theme
+
+missing experimental conditions
+
+## Modules Covered
+
+- materials-research
+- materials-data
+- materials-figure
+
 ## Prompt
 An aerogel insulation sample has thermal conductivity of 0.028 W/(m.K). The user says this was measured "at room temperature" with a "thermal conductivity tester." Draft the Methods section.
 

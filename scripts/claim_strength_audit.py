@@ -194,9 +194,14 @@ def audit_text(text: str, material_ids: list[str] | None = None) -> dict[str, An
                                     "risk": risk,
                                 })
 
+    # Split on sentence terminators followed by whitespace or end of string.
+    sentence_count = len(
+        [s for s in re.split(r"[.!?]+(?:\s+|$)", text) if s.strip()]
+    )
+
     return {
         "text_length": len(text),
-        "sentence_count": len([s for s in text.split(".") if s.strip()]),
+        "sentence_count": sentence_count,
         "total_issues": len(all_issues),
         "high_severity": sum(1 for i in all_issues if i.get("severity") == "high"),
         "findings": all_issues,

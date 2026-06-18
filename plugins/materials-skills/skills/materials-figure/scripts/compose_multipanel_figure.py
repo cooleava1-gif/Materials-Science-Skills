@@ -10,6 +10,7 @@ import textwrap
 from pathlib import Path
 
 import matplotlib
+import yaml
 
 matplotlib.use("Agg")
 matplotlib.rcParams["svg.fonttype"] = "none"
@@ -17,45 +18,14 @@ matplotlib.rcParams["svg.fonttype"] = "none"
 import matplotlib.pyplot as plt  # noqa: E402
 
 
-def parse_scalar(value: str) -> str:
-    return value.strip().strip('"').strip("'")
-
-
 def parse_storyboard(path: Path) -> dict:
-    """Parse the small YAML subset used by figure_storyboard.yaml."""
-    lines = path.read_text(encoding="utf-8").splitlines()
-    data: dict[str, object] = {"panels": []}
-    panels: list[dict[str, str]] = []
-    current: dict[str, str] | None = None
-    in_panels = False
-
-    for raw in lines:
-        if not raw.strip() or raw.lstrip().startswith("#"):
-            continue
-        stripped = raw.strip()
-        if stripped == "panels:":
-            in_panels = True
-            continue
-        if not in_panels:
-            if ":" in stripped:
-                key, value = stripped.split(":", 1)
-                data[key.strip()] = parse_scalar(value)
-            continue
-        if stripped.startswith("- "):
-            if current:
-                panels.append(current)
-            current = {}
-            item = stripped[2:]
-            if ":" in item:
-                key, value = item.split(":", 1)
-                current[key.strip()] = parse_scalar(value)
-            continue
-        if current is not None and ":" in stripped:
-            key, value = stripped.split(":", 1)
-            current[key.strip()] = parse_scalar(value)
-    if current:
-        panels.append(current)
-    data["panels"] = panels
+    """Parse figure_storyboard.yaml using a standards-compliant YAML loader."""
+    with open(path, "r", encoding="utf-8") as handle:
+        data = yaml.safe_load(handle) or {}
+    if not isinstance(data, dict):
+        raise ValueError("storyboard must be a YAML mapping")
+    if "panels" not in data or not isinstance(data["panels"], list):
+        data["panels"] = []
     return data
 
 

@@ -2,6 +2,12 @@
 
 import argparse
 import sys
+from pathlib import Path
+
+# Ensure sibling DOE scripts are importable regardless of CWD.
+_SCRIPT_DIR = Path(__file__).resolve().parent
+if str(_SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(_SCRIPT_DIR))
 
 import matplotlib
 matplotlib.use("Agg")

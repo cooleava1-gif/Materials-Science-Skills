@@ -5,7 +5,7 @@ characterization:
 - evidence_tier: strong
   method: SEM
   purpose: Pore structure, interface, bonding morphology
-coverage_tier: full
+coverage_tier: partial
 cross_references:
   parent: civil-generic
   related: []

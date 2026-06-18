@@ -12,6 +12,8 @@ import sys
 from pathlib import Path
 from textwrap import dedent
 
+import yaml
+
 import data_diagnose
 import recommend_chart
 
@@ -59,27 +61,27 @@ def generate_package(
 
 
 def write_intake(path: Path, source_path: Path, goal: str, figure_name: str, profile: dict, recommendation: dict) -> None:
-    lines = [
-        "version: 1",
-        f"figure_name: {quote_yaml(figure_name)}",
-        f"source_data: {quote_yaml(str(source_path))}",
-        f"goal: {quote_yaml(goal)}",
-        "backend: python",
-        "data_profile:",
-        f"  row_count: {profile['row_count']}",
-        "  numeric_columns:",
-        *[f"    - {quote_yaml(column)}" for column in profile["numeric_columns"]],
-        "  categorical_columns:",
-        *[f"    - {quote_yaml(column)}" for column in profile["categorical_columns"]],
-        "  error_columns:",
-        *[f"    - {quote_yaml(column)}" for column in profile["error_columns"]],
-        "recommendation:",
-        f"  chart_type: {quote_yaml(recommendation['chart_type'])}",
-        f"  x_column: {quote_yaml(recommendation.get('x_column'))}",
-        f"  y_column: {quote_yaml(recommendation.get('y_column'))}",
-        f"  error_column: {quote_yaml(recommendation.get('error_column'))}",
-    ]
-    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    intake = {
+        "version": 1,
+        "figure_name": figure_name,
+        "source_data": str(source_path),
+        "goal": goal,
+        "backend": "python",
+        "data_profile": {
+            "row_count": profile["row_count"],
+            "numeric_columns": profile["numeric_columns"],
+            "categorical_columns": profile["categorical_columns"],
+            "error_columns": profile["error_columns"],
+        },
+        "recommendation": {
+            "chart_type": recommendation["chart_type"],
+            "x_column": recommendation.get("x_column"),
+            "y_column": recommendation.get("y_column"),
+            "error_column": recommendation.get("error_column"),
+        },
+    }
+    with open(path, "w", encoding="utf-8") as handle:
+        yaml.safe_dump(intake, handle, sort_keys=False, allow_unicode=True)
 
 
 def write_plot_script(path: Path, recommendation: dict, figure_name: str) -> None:
@@ -378,13 +380,6 @@ def collect_generation_issues(package_dir: Path) -> list[str]:
     if svg.is_file() and "<svg" not in svg.read_text(encoding="utf-8", errors="ignore"):
         issues.append("figure.svg does not contain <svg")
     return issues
-
-
-def quote_yaml(value: object) -> str:
-    if value is None:
-        return "null"
-    text = str(value).replace('"', '\\"')
-    return f'"{text}"'
 
 
 def main(argv: list[str] | None = None) -> int:

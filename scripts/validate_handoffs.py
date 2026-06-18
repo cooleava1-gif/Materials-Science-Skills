@@ -8,6 +8,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+import yaml
+
 try:
     from skill_manifest import iter_skill_manifests, load_yaml
 except ModuleNotFoundError:  # pragma: no cover - supports import as scripts.validate_handoffs
@@ -27,7 +29,7 @@ def load_contract(name: str) -> dict[str, Any] | None:
         return None
     try:
         return load_yaml(path)
-    except Exception:
+    except (OSError, UnicodeDecodeError, yaml.YAMLError):
         return None
 
 

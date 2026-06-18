@@ -11,7 +11,7 @@ characterization:
 - evidence_tier: strong
   method: EIS
   purpose: Corrosion rate measurement for coated systems
-coverage_tier: full
+coverage_tier: partial
 cross_references:
   parent: civil-generic
   related:

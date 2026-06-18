@@ -17,12 +17,6 @@ from skill_manifest import discover_skill_names
 SKILLS_ROOT = Path(__file__).resolve().parents[1] / "skills"
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
-FIGURE_PACKAGE_SAMPLE_NAMES = [
-    "kong-2024-cbm-bonding",
-    "zhang-2017-cbm-tack-coat",
-    "yao-2022-cbm-wer-sbr",
-]
-
 FIGURE_HARD_WORKFLOW_FILES = [
     "static/core/contract.md",
     "static/core/stance.md",
@@ -33,20 +27,6 @@ FIGURE_HARD_WORKFLOW_FILES = [
     "references/figure_qa_report.md",
     "assets/templates/figure_storyboard.yaml",
     "scripts/compose_multipanel_figure.py",
-]
-
-FIGURE_HARD_WORKFLOW_EVAL_IDS = [
-    "backend-exclusivity-python-missing-package",
-    "journal-ready-package-audit",
-    "python-only-expanded-chart-gallery",
-]
-
-paper_production_orchestrator = "paper-production-orchestrator"
-
-PAPER_PRODUCTION_EXAMPLES = [
-    "paper-production-mini-review-example.md",
-    "wer-ea-mini-review-weakness-routing.csv",
-    "wer-ea-mini-review-gate-report.md",
 ]
 
 WRITING_MATURITY_FILES = [
@@ -131,6 +111,39 @@ def check_skill_basics(skill_name: str) -> list[str]:
     for fname in ["SKILL.md", "manifest.yaml"]:
         if not (root / fname).exists():
             issues.append(f"{skill_name}: missing {fname}")
+    return issues
+
+
+def collect_mcp_server_drift_issues() -> list[str]:
+    """Detect drift between the canonical MCP server and the skill/plugin copy.
+
+    server.py and per-copy README/tests are allowed to differ by design;
+    business logic files must remain byte-identical.
+    """
+
+    canonical = REPO_ROOT / "mcp-server" / "materials-academic-search" / "academic_search"
+    skill = SKILLS_ROOT / "materials-citation" / "mcp" / "academic_search"
+    if not canonical.exists() or not skill.exists():
+        return []
+
+    ignored = {"server.py", "README.md", "__pycache__"}
+    issues: list[str] = []
+
+    for source_file in canonical.rglob("*"):
+        if not source_file.is_file():
+            continue
+        rel = source_file.relative_to(canonical).as_posix()
+        if any(part in ignored for part in source_file.relative_to(canonical).parts):
+            continue
+        if rel.startswith("tests/"):
+            continue
+        target_file = skill / rel
+        if not target_file.exists():
+            issues.append(f"skill MCP missing {rel}")
+            continue
+        if source_file.read_bytes() != target_file.read_bytes():
+            issues.append(f"skill MCP drift {rel}")
+
     return issues
 
 
@@ -292,12 +305,20 @@ def main() -> int:
                 for key in ("missing_plugin_skills", "missing_plugin_files", "extra_plugin_files", "different_files"):
                     for value in plugin_mirror.get(key, []) or []:
                         all_issues.setdefault("architecture", []).append(f"plugin_mirror.{key}: {value}")
+                shared_mirror = architecture_report.get("shared_mirror", {})
+                for key in ("missing_files", "extra_files", "different_files"):
+                    for value in shared_mirror.get(key, []) or []:
+                        all_issues.setdefault("architecture", []).append(f"shared_mirror.{key}: {value}")
     except Exception as exc:
         all_issues["architecture"] = [f"architecture validation error: {exc}"]
 
     mcp_issues = collect_mcp_server_issues()
     if mcp_issues:
         all_issues["mcp_server"] = mcp_issues
+
+    mcp_drift_issues = collect_mcp_server_drift_issues()
+    if mcp_drift_issues:
+        all_issues.setdefault("mcp_server", []).extend(mcp_drift_issues)
 
     if args.json:
         print(json.dumps({"status": "pass" if not all_issues else "fail", "issues": all_issues}, indent=2))

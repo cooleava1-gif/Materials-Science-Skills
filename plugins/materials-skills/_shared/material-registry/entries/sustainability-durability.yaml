@@ -5,7 +5,7 @@ characterization:
 - evidence_tier: strong
   method: Accelerated Durability Testing
   purpose: Freeze-thaw, carbonation, chloride ingress, alkali-silica reaction
-coverage_tier: full
+coverage_tier: partial
 cross_references:
   related:
   - cement-concrete

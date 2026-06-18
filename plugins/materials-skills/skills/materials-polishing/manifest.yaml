@@ -146,6 +146,7 @@ references:
       when: "The target journal is RMPD or IJPE."
     journal-jbe-facts:
       path: ../_shared/journal-formats/jbe.md
+      when: "The target journal is JBE, Journal of Building Engineering."
     en-rules:
       path: static/fragments/language/en.md
       when: "The user needs English polishing rules."
@@ -157,8 +158,7 @@ references:
       when: "The user writes a research paper."
     review-rules:
       path: static/fragments/paper_type/review.md
-      when: "The user writes a review paper."
-      when: "The target journal is JBE, Journal of Building Engineering."
+      when: "The user writes a review paper or the target journal is JBE, Journal of Building Engineering."
     claim-strength-local:
       path: references/claim-strength-ladder.md
       when: "The user needs a local copy of the claim strength ladder."

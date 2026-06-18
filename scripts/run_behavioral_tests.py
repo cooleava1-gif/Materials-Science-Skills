@@ -93,7 +93,8 @@ def run_scenario(path: Path, silent: bool = False) -> dict:
             "path": str(path),
             "skill": scenario["skill"],
             "checklist_items": [
-                line.strip().lstrip("- []") for line in scenario["checklist"].split(chr(10))
+                re.sub(r"^-\s*\[[ xX]\]\s*", "", line.strip())
+                for line in scenario["checklist"].split(chr(10))
                 if line.strip().startswith("- [")
             ],
         }
@@ -124,7 +125,7 @@ def run_scenario(path: Path, silent: bool = False) -> dict:
     print("-" * 40)
     for line in scenario["checklist"].split(chr(10)):
         if line.strip().startswith("- ["):
-            print("  [ ] " + line.strip()[4:])
+            print("  [ ] " + re.sub(r"^-\s*\[[ xX]\]\s*", "", line.strip()))
 
     print()
     print("-" * 40)
@@ -136,7 +137,8 @@ def run_scenario(path: Path, silent: bool = False) -> dict:
         "path": str(path),
         "skill": scenario["skill"],
         "checklist_items": [
-            line.strip().lstrip("- []") for line in scenario["checklist"].split(chr(10))
+            re.sub(r"^-\s*\[[ xX]\]\s*", "", line.strip())
+            for line in scenario["checklist"].split(chr(10))
             if line.strip().startswith("- [")
         ],
     }

@@ -5,7 +5,7 @@ characterization:
 - evidence_tier: strong
   method: SEM
   purpose: Microstructure, pore morphology analysis
-coverage_tier: full
+coverage_tier: generic
 cross_references:
   related:
     - construction-materials

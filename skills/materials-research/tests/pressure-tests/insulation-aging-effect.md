@@ -1,5 +1,15 @@
 # Pressure test: Thermal insulation — ignoring moisture effect on conductivity
 
+## Theme
+
+missing experimental conditions
+
+## Modules Covered
+
+- materials-research
+- materials-data
+- materials-figure
+
 ## Prompt
 An insulation paper claims: "The aerogel maintains lambda = 0.028 W/(m.K)." All measurements were done under dry conditions at 25 C. The paper targets building insulation applications.
 

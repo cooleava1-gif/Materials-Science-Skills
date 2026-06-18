@@ -1,54 +1,45 @@
 # 分支管理声明
 
-为确保代码库变更的可追溯性和协作质量，特制定以下分支管理规则。**所有与本仓库交互的 Agent（包括但不限于 Mimo、Codex、DeepSeek 等）必须遵守。**
+为确保代码库变更的可追溯性和协作质量，特制定以下分支管理规则。**所有与本仓库交互的 Agent 必须遵守。**
 
 ---
 
-## 1. 禁止直接修改 `main`
+## 1. 权威分支
 
-`main` 分支是受保护的主线，任何 Agent **不得**直接在其上修改文件。所有变更必须通过特性分支进行。
+`main` 是唯一权威分支（source-of-truth）。任何维护工作都应从最新的 `origin/main` 开始。
 
-## 2. 专属分支
+- 每次开始任务前执行：
+  ```
+  git fetch origin
+  git checkout main
+  git pull --ff-only origin main
+  ```
+- `git status --short --branch` 必须处于干净状态；若存在未提交改动，先检查并保留无关的用户或 Agent 工作。
 
-每个 Agent 在开始修改前，必须先切换到自己的专属分支：
+## 2. 受保护分支
 
-| Agent | 分支 |
-|---|---|
-| Mimo | `mimo` |
-| Codex | `codex` |
-| DeepSeek | `deepseek` |
+`main` 是受保护分支，**任何 → `main` 的合并必须获得项目负责人（人类）的明确批准**。未经批准的合并将被回滚。
 
-> 如需新增 Agent，应在 `BRANCH-POLICY.md` 中补充对应分支，并创建该分支。
+## 3. Agent 分支规则
 
-## 3. 工作流程
+- `gemini` 与 `mimo` 仅作为审计/对比分支使用，除非维护者明确提升某项变更，否则不得视为权威来源。
+- `deepseek`、`codex` 等实验分支已退役，**禁止重新创建**。
+- 不要直接在 `main` 上累积本地改动后强制推送；所有变更通过特性分支发起，并经人工审批后合并。
 
-### 3.1 修改文件
+## 4. 跨分支审查
 
-```
-① 确认当前任务对应的 Agent 身份
-② 切换到对应分支：git checkout <agent-branch>
-③ 修改并提交
-④ 推送到远程：git push origin <agent-branch>
-```
-
-- **DeepSeek (Reasonix)**: 在 `deepseek` 分支上修改文件
-- **Mimo**: 在 `mimo` 分支上修改文件
-- **Codex**: 在 `codex` 分支上修改文件
-
-### 3.2 跨分支审查
-
-DeepSeek (Reasonix) 可以审查和批准 `mimo` 和 `codex` 分支上的变更，但不允许直接修改这两个分支。审查通过后，由对应 Agent 自行合并或由 DeepSeek 代为合并。
-
-## 4. 合并审批
-
-任何分支在合并到 `main` 之前，**必须**获得项目负责人（人类）的明确批准。未经批准的合并将被回滚。
-
-- 各 Agent 分支之间的合并（如 `mimo → codex` 或 `codex → deepseek`）可由 DeepSeek 代为审批并执行
-- 任何 → `main` 的合并 **必须** 人工批准
+DeepSeek (Reasonix) 可以审查和批准 `mimo` 等审计分支上的变更，但不允许直接修改这些分支。审查通过后，由对应 Agent 自行合并或经人工批准后代为合并。
 
 ## 5. 分支同步
 
-各 Agent 分支应定期从 `main` 同步（rebase 或 merge），以保持与主线一致，减少合并冲突。
+各审计/特性分支应定期从 `main` 同步（rebase 或 merge），以保持与主线一致，减少合并冲突。
+
+## 6. 相关文档
+
+完整操作规则另见：
+
+- `AGENTS.md`：Agent 交接与约定
+- `docs/architecture/maintenance-handoff.md`：维护者接手指南与验证矩阵
 
 ---
 

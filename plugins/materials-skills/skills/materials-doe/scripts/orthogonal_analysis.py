@@ -54,7 +54,15 @@ def anova_analysis(
     for factor in factors:
         groups = [g[response].values for _, g in df.groupby(factor)]
         a = len(groups)
-        ni = len(groups[0])
+        group_sizes = [len(g) for g in groups]
+        if len(set(group_sizes)) > 1:
+            raise ValueError(
+                f"factor '{factor}' has unbalanced level sizes: {group_sizes}. "
+                "anova_analysis requires equal replicates per level."
+            )
+        ni = group_sizes[0]
+        if ni == 0:
+            raise ValueError(f"factor '{factor}' has an empty level")
         k_j = np.array([g.sum() for g in groups])
         ss_f = float((k_j**2).sum() / ni - cf)
         df_f = a - 1

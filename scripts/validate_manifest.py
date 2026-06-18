@@ -10,6 +10,7 @@ import argparse
 import json
 from pathlib import Path
 
+import yaml
 from skill_manifest import discover_skill_names
 
 repo_root = Path(__file__).resolve().parents[1]
@@ -18,9 +19,9 @@ CONTRACTS_DIR = repo_root / "_shared" / "contracts"
 
 REGISTRY_DIR = repo_root / "_shared" / "material-registry" / "entries"
 
+
 def _parse_yaml_text(text: str) -> dict:
     """Parse YAML text, handling encoding issues."""
-    import yaml
     return yaml.safe_load(text)
 
 
@@ -30,7 +31,7 @@ def _load_yaml(path: Path) -> dict | None:
     try:
         with open(path, "r", encoding="utf-8") as f:
             return _parse_yaml_text(f.read())
-    except Exception:
+    except (OSError, UnicodeDecodeError, yaml.YAMLError):
         return None
 
 

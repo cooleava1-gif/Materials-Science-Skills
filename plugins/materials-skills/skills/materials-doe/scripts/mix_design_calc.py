@@ -65,7 +65,24 @@ def volume_method(
 
     Returns:
         Dict with per-component masses (kg/m³) and volumes (m³).
+
+    Raises:
+        ValueError: if inputs are physically invalid (non-positive, out of range,
+            or resulting in a negative aggregate volume).
     """
+    if target_strength <= 0:
+        raise ValueError("target_strength must be positive")
+    if wc_ratio <= 0:
+        raise ValueError("wc_ratio must be positive")
+    if water_content <= 0:
+        raise ValueError("water_content must be positive")
+    if cement_sg <= 0 or coarse_agg_sg <= 0 or fine_agg_sg <= 0:
+        raise ValueError("specific gravities must be positive")
+    if not 0 <= coarse_agg_frac <= 1:
+        raise ValueError("coarse_agg_frac must be between 0 and 1")
+    if not 0 <= air_content < 100:
+        raise ValueError("air_content must be between 0 and 100")
+
     cement_mass = water_content / wc_ratio
     air_volume = air_content / 100.0
 
@@ -73,6 +90,11 @@ def volume_method(
     cement_volume = cement_mass / (cement_sg * 1000.0)
 
     total_agg_volume = 1.0 - water_volume - cement_volume - air_volume
+    if total_agg_volume < 0:
+        raise ValueError(
+            f"aggregate volume is negative ({total_agg_volume:.4f} m³): "
+            "reduce water content, wc_ratio, or air content"
+        )
     coarse_volume = total_agg_volume * coarse_agg_frac
     fine_volume = total_agg_volume * (1.0 - coarse_agg_frac)
 
