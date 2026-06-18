@@ -1,6 +1,48 @@
-# Materials Science Skills v1.0.0
+# Materials Science Skills v1.1.0
 
 **A research companion built by a materials researcher, for materials researchers.**
+
+---
+
+## What's new in v1.1.0
+
+### Civil family full-tier upgrade
+
+All 7 civil-family entries (6 partial + 1 generic) have been upgraded to `full` coverage tier. The registry now reports **29/29 full-tier entries** with zero partial, generic, or skeleton tiers remaining.
+
+**Phase 1 — Routing and reviewer assets** (commit `2bb6476`):
+
+- 5 new material-specific domain fragments: `geotechnical-materials`, `steel-metal`, `timber-masonry`, `waterproofing-sealants`, and a rewritten `civil-generic` (full-scope, no longer a thin fallback).
+- 7 new reviewer criteria files: `geotechnical-reviewer-criteria`, `steel-reviewer-criteria`, `timber-masonry-reviewer-criteria`, `waterproofing-sealants-reviewer-criteria`, `civil-generic-reviewer-criteria`, `construction-materials-reviewer-criteria`, and `sustainability-durability-reviewer-criteria`.
+- All 7 registry entries, registry-index, manifest, dashboard, README, and test expectations updated to `full`.
+
+**Phase 2 — Figure and data assets** (commit `35718a3`):
+
+- 4 new reusable civil figure scripts: `plot_civil_water_absorption.py`, `plot_civil_durability_retention.py`, `plot_civil_boxplot_points.py`, `plot_civil_errorbar_trend.py`.
+- 4 new data CSVs for the above scripts.
+- 7 new figure packages (one per civil entry) with `figure_storyboard.yaml`, `source_data.csv`, `plot.py`, `asset_manifest.json`, `caption_boundary.md`, and `figure_qa_report.md`.
+- Registry `figure_scripts`, `figure_packages`, and `figure_archetypes` updated for all 7 entries.
+
+### Review-driven hardening (v1.0.0 → v1.1.0)
+
+- Branch governance unified across `BRANCH-POLICY.md`, `AGENTS.md`, and `docs/architecture/maintenance-handoff.md`.
+- Duplicate YAML keys removed from `materials-citation`, `materials-polishing`, and `materials-research` manifests.
+- Data-FAIR task fragment added for `materials-research`.
+- Plugin mirror drift detection added to `scripts/check_skill_architecture.py` and `scripts/run_release_checks.py`.
+- `figure_archetypes` coverage tier re-evaluation and pressure-test metadata fixes.
+- DOE input validation hardened (`mix_design_calc.py`, `orthogonal_analysis.py`, `experiment_plot.py`).
+- Figure YAML parsing/generation hardened (`compose_multipanel_figure.py`, `generate_figure_package.py`).
+- Citation MCP fallback fix in `academic_search/service.py`.
+- Bare `except` clauses narrowed in `validate_manifest.py` and `validate_handoffs.py`.
+- Claim audit sentence counting fixed in `claim_strength_audit.py`.
+- Behavioral test checklist extraction fixed in `run_behavioral_tests.py`.
+- `requirements.txt` and MCP `requirements.txt` dependencies completed.
+
+### Validation
+
+- 312 tests passed across all suites (root, figure, DOE, citation MCP, canonical MCP).
+- `scripts/validate_registry.py`, `scripts/run_release_checks.py`, `scripts/check_skill_architecture.py`: all PASS.
+- Plugin mirror byte-identical for all tracked files.
 
 ---
 
