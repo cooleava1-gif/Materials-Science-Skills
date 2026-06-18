@@ -1,147 +1,137 @@
 # Materials Science Skills
 
-Materials Science Skills is a full-cycle Codex skill bundle for materials
-science research. It is built for researchers who need more than isolated
-prompts: they need routed workflows, evidence-grounded handoffs, release-checked
-skill packaging, and outputs they can use immediately for mini-reviews,
-experimental manuscripts, figures, reviewer responses, and PPTX decks.
+A full-cycle Codex skill bundle for materials science research. It connects
+routing, reading, citation, writing, figure production, data packaging,
+reviewer simulation, response drafting, and PPTX generation into one workflow
+instead of leaving each step as a separate prompt.
 
-The bundle covers civil/construction materials (asphalt, cement, durability),
-polymers, metals, ceramics, functional/electronic materials, and nanomaterials.
-It is strongest where materials research is usually fragile: source anchoring,
-claim boundaries, paper-production routing, and reviewer-risk control.
+The bundle currently covers **29 material systems** across civil/construction,
+polymers, metals, ceramics, and functional/nano materials. Each system carries
+a narrative arc, figure scripts, reviewer criteria, and worked example packages
+where the coverage tier has reached `full`.
 
-![Multi-panel overview: grouped bar, line trend, scatter regression, radar](plugins/materials-skills/skills/materials-figure/assets/showcase-proof/showcase_multi_panel_overview.png)
+![WER-EA figure proof board](plugins/materials-skills/skills/materials-figure/assets/showcase-proof/wer_ea_figure_proof_board.png)
 
-## Why This Bundle Feels Like A System
+## What the bundle does
 
-- It routes work across research, citation, reader, writing, figure, data,
-  polishing, reviewer, response, paper-to-PPT, and real PPTX generation.
-- It uses standard intermediate artifacts such as `reader-package`,
-  `citation_handoff.csv`, `figure_handoff.csv`, and gate reports so later
-  skills do not draft from memory.
-- It ships as a Codex plugin with a mirrored skill tree so the installed
-  experience stays aligned with the source repo.
-
-## Four Workflow Entry Points
-
-| Workflow | Start With | Core Handoffs | Final Product |
-|---|---|---|---|
-| WER-EA mini-review | `materials-research` | citation -> reader -> writing -> figure -> reviewer | Review-ready package with screening, evidence chain, outline, figures, and risk notes |
-| Experimental manuscript | `materials-research` | data -> writing -> figure -> polishing -> reviewer | Draft-ready manuscript package with figure/data boundaries |
-| Revision loop | `materials-reviewer` or `materials-response` | reviewer -> weakness routing -> writing/polishing/figure/data -> response | Point-by-point response plus routed manuscript fixes |
-| Paper to presentation | `materials-paper2ppt` | paper2ppt -> pptx | Chinese slide outline or real `.pptx` deck |
+1. **Routes** your request to the right material domain and production skill.
+2. **Reads** papers into source-anchored evidence packages.
+3. **Searches** literature through an MCP-backed academic search server.
+4. **Writes** manuscript sections, review outlines, and argument chains.
+5. **Polishes** prose with claim-strength calibration.
+6. **Draws** journal-ready figures from CSV data and reader handoffs.
+7. **Packages** data with FAIR checks and data-availability statements.
+8. **Reviews** drafts like a peer reviewer before submission.
+9. **Responds** to reviewer comments with point-by-point replies.
+10. **Presents** papers as Chinese journal-club slide outlines or real `.pptx` decks.
 
 ## Quick Start
 
-1. Install the plugin or copy the skills locally. Full instructions live in
-   [install.md](install.md).
-2. Start broad work with `materials-research` when you need routing,
-   paper-stage judgment, or a multi-skill plan.
-3. Jump straight to the production skill when the deliverable is already clear,
-   such as citation screening, reader packaging, manuscript drafting, figure
-   work, response writing, or PPTX generation.
+```powershell
+codex plugin marketplace add https://github.com/cooleava1-gif/Materials-Science-Skills.git --ref main
+codex plugin add materials-skills@materials-skills
+```
 
-Starter prompts:
+Then start a Codex session and ask naturally:
 
-- `Help me run a WER-EA mini-review workflow from screening to figure planning.`
-- `Audit this experimental manuscript for evidence gaps before I draft the discussion.`
+- `Help me run a WER-EA mini-review from screening to figure planning.`
+- `Audit this experimental manuscript for evidence gaps before the discussion.`
 - `Turn this paper package into a journal-club slide outline and then a real PPTX.`
 
-## Guided Demos
+For manual install or MCP setup, see [install.md](install.md).
 
-- [WER-EA mini-review](docs/workflows/wer-ea-mini-review.md):
-  screening -> reader package -> review outline -> figure planning
-- [Experimental manuscript](docs/workflows/experimental-manuscript.md):
-  manuscript audit -> data/figure tightening -> bounded discussion
-- [Revision loop](docs/workflows/revision-loop.md):
-  reviewer comments -> weakness routing -> proof-backed response package
-- [Paper to presentation](docs/workflows/paper-to-presentation.md):
-  slide-ready Markdown -> real `.pptx`
+## The 12 skills
 
-If you want the index first, open [docs/workflows/README.md](docs/workflows/README.md).
-
-## Installation Paths
-
-- Codex plugin:
-  `codex plugin marketplace add https://github.com/cooleava1-gif/Materials-Science-Skills.git --ref main`
-  then `codex plugin add materials-skills@materials-skills`
-- Manual skills install:
-  run `.\scripts\install.ps1` from the repository root
-
-## Skills
-
-| Skill | Typical product |
+| Skill | What it produces |
 |---|---|
-| `materials-research` | Route, topic angle, workflow package |
-| `materials-reader` | Reader package, evidence-chain matrix |
-| `materials-citation` | Screened citation matrix, normalized IDs |
-| `materials-writing` | Manuscript section, argument chain |
-| `materials-polishing` | Polished text, claim-strength audit |
-| `materials-response` | Point-by-point response, rebuttal package |
-| `materials-reviewer` | Simulated review, desk-reject risk report |
+| `materials-research` | Domain routing, topic angle, workflow plan, risk map |
+| `materials-reader` | Source-anchored reader package, evidence-chain matrix |
+| `materials-citation` | Screened citation matrix, normalized IDs, reference gaps |
+| `materials-writing` | Manuscript sections, review outlines, argument chains |
+| `materials-polishing` | Polished text, claim-strength audit, overclaim flags |
+| `materials-figure` | Journal-ready SVG/PNG/PDF/TIFF figures from data |
+| `materials-data` | FAIR package, data availability statement, metadata |
+| `materials-doe` | Experiment plan, methods paragraph, analysis naming |
+| `materials-reviewer` | Simulated peer review, desk-reject risk report |
+| `materials-response` | Point-by-point response letter, rebuttal package |
 | `materials-paper2ppt` | Slide-ready Markdown, talk structure |
 | `materials-pptx` | Real `.pptx` deck |
-| `materials-figure` | Figure plan, WER-EA atlas output |
-| `materials-data` | FAIR package, data availability statement |
-| `materials-doe` | Experiment plan, analysis script |
+
+More detail: [docs/skills-index.md](docs/skills-index.md).
 
 ## Material Coverage
 
-Different material systems have different support depths. The bundle
-currently covers **29 material systems** with four tiers:
-
-| Tier | Count | Meaning |
+| Tier | Count | Description |
 |---|---|---|
-| 🟢 **full** | 29 | Battle-tested (narrative + figures + reviewer criteria + examples) |
-| 🟡 **partial** | 0 | Structured support (narrative + figures or reviewer criteria) |
-| 🔵 **skeleton** | 0 | Routable (domain fragment + auto-generated narrative) |
-| ⚪ **generic** | 0 | Scoped fallback (family-level guidance, no material-specific content) |
+| 🟢 **full** | 29 | Narrative guide + figure scripts + reviewer criteria + example packages |
+| 🟡 **partial** | 0 | Narrative guide + at least one support resource |
+| 🔵 **skeleton** | 0 | Domain fragment + auto-generated narrative |
+| ⚪ **generic** | 0 | Family-level guidance only |
 
-**Full dashboard -> [docs/coverage-dashboard.md](docs/coverage-dashboard.md)**
+The 29 full systems span civil/construction, polymers, metals, ceramics, and
+functional/nano materials. Full dashboard: [docs/coverage-dashboard.md](docs/coverage-dashboard.md).
 
-To check support for a specific material when working with the AI, ask:
-> *"What is the coverage tier for [material system]?"*
+## Guided demos
 
-## What You Can Open Immediately
+- [WER-EA mini-review](docs/workflows/wer-ea-mini-review.md)
+- [Experimental manuscript](docs/workflows/experimental-manuscript.md)
+- [Revision loop](docs/workflows/revision-loop.md)
+- [Paper to presentation](docs/workflows/paper-to-presentation.md)
 
-- Human-readable skill guide:
-  [docs/skills-index.md](docs/skills-index.md)
-- Guided workflow demos:
-  [docs/workflows/README.md](docs/workflows/README.md)
-- Visual gallery:
-  [docs/gallery/README.md](docs/gallery/README.md)
-- Figure proof assets:
-  `plugins/materials-skills/skills/materials-figure/assets/showcase-proof/`
-- Per-skill README files:
-  `plugins/materials-skills/skills/materials-*/README.md`
+## Showcases
 
-## Visual Gallery
-
-If you want to see the system before reading every skill:
-
-- [Materials Science Gallery](docs/gallery/README.md) collects editorial multi-panel
-  boards built from bundled proof assets and reader-package style handoffs.
-- The front-door boards include `wer_ea_figure_proof_board.png` and follow an
-  `overview -> deviation -> relationship` narrative so the gallery reads like a
-  product surface instead of a pile of screenshots.
-- The gallery links back to the four guided demos so the visuals and the route
-  logic stay connected.
-
-## Outcome Showcases
-
-If the deliverable is already clear and you want to jump straight into a result
-shape:
+Ready-to-inspect result shapes:
 
 - [Submission package](docs/showcases/submission-package.md)
 - [Reviewer response](docs/showcases/reviewer-response.md)
 - [FAIR data package](docs/showcases/fair-data-package.md)
+- [Thermal insulation demo](docs/showcases/thermal-insulation-demo.md)
+- [Polymer composites demo](docs/showcases/polymer-composites-demo.md)
 
-The hub page is [docs/showcases/README.md](docs/showcases/README.md).
+## Four Workflow Entry Points
+
+| Entry | Best for |
+|---|---|
+| WER-EA mini-review | Systematic review + figure planning for asphalt emulsion materials |
+| Experimental manuscript | Evidence-gap audit before discussion drafting |
+| Revision loop | Post-review response + rebuttal package |
+| Paper to presentation | Journal-club PPT from a paper package |
+
+## Installation Paths
+
+```powershell
+codex plugin marketplace add https://github.com/cooleava1-gif/Materials-Science-Skills.git --ref main
+codex plugin add materials-skills@materials-skills
+```
+
+For manual install, see [install.md](install.md).
+
+## Skills
+
+See [docs/skills-index.md](docs/skills-index.md).
+
+## Guided Demos
+
+- [WER-EA mini-review](docs/workflows/wer-ea-mini-review.md)
+- [Experimental manuscript](docs/workflows/experimental-manuscript.md)
+- [Revision loop](docs/workflows/revision-loop.md)
+- [Paper to presentation](docs/workflows/paper-to-presentation.md)
+
+## Visual Gallery
+
+See [docs/gallery/README.md](docs/gallery/README.md).
+
+## Outcome Showcases
+
+- [Submission package](docs/showcases/submission-package.md)
+- [Reviewer response](docs/showcases/reviewer-response.md)
+- [FAIR data package](docs/showcases/fair-data-package.md)
+- [Thermal insulation demo](docs/showcases/thermal-insulation-demo.md)
+- [Polymer composites demo](docs/showcases/polymer-composites-demo.md)
 
 ## Scope
 
-This bundle helps structure materials research work with stronger
-evidence, routing, and packaging discipline. It does not replace deep reading,
-real experimental evidence, supervisor or co-author judgment, official journal
-instructions, or institutional requirements.
+This bundle structures materials research work with stronger evidence, routing,
+and packaging discipline. It does not replace deep reading, real experimental
+evidence, supervisor judgment, official journal instructions, or institutional
+requirements.

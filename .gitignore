@@ -31,6 +31,28 @@ reviewer-response.md
 submission-package.md
 README.zh-CN.local.md
 
+# Internal maintainer docs (local only)
+AGENTS.md
+BRANCH-POLICY.md
+RELEASE_NOTES.md
+changes-summary.md
+github-push-recommendation.md
+docs/architecture/
+
+# Internal test and validation scripts (local only)
+tests/
+scripts/check_skill_architecture.py
+scripts/claim_strength_audit.py
+scripts/generate_narrative.py
+scripts/materials_profile.py
+scripts/run_behavioral_tests.py
+scripts/run_pressure_tests.py
+scripts/run_release_checks.py
+scripts/skill_manifest.py
+scripts/validate_handoffs.py
+scripts/validate_manifest.py
+scripts/validate_registry.py
+
 # Reproducible bundled figure-package exports. Keep source files tracked.
 plugins/materials-skills/skills/materials-figure/examples/figure-packages/**/figure.svg
 plugins/materials-skills/skills/materials-figure/examples/figure-packages/**/figure.png

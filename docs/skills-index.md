@@ -1,92 +1,149 @@
-# Human-Readable Skills Index
+# Skills Index
 
-This index is for people deciding which materials skill to use before invoking Codex. The short rule is: start with `materials-research` when the task needs routing or research judgment, then hand off to the production skill that owns the deliverable.
+Pick a skill by deliverable. Start with `materials-research` when the task is
+broad, the material domain is unclear, or you need a multi-skill workflow.
+Jump straight to a production skill when the output is already defined.
 
-## Status Table
+## Status
 
-| Module | Maturity | Scripts | Tests | Typical input | Typical product |
-|---|---|---|---|---|---|
-| `materials-research` | Stable router | Yes | Yes | Research idea, journal target, manuscript task | Route, topic angle, risk map, workflow plan |
-| `materials-reader` | Stable production skill | Yes | Yes | PDF/text, paper notes, figure caption | Standard reader package, evidence-chain matrix, citation/figure handoff |
-| `materials-citation` | Stable MCP-backed skill | Yes | Yes | Topic, claim list, candidate sources | Search plan, screened citation matrix, reference gaps, ID/citation conversion |
-| `materials-writing` | Stable production skill | Yes | Yes | Claims, results, outline, Chinese draft | Manuscript section, review outline, argument chain |
-| `materials-polishing` | Stable production skill | Yes | Yes | English draft, Chinese academic paragraph | Polished text, claim-strength audit |
-| `materials-response` | Stable production skill | Yes | Yes | Reviewer comments, revision notes | Point-by-point response, rebuttal package |
-| `materials-reviewer` | Stable audit skill | Yes | Yes | Manuscript draft, abstract, figures | Simulated review, desk-reject risk report |
-| `materials-paper2ppt` | Stable handoff skill | Yes | Yes | Paper notes, review matrix, outline | Slide-ready Markdown, talk structure |
-| `materials-pptx` | Stable generation skill | Yes | Yes | PPTX-ready Markdown or JSON | Real `.pptx` deck |
-| `materials-figure` | Stable production skill | Yes | Yes | Data table, reader/citation handoff, figure idea | Figure plan, review-figure intake, WER-EA atlas, SVG/PNG package, caption boundary |
-| `materials-data` | Stable FAIR skill | Yes | Yes | Raw/processed data, metadata needs | FAIR package, data availability statement |
+All 12 skills are now at **Stable**. The bundle has moved past early draft
+stages into daily-use production tooling.
 
-## Material Coverage Tiers
-
-When you start research with `materials-research`, the router checks your
-material domain's **coverage tier**. This determines what the AI can offer:
-
-| Tier | Icon | What the AI knows |
+| Skill | Typical input | Typical product |
 |---|---|---|
-| **full** | 🟢 | Deep narrative guide, dedicated figure scripts, reviewer criteria, worked examples |
-| **partial** | 🟡 | Narrative guide + at least one support resource (figures or reviewer criteria) |
-| **skeleton** | 🔵 | Domain fragment + auto-generated narrative template |
-| **generic** | ⚪ | General materials science guidance only |
+| `materials-research` | Research idea, journal target, manuscript task | Route, topic angle, risk map, workflow plan |
+| `materials-reader` | PDF, paper notes, figure captions | Reader package, evidence-chain matrix |
+| `materials-citation` | Topic, claim list, candidate sources | Search plan, screened citation matrix, ID conversion |
+| `materials-writing` | Claims, results, outline, Chinese draft | Manuscript section, review outline, argument chain |
+| `materials-polishing` | English draft, Chinese academic paragraph | Polished text, claim-strength audit |
+| `materials-figure` | Data table, handoff row, figure idea | SVG/PNG/PDF/TIFF figure, caption boundary |
+| `materials-data` | Raw/processed data, metadata needs | FAIR package, data availability statement |
+| `materials-doe` | Experiment factors, responses | Methods paragraph, analysis script |
+| `materials-reviewer` | Manuscript draft, abstract, figures | Simulated review, desk-reject risk report |
+| `materials-response` | Reviewer comments, revision notes | Point-by-point response, rebuttal package |
+| `materials-paper2ppt` | Paper notes, review matrix, outline | Slide-ready Markdown, talk structure |
+| `materials-pptx` | PPTX-ready Markdown or JSON | Real `.pptx` deck |
 
-The full coverage dashboard is at [docs/coverage-dashboard.md](docs/coverage-dashboard.md).
+## How routing works
 
-## Module Notes
+`materials-research` uses two axes:
+
+1. **Material family**: civil, ceramics, metals, polymers, functional, nano.
+2. **Domain**: one of 52 specific material systems such as `thermal-insulation`,
+   `cement-concrete`, `polymer-composites`, or `2d-materials`.
+
+If your domain is registered, the skill loads the matching narrative arc,
+figure archetypes, and reviewer criteria. If not, it falls back to family-level
+guidance.
+
+## Skill notes
 
 ### `materials-research`
 
-Use this as the front door for broad materials research work. It detects task, material domain, and journal family, then routes to the correct companion skill. It is best for topic positioning, journal fit, paper strategy, reviewer-risk framing, and combined workflows such as literature review plus figure planning.
+Front door for broad materials work. Detects task type, material domain, and
+journal family, then hands off to the right companion skill. Best for topic
+positioning, journal fit, paper strategy, reviewer-risk framing, and combined
+workflows such as mini-review plus figure planning.
 
 ### `materials-reader`
 
-Use this when the raw material is a paper, PDF, abstract, figure caption, or pasted source text. It produces standard reader packages, source-grounded notes, figure/table evidence maps, claim-evidence-mechanism-boundary matrices, citation handoff rows, figure handoff rows, and review-ready reading artifacts.
+Use when the raw material is a paper, PDF, abstract, figure caption, or pasted
+text. Produces standard reader packages, source-grounded notes, figure/table
+evidence maps, claim-evidence-mechanism-boundary matrices, and handoff rows for
+citation and figure skills.
 
 ### `materials-citation`
 
-Use this for literature search strategy, WER-EA source screening, citation matrices, reference-gap audits, ID normalization, citation-file conversion, and claim-source alignment. Its MCP-backed search tools can query academic sources and export structured citation evidence with evidence layer, source role, source quality, reader anchor, figure handoff, and reviewer-risk fields.
+Use for literature search strategy, source screening, citation matrices,
+reference-gap audits, ID normalization, and claim-source alignment. Its
+MCP-backed search tools query academic sources and export structured citation
+evidence with evidence layer, source role, source quality, reader anchor, figure
+handoff, and reviewer-risk fields.
 
 ### `materials-writing`
 
-Use this when the deliverable is manuscript text or a review-paper structure. It turns claims, results, notes, and outlines into argument chains, abstracts, introductions, results/discussion sections, conclusions, or review outlines while keeping missing evidence visible.
+Use when the deliverable is manuscript text or a review-paper structure. Turns
+claims, results, notes, and outlines into argument chains, abstracts,
+introductions, results/discussion sections, conclusions, or review outlines while
+keeping missing evidence visible.
 
 ### `materials-polishing`
 
-Use this after text exists. It handles English polishing, Chinese-to-English academic rewriting, claim-strength control, overclaim reduction, and journal-tone tightening.
-
-### `materials-response`
-
-Use this after reviewer comments arrive. It separates response tone from manuscript action, drafts point-by-point replies, and prevents unsupported promises such as claiming new experiments were completed.
-
-### `materials-reviewer`
-
-Use this before submission or resubmission. It simulates peer review, checks novelty and evidence sufficiency, flags figure/statistics gaps, and produces reviewer-style reports.
-
-### `materials-paper2ppt`
-
-Use this to convert papers, reading notes, review matrices, and research outlines into slide-ready Markdown. It is the handoff layer before real PowerPoint generation.
-
-### `materials-pptx`
-
-Use this when a real `.pptx` file is needed. It converts structured Markdown or JSON slide specs into PowerPoint decks with notes and image placement.
+Use after text exists. Handles English polishing, Chinese-to-English academic
+rewriting, claim-strength control, overclaim reduction, and journal-tone
+tightening.
 
 ### `materials-figure`
 
-Use this for figure planning, chart design, review-figure intake, WER-EA atlas templates, figure-package audits, SVG/PNG generation examples, caption boundaries, and visual evidence checks. For WER-EA review figures, it separates measured, inferred, speculative, and missing evidence.
+Use for figure planning, chart design, review-figure intake, figure-package
+audits, SVG/PNG/PDF/TIFF generation, caption boundaries, and visual evidence
+checks. Includes dedicated figure scripts for 29 material systems and WER-EA
+atlas templates that separate measured, inferred, speculative, and missing
+evidence.
 
 ### `materials-data`
 
-Use this for raw/processed dataset organization, metadata, FAIR checks, supplementary data packaging, and data availability statements.
+Use for raw/processed dataset organization, metadata, FAIR checks,
+supplementary data packaging, and data availability statements.
 
-## WER-EA Mini-Review Route
+### `materials-doe`
 
-For waterborne epoxy resin modified emulsified asphalt, use this cross-skill route:
+Use for experiment design, methods paragraph drafting, factor-level naming, and
+response-variable description.
 
-1. `materials-research`: define the WER-EA review question, scope, inclusion/exclusion boundary, and submission route.
-2. `materials-citation`: run expanded literature screening and build a claim-source matrix with evidence layer, source role, source quality, normalized IDs, reader anchor, figure handoff, and reviewer-risk fields.
-3. `materials-reader`: extract the mechanism evidence chain from each paper into a standard reader package, separating bonding, rheology, emulsion stability, microstructure, durability, and field/service evidence, then produce citation and figure handoff rows.
-4. `materials-writing`: convert the evidence matrix into a review outline, section argument chain, and bounded draft.
-5. `materials-figure`: intake reader/citation handoff rows, then use the WER-EA atlas to plan mechanism maps, evidence heatmaps, study-selection flow, graphical abstracts, and performance-mechanism boundary figures with measured/inferred/speculative/missing evidence visibly separated.
-6. `materials-polishing` and `materials-reviewer`: tighten claim strength and audit submission risk before journal targeting.
+### `materials-reviewer`
 
-Typical product: a source-grounded mini-review package with screened literature, mechanism evidence chain, review outline, figure planning notes, and submission route.
+Use before submission or resubmission. Simulates peer review, checks novelty and
+evidence sufficiency, flags figure/statistics gaps, and produces reviewer-style
+reports with editorial criteria for the material domain.
+
+### `materials-response`
+
+Use after reviewer comments arrive. Separates response tone from manuscript
+action, drafts point-by-point replies, and prevents unsupported promises such as
+claiming new experiments were completed.
+
+### `materials-paper2ppt`
+
+Use to convert papers, reading notes, review matrices, and research outlines
+into slide-ready Markdown. The handoff layer before real PowerPoint generation.
+
+### `materials-pptx`
+
+Use when a real `.pptx` file is needed. Converts structured Markdown or JSON
+slide specs into PowerPoint decks with notes and image placement.
+
+## WER-EA mini-review route
+
+For waterborne epoxy resin modified emulsified asphalt, the cross-skill route
+is:
+
+1. `materials-research`: define the review question, scope, inclusion/exclusion
+   boundary, and submission route.
+2. `materials-citation`: run expanded literature screening and build a
+   claim-source matrix.
+3. `materials-reader`: extract mechanism evidence chains into a standard reader
+   package, separating bonding, rheology, emulsion stability, microstructure,
+   durability, and field/service evidence.
+4. `materials-writing`: convert the evidence matrix into a review outline,
+   section argument chain, and bounded draft.
+5. `materials-figure`: plan mechanism maps, evidence heatmaps, study-selection
+   flow, graphical abstracts, and performance-mechanism boundary figures.
+6. `materials-polishing` and `materials-reviewer`: tighten claim strength and
+   audit submission risk before journal targeting.
+
+Typical product: a source-grounded mini-review package with screened literature,
+mechanism evidence chain, review outline, figure planning notes, and submission
+route.
+
+## Coverage tiers
+
+| Tier | Meaning |
+|---|---|
+| `full` | Narrative guide + figure scripts + reviewer criteria + example packages |
+| `partial` | Narrative guide + at least one support resource |
+| `skeleton` | Domain fragment + auto-generated narrative |
+| `generic` | Family-level guidance only |
+
+All 29 registered systems are currently at `full`. The dashboard is at
+[coverage-dashboard.md](coverage-dashboard.md).

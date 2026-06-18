@@ -58,7 +58,7 @@ Example Codex MCP configuration:
 [mcp_servers."materials-academic-search"]
 command = "python"
 args = ["./skills/materials-citation/mcp/academic_search/server.py"]
-cwd = "/absolute/path/to/plugins/materials-skills"
+cwd = "plugins/materials-skills"
 ```
 
 Optional environment variables:
@@ -70,18 +70,14 @@ Optional environment variables:
 
 ## Verify The Install
 
-Run the main release verification:
+If you kept the repository validation scripts locally, run:
 
 ```powershell
 python .\scripts\run_release_checks.py --json
 ```
 
-Then check that the installed state is not stale:
-
-1. If you changed skill files under `plugins/materials-skills/skills/`, rerun
-   `.\scripts\install.ps1`.
-2. Judge the release by the final JSON `status`, not by expected negative-test
-   lines such as `source PDF not found: ...missing.pdf`.
+Judge the release by the final JSON `status`. If any skill files under
+`plugins/materials-skills/skills/` changed, rerun `.\scripts\install.ps1`.
 
 ## Five-Minute Walkthrough
 

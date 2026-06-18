@@ -43,8 +43,8 @@ With per-slide images and speaker notes:
       "notes": ["Explain the control group and dosage range.", "Do not overstate durability."],
       "images": [
         {
-          "path": "figures/bonding.png",
-          "alt": "Bonding strength result",
+          "path": "../../materials-figure/assets/showcase-proof/wer_ea_figure_proof_board.png",
+          "alt": "WER-EA figure proof board",
           "crop": {"left": 3, "top": 0, "right": 3, "bottom": 6}
         }
       ]
@@ -65,7 +65,7 @@ Accepted Markdown shape:
 - Evidence
 Speaker note:
 - Explain what the figure supports.
-![Bonding figure](figures/bonding.png)
+![WER-EA figure proof board](../../materials-figure/assets/showcase-proof/wer_ea_figure_proof_board.png)
 ```
 
 The script is dependency-light and writes Office Open XML directly using Python standard libraries. It supports PNG/JPEG images, source-rectangle cropping, and speaker notes.

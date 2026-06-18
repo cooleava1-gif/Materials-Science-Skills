@@ -1,90 +1,78 @@
-﻿# Golden Sample: Thermal Insulation Materials
-
-> **Coverage Tier**: 🟡 partial
-> **Registry entry**: `plugins/materials-skills/_shared/material-registry/entries/thermal-insulation.yaml`
-> **Domain fragment**: `plugins/materials-skills/skills/materials-research/static/fragments/domain/thermal-insulation.md`
-> **Narrative guide**: `plugins/materials-skills/skills/materials-writing/references/thermal-insulation-narrative.md`
-> **Reviewer criteria**: `plugins/materials-skills/skills/materials-reviewer/references/insulation-reviewer-criteria.md`
+# Thermal Insulation Materials
 
 Covers aerogels, foams, fibrous insulation, vacuum insulation panels (VIPs),
-phase-change materials (PCMs), and related thermal management materials.
+phase-change materials (PCMs), and related thermal-management materials.
 
-**Status**: partial → the narrative guide, reviewer criteria, and 4 figure
-scripts exist. To reach 🟢 full, add an example data package and one
-end-to-end showcase workflow.
+This domain is at **full** tier: narrative guide, reviewer criteria,
+4 dedicated figure scripts, and 2 end-to-end example packages are all in place.
 
 ---
 
-## 🔍 1. Search Strategy
+## What the bundle gives you for this domain
 
-| Layer | Boolean query | Target databases |
-|---|---|---|
-| Performance | `(aerogel OR "silica aerogel") AND "thermal conductivity" AND lambda` | Scopus, Web of Science |
-| Mechanical | `(aerogel OR foam) AND (compressive OR mechanical) AND insulation` | Scopus, ScienceDirect |
-| Moisture | `(aerogel OR "mineral wool") AND (hygrothermal OR moisture uptake) AND insulation` | Scopus, Taylor & Francis |
-| Sustainability | `("vacuum insulation" OR VIP) AND LCA AND building` | Scopus, Building and Environment |
-
-## 📖 2. Reader Package
-
-After search, `materials-reader` produces a standard reader package with:
-
-| Claim type | Evidence needed | Common reviewer risk |
-|---|---|---|
-| Low thermal conductivity | Lambda value with mean temperature | Reporting conductivity without temperature |
-| Mechanical integrity | Compressive strength at 10% strain | No stress-strain curve, only max stress |
-| Moisture resistance | Conductivity after humidity exposure | Claiming hydrophobicity without contact angle data |
-| Building applicability | Fire rating, aging data | "Suitable for building" without fire or aging test |
-
-## 📊 3. Evidence Matrix
-
-| Claim | Evidence required | Typical values | Figure archetype |
-|---|---|---|---|
-| Low λ | Heat flow meter (ASTM C518) | 0.015–0.030 W/(m·K) | `conductivity_vs_density` |
-| Mechanical support | Compressive test (ASTM C165) | 10–500 kPa | `insulation_stress_strain` |
-| Thermal stability | TGA up to 800 °C | 5% mass loss temp | `tga_curve` |
-| Moisture effect | λ at 50% / 90% RH | +0–30% increase | `conductivity_vs_temperature` |
-
-## 🧪 4. Experiment Design
-
-| Factor | Levels | Response |
-|---|---|---|
-| Density (kg/m³) | 50, 100, 150, 200 | λ, compressive strength |
-| Temperature (°C) | 10, 25, 40, 60 | λ, thermal diffusivity |
-| RH (%) | 0, 50, 90 | λ increase, moisture uptake |
-
-## 📈 5. Typical Figures
-
-Available scripts:
-
-| Script | Output |
+| Asset | Location |
 |---|---|
-| `plot_insulation_conductivity_vs_density.py` | λ vs. density scatter |
-| `plot_insulation_conductivity_vs_temp.py` | λ vs. temperature at multiple RH levels |
-| `plot_insulation_stress_strain.py` | Compressive stress-strain curve |
-| `plot_insulation_multipanel.py` | 3-panel: density + humidity + stress-strain |
+| Domain fragment | `plugins/materials-skills/skills/materials-research/static/fragments/domain/thermal-insulation.md` |
+| Narrative guide | `plugins/materials-skills/skills/materials-writing/references/thermal-insulation-narrative.md` |
+| Reviewer criteria | `plugins/materials-skills/skills/materials-reviewer/references/insulation-reviewer-criteria.md` |
+| Figure scripts | `plugins/materials-skills/skills/materials-figure/scripts/figures4materials/plot_insulation_*.py` |
+| Example packages | `plugins/materials-skills/skills/materials-figure/examples/figure-packages/thermal-insulation-partial-to-full/` |
+| Registry entry | `plugins/materials-skills/_shared/material-registry/entries/thermal-insulation.yaml` |
 
-## ⚠️ 6. Reviewer Risks
+## Narrative arc
+
+Material Design → Pore Structure → Thermal Performance → Mechanical Integrity → Service Durability
+
+## Key evidence categories
+
+- Physical: density, porosity, pore size distribution, specific surface area
+- Thermal: thermal conductivity (λ), thermal diffusivity, specific heat, R-value, U-value
+- Measurement: ASTM C518 / ISO 8301, mean temperature, specimen size, heat-flow direction
+- Mechanical: compressive strength at 10% deformation, flexural strength, handling fragility
+- Durability: hygrothermal aging, freeze-thaw, moisture effect on conductivity
+- Fire: reaction to fire, limiting oxygen index, cone calorimeter
+
+## Available figures
+
+| Archetype | Script | What it shows |
+|---|---|---|
+| `conductivity_vs_density` | `plot_insulation_conductivity_vs_density.py` | λ vs. density scatter |
+| `conductivity_vs_temperature` | `plot_insulation_conductivity_vs_temp.py` | λ vs. temperature across humidity levels |
+| `insulation_stress_strain` | `plot_insulation_stress_strain.py` | Compressive stress-strain curve |
+| `insulation_multipanel` | `plot_insulation_multipanel.py` | Density + humidity + stress-strain combined |
+
+## Example package
+
+`thermal-insulation-partial-to-full` demonstrates how to move from a single
+conductivity-density result to a full application-window figure:
+
+- Panel A: conductivity-density relationship
+- Panel B: pore structure evidence
+- Panel C: hygrothermal aging retention
+- Panel D: application window combining λ, density, moisture, and fire performance
+
+## Common reviewer risks
 
 | Risk | How to avoid |
 |---|---|
-| Reporting λ without mean temperature | Always state: "λ = 0.028 W/(m·K) at T_mean = 25 °C" |
-| Claiming "superinsulating" | Only if λ < 0.020 W/(m·K) at stated conditions |
-| No moisture data for building claim | Measure λ at ≥2 RH levels |
-| Bench marking against wrong material | Compare with same-class commercial products |
+| Thermal conductivity without mean temperature | Always state: "λ = 0.028 W/(m·K) at T_mean = 25 °C" |
+| "Superinsulating" claim without benchmark | Only use if λ < 0.020 W/(m·K) and compare to air / commercial products |
+| Building applicability without fire/aging data | Report fire rating and conditioned performance |
+| Hydrophobic claim without contact angle | Measure water contact angle or moisture uptake |
 
-## 📝 7. Submission Advice
+## Suggested journals
 
-| Journal | Fit | Notes |
-|---|---|---|
-| Energy and Buildings | 🟢 Strong | Building insulation + energy |
-| Building and Environment | 🟢 Strong | Hygrothermal + indoor environment |
-| Cement and Concrete Composites | 🟡 If cement-based foam | Cementitious matrix |
-| ACS Applied Materials & Interfaces | 🟡 Novel aerogel | Advanced materials focus |
+| Journal | Fit |
+|---|---|
+| Energy and Buildings | Strong for building insulation + energy |
+| Building and Environment | Strong for hygrothermal + indoor environment |
+| Cement and Concrete Composites | If cementitious foam |
+| ACS Applied Materials & Interfaces | If novel aerogel chemistry |
 
----
+## Try it
 
-## Next Steps to Reach 🟢 Full
-
-1. Create an example data package in `plugins/materials-skills/skills/materials-figure/examples/figure-packages/`
-2. Add a worked workflow output in `outputs/`
-3. Create a ceramic-composites variant of the figure scripts
+```text
+Run a thermal-insulation mini-review on aerogel-polymer composite insulation.
+I have a CSV with density and thermal conductivity; build a figure package and
+flag reviewer risks before drafting the discussion.
+```
