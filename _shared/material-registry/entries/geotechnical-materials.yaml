@@ -5,7 +5,7 @@ characterization:
 - evidence_tier: supporting
   method: SEM
   purpose: Soil particle bonding, grout penetration morphology
-coverage_tier: partial
+coverage_tier: full
 cross_references:
   parent: civil-generic
 description:
@@ -34,9 +34,9 @@ narrative:
   arc: Soil/Ground Condition → Stabilization Method → Mechanical Improvement → Durability
     → Field Performance
   skill_references:
-    domain_fragment: skills/materials-research/static/fragments/domain/civil-generic.md
+    domain_fragment: skills/materials-research/static/fragments/domain/geotechnical-materials.md
     narrative_guide: skills/materials-writing/references/geotechnical-materials-narrative.md
-    reviewer_criteria: skills/materials-reviewer/references/cement-reviewer-criteria.md
+    reviewer_criteria: skills/materials-reviewer/references/geotechnical-reviewer-criteria.md
 properties:
 - id: unconfined_compressive_strength
   name: Unconfined Compressive Strength (UCS)
@@ -62,7 +62,8 @@ standards:
   standard: ASTM D2166
 - purpose: Compressive strength of mold soil-cement cylinders
   standard: ASTM D1633
-- purpose: Hydraulic conductivity of saturated porous materials using a flexible wall permeameter
+- purpose: Hydraulic conductivity of saturated porous materials using a flexible wall
+    permeameter
   standard: ASTM D5084
 skill_mapping:
   data_schemas:

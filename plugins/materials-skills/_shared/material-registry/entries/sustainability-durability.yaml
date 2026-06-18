@@ -5,7 +5,7 @@ characterization:
 - evidence_tier: strong
   method: Accelerated Durability Testing
   purpose: Freeze-thaw, carbonation, chloride ingress, alkali-silica reaction
-coverage_tier: partial
+coverage_tier: full
 cross_references:
   related:
   - cement-concrete
@@ -48,7 +48,7 @@ narrative:
   skill_references:
     domain_fragment: skills/materials-research/static/fragments/domain/sustainability-durability.md
     narrative_guide: skills/materials-writing/references/sustainability-durability-narrative.md
-    reviewer_criteria: skills/materials-reviewer/references/cement-reviewer-criteria.md
+    reviewer_criteria: skills/materials-reviewer/references/sustainability-durability-reviewer-criteria.md
 properties:
 - id: carbon_footprint
   name: Global Warming Potential (GWP)

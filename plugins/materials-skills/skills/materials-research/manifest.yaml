@@ -372,31 +372,31 @@ axes:
       construction-materials:
         path: static/fragments/domain/construction-materials.md
         trigger_file: ../../_shared/triggers/domain/construction-materials.yaml
-        coverage_tier: partial
+        coverage_tier: full
       steel-metal:
-        path: static/fragments/domain/civil-generic.md
+        path: static/fragments/domain/steel-metal.md
         trigger_file: ../../_shared/triggers/domain/steel-metal.yaml
-        coverage_tier: partial
+        coverage_tier: full
       geotechnical-materials:
-        path: static/fragments/domain/civil-generic.md
+        path: static/fragments/domain/geotechnical-materials.md
         trigger_file: ../../_shared/triggers/domain/geotechnical-materials.yaml
-        coverage_tier: partial
+        coverage_tier: full
       timber-masonry:
-        path: static/fragments/domain/civil-generic.md
+        path: static/fragments/domain/timber-masonry.md
         trigger_file: ../../_shared/triggers/domain/timber-masonry.yaml
-        coverage_tier: partial
+        coverage_tier: full
       waterproofing-sealants:
-        path: static/fragments/domain/civil-generic.md
+        path: static/fragments/domain/waterproofing-sealants.md
         trigger_file: ../../_shared/triggers/domain/waterproofing-sealants.yaml
-        coverage_tier: partial
+        coverage_tier: full
       sustainability-durability:
         path: static/fragments/domain/sustainability-durability.md
         trigger_file: ../../_shared/triggers/domain/sustainability-durability.yaml
-        coverage_tier: partial
+        coverage_tier: full
       civil-generic:
         path: static/fragments/domain/civil-generic.md
         trigger_file: ../../_shared/triggers/domain/civil-generic.yaml
-        coverage_tier: generic
+        coverage_tier: full
       thermoplastics:
         path: static/fragments/domain/thermoplastics.md
         trigger_file: ../../_shared/triggers/domain/thermoplastics.yaml

@@ -11,7 +11,7 @@ characterization:
 - evidence_tier: strong
   method: EIS
   purpose: Corrosion rate measurement for coated systems
-coverage_tier: partial
+coverage_tier: full
 cross_references:
   parent: civil-generic
   related:
@@ -38,9 +38,12 @@ figure_archetypes:
   - strain
   - stress
   column_map:
-    x_values: {"column": "strain_pct"}
-    y_values: {"column": "stress_mpa"}
-    group_by: {"column": "condition"}
+    x_values:
+      column: strain_pct
+    y_values:
+      column: stress_mpa
+    group_by:
+      column: condition
 - description: Potentiodynamic polarization curves for corrosion assessment
   figure_script: skills/materials-figure/scripts/figures4materials/plot_polarization_curve.py
   id: polarization_curve
@@ -49,18 +52,21 @@ figure_archetypes:
   - potential
   - current_density
   column_map:
-    x_values: {"column": "potential_mv"}
-    y_values: {"column": "current_log_a_cm2"}
-    group_by: {"column": "condition"}
+    x_values:
+      column: potential_mv
+    y_values:
+      column: current_log_a_cm2
+    group_by:
+      column: condition
 id: steel-metal
 name: Steel and Metal Structures
 narrative:
   arc: Material Grade → Welding/Processing → Mechanical Performance → Corrosion →
     Service Life
   skill_references:
-    domain_fragment: skills/materials-research/static/fragments/domain/civil-generic.md
+    domain_fragment: skills/materials-research/static/fragments/domain/steel-metal.md
     narrative_guide: skills/materials-writing/references/steel-metal-narrative.md
-    reviewer_criteria: skills/materials-reviewer/references/metals-reviewer-criteria.md
+    reviewer_criteria: skills/materials-reviewer/references/steel-reviewer-criteria.md
 properties:
 - id: yield_strength
   name: Yield Strength

@@ -5,19 +5,20 @@ characterization:
 - evidence_tier: strong
   method: SEM
   purpose: Pore structure, interface, bonding morphology
-coverage_tier: partial
+coverage_tier: full
 cross_references:
   parent: civil-generic
   related: []
 description:
-  summary: "Broad category for construction and building materials research spanning multiple material types for building applications"
+  summary: Broad category for construction and building materials research spanning
+    multiple material types for building applications
   engineering_problems:
-    - "Building material performance under service conditions"
-    - "Multi-material compatibility and system integration"
-    - "Construction quality and durability"
+  - Building material performance under service conditions
+  - Multi-material compatibility and system integration
+  - Construction quality and durability
   typical_applications:
-    - "General building construction"
-    - "Material selection for specific building functions"
+  - General building construction
+  - Material selection for specific building functions
 family: civil
 figure_archetypes:
 - description: Compressive and tensile stress-strain behavior
@@ -37,11 +38,11 @@ figure_archetypes:
 id: construction-materials
 name: Construction and Building Materials
 narrative:
-  arc: "Building Requirement → Material Selection → Performance → Durability → Application"
+  arc: Building Requirement → Material Selection → Performance → Durability → Application
   skill_references:
-    domain_fragment: "skills/materials-research/static/fragments/domain/construction-materials.md"
-    narrative_guide: "skills/materials-writing/references/construction-materials-narrative.md"
-    reviewer_criteria: "skills/materials-reviewer/references/editorial-criteria.md"
+    domain_fragment: skills/materials-research/static/fragments/domain/construction-materials.md
+    narrative_guide: skills/materials-writing/references/construction-materials-narrative.md
+    reviewer_criteria: skills/materials-reviewer/references/construction-materials-reviewer-criteria.md
 properties:
 - id: compressive_strength
   name: Compressive Strength

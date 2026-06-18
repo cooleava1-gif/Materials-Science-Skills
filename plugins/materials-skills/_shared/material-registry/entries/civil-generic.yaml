@@ -5,19 +5,20 @@ characterization:
 - evidence_tier: strong
   method: SEM
   purpose: Microstructure, pore morphology analysis
-coverage_tier: generic
+coverage_tier: full
 cross_references:
   related:
-    - construction-materials
+  - construction-materials
 description:
-  summary: "Catch-all for civil/construction materials research not matching a specific sub-domain; provides general civil-engineering material guidance"
+  summary: Catch-all for civil/construction materials research not matching a specific
+    sub-domain; provides general civil-engineering material guidance
   engineering_problems:
-    - "Material selection for civil engineering applications"
-    - "Performance optimization of construction materials"
-    - "Quality control and test standard compliance"
+  - Material selection for civil engineering applications
+  - Performance optimization of construction materials
+  - Quality control and test standard compliance
   typical_applications:
-    - "General construction and infrastructure"
-    - "Civil engineering research and education"
+  - General construction and infrastructure
+  - Civil engineering research and education
 family: civil
 figure_archetypes:
 - description: Stress-strain response under load
@@ -35,13 +36,13 @@ figure_archetypes:
   - categories
   - series_dict
 id: civil-generic
-name: "Civil Engineering Materials (General)"
+name: Civil Engineering Materials (General)
 narrative:
-  arc: "Material System → Engineering Requirement → Performance Evaluation → Application"
+  arc: Material System → Engineering Requirement → Performance Evaluation → Application
   skill_references:
-    domain_fragment: "skills/materials-research/static/fragments/domain/civil-generic.md"
-    narrative_guide: "skills/materials-writing/references/civil-generic-narrative.md"
-    reviewer_criteria: "skills/materials-reviewer/references/editorial-criteria.md"
+    domain_fragment: skills/materials-research/static/fragments/domain/civil-generic.md
+    narrative_guide: skills/materials-writing/references/civil-generic-narrative.md
+    reviewer_criteria: skills/materials-reviewer/references/civil-generic-reviewer-criteria.md
 properties:
 - id: compressive_strength
   name: Compressive Strength
@@ -65,7 +66,7 @@ skill_mapping:
   - skills/materials-figure/scripts/figures4materials/data/mechanical_properties.csv
   - skills/materials-figure/scripts/figures4materials/data/stress_strain.csv
   figure_packages:
-    - "skills/materials-figure/examples/figure-packages/stress-strain"
+  - skills/materials-figure/examples/figure-packages/stress-strain
   figure_scripts:
-    - "skills/materials-figure/scripts/figures4materials/plot_stress_strain.py"
-    - "skills/materials-figure/scripts/figures4materials/plot_mechanical_property_radar.py"
+  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
+  - skills/materials-figure/scripts/figures4materials/plot_mechanical_property_radar.py

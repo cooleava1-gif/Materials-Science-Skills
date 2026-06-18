@@ -8,7 +8,7 @@ characterization:
 - evidence_tier: strong
   method: Accelerated Aging
   purpose: UV, heat, and water immersion durability
-coverage_tier: partial
+coverage_tier: full
 cross_references:
   parent: civil-generic
   related:
@@ -41,18 +41,21 @@ figure_archetypes:
   - strain
   - stress
   column_map:
-    x_values: {"column": "strain_pct"}
-    y_values: {"column": "stress_mpa"}
-    group_by: {"column": "sample_id"}
+    x_values:
+      column: strain_pct
+    y_values:
+      column: stress_mpa
+    group_by:
+      column: sample_id
 id: waterproofing-sealants
 name: Waterproofing and Sealant Materials
 narrative:
   arc: Material Selection → Application → Adhesion → Service Performance → Long-Term
     Durability
   skill_references:
-    domain_fragment: skills/materials-research/static/fragments/domain/civil-generic.md
+    domain_fragment: skills/materials-research/static/fragments/domain/waterproofing-sealants.md
     narrative_guide: skills/materials-writing/references/waterproofing-sealants-narrative.md
-    reviewer_criteria: skills/materials-reviewer/references/asphalt-reviewer-criteria.md
+    reviewer_criteria: skills/materials-reviewer/references/waterproofing-sealants-reviewer-criteria.md
 properties:
 - id: tensile_strength
   name: Tensile Strength

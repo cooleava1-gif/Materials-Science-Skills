@@ -5,7 +5,7 @@ characterization:
 - evidence_tier: supporting
   method: SEM
   purpose: Wood/bamboo microstructure, adhesive penetration
-coverage_tier: partial
+coverage_tier: full
 cross_references:
   parent: civil-generic
 description:
@@ -34,9 +34,9 @@ narrative:
   arc: Raw Material → Processing → Mechanical Properties → Durability → Structural
     Application
   skill_references:
-    domain_fragment: skills/materials-research/static/fragments/domain/civil-generic.md
+    domain_fragment: skills/materials-research/static/fragments/domain/timber-masonry.md
     narrative_guide: skills/materials-writing/references/timber-masonry-narrative.md
-    reviewer_criteria: skills/materials-reviewer/references/editorial-criteria.md
+    reviewer_criteria: skills/materials-reviewer/references/timber-masonry-reviewer-criteria.md
 properties:
 - id: compressive_strength_parallel
   name: Compressive Strength Parallel to Grain
