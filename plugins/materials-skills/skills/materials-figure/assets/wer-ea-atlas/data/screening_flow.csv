@@ -1,5 +1,0 @@
-stage,input_count,output_count,exclusion_reason,source_anchor
-search,240,160,duplicate records,S001
-title abstract screen,160,72,not emulsified asphalt,S002
-full text screen,72,30,no WER-EA evidence,S003
-evidence classification,30,30,included,S004

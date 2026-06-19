@@ -1,11 +1,14 @@
+# Literature basis: WER modification shifts emulsion droplet size finer
+# and tighter (lower mean, higher peak count near 3-5 um). Counts are
+# synthetic frequency bins from a representative SEM image, not a full PSD.
 size_um,control_count,modified_count
 0.5,2,1
-1.5,8,4
-2.5,15,10
-3.5,22,18
-4.5,28,30
-5.5,18,25
-6.5,10,12
-7.5,5,6
-8.5,2,3
+1.5,7,5
+2.5,14,12
+3.5,22,24
+4.5,28,32
+5.5,18,22
+6.5,11,9
+7.5,6,4
+8.5,3,2
 9.5,1,1

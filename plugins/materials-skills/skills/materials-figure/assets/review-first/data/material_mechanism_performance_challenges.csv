@@ -1,6 +1,11 @@
-material,mechanism_score,performance_score,challenge_score
-SBR,0.55,72.0,0.35
-CR,0.62,78.0,0.28
-EVA,0.48,65.0,0.42
-PU,0.71,85.0,0.2
-Epoxy,0.8,90.0,0.15
+# Review dimension: modifier comparison in asphalt. Mechanism understanding
+# (x, reviewer score), performance (y, normalised road-performance index),
+# challenge (bubble size, lower is better), evidence tier (colour). SBR/EVA
+# performance is measured; CR/PU mechanism is inferred from indirect tests.
+# Scores are reviewer judgement bounded by reported modifier ranges.
+material,mechanism_score,performance_score,challenge_score,evidence_tier
+SBR,0.55,72.0,0.35,measured
+CR,0.48,65.0,0.42,inferred
+EVA,0.62,78.0,0.28,measured
+PU,0.7,85.0,0.2,inferred
+Epoxy,0.8,90.0,0.15,measured

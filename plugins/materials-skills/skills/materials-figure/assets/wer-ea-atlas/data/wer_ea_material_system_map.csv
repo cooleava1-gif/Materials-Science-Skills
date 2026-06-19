@@ -1,13 +1,17 @@
-family,member
-Asphalt,AC-13
-Asphalt,SMA-13
-Asphalt,OGFC
-Emulsifier,Cationic
-Emulsifier,Anionic
-Emulsifier,Non-ionic
-WER,E-51
-WER,E-44
-WER,PEG-modified
-Curing agent,Polyamine
-Curing agent,Imidazole
-Curing agent,Acrylic
+# WER-EA formulation taxonomy; real material grades and dosage windows.
+# Basis: E-51/E-44 are standard bisphenol-A epoxy grades; cationic emulsifiers
+#   dominate WER-EA tack-coat literature; dosage windows are representative
+#   review ranges, not specifications.
+family,member,typical_dosage
+Asphalt,AC-13,
+Asphalt,SMA-13,
+Asphalt,OGFC,
+Emulsifier,Cationic,2-3%
+Emulsifier,Anionic,1.5-2.5%
+Emulsifier,Non-ionic,1-2%
+WER,E-51,5-8%
+WER,E-44,5-10%
+WER,PEG-modified,4-7%
+Curing agent,Polyamine,stoich.
+Curing agent,Imidazole,0.5-2%
+Curing agent,Acrylic,1-3%

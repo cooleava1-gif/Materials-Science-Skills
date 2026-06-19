@@ -1,7 +1,11 @@
+# Literature basis: WER-EA emulsion storage stability (settlement index, %)
+# must remain > 80% over the storage period. WER slows demulsification/
+# creaming. Control drops below 80% within ~3 d; modified holds to ~7 d.
+# Values synthetic, bounded by reported emulsion stability tests.
 day,control_stability_pct,modified_stability_pct
-0,98.0,98.0
-1,92.0,96.0
-3,82.0,91.0
-5,68.0,86.0
-7,52.0,80.0
-14,30.0,72.0
+0,99.0,99.0
+1,90.0,96.0
+3,78.0,91.0
+5,64.0,86.0
+7,50.0,81.0
+14,28.0,71.0

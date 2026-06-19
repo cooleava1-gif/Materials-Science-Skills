@@ -17,6 +17,8 @@ import yaml
 import data_diagnose
 import recommend_chart
 
+import check_figure_contract
+
 
 def generate_package(
     *,
@@ -42,9 +44,22 @@ def generate_package(
     shutil.copyfile(Path(__file__).resolve().parent / "materials_plot_lib.py", package_dir / "materials_plot_lib.py")
 
     write_intake(package_dir / "figure_intake.yaml", source_path, goal, figure_name, profile_dict, recommendation_dict)
+    write_contract(package_dir / "figure_contract.md", goal, profile_dict, recommendation_dict)
+
+    # Contract-driven mode: contract is a blocking gate before any plotting.
+    contract_issues = check_figure_contract.check_contract(package_dir / "figure_contract.md")
+    if contract_issues:
+        return {
+            "status": "blocked",
+            "package_dir": str(package_dir),
+            "profile": profile_dict,
+            "recommendation": recommendation_dict,
+            "issues": contract_issues,
+            "message": "Figure contract incomplete. Fill in substantive content for all seven points before plotting.",
+        }
+
     write_plot_script(package_dir / "plot.py", recommendation_dict, figure_name)
     run_plot_script(package_dir / "plot.py", package_dir)
-    write_contract(package_dir / "figure_contract.md", goal, profile_dict, recommendation_dict)
     write_caption(package_dir / "caption.md", goal, profile_dict, recommendation_dict)
     write_qa_report(package_dir / "qa_report.md", profile_dict, recommendation_dict, package_dir)
     write_asset_manifest(package_dir / "asset_manifest.md", source_path, profile_dict, recommendation_dict)
@@ -201,34 +216,37 @@ def run_plot_script(script_path: Path, package_dir: Path) -> None:
 
 
 def write_contract(path: Path, goal: str, profile: dict, recommendation: dict) -> None:
-    text = f"""# Figure Contract
+    text = f"""<!-- AUTO-GENERATED DRAFT: This contract was auto-generated from data diagnosis. In contract-driven mode, LLM/user must review and fill in substantive content for all seven points before plotting. -->
+
+# Figure Contract
 
 ## Core Conclusion
-{goal}
+[DRAFT - needs review] {goal}
 
 ## Evidence Chain
+[DRAFT - needs review]
 - Source table: `{Path(profile['path']).name}`
 - Recognized numeric columns: {', '.join(profile['numeric_columns']) or 'none'}
 - Recognized error columns: {', '.join(profile['error_columns']) or 'none'}
 - Selected chart: `{recommendation['chart_type']}`
 
 ## Archetype
-Automatic Python materials figure package using `{recommendation['chart_type']}`.
+[DRAFT - needs review] Automatic Python materials figure package using `{recommendation['chart_type']}`.
 
 ## Backend
-Python backend only.
+[DRAFT - needs review] Python backend only.
 
 ## Journal/Export Contract
-SVG and PNG are generated. SVG is the editable primary manuscript asset.
+[DRAFT - needs review] SVG and PNG are generated. SVG is the editable primary manuscript asset.
 
 ## Statistics And Image Integrity
-Error bars are mapped from `{recommendation.get('error_column') or 'not provided'}`. Replicate count must be confirmed in the methods or caption before production-ready use.
+[DRAFT - needs review] Error bars are mapped from `{recommendation.get('error_column') or 'not provided'}`. Replicate count must be confirmed in the methods or caption before production-ready use.
 
 ## WER-EA Boundary
-The figure can support measured WER-EA performance trends only when the source table describes that system. It does not prove field durability or interface mechanism by itself.
+[DRAFT - needs review] The figure can support measured WER-EA performance trends only when the source table describes that system. It does not prove field durability or interface mechanism by itself.
 
 ## Reviewer Risk
-{'; '.join(recommendation['reviewer_risks'])}
+[DRAFT - needs review] {'; '.join(recommendation['reviewer_risks'])}
 """
     path.write_text(text, encoding="utf-8")
 

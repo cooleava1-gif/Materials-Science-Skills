@@ -1,3 +1,7 @@
+# Review dimension: graphical abstract for a WER-EA mini-review. Paper count
+# and identified gaps per year (measured from literature search). The 2025
+# gap projection is speculative (dashed). Counts are illustrative of a
+# growing field; not a full systematic-review tally.
 year,papers_published,identified_gaps
 2018,12,5
 2019,18,6

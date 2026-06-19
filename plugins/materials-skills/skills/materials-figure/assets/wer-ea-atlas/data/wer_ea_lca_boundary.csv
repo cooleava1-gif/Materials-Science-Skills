@@ -1,3 +1,7 @@
+# WER-EA sustainability LCA boundary card.
+# Basis: illustrative GWP inventory ranges per functional unit;
+#   manufacturing (epoxy synthesis) dominates. End-of-life credit
+#   is scenario-dependent. No low-carbon claim without quantified LCA.
 life_cycle_stage,GWP_kg_CO2_eq
 Raw material,12.5
 Transport,3.2

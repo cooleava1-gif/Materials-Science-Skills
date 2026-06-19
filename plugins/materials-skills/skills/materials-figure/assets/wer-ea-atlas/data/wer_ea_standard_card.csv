@@ -1,5 +1,10 @@
-standard,specimen,loading_mode,curing_time
-ASTM D7234,Concrete slab,Pull-off,28 d
-EN 13614,Masonry prism,Shear,14 d
-JTG E20 T075,Asphalt beam,Oblique shear,24 h
-GB/T 16777,Steel coupon,Tensile,7 d
+# WER-EA test standard condition matrix.
+# Basis: ASTM D7234 (concrete pull-off, 28d); EN 13614 (masonry shear, 14d);
+#   JTG E20 T075 (asphalt oblique shear, 24h); GB/T 16777 (steel tensile, 7d).
+# Evidence tier reflects WER-EA specific validation coverage.
+# Standard parameters per specifications; harmonisation does not equate systems.
+standard,specimen,loading_mode,curing_time,temp_C,loading_rate,bond_requirement_MPa,evidence_tier
+ASTM D7234,Concrete,Pull-off,28 d,25,0.1 MPa/s,≥1.5,measured
+EN 13614,Masonry,Shear,14 d,23,0.5 MPa/s,≥0.8,inferred
+JTG E20 T075,Asphalt,Oblique,24 h,25,50 mm/min,≥0.6,measured
+GB/T 16777,Steel,Tensile,7 d,23,5 mm/min,≥2.0,inferred

@@ -1,7 +1,12 @@
-condition,control_retention_pct,modified_retention_pct
-Dry,100.0,100.0
-"Water
-immersion",72.0,88.0
-Freeze-thaw,58.0,79.0
-UV,80.0,91.0
-Heat aging,65.0,84.0
+# Literature basis: moisture-conditioned bond retention (%) declines with
+# immersion/aging time; WER modification slows the decline (retention > 80%
+# to ~14 d vs control ~7 d). Time-series figure; orthogonal to
+# review-first/durability_retention_challenge_map (challenge categories).
+# Values synthetic, bounded by reported WER-EA durability ranges.
+day,control_retention_pct,modified_retention_pct,control_err,modified_err
+0,100.0,100.0,3.0,2.0
+3,81.0,94.0,4.0,3.0
+7,68.0,88.0,5.0,3.0
+14,54.0,80.0,6.0,4.0
+21,46.0,74.0,6.0,4.0
+30,39.0,68.0,7.0,5.0

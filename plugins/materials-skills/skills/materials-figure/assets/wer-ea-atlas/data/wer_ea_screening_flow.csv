@@ -1,3 +1,6 @@
+# WER-EA literature screening flow (PRISMA-style).
+# Basis: representative review screening funnel; counts require a
+#   reproducible screening log. Included set defines evidence scope.
 stage,count,exclusion_note
 Search,240,Duplicates 80
 Title/abstract,72,Out of scope 88

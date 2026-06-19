@@ -1,5 +1,9 @@
+# WER-EA pull-off and shear method comparison.
+# Basis: pull-off typically 1.0-1.6 MPa; direct shear 1.2-2.2 MPa;
+#   tensile higher due to geometry. Test modes are NOT interchangeable;
+#   geometry and loading rate must match before comparing strengths.
 method,mean_MPa,std_MPa
-Pull-off (ASTM D7234),2.4,0.3
-Direct shear (EN 13614),1.8,0.25
+Pull-off (ASTM D7234),1.35,0.18
+Direct shear (EN 13614),1.8,0.22
 Oblique shear (JTG E20),1.5,0.2
-Tensile (ASTM D638),3.1,0.4
+Tensile (ASTM D638),2.4,0.3

@@ -1,5 +1,0 @@
-formulation_id,wer_dosage,viscosity,bonding_strength,storage_stability,workability_flag
-D1,0,120,0.35,70,high workability
-D2,5,180,0.48,78,balanced
-D3,10,310,0.62,82,balanced
-D4,15,520,0.64,60,viscosity risk

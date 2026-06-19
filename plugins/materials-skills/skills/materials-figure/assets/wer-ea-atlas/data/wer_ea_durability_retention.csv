@@ -1,3 +1,7 @@
+# WER-EA durability retention; residual property % vs dry baseline.
+# Basis: WER improves residual stability / TSR by 10-30% under water,
+#   freeze-thaw and aging. Values are representative literature ranges.
+# Retention needs baseline, conditioned value and protocol.
 condition,control_retention_pct,wer_retention_pct
 Dry,100,100
 Water immersion,62,85

@@ -1,244 +1,304 @@
 #!/usr/bin/env python3
-"""Generate the Ceramics Figure Atlas — sintering, XRD, Weibull, conductivity, grain size, EIS."""
+"""Generate the Ceramics Figure Atlas — literature-anchored data-driven figures.
+
+Figures: sintering, XRD, Weibull, conductivity, grain size, EIS, TGA/DSC,
+stress-strain, thermal expansion. All driven by CSV data in
+assets/ceramics-atlas/data/. Uses materials_plot_lib for publication style.
+"""
 
 import csv
-import os
+import sys
 from pathlib import Path
 
 import numpy as np
 
-# Ensure matplotlib uses non-interactive backend
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-HERE = Path(__file__).resolve().parent.parent.parent
+# Make materials_plot_lib importable
+HERE = Path(__file__).resolve().parent.parent.parent  # skills/materials-figure/
+sys.path.insert(0, str(HERE / "scripts"))
+from materials_plot_lib import apply_pub_style, PALETTE_CERAMIC  # noqa: E402
+
+apply_pub_style()  # sets svg.fonttype='none', Arial, spines off, etc.
+
 DATA = HERE / "assets" / "ceramics-atlas" / "data"
 OUT = HERE / "assets" / "ceramics-atlas" / "generated"
 OUT.mkdir(parents=True, exist_ok=True)
 
-plt.rcParams.update({"font.size": 10, "figure.dpi": 150})
+PAL = PALETTE_CERAMIC
+# series colors for multi-material plots
+C_AL = PAL["mechanical"]   # Al2O3
+C_ZR = PAL["modified"]     # 3Y-TZP / ZrO2
+C_SIC = PAL["optimal"]     # SiC
+C_REF = PAL["neutral"]     # reference
+C_YSZ = PAL["thermal"]     # 8YSZ
+
+# mathtext labels (avoid Unicode subscript glyphs missing from Arial)
+AL2O3 = r"$\mathrm{Al_2O_3}$"
+ZRO2 = r"$\mathrm{ZrO_2}$"
+SIG0 = r"$\sigma_0$"
 
 
 def _read_csv(path):
+    """Read CSV, skipping # comment header lines."""
+    rows = []
     with open(path, newline="") as f:
-        return list(csv.DictReader(f))
+        for line in f:
+            if line.startswith("#"):
+                continue
+            rows.append(line)
+    return list(csv.DictReader(rows))
 
 
-# ───────────────────────────
-# 1. Sintering curve
-# ───────────────────────────
+def _save(fig, name):
+    """Save figure as SVG (primary) and PNG."""
+    for fmt in ("svg", "png"):
+        fig.savefig(OUT / f"{name}.{fmt}")
+    plt.close(fig)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 1. Sintering curve — relative density vs temperature
+# ─────────────────────────────────────────────────────────────────────────────
 def plot_sintering_curve():
     rows = _read_csv(DATA / "sintering_curve.csv")
     T = [int(r["temperature"]) for r in rows]
     fig, ax = plt.subplots(figsize=(5, 3.5))
-    for key, label, marker in [
-        ("alumina_density", "Al₂O₃", "o"),
-        ("zirconia_density", "3Y-TZP", "s"),
-        ("spinel_density", "MgAl₂O₄", "^"),
-    ]:
-        vals = [float(r[key]) for r in rows]
-        ax.plot(T, vals, marker=marker, label=label, lw=1.5)
-    ax.axhline(3.96, color="gray", ls="--", lw=0.8, label="Theoretical Al₂O₃")
-    ax.set(xlabel="Sintering Temperature (°C)", ylabel="Relative Density (g/cm³)")
+    ax.plot(T, [float(r["alumina_density_pct"]) for r in rows], "o-", color=C_AL, lw=1.5, ms=4, label=AL2O3)
+    ax.plot(T, [float(r["zirconia_density_pct"]) for r in rows], "s-", color=C_ZR, lw=1.5, ms=4, label="3Y-TZP")
+    ax.axhline(100, color=C_REF, ls="--", lw=0.8, label="Theoretical density")
+    ax.axhline(98, color=C_REF, ls=":", lw=0.8, alpha=0.6)
+    ax.text(T[-1], 98.3, "98% dense", fontsize=7, ha="right", color=C_REF)
+    ax.set(xlabel="Sintering Temperature (°C)", ylabel="Relative Density (%)", ylim=(50, 102))
     ax.legend(fontsize=8)
     fig.tight_layout()
-    fig.savefig(OUT / "ceramics_sintering_curve.png")
-    fig.savefig(OUT / "ceramics_sintering_curve.svg")
-    plt.close(fig)
+    _save(fig, "ceramics_sintering_curve")
     print("  OK sintering curve")
+    print("  CLAIM: densification depends on heating rate (5°C/min), dwell (2h), atmosphere (air), and particle size; "
+          "values are relative density, not absolute.")
 
 
-# ───────────────────────────
-# 2. XRD pattern overlay
-# ───────────────────────────
+# ─────────────────────────────────────────────────────────────────────────────
+# 2. XRD pattern overlay — Al2O3, t-ZrO2, 8YSZ with PDF card reference
+# ─────────────────────────────────────────────────────────────────────────────
 def plot_xrd_pattern():
     rows = _read_csv(DATA / "xrd_pattern.csv")
     tth = [float(r["two_theta"]) for r in rows]
-    fig, ax = plt.subplots(figsize=(5, 3))
-    ax.plot(tth, [float(r["alumina_intensity"]) for r in rows], label="Sintered Al₂O₃", lw=1.2)
-    ax.plot(tth, [float(r["alumina_ref_intensity"]) for r in rows], label="ICDD 01-075-0782", lw=0.8, alpha=0.7)
-    for p in [(25.6, "012"), (35.2, "104"), (43.4, "113"), (52.5, "024"), (57.5, "116"), (68.2, "300")]:
-        ax.annotate(f"({p[1]})", (p[0], 10), fontsize=6, rotation=45)
-    ax.set(xlabel="2θ (°)", ylabel="Intensity (a.u.)")
-    ax.legend(fontsize=8)
+    fig, ax = plt.subplots(figsize=(6, 4))
+    ax.plot(tth, [float(r["alumina_intensity"]) for r in rows], color=C_AL, lw=1.0,
+            label=f"{AL2O3} sintered (PDF #46-1212)")
+    ax.plot(tth, [float(r["alumina_ref_intensity"]) * 0.9 + 60 for r in rows], color=C_REF, lw=0.8, alpha=0.8,
+            label="ICDD #46-1212 (ref)")
+    ax.plot(tth, [float(r["zro2_intensity"]) * 0.9 + 120 for r in rows], color=C_ZR, lw=1.0,
+            label=f"t-{ZRO2} (PDF #79-1769)")
+    ax.plot(tth, [float(r["ysz_intensity"]) * 0.9 + 180 for r in rows], color=C_YSZ, lw=1.0,
+            label="8YSZ cubic")
+    for pos, hkl in [(25.57, "012"), (35.15, "104"), (43.36, "113"), (57.50, "116"), (66.52, "214")]:
+        ax.annotate(f"({hkl})", (pos, 95), fontsize=6, rotation=45, ha="center", color=C_AL)
+    ax.set(xlabel=r"2$\theta$ (°)", ylabel="Intensity (a.u.)", xlim=(20, 80))
+    ax.legend(fontsize=7, loc="upper right")
     fig.tight_layout()
-    fig.savefig(OUT / "ceramics_xrd_pattern.png")
-    fig.savefig(OUT / "ceramics_xrd_pattern.svg")
-    plt.close(fig)
+    _save(fig, "ceramics_xrd_pattern")
     print("  OK XRD pattern")
+    print("  CLAIM: peak positions match PDF cards #46-1212 (Al2O3) and #79-1769 (t-ZrO2); "
+          "phase identification requires full pattern Rietveld refinement, not peak matching alone.")
 
 
-# ───────────────────────────
-# 3. Weibull probability plot
-# ───────────────────────────
+# ─────────────────────────────────────────────────────────────────────────────
+# 3. Weibull probability plot — Al2O3 and 3Y-TZP
+# ─────────────────────────────────────────────────────────────────────────────
 def plot_weibull():
     rows = _read_csv(DATA / "weibull_data.csv")
-    strengths = sorted([float(r["strength_mpa"]) for r in rows])
-    n = len(strengths)
-    P = [(i - 0.5) / n for i in range(1, n + 1)]
-    ln_s = np.log(strengths)
-    ln_ln = np.log(-np.log(1 - np.array(P)))
-    coeffs = np.polyfit(ln_s, ln_ln, 1)
-    m, b = coeffs
-    sigma0 = np.exp(-b / m)
+    al = sorted([float(r["strength_mpa"]) for r in rows if r["material"] == "Al2O3"])
+    zr = sorted([float(r["strength_mpa"]) for r in rows if r["material"] == "3Y-TZP"])
 
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(8, 3.5))
-    ax1.scatter(strengths, P, s=20, c="navy")
-    ax1.set(xlabel="Flexural Strength (MPa)", ylabel="Failure Probability")
-    x_fit = np.linspace(min(strengths), max(strengths), 100)
-    ax1.plot(x_fit, 1 - np.exp(-((x_fit / sigma0) ** m)), "r-", lw=1)
-    ax1.text(0.05, 0.95, f"m = {m:.1f}\nσ₀ = {sigma0:.0f} MPa", transform=ax1.transAxes, fontsize=9, va="top")
+    def _fit(strengths, color, label, ax):
+        n = len(strengths)
+        P = np.array([(i - 0.5) / n for i in range(1, n + 1)])
+        ln_s = np.log(strengths)
+        ln_ln = np.log(-np.log(1 - P))
+        m, b = np.polyfit(ln_s, ln_ln, 1)
+        sigma0 = np.exp(-b / m)
+        ax.scatter(ln_s, ln_ln, s=18, color=color, label=f"{label} (m={m:.1f}, {SIG0}={sigma0:.0f})")
+        xf = np.linspace(ln_s[0], ln_s[-1], 50)
+        ax.plot(xf, m * xf + b, color=color, lw=1.2)
+        return m, sigma0
 
-    ax2.scatter(ln_s, ln_ln, s=20, c="navy")
-    ax2.plot(np.linspace(min(ln_s), max(ln_s), 100),
-             coeffs[0] * np.linspace(min(ln_s), max(ln_s), 100) + coeffs[1], "r-", lw=1)
-    ax2.set(xlabel="ln(σ)", ylabel="ln(-ln(1-P))")
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9, 3.8))
+    # left: CDF
+    for strengths, color, label in [(al, C_AL, AL2O3), (zr, C_ZR, "3Y-TZP")]:
+        n = len(strengths)
+        P = [(i - 0.5) / n for i in range(1, n + 1)]
+        m, b = np.polyfit(np.log(strengths), np.log(-np.log(1 - np.array(P))), 1)
+        s0 = np.exp(-b / m)
+        ax1.scatter(strengths, P, s=18, color=color, label=f"{label} (m={m:.1f})")
+        xf = np.linspace(min(strengths), max(strengths), 100)
+        ax1.plot(xf, 1 - np.exp(-((xf / s0) ** m)), color=color, lw=1.2)
+    ax1.set(xlabel="Flexural Strength (MPa)", ylabel="Failure Probability " + r"$P_f$")
+    ax1.legend(fontsize=8)
+
+    # right: Weibull plot
+    m_al, s0_al = _fit(al, C_AL, AL2O3, ax2)
+    m_zr, s0_zr = _fit(zr, C_ZR, "3Y-TZP", ax2)
+    ax2.set(xlabel=r"$\ln(\sigma)$", ylabel=r"$\ln[\ln(1/(1-P))]$")
+    ax2.legend(fontsize=8)
+
     fig.tight_layout()
-    fig.savefig(OUT / "ceramics_weibull_plot.png")
-    fig.savefig(OUT / "ceramics_weibull_plot.svg")
-    plt.close(fig)
-    print(f"  OK Weibull plot (m={m:.1f})")
+    _save(fig, "ceramics_weibull_plot")
+    print(f"  OK Weibull plot (Al2O3 m={m_al:.1f}, σ0={s0_al:.0f}; 3Y-TZP m={m_zr:.1f}, σ0={s0_zr:.0f})")
+    print("  CLAIM: Weibull modulus reflects flaw population; valid only for same processing route, "
+          "specimen geometry, and test method (n=30 per material).")
 
 
-# ───────────────────────────
-# 4. Thermal conductivity
-# ───────────────────────────
+# ─────────────────────────────────────────────────────────────────────────────
+# 4. Thermal conductivity — Al2O3, 3Y-TZP, SiC
+# ─────────────────────────────────────────────────────────────────────────────
 def plot_thermal_conductivity():
     rows = _read_csv(DATA / "thermal_conductivity.csv")
     T = [int(r["temperature"]) for r in rows]
-    fig, ax = plt.subplots(figsize=(4.5, 3.5))
-    ax.plot(T, [float(r["conductivity_alumina"]) for r in rows], "o-", label="Al₂O₃ (high density)", lw=1.5)
-    ax.plot(T, [float(r["conductivity_alumina2"]) for r in rows], "s--", label="Al₂O₃ (low density)", lw=1.5)
-    ax.plot(T, [float(r["conductivity_zirconia"]) for r in rows], "^-.", label="3Y-TZP", lw=1.5)
-    ax.set(xlabel="Temperature (°C)", ylabel="Thermal Conductivity (W m⁻¹ K⁻¹)")
+    fig, ax = plt.subplots(figsize=(5, 3.5))
+    ax.plot(T, [float(r["alumina_k"]) for r in rows], "o-", color=C_AL, lw=1.5, ms=4, label=AL2O3)
+    ax.plot(T, [float(r["zirconia_k"]) for r in rows], "s-", color=C_ZR, lw=1.5, ms=4, label="3Y-TZP")
+    ax.plot(T, [float(r["sic_k"]) for r in rows], "^-", color=C_SIC, lw=1.5, ms=4, label="SiC")
+    ax.set(xlabel="Temperature (°C)", ylabel=r"Thermal Conductivity (W m$^{-1}$ K$^{-1}$)")
     ax.legend(fontsize=8)
     fig.tight_layout()
-    fig.savefig(OUT / "ceramics_thermal_conductivity.png")
-    fig.savefig(OUT / "ceramics_thermal_conductivity.svg")
-    plt.close(fig)
+    _save(fig, "ceramics_thermal_conductivity")
     print("  OK thermal conductivity")
+    print("  CLAIM: k depends on density, porosity, and grain size; values are for fully dense samples; "
+          "phonon-dominated conduction (k decreases with T).")
 
 
-# ───────────────────────────
-# 5. Grain size distribution
-# ───────────────────────────
+# ─────────────────────────────────────────────────────────────────────────────
+# 5. Grain size distribution — Al2O3 and ZrO2 lognormal
+# ─────────────────────────────────────────────────────────────────────────────
 def plot_grain_size_distribution():
     rows = _read_csv(DATA / "grain_size_distribution.csv")
     sizes = [float(r["grain_size_um"]) for r in rows]
-    freqs = [int(r["frequency"]) for r in rows]
-    fig, ax = plt.subplots(figsize=(4.5, 3.5))
-    ax.bar(sizes, freqs, width=0.3, color="steelblue", edgecolor="navy", alpha=0.8)
+    al_freq = [int(r["alumina_freq"]) for r in rows]
+    zr_freq = [int(r["zirconia_freq"]) for r in rows]
+    fig, ax = plt.subplots(figsize=(5, 3.5))
+    width = 0.15
+    ax.bar([s - width / 2 for s in sizes], al_freq, width=width, color=C_AL, alpha=0.85,
+           label=f"{AL2O3} (median ~3 µm)")
+    ax.bar([s + width / 2 for s in sizes], zr_freq, width=width, color=C_ZR, alpha=0.85,
+           label="3Y-TZP (median ~0.4 µm)")
     ax.set(xlabel="Grain Size (µm)", ylabel="Frequency")
-    # lognormal fit curve
-    from numpy import exp, log, sqrt, pi
-    weighted = np.repeat(sizes, freqs)
-    mu, sigma = np.mean(log(weighted)), np.std(log(weighted))
-    x_fit = np.linspace(0.2, max(sizes) + 0.5, 200)
-    y_fit = 1 / (x_fit * sigma * sqrt(2 * pi)) * exp(-((log(x_fit) - mu) ** 2) / (2 * sigma ** 2))
-    y_fit = y_fit / max(y_fit) * max(freqs)
-    ax.plot(x_fit, y_fit, "r-", lw=1.5, label="Lognormal fit")
     ax.legend(fontsize=8)
-    ax.text(0.95, 0.95, f"Mean: {np.mean(weighted):.2f} µm\nσ: {np.std(weighted):.2f} µm",
-            transform=ax.transAxes, fontsize=9, va="top", ha="right")
     fig.tight_layout()
-    fig.savefig(OUT / "ceramics_grain_size_dist.png")
-    fig.savefig(OUT / "ceramics_grain_size_dist.svg")
-    plt.close(fig)
+    _save(fig, "ceramics_grain_size_dist")
     print("  OK grain size distribution")
+    print("  CLAIM: grain size depends on sintering T and dopants; distribution is from 2D SEM section, "
+          "not true 3D size (stereological correction needed for absolute values).")
 
 
-# ───────────────────────────
-# 6. EIS Nyquist plot (simulated)
-# ───────────────────────────
+# ─────────────────────────────────────────────────────────────────────────────
+# 6. EIS Nyquist plot — CSV-driven, grain + grain boundary arcs
+# ─────────────────────────────────────────────────────────────────────────────
 def plot_eis_nyquist():
-    np.random.seed(42)
-    freq = np.logspace(0, 6, 50)
-    R_g, C_g, R_gb, C_gb = 100, 1e-10, 500, 1e-8
-    Z_g = R_g / (1 + (2j * np.pi * freq * R_g * C_g))
-    Z_gb = R_gb / (1 + (2j * np.pi * freq * R_gb * C_gb))
-    Z_total = Z_g + Z_gb
-
-    fig, ax = plt.subplots(figsize=(4.5, 4))
-    ax.plot(Z_total.real, -Z_total.imag, "o-", ms=3, lw=1)
-    ax.set(xlabel="Z' (Ω)", ylabel="-Z'' (Ω)", aspect="equal")
-    ax.text(0.5, 0.9, "Grain\n Grain boundary", transform=ax.transAxes, fontsize=9, va="top")
+    rows = _read_csv(DATA / "eis_nyquist.csv")
+    zr = [float(r["z_real"]) for r in rows]
+    zi = [float(r["z_imag"]) for r in rows]
+    fig, ax = plt.subplots(figsize=(5, 4.5))
+    ax.plot(zr, [-z for z in zi], "o-", color=C_YSZ, ms=3, lw=1.2)
+    ax.set(xlabel=r"$Z'$ (Ω)", ylabel=r"$-Z''$ (Ω)", aspect="equal")
+    ax.text(0.55, 0.85, "High-freq arc: grain\nLow-freq arc: grain boundary",
+            transform=ax.transAxes, fontsize=8, va="top",
+            bbox=dict(boxstyle="round,pad=0.3", fc="white", ec=C_REF, alpha=0.8))
     fig.tight_layout()
-    fig.savefig(OUT / "ceramics_eis_nyquist.png")
-    fig.savefig(OUT / "ceramics_eis_nyquist.svg")
-    plt.close(fig)
-    print("  OK EIS Nyquist (simulated)")
+    _save(fig, "ceramics_eis_nyquist")
+    print("  OK EIS Nyquist (CSV-driven)")
+    print("  CLAIM: equivalent circuit (R_g-C_g || R_gb-C_gb) fit required for quantitative R_g/R_gb; "
+          "Nyquist plot alone is qualitative; temperature and frequency range must be reported.")
 
 
-# ───────────────────────────
-# 7. TGA + DSC combo (dual axis)
-# ───────────────────────────
+# ─────────────────────────────────────────────────────────────────────────────
+# 7. TGA + DSC combo — Al2O3 and ZrO2 precursor
+# ─────────────────────────────────────────────────────────────────────────────
 def plot_tga_dsc():
     rows = _read_csv(DATA / "tga_dsc.csv")
     T = [int(r["temperature"]) for r in rows]
-    fig, ax1 = plt.subplots(figsize=(4.5, 3.5))
-    ax1.plot(T, [float(r["alumina_hf"]) for r in rows], "b-", lw=1.5, label="TGA (mass %)")
-    ax1.set(xlabel="Temperature (°C)", ylabel="Mass (%)")
+    fig, ax1 = plt.subplots(figsize=(5.5, 3.8))
+    ax1.plot(T, [float(r["alumina_mass"]) for r in rows], "-", color=C_AL, lw=1.5, label=f"{AL2O3} TGA")
+    ax1.plot(T, [float(r["zirconia_mass"]) for r in rows], "-", color=C_ZR, lw=1.5, label=f"{ZRO2} precursor TGA")
+    ax1.set_xlabel("Temperature (°C)")
+    ax1.set_ylabel("Mass (%)", color=C_AL)
+    ax1.tick_params(axis="y", labelcolor=C_AL)
     ax2 = ax1.twinx()
-    ax2.plot(T, [float(r["alumina_dsc"]) for r in rows], "r--", lw=1.5, label="DSC (heat flow)")
-    ax2.set(ylabel="Heat Flow (a.u.)")
+    ax2.plot(T, [float(r["alumina_dsc"]) for r in rows], "--", color=C_AL, lw=1.2, alpha=0.7, label=f"{AL2O3} DSC")
+    ax2.plot(T, [float(r["zirconia_dsc"]) for r in rows], "--", color=C_ZR, lw=1.2, alpha=0.7, label=f"{ZRO2} DSC")
+    ax2.set_ylabel("Heat Flow (mW/mg)", color=C_REF)
+    ax2.annotate("organics\nburn-off", (400, 2.5), fontsize=7, ha="center", color=C_ZR)
+    ax2.annotate("phase\ntransition", (1170, -0.8), fontsize=7, ha="center", color=C_ZR)
     lines1, labels1 = ax1.get_legend_handles_labels()
     lines2, labels2 = ax2.get_legend_handles_labels()
-    ax1.legend(lines1 + lines2, labels1 + labels2, fontsize=8, loc="upper right")
+    ax1.legend(lines1 + lines2, labels1 + labels2, fontsize=7, loc="center right")
     fig.tight_layout()
-    fig.savefig(OUT / "ceramics_tga_dsc.png")
-    fig.savefig(OUT / "ceramics_tga_dsc.svg")
-    plt.close(fig)
+    _save(fig, "ceramics_tga_dsc")
     print("  OK TGA/DSC combo")
+    print("  CLAIM: thermal events are literature-supported; exact peak T depends on heating rate (10°C/min), "
+          "atmosphere (N₂), and precursor chemistry.")
 
 
-# ───────────────────────────
-# 8. Stress-strain (compressive)
-# ───────────────────────────
+# ─────────────────────────────────────────────────────────────────────────────
+# 8. Stress-strain (compressive) — Al2O3, 3Y-TZP, SiC
+# ─────────────────────────────────────────────────────────────────────────────
 def plot_stress_strain():
     rows = _read_csv(DATA / "stress_strain.csv")
     strain = [float(r["strain"]) for r in rows]
-    fig, ax = plt.subplots(figsize=(4.5, 3.5))
-    ax.plot(strain, [float(r["alumina_stress"]) for r in rows], "b-", lw=1.5, label="Al₂O₃ (fine grain)")
-    ax.plot(strain, [float(r["alumina2_stress"]) for r in rows], "r--", lw=1.5, label="Al₂O₃ (coarse grain)")
-    ax.plot(strain, [float(r["zirconia_stress"]) for r in rows], "g-.", lw=1.5, label="3Y-TZP")
-    ax.set(xlabel="Strain", ylabel="Stress (MPa)")
+    fig, ax = plt.subplots(figsize=(5, 3.8))
+    ax.plot([s * 100 for s in strain], [float(r["alumina_stress"]) for r in rows], "-", color=C_AL, lw=1.5,
+            label=f"{AL2O3} (E=380 GPa)")
+    ax.plot([s * 100 for s in strain], [float(r["zirconia_stress"]) for r in rows], "-", color=C_ZR, lw=1.5,
+            label="3Y-TZP (E=210 GPa)")
+    ax.plot([s * 100 for s in strain], [float(r["sic_stress"]) for r in rows], "-", color=C_SIC, lw=1.5,
+            label="SiC (E=410 GPa)")
+    ax.set(xlabel="Strain (%)", ylabel="Stress (MPa)", xlim=(0, 0.6))
     ax.legend(fontsize=8)
-    ax.text(0.95, 0.95, "Compression", transform=ax.transAxes, fontsize=9, va="top", ha="right")
+    ax.text(0.95, 0.05, "Compression (ASTM C773)\nBrittle fracture, no yield",
+            transform=ax.transAxes, fontsize=8, va="bottom", ha="right",
+            bbox=dict(boxstyle="round,pad=0.3", fc="white", ec=C_REF, alpha=0.8))
     fig.tight_layout()
-    fig.savefig(OUT / "ceramics_stress_strain.png")
-    fig.savefig(OUT / "ceramics_stress_strain.svg")
-    plt.close(fig)
+    _save(fig, "ceramics_stress_strain")
     print("  OK stress-strain")
+    print("  CLAIM: ceramic fracture strain is 0.1-0.3%, NOT metallic 10%+; "
+          "compressive response per ASTM C773; rate-dependent, no macroscopic yield.")
 
 
-# ───────────────────────────
-# 9. Thermal expansion
-# ───────────────────────────
+# ─────────────────────────────────────────────────────────────────────────────
+# 9. Thermal expansion (dilatometry) — Al2O3, 3Y-TZP, SiC
+# ─────────────────────────────────────────────────────────────────────────────
 def plot_thermal_expansion():
     rows = _read_csv(DATA / "thermal_expansion.csv")
     T = [int(r["temperature"]) for r in rows]
-    fig, ax = plt.subplots(figsize=(4.5, 3.5))
-    ax.plot(T, [float(r["alumina_expansion"]) for r in rows], "o-", lw=1.5, label="Al₂O₃")
-    ax.plot(T, [float(r["zirconia_expansion"]) for r in rows], "s--", lw=1.5, label="3Y-TZP")
-    ax.set(xlabel="Temperature (°C)", ylabel="dL/L₀ (%)")
+    fig, ax = plt.subplots(figsize=(5, 3.5))
+    ax.plot(T, [float(r["alumina_expansion"]) for r in rows], "o-", color=C_AL, lw=1.5, ms=4,
+            label=f"{AL2O3} (CTE " + r"$8\times10^{-6}$/K)")
+    ax.plot(T, [float(r["zirconia_expansion"]) for r in rows], "s-", color=C_ZR, lw=1.5, ms=4,
+            label="3Y-TZP (CTE " + r"$10\times10^{-6}$/K)")
+    ax.plot(T, [float(r["sic_expansion"]) for r in rows], "^-", color=C_SIC, lw=1.5, ms=4,
+            label="SiC (CTE " + r"$4.5\times10^{-6}$/K)")
+    ax.set(xlabel="Temperature (°C)", ylabel=r"$\Delta L/L_0$ (%)")
     ax.legend(fontsize=8)
     fig.tight_layout()
-    fig.savefig(OUT / "ceramics_thermal_expansion.png")
-    fig.savefig(OUT / "ceramics_thermal_expansion.svg")
-    plt.close(fig)
+    _save(fig, "ceramics_thermal_expansion")
     print("  OK thermal expansion")
+    print("  CLAIM: CTE is temperature-averaged (25-1000°C); true CTE increases slightly with T; "
+          "values are engineering averages, not instantaneous.")
 
 
 if __name__ == "__main__":
-    print("Generating Ceramics Figure Atlas...")
-    plot_sintering_curve()
-    plot_xrd_pattern()
-    plot_weibull()
-    plot_thermal_conductivity()
-    plot_grain_size_distribution()
-    plot_eis_nyquist()
-    plot_tga_dsc()
-    plot_stress_strain()
-    plot_thermal_expansion()
-    print(f"\nAll figures saved to {OUT}")
+    print("Generating Ceramics Figure Atlas (literature-anchored, CSV-driven)...")
+    print()
+    plot_sintering_curve(); print()
+    plot_xrd_pattern(); print()
+    plot_weibull(); print()
+    plot_thermal_conductivity(); print()
+    plot_grain_size_distribution(); print()
+    plot_eis_nyquist(); print()
+    plot_tga_dsc(); print()
+    plot_stress_strain(); print()
+    plot_thermal_expansion(); print()
+    print(f"All figures saved to {OUT}")

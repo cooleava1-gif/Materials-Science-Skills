@@ -1,6 +1,11 @@
-stage,evidence_support_score
-Claim,0.9
-Microstructure,0.75
-Chemistry,0.6
-Interface,0.55
-Durability,0.4
+# Review dimension: evidence chain from claim to durability for WER-EA.
+# Claim and Microstructure are measured (lab tests); Chemistry is inferred
+# from FTIR peak changes; Interface is speculative (no direct interface
+# probe); Durability is missing (no long-term field data). Support score is
+# reviewer judgement of how strongly each link is backed.
+stage,evidence_support_score,evidence_tier
+Claim,0.9,measured
+Microstructure,0.75,measured
+Chemistry,0.62,inferred
+Interface,0.4,speculative
+Durability,0.15,missing
