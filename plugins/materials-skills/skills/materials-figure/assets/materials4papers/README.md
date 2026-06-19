@@ -1,71 +1,53 @@
-# Materials for Papers
+# Materials for Papers — Top Journal Style Examples
 
-Real-world example figures for materials science manuscripts, following Nature-style plotting conventions.
+Real-world example figures for materials science manuscripts, following the style conventions of leading materials journals.
 
 ## Purpose
 
 This directory contains complete, reproducible figure examples for common materials science manuscript types. Each example includes:
 
-- **plot.py**: Complete plotting script with Nature-style formatting
-- **data/**: CSV source data files
+- **plot.py**: Complete plotting script with journal-specific formatting
+- **data/**: CSV source data files (synthetic but realistic)
 - **figures/**: Generated PNG preview images
 
 These examples demonstrate how to create publication-ready figures using matplotlib with proper rcParams, font handling, and output settings.
 
-## Examples
+## Journal Categories
 
-### 1. figure_ceramics_xrd
+### Civil & Building Materials (CBM / CC Research style)
 
-XRD phase identification for Al₂O₃-ZrO₂ composite ceramics.
+| Example | Journal Style | Chart Type | Content |
+|---------|--------------|------------|---------|
+| `cement_hydration_xrd/` | Cement and Concrete Research | Stacked XRD | Hydration phase evolution (1d, 3d, 7d, 28d) |
+| `concrete_durability_retention/` | Construction and Building Materials | Grouped bar | Freeze-thaw, carbonation, chloride retention |
+| `asphalt_bonding_performance/` | Construction and Building Materials | Grouped bar + dual axis | WER/SBS/EVA bonding under dry/wet/aged |
+| `tack_coat_interface_schematic/` | Construction and Building Materials | Schematic | Pavement layer structure with tack coat |
 
-- **Chart type**: Line plot with peak annotations
-- **Data**: `data/xrd_data.csv` (2θ vs intensity for Al₂O₃, t-ZrO₂, m-ZrO₂)
-- **Output**: `figures/xrd_pattern.png`
-- **Script**: `plot_xrd.py`
+### Traditional Materials Journals (Acta Mat / JACS / MSE A / Polymer / CST style)
 
-### 2. figure_ceramics_sintering
+| Example | Journal Style | Chart Type | Content |
+|---------|--------------|------------|---------|
+| `steel_microstructure_ebsd/` | Acta Materialia | Multi-panel | IPF maps, grain boundaries, pole figures |
+| `ceramics_weibull_reliability/` | J. Am. Ceram. Soc. | Weibull plot | 3Y-TZP vs Al₂O₃ strength distribution |
+| `alloy_stress_strain/` | Mater. Sci. Eng. A | Stress-strain | Ti-6Al-4V tensile with work hardening |
+| `polymer_thermal_degradation/` | Polymer | TGA/DTG | PE/PP/PS/PMMA thermal degradation |
+| `composite_fatigue_sn/` | Compos. Sci. Technol. | S-N curve | CFRP vs GFRP fatigue life |
 
-Sintering optimization: density and grain size vs temperature.
+### High-Impact General Journals (Adv. Mat. / ACS Nano / Adv. Funct. Mat. style)
 
-- **Chart type**: Dual-panel line plot
-- **Data**: `data/sintering_data.csv` (temperature vs density and grain size)
-- **Output**: `figures/sintering_curve.png`
-- **Script**: `plot_sintering.py`
-
-### 3. figure_ceramics_weibull
-
-Weibull reliability analysis: 3Y-TZP vs Al₂O₃-doped strength distribution.
-
-- **Chart type**: Weibull probability plot
-- **Data**: `data/weibull_data.csv` (fracture strength measurements)
-- **Output**: `figures/weibull_plot.png`
-- **Script**: `plot_weibull.py`
-
-### 4. figure_cement_durability
-
-Cement durability: retention percentage under different aging conditions.
-
-- **Chart type**: Bar chart with error bars
-- **Data**: `data/durability_data.csv` (property retention for control vs modified cement)
-- **Output**: `figures/durability_retention.png`
-- **Script**: `plot.py`
-
-### 5. figure_steel_corrosion
-
-Steel corrosion trend: corrosion rate over exposure time.
-
-- **Chart type**: Errorbar plot
-- **Data**: `data/corrosion_data.csv` (corrosion rate vs time for different groups)
-- **Output**: `figures/corrosion_trend.png`
-- **Script**: `plot.py`
+| Example | Journal Style | Chart Type | Content |
+|---------|--------------|------------|---------|
+| `nanoparticle_size_distribution/` | ACS Nano | TEM + histogram + DLS | Nanoparticle size statistics |
+| `2d_material_raman_mapping/` | Advanced Materials | Raman spectra + mapping | Graphene D/G/2D peak mapping |
+| `multifunctional_composite_radar/` | Advanced Functional Materials | Radar chart | Multi-property comparison |
 
 ## Running Examples
 
 Each example is self-contained. To regenerate a figure:
 
 ```powershell
-cd figure_ceramics_xrd
-python plot_xrd.py
+cd figure_name
+python plot.py
 ```
 
 The script will read data from `data/` and save the figure to `figures/`.
@@ -79,27 +61,31 @@ The script will read data from `data/` and save the figure to `figures/`.
 
 All scripts use `matplotlib.use("Agg")` for headless rendering.
 
-## Nature-Style Conventions
+## Journal-Specific Conventions
 
-All scripts follow these publication defaults:
+### Civil & Building Materials (CBM / CC Research)
+- **Data density**: High — multiple groups, conditions, error bars
+- **Statistics**: Significance markers (*, **, ***), p-values
+- **Layout**: Grouped comparisons, dual Y-axes for retention
+- **Colors**: Muted, professional palette
 
-- **SVG text**: `matplotlib.rcParams["svg.fonttype"] = "none"` (editable text)
-- **PDF fonts**: `matplotlib.rcParams["pdf.fonttype"] = 42` (TrueType)
-- **Font family**: sans-serif (Helvetica/Arial compatible)
-- **Spines**: Top and right spines removed
-- **Line width**: 1.5 pt for axes, 2 pt for data lines
-- **DPI**: 300+ for PNG previews
-- **bbox_inches**: "tight" to prevent label clipping
+### Traditional Materials Journals
+- **Acta Materialia**: EBSD IPF maps, pole figures, grain boundary networks
+- **JACS**: Weibull analysis, statistical rigor, n ≥ 10
+- **MSE A**: Stress-strain with yield/UTS annotations, work hardening
+- **Polymer**: TGA/DTG dual-axis, decomposition temperature annotations
+- **CST**: S-N curves on log-log scale, Basquin fitting
+
+### High-Impact General Journals
+- **ACS Nano**: TEM + statistical histograms, log-normal fitting
+- **Advanced Materials**: Raman mapping with spatial color maps
+- **Advanced Functional Materials**: Radar charts, multi-property comparison
 
 ## Relationship to Other Assets
 
-This directory complements:
-
-- **chart-atlas/**: Generic chart type examples
-- **ceramics-atlas/**: Ceramics-specific figure templates
-- **rich-gallery/**: Complex multi-panel figures
-- **review-first/**: Review article figure templates
-- **wer-ea-atlas/**: WER-EA specific figures
+- **templates/figure-package/**: Contract and QA templates
+- **scripts/figures4materials/**: 66 archived reference plotting scripts
+- **examples/figure-packages/**: 7 runnable figure packages with real CSV data
 
 The `materials4papers/` examples are **reference implementations**, not automated tools. They demonstrate best practices for creating publication-ready figures from real experimental data.
 
