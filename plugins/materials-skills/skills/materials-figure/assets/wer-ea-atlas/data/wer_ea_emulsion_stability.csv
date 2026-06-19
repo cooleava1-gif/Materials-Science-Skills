@@ -1,0 +1,14 @@
+# WER-EA emulsion storage stability; stability index over 28 d.
+# Basis: unmodified emulsion sediments fast; moderate WER (5 wt%)
+#   improves stability via film formation; excess WER (12 wt%)
+#   demulsifies and destabilises faster than moderate dose.
+#   This non-monotonic behaviour reflects the dosage optimum window.
+# Storage stability alone does not prove pavement bonding.
+day,control_pct,wer_5wt_pct,wer_12wt_pct
+0,100.0,100.0,100.0
+1,88.0,97.0,90.0
+3,70.0,92.0,78.0
+5,52.0,86.0,64.0
+7,38.0,80.0,50.0
+14,22.0,68.0,30.0
+28,10.0,55.0,15.0

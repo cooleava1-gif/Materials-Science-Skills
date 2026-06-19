@@ -1,5 +1,11 @@
 # Figure Contract Before Plotting
 
+> **Figure contract is a blocking gate.** Before any plotting code, data
+> generation, preview, or rendered figure, write `figure_contract.md` with all
+> seven points carrying substantive content and pass `check_figure_contract.py`.
+> If validation fails, stop and revise the contract; do not plot. **This
+> overrides general autonomy/default-execution behavior for figure tasks.**
+
 A publication-quality materials figure is a visual argument, not an isolated pretty plot. Every figure starts from a claim, an evidence chain, a Python backend readiness check, and a reviewer-risk check before code or aesthetics.
 
 ## Python-Only Backend Gate
@@ -10,6 +16,10 @@ Do not generate mock data, write plotting scripts, create previews, or render pl
 
 ## Seven-Point Contract
 
+All seven points must carry substantive content — not template-only, placeholder,
+or empty fields. A contract with any blank or placeholder point is treated as
+unwritten and fails validation.
+
 1. **Core conclusion**: one sentence naming the claim the figure must defend.
 2. **Evidence chain**: each panel maps to a source-data column, table row, source_map anchor, or visual asset.
 3. **Archetype**: classify the figure as `quantitative grid`, `image plate + quant`, `schematic-led composite`, `review heatmap`, `method/test matrix`, or `graphical abstract`.
@@ -17,6 +27,74 @@ Do not generate mock data, write plotting scripts, create previews, or render pl
 5. **Journal/export contract**: target journal family, final width, font size, editable vector needs, raster DPI, and required formats.
 6. **Statistics and image integrity**: n, replicate definition, error-bar definition, test/correction, raw image provenance, scale bars, crop/contrast notes.
 7. **WER-EA boundary**: explicitly separate performance evidence, direct mechanism evidence, inferred mechanism, durability/service evidence, and unsupported field claims.
+
+## Contract Validation
+
+`check_figure_contract.py` checks the seven-point completeness of
+`figure_contract.md`: each point must be present and carry substantive content
+(non-template, non-placeholder, non-empty). Validation runs before any plotting
+script, data generation, preview, or rendered figure.
+
+- Validation passes -> proceed to plotting under the Python-only backend gate.
+- Validation fails -> stop. Revise the contract so every point holds real
+  content. Do not generate code, data, or previews while the contract is
+  invalid.
+
+## Execution Order
+
+The figure contract always precedes plotting code. The mandated order is:
+
+1. Write `figure_contract.md` with all seven points holding substantive content.
+2. Run `check_figure_contract.py`; stop if it fails.
+3. Run `validate_materials_claims.py` against `materials_kb.yaml`; stop on
+   errors that contradict known material relations.
+4. Only after both validations pass, check the Python backend and proceed to
+   plotting, source-data assembly, exports, and QA.
+
+This order is binding for both interactive figure work and the automatic
+table-plotting loop. The automatic loop may draft the contract from the source
+table and goal, but the draft must be confirmed and pass both validations
+before any plotting script runs.
+
+## Materials Knowledge Validation
+
+After the contract passes `check_figure_contract.py`, run
+`validate_materials_claims.py`. The validator extracts materials-science
+entities from the contract's evidence chain and checks them against
+`static/core/materials_kb.yaml`:
+
+- **XRD**: declared 2θ peaks are matched to PDF cards (±0.5° tolerance). A
+  peak assigned to the wrong phase (e.g. 30° 2θ called Al2O3 when it is
+  t-ZrO2 101) is an error.
+- **FTIR**: declared wavenumbers are matched to functional groups (±20 cm⁻¹
+  tolerance). A wavenumber assigned to the wrong group (e.g. 915 cm⁻¹ called
+  C=O when it is the oxirane ring) is an error.
+- **Performance**: declared values are checked against typical ranges. Values
+  far outside known ranges trigger a warning for review.
+
+Figures without materials-science entities (e.g. pure flowcharts or workflow
+diagrams) pass with no checks. Errors block plotting; warnings allow plotting
+but flag the claim for review.
+
+## Multi-Figure Storyboard
+
+When a task spans more than one figure (e.g. a manuscript), the storyboard
+gate sits above individual figure contracts. Write
+`figure_storyboard.yaml` (see `assets/templates/figure-storyboard/`) defining:
+
+- **Narrative arc**: ordered figures, each with a role
+  (`establish_system` / `prove_mechanism` / `show_performance` /
+  `validate_durability` / `summarize` / `compare` / `method_development`).
+- **Evidence dependencies**: each figure lists the earlier figures its
+  evidence builds on. Dependencies must form a DAG (no cycles).
+- **Cross-figure constraints**: style consistency, evidence flow, no panel
+  redundancy, claim progression, role coverage.
+
+Run `check_storyboard.py` to verify narrative completeness, acyclic evidence
+flow, role coverage, and cross-figure non-redundancy. The storyboard must
+pass before individual figure contracts are written. This prevents a set of
+individually-valid figures that are narratively incoherent or mutually
+redundant.
 
 ## Claim Boundary
 
@@ -27,7 +105,8 @@ The caption and visual encoding must never imply stronger evidence than the sour
 - FTIR/DSR/BBR evidence is binder-level unless interface, mixture, conditioning, or field data are present.
 - A review schematic must mark direct evidence and inferred links differently.
 
-For a complete package, write the contract into `figure_contract.md` before plotting.
+For a complete package, write the contract into `figure_contract.md` and pass
+`check_figure_contract.py` before plotting.
 
 ## Paper Production Handoff
 

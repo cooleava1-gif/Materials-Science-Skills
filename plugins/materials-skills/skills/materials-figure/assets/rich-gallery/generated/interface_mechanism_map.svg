@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-06-19T15:19:06.302938</dc:date>
+    <dc:date>2026-06-19T17:17:35.427493</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -30,129 +30,144 @@ z
   </g>
   <g id="axes_1">
    <g id="patch_2">
-    <path d="M 73.728 183.756349 
-C 82.549716 183.756349 91.011305 180.441429 97.2492 174.541661 
-C 103.487095 168.641894 106.992 160.638968 106.992 152.295437 
-C 106.992 143.951905 103.487095 135.94898 97.2492 130.049212 
-C 91.011305 124.149444 82.549716 120.834524 73.728 120.834524 
-C 64.906284 120.834524 56.444695 124.149444 50.2068 130.049212 
-C 43.968905 135.94898 40.464 143.951905 40.464 152.295437 
-C 40.464 160.638968 43.968905 168.641894 50.2068 174.541661 
-C 56.444695 180.441429 64.906284 183.756349 73.728 183.756349 
+    <path d="M 62.64 196.865063 
+C 70.726573 196.865063 78.483029 193.826386 84.2011 188.418266 
+C 89.919171 183.010145 93.132 175.67413 93.132 168.025893 
+C 93.132 160.377656 89.919171 153.041641 84.2011 147.63352 
+C 78.483029 142.2254 70.726573 139.186723 62.64 139.186723 
+C 54.553427 139.186723 46.796971 142.2254 41.0789 147.63352 
+C 35.360829 153.041641 32.148 160.377656 32.148 168.025893 
+C 32.148 175.67413 35.360829 183.010145 41.0789 188.418266 
+C 46.796971 193.826386 54.553427 196.865063 62.64 196.865063 
 z
-" clip-path="url(#p99e1500c83)" style="fill: #4b6f8a; opacity: 0.38; stroke: #4b6f8a; stroke-linejoin: miter"/>
+" clip-path="url(#p851005c0a1)" style="fill: #4b6f8a; opacity: 0.619; stroke: #4b6f8a; stroke-linejoin: miter"/>
    </g>
    <g id="patch_3">
-    <path d="M 184.608 131.321495 
-C 193.429716 131.321495 201.891305 128.006575 208.1292 122.106807 
-C 214.367095 116.207039 217.872 108.204114 217.872 99.860582 
-C 217.872 91.517051 214.367095 83.514125 208.1292 77.614358 
-C 201.891305 71.71459 193.429716 68.39967 184.608 68.39967 
-C 175.786284 68.39967 167.324695 71.71459 161.0868 77.614358 
-C 154.848905 83.514125 151.344 91.517051 151.344 99.860582 
-C 151.344 108.204114 154.848905 116.207039 161.0868 122.106807 
-C 167.324695 128.006575 175.786284 131.321495 184.608 131.321495 
+    <path d="M 173.52 133.943238 
+C 181.606573 133.943238 189.363029 130.904561 195.0811 125.49644 
+C 200.799171 120.08832 204.012 112.752305 204.012 105.104068 
+C 204.012 97.455831 200.799171 90.119816 195.0811 84.711695 
+C 189.363029 79.303575 181.606573 76.264898 173.52 76.264898 
+C 165.433427 76.264898 157.676971 79.303575 151.9589 84.711695 
+C 146.240829 90.119816 143.028 97.455831 143.028 105.104068 
+C 143.028 112.752305 146.240829 120.08832 151.9589 125.49644 
+C 157.676971 130.904561 165.433427 133.943238 173.52 133.943238 
 z
-" clip-path="url(#p99e1500c83)" style="fill: #4b6f8a; opacity: 0.448; stroke: #4b6f8a; stroke-linejoin: miter"/>
+" clip-path="url(#p851005c0a1)" style="fill: #4b6f8a; opacity: 0.556; stroke: #4b6f8a; stroke-linejoin: miter"/>
    </g>
    <g id="patch_4">
-    <path d="M 295.488 236.191204 
-C 304.309716 236.191204 312.771305 232.876284 319.0092 226.976516 
-C 325.247095 221.076748 328.752 213.073823 328.752 204.730291 
-C 328.752 196.38676 325.247095 188.383834 319.0092 182.484067 
-C 312.771305 176.584299 304.309716 173.269379 295.488 173.269379 
-C 286.666284 173.269379 278.204695 176.584299 271.9668 182.484067 
-C 265.728905 188.383834 262.224 196.38676 262.224 204.730291 
-C 262.224 213.073823 265.728905 221.076748 271.9668 226.976516 
-C 278.204695 232.876284 286.666284 236.191204 295.488 236.191204 
+    <path d="M 284.4 217.839005 
+C 292.486573 217.839005 300.243029 214.800328 305.9611 209.392207 
+C 311.679171 203.984087 314.892 196.648072 314.892 188.999835 
+C 314.892 181.351598 311.679171 174.015583 305.9611 168.607462 
+C 300.243029 163.199342 292.486573 160.160665 284.4 160.160665 
+C 276.313427 160.160665 268.556971 163.199342 262.8389 168.607462 
+C 257.120829 174.015583 253.908 181.351598 253.908 188.999835 
+C 253.908 196.648072 257.120829 203.984087 262.8389 209.392207 
+C 268.556971 214.800328 276.313427 217.839005 284.4 217.839005 
 z
-" clip-path="url(#p99e1500c83)" style="fill: #4b6f8a; opacity: 0.512; stroke: #4b6f8a; stroke-linejoin: miter"/>
+" clip-path="url(#p851005c0a1)" style="fill: #4b6f8a; opacity: 0.5875; stroke: #4b6f8a; stroke-linejoin: miter"/>
    </g>
    <g id="patch_5">
-    <path d="M 406.368 157.538922 
-C 415.189716 157.538922 423.651305 154.224002 429.8892 148.324234 
-C 436.127095 142.424467 439.632 134.421541 439.632 126.07801 
-C 439.632 117.734478 436.127095 109.731553 429.8892 103.831785 
-C 423.651305 97.932017 415.189716 94.617097 406.368 94.617097 
-C 397.546284 94.617097 389.084695 97.932017 382.8468 103.831785 
-C 376.608905 109.731553 373.104 117.734478 373.104 126.07801 
-C 373.104 134.421541 376.608905 142.424467 382.8468 148.324234 
-C 389.084695 154.224002 397.546284 157.538922 406.368 157.538922 
+    <path d="M 395.28 154.91718 
+C 403.366573 154.91718 411.123029 151.878503 416.8411 146.470382 
+C 422.559171 141.062262 425.772 133.726247 425.772 126.07801 
+C 425.772 118.429772 422.559171 111.093757 416.8411 105.685637 
+C 411.123029 100.277517 403.366573 97.23884 395.28 97.23884 
+C 387.193427 97.23884 379.436971 100.277517 373.7189 105.685637 
+C 368.000829 111.093757 364.788 118.429772 364.788 126.07801 
+C 364.788 133.726247 368.000829 141.062262 373.7189 146.470382 
+C 379.436971 151.878503 387.193427 154.91718 395.28 154.91718 
 z
-" clip-path="url(#p99e1500c83)" style="fill: #4b6f8a; opacity: 0.42; stroke: #4b6f8a; stroke-linejoin: miter"/>
+" clip-path="url(#p851005c0a1)" style="fill: #4b6f8a; opacity: 0.4975; stroke: #4b6f8a; stroke-linejoin: miter"/>
    </g>
    <g id="patch_6">
-    <path d="M 495.072 262.408631 
-C 503.893716 262.408631 512.355305 259.093711 518.5932 253.193943 
-C 524.831095 247.294175 528.336 239.29125 528.336 230.947718 
-C 528.336 222.604187 524.831095 214.601261 518.5932 208.701494 
-C 512.355305 202.801726 503.893716 199.486806 495.072 199.486806 
-C 486.250284 199.486806 477.788695 202.801726 471.5508 208.701494 
-C 465.312905 214.601261 461.808 222.604187 461.808 230.947718 
-C 461.808 239.29125 465.312905 247.294175 471.5508 253.193943 
-C 477.788695 259.093711 486.250284 262.408631 495.072 262.408631 
+    <path d="M 506.16 233.569461 
+C 514.246573 233.569461 522.003029 230.530784 527.7211 225.122664 
+C 533.439171 219.714543 536.652 212.378528 536.652 204.730291 
+C 536.652 197.082054 533.439171 189.746039 527.7211 184.337919 
+C 522.003029 178.929798 514.246573 175.891121 506.16 175.891121 
+C 498.073427 175.891121 490.316971 178.929798 484.5989 184.337919 
+C 478.880829 189.746039 475.668 197.082054 475.668 204.730291 
+C 475.668 212.378528 478.880829 219.714543 484.5989 225.122664 
+C 490.316971 230.530784 498.073427 233.569461 506.16 233.569461 
 z
-" clip-path="url(#p99e1500c83)" style="fill: #4b6f8a; opacity: 0.52; stroke: #4b6f8a; stroke-linejoin: miter"/>
+" clip-path="url(#p851005c0a1)" style="fill: #4b6f8a; opacity: 0.601; stroke: #4b6f8a; stroke-linejoin: miter"/>
    </g>
    <g id="text_1">
-    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="73.728" y="154.365749" transform="rotate(-0 73.728 154.365749)">Demulsification</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="62.64" y="170.096206" transform="rotate(-0 62.64 170.096206)">Demulsification</text>
    </g>
    <g id="patch_7">
-    <path d="M 108.283254 150.768861 
-Q 129.168399 126.077538 148.609476 103.093455 
+    <path d="M 94.377573 166.455152 
+Q 118.0807 136.564098 140.394475 108.4251 
 " style="fill: none; stroke: #8b6f47; stroke-width: 2; stroke-linecap: round"/>
-    <path d="M 144.499247 104.855844 
-L 148.609476 103.093455 
-L 147.55325 107.439072 
+    <path d="M 136.342039 110.316598 
+L 140.394475 108.4251 
+L 139.476212 112.801947 
 " style="fill: none; stroke: #8b6f47; stroke-width: 2; stroke-linecap: round"/>
    </g>
    <g id="text_2">
-    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="184.608" y="101.930817" transform="rotate(-0 184.608 101.930817)">Curing</text>
-   </g>
-   <g id="patch_8">
-    <path d="M 218.650271 101.700795 
-Q 240.04818 152.295861 260.575092 200.83147 
-" style="fill: none; stroke: #8b6f47; stroke-width: 2; stroke-linecap: round"/>
-    <path d="M 260.859042 196.368358 
-L 260.575092 200.83147 
-L 257.174972 197.926442 
-" style="fill: none; stroke: #8b6f47; stroke-width: 2; stroke-linecap: round"/>
+    <text style="font-size: 7px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #b85450" x="62.64" y="220.460748" transform="rotate(-0 62.64 220.460748)">ev=0.82</text>
    </g>
    <g id="text_3">
-    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="295.488" y="206.800526" transform="rotate(-0 295.488 206.800526)">Morphology</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="173.52" y="107.174302" transform="rotate(-0 173.52 107.174302)">Curing</text>
    </g>
-   <g id="patch_9">
-    <path d="M 329.733299 202.99009 
-Q 350.926944 165.406024 371.022261 129.769693 
+   <g id="patch_8">
+    <path d="M 205.033735 106.822026 
+Q 228.960021 147.051986 251.743303 185.360086 
 " style="fill: none; stroke: #8b6f47; stroke-width: 2; stroke-linecap: round"/>
-    <path d="M 367.315404 132.271535 
-L 371.022261 129.769693 
-L 370.79962 134.236284 
+    <path d="M 251.417601 180.899826 
+L 251.743303 185.360086 
+L 247.979674 182.944492 
 " style="fill: none; stroke: #8b6f47; stroke-width: 2; stroke-linecap: round"/>
    </g>
    <g id="text_4">
-    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(389.6955 123.794806)">Interface</text>
-    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(390.808625 132.501838)">reaction</text>
-   </g>
-   <g id="patch_10">
-    <path d="M 440.045499 128.033435 
-Q 450.71987 178.51225 460.931627 226.803375 
-" style="fill: none; stroke: #8b6f47; stroke-width: 2; stroke-linecap: round"/>
-    <path d="M 462.060807 222.476142 
-L 460.931627 226.803375 
-L 458.147348 223.303691 
-" style="fill: none; stroke: #8b6f47; stroke-width: 2; stroke-linecap: round"/>
+    <text style="font-size: 7px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #b85450" x="173.52" y="157.538922" transform="rotate(-0 173.52 157.538922)">ev=0.68</text>
    </g>
    <g id="text_5">
-    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="495.072" y="233.017953" transform="rotate(-0 495.072 233.017953)">Bonding</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="284.4" y="191.070069" transform="rotate(-0 284.4 191.070069)">Morphology</text>
+   </g>
+   <g id="patch_9">
+    <path d="M 316.137573 187.429094 
+Q 339.8407 157.53804 362.154475 129.399042 
+" style="fill: none; stroke: #8b6f47; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 358.102039 131.29054 
+L 362.154475 129.399042 
+L 361.236212 133.775889 
+" style="fill: none; stroke: #8b6f47; stroke-width: 2; stroke-linecap: round"/>
    </g>
    <g id="text_6">
-    <text style="font-size: 11px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="284.4" y="15.208301" transform="rotate(-0 284.4 15.208301)">Interface mechanism map</text>
+    <text style="font-size: 7px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #b85450" x="284.4" y="241.434689" transform="rotate(-0 284.4 241.434689)">ev=0.75</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(378.6075 123.794806)">Interface</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(379.720625 132.501838)">reaction</text>
+   </g>
+   <g id="patch_10">
+    <path d="M 426.842462 127.765404 
+Q 450.719562 165.403461 473.398831 201.153344 
+" style="fill: none; stroke: #8b6f47; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 472.944915 196.704304 
+L 473.398831 201.153344 
+L 469.567249 198.847052 
+" style="fill: none; stroke: #8b6f47; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 7px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #b85450" x="395.28" y="178.512864" transform="rotate(-0 395.28 178.512864)">ev=0.55</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="506.16" y="206.800526" transform="rotate(-0 506.16 206.800526)">Bonding</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 7px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #b85450" x="506.16" y="257.165146" transform="rotate(-0 506.16 257.165146)">ev=0.78</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 11px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="284.4" y="15.208301" transform="rotate(-0 284.4 15.208301)">Interface mechanism map (process flow + evidence strength)</text>
    </g>
   </g>
  </g>
  <defs>
-  <clipPath id="p99e1500c83">
+  <clipPath id="p851005c0a1">
    <rect x="7.2" y="21.208301" width="554.4" height="288.391699"/>
   </clipPath>
  </defs>

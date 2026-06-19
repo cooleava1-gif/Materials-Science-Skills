@@ -3,10 +3,10 @@
 Use this reference when the user provides a CSV/TSV data table and asks for
 plotting, visualization, paper figures, or one-click figure generation.
 
-The loop is Python-only:
+The loop is Python-only and contract-first:
 
 ```text
-source table -> data diagnosis -> chart recommendation -> SVG/PNG export -> QA report
+source table -> contract draft/review -> contract + materials validation -> chart recommendation -> SVG/PNG export -> QA report
 ```
 
 ## Interaction Modes
@@ -24,8 +24,15 @@ python plugins/materials-skills/skills/materials-figure/scripts/generate_figure_
   --json
 ```
 
+On the first run, the generator may scaffold `figure_contract.md` and return a
+blocked status until the contract is filled with substantive content. After the
+contract is reviewed and passes both `check_figure_contract.py` and
+`validate_materials_claims.py`, rerun the same command to render the figure
+package.
+
 Ask a follow-up only when the table has no numeric response column, the target
-claim cannot be inferred safely, or the QA status is blocked.
+claim cannot be inferred safely, or the QA status is blocked for reasons the
+draft contract cannot resolve.
 
 ### Guided Mode
 
@@ -36,7 +43,8 @@ Use when the source table is ambiguous. Ask only for the missing item:
 - which column is the x-axis or grouping condition,
 - whether error bars are SD, SE, CI, or range.
 
-Then run the same generator.
+Then run the same generator, review the drafted contract if one is created, and
+rerun after validation passes.
 
 ### Revision Mode
 

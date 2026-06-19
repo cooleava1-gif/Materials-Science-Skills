@@ -1,4 +1,0 @@
-claim_id,performance_metric,mechanism_evidence,certainty_tier,boundary_note
-C1,pull-off strength,FTIR curing cue,inferred,Performance and mechanism need paired source anchors
-C2,shear strength,none,missing,Do not claim interface mechanism
-C3,retained bonding,SEM morphology,inferred,Durability mechanism remains bounded

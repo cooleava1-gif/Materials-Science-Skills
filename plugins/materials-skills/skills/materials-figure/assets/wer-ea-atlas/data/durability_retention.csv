@@ -1,4 +1,0 @@
-condition,baseline_value,conditioned_value,retention_percent,protocol
-water,0.62,0.49,79,immersion
-thermal aging,0.62,0.52,84,oven aging
-freeze thaw,0.62,0.45,73,cycle conditioning

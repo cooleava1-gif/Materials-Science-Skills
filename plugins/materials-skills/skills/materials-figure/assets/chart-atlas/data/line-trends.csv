@@ -1,0 +1,86 @@
+# Data basis: Portland cement hydration and concrete strength development
+#   OPC isothermal calorimetry: heat-flow peak ~3-5 mW/g near 6-12 h, cumulative ~300-350 J/g at 72 h
+#   (Bentz, Cement & Concrete Research; Taylor, Cement Chemistry)
+#   Compressive strength development (MPa) at 1/3/7/28/90 d for OPC, 30% fly-ash (FA30), 50% slag (Slag50)
+#   per Mindess & Young; FA30 lower early strength, higher late strength; Slag50 similar trend
+#   Freeze-thaw strength retention (%) per ASTM C666, 25-cycle intervals
+# Panel a: single line + band, OPC heat flow (mW/g) vs time (h)
+# Panel b: multi-line, compressive strength (MPa) vs age (d)
+# Panel c: dual y-axis, heat flow (mW/g, left) + cumulative heat (J/g, right) vs time (h)
+# Panel d: freeze-thaw strength retention (%) vs cycles
+panel,x,series,y,y_lo,y_hi,axis
+a,0,OPC,0.20,0.10,0.35,L
+a,2,OPC,0.50,0.30,0.70,L
+a,4,OPC,2.80,2.40,3.20,L
+a,6,OPC,4.20,3.70,4.70,L
+a,8,OPC,4.50,4.00,5.00,L
+a,10,OPC,4.00,3.55,4.45,L
+a,12,OPC,3.20,2.80,3.60,L
+a,16,OPC,2.20,1.90,2.50,L
+a,20,OPC,1.50,1.25,1.75,L
+a,24,OPC,1.10,0.90,1.30,L
+a,36,OPC,0.70,0.55,0.85,L
+a,48,OPC,0.50,0.38,0.62,L
+a,72,OPC,0.30,0.22,0.38,L
+b,1,OPC,10,,,L
+b,3,OPC,22,,,L
+b,7,OPC,35,,,L
+b,28,OPC,52,,,L
+b,90,OPC,60,,,L
+b,1,FA30,7,,,L
+b,3,FA30,16,,,L
+b,7,FA30,28,,,L
+b,28,FA30,50,,,L
+b,90,FA30,65,,,L
+b,1,Slag50,8,,,L
+b,3,Slag50,19,,,L
+b,7,Slag50,32,,,L
+b,28,Slag50,55,,,L
+b,90,Slag50,70,,,L
+c,0,Heat flow,0.20,,,L
+c,2,Heat flow,0.50,,,L
+c,4,Heat flow,2.80,,,L
+c,6,Heat flow,4.20,,,L
+c,8,Heat flow,4.50,,,L
+c,10,Heat flow,4.00,,,L
+c,12,Heat flow,3.20,,,L
+c,16,Heat flow,2.20,,,L
+c,20,Heat flow,1.50,,,L
+c,24,Heat flow,1.10,,,L
+c,36,Heat flow,0.70,,,L
+c,48,Heat flow,0.50,,,L
+c,72,Heat flow,0.30,,,L
+c,0,Cumulative heat,0,,,R
+c,2,Cumulative heat,5,,,R
+c,4,Cumulative heat,25,,,R
+c,6,Cumulative heat,60,,,R
+c,8,Cumulative heat,110,,,R
+c,10,Cumulative heat,160,,,R
+c,12,Cumulative heat,200,,,R
+c,16,Cumulative heat,245,,,R
+c,20,Cumulative heat,275,,,R
+c,24,Cumulative heat,295,,,R
+c,36,Cumulative heat,320,,,R
+c,48,Cumulative heat,335,,,R
+c,72,Cumulative heat,350,,,R
+d,0,OPC,100,,,L
+d,25,OPC,96,,,L
+d,50,OPC,88,,,L
+d,75,OPC,75,,,L
+d,100,OPC,58,,,L
+d,125,OPC,40,,,L
+d,150,OPC,25,,,L
+d,0,FA30,100,,,L
+d,25,FA30,98,,,L
+d,50,FA30,93,,,L
+d,75,FA30,85,,,L
+d,100,FA30,74,,,L
+d,125,FA30,62,,,L
+d,150,FA30,50,,,L
+d,0,Slag50,100,,,L
+d,25,Slag50,99,,,L
+d,50,Slag50,95,,,L
+d,75,Slag50,88,,,L
+d,100,Slag50,78,,,L
+d,125,Slag50,66,,,L
+d,150,Slag50,55,,,L

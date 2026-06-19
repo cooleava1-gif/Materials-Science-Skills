@@ -1,0 +1,38 @@
+# Data basis: Structural ceramic flexural strength, fracture toughness, density
+#   Al2O3 (96%) flexural strength 300-400 MPa, K_Ic 3.5-4.0 MPa.m^0.5 (ASM Handbook Vol 2)
+#   ZrO2 (3Y-TZP) flexural strength 800-1200 MPa, K_Ic 5-8 MPa.m^0.5 (transformation toughening)
+#   SiC (sintered) flexural strength 400-550 MPa, K_Ic 3.0-3.5 MPa.m^0.5
+#   Si3N4 (sintered) flexural strength 600-850 MPa, K_Ic 5-7 MPa.m^0.5
+# Panel a: grouped bar, as-sintered vs HIP flexural strength (MPa), error = 1 SD
+# Panel b: simple bar, sintered relative density (%)
+# Panel c: horizontal bar, fracture toughness K_Ic (MPa.m^0.5), error = 1 SD
+# Panel d: stacked bar, phase composition by volume (%)
+panel,category,series,value,error
+a,Al2O3,As-sintered,335,18
+a,Al2O3,HIP,385,22
+a,ZrO2,As-sintered,910,55
+a,ZrO2,HIP,1120,70
+a,SiC,As-sintered,455,25
+a,SiC,HIP,525,30
+a,Si3N4,As-sintered,705,40
+a,Si3N4,HIP,825,48
+b,Al2O3,Relative density,98.2,
+b,ZrO2,Relative density,99.1,
+b,SiC,Relative density,97.5,
+b,Si3N4,Relative density,98.8,
+c,Al2O3,Toughness,3.8,0.3
+c,ZrO2,Toughness,7.2,0.6
+c,SiC,Toughness,3.2,0.25
+c,Si3N4,Toughness,6.4,0.5
+d,Al2O3,primary_phase,90,
+d,Al2O3,secondary_phase,5,
+d,Al2O3,amorphous_phase,5,
+d,ZrO2,primary_phase,85,
+d,ZrO2,secondary_phase,10,
+d,ZrO2,amorphous_phase,5,
+d,SiC,primary_phase,80,
+d,SiC,secondary_phase,15,
+d,SiC,amorphous_phase,5,
+d,Si3N4,primary_phase,70,
+d,Si3N4,secondary_phase,22,
+d,Si3N4,amorphous_phase,8,

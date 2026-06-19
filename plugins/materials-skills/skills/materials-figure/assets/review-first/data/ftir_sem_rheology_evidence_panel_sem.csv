@@ -1,11 +1,8 @@
-size_um,frequency
-0.5,3
-1.5,8
-2.5,15
-3.5,24
-4.5,30
-5.5,25
-6.5,18
-7.5,10
-8.5,5
-9.5,2
+# Review SEM triptych: simulated morphology plates (numpy, not real
+# micrographs). Control = small uniform droplets (d50 1.2 um, continuous
+# phase); WER modified = larger clustered dispersed phase (d50 3.5 um).
+# Tier: inferred (morphology simulated, sizes typical of fluorescence/SEM
+# reports). d50 and phase ratio are reviewer-anchored representative values.
+sample,d50_um,phase_state,evidence_tier
+Control (uncured),1.2,continuous,inferred
+WER modified,3.5,dispersed,inferred

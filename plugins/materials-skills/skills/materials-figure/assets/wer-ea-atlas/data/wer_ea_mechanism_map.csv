@@ -1,0 +1,10 @@
+# WER-EA mechanism map; nodes/edges tagged by evidence tier.
+# Basis: FTIR (915/1730/1240 cm-1) and pull-off tests are measured;
+#   asphalt-film continuity inferred from fluorescence morphology;
+#   emulsion-droplet water pathway speculative without time-resolved data.
+# Bonding strength alone is not mechanism proof.
+node_from,node_to,certainty_tier
+Waterborne epoxy,Emulsion droplets,inferred
+Emulsion droplets,Asphalt film,speculative
+Asphalt film,Aggregate interface,inferred
+Aggregate interface,Bonding strength,measured

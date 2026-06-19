@@ -1,0 +1,13 @@
+# WER-EA construction application workflow + performance evidence.
+# Basis: representative tack-coat construction sequence; curing
+#   dominates (epoxy crosslink needs hours). Parameter windows
+#   from construction guidelines. Bond strength: log growth
+#   sigma(t)=0.2+(sigma_max-0.2)*(1-exp(-t/tau)), tau=5 d.
+# Cure degree: sigmoid alpha(t)=1/(1+exp(-k(t-t_gel))), t_gel=4 h.
+step,duration_hours,parameter_window
+Surface preparation,2,10–40 °C
+Tack coat spraying,1,0.3–0.6 L/m$^2$
+Demulsification & breaking,3,break time 3–6 h
+Curing,12,gel ~4 h full 12 h
+Overlay placement,4,≥10 °C compaction
+QC inspection,1,pull-off ≥0.8 MPa

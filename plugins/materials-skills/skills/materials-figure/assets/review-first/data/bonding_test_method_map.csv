@@ -1,26 +1,32 @@
-method,factor,relevance_score
-Pull-off,Substrate,1.0
-Pull-off,Rate,0.8
-Pull-off,Curing,0.9
-Pull-off,Loading,0.7
-Pull-off,Metric,0.6
-Shear,Substrate,0.7
-Shear,Rate,1.0
-Shear,Curing,0.8
-Shear,Loading,0.9
-Shear,Metric,0.7
-Tensile,Substrate,0.8
-Tensile,Rate,0.7
-Tensile,Curing,1.0
-Tensile,Loading,0.6
-Tensile,Metric,0.9
-Flexural,Substrate,0.6
-Flexural,Rate,0.8
-Flexural,Curing,0.7
-Flexural,Loading,1.0
-Flexural,Metric,0.8
-Fracture,Substrate,0.5
-Fracture,Rate,0.6
-Fracture,Curing,0.6
-Fracture,Loading,0.7
-Fracture,Metric,1.0
+# Review dimension: bonding test-method relevance. Cells encode how strongly
+# each influence factor (substrate, loading rate, curing, loading mode,
+# metric definition) affects each method's result. Pull-off and shear are
+# measured (standardised); tensile and flexural are inferred (adapted);
+# fracture is speculative (no standard for tack coat). Values are reviewer
+# judgement, not measured correlations.
+method,factor,relevance_score,evidence_tier
+Pull-off,Substrate,1.0,measured
+Pull-off,Rate,0.8,measured
+Pull-off,Curing,0.9,measured
+Pull-off,Loading,0.7,measured
+Pull-off,Metric,0.6,measured
+Shear,Substrate,0.7,measured
+Shear,Rate,1.0,measured
+Shear,Curing,0.8,measured
+Shear,Loading,0.9,measured
+Shear,Metric,0.7,measured
+Tensile,Substrate,0.8,inferred
+Tensile,Rate,0.7,inferred
+Tensile,Curing,1.0,inferred
+Tensile,Loading,0.6,inferred
+Tensile,Metric,0.9,inferred
+Flexural,Substrate,0.6,inferred
+Flexural,Rate,0.8,inferred
+Flexural,Curing,0.7,inferred
+Flexural,Loading,1.0,inferred
+Flexural,Metric,0.8,inferred
+Fracture,Substrate,0.5,speculative
+Fracture,Rate,0.6,speculative
+Fracture,Curing,0.6,speculative
+Fracture,Loading,0.7,speculative
+Fracture,Metric,1.0,speculative

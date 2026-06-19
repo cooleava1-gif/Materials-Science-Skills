@@ -1,5 +1,0 @@
-edge_id,from_node,to_node,evidence_layer,certainty_tier,source_anchor,caption_boundary
-E1,Waterborne epoxy,Cured network,microstructure_chemistry,inferred,S001,Network formation requires chemical or morphology evidence
-E2,Emulsion droplets,Asphalt film,curing_demulsification,speculative,S002,Sequence needs time-resolved evidence
-E3,Aggregate interface,Bonding strength,bonding_interface_performance,measured,T001,Performance does not prove mechanism alone
-E4,Water pathway,Moisture damage,moisture_aging_durability,missing,MISSING,Field water path is unverified

@@ -1,4 +1,0 @@
-panel_id,method,signal_or_image,source_anchor,interpretation_boundary
-CH1,FTIR,epoxy curing peak,S010,Peak assignment supports chemistry cue only
-CH2,SEM,phase morphology,F002,Image must include scale bar
-CH3,rheology,viscosity curve,T003,Flow response is temperature dependent

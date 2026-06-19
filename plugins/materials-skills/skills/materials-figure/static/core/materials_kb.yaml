@@ -1,0 +1,255 @@
+# Materials Science Knowledge Base for claim validation
+# =============================================================================
+# Data sourced from:
+#   - ICDD PDF cards (peak positions and relative intensities)
+#   - NIST Chemistry WebBook (FTIR reference)
+#   - ASM Handbook / Kingery "Introduction to Ceramics" (ceramic properties)
+#   - Mindess & Young "Concrete" (cement hydration)
+#   - ceramics-atlas real data (xrd_pattern.csv, thermal_conductivity.csv,
+#     thermal_expansion.csv, weibull_data.csv, stress_strain.csv)
+#   - wer-ea-atlas real data (wer_ea_ftir_card.csv, wer_ea_dosage_window.csv,
+#     wer_ea_bonding_comparison.csv, wer_ea_standard_card.csv)
+#
+# This KB is a claim-validation aid, NOT a primary reference. A confirmed match
+# means the claim is consistent with known materials science; it does NOT
+# replace full pattern matching (XRD) or spectral deconvolution (FTIR).
+
+# ---------------------------------------------------------------------------
+# XRD reference cards
+#   - Peak positions and relative intensities per ICDD PDF cards
+#   - claim_boundary: limits of what a peak match can prove
+# ---------------------------------------------------------------------------
+xrd_cards:
+  - phase: "Al2O3 (alpha-corundum)"
+    pdf_card: "46-1212"
+    crystal_system: "hexagonal"
+    peaks:
+      - {two_theta: 25.57, hkl: "012", relative_intensity: 0.75}
+      - {two_theta: 35.15, hkl: "104", relative_intensity: 1.00}
+      - {two_theta: 37.77, hkl: "110", relative_intensity: 0.55}
+      - {two_theta: 43.36, hkl: "113", relative_intensity: 0.45}
+      - {two_theta: 57.50, hkl: "116", relative_intensity: 0.80}
+      - {two_theta: 66.52, hkl: "214", relative_intensity: 0.50}
+    claim_boundary: "phase ID requires full pattern matching, not single peak; Rietveld refinement for quantification"
+
+  - phase: "ZrO2 (tetragonal)"
+    pdf_card: "79-1769"
+    crystal_system: "tetragonal"
+    peaks:
+      - {two_theta: 30.2, hkl: "101", relative_intensity: 1.00}
+      - {two_theta: 34.6, hkl: "110", relative_intensity: 0.65}
+      - {two_theta: 50.2, hkl: "112", relative_intensity: 0.55}
+      - {two_theta: 60.2, hkl: "211", relative_intensity: 0.60}
+    claim_boundary: "tetragonal vs monoclinic distinction requires 28°/31° peak check"
+
+  - phase: "ZrO2 (monoclinic)"
+    pdf_card: "37-1484"
+    crystal_system: "monoclinic"
+    peaks:
+      - {two_theta: 24.3, hkl: "011", relative_intensity: 0.45}
+      - {two_theta: 28.2, hkl: "(-111)", relative_intensity: 1.00}
+      - {two_theta: 31.5, hkl: "(111)", relative_intensity: 0.70}
+      - {two_theta: 34.2, hkl: "002", relative_intensity: 0.40}
+    claim_boundary: "28°/31° doublet is the monoclinic signature; absence confirms tetragonal stabilization"
+
+  - phase: "8YSZ (cubic fluorite)"
+    pdf_card: "30-1468"
+    crystal_system: "cubic"
+    peaks:
+      - {two_theta: 30.0, hkl: "111", relative_intensity: 1.00}
+      - {two_theta: 34.8, hkl: "200", relative_intensity: 0.25}
+      - {two_theta: 50.3, hkl: "220", relative_intensity: 0.55}
+      - {two_theta: 60.0, hkl: "311", relative_intensity: 0.45}
+    claim_boundary: "cubic vs tetragonal requires splitting check at 34-35°; 8YSZ is fully stabilized"
+
+  - phase: "SiC (3C, beta)"
+    pdf_card: "29-1129"
+    crystal_system: "cubic"
+    peaks:
+      - {two_theta: 35.6, hkl: "111", relative_intensity: 1.00}
+      - {two_theta: 41.4, hkl: "200", relative_intensity: 0.25}
+      - {two_theta: 60.0, hkl: "220", relative_intensity: 0.35}
+    claim_boundary: "alpha vs beta SiC requires 33°/38°/41° polytype check; beta is cubic, alpha is hexagonal"
+
+  - phase: "Si3N4 (beta)"
+    pdf_card: "33-1160"
+    crystal_system: "hexagonal"
+    peaks:
+      - {two_theta: 26.6, hkl: "200", relative_intensity: 0.80}
+      - {two_theta: 27.0, hkl: "101", relative_intensity: 1.00}
+      - {two_theta: 36.0, hkl: "210", relative_intensity: 0.50}
+    claim_boundary: "alpha vs beta Si3N4 requires 20°/31° peak ratio; beta forms at higher sintering T"
+
+  - phase: "Ca(OH)2 (portlandite)"
+    pdf_card: "44-1481"
+    crystal_system: "hexagonal"
+    peaks:
+      - {two_theta: 18.0, hkl: "001", relative_intensity: 0.60}
+      - {two_theta: 34.1, hkl: "101", relative_intensity: 1.00}
+      - {two_theta: 47.1, hkl: "102", relative_intensity: 0.40}
+    claim_boundary: "portlandite indicates cement hydration; consumption indicates pozzolanic reaction"
+
+  - phase: "Quartz (SiO2)"
+    pdf_card: "46-1045"
+    crystal_system: "hexagonal"
+    peaks:
+      - {two_theta: 20.86, hkl: "100", relative_intensity: 0.25}
+      - {two_theta: 26.65, hkl: "011", relative_intensity: 1.00}
+      - {two_theta: 50.14, hkl: "112", relative_intensity: 0.30}
+    claim_boundary: "quartz is a common impurity; its presence does not confirm the target phase"
+
+  - phase: "TiO2 (anatase)"
+    pdf_card: "21-1272"
+    crystal_system: "tetragonal"
+    peaks:
+      - {two_theta: 25.3, hkl: "101", relative_intensity: 1.00}
+      - {two_theta: 37.8, hkl: "004", relative_intensity: 0.30}
+      - {two_theta: 48.0, hkl: "200", relative_intensity: 0.45}
+    claim_boundary: "anatase vs rutile requires 27.4° (rutile 110) check; anatase is metastable"
+
+  - phase: "TiO2 (rutile)"
+    pdf_card: "21-1276"
+    crystal_system: "tetragonal"
+    peaks:
+      - {two_theta: 27.4, hkl: "110", relative_intensity: 1.00}
+      - {two_theta: 36.1, hkl: "101", relative_intensity: 0.50}
+      - {two_theta: 54.3, hkl: "211", relative_intensity: 0.60}
+    claim_boundary: "rutile is the stable phase; anatase->rutile transition ~700°C"
+
+  - phase: "Fe2O3 (hematite)"
+    pdf_card: "33-0664"
+    crystal_system: "hexagonal"
+    peaks:
+      - {two_theta: 24.1, hkl: "012", relative_intensity: 0.40}
+      - {two_theta: 33.1, hkl: "104", relative_intensity: 1.00}
+      - {two_theta: 35.6, hkl: "110", relative_intensity: 0.75}
+      - {two_theta: 54.9, hkl: "116", relative_intensity: 0.50}
+    claim_boundary: "hematite vs magnetite requires 35.5°/30.1° check; magnetite has strong 30.1° peak"
+
+  - phase: "CaCO3 (calcite)"
+    pdf_card: "05-0586"
+    crystal_system: "hexagonal"
+    peaks:
+      - {two_theta: 23.0, hkl: "012", relative_intensity: 0.40}
+      - {two_theta: 29.4, hkl: "104", relative_intensity: 1.00}
+      - {two_theta: 39.4, hkl: "113", relative_intensity: 0.30}
+      - {two_theta: 47.5, hkl: "018", relative_intensity: 0.25}
+    claim_boundary: "calcite vs aragonite vs vaterite requires full pattern; calcite is the stable polymorph"
+
+  - phase: "Mullite (3Al2O3·2SiO2)"
+    pdf_card: "15-0776"
+    crystal_system: "orthorhombic"
+    peaks:
+      - {two_theta: 16.4, hkl: "110", relative_intensity: 0.45}
+      - {two_theta: 25.9, hkl: "210", relative_intensity: 0.70}
+      - {two_theta: 26.2, hkl: "111", relative_intensity: 1.00}
+      - {two_theta: 33.1, hkl: "220", relative_intensity: 0.40}
+    claim_boundary: "mullite forms from kaolin/clay above 1000°C; 3:2 vs 2:1 Al2O3/SiO2 ratio affects peak positions"
+
+# ---------------------------------------------------------------------------
+# FTIR reference groups
+#   - Wavenumber in cm-1, with functional group and bond type
+#   - notes: context and diagnostic value
+# ---------------------------------------------------------------------------
+ftir_groups:
+  - {wavenumber: 3640, functional_group: "O-H stretch", bond_type: "Ca(OH)2 portlandite", notes: "sharp; distinguishes portlandite from broad water O-H"}
+  - {wavenumber: 3400, functional_group: "O-H stretch", bond_type: "hydroxyl", notes: "broad; water/Al-OH/Si-OH"}
+  - {wavenumber: 2920, functional_group: "C-H stretch", bond_type: "methylene CH2", notes: "asymmetric; asphalt/bitumen marker"}
+  - {wavenumber: 2850, functional_group: "C-H stretch", bond_type: "methylene CH2", notes: "symmetric; asphalt/bitumen marker"}
+  - {wavenumber: 1730, functional_group: "C=O stretch", bond_type: "ester carbonyl", notes: "epoxy ester; WER-EA marker"}
+  - {wavenumber: 1640, functional_group: "H-O-H bend", bond_type: "water", notes: "hydration water; cement/silica gel"}
+  - {wavenumber: 1600, functional_group: "C=C stretch", bond_type: "aromatic ring", notes: "BIT asphaltene aromatic"}
+  - {wavenumber: 1460, functional_group: "C-H bend", bond_type: "CH2/CH3", notes: "asphalt aliphatic; overlapping CH2/CH3"}
+  - {wavenumber: 1375, functional_group: "C-H bend", bond_type: "methyl CH3", notes: "symmetric; asphalt methyl"}
+  - {wavenumber: 1240, functional_group: "C-O-C stretch", bond_type: "ether", notes: "epoxy crosslink; aromatic ether"}
+  - {wavenumber: 1100, functional_group: "SO4 stretch", bond_type: "sulfate", notes: "ettringite/gypsum; cement hydration product"}
+  - {wavenumber: 1030, functional_group: "Si-O stretch", bond_type: "silicate", notes: "cement/silica; C-S-H/C-S-H gel overlapping"}
+  - {wavenumber: 950, functional_group: "Si-O stretch", bond_type: "C-S-H", notes: "cement hydration product; overlaps with 1030"}
+  - {wavenumber: 915, functional_group: "oxirane ring", bond_type: "epoxy C-O-C cyclic", notes: "disappears after curing; curing completion indicator"}
+  - {wavenumber: 875, functional_group: "CO3 stretch", bond_type: "carbonate", notes: "CaCO3 calcite; out-of-plane bend"}
+  - {wavenumber: 798, functional_group: "Si-O-Si symmetric", bond_type: "silicate", notes: "quartz; distinguishes from amorphous silica"}
+  - {wavenumber: 470, functional_group: "Si-O bend", bond_type: "silicate", notes: "broad; cement/silicate rock"}
+
+# ---------------------------------------------------------------------------
+# Performance relations
+#   - Named relations with formula/relation, applicable materials, valid range
+#   - claim_boundary: limits of applicability
+# ---------------------------------------------------------------------------
+performance_relations:
+  - name: "Gibson-Ashby"
+    formula: "sigma = sigma_0 * (1-p)^1.5"
+    applies_to: ["porous ceramics", "cellular solids", "foams"]
+    valid_range: "porosity 0.3-0.9"
+    claim_boundary: "valid for open-cell; closed-cell uses different exponent"
+
+  - name: "Hall-Petch"
+    formula: "sigma = sigma_0 + k * d^(-0.5)"
+    applies_to: ["polycrystalline metals", "ceramics"]
+    valid_range: "grain size 0.1-100 um"
+    claim_boundary: "breaks down below ~10 nm (inverse Hall-Petch)"
+
+  - name: "Weibull strength"
+    formula: "P_f = 1 - exp(-(sigma/sigma_0)^m)"
+    applies_to: ["brittle ceramics", "glass", "concrete"]
+    claim_boundary: "Weibull modulus m reflects flaw population; valid for same processing route and specimen geometry"
+
+  - name: "CTE-thermal conductivity tradeoff"
+    relation: "high CTE materials tend to have lower thermal conductivity (anharmonic phonon scattering)"
+    applies_to: ["ceramics", "refractories"]
+    claim_boundary: "trend only; exceptions exist (e.g., AlN has low CTE and high k)"
+
+  - name: "WER-EA dosage window"
+    relation: "bond strength peaks at 5-8 wt% WER; above 10 wt% demulsification and viscosity increase"
+    applies_to: ["WER modified emulsified asphalt"]
+    claim_boundary: "optimal window depends on emulsifier type and curing agent"
+
+  - name: "Hydration heat-strength"
+    relation: "cement early strength correlates with cumulative hydration heat at early ages; long-term strength depends on C-S-H gel quality not total heat"
+    applies_to: ["Portland cement", "blended cement"]
+    claim_boundary: "high early heat does not guarantee high 28d strength; SCMs reduce heat but can improve late strength"
+
+  - name: "Freeze-thaw degradation"
+    relation: "residual strength decreases with freeze-thaw cycles; damage accelerates above critical saturation"
+    applies_to: ["concrete", "asphalt", "porous ceramics"]
+    claim_boundary: "air-entrainment in concrete shifts critical saturation; salt scaling is a separate mechanism"
+
+  - name: "Aging-UV degradation"
+    relation: "asphalt binder ages: aromatics -> resins -> asphaltenes; stiffness increases, ductility decreases"
+    applies_to: ["asphalt", "bitumen", "polymer-modified asphalt"]
+    claim_boundary: "RTFOT/PAV simulate short/long-term aging; field aging depends on climate and traffic"
+
+  - name: "Transformation toughening"
+    relation: "t-ZrO2 -> m-ZrO2 transformation at crack tip absorbs energy; increases fracture toughness"
+    applies_to: ["3Y-TZP", "ZTA (zirconia toughened alumina)"]
+    claim_boundary: "requires tetragonal phase metastably retained; above critical grain size spontaneous transformation occurs"
+
+# ---------------------------------------------------------------------------
+# Typical property ranges
+#   - Material + property + range string (parsed by validator)
+#   - Values for fully dense, well-processed samples unless noted
+# ---------------------------------------------------------------------------
+typical_ranges:
+  # --- Ceramics: mechanical ---
+  - {property: "flexural_strength", material: "Al2O3", range: "300-400 MPa"}
+  - {property: "flexural_strength", material: "3Y-TZP ZrO2", range: "800-1200 MPa"}
+  - {property: "flexural_strength", material: "SiC", range: "400-550 MPa"}
+  - {property: "flexural_strength", material: "Si3N4", range: "600-900 MPa"}
+  - {property: "elastic_modulus", material: "Al2O3", range: "380 GPa"}
+  - {property: "elastic_modulus", material: "ZrO2", range: "210 GPa"}
+  - {property: "elastic_modulus", material: "SiC", range: "410 GPa"}
+  - {property: "fracture_strain", material: "ceramics", range: "0.1-0.3 %"}
+  - {property: "weibull_modulus", material: "Al2O3", range: "8-12"}
+  - {property: "weibull_modulus", material: "3Y-TZP", range: "10-15"}
+  # --- Ceramics: thermal ---
+  - {property: "CTE", material: "Al2O3", range: "8e-6 /K"}
+  - {property: "CTE", material: "ZrO2", range: "10e-6 /K"}
+  - {property: "CTE", material: "SiC", range: "4.5e-6 /K"}
+  - {property: "thermal_conductivity", material: "Al2O3", range: "30 W/mK at 25C, decreasing with T"}
+  - {property: "thermal_conductivity", material: "ZrO2", range: "2-3 W/mK (thermal barrier)"}
+  - {property: "thermal_conductivity", material: "SiC", range: "120 W/mK (high k)"}
+  # --- Asphalt / WER-EA ---
+  - {property: "bond_strength", material: "asphalt-aggregate", range: "0.3-0.6 MPa"}
+  - {property: "bond_strength", material: "WER-EA modified", range: "0.8-1.5 MPa"}
+  # --- Cement / concrete ---
+  - {property: "compressive_strength", material: "Portland cement", range: "30-60 MPa"}
+  - {property: "flexural_strength", material: "Portland cement", range: "5-10 MPa"}

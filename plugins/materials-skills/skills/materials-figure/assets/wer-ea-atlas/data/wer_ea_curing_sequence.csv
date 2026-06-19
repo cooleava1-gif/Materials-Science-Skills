@@ -1,0 +1,11 @@
+# WER-EA curing sequence: mechanism hero + DSC exotherm + FTIR 915 cm-1 decay.
+# Basis: DSC exotherm peak 120-140 C (epoxy-amine ring opening);
+#   FTIR 915 cm-1 epoxy ring area decays exponentially
+#   A(t)=A_inf+(A0-A_inf)*exp(-kt), k=0.025 min-1 (~28 min half-life).
+# Direct crosslink density requires DMA or swelling tests.
+step,evidence_score,certainty_tier
+Emulsion contact,0.8,measured
+Demulsification (breaking),0.7,measured
+Water escape,0.45,inferred
+Epoxy curing,0.75,measured
+Film formation,0.5,inferred

@@ -1,0 +1,25 @@
+# WER-EA performance-mechanism boundary; 18 representative studies.
+# Basis: performance_score = normalised bonding gain vs base asphalt
+#   (0.3-0.6 -> 0.8-1.5 MPa mapped to 0-1); mechanism_score =
+#   characterisation depth (FTIR + rheology + morphology coverage).
+# Performance gain is not mechanism confirmation - high-perf/low-mech
+#   studies are speculative on mechanism. Values are literature ranges.
+study_id,performance_score,mechanism_score,support_tier
+S01,0.55,0.2,speculative
+S02,0.62,0.35,inferred
+S03,0.7,0.3,speculative
+S04,0.78,0.55,inferred
+S05,0.45,0.6,measured
+S06,0.85,0.4,speculative
+S07,0.72,0.65,measured
+S08,0.9,0.5,inferred
+S09,0.6,0.75,measured
+S10,0.8,0.7,measured
+S11,0.5,0.45,inferred
+S12,0.95,0.35,speculative
+S13,0.68,0.8,measured
+S14,0.4,0.25,speculative
+S15,0.75,0.62,measured
+S16,0.83,0.48,inferred
+S17,0.58,0.7,measured
+S18,0.88,0.42,speculative

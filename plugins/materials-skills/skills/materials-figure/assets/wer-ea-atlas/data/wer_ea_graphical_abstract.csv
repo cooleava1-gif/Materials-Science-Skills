@@ -1,0 +1,10 @@
+# WER-EA review graphical abstract storyline.
+# Basis: 5-panel review scope (problem -> design -> evidence -> 
+#   application -> gap). Scores are evidence coverage, not performance.
+# No universal improvement or field validation implied.
+panel,evidence_score,certainty_tier
+Problem,0.9,measured
+Material design,0.75,inferred
+Evidence chain,0.6,inferred
+Application,0.45,speculative
+Gap,0.8,missing
