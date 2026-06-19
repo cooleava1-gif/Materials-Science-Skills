@@ -6,6 +6,10 @@ Outputs SVG + PNG + CSV for each concept. Run from the skill root or any path.
 
 from __future__ import annotations
 
+# Directory mapping: review figures live under assets/review-first/ to match
+# README and manifest references; rich figures live under assets/rich-gallery/.
+_DIR_MAP = {"rich": "rich-gallery", "review": "review-first"}
+
 import argparse
 import csv
 import os
@@ -161,7 +165,7 @@ def _rich_ftir_sem_evidence_pair(output_dir: Path, data_dir: Path) -> str:
     axes[0].legend()
     axes[1].bar(size_bins - 0.2, control_size, 0.4, label="Control", color=PALETTE_CBM["control"])
     axes[1].bar(size_bins + 0.2, modified_size, 0.4, label="Modified", color=PALETTE_CBM["modified"])
-    axes[1].set_xlabel("Particle size ($\mu$m)")
+    axes[1].set_xlabel(r"Particle size ($\mu$m)")
     axes[1].set_ylabel("Frequency")
     axes[1].set_title("SEM particle size")
     axes[1].legend()
@@ -623,8 +627,9 @@ def main() -> int:
         funcs.extend(("review", f) for f in REVIEW_FUNCS)
 
     for kind, fn in funcs:
-        out_dir = generated / f"{kind}-gallery" / "generated"
-        data_dir = generated / f"{kind}-gallery" / "data"
+        dir_name = _DIR_MAP[kind]
+        out_dir = generated / dir_name / "generated"
+        data_dir = generated / dir_name / "data"
         name = fn(out_dir, data_dir)
         print(f"{kind}: {name}.svg + .png + .csv")
 

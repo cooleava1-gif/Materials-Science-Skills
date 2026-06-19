@@ -1,49 +1,305 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="720" viewBox="0 0 1120 720">
-<defs>
-<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#477662"/></marker>
-<linearGradient id="wash" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFFCF4"/><stop offset="100%" stop-color="#F2E7D2"/></linearGradient>
-</defs>
-<rect width="100%" height="100%" fill="url(#wash)"/>
-<circle cx="1030" cy="92" r="110" fill="#477662" opacity="0.10"/>
-<circle cx="88" cy="660" r="145" fill="#477662" opacity="0.08"/>
-<text x="560" y="54" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="18" font-weight="700" fill="#66736D">Materials Science Review Assets</text>
-<text x="560" y="104" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="34" font-weight="700" fill="#26302C">Durability Retention Challenge Map</text>
-<text x="560" y="138" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="16" fill="#66736D">water, aging, freeze-thaw, heat, retained performance</text>
-<rect x="90" y="185" width="940" height="90" rx="24" fill="#FFFFFF" stroke="#DED6C6" stroke-width="2"/>
-<text x="126" y="222" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700" fill="#477662">source learning basis</text>
-<text x="126" y="253" font-family="DejaVu Sans, Arial, sans-serif" font-size="18" fill="#26302C">durability-retention; sanitized caption-family pattern; template only</text>
-<rect x="70" y="286" width="980" height="180" rx="30" fill="#FFFFFF" opacity="0.72" stroke="#DED6C6" stroke-width="2"/>
-<rect x="95" y="300" width="140" height="88" rx="20" fill="#FFFFFF" stroke="#477662" stroke-width="2"/>
-<circle cx="125" cy="334" r="18" fill="#477662" opacity="0.72"/>
-<text x="125" y="340" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF">1</text>
-<text x="177" y="339" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700" fill="#26302C">Water</text>
-<text x="177" y="363" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#66736D">template only</text>
-<path d="M239,344 C253,326 269,326 279,344" fill="none" stroke="#477662" stroke-width="3" marker-end="url(#arrow)"/>
-<rect x="283" y="334" width="140" height="88" rx="20" fill="#FFFFFF" stroke="#477662" stroke-width="2"/>
-<circle cx="313" cy="368" r="18" fill="#477662" opacity="0.72"/>
-<text x="313" y="374" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF">2</text>
-<text x="365" y="373" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700" fill="#26302C">Aging</text>
-<text x="365" y="397" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#66736D">template only</text>
-<path d="M427,378 C441,360 457,360 467,378" fill="none" stroke="#477662" stroke-width="3" marker-end="url(#arrow)"/>
-<rect x="471" y="300" width="140" height="88" rx="20" fill="#FFFFFF" stroke="#477662" stroke-width="2"/>
-<circle cx="501" cy="334" r="18" fill="#477662" opacity="0.72"/>
-<text x="501" y="340" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF">3</text>
-<text x="553" y="339" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700" fill="#26302C">Freeze</text>
-<text x="553" y="363" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#66736D">template only</text>
-<path d="M615,344 C629,326 645,326 655,344" fill="none" stroke="#477662" stroke-width="3" marker-end="url(#arrow)"/>
-<rect x="659" y="334" width="140" height="88" rx="20" fill="#FFFFFF" stroke="#477662" stroke-width="2"/>
-<circle cx="689" cy="368" r="18" fill="#477662" opacity="0.72"/>
-<text x="689" y="374" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF">4</text>
-<text x="741" y="373" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700" fill="#26302C">Heat</text>
-<text x="741" y="397" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#66736D">template only</text>
-<path d="M803,378 C817,360 833,360 843,378" fill="none" stroke="#477662" stroke-width="3" marker-end="url(#arrow)"/>
-<rect x="847" y="300" width="140" height="88" rx="20" fill="#FFFFFF" stroke="#477662" stroke-width="2"/>
-<circle cx="877" cy="334" r="18" fill="#477662" opacity="0.72"/>
-<text x="877" y="340" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF">5</text>
-<text x="929" y="339" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="700" fill="#26302C">Retention</text>
-<text x="929" y="363" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" fill="#66736D">template only</text>
-<rect x="115" y="520" width="890" height="118" rx="26" fill="#477662" opacity="0.13" stroke="#477662" stroke-width="2"/>
-<text x="150" y="557" font-family="DejaVu Sans, Arial, sans-serif" font-size="16" font-weight="700" fill="#26302C">claim boundary</text>
-<text x="150" y="590" font-family="DejaVu Sans, Arial, sans-serif" font-size="17" font-weight="500" fill="#26302C">Retention needs baseline values, protocol, uncertainty, and failure mode.</text>
-<text x="970" y="690" text-anchor="end" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" fill="#66736D">template only - replace with real data, standards, citations, and original images</text>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="496.336992pt" height="315.886465pt" viewBox="0 0 496.336992 315.886465" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-06-19T15:29:55.989987</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.0, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 315.886465 
+L 496.336992 315.886465 
+L 496.336992 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 42.599492 293.24 
+L 489.136992 293.24 
+L 489.136992 21.208301 
+L 42.599492 21.208301 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 62.896651 293.24 
+L 93.126463 293.24 
+L 93.126463 124.580346 
+L 62.896651 124.580346 
+z
+" clip-path="url(#pade93075b8)" style="fill: #4b6f8a"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 149.267541 293.24 
+L 179.497352 293.24 
+L 179.497352 135.461614 
+L 149.267541 135.461614 
+z
+" clip-path="url(#pade93075b8)" style="fill: #4b6f8a"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 235.638431 293.24 
+L 265.868242 293.24 
+L 265.868242 170.825735 
+L 235.638431 170.825735 
+z
+" clip-path="url(#pade93075b8)" style="fill: #4b6f8a"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 322.009321 293.24 
+L 352.239132 293.24 
+L 352.239132 143.622565 
+L 322.009321 143.622565 
+z
+" clip-path="url(#pade93075b8)" style="fill: #4b6f8a"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 408.38021 293.24 
+L 438.610022 293.24 
+L 438.610022 108.258445 
+L 408.38021 108.258445 
+z
+" clip-path="url(#pade93075b8)" style="fill: #4b6f8a"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 93.126463 293.24 
+L 123.356274 293.24 
+L 123.356274 62.013056 
+L 93.126463 62.013056 
+z
+" clip-path="url(#pade93075b8)" style="fill: #c47b45"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 179.497352 293.24 
+L 209.727164 293.24 
+L 209.727164 75.614641 
+L 179.497352 75.614641 
+z
+" clip-path="url(#pade93075b8)" style="fill: #c47b45"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 265.868242 293.24 
+L 296.098054 293.24 
+L 296.098054 97.377177 
+L 265.868242 97.377177 
+z
+" clip-path="url(#pade93075b8)" style="fill: #c47b45"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 352.239132 293.24 
+L 382.468943 293.24 
+L 382.468943 81.055275 
+L 352.239132 81.055275 
+z
+" clip-path="url(#pade93075b8)" style="fill: #c47b45"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 438.610022 293.24 
+L 468.839833 293.24 
+L 468.839833 70.174007 
+L 438.610022 70.174007 
+z
+" clip-path="url(#pade93075b8)" style="fill: #c47b45"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m21c4bff91e" d="M 0 0 
+L 0 3.5 
+" style="stroke: #000000; stroke-width: 1.2"/>
+      </defs>
+      <g>
+       <use xlink:href="#m21c4bff91e" x="93.126463" y="293.24" style="stroke: #000000; stroke-width: 1.2"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 9px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="93.126463" y="306.792246" transform="rotate(-0 93.126463 306.792246)">Water</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m21c4bff91e" x="179.497352" y="293.24" style="stroke: #000000; stroke-width: 1.2"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 9px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="179.497352" y="306.792246" transform="rotate(-0 179.497352 306.792246)">Aging</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#m21c4bff91e" x="265.868242" y="293.24" style="stroke: #000000; stroke-width: 1.2"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 9px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="265.868242" y="306.792246" transform="rotate(-0 265.868242 306.792246)">Freeze-thaw</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m21c4bff91e" x="352.239132" y="293.24" style="stroke: #000000; stroke-width: 1.2"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 9px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="352.239132" y="306.792246" transform="rotate(-0 352.239132 306.792246)">Heat</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#m21c4bff91e" x="438.610022" y="293.24" style="stroke: #000000; stroke-width: 1.2"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 9px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="438.610022" y="306.792246" transform="rotate(-0 438.610022 306.792246)">Traffic</text>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_6">
+      <defs>
+       <path id="m761a75b88c" d="M 0 0 
+L -3.5 0 
+" style="stroke: #000000; stroke-width: 1.2"/>
+      </defs>
+      <g>
+       <use xlink:href="#m761a75b88c" x="42.599492" y="293.24" style="stroke: #000000; stroke-width: 1.2"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 9px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: end" x="35.599492" y="296.516123" transform="rotate(-0 35.599492 296.516123)">0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_7">
+      <g>
+       <use xlink:href="#m761a75b88c" x="42.599492" y="238.83366" style="stroke: #000000; stroke-width: 1.2"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 9px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: end" x="35.599492" y="242.109783" transform="rotate(-0 35.599492 242.109783)">20</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m761a75b88c" x="42.599492" y="184.42732" style="stroke: #000000; stroke-width: 1.2"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 9px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: end" x="35.599492" y="187.703443" transform="rotate(-0 35.599492 187.703443)">40</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_9">
+      <g>
+       <use xlink:href="#m761a75b88c" x="42.599492" y="130.02098" style="stroke: #000000; stroke-width: 1.2"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 9px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: end" x="35.599492" y="133.297104" transform="rotate(-0 35.599492 133.297104)">60</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m761a75b88c" x="42.599492" y="75.614641" style="stroke: #000000; stroke-width: 1.2"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 9px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: end" x="35.599492" y="78.890764" transform="rotate(-0 35.599492 78.890764)">80</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_11">
+      <g>
+       <use xlink:href="#m761a75b88c" x="42.599492" y="21.208301" style="stroke: #000000; stroke-width: 1.2"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 9px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: end" x="35.599492" y="24.484424" transform="rotate(-0 35.599492 24.484424)">100</text>
+     </g>
+    </g>
+    <g id="text_12">
+     <text style="font-size: 10px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="14.480273" y="157.22415" transform="rotate(-90 14.480273 157.22415)">Retention (%)</text>
+    </g>
+   </g>
+   <g id="line2d_12">
+    <path d="M 42.599492 102.817811 
+L 489.136992 102.817811 
+" clip-path="url(#pade93075b8)" style="fill: none; stroke-dasharray: 3.7,1.6; stroke-dashoffset: 0; stroke: #d4a574"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 42.599492 293.24 
+L 42.599492 21.208301 
+" style="fill: none; stroke: #000000; stroke-width: 1.5; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 42.599492 293.24 
+L 489.136992 293.24 
+" style="fill: none; stroke: #000000; stroke-width: 1.5; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 11px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="265.868242" y="15.208301" transform="rotate(-0 265.868242 15.208301)">Durability retention challenge map</text>
+   </g>
+   <g id="legend_1">
+    <g id="line2d_13">
+     <path d="M 417.734492 31.43252 
+L 425.734492 31.43252 
+L 433.734492 31.43252 
+" style="fill: none; stroke-dasharray: 3.7,1.6; stroke-dashoffset: 0; stroke: #d4a574"/>
+    </g>
+    <g id="text_14">
+     <text style="font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: start" x="440.134492" y="34.23252" transform="rotate(-0 440.134492 34.23252)">Acceptance</text>
+    </g>
+    <g id="patch_15">
+     <path d="M 417.734492 45.740332 
+L 433.734492 45.740332 
+L 433.734492 40.140332 
+L 417.734492 40.140332 
+z
+" style="fill: #4b6f8a"/>
+    </g>
+    <g id="text_15">
+     <text style="font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: start" x="440.134492" y="45.740332" transform="rotate(-0 440.134492 45.740332)">Control</text>
+    </g>
+    <g id="patch_16">
+     <path d="M 417.734492 57.248145 
+L 433.734492 57.248145 
+L 433.734492 51.648145 
+L 417.734492 51.648145 
+z
+" style="fill: #c47b45"/>
+    </g>
+    <g id="text_16">
+     <text style="font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: start" x="440.134492" y="57.248145" transform="rotate(-0 440.134492 57.248145)">Modified</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pade93075b8">
+   <rect x="42.599492" y="21.208301" width="446.5375" height="272.031699"/>
+  </clipPath>
+ </defs>
 </svg>
