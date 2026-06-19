@@ -54,8 +54,7 @@ The WER-EA mini-review route must separate performance evidence, direct
 mechanism evidence, inferred mechanism, durability/service evidence, and missing
 field evidence.
 
-For a concrete blocked-route output shape, see
-`../examples/library/paper-production-mini-review-example.md`. For filled
+For filled
 revision-loop proof artifacts, see
 `../_shared/paper-production/examples/wer-ea-mini-review-weakness-routing.csv`
 and `../_shared/paper-production/examples/wer-ea-mini-review-gate-report.md`.

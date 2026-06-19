@@ -156,8 +156,6 @@ references:
       path: references/figure-design-theory.md
     - condition: end-to-end figure tutorials, step-by-step plotting walkthroughs, or how-to examples for common materials charts
       path: references/tutorials.md
-    - condition: paper demo reference for production-quality figures
-      path: references/paper-demo-reference.md
     - condition: visual asset roadmap and asset production guide
       path: references/visual-asset-roadmap.md
     - condition: table system templates for comparison matrices

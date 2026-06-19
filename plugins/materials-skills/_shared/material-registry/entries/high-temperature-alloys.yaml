@@ -148,8 +148,6 @@ skill_mapping:
   - skills/materials-figure/scripts/figures4materials/data/creep_recovery.csv
   - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   - skills/materials-figure/scripts/figures4materials/data/tga_dtg_curve.csv
-  figure_packages:
-  - skills/materials-figure/examples/figure-packages/stress-strain
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   - skills/materials-figure/scripts/figures4materials/plot_aging_test.py

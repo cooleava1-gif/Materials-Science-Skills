@@ -42,23 +42,6 @@ WRITING_MATURITY_FILES = [
     "scripts/audit_materials_manuscript.py",
 ]
 
-FIGURE_GOLDEN_PACKAGES = [
-    "wer-ea-full",
-    "thermal-insulation-partial-to-full",
-    "polymer-composites-partial-to-full",
-]
-
-FIGURE_GOLDEN_SOURCE_ONLY_FILES = [
-    "README.md",
-    "figure_storyboard.yaml",
-    "caption_boundary.md",
-    "figure_qa_report.md",
-    "plot.py",
-    "source_data.csv",
-    "asset_manifest.json",
-]
-
-
 def collect_paper_production_orchestrator_issues(skill_root: Path) -> list[str]:
     issues = []
     shared = skill_root / "_shared" / "paper-production"
@@ -76,10 +59,6 @@ def collect_paper_production_orchestrator_issues(skill_root: Path) -> list[str]:
     ]:
         if not (examples / name).exists():
             issues.append(f"missing skills/_shared/paper-production/examples/{name}")
-    research_examples = skill_root / "materials-research" / "examples" / "library"
-    for name in ["paper-production-mini-review-example.md"]:
-        if not (research_examples / name).exists():
-            issues.append(f"missing materials-research/examples/library/{name}")
     return issues
 
 
@@ -89,21 +68,6 @@ def collect_writing_maturity_issues(skill_root: Path) -> list[str]:
     for name in WRITING_MATURITY_FILES:
         if not (writing_root / name).exists():
             issues.append(f"missing materials-writing/{name}")
-    return issues
-
-
-def collect_figure_maturity_issues(skill_root: Path) -> list[str]:
-    issues = []
-    figure_root = skill_root / "materials-figure"
-    packages_root = figure_root / "examples" / "figure-packages"
-    for package in FIGURE_GOLDEN_PACKAGES:
-        package_root = packages_root / package
-        if not package_root.exists():
-            issues.append(f"missing materials-figure/examples/figure-packages/{package}")
-            continue
-        for name in FIGURE_GOLDEN_SOURCE_ONLY_FILES:
-            if not (package_root / name).exists():
-                issues.append(f"missing materials-figure/examples/figure-packages/{package}/{name}")
     return issues
 
 
@@ -195,10 +159,6 @@ def main() -> int:
         figure_issues.append("missing scripts/audit_figure_package.py")
     if figure_issues:
         all_issues["figure_hard_workflow"] = figure_issues
-
-    figure_maturity_issues = collect_figure_maturity_issues(SKILLS_ROOT)
-    if figure_maturity_issues:
-        all_issues["figure_maturity"] = figure_maturity_issues
 
     # handoff contract validation
     try:

@@ -1,51 +1,109 @@
 # materials-citation
 
-The citation skill is the literature-screening and claim-source mapping layer
-for materials manuscripts. Use it when you need more than a few references
-and want a reviewer-safe citation matrix with explicit evidence roles.
+**What it does** — The literature-screening and claim-source mapping layer for
+materials manuscripts. It builds search strategies, screens candidate records
+into citation matrices with explicit evidence layers and source roles, runs
+reference-gap audits, normalizes scholarly identifiers (DOI/PMID), and aligns
+claims to sources for CBM, CCC, JBE, RMPD, IJPE, WER-EA, asphalt, cement/
+concrete, durability, and mechanism-heavy topics. Search hits and
+abstract-level matches stay labeled as screening outputs until deep reading
+confirms the evidence.
 
-## When To Use
+**Built from** — Domain screening references, an academic-search MCP, and
+matrix-building scripts:
 
-Use this skill when the deliverable is a search strategy, screened citation
-matrix, reference-gap audit, normalized scholarly identifiers package, or
-claim-source alignment table for CBM, CCC, JBE, RMPD, IJPE, WER-EA, asphalt
-pavement materials, cement/concrete, durability, or mechanism-heavy topics.
+- `mcp/academic_search/` — MCP server with adapters for Crossref, PubMed,
+  OpenAlex, Semantic Scholar, arXiv, Scopus, and ScienceDirect/Elsevier; domain
+  classification, identifier normalization, and export to BibTeX/CSL-JSON/RIS/
+  JSONL
+- `references/` — 18 files: 14 domain screening-and-source-quality guides
+  (WER-EA, civil, ceramics, polymers, metals, functional, nano, semiconductors,
+  dielectrics/piezoelectrics, photonic/optoelectronic, nanoparticles,
+  nano-thin-films, 2D-materials, nanocomposites) plus claim-citation-mapping,
+  reference-gap-audit, journal-search-profiles, and academic-search-mcp
+- `assets/templates/` — citation-matrix CSV and search-plan templates
+- `scripts/` — `build_citation_matrix.py` and `citation_search_fallback.py`
 
-## Inputs
+**Key rules enforced**
 
-- review question, manuscript claim list, or topic angle
-- inclusion and exclusion boundaries
-- candidate DOI, PMID, RIS, BibTeX, CSV, or mixed citation records
-- journal family when scope or recency standards matter
+- Evidence layer and source role are explicit for every citation row.
+- Prefer primary research and authoritative reviews over generic web summaries.
+- Separate mechanism citations from performance citations.
+- Reviewer risk is flagged per claim (must-fix vs. strengthen).
+- Do not invent papers, DOIs, impact factors, journal rules, or citation counts.
+- Screening output is not a substitute for deep paper reading.
 
-## Outputs
+**Useful CLI options**
 
-- search strategy with database and keyword logic
-- screened citation matrix with fields such as evidence layer, source role,
-  source quality, reviewer risk, and reader anchor
-- normalized IDs and converted citation exports
-- reference-gap notes that can be handed to reader or writing workflows
+Build a citation matrix from a topic and journal family (uses MCP domain
+classification):
 
-## Example
+```powershell
+python plugins/materials-skills/skills/materials-citation/scripts/build_citation_matrix.py `
+  --topic "waterborne epoxy modified emulsified asphalt bonding" `
+  --journals CBM,JBE,RMPD,IJPE `
+  --claims-file claims.txt `
+  --output materials-citation-matrix.csv
+```
 
-- Template:
-  `plugins/materials-skills/skills/materials-citation/assets/templates/citation-matrix-template.csv`
-- Companion example:
-  `plugins/materials-skills/skills/materials-research/examples/library/citation-matrix-example.md`
-- WER-EA source-quality reference:
-  `references/wer-ea-screening-and-source-quality.md`
+Standalone CrossRef search when the MCP server is unavailable (stdlib only):
 
-## Validation
+```powershell
+python plugins/materials-skills/skills/materials-citation/scripts/citation_search_fallback.py `
+  --topic "waterborne epoxy modified emulsified asphalt bonding" `
+  --journals CBM,CCC,JBE,RMPD,IJPE `
+  --max-per-claim 3 `
+  --output materials-citation-matrix.csv
+```
 
-- MCP and service tests live under
+**Reference files**
+
+```text
+skills/materials-citation/
+├── README.md
+├── SKILL.md
+├── manifest.yaml
+├── scripts/
+│   ├── build_citation_matrix.py    matrix from topic + claims (MCP domain)
+│   └── citation_search_fallback.py standalone CrossRef search (no MCP)
+├── assets/templates/
+│   ├── citation-matrix-template.csv
+│   └── search-plan-template.md
+├── references/
+│   ├── claim-citation-mapping.md
+│   ├── reference-gap-audit.md
+│   ├── journal-search-profiles.md
+│   ├── academic-search-mcp.md
+│   ├── wer-ea-screening-and-source-quality.md
+│   ├── civil-screening-and-source-quality.md
+│   ├── ceramics-screening-and-source-quality.md
+│   ├── polymers-screening-and-source-quality.md
+│   ├── metals-screening-and-source-quality.md
+│   ├── functional-screening-and-source-quality.md
+│   ├── nano-screening-and-source-quality.md
+│   ├── semiconductors-screening-and-source-quality.md
+│   ├── dielectrics-piezoelectrics-screening-and-source-quality.md
+│   ├── photonic-optoelectronic-screening-and-source-quality.md
+│   ├── nanoparticles-screening-and-source-quality.md
+│   ├── nano-thin-films-screening-and-source-quality.md
+│   ├── 2d-materials-screening-and-source-quality.md
+│   └── nanocomposites-screening-and-source-quality.md
+├── mcp/academic_search/
+│   ├── server.py / service.py          MCP server and service entry
+│   ├── adapters/                       crossref, pubmed, openalex, semantic_scholar,
+│   │                                    arxiv, scopus, sciencedirect, elsevier_common
+│   ├── domain/                         classifier, identifiers, journals, queries
+│   ├── export/                         bibtex, csl_json, ris, jsonl, formats
+│   ├── importers/citation_files.py     RIS/BibTeX/CSV import
+│   └── tests/                          14 adapter, service, and contract tests
+└── static/fragments/
+    └── domain/    asphalt, cement-concrete, materials, ceramics, thermal-insulation,
+                    polymers, metals, nano, functional
+```
+
+**Validation**
+
+- MCP and service tests:
   `plugins/materials-skills/skills/materials-citation/mcp/academic_search/tests/`
-- Release checks verify citation handoff files and academic-search assets
-- The bundle-level verification entrypoint is
+- Bundle verification:
   `python .\scripts\run_release_checks.py --json`
-
-## Boundaries
-
-This skill does not replace deep paper reading. Search hits, abstract-level
-matches, and identifier-normalized records are still screening outputs until the
-reader skill or the human researcher confirms the actual evidence inside the
-paper.

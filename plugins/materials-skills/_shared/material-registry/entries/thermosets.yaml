@@ -155,8 +155,6 @@ skill_mapping:
   - skills/materials-figure/scripts/figures4materials/data/polymer_dsc.csv
   - skills/materials-figure/scripts/figures4materials/data/polymer_aging.csv
   - skills/materials-figure/scripts/figures4materials/data/polymer_stress_strain.csv
-  figure_packages:
-  - skills/materials-figure/examples/figure-packages/tg-dsc-thermal
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_dsc_curve.py
   - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py

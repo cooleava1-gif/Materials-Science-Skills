@@ -151,8 +151,6 @@ skill_mapping:
   - skills/materials-figure/scripts/figures4materials/data/sn_fatigue.csv
   - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   - skills/materials-figure/scripts/figures4materials/data/scatter_regression.csv
-  figure_packages:
-  - skills/materials-figure/examples/figure-packages/stress-strain
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py

@@ -630,10 +630,6 @@ references:
       path: references/pressure-test-suite.md
       when: The task asks for pressure tests, failure modes, regression coverage,
         skill validation, or reviewer-safe behavior checks across modules.
-    example-library:
-      path: examples/library/library-index.md
-      when: The task asks for examples, output shapes, reusable samples, or Nature-style
-        skill behavior demonstrations.
     journal-cbm-facts:
       path: ../_shared/journal-formats/cbm.md
       when: The target journal is CBM, Construction and Building Materials, or the

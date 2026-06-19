@@ -137,9 +137,6 @@ skill_mapping:
   - skills/materials-figure/scripts/figures4materials/data/stress_strain.csv
   - skills/materials-figure/scripts/figures4materials/data/errorbar_trend.csv
   - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
-  figure_packages:
-  - skills/materials-figure/examples/figure-packages/construction-materials-durability
-  - skills/materials-figure/examples/figure-packages/stress-strain
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_civil_durability_retention.py
   - skills/materials-figure/scripts/figures4materials/plot_civil_errorbar_trend.py

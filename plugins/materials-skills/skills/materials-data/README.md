@@ -1,45 +1,106 @@
 # materials-data
 
-The data skill packages the material behind a manuscript into a cleaner,
-FAIR-aware submission surface. It is where raw files, processed tables,
-metadata, and availability statements stop being loose attachments.
+**What it does** — Packages the material behind a manuscript into a cleaner,
+FAIR-aware submission surface. It organizes raw and processed datasets, writes
+metadata and file-organization plans, drafts data availability statements,
+runs FAIR audits, and scaffolds supplementary data packages for WER-EA,
+asphalt, cement/concrete, durability, and journal submission workflows.
+Missing measurements and missing metadata are flagged explicitly rather than
+papered over.
 
-## When To Use
+**Built from** — FAIR and dataset-package references, domain data schemas, and
+templates routed by task, domain, and journal:
 
-Use this skill when you need a data or FAIR package for a materials paper,
-especially for WER-EA, asphalt pavement materials, cement/concrete, durability,
-or journal submission workflows that require clearer provenance and metadata.
+- `references/fair-checklist.md` — lightweight FAIR audit checklist
+- `references/dataset-package.md` — dataset package and experiment template
+  rules
+- `references/data-availability-statements.md` — journal-specific availability
+  statements
+- `references/` — 13 files total: 9 domain data schemas (asphalt,
+  cement-concrete, ceramics, civil, functional, metals, nano, polymers,
+  thermal-insulation) plus fair-checklist, dataset-package,
+  data-availability-statements, and table-system
+- `assets/templates/` — 8 templates: experiment-data-template (generic,
+  ceramics, insulation), metadata, dataset-readme, data-availability,
+  fair-audit, and table-system
+- `scripts/` — `build_fair_package.py` for scaffolding and
+  `audit_fair_dataset.py` for FAIR audits
+- `static/fragments/` — data_task (availability-statement, fair-check,
+  repository-plan) and domain fragments
 
-## Inputs
+**Key rules enforced**
 
-- raw and processed data folders
-- variable names, sample IDs, dosage labels, and test-condition metadata
-- journal or repository expectations for data availability
-- figure or manuscript claims that need traceable data backing
+- Separate raw data, processed data, and figures.
+- Keep units, test standards, sample IDs, mixture IDs, and replicate counts
+  explicit in metadata and CSV headers.
+- Never invent measurements, replicate counts, standards, accession numbers,
+  licences, or access restrictions.
+- Missing data or missing metadata must be flagged explicitly for later repair.
+- Data availability statements must not claim public availability unless files
+  are present or a repository link is supplied.
 
-## Outputs
+**Useful CLI options**
 
-- FAIR-minded dataset package plan
-- metadata and file-organization guidance
-- data availability statement draft
-- explicit missing-data or missing-metadata flags for later repair
+Scaffold a FAIR dataset package:
 
-## Example
+```powershell
+python plugins/materials-skills/skills/materials-data/scripts/build_fair_package.py `
+  --topic "waterborne epoxy modified emulsified asphalt" `
+  --domain asphalt `
+  --journal CBM `
+  --output-dir outputs/data-packages
+```
 
-- Example package:
-  `plugins/materials-skills/skills/materials-data/examples/waterborne-epoxy-fair-package.md`
-- Shared paper-production handoff context:
-  `plugins/materials-skills/skills/_shared/paper-production/paper-gate-report-template.md`
+Audit an existing dataset against the FAIR checklist:
 
-## Validation
+```powershell
+python plugins/materials-skills/skills/materials-data/scripts/audit_fair_dataset.py `
+  --dataset-dir outputs/data-packages/my_dataset `
+  --json
+```
 
-- Core regression test:
-  `plugins/materials-skills/skills/materials-data/tests/test_data_fair_skill.py`
+**Reference files**
+
+```text
+skills/materials-data/
+├── README.md
+├── SKILL.md
+├── manifest.yaml
+├── scripts/
+│   ├── build_fair_package.py    scaffold a FAIR dataset package
+│   └── audit_fair_dataset.py    FAIR audit (Markdown or JSON)
+├── assets/templates/
+│   ├── experiment-data-template.csv             generic experiment CSV
+│   ├── experiment-data-template-ceramics.csv    ceramics experiment CSV
+│   ├── experiment-data-template-insulation.csv  insulation experiment CSV
+│   ├── metadata-template.md
+│   ├── dataset-readme-template.md
+│   ├── data-availability-template.md
+│   ├── fair-audit-template.md
+│   └── table-system-template.md
+├── references/
+│   ├── fair-checklist.md                FAIR audit checklist
+│   ├── dataset-package.md               package and experiment template rules
+│   ├── data-availability-statements.md  journal-specific statements
+│   ├── table-system.md                  table system templates
+│   ├── asphalt-data-schema.md           domain data schemas
+│   ├── cement-concrete-data-schema.md
+│   ├── ceramics-data-schema.md
+│   ├── civil-data-schema.md
+│   ├── functional-data-schema.md
+│   ├── metals-data-schema.md
+│   ├── nano-data-schema.md
+│   ├── polymers-data-schema.md
+│   └── thermal-insulation-data-schema.md
+└── static/fragments/
+    ├── data_task/   availability-statement, fair-check, repository-plan
+    └── domain/      asphalt, cement-concrete, materials, ceramics,
+                      thermal-insulation, polymers, metals, nano, functional
+```
+
+**Validation**
+
+- Audit script:
+  `plugins/materials-skills/skills/materials-data/scripts/audit_fair_dataset.py`
 - Bundle verification:
   `python .\scripts\run_release_checks.py --json`
-
-## Boundaries
-
-This skill organizes and audits data packaging, but it does not invent missing
-measurements, repair bad experiments, or certify that a dataset is complete
-enough for publication without domain review.

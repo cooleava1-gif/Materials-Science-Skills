@@ -197,8 +197,6 @@ skill_mapping:
   - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   - skills/materials-figure/scripts/figures4materials/data/property_correlation.csv
   - skills/materials-figure/scripts/figures4materials/data/nano_loading.csv
-  figure_packages:
-  - skills/materials-figure/examples/figure-packages/nanocomposites-demo
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
   - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py

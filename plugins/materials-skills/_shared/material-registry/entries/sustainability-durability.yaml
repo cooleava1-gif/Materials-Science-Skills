@@ -150,10 +150,6 @@ skill_mapping:
   - skills/materials-figure/scripts/figures4materials/data/civil_water_absorption.csv
   - skills/materials-figure/scripts/figures4materials/data/civil_errorbar_trend.csv
   - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
-  figure_packages:
-  - skills/materials-figure/examples/figure-packages/sustainability-freeze-thaw
-  - skills/materials-figure/examples/figure-packages/wer-ea-dosage-window
-  - skills/materials-figure/examples/figure-packages/wer-ea-full
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_civil_durability_retention.py
   - skills/materials-figure/scripts/figures4materials/plot_civil_water_absorption.py

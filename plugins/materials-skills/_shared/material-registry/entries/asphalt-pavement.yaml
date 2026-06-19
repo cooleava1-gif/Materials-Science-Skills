@@ -301,10 +301,6 @@ skill_mapping:
   - skills/materials-figure/scripts/figures4materials/data/property_correlation.csv
   - skills/materials-figure/scripts/figures4materials/data/screening_flow.csv
   - skills/materials-figure/scripts/figures4materials/data/graphical_abstract.csv
-  figure_packages:
-  - skills/materials-figure/examples/figure-packages/wer-ea-dosage-window
-  - skills/materials-figure/examples/figure-packages/wer-ea-evidence-heatmap
-  - skills/materials-figure/examples/figure-packages/wer-ea-mechanism-map
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_bonding_strength_comparison.py
   - skills/materials-figure/scripts/figures4materials/plot_ftir_curing_evidence.py

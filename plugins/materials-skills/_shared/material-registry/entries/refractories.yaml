@@ -145,9 +145,6 @@ skill_mapping:
   - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   - skills/materials-figure/scripts/figures4materials/data/sem_analysis.csv
   - skills/materials-figure/scripts/figures4materials/data/scatter_regression.csv
-  figure_packages:
-  - skills/materials-figure/examples/figure-packages/ceramics-sintering-optimization
-  - skills/materials-figure/examples/figure-packages/ceramics-weibull-reliability
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_sintering_curve.py
   - skills/materials-figure/scripts/figures4materials/plot_aging_test.py

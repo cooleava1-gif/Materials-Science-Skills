@@ -1,41 +1,95 @@
 # materials-research
 
-The research skill is the front door and paper-production orchestrator for the
-bundle. Start here when the user need is broad, multi-stage, or not yet pinned
-to one companion skill.
+**What it does** — The front door and paper-production orchestrator for the
+bundle. Start here when the user need is broad, multi-stage, or not yet
+pinned to one companion skill. It detects the task type, material domain, and
+journal family, then hands off to the right companion skill with a
+stage-gated plan. It covers topic positioning, paper-angle design,
+literature-review planning, journal targeting, experiment routing, submission
+strategy, PPT planning, and reviewer-risk framing — any cross-skill workflow
+that needs paper-stage and evidence-level judgment.
 
-## When To Use
+**Built from** — A front-door router that orchestrates 11 companion skills
+(reader, citation, writing, polishing, response, reviewer, paper2ppt, pptx,
+figure, data, doe), grounded in the shared paper-production contract:
 
-Use this skill for topic positioning, paper angle design, literature-review
-planning, journal targeting, experimental manuscript routing, submission
-strategy, PPT planning, or any cross-skill workflow that needs paper-stage and
-evidence-level judgment.
+- `references/paper-production-orchestrator.md` — stage-gated production
+  contract and gate-report template
+- `references/companion-modules.md` — companion-skill handoff map
+- `references/reviewer-risk-checklist.md` — pre-submission reviewer risk
+- `references/journal-shortlist.md` — materials journal positioning
+- `static/fragments/task/` — 13 task-routing fragments: research-positioning,
+  reading, literature-review, citation-mapping, manuscript-writing,
+  journal-targeting, experiment-design, data-analysis, data-fair,
+  figure-table, reviewer-audit, presentation, pptx-generation
+- `static/fragments/domain/` — 36 material-domain fragments
+- `static/fragments/journal/` — 20 journal-family fragments
+- `../_shared/paper-production/weakness-routing.md` — weakness routing
+- `tests/pressure-tests/` — 16 cross-skill pressure regressions
 
-## Inputs
+**Key rules enforced**
 
-- rough research question, manuscript draft, or review goal
-- domain and journal hints when available
-- workflow intent such as mini-review, experimental manuscript, revision loop,
-  or presentation
-- current stage such as idea, screening, reading, drafting, revision, or
-  submission
+- Do not skip to writing or figures before research and citation are
+  grounded.
+- Do not duplicate the full procedures of every companion skill; once the
+  deliverable is clear, deep production belongs to the specialized module.
+- Gate each stage on the previous stage's output contract.
+- Recommend `materials-citation` first when literature gaps exist.
+- Report `coverage_tier` (full / partial / skeleton / generic) when routing
+  to a material domain so the user knows what depth to expect.
+- Stage and evidence-level judgment drives routing, not the user's wording.
 
-## Outputs
+**Reference files**
 
-- routed workflow package with next-step ownership
-- stage-aware and evidence-aware task framing
-- journal-fit, reviewer-risk, or gate-oriented guidance
-- handoff recommendations to reader, citation, writing, figure, reviewer,
-  response, paper2ppt, pptx, or data modules
+```text
+skills/materials-research/
+├── README.md
+├── SKILL.md
+├── manifest.yaml
+├── scripts/
+│   └── audit_pressure_assets.py          pressure-test asset auditor
+├── assets/
+│   └── templates/
+│       └── research-routing-template.md  routing plan scaffold
+├── static/
+│   ├── core/                             contract, evidence-contract, stance, workflow
+│   └── fragments/
+│       ├── task/                         13 task-routing fragments (listed below)
+│       │   ├── research-positioning.md
+│       │   ├── reading.md
+│       │   ├── literature-review.md
+│       │   ├── citation-mapping.md
+│       │   ├── manuscript-writing.md
+│       │   ├── journal-targeting.md
+│       │   ├── experiment-design.md
+│       │   ├── data-analysis.md
+│       │   ├── data-fair.md
+│       │   ├── figure-table.md
+│       │   ├── reviewer-audit.md
+│       │   ├── presentation.md
+│       │   └── pptx-generation.md
+│       ├── domain/                       36 material-domain fragments
+│       └── journal/                      20 journal-family fragments
+└── references/
+    ├── paper-production-orchestrator.md  stage-gated production contract
+    ├── companion-modules.md              companion-skill handoff map
+    ├── reviewer-risk-checklist.md        pre-submission reviewer risk
+    ├── journal-shortlist.md              materials journal positioning
+    ├── asphalt-waterborne-epoxy.md       WER-EA domain reference
+    ├── data-to-manuscript.md             data-to-claim mapping
+    ├── output-templates.md               abstract/highlights/cover-letter templates
+    ├── statistical-methods.md            significance/ANOVA/uncertainty
+    ├── test-standards-mapping.md         ASTM/EN/JTG/GB/AASHTO/RILEM mapping
+    ├── standards-mapping.md              GB/T/JTG/JTJ to ASTM/EN/ISO conversion
+    ├── characterization-guide.md         FTIR/SEM/XRD/TG/DSC/AFM/rheology
+    ├── sustainability-claims-guide.md    LCA/low-carbon/recycled claims
+    ├── ceramics-guide.md                 ceramics characterization guide
+    ├── thermal-insulation-guide.md       insulation/hygrothermal guide
+    ├── thesis-timeline.md                thesis/research timeline planning
+    └── pressure-test-suite.md            pressure-test coverage suite
+```
 
-## Example
-
-- Example library:
-  `plugins/materials-skills/skills/materials-research/examples/library/library-index.md`
-- Paper-production orchestrator:
-  `references/paper-production-orchestrator.md`
-
-## Validation
+**Validation**
 
 - Core regression tests:
   `plugins/materials-skills/skills/materials-research/tests/test_paper_production_orchestrator.py`
@@ -44,9 +98,3 @@ evidence-level judgment.
   `plugins/materials-skills/skills/materials-research/tests/pressure-tests/`
 - Bundle verification:
   `python .\scripts\run_release_checks.py --json`
-
-## Boundaries
-
-This skill routes and judges workflow shape, but it should not duplicate the
-full procedures of every companion skill. Once the deliverable is clear, the
-actual deep production work belongs to the specialized module.

@@ -32,4 +32,4 @@ Every asset must include a claim boundary. The visual should teach what kind of 
 
 ## Review-first package
 
-Use `paper-derived-visual-patterns.md` and `assets/review-first/asset-specs.csv` for small review planning. The package is based on sanitized local caption-family learning, not copied figures. Regenerate the ten starter SVG templates with `scripts/review_gallery_demo.py`.
+Use `paper-derived-visual-patterns.md` and `assets/review-first/asset-specs.csv` for small review planning. The package is based on sanitized local caption-family learning, not copied figures.

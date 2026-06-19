@@ -594,7 +594,8 @@ cbar.set_label('Response')
 - `assets/rich-gallery/generated/` — general materials figures (SVG)
 - `assets/wer-ea-atlas/generated/` — WER-EA specific figures (SVG + PNG)
 - `assets/review-first/generated/` — review-oriented figures (SVG)
-- `assets/showcase-proof/` — proof board PNGs
+- `assets/ceramics-atlas/generated/` — ceramics characterization figures (SVG + PNG)
+- `assets/chart-atlas/generated/` — chart-type atlas figures (SVG + PNG)
 
 ## Usage Rules
 

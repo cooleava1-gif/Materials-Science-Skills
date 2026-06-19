@@ -1,52 +1,65 @@
 # materials-figure
 
-Nature-style figure production and audit for materials manuscripts. The
-skill treats figures as evidence packages with source data, caption boundaries,
-Python-only backend discipline, and export QA instead of as loose images.
+**What it does** — Generates journal-ready multi-panel figures for materials
+manuscripts: mechanism maps, evidence heatmaps, dosage-window plots,
+characterization panels, review figures, and full figure packages with source
+data, caption boundaries, and export QA. Python-only backend, SVG-first
+output, with PNG/PDF/TIFF export bundles. The skill treats figures as evidence
+packages with source-anchored data, certainty-tier legends, and claim
+boundaries instead of as loose images.
 
-## When To Use
+**Built from** — Five bundled atlases plus a figure-package template system:
 
-Use this skill when you need figure planning, mechanism maps, evidence
-heatmaps, dosage-window plots, characterization panels, review figures, or a
-full figure package for materials research, especially WER-EA workflows.
+- `assets/chart-atlas/` — 6 chart families with CSV data and SVG/PNG previews
+- `assets/wer-ea-atlas/` — 20-panel atlas for waterborne epoxy resin modified
+  emulsified asphalt, with CSV data and SVG templates
+- `assets/ceramics-atlas/` — 9 characterization figures for structural/functional
+  ceramics, with CSV data and SVG/PNG previews
+- `assets/rich-gallery/` — 10 general materials figures (SVG)
+- `assets/review-first/` — 10 review-oriented figures (SVG)
+- `assets/templates/figure-package/` — contract, plot.py, caption, QA report,
+  and asset manifest templates
+- `scripts/figures4materials/` — 66 reusable plotting scripts for materials
+  characterization (XRD, stress-strain, TGA/DSC, Weibull, EIS, sintering,
+  rheology, FTIR, SEM, durability, corrosion, freeze-thaw, etc.)
+- `examples/figure-packages/` — 7 runnable figure packages with real CSV data
+  and matplotlib scripts (see below)
 
-## Inputs
+**Example output gallery** — Representative figures from the rich-gallery and
+review-first atlases. All are script-generated SVG; GitHub renders them inline.
 
-- source data, reader-package figure handoff rows, or citation-screening inputs
-- target figure archetype such as mechanism map, evidence heatmap, graphical
-  abstract, or characterization panel
-- export constraints and journal expectations
-- Python backend and contract rules
+| ![Bonding performance matrix](assets/rich-gallery/generated/bonding_performance_matrix.svg) | ![Interface mechanism map](assets/rich-gallery/generated/interface_mechanism_map.svg) | ![LCA boundary card](assets/rich-gallery/generated/lca_boundary_card.svg) |
+|---|---|---|
+| ![Evidence chain map](assets/review-first/generated/evidence_chain_map.svg) | ![Research gap matrix](assets/review-first/generated/research_gap_matrix.svg) | ![Graphical abstract review](assets/review-first/generated/graphical_abstract_review.svg) |
 
-## Outputs
+**Chart-type atlas** — The skill ships a chart-type atlas covering 6 chart
+families. Each family has bundled CSV data and a generated SVG/PNG preview.
 
-- figure contract and panel logic
-- figure package with script, source data, exports, caption, QA report, and
-  asset manifest
-- automatic table-to-figure package with data diagnosis, chart recommendation,
-  SVG/PNG exports, and QA report
-- WER-EA atlas assets and review-figure planning surfaces
-- reviewer-safer caption boundaries that separate measured from inferred claims
+| ![Bar charts](assets/chart-atlas/generated/atlas-bar-charts.png) | ![Line trends](assets/chart-atlas/generated/atlas-line-trends.png) | ![Heatmaps](assets/chart-atlas/generated/atlas-heatmaps.png) |
+|---|---|---|
+| ![Radar/polar](assets/chart-atlas/generated/atlas-radar-polar.png) | ![Scatter/bubble](assets/chart-atlas/generated/atlas-scatter-bubble.png) | ![Distributions](assets/chart-atlas/generated/atlas-distributions.png) |
 
-## Python backend and contract rules
+**WER-EA atlas** — A 20-panel atlas for waterborne epoxy resin modified
+emulsified asphalt research, from screening flow and evidence heatmap to
+mechanism map, dosage window, graphical abstract, and research gap. SVG
+templates carry the full panel structure, certainty-tier legend, and claim
+boundary.
 
-This is a Python-only plotting skill. Use Python for plotting, preview, export,
-and QA. If the Python runtime or packages are missing, stop and report the
-blocker instead of silently falling back to another plotting stack.
+| ![Screening flow](assets/wer-ea-atlas/generated/wer_ea_screening_flow.svg) | ![Evidence heatmap](assets/wer-ea-atlas/generated/wer_ea_evidence_heatmap.svg) | ![Mechanism map](assets/wer-ea-atlas/generated/wer_ea_mechanism_map.svg) |
+|---|---|---|
+| ![Dosage window](assets/wer-ea-atlas/generated/wer_ea_dosage_window.svg) | ![Graphical abstract](assets/wer-ea-atlas/generated/wer_ea_graphical_abstract.svg) | ![Research gap](assets/wer-ea-atlas/generated/wer_ea_research_gap.svg) |
 
-Before plotting, make the figure contract explicit:
+**Ceramics atlas** — Characterization figures for structural/functional
+ceramics: XRD patterns, stress-strain curves, TGA/DSC, thermal expansion,
+Weibull plots, grain-size distributions, EIS Nyquist plots, and sintering
+curves.
 
-- core conclusion
-- evidence chain and source-data anchor
-- panel map and figure archetype
-- target journal or export bundle
-- statistics, units, scale bars, or image provenance
-- claim boundary and reviewer risk
+| ![XRD pattern](assets/ceramics-atlas/generated/ceramics_xrd_pattern.png) | ![Stress-strain](assets/ceramics-atlas/generated/ceramics_stress_strain.png) | ![TGA/DSC](assets/ceramics-atlas/generated/ceramics_tga_dsc.png) |
+|---|---|---|
+| ![Thermal expansion](assets/ceramics-atlas/generated/ceramics_thermal_expansion.png) | ![Weibull plot](assets/ceramics-atlas/generated/ceramics_weibull_plot.png) | ![Grain size](assets/ceramics-atlas/generated/ceramics_grain_size_dist.png) |
 
-## Figure package structure
-
-Every serious output should be delivered as a figure package, not as a loose
-image:
+**Figure package structure** — Every serious output is delivered as a figure
+package, not as a loose image:
 
 ```text
 figure-package/
@@ -62,14 +75,8 @@ figure-package/
   asset_manifest.md
 ```
 
-Audit the package with
-`plugins/materials-skills/skills/materials-figure/scripts/audit_figure_package.py` before calling
-it journal-ready.
-
-## Automatic table-to-figure loop
-
-When a CSV/TSV data table is available, use the automatic Python loop before
-hand-writing a new plot:
+**Automatic table-to-figure loop** — When a CSV/TSV data table is available,
+use the automatic Python loop before hand-writing a new plot:
 
 ```powershell
 python plugins/materials-skills/skills/materials-figure/scripts/generate_figure_package.py `
@@ -91,38 +98,82 @@ It writes `figure_intake.yaml`, `source_data.csv`, `plot.py`, `figure.svg`,
 `figure_contract.md`. Use the QA report to decide whether the output is ready,
 needs revision, or is blocked by missing evidence.
 
-## Example
+**Key rules enforced**
 
-- Figure package example:
-  `plugins/materials-skills/skills/materials-figure/examples/figure-packages/wer-ea-dosage-window/`
-- Additional package:
-  `plugins/materials-skills/skills/materials-figure/examples/figure-packages/wer-ea-evidence-heatmap/`
-- Atlas gallery:
-  `plugins/materials-skills/skills/materials-figure/assets/wer-ea-atlas/generated/`
+- Python-only plotting backend; no silent fallback to another stack.
+- Figure contract written before plotting: core conclusion, evidence chain,
+  panel map, target journal, statistics/units/scale bars, claim boundary.
+- Caption boundaries separate measured from inferred claims.
+- Export bundle includes SVG, PDF, PNG, and TIFF when possible.
+- QA report covers Python backend exclusivity, export checks, and caption
+  boundary.
+- WER-EA mechanism claims stay bounded by real evidence; the skill does not
+  let pretty visuals overrule the scientific logic. If the evidence chain or
+  source data anchor is weak, the correct response is to flag the risk or
+  route back to reader, citation, writing, or data work before polishing the
+  image.
 
-## Validation
+**Runnable figure packages** — Seven example packages with real CSV data and
+matplotlib scripts that run standalone. Each demonstrates a different
+characterization archetype:
+
+| Package | Archetype | Script |
+|---|---|---|
+| `examples/figure-packages/ceramics-xrd-phase-identification/` | XRD phase analysis | `plot_xrd.py` |
+| `examples/figure-packages/ceramics-sintering-optimization/` | Sintering curve | `plot_sintering.py` |
+| `examples/figure-packages/ceramics-weibull-reliability/` | Weibull strength | `plot_weibull.py` |
+| `examples/figure-packages/construction-materials-durability/` | Durability retention | `plot.py` |
+| `examples/figure-packages/steel-corrosion-trend/` | Corrosion errorbar trend | `plot.py` |
+| `examples/figure-packages/sustainability-freeze-thaw/` | Freeze-thaw cycling | `plot.py` |
+| `examples/figure-packages/timber-water-absorption/` | Water absorption kinetics | `plot.py` |
+
+Run any package locally:
+
+```powershell
+cd plugins/materials-skills/skills/materials-figure/examples/figure-packages/ceramics-xrd-phase-identification
+python plot_xrd.py
+```
+
+**Reference files**
+
+```text
+skills/materials-figure/
+├── README.md
+├── SKILL.md
+├── manifest.yaml
+├── scripts/
+│   ├── generate_figure_package.py   automatic table-to-figure loop
+│   ├── audit_figure_package.py      figure package QA audit
+│   ├── materials_plot_lib.py        publication-ready matplotlib helpers
+│   └── materials_plot_svg.py        SVG template renderer
+├── assets/
+│   ├── chart-atlas/                 6 chart families (CSV + SVG/PNG)
+│   ├── wer-ea-atlas/                20 WER-EA panels (CSV + SVG)
+│   ├── ceramics-atlas/              9 ceramics figures (CSV + SVG/PNG)
+│   ├── rich-gallery/                10 general materials figures (SVG)
+│   ├── review-first/                10 review figures (SVG)
+│   └── templates/figure-package/    contract, plot.py, caption, QA templates
+└── references/
+    ├── chart-atlas.md               chart family routing and usage
+    ├── figure-package-protocol.md   figure package contract
+    ├── figure-production-spec.md    production specification
+    ├── figure-qa-contract.md        QA contract
+    ├── figure-design-theory.md      typography, layout, export policy
+    ├── materials-figure-atlas.md    atlas routing
+    ├── wer-ea-figure-atlas.md       WER-EA atlas guide
+    └── ceramics-figure-atlas.md     ceramics atlas guide
+```
+
+**Supported chart types** — Stacked bar, grouped bar, horizontal ablation bar,
+trend/line, sequential heatmap, diverging z-score heatmap, bubble scatter,
+radar/polar, 3D sphere illustration, fill-between area, log-scale bar,
+GridSpec multi-panel, XRD pattern, stress-strain curve, TGA/DSC overlay,
+thermal expansion, Weibull plot, grain-size distribution, EIS Nyquist plot,
+sintering curve.
+
+**Validation**
 
 - Audit script:
   `plugins/materials-skills/skills/materials-figure/scripts/audit_figure_package.py`
-- Core tests live under `plugins/materials-skills/skills/materials-figure/tests/`
 - Bundle verification:
   `python .\scripts\run_release_checks.py --json`
-
-## Reproduction checklist
-
-- Python-only backend readiness checked
-- no alternate plotting backend used
-- figure contract written before plotting
-- source data or source-map anchor present
-- export bundle includes SVG, PDF, PNG, and TIFF when possible
-- caption states what the figure supports and what it does not prove
-- QA report covers Python backend exclusivity, export checks, and caption boundary
-- automatic table plots include data diagnosis and chart choice rationale
-- WER-EA mechanism claims stay bounded by real evidence
-
-## Boundaries
-
-This skill does not let pretty visuals overrule the scientific logic. If the
-evidence chain or source data anchor is weak, the correct response is to flag
-the risk or route back to reader, citation, writing, or data work before
-polishing the image.

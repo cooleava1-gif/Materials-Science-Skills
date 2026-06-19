@@ -160,9 +160,6 @@ skill_mapping:
   - skills/materials-figure/scripts/figures4materials/data/civil_boxplot_points.csv
   - skills/materials-figure/scripts/figures4materials/data/civil_errorbar_trend.csv
   - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
-  figure_packages:
-  - skills/materials-figure/examples/figure-packages/stress-strain
-  - skills/materials-figure/examples/figure-packages/waterproofing-tensile-boxplot
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_civil_boxplot_points.py
   - skills/materials-figure/scripts/figures4materials/plot_civil_water_absorption.py

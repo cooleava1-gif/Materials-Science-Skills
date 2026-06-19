@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Audit materials pressure tests and example library coverage."""
+"""Audit materials pressure tests coverage."""
 
 from __future__ import annotations
 
@@ -38,31 +38,23 @@ REQUIRED_THEMES = [
 
 def audit(skill_root: Path) -> dict[str, object]:
     pressure_files = sorted((skill_root / "tests" / "pressure-tests").glob("*.md"))
-    example_files = sorted((skill_root / "examples" / "library").glob("*.md"))
     pressure_text = "\n".join(path.read_text(encoding="utf-8") for path in pressure_files)
-    examples_text = "\n".join(path.read_text(encoding="utf-8") for path in example_files)
-    combined = pressure_text + "\n" + examples_text
 
     covered_modules = [module for module in REQUIRED_MODULES if module in pressure_text]
-    example_modules = [module for module in REQUIRED_MODULES if module in examples_text]
     missing_modules = [module for module in REQUIRED_MODULES if module not in covered_modules]
-    missing_example_modules = [module for module in REQUIRED_MODULES if module not in example_modules]
-    missing_themes = [theme for theme in REQUIRED_THEMES if theme not in combined]
+    missing_themes = [theme for theme in REQUIRED_THEMES if theme not in pressure_text]
 
     status = "pass"
-    if len(pressure_files) < 12 or len(example_files) < len(REQUIRED_MODULES) + 1:
+    if len(pressure_files) < 12:
         status = "incomplete"
-    if missing_modules or missing_example_modules or missing_themes:
+    if missing_modules or missing_themes:
         status = "incomplete"
 
     return {
         "status": status,
         "pressure_test_count": len(pressure_files),
-        "example_count": len(example_files),
         "covered_modules": covered_modules,
-        "example_modules": example_modules,
         "missing_modules": missing_modules,
-        "missing_example_modules": missing_example_modules,
         "missing_themes": missing_themes,
     }
 
@@ -73,11 +65,10 @@ def render_markdown(report: dict[str, object]) -> str:
         "",
         f"- status: {report['status']}",
         f"- pressure_test_count: {report['pressure_test_count']}",
-        f"- example_count: {report['example_count']}",
         "",
         "## Missing",
     ]
-    for key in ("missing_modules", "missing_example_modules", "missing_themes"):
+    for key in ("missing_modules", "missing_themes"):
         values = report[key]
         assert isinstance(values, list)
         lines.append(f"- {key}: {', '.join(values) if values else 'none'}")

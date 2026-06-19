@@ -129,31 +129,15 @@ Expected shape:
 
 ## Guided Demo Routes
 
-If you want a curated first-use path instead of jumping in cold, start here:
-
-1. [WER-EA mini-review](docs/workflows/wer-ea-mini-review.md)
-2. [Experimental manuscript](docs/workflows/experimental-manuscript.md)
-3. [Revision loop](docs/workflows/revision-loop.md)
-4. [Paper to presentation](docs/workflows/paper-to-presentation.md)
-
 To see the visual proof side first, open [docs/gallery/README.md](docs/gallery/README.md).
-
-## Showcase Shortcuts
-
-If you already know the outcome you want, jump straight to:
-
-1. [Submission package](docs/showcases/submission-package.md)
-2. [Reviewer response](docs/showcases/reviewer-response.md)
-3. [FAIR data package](docs/showcases/fair-data-package.md)
 
 ## Recommended Reading Order
 
 If this is your first time with the bundle, open these in order:
 
 1. [README.md](README.md)
-2. [docs/skills-index.md](docs/skills-index.md)
-3. `plugins/materials-skills/skills/materials-research/README.md`
-4. the README for the production skill you actually need
+2. `plugins/materials-skills/skills/materials-research/README.md`
+3. the README for the production skill you actually need
 
 ## Troubleshooting
 

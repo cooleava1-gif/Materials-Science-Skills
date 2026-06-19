@@ -40,7 +40,7 @@ This protects the small review from decorative figures and over-claiming. A taxo
 
 ## Review-First Asset Package
 
-The first package contains 30 assets in `assets/review-first/asset-specs.csv`. Ten SVG demos can be regenerated with `scripts/review_gallery_demo.py`.
+The first package contains 30 assets in `assets/review-first/asset-specs.csv`.
 
 The 30 assets prioritize:
 

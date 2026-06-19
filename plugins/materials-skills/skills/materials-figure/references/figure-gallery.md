@@ -49,6 +49,6 @@ Every gallery-derived figure should include:
 1. Pick the closest gallery card.
 2. Copy its data structure into `figure-plan-template.md`.
 3. Select a journal preset from `figure-style-presets.yaml`.
-4. Generate a draft with `scripts/gallery_demo.py` or `scripts/materials_plot_svg.py`.
+4. Generate a draft with `scripts/materials_plot_svg.py`.
 5. Write the caption as claim -> evidence -> boundary.
 6. Run reviewer-risk audit before using the figure in a manuscript.

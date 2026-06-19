@@ -163,12 +163,6 @@ skill_mapping:
   - skills/materials-figure/scripts/figures4materials/data/ceramic_conductivity.csv
   - skills/materials-figure/scripts/figures4materials/data/xrd_pattern.csv
   - skills/materials-figure/scripts/figures4materials/data/stress_strain.csv
-  figure_packages:
-  - skills/materials-figure/examples/figure-packages/ceramics-sintering-optimization
-  - skills/materials-figure/examples/figure-packages/ceramics-weibull-reliability
-  - skills/materials-figure/examples/figure-packages/ceramics-xrd-phase-identification
-  - skills/materials-figure/examples/figure-packages/stress-strain
-  - skills/materials-figure/examples/figure-packages/tg-dsc-thermal
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_weibull_strength.py
   - skills/materials-figure/scripts/figures4materials/plot_sintering_curve.py

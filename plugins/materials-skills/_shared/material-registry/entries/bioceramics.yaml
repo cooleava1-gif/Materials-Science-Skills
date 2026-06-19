@@ -149,10 +149,6 @@ skill_mapping:
   - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   - skills/materials-figure/scripts/figures4materials/data/sem_analysis.csv
   - skills/materials-figure/scripts/figures4materials/data/weibull_strength.csv
-  figure_packages:
-  - skills/materials-figure/examples/figure-packages/ceramics-xrd-phase-identification
-  - skills/materials-figure/examples/figure-packages/stress-strain
-  - skills/materials-figure/examples/figure-packages/ceramics-weibull-reliability
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
   - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py

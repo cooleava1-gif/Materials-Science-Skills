@@ -169,8 +169,6 @@ skill_mapping:
   - skills/materials-figure/scripts/figures4materials/data/dosage_window.csv
   - skills/materials-figure/scripts/figures4materials/data/bonding_strength.csv
   - skills/materials-figure/scripts/figures4materials/data/particle_size_distribution.csv
-  figure_packages:
-  - skills/materials-figure/examples/figure-packages/tg-dsc-thermal
   figure_scripts:
   - skills/materials-figure/scripts/figures4materials/plot_grouped_bar.py
   - skills/materials-figure/scripts/figures4materials/plot_hydration_heat.py

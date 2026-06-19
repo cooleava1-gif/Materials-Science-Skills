@@ -1,49 +1,93 @@
 # materials-response
 
-The response skill builds reviewer replies that are specific, structured, and
-provable. It keeps the response letter tied to actual manuscript changes instead
-of vague promises.
+**What it does** — Drafts point-by-point reviewer replies after the comments
+arrive, keeping the response letter tied to actual manuscript changes instead
+of vague promises. It separates response tone from manuscript action, maps
+each comment to a concrete action, and prevents unsupported promises or
+fabricated experiments. Feed it the reviewer comments or editor decision
+letter, the current revision notes, and the figure/data/text changes that can
+prove what was fixed; name the target journal when relevant. The deliverable
+is a response package, rebuttal letter, revision summary, or resubmission
+note set for a materials manuscript.
 
-## When To Use
+**Built from** — A response-strategy system with tone, pattern, and language
+layers:
 
-Use this skill when reviewer comments have arrived and the deliverable is a
-point-by-point response package, rebuttal letter, revision summary, or
-resubmission note set for a materials manuscript.
+- `references/response-strategy.md` — point-by-point strategy and structure
+- `references/response-patterns.md` — high-frequency comment patterns
+  (language, references, novelty, sample size, error bars, conflicting
+  reviewers)
+- `references/experiment-revision.md` — mechanism/performance revision plans
+- `references/response-document-format.md` — author response, tracked
+  changes, cover letter format
+- `references/language-bank.md` — rebuttal tone and phrasing
+- `references/response-risk-checklist.md` — reject / major-revision risk
+- `static/fragments/tone/` — academic and firm tone fragments
+- `static/fragments/domain/` — 6 material-domain routing fragments
+- `assets/templates/` — response-package and response-table templates
+- `scripts/build_response_package.py` — assembles the response package
+- `tests/pressure-tests/` — 10 difficult-case regressions
 
-## Inputs
+**Key rules enforced**
 
-- reviewer comments or editor decision letter
-- current manuscript revision notes
-- figure, data, or text changes that can prove what was fixed
-- target journal and revision severity when relevant
+- Preserve the reviewer comment verbatim; never paraphrase it away.
+- Answer every comment or mark it `unresolved` — no silent drops.
+- Map each comment to an action (see below); never leave a reply actionless.
+- Never invent experiments, supplementary figures, citations, or line
+  numbers; proof-of-change must point at real revisions.
+- Responses must stand alone without the reviewer re-reading the manuscript.
+- Separate tone management from technical repair; a firm reply still needs a
+  real fix or an honest scope boundary.
 
-## Outputs
+**Action mapping** — Each reviewer comment is mapped to one of:
 
-- point-by-point response structure
-- proof-of-change language with locations and revision evidence
-- routed weakness list for writing, polishing, figure, data, or reader fixes
-- cleaner separation between tone management and technical repair
+| Action | Meaning |
+|---|---|
+| `ACCEPT_TEXT` | Accept the wording change; quote the revised text. |
+| `ACCEPT_ANALYSIS` | Accept the analysis/method change; cite the new result. |
+| `SOFTEN_CLAIM` | Narrow the claim to match the evidence. |
+| `DISAGREE` | Decline with evidence and a scope boundary. |
+| `AUTHOR_INPUT_NEEDED` | Flag unresolved; needs author decision or new work. |
 
-## Example
+**What it returns** — A point-by-point response with stable comment IDs,
+proof-of-change language keyed to revision locations, a routed weakness list
+for writing / figure / data / reader fixes, and a cleaner split between tone
+management and technical repair.
 
-- Example:
-  `plugins/materials-skills/skills/materials-response/examples/cbm-major-revision-response-example.md`
-- Additional examples:
-  `plugins/materials-skills/skills/materials-response/examples/ccc-methodology-critique-response-example.md`
-  and `plugins/materials-skills/skills/materials-response/examples/rmpd-minor-revision-response-example.md`
+**Reference files**
 
-## Validation
+```text
+skills/materials-response/
+├── README.md
+├── SKILL.md
+├── manifest.yaml
+├── scripts/
+│   └── build_response_package.py        assembles point-by-point response package
+├── assets/
+│   └── templates/
+│       ├── response-package-template.md response letter scaffold
+│       └── response-table-template.csv  point-by-point table scaffold
+├── static/
+│   ├── core/                            contract, response-contract, workflow
+│   └── fragments/
+│       ├── domain/                      6 material-domain routing fragments
+│       └── tone/                        academic and firm tone fragments
+└── references/
+    ├── response-strategy.md             point-by-point strategy and structure
+    ├── response-patterns.md             high-frequency comment patterns
+    ├── experiment-revision.md           mechanism/performance revision plans
+    ├── response-document-format.md      author response, tracked changes format
+    ├── language-bank.md                 rebuttal tone and phrasing
+    └── response-risk-checklist.md       reject / major-revision risk
+```
+
+**Validation**
 
 - Core regression test:
   `plugins/materials-skills/skills/materials-response/tests/test_response_examples.py`
-- Pressure test:
-  `plugins/materials-skills/skills/materials-response/tests/pressure-tests/aggressive-reviewer-mechanism-request.md`
+- Pressure tests:
+  `plugins/materials-skills/skills/materials-response/tests/pressure-tests/`
+  (10 difficult-case regressions including
+  `aggressive-reviewer-mechanism-request.md`)
 - Bundle verification:
   `python .\scripts\run_release_checks.py --json`
-
-## Boundaries
-
-This skill improves the response package, but it does not magically resolve the
-underlying technical problem. If a reviewer asks for stronger mechanism support
-or clearer figures, the real fix may need reader, citation, figure, or writing
-work before the reply is honest.
