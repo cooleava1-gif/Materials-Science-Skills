@@ -38,11 +38,13 @@ Every paper-derived visual pattern must carry a claim-evidence-boundary:
 
 This protects the small review from decorative figures and over-claiming. A taxonomy map can organize the literature, but it cannot prove performance. A mechanism map can show a hypothesis, but arrow strength requires FTIR, SEM, fluorescence microscopy, rheology, bonding, and durability evidence.
 
-## Review-First Asset Package
+## Review-First Patterns
 
-The first package contains 30 assets in `assets/review-first/asset-specs.csv`.
+These patterns now inform `review-first` planning and the automatic figure-package
+flow rather than a standalone CSV asset catalog. Current review-oriented examples
+live in `assets/review-first/data/` and `assets/review-first/generated/`.
 
-The 30 assets prioritize:
+The prioritized figure families remain:
 
 - review framework and taxonomy maps for a small review,
 - material-mechanism-performance-challenge structures,
