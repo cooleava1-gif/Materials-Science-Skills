@@ -109,7 +109,7 @@ def main():
     # (a) Weibull probability plot
     for s_data, sig0, m, label, color, marker in [
         (s_tzp, sig0_tzp, m_tzp, "3Y-TZP", "#d62728", "o"),
-        (s_al2o3, sig0_al2o3, m_al2o3, "Al\u2082O\u2083", "#1f77b4", "s"),
+        (s_al2o3, sig0_al2o3, m_al2o3, "$\\mathrm{Al_2O_3}$", "#1f77b4", "s"),
     ]:
         n = len(s_data)
         sorted_s = np.sort(s_data)
@@ -136,23 +136,23 @@ def main():
     ax2.hist(s_tzp, bins=bins, density=True, alpha=0.35, color="#d62728",
              edgecolor="#d62728", label="3Y-TZP data")
     ax2.hist(s_al2o3, bins=bins, density=True, alpha=0.35, color="#1f77b4",
-             edgecolor="#1f77b4", label="Al\u2082O\u2083 data")
+             edgecolor="#1f77b4", label="$\\mathrm{Al_2O_3}$ data")
 
     # PDF curves
     s_pdf = np.linspace(300, 1100, 200)
     pdf_tzp = weibull_pdf(s_pdf, sig0_tzp, m_tzp)
     pdf_al2o3 = weibull_pdf(s_pdf, sig0_al2o3, m_al2o3)
     ax2.plot(s_pdf, pdf_tzp, "-", color="#d62728", lw=1.5,
-             label=f"3Y-TZP fit (\u03c3\u2080={sig0_tzp:.0f})")
+             label=f"3Y-TZP fit ($\\sigma_0$={sig0_tzp:.0f})")
     ax2.plot(s_pdf, pdf_al2o3, "-", color="#1f77b4", lw=1.5,
-             label=f"Al\u2082O\u2083 fit (\u03c3\u2080={sig0_al2o3:.0f})")
+             label=f"$\\mathrm{{Al_2O_3}}$ fit ($\\sigma_0$={sig0_al2o3:.0f})")
 
     # Annotations for characteristic strength
     ax2.axvline(sig0_tzp, color="#d62728", linestyle="--", lw=0.8, alpha=0.6)
-    ax2.text(sig0_tzp, ax2.get_ylim()[1] * 0.92, f"\u03c3\u2080={sig0_tzp:.0f}",
+    ax2.text(sig0_tzp, ax2.get_ylim()[1] * 0.92, f"$\\sigma_0$={sig0_tzp:.0f}",
              color="#d62728", fontsize=7, ha="left", va="top")
     ax2.axvline(sig0_al2o3, color="#1f77b4", linestyle="--", lw=0.8, alpha=0.6)
-    ax2.text(sig0_al2o3, ax2.get_ylim()[1] * 0.85, f"\u03c3\u2080={sig0_al2o3:.0f}",
+    ax2.text(sig0_al2o3, ax2.get_ylim()[1] * 0.85, f"$\\sigma_0$={sig0_al2o3:.0f}",
              color="#1f77b4", fontsize=7, ha="left", va="top")
 
     ax2.set_xlabel("Fracture strength  \u03c3  [MPa]")

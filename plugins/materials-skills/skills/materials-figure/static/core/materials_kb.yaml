@@ -5,9 +5,9 @@
 #   - NIST Chemistry WebBook (FTIR reference)
 #   - ASM Handbook / Kingery "Introduction to Ceramics" (ceramic properties)
 #   - Mindess & Young "Concrete" (cement hydration)
-#   - ceramics-atlas real data (xrd_pattern.csv, thermal_conductivity.csv,
+#   - assets/materials4papers/ real data (xrd_pattern.csv, thermal_conductivity.csv,
 #     thermal_expansion.csv, weibull_data.csv, stress_strain.csv)
-#   - wer-ea-atlas real data (wer_ea_ftir_card.csv, wer_ea_dosage_window.csv,
+#   - assets/materials4papers/ real data (wer_ea_ftir_card.csv, wer_ea_dosage_window.csv,
 #     wer_ea_bonding_comparison.csv, wer_ea_standard_card.csv)
 #
 # This KB is a claim-validation aid, NOT a primary reference. A confirmed match
