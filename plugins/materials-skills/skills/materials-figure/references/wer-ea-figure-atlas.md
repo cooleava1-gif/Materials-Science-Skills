@@ -1,6 +1,6 @@
 # WER-EA Figure Atlas
 
-This atlas defines reusable, reviewer-safe figure patterns for waterborne epoxy resin modified emulsified asphalt (WER-EA) reviews. The assets are templates and visual contracts, not experimental results.
+This atlas defines reusable, reviewer-safe figure patterns for waterborne epoxy resin modified emulsified asphalt (WER-EA) reviews. The assets are data-driven or data-informed review figures with explicit claim boundaries, not stand-alone experimental proof.
 
 ## Core Rule
 
@@ -35,9 +35,9 @@ Every atlas figure must separate measured evidence, inferred interpretation, spe
 
 - `assets/wer-ea-atlas/asset-specs.csv`
 - `assets/wer-ea-atlas/data/*.csv`
-- `scripts/wer_ea_atlas/generate_atlas.py`
+- `scripts/regenerate_wer_ea_atlas.py`
 
-Generated SVG/PNG examples are visual templates. Their captions must include `template only` and a caption boundary.
+Generated SVG/PNG examples must preserve the claim boundary printed by the regeneration script. Illustrative panels such as the graphical abstract, SEM/fluorescence plate, and LCA boundary card should stay explicitly labeled as data-informed or illustrative where applicable.
 
 ## Visual Encoding
 
@@ -54,5 +54,5 @@ Use a consistent certainty legend:
 - [ ] Asset row has claim boundary.
 - [ ] Asset row has source data template.
 - [ ] Generated SVG includes a certainty legend.
-- [ ] Generated example says `template only`.
+- [ ] Generated example claim boundary matches the current atlas contract.
 - [ ] No local absolute path appears in asset specs or SVG output.

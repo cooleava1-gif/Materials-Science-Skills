@@ -18,6 +18,7 @@ import data_diagnose
 import recommend_chart
 
 import check_figure_contract
+import validate_materials_claims
 
 
 def generate_package(
@@ -44,10 +45,11 @@ def generate_package(
     shutil.copyfile(Path(__file__).resolve().parent / "materials_plot_lib.py", package_dir / "materials_plot_lib.py")
 
     write_intake(package_dir / "figure_intake.yaml", source_path, goal, figure_name, profile_dict, recommendation_dict)
-    write_contract(package_dir / "figure_contract.md", goal, profile_dict, recommendation_dict)
+    contract_path = package_dir / "figure_contract.md"
+    drafted_contract = ensure_contract(contract_path, goal, profile_dict, recommendation_dict)
 
     # Contract-driven mode: contract is a blocking gate before any plotting.
-    contract_issues = check_figure_contract.check_contract(package_dir / "figure_contract.md")
+    contract_issues = check_figure_contract.check_contract(contract_path)
     if contract_issues:
         return {
             "status": "blocked",
@@ -55,7 +57,35 @@ def generate_package(
             "profile": profile_dict,
             "recommendation": recommendation_dict,
             "issues": contract_issues,
-            "message": "Figure contract incomplete. Fill in substantive content for all seven points before plotting.",
+            "drafted_contract": drafted_contract,
+            "message": (
+                "Figure contract drafted. Review and fill in substantive content for all seven points, "
+                "then rerun before plotting."
+                if drafted_contract
+                else "Figure contract incomplete. Fill in substantive content for all seven points before plotting."
+            ),
+        }
+
+    materials_validation = validate_contract_claims(contract_path)
+    validation_errors = [
+        check["message"]
+        for check in materials_validation["checks"]
+        if check["result"] == "error"
+    ]
+    validation_warnings = [
+        check["message"]
+        for check in materials_validation["checks"]
+        if check["result"] == "warning"
+    ]
+    if validation_errors:
+        return {
+            "status": "blocked",
+            "package_dir": str(package_dir),
+            "profile": profile_dict,
+            "recommendation": recommendation_dict,
+            "issues": [f"materials validation: {msg}" for msg in validation_errors],
+            "materials_validation": materials_validation,
+            "message": "Materials claim validation failed. Revise the contract before plotting.",
         }
 
     write_plot_script(package_dir / "plot.py", recommendation_dict, figure_name)
@@ -64,7 +94,8 @@ def generate_package(
     write_qa_report(package_dir / "qa_report.md", profile_dict, recommendation_dict, package_dir)
     write_asset_manifest(package_dir / "asset_manifest.md", source_path, profile_dict, recommendation_dict)
 
-    issues = collect_generation_issues(package_dir)
+    issues = [f"materials validation warning: {msg}" for msg in validation_warnings]
+    issues.extend(collect_generation_issues(package_dir))
     status = "pass" if not issues else "revise"
     return {
         "status": status,
@@ -72,7 +103,23 @@ def generate_package(
         "profile": profile_dict,
         "recommendation": recommendation_dict,
         "issues": issues,
+        "materials_validation": materials_validation,
     }
+
+
+def ensure_contract(path: Path, goal: str, profile: dict, recommendation: dict) -> bool:
+    """Create a draft contract only when the package does not already have one."""
+    if path.exists():
+        return False
+    write_contract(path, goal, profile, recommendation)
+    return True
+
+
+def validate_contract_claims(contract_path: Path) -> dict:
+    """Run the materials claim validator against the current contract text."""
+    kb = validate_materials_claims.load_kb(validate_materials_claims.KB_PATH)
+    text = contract_path.read_text(encoding="utf-8")
+    return validate_materials_claims.validate_contract(text, kb)
 
 
 def write_intake(path: Path, source_path: Path, goal: str, figure_name: str, profile: dict, recommendation: dict) -> None:

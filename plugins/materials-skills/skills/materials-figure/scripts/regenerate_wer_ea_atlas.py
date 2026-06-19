@@ -642,7 +642,7 @@ def _wer_graphical_abstract(out: Path, data: Path) -> str:
     ax.set_xlim(0, 1)
     ax.set_ylim(0.20, 0.80)
     ax.axis("off")
-    ax.set_title("WER-EA review graphical abstract (template only)")
+    ax.set_title("WER-EA review graphical abstract (data-informed)")
     _add_tier_legend(ax, loc="lower center", fontsize=6)
     fig.tight_layout()
     finalize_figure(fig, name, output_dir=str(out))

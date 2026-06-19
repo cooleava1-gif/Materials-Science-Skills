@@ -39,6 +39,22 @@ XRD_TOLERANCE_DEG = 0.5
 FTIR_TOLERANCE_CM1 = 20
 PERFORMANCE_TOLERANCE = 0.25  # fractional tolerance for single-value ranges
 
+PROPERTY_UNIT_HINTS: dict[str, set[str]] = {
+    "flexural_strength": {"MPa", "GPa"},
+    "compressive_strength": {"MPa", "GPa"},
+    "elastic_modulus": {"MPa", "GPa"},
+    "thermal_conductivity": {"W/mK", "W/m.K"},
+    "CTE": {"/K", "1/K"},
+    "bond_strength": {"MPa", "GPa"},
+    "weibull_modulus": {""},
+    "fracture_strain": {"%"},
+}
+
+UNIT_ALIASES = {
+    "W/m.K": "W/mK",
+    "1/K": "/K",
+}
+
 # Phase aliases -> canonical KB phase name.
 # Longer aliases first so "t-ZrO2" matches before "ZrO2".
 PHASE_ALIASES: list[tuple[str, str]] = [
@@ -362,6 +378,40 @@ def find_values_in_text(text: str) -> list[tuple[float, str, int]]:
     return results
 
 
+def canonicalize_unit(unit: str) -> str:
+    """Normalize equivalent unit spellings before comparisons."""
+    return UNIT_ALIASES.get(unit, unit)
+
+
+def convert_value(value: float, from_unit: str, to_unit: str) -> float | None:
+    """Convert a claim value into the KB unit when the units are equivalent."""
+    from_unit = canonicalize_unit(from_unit)
+    to_unit = canonicalize_unit(to_unit)
+    if from_unit == to_unit:
+        return value
+    conversions = {
+        ("MPa", "GPa"): lambda v: v / 1000.0,
+        ("GPa", "MPa"): lambda v: v * 1000.0,
+    }
+    convert = conversions.get((from_unit, to_unit))
+    return None if convert is None else convert(value)
+
+
+def filter_values_for_property(
+    values: list[tuple[float, str, int]], property_name: str
+) -> list[tuple[float, str, int]]:
+    """Prefer values whose units match the property being discussed."""
+    expected_units = PROPERTY_UNIT_HINTS.get(property_name)
+    if not expected_units:
+        return values
+    filtered = [
+        candidate
+        for candidate in values
+        if canonicalize_unit(candidate[1]) in {canonicalize_unit(unit) for unit in expected_units}
+    ]
+    return filtered or values
+
+
 def extract_performance_claims(text: str) -> list[dict[str, Any]]:
     """Extract performance claims: (material, property, value, unit) from text.
 
@@ -396,14 +446,23 @@ def extract_performance_claims(text: str) -> list[dict[str, Any]]:
 
             # Nearest value that follows the property; fall back to the
             # nearest preceding value if none follow.
-            after = [(v, u, p) for v, u, p in values if p >= prop_pos]
+            after = filter_values_for_property(
+                [(v, u, p) for v, u, p in values if p >= prop_pos],
+                prop_name,
+            )
             if after:
                 nearest_val, nearest_unit, _ = min(
                     after, key=lambda vup: vup[2] - prop_pos
                 )
             else:
+                before = filter_values_for_property(
+                    [(v, u, p) for v, u, p in values if p < prop_pos],
+                    prop_name,
+                )
+                if not before:
+                    continue
                 nearest_val, nearest_unit, _ = min(
-                    values, key=lambda vup: prop_pos - vup[2]
+                    before, key=lambda vup: prop_pos - vup[2]
                 )
 
             key = (nearest_mat, prop_name, nearest_val)
@@ -694,8 +753,32 @@ def validate_performance_claim(
         }
 
     low, high, kb_unit = parsed
+    kb_unit = canonicalize_unit(kb_unit)
+    claim_unit = canonicalize_unit(unit)
+    compare_val = val
 
-    if low <= val <= high:
+    if claim_unit and kb_unit and claim_unit != kb_unit:
+        converted = convert_value(val, claim_unit, kb_unit)
+        if converted is None:
+            return {
+                "type": "performance",
+                "claim": claim["context"],
+                "extracted": {
+                    "material": mat,
+                    "property": prop,
+                    "value": val,
+                    "unit": unit,
+                },
+                "kb_match": {"range": kb_entry["range"]},
+                "result": "warning",
+                "message": (
+                    f"{mat} {prop} uses unsupported unit conversion "
+                    f"({unit} vs {kb_entry['range']})"
+                ),
+            }
+        compare_val = converted
+
+    if low <= compare_val <= high:
         return {
             "type": "performance",
             "claim": claim["context"],
@@ -713,7 +796,7 @@ def validate_performance_claim(
     # For single-value ranges, allow tolerance.
     if low == high:
         tol = abs(low) * PERFORMANCE_TOLERANCE
-        if abs(val - low) <= tol:
+        if abs(compare_val - low) <= tol:
             return {
                 "type": "performance",
                 "claim": claim["context"],

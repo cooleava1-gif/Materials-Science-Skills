@@ -79,7 +79,8 @@ auto-plotting:
 
 ```text
 contract draft -> LLM/user confirmation -> check_figure_contract.py validation
-  -> data diagnosis -> chart recommendation -> SVG/PNG export -> QA report
+  -> validate_materials_claims.py -> data diagnosis -> chart recommendation
+  -> SVG/PNG export -> QA report
 ```
 
 1. Draft `figure_contract.md` from the source table and the user's goal,
@@ -87,7 +88,12 @@ contract draft -> LLM/user confirmation -> check_figure_contract.py validation
 2. Confirm or revise the draft with the user/LLM until every point holds real
    content.
 3. Run `check_figure_contract.py`. If validation fails, stop; do not plot.
-4. Only after validation passes, run
+4. Run `validate_materials_claims.py`. If it reports errors, stop and revise
+   the contract.
+5. If no contract exists yet, `scripts/generate_figure_package.py` may be used
+   once to scaffold a draft package and return `blocked`. Revise the drafted
+   contract, then rerun the same command after validation passes.
+6. Only after validation passes, run
    `scripts/generate_figure_package.py` with `--data`, `--output-dir`,
    `--goal`, and `--figure-name`. The loop writes `figure_intake.yaml`,
    `source_data.csv`, `plot.py`, `figure.svg`, `figure.png`, `caption.md`,

@@ -18,6 +18,39 @@ def load_module(name: str, path: Path):
     return module
 
 
+def write_ready_contract(package_dir: Path) -> None:
+    package_dir.mkdir(parents=True, exist_ok=True)
+    (package_dir / "figure_contract.md").write_text(
+        """# Figure Contract
+
+## Core Conclusion
+The supplied dosage series supports a measured laboratory trend between WER dosage and bonding strength.
+
+## Evidence Chain
+The source table contains measured dosage, bonding-strength, and standard-deviation columns that support a single-panel laboratory trend figure without extending into field claims.
+
+## Archetype
+Single-panel dosage-response figure for a measured WER-modified emulsion laboratory data set.
+
+## Backend
+Python backend only, using a rerunnable matplotlib package generated in this directory.
+
+## Journal/Export Contract
+Generate editable SVG plus PNG, PDF, and TIFF exports for manuscript drafting and reviewer circulation.
+
+## Statistics And Image Integrity
+Use the supplied SD column as error bars, preserve the copied CSV in the package, and avoid adding unsupported trend or significance claims.
+
+## WER-EA Boundary
+This figure is limited to measured laboratory bonding response across the supplied dosage range and does not prove field durability or interface mechanism.
+
+## Reviewer Risk
+Replicate count, curing protocol, and test geometry still need to be stated in the caption or manuscript methods before submission.
+""",
+        encoding="utf-8",
+    )
+
+
 class AutomaticFigurePackageTest(unittest.TestCase):
     def test_skill_docs_expose_automatic_table_to_figure_loop(self):
         skill_text = (SKILL_ROOT / "SKILL.md").read_text(encoding="utf-8")
@@ -27,12 +60,16 @@ class AutomaticFigurePackageTest(unittest.TestCase):
         reference_text = (SKILL_ROOT / "references" / "automatic-figure-package.md").read_text(encoding="utf-8")
 
         for phrase in [
-            "data diagnosis -> chart recommendation -> SVG/PNG export -> QA report",
+            "chart recommendation -> SVG/PNG export -> QA report",
             "generate_figure_package.py",
             "figure_intake.yaml",
             "qa_report.md",
         ]:
             self.assertIn(phrase, workflow_text + readme_text + reference_text)
+        self.assertIn(
+            "contract + materials validation -> chart recommendation -> SVG/PNG export -> QA report",
+            workflow_text + readme_text + reference_text,
+        )
 
         self.assertIn("references/automatic-figure-package.md", manifest_text)
         self.assertIn("scripts/data_diagnose.py", manifest_text)
@@ -92,6 +129,7 @@ class AutomaticFigurePackageTest(unittest.TestCase):
                 encoding="utf-8",
             )
             package_dir = Path(tmp) / "package"
+            write_ready_contract(package_dir)
             result = subprocess.run(
                 [
                     sys.executable,
@@ -153,6 +191,53 @@ class AutomaticFigurePackageTest(unittest.TestCase):
         self.assertIn("Core Conclusion", contract_text)
         self.assertEqual(audit_payload["status"], "pass")
 
+    def test_generate_figure_package_cli_drafts_contract_and_blocks_until_reviewed(self):
+        script = SCRIPTS_ROOT / "generate_figure_package.py"
+
+        with tempfile.TemporaryDirectory() as tmp:
+            input_csv = Path(tmp) / "wer_bond_strength.csv"
+            input_csv.write_text(
+                "\n".join(
+                    [
+                        "WER content (%),Bond strength (MPa),SD,Condition",
+                        "0,0.42,0.03,Dry",
+                        "5,0.55,0.04,Dry",
+                        "10,0.68,0.04,Dry",
+                    ]
+                ),
+                encoding="utf-8",
+            )
+            package_dir = Path(tmp) / "package"
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(script),
+                    "--data",
+                    str(input_csv),
+                    "--output-dir",
+                    str(package_dir),
+                    "--goal",
+                    "Draft a dosage-response figure contract.",
+                    "--figure-name",
+                    "wer_bond_strength",
+                    "--json",
+                ],
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+
+            payload = json.loads(result.stdout)
+            contract_exists = (package_dir / "figure_contract.md").exists()
+            svg_exists = (package_dir / "figure.svg").exists()
+
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(payload["status"], "blocked")
+        self.assertTrue(payload["drafted_contract"])
+        self.assertTrue(contract_exists)
+        self.assertFalse(svg_exists)
+        self.assertIn("Review and fill in substantive content", payload["message"])
+
     def test_generator_renders_grouped_bar_and_correlation_heatmap_recommendations(self):
         script = SCRIPTS_ROOT / "generate_figure_package.py"
 
@@ -170,6 +255,7 @@ class AutomaticFigurePackageTest(unittest.TestCase):
                 encoding="utf-8",
             )
             grouped_package = Path(tmp) / "grouped-package"
+            write_ready_contract(grouped_package)
             grouped_result = subprocess.run(
                 [
                     sys.executable,
@@ -204,6 +290,7 @@ class AutomaticFigurePackageTest(unittest.TestCase):
                 encoding="utf-8",
             )
             corr_package = Path(tmp) / "corr-package"
+            write_ready_contract(corr_package)
             corr_result = subprocess.run(
                 [
                     sys.executable,
@@ -251,6 +338,7 @@ class AutomaticFigurePackageTest(unittest.TestCase):
                 encoding="utf-8",
             )
             package = Path(tmp) / "replicate-package"
+            write_ready_contract(package)
             result = subprocess.run(
                 [
                     sys.executable,
@@ -278,6 +366,30 @@ class AutomaticFigurePackageTest(unittest.TestCase):
         self.assertTrue(svg_exists)
         self.assertTrue(png_exists)
         self.assertIn("boxplot_points", qa_text)
+
+    def test_validate_materials_claims_prefers_property_units_over_temperature_values(self):
+        validator = load_module("validate_materials_claims", SCRIPTS_ROOT / "validate_materials_claims.py")
+
+        claims = validator.extract_performance_claims(
+            "Al2O3 flexural strength at 25 C was 350 MPa."
+        )
+
+        self.assertEqual(len(claims), 1)
+        self.assertEqual(claims[0]["property"], "flexural_strength")
+        self.assertEqual(claims[0]["value"], 350.0)
+        self.assertEqual(claims[0]["unit"], "MPa")
+
+    def test_validate_materials_claims_normalizes_equivalent_units(self):
+        validator = load_module("validate_materials_claims", SCRIPTS_ROOT / "validate_materials_claims.py")
+        kb = validator.load_kb(validator.KB_PATH)
+
+        result = validator.validate_contract(
+            "Al2O3 elastic modulus was 380000 MPa.",
+            kb,
+        )
+
+        self.assertEqual(result["status"], "pass")
+        self.assertEqual(result["checks"][0]["result"], "confirmed")
 
 
 if __name__ == "__main__":
