@@ -1,10 +1,179 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="820" height="300" viewBox="0 0 820 300">
-  <rect width="820" height="300" fill="#f8f9f6"/>
-  <text x="40" y="38" font-size="22" font-family="Arial" fill="#1f2a2e">Wer Ea Mechanism Map</text>
-  <text x="40" y="62" font-size="12" font-family="Arial" fill="#40505a">WER-EA figure atlas - template only</text>
-  <text x="40" y="84" font-size="11" font-family="Arial" fill="#40505a">Use: mechanism synthesis</text>
-  <rect x="42" y="108" width="112" height="58" rx="6" fill="#2f6f4e" fill-opacity="0.92" stroke="#223" stroke-width="1.2" stroke-dasharray=""/><text x="98" y="137" font-size="10" text-anchor="middle" fill="#111">resin</text><text x="98" y="152" font-size="8" text-anchor="middle" fill="#111">measured</text><rect x="166" y="108" width="112" height="58" rx="6" fill="#3e7cb1" fill-opacity="0.92" stroke="#223" stroke-width="1.2" stroke-dasharray="6 4"/><text x="222" y="137" font-size="10" text-anchor="middle" fill="#111">emulsion</text><text x="222" y="152" font-size="8" text-anchor="middle" fill="#111">inferred</text><rect x="290" y="108" width="112" height="58" rx="6" fill="#9a6b00" fill-opacity="0.92" stroke="#223" stroke-width="1.2" stroke-dasharray="2 4"/><text x="346" y="137" font-size="10" text-anchor="middle" fill="#111">asphalt</text><text x="346" y="152" font-size="8" text-anchor="middle" fill="#111">speculative</text><rect x="414" y="108" width="112" height="58" rx="6" fill="#777777" fill-opacity="0.25" stroke="#223" stroke-width="1.2" stroke-dasharray=""/><text x="470" y="137" font-size="10" text-anchor="middle" fill="#111">aggregate</text><text x="470" y="152" font-size="8" text-anchor="middle" fill="#111">missing</text><rect x="538" y="108" width="112" height="58" rx="6" fill="#2f6f4e" fill-opacity="0.92" stroke="#223" stroke-width="1.2" stroke-dasharray=""/><text x="594" y="137" font-size="10" text-anchor="middle" fill="#111">water path</text><text x="594" y="152" font-size="8" text-anchor="middle" fill="#111">measured</text>
-  <text x="40" y="196" font-size="11" font-family="Arial" fill="#222">Required evidence: FTIR or rheology or microscopy plus bonding anchor</text>
-  <rect x="48" y="214" width="20" height="10" fill="#2f6f4e" opacity="0.85"/><text x="74" y="223" font-size="10" fill="#222">measured</text><rect x="176" y="214" width="20" height="10" fill="#3e7cb1" opacity="0.85"/><text x="202" y="223" font-size="10" fill="#222">inferred</text><rect x="304" y="214" width="20" height="10" fill="#9a6b00" opacity="0.85"/><text x="330" y="223" font-size="10" fill="#222">speculative</text><rect x="432" y="214" width="20" height="10" fill="#777777" opacity="0.85"/><text x="458" y="223" font-size="10" fill="#222">missing</text>
-  <text x="40" y="258" font-size="11" font-family="Arial" fill="#222">Claim boundary: template only; arrows must follow measured inferred speculative missing tiers</text>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="640.8pt" height="316.8pt" viewBox="0 0 640.8 316.8" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-06-19T16:33:25.981599</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.0, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 316.8 
+L 640.8 316.8 
+L 640.8 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 69.84 163.185753 
+C 81.468626 163.185753 92.622538 159.913331 100.845218 154.089202 
+C 109.067898 148.265072 113.688 140.364748 113.688 132.128185 
+C 113.688 123.891622 109.067898 115.991298 100.845218 110.167168 
+C 92.622538 104.343039 81.468626 101.070617 69.84 101.070617 
+C 58.211374 101.070617 47.057462 104.343039 38.834782 110.167168 
+C 30.612102 115.991298 25.992 123.891622 25.992 132.128185 
+C 25.992 140.364748 30.612102 148.265072 38.834782 154.089202 
+C 47.057462 159.913331 58.211374 163.185753 69.84 163.185753 
+z
+" clip-path="url(#p33375ddb26)" style="fill: #4f7c6a; opacity: 0.18; stroke: #4f7c6a; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 195.12 118.817799 
+C 206.748626 118.817799 217.902538 115.545378 226.125218 109.721248 
+C 234.347898 103.897118 238.968 95.996795 238.968 87.760231 
+C 238.968 79.523668 234.347898 71.623344 226.125218 65.799215 
+C 217.902538 59.975085 206.748626 56.702664 195.12 56.702664 
+C 183.491374 56.702664 172.337462 59.975085 164.114782 65.799215 
+C 155.892102 71.623344 151.272 79.523668 151.272 87.760231 
+C 151.272 95.996795 155.892102 103.897118 164.114782 109.721248 
+C 172.337462 115.545378 183.491374 118.817799 195.12 118.817799 
+z
+" clip-path="url(#p33375ddb26)" style="fill: #4f7c6a; opacity: 0.18; stroke: #4f7c6a; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 320.4 229.737683 
+C 332.028626 229.737683 343.182538 226.465262 351.405218 220.641132 
+C 359.627898 214.817003 364.248 206.916679 364.248 198.680116 
+C 364.248 190.443552 359.627898 182.543229 351.405218 176.719099 
+C 343.182538 170.894969 332.028626 167.622548 320.4 167.622548 
+C 308.771374 167.622548 297.617462 170.894969 289.394782 176.719099 
+C 281.172102 182.543229 276.552 190.443552 276.552 198.680116 
+C 276.552 206.916679 281.172102 214.817003 289.394782 220.641132 
+C 297.617462 226.465262 308.771374 229.737683 320.4 229.737683 
+z
+" clip-path="url(#p33375ddb26)" style="fill: #4f7c6a; opacity: 0.18; stroke: #4f7c6a; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 445.68 141.001776 
+C 457.308626 141.001776 468.462538 137.729355 476.685218 131.905225 
+C 484.907898 126.081095 489.528 118.180771 489.528 109.944208 
+C 489.528 101.707645 484.907898 93.807321 476.685218 87.983192 
+C 468.462538 82.159062 457.308626 78.886641 445.68 78.886641 
+C 434.051374 78.886641 422.897462 82.159062 414.674782 87.983192 
+C 406.452102 93.807321 401.832 101.707645 401.832 109.944208 
+C 401.832 118.180771 406.452102 126.081095 414.674782 131.905225 
+C 422.897462 137.729355 434.051374 141.001776 445.68 141.001776 
+z
+" clip-path="url(#p33375ddb26)" style="fill: #4f7c6a; opacity: 0.18; stroke: #4f7c6a; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 558.432 251.92166 
+C 570.060626 251.92166 581.214538 248.649239 589.437218 242.825109 
+C 597.659898 237.00098 602.28 229.100656 602.28 220.864093 
+C 602.28 212.627529 597.659898 204.727206 589.437218 198.903076 
+C 581.214538 193.078946 570.060626 189.806525 558.432 189.806525 
+C 546.803374 189.806525 535.649462 193.078946 527.426782 198.903076 
+C 519.204102 204.727206 514.584 212.627529 514.584 220.864093 
+C 514.584 229.100656 519.204102 237.00098 527.426782 242.825109 
+C 535.649462 248.649239 546.803374 251.92166 558.432 251.92166 
+z
+" clip-path="url(#p33375ddb26)" style="fill: #4f7c6a; opacity: 0.18; stroke: #4f7c6a; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(47.764375 129.844904)">Waterborne</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(58.280625 138.551935)">epoxy</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(177.11875 85.477028)">Emulsion</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(179.341875 94.184059)">droplets</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(305.733125 196.396913)">Asphalt</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(313.28875 205.103944)">film</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(425.9 107.660927)">Aggregate</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(429.0075 116.368114)">interface</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(542.216375 218.580733)">Bonding</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(542.43325 227.287921)">strength</text>
+   </g>
+   <g id="patch_7">
+    <path d="M 114.979491 130.603578 
+Q 132.480038 109.944163 148.896604 90.564389 
+" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #4b6f8a; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 144.785094 92.323789 
+L 148.896604 90.564389 
+L 147.837218 94.909237 
+z
+" style="fill: #4b6f8a; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #4b6f8a; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_6">
+    <text style="font-style: italic; font-size: 7px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #4b6f8a" x="132.48" y="92.197027" transform="rotate(-0 132.48 92.197027)">inferred</text>
+   </g>
+   <g id="patch_8">
+    <path d="M 239.609158 89.65245 
+Q 257.759832 143.219677 275.479951 195.516227 
+" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #c47b45; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 276.090497 191.085963 
+L 275.479951 195.516227 
+L 272.302068 192.369632 
+z
+" style="fill: #c47b45; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #c47b45; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="text_7">
+    <text style="font-style: italic; font-size: 7px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #c47b45" x="257.76" y="125.472992" transform="rotate(-0 257.76 125.472992)">speculative</text>
+   </g>
+   <g id="patch_9">
+    <path d="M 365.029088 196.835964 
+Q 383.040255 154.311561 400.397356 113.331405 
+" style="fill: none; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #4b6f8a; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 396.995699 116.234633 
+L 400.397356 113.331405 
+L 400.678944 117.794667 
+z
+" style="fill: #4b6f8a; stroke-dasharray: 5.55,2.4; stroke-dashoffset: 0; stroke: #4b6f8a; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_8">
+    <text style="font-style: italic; font-size: 7px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #4b6f8a" x="383.04" y="136.56498" transform="rotate(-0 383.04 136.56498)">inferred</text>
+   </g>
+   <g id="patch_10">
+    <path d="M 489.969202 111.897357 
+Q 502.056129 165.40472 513.699627 216.949081 
+" style="fill: none; stroke: #4f7c6a; stroke-width: 1.8; stroke-linecap: round"/>
+    <path d="M 514.769109 212.606708 
+L 513.699627 216.949081 
+L 510.867418 213.488072 
+z
+" style="fill: #4f7c6a; stroke: #4f7c6a; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="text_9">
+    <text style="font-style: italic; font-size: 7px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #4f7c6a" x="502.056" y="147.656969" transform="rotate(-0 502.056 147.656969)">measured</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 11px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="320.4" y="15.208301" transform="rotate(-0 320.4 15.208301)">WER-EA evidence-bounded mechanism map</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p33375ddb26">
+   <rect x="7.2" y="21.208301" width="626.4" height="288.391699"/>
+  </clipPath>
+ </defs>
 </svg>

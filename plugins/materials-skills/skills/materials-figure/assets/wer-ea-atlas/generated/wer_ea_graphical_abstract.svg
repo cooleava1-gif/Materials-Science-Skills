@@ -1,10 +1,179 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="820" height="300" viewBox="0 0 820 300">
-  <rect width="820" height="300" fill="#f8f9f6"/>
-  <text x="40" y="38" font-size="22" font-family="Arial" fill="#1f2a2e">Graphical Abstract</text>
-  <text x="40" y="62" font-size="12" font-family="Arial" fill="#40505a">WER-EA figure atlas - template only</text>
-  <text x="40" y="84" font-size="11" font-family="Arial" fill="#40505a">Use: review graphical abstract</text>
-  <rect x="42" y="108" width="112" height="58" rx="6" fill="#2f6f4e" fill-opacity="0.92" stroke="#223" stroke-width="1.2" stroke-dasharray=""/><text x="98" y="137" font-size="10" text-anchor="middle" fill="#111">problem</text><text x="98" y="152" font-size="8" text-anchor="middle" fill="#111">measured</text><rect x="166" y="108" width="112" height="58" rx="6" fill="#3e7cb1" fill-opacity="0.92" stroke="#223" stroke-width="1.2" stroke-dasharray="6 4"/><text x="222" y="137" font-size="10" text-anchor="middle" fill="#111">material design</text><text x="222" y="152" font-size="8" text-anchor="middle" fill="#111">inferred</text><rect x="290" y="108" width="112" height="58" rx="6" fill="#9a6b00" fill-opacity="0.92" stroke="#223" stroke-width="1.2" stroke-dasharray="2 4"/><text x="346" y="137" font-size="10" text-anchor="middle" fill="#111">evidence chain</text><text x="346" y="152" font-size="8" text-anchor="middle" fill="#111">speculative</text><rect x="414" y="108" width="112" height="58" rx="6" fill="#777777" fill-opacity="0.25" stroke="#223" stroke-width="1.2" stroke-dasharray=""/><text x="470" y="137" font-size="10" text-anchor="middle" fill="#111">application</text><text x="470" y="152" font-size="8" text-anchor="middle" fill="#111">missing</text><rect x="538" y="108" width="112" height="58" rx="6" fill="#2f6f4e" fill-opacity="0.92" stroke="#223" stroke-width="1.2" stroke-dasharray=""/><text x="594" y="137" font-size="10" text-anchor="middle" fill="#111">gap</text><text x="594" y="152" font-size="8" text-anchor="middle" fill="#111">measured</text>
-  <text x="40" y="196" font-size="11" font-family="Arial" fill="#222">Required evidence: review scope and representative source anchors</text>
-  <rect x="48" y="214" width="20" height="10" fill="#2f6f4e" opacity="0.85"/><text x="74" y="223" font-size="10" fill="#222">measured</text><rect x="176" y="214" width="20" height="10" fill="#3e7cb1" opacity="0.85"/><text x="202" y="223" font-size="10" fill="#222">inferred</text><rect x="304" y="214" width="20" height="10" fill="#9a6b00" opacity="0.85"/><text x="330" y="223" font-size="10" fill="#222">speculative</text><rect x="432" y="214" width="20" height="10" fill="#777777" opacity="0.85"/><text x="458" y="223" font-size="10" fill="#222">missing</text>
-  <text x="40" y="258" font-size="11" font-family="Arial" fill="#222">Claim boundary: template only; no universal improvement or field validation implied</text>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="712.8pt" height="280.8pt" viewBox="0 0 712.8 280.8" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-06-19T16:33:28.261417</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.0, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 280.8 
+L 712.8 280.8 
+L 712.8 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 21.168 214.708604 
+L 132.912 214.708604 
+Q 139.896 214.708604 139.896 210.502075 
+L 139.896 84.306226 
+Q 139.896 80.099697 132.912 80.099697 
+L 21.168 80.099697 
+Q 14.184 80.099697 14.184 84.306226 
+L 14.184 210.502075 
+Q 14.184 214.708604 21.168 214.708604 
+z
+" clip-path="url(#p5dd591a10e)" style="fill: #b85450; opacity: 0.47; stroke: #b85450; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 153.864 214.708604 
+L 265.608 214.708604 
+Q 272.592 214.708604 272.592 210.502075 
+L 272.592 84.306226 
+Q 272.592 80.099697 265.608 80.099697 
+L 153.864 80.099697 
+Q 146.88 80.099697 146.88 84.306226 
+L 146.88 210.502075 
+Q 146.88 214.708604 153.864 214.708604 
+z
+" clip-path="url(#p5dd591a10e)" style="fill: #c47b45; opacity: 0.425; stroke: #c47b45; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 286.56 214.708604 
+L 398.304 214.708604 
+Q 405.288 214.708604 405.288 210.502075 
+L 405.288 84.306226 
+Q 405.288 80.099697 398.304 80.099697 
+L 286.56 80.099697 
+Q 279.576 80.099697 279.576 84.306226 
+L 279.576 210.502075 
+Q 279.576 214.708604 286.56 214.708604 
+z
+" clip-path="url(#p5dd591a10e)" style="fill: #4f7c6a; opacity: 0.38; stroke: #4f7c6a; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 419.256 214.708604 
+L 531 214.708604 
+Q 537.984 214.708604 537.984 210.502075 
+L 537.984 84.306226 
+Q 537.984 80.099697 531 80.099697 
+L 419.256 80.099697 
+Q 412.272 80.099697 412.272 84.306226 
+L 412.272 210.502075 
+Q 412.272 214.708604 419.256 214.708604 
+z
+" clip-path="url(#p5dd591a10e)" style="fill: #4b6f8a; opacity: 0.365; stroke: #4b6f8a; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 551.952 214.708604 
+L 663.696 214.708604 
+Q 670.68 214.708604 670.68 210.502075 
+L 670.68 84.306226 
+Q 670.68 80.099697 663.696 80.099697 
+L 551.952 80.099697 
+Q 544.968 80.099697 544.968 84.306226 
+L 544.968 210.502075 
+Q 544.968 214.708604 551.952 214.708604 
+z
+" clip-path="url(#p5dd591a10e)" style="fill: #8b6f47; opacity: 0.44; stroke: #8b6f47; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="77.04" y="128.441821" transform="rotate(-0 77.04 128.441821)">Problem</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 9px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #b85450" x="77.04" y="183.385479" transform="rotate(-0 77.04 183.385479)">0.90</text>
+   </g>
+   <g id="patch_7">
+    <path d="M 186.786501 147.40415 
+Q 167.834323 147.40415 150.559196 147.40415 
+" style="fill: none; stroke: #8c8c8c; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 154.559196 149.40415 
+L 150.559196 147.40415 
+L 154.559196 145.40415 
+z
+" style="fill: #8c8c8c; stroke: #8c8c8c; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(194.61975 124.088228)">Material</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(196.846625 132.795259)">design</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 9px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #c47b45" x="209.736" y="183.385479" transform="rotate(-0 209.736 183.385479)">0.75</text>
+   </g>
+   <g id="patch_8">
+    <path d="M 319.482501 147.40415 
+Q 300.530323 147.40415 283.255196 147.40415 
+" style="fill: none; stroke: #8c8c8c; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 287.255196 149.40415 
+L 283.255196 147.40415 
+L 287.255196 145.40415 
+z
+" style="fill: #8c8c8c; stroke: #8c8c8c; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(324.868875 124.088306)">Evidence</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(331.98575 132.795337)">chain</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 9px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #4f7c6a" x="342.432" y="183.385479" transform="rotate(-0 342.432 183.385479)">0.60</text>
+   </g>
+   <g id="patch_9">
+    <path d="M 452.178501 147.40415 
+Q 433.226323 147.40415 415.951196 147.40415 
+" style="fill: none; stroke: #8c8c8c; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 419.951196 149.40415 
+L 415.951196 147.40415 
+L 419.951196 145.40415 
+z
+" style="fill: #8c8c8c; stroke: #8c8c8c; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="475.128" y="128.441821" transform="rotate(-0 475.128 128.441821)">Application</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 9px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #4b6f8a" x="475.128" y="183.385479" transform="rotate(-0 475.128 183.385479)">0.55</text>
+   </g>
+   <g id="patch_10">
+    <path d="M 584.874501 147.40415 
+Q 565.922323 147.40415 548.647196 147.40415 
+" style="fill: none; stroke: #8c8c8c; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 552.647196 149.40415 
+L 548.647196 147.40415 
+L 552.647196 145.40415 
+z
+" style="fill: #8c8c8c; stroke: #8c8c8c; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="607.824" y="128.441821" transform="rotate(-0 607.824 128.441821)">Gap</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 9px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #8b6f47" x="607.824" y="183.385479" transform="rotate(-0 607.824 183.385479)">0.80</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 11px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="356.4" y="15.208301" transform="rotate(-0 356.4 15.208301)">WER-EA review graphical abstract</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p5dd591a10e">
+   <rect x="7.2" y="21.208301" width="698.4" height="252.391699"/>
+  </clipPath>
+ </defs>
 </svg>

@@ -1,0 +1,5 @@
+from_node,to_node,certainty_tier
+Waterborne epoxy,Emulsion droplets,inferred
+Emulsion droplets,Asphalt film,speculative
+Asphalt film,Aggregate interface,inferred
+Aggregate interface,Bonding strength,measured

@@ -1,0 +1,6 @@
+condition,control_retention_pct,wer_retention_pct
+Dry,100,100
+Water immersion,62,85
+Freeze-thaw,48,72
+UV aging,75,90
+Heat aging,60,80
