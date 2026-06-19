@@ -26,11 +26,11 @@ hold substantive content — not template-only, placeholder, or empty fields:
 - WER-EA or materials claim boundary,
 - reviewer risks.
 
-Then run `check_figure_contract.py` against `figure_contract.md`.
+Then validate `figure_contract.md` manually or with optional validation tools.
 
 - Validation passes -> proceed to materials knowledge validation.
 - Validation fails -> stop. Revise the contract so every point holds real
-  content and rerun validation. Do not generate plotting scripts, mock data,
+  content. Do not generate plotting scripts, mock data,
   previews, or rendered figures while the contract is invalid.
 
 The contract always precedes plotting code. This is binding for both
@@ -38,7 +38,7 @@ interactive figure work and the automatic table-plotting loop.
 
 ## 2b. Validate materials-science claims
 
-After the contract passes `check_figure_contract.py`, run
+After the contract passes validation, optionally run
 `validate_materials_claims.py` against `figure_contract.md`. The validator
 extracts XRD peaks/phases, FTIR wavenumbers/functional groups, and performance
 values from the evidence chain and checks them against
@@ -71,33 +71,25 @@ Load `static/fragments/backend/python.md` and follow its execution rules.
 
 Use actual source data, a table-system row, a `source_map.json` anchor, or PDF visual asset metadata. If the user has no evidence yet, produce a plan or template only and label the package `template-only`. If source anchors are missing, update the contract's evidence chain before proceeding; do not plot against an unanchored contract.
 
-## 5. Use the automatic table loop in contract-first order
+## 5. LLM-driven figure creation
 
-If the user provides a CSV/TSV table and asks for plotting, run the automatic
-Python package loop in **contract-first** order, not zero-interaction
-auto-plotting:
+In LLM-as-artist mode, the LLM writes plotting code directly based on the validated contract and source data. The workflow is:
 
 ```text
-contract draft -> LLM/user confirmation -> check_figure_contract.py validation
-  -> validate_materials_claims.py -> data diagnosis -> chart recommendation
-  -> SVG/PNG export -> QA report
+contract draft -> LLM/user confirmation -> contract validation
+  -> validate_materials_claims.py (optional) -> LLM writes plot.py
+  -> SVG/PNG export -> QA review
 ```
 
 1. Draft `figure_contract.md` from the source table and the user's goal,
    filling all seven points with substantive content.
 2. Confirm or revise the draft with the user/LLM until every point holds real
    content.
-3. Run `check_figure_contract.py`. If validation fails, stop; do not plot.
-4. Run `validate_materials_claims.py`. If it reports errors, stop and revise
+3. Validate the contract. If validation fails, stop; do not plot.
+4. Optionally run `validate_materials_claims.py`. If it reports errors, stop and revise
    the contract.
-5. If no contract exists yet, `scripts/generate_figure_package.py` may be used
-   once to scaffold a draft package and return `blocked`. Revise the drafted
-   contract, then rerun the same command after validation passes.
-6. Only after validation passes, run
-   `scripts/generate_figure_package.py` with `--data`, `--output-dir`,
-   `--goal`, and `--figure-name`. The loop writes `figure_intake.yaml`,
-   `source_data.csv`, `plot.py`, `figure.svg`, `figure.png`, `caption.md`,
-   `qa_report.md`, `asset_manifest.md`, and `figure_contract.md`.
+5. The LLM writes `plot.py` directly using matplotlib or other Python plotting libraries, following the contract and source data.
+6. The LLM generates exports (SVG, PNG, PDF, TIFF) and writes `caption.md`, `qa_report.md`, and `asset_manifest.md`.
 
 Stop for human clarification only when the table lacks numeric response
 columns, the scientific claim cannot be inferred safely, or the QA report has
@@ -114,4 +106,4 @@ Apply `references/figure-qa-contract.md`. Check export formats, final size, text
 
 ## 8. Return the package
 
-Return the package path, a short claim-evidence summary, the caption boundary, any failed QA items, and the reviewer-risk notes. Do not call a package submission-ready if `scripts/audit_figure_package.py` reports `incomplete`.
+Return the package path, a short claim-evidence summary, the caption boundary, any failed QA items, and the reviewer-risk notes.

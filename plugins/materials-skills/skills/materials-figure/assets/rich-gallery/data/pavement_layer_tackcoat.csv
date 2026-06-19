@@ -1,9 +1,0 @@
-# Literature basis: tack coat application rate 0.2-1.0 L/m2; interface shear
-# strength peaks near 0.6 L/m2 then drops as excess binder forms a slip
-# plane. Values synthetic, bounded by reported pavement layer shear tests.
-application_rate_L_m2,shear_strength_MPa,shear_err
-0.2,0.55,0.06
-0.4,0.92,0.07
-0.6,1.35,0.09
-0.8,1.18,0.08
-1.0,0.96,0.07

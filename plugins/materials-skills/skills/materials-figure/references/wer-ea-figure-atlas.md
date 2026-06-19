@@ -33,11 +33,13 @@ Every atlas figure must separate measured evidence, inferred interpretation, spe
 
 ## Required Files
 
-- `assets/wer-ea-atlas/asset-specs.csv`
-- `assets/wer-ea-atlas/data/*.csv`
-- `scripts/regenerate_wer_ea_atlas.py`
+The pre-generated atlas assets (SVG/PNG/CSV) have been removed in the
+transition to LLM-as-artist mode. The LLM now writes plotting code directly
+using matplotlib, following the figure families and evidence boundaries
+defined above. For reference examples, see `assets/materials4papers/` and
+`examples/figure-packages/`.
 
-Generated SVG/PNG examples must preserve the claim boundary printed by the regeneration script. Illustrative panels such as the graphical abstract, SEM/fluorescence plate, and LCA boundary card should stay explicitly labeled as data-informed or illustrative where applicable.
+Generated SVG/PNG examples must preserve the claim boundary described in this atlas. Illustrative panels such as the graphical abstract, SEM/fluorescence plate, and LCA boundary card should stay explicitly labeled as data-informed or illustrative where applicable.
 
 ## Visual Encoding
 

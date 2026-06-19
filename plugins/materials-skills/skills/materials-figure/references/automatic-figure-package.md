@@ -1,85 +1,82 @@
-# Automatic Figure Package Loop
+# LLM-Driven Figure Creation
 
 Use this reference when the user provides a CSV/TSV data table and asks for
-plotting, visualization, paper figures, or one-click figure generation.
+plotting, visualization, paper figures, or figure creation.
 
-The loop is Python-only and contract-first:
+In LLM-as-artist mode, the LLM writes plotting code directly based on the
+validated contract and source data. The workflow is contract-first and
+Python-only:
 
 ```text
-source table -> contract draft/review -> contract + materials validation -> chart recommendation -> SVG/PNG export -> QA report
+source table -> contract draft/review -> contract validation
+  -> materials validation (optional) -> LLM writes plot.py
+  -> SVG/PNG export -> QA review
 ```
 
-## Interaction Modes
+## Workflow
 
-### Automatic Mode
+### 1. Draft the figure contract
 
-Use when the user gives a table and a clear goal. Run the generator directly:
-
-```powershell
-python plugins/materials-skills/skills/materials-figure/scripts/generate_figure_package.py `
-  --data path/to/source_data.csv `
-  --output-dir outputs/figure-packages/my-figure `
-  --goal "Show the WER dosage trend for bonding strength." `
-  --figure-name my_figure `
-  --json
-```
-
-On the first run, the generator may scaffold `figure_contract.md` and return a
-blocked status until the contract is filled with substantive content. After the
-contract is reviewed and passes both `check_figure_contract.py` and
-`validate_materials_claims.py`, rerun the same command to render the figure
-package.
-
-Ask a follow-up only when the table has no numeric response column, the target
-claim cannot be inferred safely, or the QA status is blocked for reasons the
-draft contract cannot resolve.
-
-### Guided Mode
-
-Use when the source table is ambiguous. Ask only for the missing item:
+Write `figure_contract.md` from the source table and the user's goal, filling
+all seven points with substantive content:
 
 - core conclusion,
-- which column is the response,
-- which column is the x-axis or grouping condition,
-- whether error bars are SD, SE, CI, or range.
+- evidence chain,
+- archetype,
+- Python backend readiness,
+- journal/export contract,
+- statistics and image integrity,
+- WER-EA or materials claim boundary,
+- reviewer risks.
 
-Then run the same generator, review the drafted contract if one is created, and
-rerun after validation passes.
+### 2. Validate the contract
 
-### Revision Mode
+Confirm or revise the draft with the user/LLM until every point holds real
+content. Validation passes -> proceed. Validation fails -> stop and revise.
 
-Use when the user gives an existing figure package or `plot.py`. Run QA first,
-then patch the figure. Do not redraw from scratch unless the existing chart
-choice is unsafe.
+### 3. Optional materials knowledge validation
+
+If the figure contains materials-science entities (XRD peaks/phases, FTIR
+wavenumbers/functional groups, performance values), optionally run
+`scripts/validate_materials_claims.py` to check claims against
+`static/core/materials_kb.yaml`.
+
+### 4. LLM writes plot.py
+
+The LLM writes `plot.py` directly using matplotlib or other Python plotting
+libraries, following the contract and source data.
+
+### 5. Generate exports and documentation
+
+The LLM generates exports (SVG, PNG, PDF, TIFF) and writes `caption.md`,
+`qa_report.md`, and `asset_manifest.md`.
 
 ## Generated Package
 
-The automatic generator writes:
-
 ```text
 figure-package/
-  figure_intake.yaml
+  figure_contract.md
   source_data.csv
   plot.py
   figure.svg
   figure.png
+  figure.pdf
+  figure.tiff
   caption.md
   qa_report.md
   asset_manifest.md
-  figure_contract.md
 ```
 
 `figure.svg` is the editable manuscript asset. `figure.png` is the quick
-preview. `plot.py` is intentionally self-contained enough to rerun the package
-from `source_data.csv`.
+preview. `plot.py` is self-contained and rerunnable from `source_data.csv`.
 
-## Current Recommendation Rules
+## Chart Selection Guidelines
 
-- Numeric x + numeric y + SD/SE/CI/error column -> `errorbar_trend`.
-- Categorical group + numeric response -> `grouped_bar`.
-- Repeated group keys -> `boxplot_points`.
-- Four or more numeric property columns -> `correlation_heatmap`.
-- Otherwise use `scatter_regression` only as an association plot.
+- Numeric x + numeric y + SD/SE/CI/error column -> errorbar trend.
+- Categorical group + numeric response -> grouped bar.
+- Repeated group keys -> boxplot.
+- Four or more numeric property columns -> correlation heatmap.
+- Otherwise use scatter plot as an association plot.
 
 These are conservative defaults. They protect the claim boundary more than they
 optimize visual novelty.
@@ -104,7 +101,8 @@ source data explicitly provide that evidence.
 
 ## Boundaries
 
-The automatic loop is allowed to generate a figure from measured columns. It is
-not allowed to invent missing replicate counts, statistical tests, mechanism
-evidence, field durability, or image scale bars. When those are absent, the QA
-report should mark them as reviewer risks instead of hiding the weakness.
+The LLM-driven workflow is allowed to generate a figure from measured columns.
+It is not allowed to invent missing replicate counts, statistical tests,
+mechanism evidence, field durability, or image scale bars. When those are
+absent, the QA report should mark them as reviewer risks instead of hiding
+the weakness.

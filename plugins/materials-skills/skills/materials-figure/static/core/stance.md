@@ -1,42 +1,56 @@
-# Figure Stance
+# Default operating stance
 
-> **Domain context**: The `domain` axis has loaded domain-specific figure guidance for [detected domain]. The stance below is general; the domain guide lists domain-specific figure types, panel structures, and reviewer pitfalls.
+## Materials science priorities
 
-## Contract-First Stance
+- Start by classifying the requested figure into one of the archetypes: `quantitative grid`, `schematic-led composite`, `image plate + quant`, `review heatmap`, `method/test matrix`, or `graphical abstract`.
+- Prefer one **hero panel** plus subordinate evidence panels over filling the canvas with equal-sized subplots.
+- If the user asks for a single chart, still identify its role in the manuscript claim: discovery, mechanism, validation, comparison, robustness, or materials-system relevance.
+- Keep the background white for plots and diagrams; switch to black only for microscopy / volume-rendering image plates.
+- Prefer direct labels over legends when categories are spatially fixed or the legend would force unnecessary eye travel.
+- Keep one restrained palette per figure: use materials-domain semantic colors when meaningful (e.g. asphalt dark gray, cement light gray, ceramics warm orange, metals cool blue, polymers green), and reserve high-saturation colors for signal emphasis.
+- Treat statistics, `n`, error-bar definitions, source-data traceability, and image-integrity notes as part of the figure, not as optional caption cleanup.
 
-Contract-first is the core stance of materials-figure. Every figure has a
-contract before it has code.
+## Materials knowledge validation
 
-- Any figure starts with `figure_contract.md` whose seven points hold
-  substantive content, then passes `check_figure_contract.py` before any
-  plotting code, data generation, preview, or rendered figure.
-- No contract, no code. If the contract is unwritten, template-only, or fails
-  validation, stop and revise it; do not plot.
-- The automatic table-plotting loop obeys the same blocking gate. It may draft
-  the contract from the source table and goal, but the draft must be confirmed
-  and pass validation before any plotting script runs. Zero-interaction
-  auto-plotting without a validated contract is not allowed.
-- This overrides general autonomy/default-execution behavior for figure tasks.
+When the figure contains materials-science entities, validate claims against `static/core/materials_kb.yaml` before plotting:
 
-## Operating Stance
+- **XRD peaks/phases**: check 2θ positions against PDF cards. A peak assigned to the wrong phase is an error.
+- **FTIR wavenumbers/functional groups**: check wavenumber assignments. A wavenumber assigned to the wrong functional group is an error.
+- **Performance values**: check declared values against typical ranges. Values far outside known ranges trigger a warning for review.
 
-- Treat every figure as a visual argument with a visible claim boundary.
-- Prefer clear evidence hierarchy over visual decoration.
-- Keep source data and source anchors close to the panel that uses them.
-- Make reviewer-safe uncertainty visible: missing controls, missing replicates, incompatible test methods, lab-only durability, or inferred mechanism.
-- Use restrained palettes and direct labels when they reduce cognitive load.
-- Keep units, test conditions, and material-system boundaries visible.
+Figures without materials-science entities (e.g. pure flowcharts) pass with no checks.
 
-## Materials Science Priorities
+## When to use multi-figure storyboard
 
-Refer to the auto-loaded domain figure guide for domain-specific figure types, multi-panel structures, and caption patterns. The domain guide covers: civil, polymers, metals, ceramics, functional, and nanomaterials.
+When a task spans more than one figure (e.g. a manuscript), use the storyboard gate:
 
-- For SEM/TEM/fluorescence panels, preserve scale bars and image provenance.
-- For FTIR/XRD/TG/DSR spectra, do not overstate chemistry or field durability from a single evidence layer.
-- For review figures, link panels to a table-system row or `source_map.json` anchor when available.
+- Write `figure_storyboard.yaml` defining the narrative arc, each figure's role, and cross-figure evidence dependencies.
+- The storyboard must pass before individual figure contracts are written.
+- This prevents a set of individually-valid figures that are narratively incoherent or mutually redundant.
 
-## Reviewer-Safe Defaults
+## Reviewer-safe defaults
 
 - Show measured evidence and inferred links with different visual encodings.
 - Use captions that state what the data support and what they do not prove.
+- For SEM/TEM/fluorescence panels, preserve scale bars and image provenance.
+- For FTIR/XRD/TG/DSR spectra, do not overstate chemistry or field durability from a single evidence layer.
+- For review figures, link panels to a table-system row or `source_map.json` anchor when available.
 - Deliver figure packages with source data, script, exports, caption, QA report, and asset manifest when the user asks for a journal-ready figure.
+
+## When to load this skill
+
+- Python figures for **papers, slides, or reports** targeting materials science journals, construction materials research, or civil engineering publications.
+- Requests involving **XRD/FTIR/TG/DTG spectra, SEM/TEM image plates, performance curves, mechanism schematics, multi-panel grids**, or **PDF/SVG/high-DPI** output.
+- Any mention of "materials figure", "construction materials plot", "XRD pattern", "FTIR spectrum", "performance curve", "mechanism schematic", "review evidence map", or "论文配图、材料科学图、土木材料图".
+- Requests to improve a figure's logic, aesthetics, panel layout, figure legend, export quality, or journal-readiness.
+
+## When NOT to load
+
+- Plotly, Altair, Bokeh, or other interactive/web-first plotting.
+- EDA-only plots without a publication target.
+- Primary workflow is 3D, GIS, or non-scientific illustration tooling.
+- Illustrator / Figma–first layout.
+
+## User-facing privacy rule
+
+Do not disclose private local paths, private filenames, chat-attachment names, internal reference filenames, template identifiers, or the provenance of private working materials in user-facing replies, generated code comments, figure legends, reports, or manuscript text. Use generic descriptions such as "the provided template collection", "a private working draft", or "the internal figure contract". Only reveal an exact path or source file when the user explicitly asks for that audit trail.

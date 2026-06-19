@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """Check a figure_storyboard.yaml for multi-figure narrative integrity.
 
+**Optional validation tool** — This script is an optional validation tool in
+LLM-as-artist mode. It validates multi-figure storyboards for narrative
+completeness, role coverage, acyclic dependencies, and cross-figure consistency.
+
 Validates the storyboard that orchestrates multiple figures within a manuscript:
 narrative completeness, role coverage (by manuscript type), acyclic evidence
 dependencies, non-placeholder claims, contract evidence-chain linkage,

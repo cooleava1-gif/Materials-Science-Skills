@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """Validate materials science claims in figure_contract.md against materials_kb.yaml.
 
+**Optional validation tool** — This script is an optional validation tool in
+LLM-as-artist mode. It checks materials-science claims (XRD peaks, FTIR
+wavenumbers, performance values) against the knowledge base.
+
 Extracts materials science entities (XRD peaks, FTIR wavenumbers, performance
 values) from a figure contract, then checks each claim against the knowledge
 base. This is the materials-domain integrity layer: it catches claims that

@@ -65,7 +65,7 @@ generate SVG, PDF, PNG, and TIFF exports before it can be called
 
 Use `template-only` only when the package is a layout or planning example. A template-only figure must not be presented as manuscript evidence.
 
-Use `production-ready` only after `scripts/audit_figure_package.py` passes and visual QA has no unresolved critical issue.
+Use `production-ready` only after visual QA has no unresolved critical issue and the package contains all required files.
 
 ## WER-EA Figure Families
 

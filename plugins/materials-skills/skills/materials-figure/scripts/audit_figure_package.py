@@ -1,6 +1,16 @@
 #!/usr/bin/env python3
 """Audit a materials figure package."""
 
+# ============================================================================
+# ARCHIVE REFERENCE SCRIPT
+# ----------------------------------------------------------------------------
+# This file is retained as an archival reference required by the
+# `figure_hard_workflow` release checks. It is NOT part of the active
+# automation pipeline. Do not rely on it for current figure auditing;
+# see `static/core/figure-contract.md` and `static/core/contract.md` for
+# the contract-driven validation used today.
+# ============================================================================
+
 from __future__ import annotations
 
 import argparse

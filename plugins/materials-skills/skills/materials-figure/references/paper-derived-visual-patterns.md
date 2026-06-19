@@ -40,9 +40,10 @@ This protects the small review from decorative figures and over-claiming. A taxo
 
 ## Review-First Patterns
 
-These patterns now inform `review-first` planning and the automatic figure-package
-flow rather than a standalone CSV asset catalog. Current review-oriented examples
-live in `assets/review-first/data/` and `assets/review-first/generated/`.
+These patterns now inform review planning and the LLM-as-artist workflow. The
+LLM writes plotting code directly using matplotlib, following the patterns
+defined below. For reference examples, see `assets/materials4papers/` and
+`examples/figure-packages/`.
 
 The prioritized figure families remain:
 

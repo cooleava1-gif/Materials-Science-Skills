@@ -2,7 +2,7 @@
 
 > **Figure contract is a blocking gate.** Before any plotting code, data
 > generation, preview, or rendered figure, write `figure_contract.md` with all
-> seven points carrying substantive content and pass `check_figure_contract.py`.
+> seven points carrying substantive content and pass validation.
 > If validation fails, stop and revise the contract; do not plot. **This
 > overrides general autonomy/default-execution behavior for figure tasks.**
 
@@ -30,10 +30,11 @@ unwritten and fails validation.
 
 ## Contract Validation
 
-`check_figure_contract.py` checks the seven-point completeness of
+Validate the seven-point completeness of
 `figure_contract.md`: each point must be present and carry substantive content
 (non-template, non-placeholder, non-empty). Validation runs before any plotting
-script, data generation, preview, or rendered figure.
+script, data generation, preview, or rendered figure. Optional validation scripts
+(`scripts/validate_materials_claims.py`) are available for materials-domain checks.
 
 - Validation passes -> proceed to plotting under the Python-only backend gate.
 - Validation fails -> stop. Revise the contract so every point holds real
@@ -45,20 +46,19 @@ script, data generation, preview, or rendered figure.
 The figure contract always precedes plotting code. The mandated order is:
 
 1. Write `figure_contract.md` with all seven points holding substantive content.
-2. Run `check_figure_contract.py`; stop if it fails.
-3. Run `validate_materials_claims.py` against `materials_kb.yaml`; stop on
+2. Validate the contract; stop if it fails.
+3. Optionally run `validate_materials_claims.py` against `materials_kb.yaml`; stop on
    errors that contradict known material relations.
 4. Only after both validations pass, check the Python backend and proceed to
    plotting, source-data assembly, exports, and QA.
 
-This order is binding for both interactive figure work and the automatic
-table-plotting loop. The automatic loop may draft the contract from the source
+This order is binding for both interactive figure work and the LLM-driven workflow. The LLM may draft the contract from the source
 table and goal, but the draft must be confirmed and pass both validations
 before any plotting script runs.
 
 ## Materials Knowledge Validation
 
-After the contract passes `check_figure_contract.py`, run
+After the contract passes validation, optionally run
 `validate_materials_claims.py`. The validator extracts materials-science
 entities from the contract's evidence chain and checks them against
 `static/core/materials_kb.yaml`:
@@ -105,8 +105,8 @@ The caption and visual encoding must never imply stronger evidence than the sour
 - FTIR/DSR/BBR evidence is binder-level unless interface, mixture, conditioning, or field data are present.
 - A review schematic must mark direct evidence and inferred links differently.
 
-For a complete package, write the contract into `figure_contract.md` and pass
-`check_figure_contract.py` before plotting.
+For a complete package, write the contract into `figure_contract.md` and validate
+before plotting.
 
 ## Paper Production Handoff
 

@@ -20,15 +20,15 @@
     {
       "id": "journal-ready-package-audit",
       "prompt": "Make a journal-ready WER-EA mechanism-map figure package from the provided source table and caption notes.",
-      "expected_output": "The assistant should follow the Python-only figure package contract and produce or specify a complete figure package with figure_contract.md, source_data.csv or source_map.json, plot.py, SVG/PDF/PNG/TIFF exports, caption.md, qa_report.md, and asset_manifest.md. It must run or require audit_figure_package.py before claiming the figure package is journal-ready.",
+      "expected_output": "The assistant should follow the Python-only figure package contract and produce or specify a complete figure package with figure_contract.md, source_data.csv or source_map.json, plot.py, SVG/PDF/PNG/TIFF exports, caption.md, qa_report.md, and asset_manifest.md. Visual QA must pass before claiming the figure package is journal-ready.",
       "assertions": [
         {
           "name": "complete_figure_package",
           "description": "The figure package includes contract, source data or source map, Python plotting script, export bundle, caption, QA report, and asset manifest."
         },
         {
-          "name": "audit_gate_before_ready_claim",
-          "description": "The assistant does not call the figure package ready unless the package audit has passed."
+          "name": "visual_qa_before_ready_claim",
+          "description": "The assistant does not call the figure package ready unless visual QA has passed."
         }
       ],
       "files": []

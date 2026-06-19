@@ -1,7 +1,11 @@
 # Materials Figure Tutorials
 
 End-to-end walkthroughs for the most common materials-science figure types.
-Each tutorial starts from raw data and produces a publication-ready SVG + PNG.
+Each tutorial starts from raw data and produce a publication-ready SVG + PNG.
+
+**Note**: In LLM-as-artist mode, the LLM writes plotting code directly using matplotlib.
+The tutorials below are kept as reference examples. The `materials_plot_lib` helper library
+was removed; the LLM implements equivalent functionality directly in `plot.py`.
 
 ---
 

@@ -1,44 +1,52 @@
-# Python Backend Fragment
+# Backend: Python (matplotlib / seaborn)
 
-Use this fragment for all plotting workflows in the Python-only figure skill.
+**Python-only execution rule.** When the user has selected Python, do all figure drawing, previewing, exporting, and visual QA in Python. Do not call any other plotting backend or language to create a temporary preview, fallback export, or layout approximation. If Python or required Python plotting packages are missing, stop before rendering and report the missing dependency. You may still write the Python script, provide `pip`/environment install commands, or ask permission to install dependencies, but do not cross-render the figure in another language.
 
-## Python-Only Rule
+## Python quick-start
 
-All figure drawing, previewing, exporting, and visual QA renders must use Python.
+```python
+import matplotlib as mpl
+import matplotlib.pyplot as plt
 
-## Runtime Check
+mpl.rcParams.update({
+    "font.family": "sans-serif",
+    "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans", "sans-serif"],
+    "svg.fonttype": "none",     # editable text in SVG
+    "pdf.fonttype": 42,         # editable TrueType text in PDF
+    "font.size": 7,             # use 15-24 only for large slide-sized panels
+    "axes.spines.right": False,
+    "axes.spines.top": False,
+    "axes.linewidth": 0.8,
+    "legend.frameon": False,
+})
 
-Check Python and required plotting packages early:
-
-```powershell
-python -c "import matplotlib, numpy, PIL"
+def save_pub_py(fig, filename, dpi=600):
+    fig.savefig(f"{filename}.svg", bbox_inches="tight")
+    fig.savefig(f"{filename}.pdf", bbox_inches="tight")
+    fig.savefig(f"{filename}.tiff", dpi=dpi, bbox_inches="tight")
 ```
 
-For heatmaps or richer statistical plots, also check seaborn when needed. If packages are missing, stop before rendering and report the Python-only backend blocker.
+Use `text.usetex = True` only when LaTeX is installed and math-rich labels are required.
 
-## Publication Defaults
-
-Use matplotlib/seaborn with:
-
-- editable SVG text: `matplotlib.rcParams["svg.fonttype"] = "none"`,
-- PDF TrueType fonts: `matplotlib.rcParams["pdf.fonttype"] = 42`,
-- journal-safe sans-serif fonts,
-- vector output for charts and schematics,
-- 300+ dpi PNG/TIFF previews or raster outputs,
-- `bbox_inches="tight"` after checking labels do not clip.
-
-## Materials Science Patterns
+## Materials science patterns
 
 Python is recommended for:
 
-- bonding strength bars with raw points or error bars,
-- dosage-performance curves,
-- DSR/MSCR/BBR trend panels,
-- FTIR/XRD/TG overlays,
-- SEM/fluorescence image plates with annotation overlays,
-- WER-EA evidence heatmaps,
-- mechanism maps generated from table-system rows.
+- bonding strength bars with raw points or error bars
+- dosage-performance curves
+- DSR/MSCR/BBR trend panels
+- FTIR/XRD/TG overlays
+- SEM/fluorescence image plates with annotation overlays
+- review evidence heatmaps
+- mechanism maps generated from table-system rows
 
-Use `scripts/materials_plot_lib.py` and `scripts/figures4materials/` when a production helper or example exists. Use `scripts/audit_figure_package.py` after exports are written.
+## Going deeper
 
-The Python backend must produce SVG, PDF, TIFF, PNG, previews, and QA render outputs.
+- `references/characterization-figures.md` — XRD/FTIR/TG/SEM plotting patterns
+- `references/performance-figures.md` — strength/bonding/viscosity curves
+- `references/mechanism-figures.md` — mechanism schematics and interface figures
+- `references/figure-package-protocol.md` — complete figure package assembly
+- `references/figure-qa-contract.md` — font, legend, units, resolution checks
+- `references/figure-production-spec.md` — export DPI, TIFF/EPS/PDF, final size
+- `references/tutorials.md` — end-to-end walkthroughs
+- `references/materials-figure-atlas.md` — fixed materials figure archetypes

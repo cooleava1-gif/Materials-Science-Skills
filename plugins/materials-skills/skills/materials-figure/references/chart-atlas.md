@@ -62,9 +62,12 @@ reviewer risk, and when NOT to use the chart.
 **Code pattern**:
 
 ```python
-from materials_plot_lib import apply_pub_style, make_grouped_bar, PALETTE_CBM
+# Note: materials_plot_lib was removed in the transition to LLM-as-artist mode.
+# The LLM now writes plotting code directly using matplotlib.
+# This code pattern is kept as a reference example.
 
-apply_pub_style()
+import matplotlib.pyplot as plt
+
 fig, ax = plt.subplots(figsize=(6, 4))
 labels = ["Dry", "Moisture", "Freeze-thaw"]
 groups = ["Control", "10% WER", "15% WER", "20% WER"]
@@ -589,14 +592,6 @@ cbar.set_label('Response')
 
 ---
 
-## Visual Asset Locations
-
-- `assets/rich-gallery/generated/` — general materials figures (SVG)
-- `assets/wer-ea-atlas/generated/` — WER-EA specific figures (SVG + PNG)
-- `assets/review-first/generated/` — review-oriented figures (SVG)
-- `assets/ceramics-atlas/generated/` — ceramics characterization figures (SVG + PNG)
-- `assets/chart-atlas/generated/` — chart-type atlas figures (SVG + PNG)
-
 ## Usage Rules
 
 - Keep performance figures separate from mechanism figures unless both
@@ -609,34 +604,9 @@ cbar.set_label('Response')
 - Put control, dosage, temperature, curing condition, and test standard in the
   figure plan or caption when available.
 
-## Python-only expanded chart gallery
+## LLM-as-Artist Mode
 
-The Python-only gallery extends the matplotlib coverage with ten publication
-chart families that map cleanly to common materials datasets: scatter
-regression, boxplot with points, violin distribution, contour response map, 3D
-response surface, polar performance, errorbar trend, dual-axis trend,
-correlation heatmap, and stacked composition. Example scripts live in
-`scripts/figures4materials/plot_*.py`, with synthetic CSV inputs under
-`scripts/figures4materials/data/`.
-
-Use these helpers when the source data are tabular and the claim can be kept
-close to measured columns. The safest pattern is: source CSV -> helper function
--> SVG/PNG exports -> caption boundary. For optimization figures, show the
-measured points or grid so reviewers can see where interpolation begins.
-Use scatter regression only for association claims unless independent mechanism
-evidence is present.
-
-```python
-from materials_plot_lib import (
-    make_scatter_regression, make_contour_map, make_3d_surface,
-    make_correlation_heatmap, make_stacked_composition_bar,
-)
-```
-
-Reviewer rules:
-
-- Scatter regression and correlation heatmap show association, not mechanism.
-- Contour response map and 3D response surface must not imply validity outside
-  the measured factor range.
-- Polar and stacked composition charts need raw values or mass-balance notes in
-  the caption or supplement.
+The pre-generated chart atlas images (SVG/PNG) have been removed. The LLM
+now writes plotting code directly using matplotlib, following the code
+patterns and reviewer checklists above. For reference examples, see
+`assets/materials4papers/` and `examples/figure-packages/`.

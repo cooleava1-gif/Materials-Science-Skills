@@ -1,9 +1,0 @@
-# Literature basis: asphalt-aggregate pull-off bond 0.3-1.5 MPa; WER
-# modification raises bond 20-60% with optimum near 3 wt%. Shear tracks
-# pull-off at ~0.7 ratio. Values are synthetic but bounded by reported
-# ranges; errors are typical lab std-dev (n=3-5 replicates).
-formulation,pull_off_MPa,shear_MPa,pull_off_err,shear_err
-Control,0.85,0.62,0.07,0.06
-1 wt%,1.08,0.79,0.08,0.07
-3 wt%,1.42,1.05,0.09,0.08
-5 wt%,1.23,0.91,0.08,0.07

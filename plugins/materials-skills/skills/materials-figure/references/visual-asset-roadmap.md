@@ -32,7 +32,10 @@ Every asset must include a claim boundary. The visual should teach what kind of 
 
 ## Review-first package
 
-Use `paper-derived-visual-patterns.md` together with
-`assets/review-first/data/` and `assets/review-first/generated/` for small
-review planning. The package is based on sanitized local caption-family
-learning, not copied figures.
+Use `paper-derived-visual-patterns.md` for small review planning. The package
+is based on sanitized local caption-family learning, not copied figures.
+
+The pre-generated review-first assets have been removed in the transition to
+LLM-as-artist mode. The LLM now writes plotting code directly using matplotlib,
+following the patterns defined in `paper-derived-visual-patterns.md`. For
+reference examples, see `assets/materials4papers/` and `examples/figure-packages/`.

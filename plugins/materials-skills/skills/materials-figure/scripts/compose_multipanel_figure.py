@@ -1,6 +1,16 @@
 #!/usr/bin/env python3
 """Compose a simple SVG/PNG multi-panel materials figure from a storyboard."""
 
+# ============================================================================
+# ARCHIVE REFERENCE SCRIPT
+# ----------------------------------------------------------------------------
+# This file is retained as an archival reference required by the
+# `figure_hard_workflow` release checks. It is NOT part of the active
+# automation pipeline. Do not rely on it for current figure generation;
+# see `static/core/workflow.md` and `static/core/figure-contract.md` for
+# the contract-driven workflow used today.
+# ============================================================================
+
 from __future__ import annotations
 
 import argparse

@@ -1,73 +1,74 @@
 ---
 name: materials-figure
-version: "2.0.0"
-description: Use when creating, planning, auditing, or producing publication-ready scientific figures for civil engineering and construction materials research.
+description: >-
+  Submission-grade scientific figure workflow for civil engineering and construction materials research. Use whenever the user asks to create, revise, audit, or polish manuscript figures, multi-panel materials science plots, or journal-ready SVG/PDF/TIFF outputs for materials journals, construction materials research, or civil engineering publications. Before plotting, define the figure's conclusion, evidence logic, export needs, and review risks. Use Python (matplotlib/seaborn) for all figure generation, previewing, exporting, and QA. Supports materials characterization plots (XRD, FTIR, TG/DTG), performance curves, mechanism schematics, and review evidence maps. Not for dashboards or Illustrator/Figma-first infographics. Also trigger on materials science figure needs such as 材料科学配图、土木材料论文图、XRD/FTIR光谱图、性能曲线图、机理示意图、综述证据图.
+version: 2.0.0
+author: Community contribution, refactored into static/dynamic layers
 ---
 
-# Materials Science Figure
+# Materials Science Figure Making — Router
 
-Create Nature-style figures for materials manuscripts and reviews.
+This skill is split into two layers:
 
-## Protocol
+- A **static layer** under `static/` that holds versioned, reusable content fragments (the figure contract, default stance, materials knowledge base, and a Python quick-start).
+- A **dynamic layer** (this file plus `manifest.yaml`) that loads the core fragments and optionally loads materials knowledge validation or multi-figure storyboard when needed. The large body of design, API, pattern, and QA material lives in on-demand references.
 
-> **Figure contract is a blocking gate.** Before any plotting code, data
-> generation, preview, or rendered figure, write `figure_contract.md` with all
-> seven points carrying substantive content and pass `check_figure_contract.py`.
-> This overrides general autonomy/default-execution behavior for figure tasks.
+Do not try to apply the figure logic from memory or from this router. Always load fragments from disk as described below.
 
-1. Read [manifest.yaml](manifest.yaml), then load every `always_load` file.
-2. Apply profile-first routing from `.materials/profile.yaml`; on first use, ask for direction once and save it locally.
-3. Use the **Python-only** plotting contract and load the Python backend rules.
-4. Detect `figure_type`, `handoff_intake`, and `domain`.
-5. Load only the matching fragments.
-6. **BLOCKING GATE — Figure contract before any code.** Write
-   `figure_contract.md` so that all seven points (core conclusion, evidence
-   chain, archetype, backend, journal/export contract, statistics and image
-   integrity, WER-EA boundary) hold substantive content — not template-only,
-   placeholder, or empty fields. Then run `check_figure_contract.py`. Do not
-   generate plotting scripts, mock data, previews, or rendered figures until
-   validation passes. If validation fails, stop and revise the contract.
-7. **Materials knowledge validation.** After the contract passes, run
-   `validate_materials_claims.py` against `figure_contract.md`. The validator
-   extracts materials-science entities (XRD peaks/phases, FTIR
-   wavenumbers/functional groups, performance values) and checks them against
-   `static/core/materials_kb.yaml`. Claims that contradict known material
-   relations (e.g. 915 cm⁻¹ assigned to C=O, or 30° 2θ assigned to Al2O3) are
-   errors and must be corrected before plotting. Figures without
-   materials-science entities (e.g. pure flowcharts) pass with no checks.
-8. If the user provides a CSV/TSV table and asks to plot or visualize it, use
-   the automatic figure-package loop in **contract-first** order: contract
-   draft -> LLM/user confirmation -> `check_figure_contract.py` validation ->
-   `validate_materials_claims.py` -> data diagnosis -> chart recommendation ->
-   Python SVG/PNG export -> QA report. If contract or materials validation
-   fails, stop; do not plot.
-9. **Multi-figure storyboard.** When a task spans more than one figure (e.g. a
-   manuscript), write `figure_storyboard.yaml` (see
-   `assets/templates/figure-storyboard/`) defining the narrative arc, each
-   figure's role, and cross-figure evidence dependencies. Run
-   `check_storyboard.py` to verify narrative completeness, acyclic evidence
-   flow, role coverage, and no cross-figure panel redundancy. The storyboard
-   gate sits above individual figure contracts: validate the storyboard first,
-   then each figure's contract.
-10. Produce SVG (vector) and PNG (raster) for each figure.
-11. For review figures: load intake data, apply evidence-certainty mapping.
+## Routing protocol
 
-## Gates
+Follow these five steps every time the skill is invoked.
 
-- BLOCKING: Figure contract is a blocking gate. Write `figure_contract.md`
-  with substantive seven-point content and pass `check_figure_contract.py`
-  before any plotting code, data generation, or preview. This overrides
-  general autonomy/default-execution behavior for figure tasks.
-- BLOCKING: Materials knowledge validation. After the contract passes, run
-  `validate_materials_claims.py` against `materials_kb.yaml`. Claims that
-  contradict known material relations are errors and block plotting.
-- BLOCKING: Multi-figure storyboard. For multi-figure tasks, write
-  `figure_storyboard.yaml` and pass `check_storyboard.py` before individual
-  figure contracts. Validates narrative arc, acyclic evidence flow, and
-  cross-figure non-redundancy.
-- BLOCKING: Python backend and package readiness must be checked before any plotting.
-- SVG-first: `svg.fonttype='none'` is mandatory for Nature-style output.
-- Claims in captions must not exceed the evidence certainty tier.
-- Automatic table plots must return a figure package with `figure_intake.yaml`,
-  `source_data.csv`, `plot.py`, `figure.svg`, `figure.png`, `caption.md`,
-  `qa_report.md`, `asset_manifest.md`, and `figure_contract.md`.
+### 1. Load the manifest and the core layer
+
+Read [manifest.yaml](manifest.yaml). It declares the `backend` axis (Python-only), the `always_load` files, and the on-demand references.
+
+Also read every file listed under `always_load`:
+- `static/core/contract.md` — the five-point figure contract
+- `static/core/stance.md` — the default operating stance for materials science figures
+- `static/core/materials_kb.yaml` — the materials knowledge graph for claim validation
+
+These hold the figure contract, the backend gate, and the materials science knowledge base that apply to every figure job.
+
+### 2. Resolve the backend — Python-only gate
+
+The Python backend is mandatory for all figure drawing, previewing, exporting, and visual QA. Before rendering, check Python and required plotting packages (matplotlib, numpy, PIL; seaborn for heatmaps/statistical plots). If the runtime or packages are unavailable, stop before rendering and report the exact blocker.
+
+Do not generate mock data, write plotting scripts, create previews, or render placeholder figures until the claim, source-data anchor, and figure contract are clear.
+
+### 3. Load the Python backend fragment
+
+After confirming Python backend readiness, read `static/fragments/backend/python.md`. It carries the Python-only execution rule and the publication quick-start (rcParams and export helper).
+
+### 4. Build the figure using the loaded material
+
+Apply the loaded material in this order:
+
+1. **Figure contract** (`static/core/contract.md`) — write the core conclusion, map the evidence chain, classify the archetype, set the journal/export contract, before any code.
+2. **Default stance** (`static/core/stance.md`) — materials science priorities, reviewer-safe defaults, restrained palettes, evidence hierarchy.
+3. **Backend fragment** (`static/fragments/backend/python.md`) — the Python quick-start and execution rule.
+
+The chart serves the scientific logic; aesthetic polish is subordinate to making the core conclusion clear, defensible, and reviewable.
+
+**Optional materials knowledge validation.** If the figure contains materials-science entities (XRD peaks/phases, FTIR wavenumbers/functional groups, performance values), validate claims against `static/core/materials_kb.yaml`. Claims that contradict known material relations are errors and must be corrected before plotting. Figures without materials-science entities (e.g. pure flowcharts) pass with no checks.
+
+**Optional multi-figure storyboard.** When a task spans more than one figure (e.g. a manuscript), write `figure_storyboard.yaml` defining the narrative arc, each figure's role, and cross-figure evidence dependencies. The storyboard gate sits above individual figure contracts: validate the storyboard first, then each figure's contract.
+
+### 5. Reach for references only when needed
+
+The files under `references/` are deep references, not defaults. Open them on demand per the `references.on_demand` table in the manifest — for example:
+- `references/figure-package-protocol.md` to build a complete figure package
+- `references/characterization-figures.md` for XRD/FTIR/TG/SEM plotting patterns
+- `references/performance-figures.md` for strength/bonding/viscosity curves
+- `references/mechanism-figures.md` for mechanism schematics and interface figures
+- `references/figure-qa-contract.md` before final delivery
+- `references/figure-production-spec.md` for export DPI, TIFF/EPS/PDF, final size
+- `references/tutorials.md` for end-to-end walkthroughs
+- `references/materials-figure-atlas.md` for fixed materials figure archetypes
+
+## Why this split
+
+- The static layer is versioned and reviewable. The Python backend gate is explicit in the manifest.
+- The dynamic layer keeps each invocation cheap: only the Python quick-start enters context, and the 2,000+ lines of reference depth load only when a step needs them.
+- The router itself is short on purpose. Update fragments and references, not this file, when adding scope.
+- This structure mirrors `nature-figure` and separates the "LLM as artist" execution model from the deep reference material.
