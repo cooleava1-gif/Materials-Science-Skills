@@ -41,6 +41,8 @@ docs/architecture/
 
 # Internal test and validation scripts (local only)
 tests/
+!plugins/materials-skills/skills/materials-citation/mcp/academic_search/tests/
+!plugins/materials-skills/skills/materials-citation/mcp/academic_search/tests/test_plugin_packaging.py
 scripts/check_skill_architecture.py
 scripts/claim_strength_audit.py
 scripts/generate_narrative.py
