@@ -1,28 +1,159 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="620" viewBox="0 0 960 620">
-<defs>
-<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#4F7C6A"/></marker>
-</defs>
-<rect width="100%" height="100%" fill="#FFFDF8"/>
-<text x="480.0" y="42" text-anchor="middle" font-family="DejaVu Sans" font-size="18" font-weight="700" fill="#69746F">Materials Science Rich Gallery</text>
-<text x="480.0" y="84" text-anchor="middle" font-family="DejaVu Sans" font-size="30" font-weight="700" fill="#27312D">Interface Mechanism Map</text>
-<text x="480.0" y="116" text-anchor="middle" font-family="DejaVu Sans" font-size="17" fill="#69746F">demulsification -&gt; curing -&gt; morphology -&gt; bonding</text>
-<rect x="78" y="145" width="804" height="270" rx="26" fill="#FFFFFF" stroke="#E7E1D4" stroke-width="2"/>
-<rect x="100" y="175" width="145" height="82" rx="16" fill="#4F7C6A" opacity="0.18" stroke="#4F7C6A" stroke-width="2"/>
-<circle cx="135" cy="216" r="18" fill="#4F7C6A" opacity="0.55"/>
-<text x="178" y="221" text-anchor="middle" font-family="DejaVu Sans" font-size="13" fill="#27312D">Step 1</text>
-<path d="M248,216 C265,210 278,210 288,216" fill="none" stroke="#4F7C6A" stroke-width="3" marker-end="url(#arrow)"/>
-<rect x="290" y="295" width="145" height="82" rx="16" fill="#4F7C6A" opacity="0.26" stroke="#4F7C6A" stroke-width="2"/>
-<circle cx="325" cy="336" r="21" fill="#4F7C6A" opacity="0.55"/>
-<text x="368" y="341" text-anchor="middle" font-family="DejaVu Sans" font-size="13" fill="#27312D">Step 2</text>
-<path d="M438,336 C455,330 468,330 478,336" fill="none" stroke="#4F7C6A" stroke-width="3" marker-end="url(#arrow)"/>
-<rect x="480" y="175" width="145" height="82" rx="16" fill="#4F7C6A" opacity="0.34" stroke="#4F7C6A" stroke-width="2"/>
-<circle cx="515" cy="216" r="24" fill="#4F7C6A" opacity="0.55"/>
-<text x="558" y="221" text-anchor="middle" font-family="DejaVu Sans" font-size="13" fill="#27312D">Step 3</text>
-<path d="M628,216 C645,210 658,210 668,216" fill="none" stroke="#4F7C6A" stroke-width="3" marker-end="url(#arrow)"/>
-<rect x="670" y="295" width="145" height="82" rx="16" fill="#4F7C6A" opacity="0.42" stroke="#4F7C6A" stroke-width="2"/>
-<circle cx="705" cy="336" r="27" fill="#4F7C6A" opacity="0.55"/>
-<text x="748" y="341" text-anchor="middle" font-family="DejaVu Sans" font-size="13" fill="#27312D">Step 4</text>
-<rect x="120" y="462" width="720" height="84" rx="18" fill="#4F7C6A" opacity="0.12"/>
-<text x="480" y="497" text-anchor="middle" font-family="DejaVu Sans" font-size="16" font-weight="700" fill="#27312D">Claim boundary</text>
-<text x="480" y="526" text-anchor="middle" font-family="DejaVu Sans" font-size="15" fill="#27312D">Solid arrows require matching FTIR/SEM/rheology evidence.</text>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="568.8pt" height="316.8pt" viewBox="0 0 568.8 316.8" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-06-19T15:19:06.302938</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.0, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 316.8 
+L 568.8 316.8 
+L 568.8 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 73.728 183.756349 
+C 82.549716 183.756349 91.011305 180.441429 97.2492 174.541661 
+C 103.487095 168.641894 106.992 160.638968 106.992 152.295437 
+C 106.992 143.951905 103.487095 135.94898 97.2492 130.049212 
+C 91.011305 124.149444 82.549716 120.834524 73.728 120.834524 
+C 64.906284 120.834524 56.444695 124.149444 50.2068 130.049212 
+C 43.968905 135.94898 40.464 143.951905 40.464 152.295437 
+C 40.464 160.638968 43.968905 168.641894 50.2068 174.541661 
+C 56.444695 180.441429 64.906284 183.756349 73.728 183.756349 
+z
+" clip-path="url(#p99e1500c83)" style="fill: #4b6f8a; opacity: 0.38; stroke: #4b6f8a; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 184.608 131.321495 
+C 193.429716 131.321495 201.891305 128.006575 208.1292 122.106807 
+C 214.367095 116.207039 217.872 108.204114 217.872 99.860582 
+C 217.872 91.517051 214.367095 83.514125 208.1292 77.614358 
+C 201.891305 71.71459 193.429716 68.39967 184.608 68.39967 
+C 175.786284 68.39967 167.324695 71.71459 161.0868 77.614358 
+C 154.848905 83.514125 151.344 91.517051 151.344 99.860582 
+C 151.344 108.204114 154.848905 116.207039 161.0868 122.106807 
+C 167.324695 128.006575 175.786284 131.321495 184.608 131.321495 
+z
+" clip-path="url(#p99e1500c83)" style="fill: #4b6f8a; opacity: 0.448; stroke: #4b6f8a; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 295.488 236.191204 
+C 304.309716 236.191204 312.771305 232.876284 319.0092 226.976516 
+C 325.247095 221.076748 328.752 213.073823 328.752 204.730291 
+C 328.752 196.38676 325.247095 188.383834 319.0092 182.484067 
+C 312.771305 176.584299 304.309716 173.269379 295.488 173.269379 
+C 286.666284 173.269379 278.204695 176.584299 271.9668 182.484067 
+C 265.728905 188.383834 262.224 196.38676 262.224 204.730291 
+C 262.224 213.073823 265.728905 221.076748 271.9668 226.976516 
+C 278.204695 232.876284 286.666284 236.191204 295.488 236.191204 
+z
+" clip-path="url(#p99e1500c83)" style="fill: #4b6f8a; opacity: 0.512; stroke: #4b6f8a; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 406.368 157.538922 
+C 415.189716 157.538922 423.651305 154.224002 429.8892 148.324234 
+C 436.127095 142.424467 439.632 134.421541 439.632 126.07801 
+C 439.632 117.734478 436.127095 109.731553 429.8892 103.831785 
+C 423.651305 97.932017 415.189716 94.617097 406.368 94.617097 
+C 397.546284 94.617097 389.084695 97.932017 382.8468 103.831785 
+C 376.608905 109.731553 373.104 117.734478 373.104 126.07801 
+C 373.104 134.421541 376.608905 142.424467 382.8468 148.324234 
+C 389.084695 154.224002 397.546284 157.538922 406.368 157.538922 
+z
+" clip-path="url(#p99e1500c83)" style="fill: #4b6f8a; opacity: 0.42; stroke: #4b6f8a; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 495.072 262.408631 
+C 503.893716 262.408631 512.355305 259.093711 518.5932 253.193943 
+C 524.831095 247.294175 528.336 239.29125 528.336 230.947718 
+C 528.336 222.604187 524.831095 214.601261 518.5932 208.701494 
+C 512.355305 202.801726 503.893716 199.486806 495.072 199.486806 
+C 486.250284 199.486806 477.788695 202.801726 471.5508 208.701494 
+C 465.312905 214.601261 461.808 222.604187 461.808 230.947718 
+C 461.808 239.29125 465.312905 247.294175 471.5508 253.193943 
+C 477.788695 259.093711 486.250284 262.408631 495.072 262.408631 
+z
+" clip-path="url(#p99e1500c83)" style="fill: #4b6f8a; opacity: 0.52; stroke: #4b6f8a; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="73.728" y="154.365749" transform="rotate(-0 73.728 154.365749)">Demulsification</text>
+   </g>
+   <g id="patch_7">
+    <path d="M 108.283254 150.768861 
+Q 129.168399 126.077538 148.609476 103.093455 
+" style="fill: none; stroke: #8b6f47; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 144.499247 104.855844 
+L 148.609476 103.093455 
+L 147.55325 107.439072 
+" style="fill: none; stroke: #8b6f47; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="184.608" y="101.930817" transform="rotate(-0 184.608 101.930817)">Curing</text>
+   </g>
+   <g id="patch_8">
+    <path d="M 218.650271 101.700795 
+Q 240.04818 152.295861 260.575092 200.83147 
+" style="fill: none; stroke: #8b6f47; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 260.859042 196.368358 
+L 260.575092 200.83147 
+L 257.174972 197.926442 
+" style="fill: none; stroke: #8b6f47; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="295.488" y="206.800526" transform="rotate(-0 295.488 206.800526)">Morphology</text>
+   </g>
+   <g id="patch_9">
+    <path d="M 329.733299 202.99009 
+Q 350.926944 165.406024 371.022261 129.769693 
+" style="fill: none; stroke: #8b6f47; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 367.315404 132.271535 
+L 371.022261 129.769693 
+L 370.79962 134.236284 
+" style="fill: none; stroke: #8b6f47; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(389.6955 123.794806)">Interface</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif" transform="translate(390.808625 132.501838)">reaction</text>
+   </g>
+   <g id="patch_10">
+    <path d="M 440.045499 128.033435 
+Q 450.71987 178.51225 460.931627 226.803375 
+" style="fill: none; stroke: #8b6f47; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 462.060807 222.476142 
+L 460.931627 226.803375 
+L 458.147348 223.303691 
+" style="fill: none; stroke: #8b6f47; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="495.072" y="233.017953" transform="rotate(-0 495.072 233.017953)">Bonding</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 11px; font-family: 'Arial', 'Helvetica', 'Liberation Sans', 'DejaVu Sans', sans-serif; text-anchor: middle" x="284.4" y="15.208301" transform="rotate(-0 284.4 15.208301)">Interface mechanism map</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p99e1500c83">
+   <rect x="7.2" y="21.208301" width="554.4" height="288.391699"/>
+  </clipPath>
+ </defs>
 </svg>
