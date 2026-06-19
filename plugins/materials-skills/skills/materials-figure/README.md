@@ -93,7 +93,7 @@ skills/materials-figure/
 │   └── figures4materials/             66 reference plotting scripts
 ├── assets/
 │   ├── materials4papers/              5 Nature-style reference examples
-│   └── templates/figure-package/      contract, plot.py, caption, QA templates
+│   └── templates/                     contract, plot.py, caption, QA templates
 └── references/
     ├── chart-atlas.md                 chart family routing and usage
     ├── figure-package-protocol.md     figure package contract
