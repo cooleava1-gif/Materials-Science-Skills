@@ -9,7 +9,7 @@ Use an SVG-first asset library for fast loading, easy diffing, and low repositor
 ## Growth targets
 
 - 10 assets: rich gallery seed set for waterborne epoxy emulsified asphalt and cement/concrete writing.
-- 30 assets: cover the main manuscript figure families for asphalt, cement/concrete, durability, mechanism, and sustainability. The review-first package now defines 30 paper-derived but sanitized asset specs for small reviews.
+- 30 assets: cover the main manuscript figure families for asphalt, cement/concrete, durability, mechanism, and sustainability, with reusable review-first patterns and generated examples for small reviews.
 - 60 assets: add journal-specific CBM/CCC/RMPD/JBE variants, grayscale variants, and Chinese/English caption examples.
 - 100 assets: approach nature-style richness with full visual archetype coverage, including image plates, mechanism schematics, radar/retention summaries, LCA visuals, and standards/test workflow diagrams.
 
@@ -32,4 +32,7 @@ Every asset must include a claim boundary. The visual should teach what kind of 
 
 ## Review-first package
 
-Use `paper-derived-visual-patterns.md` and `assets/review-first/asset-specs.csv` for small review planning. The package is based on sanitized local caption-family learning, not copied figures.
+Use `paper-derived-visual-patterns.md` together with
+`assets/review-first/data/` and `assets/review-first/generated/` for small
+review planning. The package is based on sanitized local caption-family
+learning, not copied figures.
