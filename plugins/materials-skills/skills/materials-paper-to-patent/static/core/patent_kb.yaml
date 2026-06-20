@@ -76,7 +76,7 @@ claim_anti_patterns:
   - id: "pure_functional_limitation"
     description: "纯功能限定"
     severity: error
-    regex: "用于[^，。；]{0,30}的(?:装置|方法|系统|设备)$"
+    regex: "用于[^，。；]{0,30}的(?:装置|方法|系统|设备)"
     fix_hint: "应改为结构/步骤限定"
   - id: "missing_其特征在于"
     description: "独立权利要求缺少'其特征在于'"
