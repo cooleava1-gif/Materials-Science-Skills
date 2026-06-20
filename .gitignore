@@ -43,6 +43,8 @@ docs/architecture/
 tests/
 !plugins/materials-skills/skills/materials-citation/mcp/academic_search/tests/
 !plugins/materials-skills/skills/materials-citation/mcp/academic_search/tests/test_plugin_packaging.py
+!plugins/materials-skills/skills/materials-writing/tests/
+!plugins/materials-skills/skills/materials-writing/tests/README.md
 scripts/check_skill_architecture.py
 scripts/claim_strength_audit.py
 scripts/generate_narrative.py

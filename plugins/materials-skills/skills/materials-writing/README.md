@@ -16,8 +16,7 @@ banks routed by paper type, section, language, and journal family:
   guides (asphalt, cement/concrete, ceramics, polymers, metals, functional,
   nano, insulation, timber/masonry, WER-EA, refractories, bioceramics, etc.)
   plus argument-chain, review-paper-strategy, wer-ea-mini-review-pipeline,
-  reviewer-risk-writing, journal-positioning-writing, published-article-patterns,
-  chinese-to-english-drafting, and table-system
+  reviewer-risk-writing, published-article-patterns, and table-system
 - `references/section-patterns/` — 5 section arcs: abstract claim arc,
   introduction gap ladder, results-discussion evidence chain, conclusion
   boundary, review synthesis patterns
@@ -63,9 +62,7 @@ skills/materials-writing/
 │   ├── review-paper-strategy.md       mini-review / review strategy
 │   ├── wer-ea-mini-review-pipeline.md WER-EA review pipeline
 │   ├── reviewer-risk-writing.md       overclaim and missing-evidence risk
-│   ├── journal-positioning-writing.md journal family positioning
 │   ├── published-article-patterns.md  sentence templates from real papers
-│   ├── chinese-to-english-drafting.md zh-to-en drafting rules
 │   ├── table-system.md                table system templates
 │   ├── *-narrative.md                 34 domain narrative guides (asphalt,
 │   │                                   cement, ceramics, polymers, metals,

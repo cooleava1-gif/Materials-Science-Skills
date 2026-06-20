@@ -11,9 +11,11 @@ always_load:
   - ../_shared/paper-production/weakness-routing.md
   - static/core/stance.md
   - static/core/workflow.md
+  - static/core/output-format.md
 
 axes:
   paper_type:
+    detect: "What type of paper is being drafted?"
     default: experimental-manuscript
     values:
       experimental-manuscript:
@@ -27,6 +29,8 @@ axes:
         triggers: ["method", "standard", "protocol", "test method", "workflow"]
 
   section:
+    detect: "Which manuscript section is the target?"
+    multi: true
     default: full-argument
     values:
       abstract:
@@ -41,6 +45,18 @@ axes:
       results-discussion:
         path: static/fragments/section/results-discussion.md
         triggers: ["results", "discussion", "结果", "讨论"]
+      results:
+        path: static/fragments/section/results.md
+        triggers: ["results only", "results section"]
+      discussion:
+        path: static/fragments/section/discussion.md
+        triggers: ["discussion only", "discussion section"]
+      related-work:
+        path: static/fragments/section/related-work.md
+        triggers: ["related work", "literature", "相关工作"]
+      title:
+        path: static/fragments/section/title.md
+        triggers: ["title", "标题"]
       conclusion:
         path: static/fragments/section/conclusion.md
         triggers: ["conclusion", "结论"]
@@ -49,29 +65,34 @@ axes:
         triggers: ["outline", "manuscript structure", "paper framework", "论文框架"]
 
   language:
+    detect: "What language is the user writing in or translating to?"
     default: en
     values:
       en:
-        path: references/journal-positioning-writing.md
+        path: static/fragments/language/en.md
         triggers: ["English", "SCI", "manuscript"]
       zh-to-en:
-        path: references/chinese-to-english-drafting.md
+        path: static/fragments/language/zh-to-en.md
         triggers: ["Chinese", "translate", "中译英", "中文"]
 
   journal_family:
+    detect: "Which journal family is the target?"
     default: materials
     values:
+      materials:
+        path: static/fragments/journal/materials.md
+        triggers: ["materials journal", "generic", "undecided"]
       CBM:
-        path: references/journal-positioning-writing.md
+        path: static/fragments/journal/cbm.md
         triggers: ["CBM", "Construction and Building Materials"]
       CCC:
-        path: references/journal-positioning-writing.md
+        path: static/fragments/journal/ccc.md
         triggers: ["CCC", "Cement and Concrete Composites"]
       RMPD:
-        path: references/journal-positioning-writing.md
+        path: static/fragments/journal/rmpd.md
         triggers: ["RMPD", "IJPE", "JRE", "pavement"]
       JBE:
-        path: references/journal-positioning-writing.md
+        path: static/fragments/journal/jbe.md
         triggers: ["JBE", "CSCM", "building"]
   material_family:
     detect: "Which materials family is central?"
@@ -219,6 +240,30 @@ references:
     published-article-patterns:
       path: references/published-article-patterns.md
       when: "The user needs writing patterns from published materials papers, sentence templates, or before/after examples from real publications."
+    examples-abstract-templates:
+      path: references/examples/abstract-examples.md
+      when: "user needs reusable abstract templates or sentence skeletons"
+    examples-introduction-variants:
+      path: references/examples/introduction-examples.md
+      when: "user needs introduction variant skeletons"
+    examples-method-skeletons:
+      path: references/examples/method-examples.md
+      when: "user needs method section skeletons or characterization-purpose templates"
+    examples-library-index:
+      path: references/examples/index.md
+      when: "user needs the full example library index"
+    journal-positioning-quick-ref:
+      path: references/journal-positioning-writing.md
+      when: "user needs a quick one-line reminder of what each journal family emphasizes, before opening the per-journal fragment."
+    chinese-to-english-quick-ref:
+      path: references/chinese-to-english-drafting.md
+      when: "user needs the short zh-to-en term mapping cheat sheet, before opening the full zh-to-en language fragment."
+    paragraph-flow:
+      path: references/paragraph-flow.md
+      when: "user needs to check or fix paragraph-level flow, topic sentences, or inter-paragraph transitions."
+    article-architecture:
+      path: references/article-architecture.md
+      when: "user needs the full-paper architecture reference: how the one-sentence argument expands into each section's moves."
 assets:
   - assets
 scripts:

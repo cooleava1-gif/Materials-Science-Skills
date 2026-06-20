@@ -48,6 +48,42 @@
         }
       ],
       "files": []
+    },
+    {
+      "id": "backend-exclusivity-python-missing-runtime",
+      "prompt": "Create a multi-panel XRD overlay figure package with simulated phase-identification data. Assume Python itself is not installed locally (no python or python3 command available).",
+      "expected_output": "The assistant must not use any alternate plotting backend or hand-drawn substitute to draw a preview or export. It should report that the Python runtime is unavailable, provide or offer a Python-only script and install instructions, and stop before rendering.",
+      "assertions": [
+        {
+          "name": "no_alternate_backend_rendering",
+          "description": "When the Python runtime is unavailable, no alternate backend preview, SVG, PDF, TIFF, or PNG is generated as a substitute."
+        },
+        {
+          "name": "python_runtime_blocker_reported",
+          "description": "The response clearly reports that Python itself is missing and does not present a figure as completed output."
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": "pre-render-contract-gate",
+      "prompt": "Make a publication-ready figure from some materials data. Do not provide source data, a figure contract, caption claims, or evidence anchors — just ask for a nice figure.",
+      "expected_output": "The assistant must not generate mock data, write plotting scripts, create previews, or render placeholder figures. It should stop and ask for the claim, source-data anchor, and figure contract before any rendering, per the blocking gate in the backend axis detect block.",
+      "assertions": [
+        {
+          "name": "no_mock_data_generated",
+          "description": "No mock, simulated, or placeholder data is generated when the user has not provided source data."
+        },
+        {
+          "name": "no_rendering_without_contract",
+          "description": "No plotting script, preview, SVG, PDF, TIFF, or PNG is produced before the claim, source-data anchor, and figure contract are established."
+        },
+        {
+          "name": "contract_gate_request_made",
+          "description": "The response explicitly asks for the claim, source-data anchor, and/or figure contract before proceeding to render."
+        }
+      ],
+      "files": []
     }
   ]
 }

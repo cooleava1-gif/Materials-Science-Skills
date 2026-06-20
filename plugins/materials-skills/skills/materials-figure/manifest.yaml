@@ -126,6 +126,8 @@ references:
       path: references/figure-gallery.md
     - condition: LLM-driven figure creation, CSV/TSV data plotting, one-click figure generation, chart recommendation
       path: references/automatic-figure-package.md
+    - condition: 2026 materials-paper figure archetype observations, page-level layout patterns, or recommended accent palettes
+      path: references/materials-2026-observations.md
 
 assets:
   - assets
