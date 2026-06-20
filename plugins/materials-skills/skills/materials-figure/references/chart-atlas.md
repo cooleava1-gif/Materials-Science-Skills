@@ -604,9 +604,29 @@ cbar.set_label('Response')
 - Put control, dosage, temperature, curing condition, and test standard in the
   figure plan or caption when available.
 
+## Visual Atlas (PNG Previews)
+
+The `assets/chart-atlas/` directory contains 10 pre-generated PNG atlas
+images. Each atlas is a 4×4 panel grid showing one chart family with
+4 column variants and 4 row data distributions. Use these as visual
+quick-reference when choosing a chart type.
+
+| Atlas file | Chart family | Variants |
+|---|---|---|
+| `atlas-01-xrd-diffraction.png` | XRD diffraction patterns | single phase / multi-phase overlay / peak annotation / difference plot |
+| `atlas-02-mechanical-curves.png` | Mechanical curves | stress-strain / load-displacement / creep / fatigue S-N |
+| `atlas-03-thermal-analysis.png` | Thermal analysis | TGA / DTG / DSC endothermic / DSC exothermic |
+| `atlas-04-spectroscopy.png` | Spectroscopy | FTIR / Raman / UV-Vis / fluorescence |
+| `atlas-05-microscopy.png` | Microscopy image plates | SEM / EBSD IPF / TEM / fluorescence |
+| `atlas-06-performance-bar.png` | Performance bar charts | single / grouped / stacked / signed delta |
+| `atlas-07-durability.png` | Durability figures | retention bar / degradation / freeze-thaw / aging |
+| `atlas-08-electrochemistry.png` | Electrochemistry | Nyquist / Bode / CV / polarization |
+| `atlas-09-comparison.png` | Multi-index comparison | radar / bubble matrix / parallel coordinates / heatmap |
+| `atlas-10-composite-layout.png` | Composite layouts | schematic+data / image+plot / mechanism+evidence / review summary |
+
 ## LLM-as-Artist Mode
 
-The pre-generated chart atlas images (SVG/PNG) have been removed. The LLM
-now writes plotting code directly using matplotlib, following the code
-patterns and reviewer checklists above. For reference examples, see
-`assets/materials4papers/` and `examples/figure-packages/`.
+The LLM writes plotting code directly using matplotlib, following the code
+patterns and reviewer checklists above. Use the PNG atlas images as visual
+reference for chart type selection. For complete runnable examples, see
+`assets/materials4papers/` and `assets/gallery/`.

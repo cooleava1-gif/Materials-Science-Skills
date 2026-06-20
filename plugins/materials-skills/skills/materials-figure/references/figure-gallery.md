@@ -16,6 +16,26 @@ The gallery is not a decoration library. Each figure card links visual form to a
 | mechanism schematic | Explain material design and claim boundaries | Interpretive summary, not direct data |
 | characterization templates | Plan XRD, TG/DTG, FTIR overlay, SEM/TEM, and uncertainty figures | Mechanism or method evidence when measurements support it |
 
+## Gallery Composite Figures (PNG Previews)
+
+The `assets/gallery/` directory contains 5 submission-grade composite
+figures demonstrating complete materials science visual narratives. Each
+figure uses asymmetric GridSpec layouts with labeled panels (a)-(i).
+
+| Gallery file | Theme | Panels | Journal style |
+|---|---|---|---|
+| `fig1-cement-hydration-mechanism.png` | Cement hydration mechanism | 6 (a-f) | Cement and Concrete Research |
+| `fig2-steel-microstructure-property.png` | Steel microstructure-property | 7 (a-g) | Acta Materialia |
+| `fig3-polymer-composite-multifunctional.png` | Polymer composite multifunctional | 8 (a-h) | Advanced Functional Materials |
+| `fig4-ceramics-reliability-assessment.png` | Ceramics reliability assessment | 8 (a-h) | J. Am. Ceram. Soc. |
+| `fig5-asphalt-modification-review.png` | Asphalt modification review | 9 (a-i) | Construction and Building Materials |
+
+Use these as visual reference for:
+- Asymmetric multi-panel layout patterns
+- Information flow: Overview → Characterization → Performance → Summary
+- Panel labeling conventions (a), (b), (c)...
+- Journal-specific style matching
+
 ## Style Presets
 
 Use `assets/templates/figure-style-presets.yaml` before plotting.
