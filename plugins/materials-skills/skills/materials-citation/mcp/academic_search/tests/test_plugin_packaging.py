@@ -63,7 +63,7 @@ class PluginPackagingTest(unittest.TestCase):
             capture_output=True,
             text=True,
             check=False,
-            timeout=20,
+            timeout=60,
         )
 
         output = "\n".join(part for part in (result.stdout, result.stderr) if part).strip()

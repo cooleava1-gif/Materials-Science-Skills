@@ -165,5 +165,6 @@ handoffs:
       optional: true
 
 release_checks:
+  # Commands are relative to the plugins/materials-skills plugin root.
   - scripts/run_release_checks.py --json
   - scripts/check_skill_architecture.py --json

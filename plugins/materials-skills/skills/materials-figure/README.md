@@ -16,7 +16,9 @@ boundaries instead of as loose images.
 - `assets/gallery/` — 8 submission-grade composite figures (cement hydration, steel microstructure, polymer composite, ceramics reliability, asphalt review, nano characterization, concrete durability, functional coating)
 - `examples/figure-packages/` — 3 runnable figure packages with real CSV data and matplotlib scripts (see below)
 
-**LLM-driven figure creation** — In LLM-as-artist mode, the LLM writes plotting code directly based on the validated contract and source data. The workflow is:
+**Figure package structure** - A production output is a rerunnable package, not a loose image.
+
+The production package layout is:
 
 ```text
 figure-package/
@@ -32,7 +34,7 @@ figure-package/
   asset_manifest.md
 ```
 
-**LLM-driven figure creation** — In LLM-as-artist mode, the LLM writes plotting code directly based on the validated contract and source data. The workflow is:
+**LLM-driven figure creation** - In LLM-as-artist mode, the LLM writes plotting code directly based on the validated contract and source data. This is not a fixed generator-script pipeline; bundled scripts and examples are references for the package workflow:
 
 ```text
 contract draft -> LLM/user confirmation -> contract validation
@@ -40,7 +42,7 @@ contract draft -> LLM/user confirmation -> contract validation
   -> SVG/PNG export -> QA review
 ```
 
-The LLM generates `figure_contract.md`, `source_data.csv`, `plot.py`, `figure.svg`, `figure.png`, `caption.md`, `qa_report.md`, and `asset_manifest.md`.
+The LLM generates `figure_contract.md`, `source_data.csv`, `plot.py`, `figure.svg`, `figure.pdf`, `figure.png`, `figure.tiff`, `caption.md`, `qa_report.md`, and `asset_manifest.md`.
 
 **Key rules enforced**
 
@@ -115,4 +117,5 @@ sintering curve.
 - Multi-figure storyboard check:
   `plugins/materials-skills/skills/materials-figure/scripts/check_storyboard.py`
 - Bundle verification:
-  `python .\scripts\run_release_checks.py --json`
+  repo root: `python .\plugins\materials-skills\scripts\run_release_checks.py --json`
+  plugin root: `python .\scripts\run_release_checks.py --json`

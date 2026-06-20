@@ -156,32 +156,45 @@ characterization panels, review figures, and full figure packages with source
 data, caption boundaries, and export QA. Python-only backend, SVG-first
 output, with PNG/PDF/TIFF export bundles.
 
-**Chart-type atlas** — The skill ships a chart-type atlas covering 6 chart
-families: bar charts, line trends, heatmaps, radar/polar, scatter/bubble, and
-distributions. Each family has bundled CSV data and a generated preview.
+**LLM-driven figure creation** - This is no longer a fixed generator-script
+pipeline. The skill validates a figure contract and source-data anchor first;
+then the LLM writes `plot.py` directly from the contract, data, chart-atlas
+reference, legend rules, and reviewer-risk notes.
 
-| ![Bar charts](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/generated/atlas-bar-charts.png) | ![Line trends](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/generated/atlas-line-trends.png) | ![Heatmaps](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/generated/atlas-heatmaps.png) |
+```text
+figure_contract.md -> source_data.csv -> LLM writes plot.py
+  -> figure.svg / figure.pdf / figure.png / figure.tiff
+  -> caption.md + qa_report.md + asset_manifest.md
+```
+
+**Chart-type atlas** - The skill ships 15 current PNG atlas boards covering
+XRD, mechanical curves, thermal analysis, spectroscopy, microscopy,
+performance, durability, electrochemistry, comparison, composite layouts,
+phase diagrams, kinetics, adsorption, rheology, and degradation. These visual
+references guide chart selection in the LLM-driven workflow.
+
+| ![XRD diffraction](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-01-xrd-diffraction.png) | ![Mechanical curves](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-02-mechanical-curves.png) | ![Thermal analysis](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-03-thermal-analysis.png) |
 |---|---|---|
-| ![Radar/polar](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/generated/atlas-radar-polar.png) | ![Scatter/bubble](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/generated/atlas-scatter-bubble.png) | ![Distributions](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/generated/atlas-distributions.png) |
+| ![Microscopy plates](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-05-microscopy.png) | ![Performance bars](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-06-performance-bar.png) | ![Composite layouts](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-10-composite-layout.png) |
 
-**WER-EA atlas** — A 20-panel atlas for waterborne epoxy resin modified
-emulsified asphalt research, from screening flow and evidence heatmap to
-mechanism map, dosage window, graphical abstract, and research gap. SVG
-templates carry the full panel structure, certainty-tier legend, and claim
-boundary; GitHub renders them inline.
+**Gallery composites** - The current release ships 8 submission-grade
+composite proof figures spanning cement hydration, asphalt review logic,
+durability, polymer composites, nano characterization, and functional coatings.
+They demonstrate panel structure, certainty-tier legends, and claim boundaries
+for the LLM-driven workflow.
 
-| ![Screening flow](plugins/materials-skills/skills/materials-figure/assets/wer-ea-atlas/generated/wer_ea_screening_flow.svg) | ![Evidence heatmap](plugins/materials-skills/skills/materials-figure/assets/wer-ea-atlas/generated/wer_ea_evidence_heatmap.svg) | ![Mechanism map](plugins/materials-skills/skills/materials-figure/assets/wer-ea-atlas/generated/wer_ea_mechanism_map.svg) |
+| ![Cement hydration composite](plugins/materials-skills/skills/materials-figure/assets/gallery/fig1-cement-hydration-mechanism.png) | ![Asphalt review composite](plugins/materials-skills/skills/materials-figure/assets/gallery/fig5-asphalt-modification-review.png) | ![Concrete durability composite](plugins/materials-skills/skills/materials-figure/assets/gallery/fig7-concrete-microstructure-durability.png) |
 |---|---|---|
-| ![Dosage window](plugins/materials-skills/skills/materials-figure/assets/wer-ea-atlas/generated/wer_ea_dosage_window.svg) | ![Graphical abstract](plugins/materials-skills/skills/materials-figure/assets/wer-ea-atlas/generated/wer_ea_graphical_abstract.svg) | ![Research gap](plugins/materials-skills/skills/materials-figure/assets/wer-ea-atlas/generated/wer_ea_research_gap.svg) |
+| ![Functional coating composite](plugins/materials-skills/skills/materials-figure/assets/gallery/fig8-functional-coating-performance.png) | ![Polymer composite composite](plugins/materials-skills/skills/materials-figure/assets/gallery/fig3-polymer-composite-multifunctional.png) | ![Nano characterization composite](plugins/materials-skills/skills/materials-figure/assets/gallery/fig6-nano-material-characterization.png) |
 
-**Ceramics atlas** — Characterization figures for structural/functional
-ceramics: XRD patterns, stress-strain curves, TGA/DSC, thermal expansion,
-Weibull plots, grain-size distributions, EIS Nyquist plots, and sintering
-curves.
+**Top-journal examples** - The `materials4papers` examples provide
+publication-style reference implementations for XRD, EBSD, Weibull reliability,
+TGA/DTG, Raman mapping, nanoparticle size statistics, and related materials
+figure families.
 
-| ![XRD pattern](plugins/materials-skills/skills/materials-figure/assets/ceramics-atlas/generated/ceramics_xrd_pattern.png) | ![Stress-strain](plugins/materials-skills/skills/materials-figure/assets/ceramics-atlas/generated/ceramics_stress_strain.png) | ![TGA/DSC](plugins/materials-skills/skills/materials-figure/assets/ceramics-atlas/generated/ceramics_tga_dsc.png) |
+| ![Cement XRD example](plugins/materials-skills/skills/materials-figure/assets/materials4papers/cement_hydration_xrd/figures/xrd_hydration_stacked.png) | ![Steel EBSD example](plugins/materials-skills/skills/materials-figure/assets/materials4papers/steel_microstructure_ebsd/figures/ebsd_ipf_maps.png) | ![Polymer thermal example](plugins/materials-skills/skills/materials-figure/assets/materials4papers/polymer_thermal_degradation/figures/tga_dtg_thermal.png) |
 |---|---|---|
-| ![Thermal expansion](plugins/materials-skills/skills/materials-figure/assets/ceramics-atlas/generated/ceramics_thermal_expansion.png) | ![Weibull plot](plugins/materials-skills/skills/materials-figure/assets/ceramics-atlas/generated/ceramics_weibull_plot.png) | ![Grain size](plugins/materials-skills/skills/materials-figure/assets/ceramics-atlas/generated/ceramics_grain_size_dist.png) |
+| ![Ceramics Weibull example](plugins/materials-skills/skills/materials-figure/assets/materials4papers/ceramics_weibull_reliability/figures/weibull_reliability.png) | ![Raman mapping example](plugins/materials-skills/skills/materials-figure/assets/materials4papers/2d_material_raman_mapping/figures/raman_mapping.png) | ![Nanoparticle distribution example](plugins/materials-skills/skills/materials-figure/assets/materials4papers/nanoparticle_size_distribution/figures/nanoparticle_distribution.png) |
 
 **Figure package structure** — Every serious output is delivered as a figure
 package, not a loose image:
