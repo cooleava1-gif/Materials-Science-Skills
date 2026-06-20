@@ -2,6 +2,9 @@ version: "1.1.0"
 
 always_load:
   - static/core/contract.md
+  - static/core/failure-modes.md
+  - static/core/output-format.md
+  - static/core/stance.md
   - ../_shared/core/direction-profile.md
   - ../_shared/core/stance.md
   - ../_shared/core/evidence-contract.md
@@ -177,6 +180,27 @@ references:
     proofreading:
       path: references/proofreading.md
       when: "The user needs final mechanical checks, proofreading, or pre-submission polish."
+    section-abstract:
+      path: static/fragments/section/abstract.md
+      when: "The user is polishing an abstract and needs section-specific guidance."
+    section-introduction:
+      path: static/fragments/section/introduction.md
+      when: "The user is polishing an introduction and needs section-specific guidance."
+    section-methods:
+      path: static/fragments/section/methods.md
+      when: "The user is polishing a methods section and needs section-specific guidance."
+    section-results:
+      path: static/fragments/section/results.md
+      when: "The user is polishing a results section and needs section-specific guidance."
+    section-discussion:
+      path: static/fragments/section/discussion.md
+      when: "The user is polishing a discussion section and needs section-specific guidance."
+    section-conclusion:
+      path: static/fragments/section/conclusion.md
+      when: "The user is polishing a conclusion and needs section-specific guidance."
+    section-title:
+      path: static/fragments/section/title.md
+      when: "The user is polishing a title and needs section-specific guidance."
 assets:
   - assets
 scripts:
