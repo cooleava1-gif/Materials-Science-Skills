@@ -100,7 +100,7 @@
     {"claim_number": 2, "feature": "EV003", "support": "explicit"}
   ],
   "figures": [
-    {"number": 1, "type": "flowchart", "caption": "图1为本发明水泥基复合材料的制备工艺流程图。", "source": "F001"}
+    {"number": 1, "type": "flowchart", "caption": "图1为本发明水泥基复合材料的制备工艺流程图。", "source": "F001", "complete_claim_flow": true}
   ],
   "abstract_figure_number": 1,
   "specification": {
