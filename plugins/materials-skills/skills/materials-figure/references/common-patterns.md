@@ -579,7 +579,7 @@ finalize_figure(fig, 'figures/thermal_properties.svg', formats=['svg', 'png'])
 
 - [SKILL.md](../SKILL.md) — When to use this skill
 - [api.md](api.md) — Helper function signatures and PALETTE
-- [figure-design-theory.md](figure-design-theory.md) — Rationale behind every pattern above
+- [figure-design-theory.md](figure-design-theory.md) — Rationale behind every pattern above; **see §4.3 for legend conventions** (position, sort order, symbol rules, dual-axis, certainty-tier, direct labels, colorblind-safe design, QA checklist)
 - [characterization-figures.md](characterization-figures.md) — Technique-specific templates
 - [performance-figures.md](performance-figures.md) — Performance curve patterns
 - [mechanism-figures.md](mechanism-figures.md) — Mechanism schematic patterns

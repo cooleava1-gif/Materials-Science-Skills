@@ -368,13 +368,218 @@ def tighten_ylimits(ax, data, margin=0.1, ymin=None):
     ax.set_ylim(bottom, dmax + pad)
 ```
 
-### 4.3 Legend
+### 4.3 Legend conventions
 
-- `frameon=False` — always.
-- Place inside plot only if it does not obscure data.
-- For multi-panel figures: give legend its own subplot axis (`ax.set_axis_off()`).
-- When legend is large: `bbox_to_anchor=(0.5, -0.24), loc='upper center'` below the panel.
-- For single-panel figures: place at best corner (upper-right if data is in lower-left).
+Legends are the reader's first stop when decoding a figure. A poorly placed or
+inconsistent legend forces the reader to mentally map colors back to series —
+worse, a missing legend makes the figure unreadable. Follow these rules for
+every figure.
+
+#### 4.3.1 Global rules
+
+| Rule | Value | Rationale |
+|------|-------|-----------|
+| Frame | `frameon=False` — always | Frames add visual noise; the legend should blend into the figure |
+| Font size | 7–8 pt (publication), 12–14 pt (poster) | Match tick label size; never larger than axis labels |
+| Marker in legend | Show the same marker as the plot (`marker='o'` → legend shows `o`) | Reader must match legend to data without guessing |
+| Handle length | `handlelength=1.5` for lines, `handlelength=0` for markers-only | Shorter handles save horizontal space |
+| Spacing | `handletextpad=0.4`, `labelspacing=0.3`, `borderpad=0` | Tight but not cramped |
+| Edge color | No edge on legend handles unless bars have edgecolor | Consistent with plot style |
+
+```python
+# Standard legend call for most plots
+ax.legend(loc='best', frameon=False, fontsize=8,
+          handlelength=1.5, handletextpad=0.4, labelspacing=0.3)
+```
+
+#### 4.3.2 Position by chart type
+
+Choose legend position based on where data is **not** — never default to
+`loc='best'` for the final figure; pick an explicit corner.
+
+| Chart type | Preferred position | Alternative | When to move outside |
+|------------|-------------------|-------------|---------------------|
+| Line / trend (data in lower-left) | `upper right` | `upper center` | >4 series |
+| Line / trend (data in lower-right) | `upper left` | `upper center` | >4 series |
+| Bar chart (vertical) | `upper left` or `upper right` | Below plot (outside) | >5 groups |
+| Bar chart (horizontal) | `lower right` | Right of plot (outside) | >5 groups |
+| Scatter / bubble | Corner opposite to data cluster | Outside plot | Dense data |
+| Heatmap | Right of colorbar | Below plot | Categorical legend |
+| Radar / polar | Below plot (outside) | `upper right` in data space | >6 axes |
+| XRD / FTIR overlay | `upper right` | `upper left` | >3 patterns |
+| Stacked area | `upper right` | Below plot | >5 layers |
+| Weibull / log-log | `upper left` | `lower right` | — |
+| Dosage window (dual-axis) | `upper left` | Combined legend below | — |
+| Mechanism schematic | No legend (use direct labels) | — | — |
+
+#### 4.3.3 Outside-plot legend
+
+When the legend is too large for the plot area, place it outside:
+
+```python
+# Below the plot (horizontal layout)
+ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.15),
+          ncol=3, frameon=False, fontsize=8, columnspacing=1.0)
+
+# Right of the plot (vertical layout)
+ax.legend(loc='center left', bbox_to_anchor=(1.02, 0.5),
+          frameon=False, fontsize=8)
+
+# Dedicated legend axis (for multi-panel figures)
+ax_legend = fig.add_subplot(gs[legend_slot])
+ax_legend.set_axis_off()
+ax_legend.legend(handles, labels, loc='center', frameon=False, fontsize=8)
+```
+
+**Rules for outside legends**:
+- Horizontal (`ncol>1`) when placing below — saves vertical space.
+- Always use `bbox_to_anchor` with explicit coordinates.
+- Add `bbox_extra_artists` to `savefig` to prevent clipping:
+  ```python
+  leg = ax.get_legend()
+  fig.savefig('figure.svg', bbox_inches='tight',
+              bbox_extra_artists=[leg] if leg else [])
+  ```
+
+#### 4.3.4 Sort order
+
+Legend entries must follow a logical order, not the order `plot()` was called.
+
+| Context | Sort rule | Example |
+|---------|-----------|---------|
+| Dosage series | Ascending by value | 5%, 10%, 15%, 20% |
+| Temperature series | Ascending | 25°C, 100°C, 200°C, 400°C |
+| Time series | Chronological | Day 0, Day 7, Day 28, Day 90 |
+| Control vs modified | Control first | Reference, Modified A, Modified B |
+| Performance ranking | Descending by key metric | Best, Second, Third |
+| Phase comparison | By 2θ position (XRD) or wavenumber (FTIR) | Low-angle peaks first |
+| Mechanism steps | Causal order | Step 1 → Step 2 → Step 3 |
+
+```python
+# Explicit order — do not rely on plot() call order
+handles, labels = ax.get_legend_handles_labels()
+order = [2, 0, 1]  # reorder: third series first, then first, then second
+ax.legend([handles[i] for i in order], [labels[i] for i in order],
+          frameon=False, fontsize=8)
+```
+
+#### 4.3.5 Symbol conventions
+
+The legend handle must match the plot element exactly:
+
+| Plot element | Legend handle | Code |
+|-------------|---------------|------|
+| Line + marker | Line with marker | `ax.plot(..., marker='o', label='Sample')` |
+| Marker only (scatter) | Marker only | `ax.scatter(..., label='Sample')` |
+| Bar | Filled rectangle | `ax.bar(..., label='Group')` |
+| Filled area | Filled polygon | `ax.fill_between(..., label='Band')` |
+| Dashed line | Dashed line | `ax.plot(..., linestyle='--', label='Fit')` |
+| Error bar | Line + cap | Use `Plot2D` errorbar legend handler |
+| Stacked bar | Filled rectangle (single color) | `ax.bar(..., label='Component')` |
+
+**Stacked bar legend rule**: Legend order must match stack order (bottom to top).
+Use `reversed()` if matplotlib auto-reverses:
+```python
+handles, labels = ax.get_legend_handles_labels()
+ax.legend(reversed(handles), reversed(labels), loc='upper right', frameon=False)
+```
+
+#### 4.3.6 Dual-axis combined legend
+
+When a figure has two y-axes, merge both axes' handles into one legend:
+
+```python
+lines1, labels1 = ax1.get_legend_handles_labels()
+lines2, labels2 = ax2.get_legend_handles_labels()
+ax1.legend(lines1 + lines2, labels1 + labels2,
+           loc='upper left', frameon=False, fontsize=8)
+```
+
+**Color-code axis labels** to match their data series — this reduces dependence
+on the legend:
+```python
+ax1.set_ylabel('Viscosity (mPa·s)', color=color_visc)
+ax2.set_ylabel('Bond strength (MPa)', color=color_bond)
+ax1.tick_params(axis='y', labelcolor=color_visc)
+ax2.tick_params(axis='y', labelcolor=color_bond)
+```
+
+#### 4.3.7 Certainty-tier legend
+
+For evidence heatmaps and mechanism maps, use a certainty legend to distinguish
+evidence quality:
+
+| Symbol | Meaning | Color | When |
+|--------|---------|-------|------|
+| ✓ or ● | Direct evidence | Forest green `#4F7C6A` | Measured by characterization |
+| ~ or ◐ | Indirect / consistent with | Amber `#D4A574` | Inferred from related data |
+| ✗ or ○ | Not observed / absent | Grey `#8C8C8C` | Searched but not found |
+| ? or ⊘ | Not searched | Light grey `#C0C0C0` | Outside scope of this study |
+
+```python
+certainty_handles = [
+    plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#4F7C6A',
+               markersize=10, label='Direct evidence'),
+    plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#D4A574',
+               markersize=10, label='Indirect / consistent with'),
+    plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#8C8C8C',
+               markersize=10, label='Not observed'),
+    plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='#C0C0C0',
+               markersize=10, label='Not searched'),
+]
+ax.legend(handles=certainty_handles, loc='upper right', frameon=False, fontsize=8)
+```
+
+#### 4.3.8 Direct labels vs legend
+
+Prefer **direct labels** over legends when there are ≤5 series and the lines
+do not cross at the label position:
+
+```python
+# Instead of a legend, label lines directly
+for line, label in zip(lines, ['Control', '5% epoxy', '10% epoxy', '15% epoxy']):
+    ax.annotate(label, xy=(line.get_xdata()[-1], line.get_ydata()[-1]),
+                xytext=(5, 0), textcoords='offset points',
+                fontsize=8, va='center', color=line.get_color())
+```
+
+**When to use a legend**:
+- >5 series
+- Series cross each other (direct labels would overlap)
+- The figure is dense (multi-panel) and direct labels would clutter
+
+**When to use direct labels**:
+- ≤5 series that don't cross
+- The reader needs to trace individual lines across panels
+- Space is tight (small single-column figures)
+
+#### 4.3.9 Colorblind-safe legend design
+
+- Never rely on color alone in the legend — pair with marker shapes or line
+  styles when possible.
+- Test: print the legend in grayscale. If two entries look identical, add
+  shape/linestyle differentiation.
+- Use these marker pairs for 2–4 series:
+  - 2 series: `o` + `s`
+  - 3 series: `o` + `s` + `^`
+  - 4 series: `o` + `s` + `^` + `D`
+- For >4 series, use linestyle as secondary channel:
+  - Solid, dashed, dotted, dashdot
+
+#### 4.3.10 Legend QA checklist
+
+Before finalizing any figure:
+
+- [ ] `frameon=False` on all legends.
+- [ ] Legend font size matches tick label size (7–8 pt).
+- [ ] Legend position is explicit (not `loc='best'` in final version).
+- [ ] Legend does not obscure data — if it does, move outside or use direct labels.
+- [ ] Legend entries follow logical sort order (ascending dosage/temp/time).
+- [ ] Legend handles match plot elements (marker, linestyle, fill).
+- [ ] Stacked bar legend order matches stack order (bottom to top).
+- [ ] Dual-axis figures have a single combined legend.
+- [ ] Colorblind test passed: all entries distinguishable in grayscale.
+- [ ] Direct labels used where feasible (≤5 non-crossing series).
 
 ### 4.4 GridSpec patterns
 
