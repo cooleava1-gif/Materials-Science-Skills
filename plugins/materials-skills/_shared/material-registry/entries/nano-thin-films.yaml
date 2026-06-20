@@ -1,4 +1,4 @@
-﻿characterization:
+characterization:
 - evidence_tier: definitive
   key_features:
   - Kiessig fringes for film thickness and roughness
@@ -99,8 +99,8 @@ figure_archetypes:
   - x_values
   - y_values
   - y_errors
-- description: Nanoindentation stress-strain or load-displacement curves for thin film
-    mechanical response comparison
+- description: Nanoindentation stress-strain or load-displacement curves for thin
+    film mechanical response comparison
   id: stress_strain
   type: stress_strain
   column_roles:
@@ -180,8 +180,10 @@ properties:
   typical_range: 1.3–2.6
   unit: dimensionless
 skill_mapping:
-  data_schemas:
-  figure_scripts:
+  data_schemas: null
+  figure_scripts: null
+  figure_packages:
+  - skills/materials-figure/assets/materials4papers/nanoparticle_size_distribution
 standards:
 - purpose: Measurement of thickness of metallic and oxide coatings by microscopical
     examination of cross section

@@ -1,4 +1,4 @@
-﻿characterization:
+characterization:
 - evidence_tier: definitive
   method: Tensile Testing
   purpose: Yield strength, ultimate strength, elongation
@@ -92,9 +92,12 @@ figure_archetypes:
   - x_values
   - y_values
   column_map:
-    x_values: {"column": "x_value"}
-    y_values: {"column": "y_value"}
-    group_by: {"column": "group"}
+    x_values:
+      column: x_value
+    y_values:
+      column: y_value
+    group_by:
+      column: group
 - description: Errorbar trend of corrosion rate or strength versus aging or exposure
     duration
   id: line-trend
@@ -103,8 +106,10 @@ figure_archetypes:
   - x_values
   - y_values
   column_map:
-    x_values: {"column": "aging_day"}
-    y_values: {"column": "strength_mean_mpa"}
+    x_values:
+      column: aging_day
+    y_values:
+      column: strength_mean_mpa
 - description: Grouped bar comparison of mechanical or durability property indices
     across conditions
   id: grouped-bar
@@ -159,8 +164,10 @@ properties:
   typical_range: 200–800
   unit: MPa
 skill_mapping:
-  data_schemas:
-  figure_scripts:
+  data_schemas: null
+  figure_scripts: null
+  figure_packages:
+  - skills/materials-figure/assets/materials4papers/steel_microstructure_ebsd
 standards:
 - purpose: Tension testing of metallic materials
   standard: ASTM E8 / GB/T 228.1

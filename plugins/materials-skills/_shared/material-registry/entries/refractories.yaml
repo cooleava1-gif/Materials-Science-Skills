@@ -1,4 +1,4 @@
-﻿characterization:
+characterization:
 - evidence_tier: definitive
   method: XRD
   purpose: Phase composition after service, reaction layer identification
@@ -129,10 +129,12 @@ properties:
   test_methods:
   - ASTM C20 / ISO 5017
   typical_range: 10–30
-  unit: "%"
+  unit: '%'
 skill_mapping:
-  data_schemas:
-  figure_scripts:
+  data_schemas: null
+  figure_scripts: null
+  figure_packages:
+  - skills/materials-figure/assets/materials4papers/ceramics_weibull_reliability
 standards:
 - purpose: Cold crushing strength and modulus of rupture of refractories
   standard: ASTM C133

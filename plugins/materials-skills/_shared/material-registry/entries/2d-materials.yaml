@@ -1,4 +1,4 @@
-﻿characterization:
+characterization:
 - evidence_tier: definitive
   key_features:
   - G/2D ratio for graphene layer number estimation
@@ -84,8 +84,8 @@ description:
   - Membranes for separation and filtration
 family: nano
 figure_archetypes:
-- description: XRD pattern overlay for 2D material phase identification and layer stacking
-    comparison (monolayer vs. few-layer)
+- description: XRD pattern overlay for 2D material phase identification and layer
+    stacking comparison (monolayer vs. few-layer)
   id: xrd_pattern
   type: xrd_pattern
   column_roles:
@@ -179,8 +179,10 @@ properties:
   typical_range: 3.0–7.0
   unit: Å
 skill_mapping:
-  data_schemas:
-  figure_scripts:
+  data_schemas: null
+  figure_scripts: null
+  figure_packages:
+  - skills/materials-figure/assets/materials4papers/2d_material_raman_mapping
 standards:
 - purpose: Standard guide for characterization of graphene and related 2D materials
   standard: ASTM F1711

@@ -1,4 +1,4 @@
-﻿characterization:
+characterization:
 - evidence_tier: definitive
   method: Mechanical Testing
   purpose: Load-deformation, mechanical strength evaluation
@@ -126,5 +126,7 @@ standards:
 - purpose: Splitting tensile strength of cylindrical concrete specimens
   standard: ASTM C496
 skill_mapping:
-  data_schemas:
-  figure_scripts:
+  data_schemas: null
+  figure_scripts: null
+  figure_packages:
+  - skills/materials-figure/assets/materials4papers/multifunctional_composite_radar

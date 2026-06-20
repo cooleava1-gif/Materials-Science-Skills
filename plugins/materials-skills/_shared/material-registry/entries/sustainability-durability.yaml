@@ -1,4 +1,4 @@
-﻿characterization:
+characterization:
 - evidence_tier: definitive
   method: LCA
   purpose: Environmental impact quantification (cradle-to-gate, cradle-to-grave)
@@ -73,7 +73,8 @@ figure_archetypes:
   column_roles:
   - cycles
   - strength_retention
-- description: Water absorption curve of durable/recycled materials over immersion time
+- description: Water absorption curve of durable/recycled materials over immersion
+    time
   id: water-absorption
   type: line_plot
   column_roles:
@@ -137,5 +138,7 @@ standards:
     and carbonation indication)
   standard: ASTM C876
 skill_mapping:
-  data_schemas:
-  figure_scripts:
+  data_schemas: null
+  figure_scripts: null
+  figure_packages:
+  - skills/materials-figure/assets/materials4papers/concrete_durability_retention

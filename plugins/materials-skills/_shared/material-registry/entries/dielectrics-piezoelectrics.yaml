@@ -1,4 +1,4 @@
-﻿characterization:
+characterization:
 - evidence_tier: definitive
   method: Impedance Spectroscopy
   purpose: Dielectric constant, loss tangent, conductivity, relaxation
@@ -74,7 +74,8 @@ figure_archetypes:
   - angle
   - intensity
   column_map:
-    x_values: {"column": "two_theta"}
+    x_values:
+      column: two_theta
     y_series:
     - key: Pure BTO
       column: pure_BTO
@@ -87,9 +88,12 @@ figure_archetypes:
   - frequency
   - dielectric_constant
   column_map:
-    x_values: {"column": "frequency_Hz"}
-    y_values: {"column": "dielectric_constant"}
-    y_errors: {"column": "dielectric_constant_std"}
+    x_values:
+      column: frequency_Hz
+    y_values:
+      column: dielectric_constant
+    y_errors:
+      column: dielectric_constant_std
 - description: Ferroelectric P-E hysteresis loop showing remanent polarization and
     coercive field
   id: pe_loop
@@ -98,9 +102,12 @@ figure_archetypes:
   - electric_field
   - polarization
   column_map:
-    x_values: {"column": "field_kV_per_cm"}
-    y_values: {"column": "polarization"}
-    group_by: {"column": "sample_id"}
+    x_values:
+      column: field_kV_per_cm
+    y_values:
+      column: polarization
+    group_by:
+      column: sample_id
 - description: Impedance spectroscopy Nyquist plot for grain and grain boundary contributions
   id: eis_nyquist
   type: eis_plot
@@ -108,9 +115,12 @@ figure_archetypes:
   - z_real
   - z_imag
   column_map:
-    frequency: {"column": "log_freq_hz"}
-    z_real: {"column": "z_real"}
-    z_imag: {"column": "z_imag"}
+    frequency:
+      column: log_freq_hz
+    z_real:
+      column: z_real
+    z_imag:
+      column: z_imag
 - description: 'Multi-panel dielectric characterization: permittivity + loss + P-E
     loop'
   id: dielectric_multipanel
@@ -176,8 +186,10 @@ properties:
   typical_range: 50–600
   unit: °C
 skill_mapping:
-  data_schemas:
-  figure_scripts:
+  data_schemas: null
+  figure_scripts: null
+  figure_packages:
+  - skills/materials-figure/assets/materials4papers/15-ceramic_nyquist_plot
 standards:
 - purpose: Dielectric constant and dissipation factor of insulating materials
   standard: ASTM D150

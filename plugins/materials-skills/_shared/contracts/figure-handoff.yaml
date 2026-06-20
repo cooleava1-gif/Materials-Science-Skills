@@ -6,6 +6,7 @@ consumed_by:
   - materials-paper2ppt
   - materials-pptx
   - materials-research
+  - materials-paper-to-patent
 
 artifacts:
   figure_handoff.csv:

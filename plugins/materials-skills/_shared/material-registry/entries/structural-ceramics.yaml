@@ -1,4 +1,4 @@
-﻿characterization:
+characterization:
 - evidence_tier: strong
   method: SEM
   purpose: 'Microstructure: grain size, porosity, fracture surface analysis'
@@ -94,7 +94,8 @@ figure_archetypes:
   - strain
   - stress
   column_map:
-    x_values: {"column": "strain_pct"}
+    x_values:
+      column: strain_pct
 - description: XRD pattern for phase identification
   id: xrd_pattern
   type: xrd_pattern
@@ -150,8 +151,10 @@ properties:
   typical_range: 5–20
   unit: dimensionless
 skill_mapping:
-  data_schemas:
-  figure_scripts:
+  data_schemas: null
+  figure_scripts: null
+  figure_packages:
+  - skills/materials-figure/assets/materials4papers/ceramics_weibull_reliability
 standards:
 - purpose: Flexural strength of advanced ceramics at ambient temperature
   standard: ASTM C1161 / EN 843-1

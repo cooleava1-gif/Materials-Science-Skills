@@ -19,6 +19,10 @@ Do not try to apply the figure logic from memory or from this router. Always loa
 
 Follow these five steps every time the skill is invoked.
 
+Before axis routing, apply profile-first routing from `.materials/profile.yaml`.
+On first use, ask for the user's materials direction once, save it locally, and
+use the saved profile to set the default material family/domain.
+
 ### 1. Load the manifest and the core layer
 
 Read [manifest.yaml](manifest.yaml). It declares the `backend` axis (Python-only), the `always_load` files, and the on-demand references.

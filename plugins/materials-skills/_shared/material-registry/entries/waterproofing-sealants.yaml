@@ -1,4 +1,4 @@
-﻿characterization:
+characterization:
 - evidence_tier: definitive
   method: Tensile/Elongation Testing
   purpose: Mechanical properties of membranes and sealants
@@ -147,5 +147,7 @@ standards:
 - purpose: Low-temperature brittleness of rubber and elastomeric sealants
   standard: ASTM D2137
 skill_mapping:
-  data_schemas:
-  figure_scripts:
+  data_schemas: null
+  figure_scripts: null
+  figure_packages:
+  - skills/materials-figure/assets/materials4papers/multifunctional_composite_radar

@@ -1,4 +1,4 @@
-﻿characterization:
+characterization:
 - evidence_tier: definitive
   method: DSC
   purpose: Melting T, crystallization T, glass transition, crystallinity %
@@ -74,9 +74,12 @@ figure_archetypes:
   - strain
   - stress
   column_map:
-    x_values: {"column": "strain_pct"}
-    y_values: {"column": "stress_mpa"}
-    group_by: {"column": "sample_id"}
+    x_values:
+      column: strain_pct
+    y_values:
+      column: stress_mpa
+    group_by:
+      column: sample_id
 - description: DSC heating/cooling curves showing melting and crystallization peaks
   id: dsc_curve
   type: dsc_curve
@@ -84,7 +87,8 @@ figure_archetypes:
   - temperature
   - heat_flow
   column_map:
-    temperature: {"column": "temperature"}
+    temperature:
+      column: temperature
 - description: Normalized multi-property radar for formulation comparison
   id: mechanical_radar
   type: radar_chart
@@ -92,7 +96,8 @@ figure_archetypes:
   - categories
   - series_dict
   column_map:
-    categories: {"column": "property"}
+    categories:
+      column: property
     series:
     - key: Control
       column: control_index
@@ -155,8 +160,10 @@ properties:
   typical_range: 0.1–50
   unit: g/10 min
 skill_mapping:
-  data_schemas:
-  figure_scripts:
+  data_schemas: null
+  figure_scripts: null
+  figure_packages:
+  - skills/materials-figure/assets/materials4papers/polymer_thermal_degradation
 standards:
 - purpose: Tensile properties of plastics
   standard: ASTM D638 / ISO 527
