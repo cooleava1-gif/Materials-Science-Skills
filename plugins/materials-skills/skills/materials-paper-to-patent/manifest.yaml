@@ -1,0 +1,119 @@
+name: materials-paper-to-patent
+version: 1.0.0
+description: >
+  Agent-neutral routing manifest for converting materials science research
+  disclosures into evidence-grounded Chinese invention patent drafts. Default
+  invention type is process-material; supports algorithm/apparatus/mixed via
+  manifest detection.
+
+always_load:
+  - static/core/principles.md
+  - static/core/workflow.md
+  - static/core/output-contract.md
+  - static/core/patent_kb.yaml
+
+axes:
+  source_format:
+    detect: >
+      Use pdf-text for a selectable-text PDF, scanned-pdf for an image-only or
+      OCR-required PDF, pasted-text for user-provided prose, and mixed-project
+      when the workspace also contains source code, supplementary files,
+      inventor notes, figures, or an existing patent.
+    values:
+      pdf-text:
+        path: static/fragments/source/pdf-text.md
+        triggers: ["selectable pdf", "text-based pdf", "pdf text", "可复制文本", "可编辑pdf"]
+      scanned-pdf:
+        path: static/fragments/source/scanned-pdf.md
+        triggers: ["scanned pdf", "image-only pdf", "ocr pdf", "扫描版", "图片pdf"]
+      pasted-text:
+        path: static/fragments/source/pasted-text.md
+        triggers: ["pasted text", "manuscript text", "abstract paste", "粘贴文本", "用户输入"]
+      mixed-project:
+        path: static/fragments/source/mixed-project.md
+        triggers: ["mixed project", "supplementary files", "inventor notes", "源码+论文", "混合项目"]
+    default: pdf-text
+    multi: true
+
+  task_mode:
+    detect: >
+      Use full-draft for a complete application package, claim-set for claims
+      only, disclosure-analysis for patentability-oriented technical
+      extraction, and paper-patent-audit for comparison with an existing
+      patent.
+    values:
+      full-draft:
+        path: static/fragments/task/full-draft.md
+        triggers: ["full draft", "complete application", "全套申请", "完整申请"]
+      claim-set:
+        path: static/fragments/task/claim-set.md
+        triggers: ["claim set", "claims only", "权利要求", "仅权利要求"]
+      disclosure-analysis:
+        path: static/fragments/task/disclosure-analysis.md
+        triggers: ["disclosure analysis", "patentability extraction", "披露分析", "可专利性分析"]
+      paper-patent-audit:
+        path: static/fragments/task/paper-patent-audit.md
+        triggers: ["paper patent audit", "patent comparison", "对比审计", "论文专利对比"]
+    default: full-draft
+    multi: false
+
+  invention_type:
+    detect: >
+      Determine the dominant technical subject. Use process-material for
+      synthesis, formulation, processing, manufacturing, or material
+      preparation (default for civil materials); algorithm-software for data
+      processing, AI, signal processing, control, or computer-implemented
+      methods; apparatus-system for physical structures or cooperating
+      devices; and mixed when no single category is sufficient.
+    values:
+      algorithm-software:
+        path: static/fragments/invention/algorithm-software.md
+        triggers: ["algorithm", "software", "ai model", "算法", "软件"]
+      apparatus-system:
+        path: static/fragments/invention/apparatus-system.md
+        triggers: ["apparatus", "device", "system", "装置", "设备", "系统"]
+      process-material:
+        path: static/fragments/invention/process-material.md
+        triggers: ["process", "material", "preparation", "工艺", "材料", "制备"]
+      mixed:
+        path: static/fragments/invention/mixed.md
+        triggers: ["mixed invention", "compound type", "复合类型", "混合发明"]
+    default: process-material
+    multi: false
+
+references:
+  on_demand:
+    - condition: drafting or auditing Chinese claims and specification
+      path: references/cn-patent-drafting-guide.md
+    - condition: populating or validating the structured draft
+      path: references/draft-schema.md
+    - condition: learning transformations from paired paper-patent examples
+      path: references/corpus-derived-patterns.md
+    - condition: comparing a supplied paper with an existing patent
+      path: references/corpus-pair-audit.md
+    - condition: running the civil claims validation engine
+      path: references/claim-checklist.md
+
+scripts:
+  - scripts/extract_pdf_text.py
+  - scripts/init_patent_project.py
+  - scripts/audit_claims.py
+  - scripts/validate_patent_draft.py
+  - scripts/validate_patent_claims.py
+  - scripts/build_patent_package.py
+  - scripts/render_patent_docx.py
+  - scripts/render_flowchart_svg.py
+  - scripts/math_to_omml.py
+
+tests:
+  - tests/test_validate_patent_claims.py
+  - tests/test_validate_patent_draft.py
+  - tests/test_build_patent_package.py
+
+quality_gates:
+  - release gate must report no issues for this skill
+  - claims must stay inside the civil patent knowledge base
+
+release_checks:
+  - scripts/run_release_checks.py --json
+  - scripts/check_skill_architecture.py --json
