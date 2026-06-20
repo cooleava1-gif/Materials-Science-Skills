@@ -606,10 +606,12 @@ cbar.set_label('Response')
 
 ## Visual Atlas (PNG Previews)
 
-The `assets/chart-atlas/` directory contains 15 pre-generated PNG atlas
-images. Each atlas is a 4×4 panel grid showing one chart family with
-4 column variants and 4 row data distributions. Use these as visual
-quick-reference when choosing a chart type.
+The `assets/chart-atlas/` directory contains 21 pre-generated PNG atlas
+images. Atlas 01-15 use 4×4 panel grids showing one chart family with
+4 column variants and 4 row data distributions; atlas 16-21 add specialized
+materials-science visual forms such as pore distributions, impedance,
+MIP, multiscale schematics, mechanism flowcharts, and graphical abstracts.
+Use these as visual quick-reference when choosing a chart type.
 
 | Atlas file | Chart family | Variants |
 |---|---|---|

@@ -451,7 +451,7 @@ python scripts/check_storyboard.py figure_storyboard.yaml
 
 # Validate each figure's materials claims
 for fig_dir in fig1 fig2 fig3 fig4; do
-    python scripts/validate_materials_claims.py $fig_dir/figure_contract.md
+    python scripts/validate_materials_claims.py $fig_dir
 done
 ```
 

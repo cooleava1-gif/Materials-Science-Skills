@@ -2,7 +2,7 @@
 
 This reference explains how to validate materials-science claims against the knowledge base before plotting. The validation layer catches claims that contradict known PDF cards, FTIR assignments, or typical property ranges — errors that would otherwise survive into figure captions and trigger reviewer objections.
 
-**Scope**: This is an optional validation tool in LLM-as-artist mode. It checks materials-science entities (XRD peaks, FTIR wavenumbers, performance values) extracted from `figure_contract.md` against `static/core/materials_kb.yaml`. Figures without materials-science entities (pure flowcharts, workflow diagrams) pass with no checks.
+**Scope**: This is an optional validation tool in LLM-as-artist mode. It checks materials-science entities (XRD peaks, FTIR wavenumbers, performance values) from a figure-package directory. The package must contain `source_data.csv`; if `figure_contract.md` is present, prose claims are also checked against `static/core/materials_kb.yaml`. Figures without materials-science entities (pure flowcharts, workflow diagrams) pass with no checks.
 
 ---
 
@@ -97,19 +97,19 @@ Skip validation when the figure is:
 
 ```bash
 # Basic validation
-python scripts/validate_materials_claims.py figure_contract.md
+python scripts/validate_materials_claims.py path/to/figure-package
 
 # JSON output for programmatic processing
-python scripts/validate_materials_claims.py figure_contract.md --json
+python scripts/validate_materials_claims.py path/to/figure-package --output validation-report.json
 
 # Custom KB path
-python scripts/validate_materials_claims.py figure_contract.md --kb path/to/custom_kb.yaml
+python scripts/validate_materials_claims.py path/to/figure-package --kb path/to/custom_kb.yaml
 ```
 
 **Exit codes**:
-- `0` = pass (all claims confirmed or no materials entities found)
-- `1` = warning (claims found but some could not be verified)
-- `2` = error (claims contradict KB)
+- `0` = pass (no errors; warnings may still be reported)
+- `1` = error (claims contradict KB)
+- `2` = package files missing or malformed
 
 ### 2.3 Validation Results
 
@@ -454,10 +454,11 @@ Run validation **after** writing the figure contract but **before** plotting:
 
 ```
 1. Write figure_contract.md (claim, evidence chain, archetype)
-2. Run validate_materials_claims.py figure_contract.md
-3. Fix errors (❌) — these block plotting
-4. Review warnings (⚠️) — these flag claims for review
-5. Proceed to plotting if status is pass or warning
+2. Put `figure_contract.md` and `source_data.csv` in the same figure-package directory
+3. Run validate_materials_claims.py path/to/figure-package
+4. Fix errors (❌) — these block plotting
+5. Review warnings (⚠️) — these flag claims for review
+6. Proceed to plotting if status is pass or warning
 ```
 
 ### 6.2 Handling Validation Results
@@ -479,7 +480,7 @@ When using the multi-figure storyboard, validate each figure's contract individu
 ```bash
 for fig_dir in fig1 fig2 fig3 fig4; do
     echo "Validating $fig_dir..."
-    python scripts/validate_materials_claims.py $fig_dir/figure_contract.md
+    python scripts/validate_materials_claims.py $fig_dir
 done
 ```
 

@@ -20,14 +20,17 @@ consumption of alite peaks and growth of portlandite + C-S-H gel.
    - Archetype: quantitative grid (3 stacked subplots)
    - Backend: Python only
    - Export: 300 dpi PNG + SVG, color-vision-safe
-3. **Validate** by running
-   `python scripts/validate_materials_claims.py assets/materials4papers/cement_hydration_xrd/ --kb static/core/materials_kb.yaml`.
-   Confirm 0 errors.
-4. **Plot** by adapting `plot.py` for the three time-points.
-5. **QA** with `references/figure-legend-conventions.md`:
+3. **Package** the demo in a working output directory with `source_data.csv`
+   and `figure_contract.md`. The `materials4papers/` source directories are
+   reference examples; they are not themselves complete validation packages.
+4. **Validate** by running
+   `python scripts/validate_materials_claims.py path/to/figure-package --kb static/core/materials_kb.yaml`.
+   Fix errors before plotting; review any warnings.
+5. **Plot** by adapting `plot.py` for the three time-points.
+6. **QA** with `references/figure-legend-conventions.md`:
    - Panel labels **a, b, c** added.
    - Caption grounded in XRD evidence; no mechanism overclaim.
-6. **Deliver** the figure package with `figure_contract.md`, `qa_report.md`,
+7. **Deliver** the figure package with `figure_contract.md`, `qa_report.md`,
    `caption.md`, `asset_manifest.md`, `source_data.csv`, `plot.py`,
    `figures/*.svg`, `figures/*.png`.
 
@@ -42,8 +45,9 @@ under tension-tension (R = 0.1) loading.
 
 1. **Read** `plot.py` and CSV (fatigue_cfrp.csv, fatigue_gfrp.csv).
 2. **Contract** the five points.
-3. **Validate** with the KB engine; CFRP and GFRP are polymers, endurance
-   falls in `typical_max` for polymer composites; expect 0 errors.
+3. **Package and validate** with the KB engine after copying the relevant CSV
+   into `source_data.csv` and writing `figure_contract.md`; CFRP and GFRP are
+   polymers, and the endurance claim should not contradict the KB.
 4. **Plot** with `apply_publication_style(font_size=15, axes_linewidth=2)`.
 5. **QA** legend convention: panel label **a**, axes labels in SI,
    error bands = 95 % CI of log-N.
@@ -61,8 +65,9 @@ tight flaw population control.
 1. **Read** `plot.py` and the Weibull parameter CSV.
 2. **Contract** including the Weibull fit as the hero panel and the
    probability plot as the supporting panel.
-3. **Validate**: KB has ZrO2 sintered density range; the measured density
-   should fall in `[5.5, 6.1]` g/cm³ ± 20 %. Expect 0 errors.
+3. **Package and validate**: KB has ZrO2 sintered density range; measured
+   density claims in `source_data.csv`/`figure_contract.md` should fall in
+   `[5.5, 6.1]` g/cm³ ± 20 %.
 4. **Plot** with `apply_publication_style(use_tex=False)` (text math via
    `matplotlib.mathtext`).
 5. **QA**: caption says "m = 12.4 (95 % CI: 11.0, 14.1)", n = 30.

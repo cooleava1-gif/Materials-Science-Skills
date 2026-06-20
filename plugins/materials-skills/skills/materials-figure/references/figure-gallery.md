@@ -18,9 +18,11 @@ The gallery is not a decoration library. Each figure card links visual form to a
 
 ## Gallery Composite Figures (PNG Previews)
 
-The `assets/gallery/` directory contains 8 submission-grade composite
-figures demonstrating complete materials science visual narratives. Each
-figure uses asymmetric GridSpec layouts with labeled panels (a)-(i).
+The `assets/gallery/` directory contains 12 submission-grade composite
+figures demonstrating complete materials science visual narratives. The
+first eight figures use asymmetric GridSpec layouts with labeled panels
+(a)-(i); figures 9-12 add multi-panel characterization/performance examples,
+graphical abstract layouts, and evidence-chain summaries.
 
 | Gallery file | Theme | Panels | Journal style |
 |---|---|---|---|
@@ -32,6 +34,10 @@ figure uses asymmetric GridSpec layouts with labeled panels (a)-(i).
 | `fig6-nano-material-characterization.png` | Nano material characterization | 8 (a-h) | ACS Nano |
 | `fig7-concrete-microstructure-durability.png` | Concrete microstructure-durability | 8 (a-h) | Cement and Concrete Research |
 | `fig8-functional-coating-performance.png` | Functional coating performance | 9 (a-i) | Advanced Materials |
+| `fig9-multipanel-xrd-sem-perf.png` | XRD + SEM + performance | 4 (a-d) | Materials characterization |
+| `fig10-multipanel-ftir-tg-morph.png` | FTIR + TG + morphology | 4 (a-d) | Polymer/composite characterization |
+| `fig11-graphical-abstract.png` | Graphical abstract | 1 visual narrative | Broad materials journals |
+| `fig12-evidence-chain.png` | Evidence-chain summary | 4 evidence blocks | Review or mechanism papers |
 
 Use these as visual reference for:
 - Asymmetric multi-panel layout patterns

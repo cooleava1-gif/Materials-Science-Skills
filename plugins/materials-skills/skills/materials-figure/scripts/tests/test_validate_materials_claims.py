@@ -106,6 +106,16 @@ def test_package_missing_source_data(tmp_path: Path) -> None:
     assert any(issue.rule == "package_files_missing" for issue in report.errors)
 
 
+def test_default_kb_path_is_skill_local_for_external_package(tmp_path: Path) -> None:
+    pkg = tmp_path / "external_pkg"
+    pkg.mkdir()
+    (pkg / "source_data.csv").write_text("metric,value\nnotes,1\n", encoding="utf-8")
+
+    report = validate_figure_package(pkg)
+
+    assert not any(issue.message.startswith("Materials KB not found") for issue in report.errors)
+
+
 # ---------------------------------------------------------------------------
 # Phase alias / FTIR / contract-text / unit-hint regression tests for the
 # original 790-line capabilities that were merged back into the 310-line

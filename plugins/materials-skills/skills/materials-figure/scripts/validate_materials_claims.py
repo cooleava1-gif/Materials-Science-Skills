@@ -953,7 +953,7 @@ def validate_figure_package(
     report = ValidationReport(package=str(package_dir))
 
     if kb_path is None:
-        kb_path = package_dir.parent / "static" / "core" / "materials_kb.yaml"
+        kb_path = Path(__file__).resolve().parents[1] / "static" / "core" / "materials_kb.yaml"
     kb_path = Path(kb_path)
     if not kb_path.is_file():
         report.add(
