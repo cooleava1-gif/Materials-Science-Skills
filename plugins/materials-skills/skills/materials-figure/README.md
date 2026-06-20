@@ -11,9 +11,9 @@ boundaries instead of as loose images.
 **Built from** — A figure-package template system and reference examples:
 
 - `assets/templates/figure-package/` — contract, plot.py, caption, QA report, and asset manifest templates
-- `assets/materials4papers/` — 12 top-journal reference examples (XRD, sintering, Weibull, durability, corrosion, EBSD, Raman mapping, etc.)
-- `assets/chart-atlas/` — 15 chart-type atlas PNGs (XRD, mechanical, thermal, spectroscopy, microscopy, performance, durability, electrochemistry, comparison, composite, phase diagram, kinetics, adsorption, rheology, degradation)
-- `assets/gallery/` — 8 submission-grade composite figures (cement hydration, steel microstructure, polymer composite, ceramics reliability, asphalt review, nano characterization, concrete durability, functional coating)
+- `assets/materials4papers/` — 20 top-journal reference examples (XRD, sintering, Weibull, durability, corrosion, EBSD, Raman mapping, multiscale abstract, Nyquist, GPC, GISAXS, in-situ XRD, multifield T-ε, CT reconstruction, etc.)
+- `assets/chart-atlas/` — 21 chart-type atlas PNGs (XRD, mechanical, thermal, spectroscopy, microscopy, performance, durability, electrochemistry, comparison, composite, phase diagram, kinetics, adsorption, rheology, degradation, porosity, MIP, multiscale, mechanism flowchart, graphical abstract)
+- `assets/gallery/` — 12 submission-grade composite figures (cement hydration, steel microstructure, polymer composite, ceramics reliability, asphalt review, nano characterization, concrete durability, functional coating, multi-panel XRD+SEM+perf, FTIR+TG+morph, graphical abstract, evidence chain)
 - `examples/figure-packages/` — 3 runnable figure packages with real CSV data and matplotlib scripts (see below)
 
 **Figure package structure** - A production output is a rerunnable package, not a loose image.
@@ -87,9 +87,9 @@ skills/materials-figure/
 │   ├── validate_materials_claims.py   optional materials knowledge validation
 │   └── check_storyboard.py            optional multi-figure storyboard check
 ├── assets/
-│   ├── materials4papers/              12 top-journal reference examples
-│   ├── chart-atlas/                   15 chart-type atlas PNGs
-│   ├── gallery/                       8 submission-grade composite figures
+│   ├── materials4papers/              20 top-journal reference examples
+│   ├── chart-atlas/                   21 chart-type atlas PNGs
+│   ├── gallery/                       12 submission-grade composite figures
 │   └── templates/                     contract, plot.py, caption, QA templates
 └── references/
     ├── chart-atlas.md                 chart family routing and usage
@@ -119,3 +119,24 @@ sintering curve.
 - Bundle verification:
   repo root: `python .\plugins\materials-skills\scripts\run_release_checks.py --json`
   plugin root: `python .\scripts\run_release_checks.py --json`
+
+### Chart atlas (21 entries)
+
+| Range | Family focus | Added |
+|---|---|---|
+| 01–15 | Original chart families (XRD, FTIR, performance, mechanism, etc.) | v2.0 |
+| 16–21 | Porosity, impedance, MIP, multiscale, mechanism flowchart, graphical abstract | 2026-06-20 |
+
+### Gallery (12 entries)
+
+| Range | Type |
+|---|---|
+| 01–08 | Single-figure exemplars (original) |
+| 09–12 | Multi-panel (XRD+SEM+perf, FTIR+TG+morph), graphical abstract, evidence chain |
+
+### materials4papers (20 examples)
+
+| Range | Family | Type |
+|---|---|---|
+| 01–12 | Original families (XRD, fatigue, weibull, etc.) | v2.0 |
+| 13–20 | Multiscale abstract, hierarchical mechanism, ceramic Nyquist, polymer GPC, nano GISAXS, in-situ XRD, multifield T-ε, asphalt CT | 2026-06-20 |
