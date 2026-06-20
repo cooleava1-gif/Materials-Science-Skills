@@ -1,6 +1,83 @@
 # Materials knowledge graph for civil and construction materials.
 # Schema: see references/materials-validation.md
 families:
+  ceramics:
+    xrd_peaks:
+      - phase: "Alumina α-Al2O3"
+        peaks_2theta: [25.6, 35.1, 37.8, 43.4, 52.6, 57.5]
+        card: "PDF#46-1212"
+        tolerance_deg: 0.5
+      - phase: "Zirconia t-ZrO2"
+        peaks_2theta: [30.2, 34.8, 50.2, 59.6, 62.2]
+        card: "PDF#50-1089"
+        tolerance_deg: 0.5
+      - phase: "Zirconia m-ZrO2"
+        peaks_2theta: [24.0, 28.2, 31.5, 34.2]
+        card: "PDF#37-1484"
+        tolerance_deg: 0.5
+      - phase: "Silica SiO2 (alpha-quartz)"
+        peaks_2theta: [20.9, 26.6, 36.5, 39.5, 50.1]
+        card: "PDF#46-1045"
+        tolerance_deg: 0.5
+      - phase: "SiC (beta, 3C)"
+        peaks_2theta: [35.6, 41.4, 60.0, 72.0]
+        card: "PDF#29-1129"
+        tolerance_deg: 0.5
+      - phase: "Si3N4 (beta)"
+        peaks_2theta: [23.4, 27.0, 34.6, 52.2]
+        card: "PDF#33-1160"
+        tolerance_deg: 0.5
+      - phase: "Mullite 3Al2O3·2SiO2"
+        peaks_2theta: [16.4, 26.0, 33.2, 35.3, 40.9]
+        card: "PDF#15-0776"
+        tolerance_deg: 0.5
+      - phase: "WC (tungsten carbide)"
+        peaks_2theta: [31.5, 35.6, 48.3, 64.0, 65.8]
+        card: "PDF#51-0939"
+        tolerance_deg: 0.5
+      - phase: "TiC"
+        peaks_2theta: [35.9, 41.7, 60.4, 72.4, 76.4]
+        card: "PDF#32-1383"
+        tolerance_deg: 0.5
+      - phase: "ZnO (wurtzite)"
+        peaks_2theta: [31.8, 34.4, 36.3, 47.5, 56.6]
+        card: "PDF#36-1451"
+        tolerance_deg: 0.5
+    ftir_wavenumbers:
+      - bond: "Si-O stretch"
+        wavenumber: 1080
+        tolerance: 60
+      - bond: "Al-O stretch"
+        wavenumber: 850
+        tolerance: 80
+      - bond: "Zr-O stretch"
+        wavenumber: 500
+        tolerance: 60
+      - bond: "Ti-O stretch"
+        wavenumber: 700
+        tolerance: 60
+      - bond: "O-H (silanol)"
+        wavenumber: 3500
+        tolerance: 80
+      - bond: "C-O (residual carbonate)"
+        wavenumber: 1450
+        tolerance: 30
+    performance_ranges:
+      - { name: "Alumina flexural strength (MPa)", typical_min: 200, typical_max: 600, warning_threshold: 0.20 }
+      - { name: "Zirconia flexural strength (MPa)", typical_min: 600, typical_max: 1500, warning_threshold: 0.20 }
+      - { name: "SiC flexural strength (MPa)", typical_min: 300, typical_max: 600, warning_threshold: 0.20 }
+      - { name: "Vickers hardness (Al2O3, GPa)", typical_min: 15, typical_max: 25, warning_threshold: 0.20 }
+      - { name: "Fracture toughness KIc (ZrO2, MPa·m^0.5)", typical_min: 4, typical_max: 12, warning_threshold: 0.20 }
+      - { name: "Sintered density (%TD)", typical_min: 90, typical_max: 99.9, warning_threshold: 0.05 }
+    thermal_events:
+      - { name: "Alumina sintering peak", temperature_c: 1450, tolerance: 100 }
+      - { name: "Zirconia sintering peak", temperature_c: 1350, tolerance: 100 }
+      - { name: "Mullite formation", temperature_c: 1100, tolerance: 100 }
+      - { name: "WC oxidation onset", temperature_c: 600, tolerance: 50 }
+      - { name: "SiC oxidation onset", temperature_c: 1000, tolerance: 100 }
+      - { name: "t→m ZrO2 transition (cooling)", temperature_c: 950, tolerance: 50 }
+      - { name: "Quartz alpha→beta", temperature_c: 573, tolerance: 10 }
+      - { name: "Calcite decomposition", temperature_c: 750, tolerance: 50 }
   civil:
     xrd_peaks:
       - phase: "Quartz (SiO2)"
@@ -30,7 +107,7 @@ families:
       - phase: "CSH gel (principal peak)"
         peaks_2theta: [29.4, 32.0, 49.7]
         card: "PDF#33-0306"
-        tolerance_deg: 1.0
+        tolerance_deg: 0.6
       - phase: "Asphalt binder (broad)"
         peaks_2theta: [19.5, 25.5]
         card: "broad amorphous"
@@ -208,83 +285,6 @@ families:
       - { name: "Fe oxidation onset", temperature_c: 200, tolerance: 50 }
       - { name: "Austenite-to-martensite start (Ms)", temperature_c: 300, tolerance: 100 }
       - { name: "Austenite-to-martensite finish (Mf)", temperature_c: 150, tolerance: 100 }
-  ceramics:
-    xrd_peaks:
-      - phase: "Alumina α-Al2O3"
-        peaks_2theta: [25.6, 35.1, 37.8, 43.4, 52.6, 57.5]
-        card: "PDF#46-1212"
-        tolerance_deg: 0.5
-      - phase: "Zirconia t-ZrO2"
-        peaks_2theta: [30.2, 34.8, 50.2, 59.6, 62.2]
-        card: "PDF#50-1089"
-        tolerance_deg: 0.5
-      - phase: "Zirconia m-ZrO2"
-        peaks_2theta: [24.0, 28.2, 31.5, 34.2]
-        card: "PDF#37-1484"
-        tolerance_deg: 0.5
-      - phase: "Silica SiO2 (alpha-quartz)"
-        peaks_2theta: [20.9, 26.6, 36.5, 39.5, 50.1]
-        card: "PDF#46-1045"
-        tolerance_deg: 0.5
-      - phase: "SiC (beta, 3C)"
-        peaks_2theta: [35.6, 41.4, 60.0, 72.0]
-        card: "PDF#29-1129"
-        tolerance_deg: 0.5
-      - phase: "Si3N4 (beta)"
-        peaks_2theta: [23.4, 27.0, 34.6, 52.2]
-        card: "PDF#33-1160"
-        tolerance_deg: 0.5
-      - phase: "Mullite 3Al2O3·2SiO2"
-        peaks_2theta: [16.4, 26.0, 33.2, 35.3, 40.9]
-        card: "PDF#15-0776"
-        tolerance_deg: 0.5
-      - phase: "WC (tungsten carbide)"
-        peaks_2theta: [31.5, 35.6, 48.3, 64.0, 65.8]
-        card: "PDF#51-0939"
-        tolerance_deg: 0.5
-      - phase: "TiC"
-        peaks_2theta: [35.9, 41.7, 60.4, 72.4, 76.4]
-        card: "PDF#32-1383"
-        tolerance_deg: 0.5
-      - phase: "ZnO (wurtzite)"
-        peaks_2theta: [31.8, 34.4, 36.3, 47.5, 56.6]
-        card: "PDF#36-1451"
-        tolerance_deg: 0.5
-    ftir_wavenumbers:
-      - bond: "Si-O stretch"
-        wavenumber: 1080
-        tolerance: 60
-      - bond: "Al-O stretch"
-        wavenumber: 850
-        tolerance: 80
-      - bond: "Zr-O stretch"
-        wavenumber: 500
-        tolerance: 60
-      - bond: "Ti-O stretch"
-        wavenumber: 700
-        tolerance: 60
-      - bond: "O-H (silanol)"
-        wavenumber: 3500
-        tolerance: 80
-      - bond: "C-O (residual carbonate)"
-        wavenumber: 1450
-        tolerance: 30
-    performance_ranges:
-      - { name: "Alumina flexural strength (MPa)", typical_min: 200, typical_max: 600, warning_threshold: 0.20 }
-      - { name: "Zirconia flexural strength (MPa)", typical_min: 600, typical_max: 1500, warning_threshold: 0.20 }
-      - { name: "SiC flexural strength (MPa)", typical_min: 300, typical_max: 600, warning_threshold: 0.20 }
-      - { name: "Vickers hardness (Al2O3, GPa)", typical_min: 15, typical_max: 25, warning_threshold: 0.20 }
-      - { name: "Fracture toughness KIc (ZrO2, MPa·m^0.5)", typical_min: 4, typical_max: 12, warning_threshold: 0.20 }
-      - { name: "Sintered density (%TD)", typical_min: 90, typical_max: 99.9, warning_threshold: 0.05 }
-    thermal_events:
-      - { name: "Alumina sintering peak", temperature_c: 1450, tolerance: 100 }
-      - { name: "Zirconia sintering peak", temperature_c: 1350, tolerance: 100 }
-      - { name: "Mullite formation", temperature_c: 1100, tolerance: 100 }
-      - { name: "WC oxidation onset", temperature_c: 600, tolerance: 50 }
-      - { name: "SiC oxidation onset", temperature_c: 1000, tolerance: 100 }
-      - { name: "t→m ZrO2 transition (cooling)", temperature_c: 950, tolerance: 50 }
-      - { name: "Quartz alpha→beta", temperature_c: 573, tolerance: 10 }
-      - { name: "Calcite decomposition", temperature_c: 750, tolerance: 50 }
   functional:
     xrd_peaks:
       - phase: "BaTiO3 (perovskite)"
