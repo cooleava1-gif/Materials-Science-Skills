@@ -1,4 +1,4 @@
-characterization:
+﻿characterization:
 - evidence_tier: definitive
   method: TEM/HRTEM
   purpose: Particle size, shape, crystallinity, lattice fringe analysis
@@ -88,7 +88,6 @@ family: nano
 figure_archetypes:
 - description: XRD pattern overlay for Au/Ag nanoparticle phase identification and crystallinity
     comparison
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
   id: xrd_pattern
   type: xrd_pattern
   column_roles:
@@ -96,7 +95,6 @@ figure_archetypes:
   - y_series
 - description: Average particle diameter trend with uncertainty across reaction time
     or precursor concentration
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
   id: size_trend
   type: line_plot
   column_roles:
@@ -105,7 +103,6 @@ figure_archetypes:
   - y_errors
 - description: Particle size distribution histogram for colloidal nanoparticles across
     synthesis conditions
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_particle_size_distribution.py
   id: particle_size_distribution
   type: particle_size_dist
   column_roles:
@@ -113,7 +110,6 @@ figure_archetypes:
   - y_series
 - description: SEM/TEM micrograph panel showing nanoparticle morphology and size at
     different synthesis conditions
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_sem_analysis.py
   id: sem_image
   type: sem_image
   column_roles:
@@ -121,14 +117,12 @@ figure_archetypes:
   - histogram
 - description: Multi-panel nanomaterial characterization combining size distribution,
     loading effect, XRD, and UV-Vis
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_nano_multipanel.py
   id: nano_multipanel
   type: multi_panel
   column_roles:
   - subfigures
 - description: UV-Vis absorbance or SPR peak versus particle size scatter regression
     for optical property correlation
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
   id: uv_vis_scatter
   type: scatter
   column_roles:
@@ -136,7 +130,6 @@ figure_archetypes:
   - y_values
 - description: Proposed nucleation and growth mechanism schematic with evidence certainty
     labeling
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
   id: mechanism_diagram
   type: diagram
   column_roles:
@@ -189,23 +182,7 @@ properties:
   unit: PDI
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/nanoparticles_xrd.csv
-  - skills/materials-figure/scripts/figures4materials/data/nanoparticles_trend_curve.csv
-  - skills/materials-figure/scripts/figures4materials/data/nano_size_dist.csv
-  - skills/materials-figure/scripts/figures4materials/data/nano_uvis.csv
-  - skills/materials-figure/scripts/figures4materials/data/nano_xrd.csv
-  - skills/materials-figure/scripts/figures4materials/data/nano_loading.csv
-  - skills/materials-figure/scripts/figures4materials/data/sem_analysis.csv
-  - skills/materials-figure/scripts/figures4materials/data/scatter_regression.csv
-  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
-  - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
-  - skills/materials-figure/scripts/figures4materials/plot_particle_size_distribution.py
-  - skills/materials-figure/scripts/figures4materials/plot_sem_analysis.py
-  - skills/materials-figure/scripts/figures4materials/plot_nano_multipanel.py
-  - skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
 standards:
 - purpose: Particle size analysis by dynamic light scattering (DLS)
   standard: ISO 22412

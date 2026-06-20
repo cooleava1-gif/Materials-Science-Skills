@@ -1,6 +1,0 @@
-dosage_pct,bond_strength_mpa,viscosity_mpas,storage_stability_pct,retention_ratio
-0,0.43,220,88,0.58
-5,0.49,265,91,0.66
-10,0.55,330,94,0.74
-15,0.61,420,96,0.82
-20,0.57,610,93,0.78

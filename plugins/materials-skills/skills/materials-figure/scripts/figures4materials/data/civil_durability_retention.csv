@@ -1,6 +1,0 @@
-condition,control_retention_pct,modified_retention_pct,control_sd,modified_sd
-Moisture aging,88,94,3,2
-Freeze-thaw,72,85,4,3
-Wet-dry,76,89,5,3
-Salt spray,65,82,6,4
-UV exposure,82,91,3,2

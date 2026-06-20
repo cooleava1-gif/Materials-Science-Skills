@@ -1,4 +1,4 @@
-characterization:
+﻿characterization:
 - evidence_tier: definitive
   method: Mechanical Testing
   purpose: Compression, bending, and tension parallel/perpendicular to grain
@@ -50,40 +50,34 @@ description:
 family: civil
 figure_archetypes:
 - description: Compressive and flexural stress-strain curves for timber or bamboo
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   id: timber_stress_strain
   type: stress_strain
   column_roles:
   - strain
   - stress
 - description: Water absorption curve of timber or masonry units over immersion time
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_civil_water_absorption.py
   id: water-absorption
   type: line_plot
   column_roles:
   - time
   - weight_gain
 - description: Grouped comparison of mechanical property variability across species
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_civil_boxplot_points.py
   id: boxplot
   type: grouped_bar
   column_roles:
   - x_labels
   - series
 - description: Grouped bar chart comparing mechanical performance across timber grades
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_grouped_bar.py
   id: grouped-bar
   type: grouped_bar
   column_roles:
   - x_labels
   - series
 - description: Mechanism diagram of timber/masonry failure and moisture transport
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
   id: mechanism_diagram
   type: diagram
   column_roles: []
 - description: Scatter regression of mechanical strength versus density
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
   id: scatter_regression
   type: scatter
   column_roles:
@@ -130,15 +124,4 @@ standards:
   standard: ISO 13061-3
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/stress_strain.csv
-  - skills/materials-figure/scripts/figures4materials/data/civil_water_absorption.csv
-  - skills/materials-figure/scripts/figures4materials/data/civil_boxplot_points.csv
-  - skills/materials-figure/scripts/figures4materials/data/scatter_regression.csv
-  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_civil_boxplot_points.py
-  - skills/materials-figure/scripts/figures4materials/plot_civil_water_absorption.py
-  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
-  - skills/materials-figure/scripts/figures4materials/plot_grouped_bar.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
-  - skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py

@@ -1,4 +1,4 @@
-characterization:
+﻿characterization:
 - evidence_tier: definitive
   method: OM (Optical Microscopy)
   purpose: Grain size, phase fraction (ferrite, pearlite, martensite, austenite),
@@ -68,7 +68,6 @@ description:
 family: metals
 figure_archetypes:
 - description: Tensile engineering and true stress-strain curves
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   id: stress_strain
   type: stress_strain
   column_roles:
@@ -79,7 +78,6 @@ figure_archetypes:
     y_values: {"column": "stress_mpa"}
     group_by: {"column": "condition"}
 - description: Potentiodynamic polarization curves for corrosion assessment
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_polarization_curve.py
   id: polarization_curve
   type: line_plot
   column_roles:
@@ -90,7 +88,6 @@ figure_archetypes:
     y_values: {"column": "current_log_a_cm2"}
     group_by: {"column": "condition"}
 - description: Hardness profile across the heat-affected zone (HAZ) or carburized layer
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
   id: hardness_profile
   type: line_plot
   column_roles:
@@ -102,14 +99,12 @@ figure_archetypes:
     figure_name: {"value": "metals_hardness_profile"}
 - description: 'Multi-panel metals characterization: tensile comparison, stress-strain,
     hardness profile, and corrosion polarization'
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_metals_multipanel.py
   id: metals_multipanel
   type: multi_panel
   column_roles:
   - subfigures
 - description: S-N fatigue curve (stress amplitude vs. cycles to failure) for cyclic
     loading assessment
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_sn_fatigue.py
   id: sn_fatigue
   type: line_plot
   column_roles:
@@ -117,7 +112,6 @@ figure_archetypes:
   - cycles
 - description: Mechanism diagram linking alloy composition, heat treatment, and strengthening
     routes with evidence certainty
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
   id: mechanism_diagram
   type: diagram
   column_roles: []
@@ -163,19 +157,7 @@ properties:
   unit: J
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/metals_stress_strain.csv
-  - skills/materials-figure/scripts/figures4materials/data/metals_corrosion.csv
-  - skills/materials-figure/scripts/figures4materials/data/metals_hardness_profile.csv
-  - skills/materials-figure/scripts/figures4materials/data/metals_tensile.csv
-  - skills/materials-figure/scripts/figures4materials/data/sn_fatigue.csv
-  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
-  - skills/materials-figure/scripts/figures4materials/plot_polarization_curve.py
-  - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
-  - skills/materials-figure/scripts/figures4materials/plot_metals_multipanel.py
-  - skills/materials-figure/scripts/figures4materials/plot_sn_fatigue.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
 standards:
 - purpose: Tension testing of metallic materials at room temperature
   standard: ASTM E8 / E8M

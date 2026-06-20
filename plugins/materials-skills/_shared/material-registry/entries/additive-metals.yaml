@@ -1,4 +1,4 @@
-characterization:
+﻿characterization:
 - evidence_tier: definitive
   method: OM/SEM
   purpose: Melt pool morphology, porosity, lack-of-fusion defects, grain structure
@@ -62,7 +62,6 @@ description:
 family: metals
 figure_archetypes:
 - description: Tensile stress-strain for as-built vs. heat-treated conditions
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   id: stress_strain
   type: stress_strain
   column_roles:
@@ -74,13 +73,11 @@ figure_archetypes:
     group_by: {"column": "condition"}
 - description: SEM/EBSD microstructure image showing melt pool morphology and grain
     orientation
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_sem_analysis.py
   id: ebsd_map
   type: sem_image
   column_roles:
   - image_path
 - description: Relative density vs. laser power/scan speed process window
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_contour_response_map.py
   id: process_window
   type: heatmap
   column_roles:
@@ -96,20 +93,17 @@ figure_archetypes:
     figure_name: {"value": "additive_metals_process_window"}
 - description: 'Multi-panel metals characterization: tensile comparison, stress-strain,
     hardness profile, and corrosion polarization'
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_metals_multipanel.py
   id: metals_multipanel
   type: multi_panel
   column_roles:
   - subfigures
 - description: Mechanism diagram linking AM process, microstructure, and performance
     routes with evidence certainty
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
   id: mechanism_diagram
   type: diagram
   column_roles: []
 - description: S-N fatigue curve (stress amplitude vs. cycles to failure) for cyclic
     loading assessment
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_sn_fatigue.py
   id: sn_fatigue
   type: line_plot
   column_roles:
@@ -151,19 +145,7 @@ properties:
   unit: MPa
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/metals_stress_strain.csv
-  - skills/materials-figure/scripts/figures4materials/data/contour_response_map.csv
-  - skills/materials-figure/scripts/figures4materials/data/metals_tensile.csv
-  - skills/materials-figure/scripts/figures4materials/data/sem_analysis.csv
-  - skills/materials-figure/scripts/figures4materials/data/sn_fatigue.csv
-  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
-  - skills/materials-figure/scripts/figures4materials/plot_contour_response_map.py
-  - skills/materials-figure/scripts/figures4materials/plot_sem_analysis.py
-  - skills/materials-figure/scripts/figures4materials/plot_metals_multipanel.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
-  - skills/materials-figure/scripts/figures4materials/plot_sn_fatigue.py
 standards:
 - purpose: Evaluating mechanical properties of metal materials produced via AM
   standard: ASTM F3122

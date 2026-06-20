@@ -1,6 +1,0 @@
-condition,yield_mean,yield_sd,uts_mean,uts_sd,elong_mean,elong_sd
-Q&T 200°C,1580,25,1820,30,10,1.2
-Q&T 400°C,1350,20,1480,22,13,1.0
-Q&T 600°C,920,15,1020,18,18,1.5
-Annealed,580,12,720,15,24,1.8
-Normalized,680,14,850,16,20,1.4

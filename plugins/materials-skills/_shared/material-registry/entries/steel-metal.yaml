@@ -1,4 +1,4 @@
-characterization:
+﻿characterization:
 - evidence_tier: definitive
   method: Tensile Testing
   purpose: Yield strength, ultimate strength, elongation
@@ -59,7 +59,6 @@ description:
 family: civil
 figure_archetypes:
 - description: Tensile stress-strain curves
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   id: stress_strain
   type: stress_strain
   column_roles:
@@ -73,7 +72,6 @@ figure_archetypes:
     group_by:
       column: condition
 - description: Potentiodynamic polarization curves for corrosion assessment
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_polarization_curve.py
   id: polarization_curve
   type: line_plot
   column_roles:
@@ -88,7 +86,6 @@ figure_archetypes:
       column: condition
 - description: Performance trend with error bars across experimental groups (e.g.,
     strength retention vs. exposure time)
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_civil_errorbar_trend.py
   id: errorbar-trend
   type: line_plot
   column_roles:
@@ -100,7 +97,6 @@ figure_archetypes:
     group_by: {"column": "group"}
 - description: Errorbar trend of corrosion rate or strength versus aging or exposure
     duration
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
   id: line-trend
   type: line_plot
   column_roles:
@@ -111,7 +107,6 @@ figure_archetypes:
     y_values: {"column": "strength_mean_mpa"}
 - description: Grouped bar comparison of mechanical or durability property indices
     across conditions
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_grouped_bar.py
   id: grouped-bar
   type: grouped_bar
   column_roles:
@@ -119,7 +114,6 @@ figure_archetypes:
   - series
 - description: Mechanism diagram linking steel grade, processing, and corrosion or
     protection routes with evidence certainty
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
   id: mechanism_diagram
   type: diagram
   column_roles: []
@@ -166,20 +160,7 @@ properties:
   unit: MPa
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/metals_corrosion.csv
-  - skills/materials-figure/scripts/figures4materials/data/metals_stress_strain.csv
-  - skills/materials-figure/scripts/figures4materials/data/civil_errorbar_trend.csv
-  - skills/materials-figure/scripts/figures4materials/data/errorbar_trend.csv
-  - skills/materials-figure/scripts/figures4materials/data/mechanical_properties.csv
-  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_civil_durability_retention.py
-  - skills/materials-figure/scripts/figures4materials/plot_civil_errorbar_trend.py
-  - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
-  - skills/materials-figure/scripts/figures4materials/plot_grouped_bar.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
-  - skills/materials-figure/scripts/figures4materials/plot_polarization_curve.py
-  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
 standards:
 - purpose: Tension testing of metallic materials
   standard: ASTM E8 / GB/T 228.1

@@ -1,4 +1,4 @@
-characterization:
+﻿characterization:
 - evidence_tier: strong
   method: SEM
   purpose: Fiber-matrix interface, fracture surface, void analysis
@@ -63,7 +63,6 @@ description:
 family: polymers
 figure_archetypes:
 - description: Tensile stress-strain curves for different laminate orientations
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   id: stress_strain
   type: stress_strain
   column_roles:
@@ -74,7 +73,6 @@ figure_archetypes:
     y_values: {"column": "stress_mpa"}
     group_by: {"column": "sample_id"}
 - description: Normalized multi-property radar for composite comparison
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanical_property_radar.py
   id: mechanical_radar
   type: radar_chart
   column_roles:
@@ -88,7 +86,6 @@ figure_archetypes:
     - key: Modified
       column: modified_index
 - description: Composite multi-panel characterization combining stress-strain and interface properties
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_polymers_multipanel.py
   id: composite_multipanel
   type: multi_panel
   column_roles:
@@ -103,7 +100,6 @@ figure_archetypes:
     - key: Fiber Volume
       column: fiber_vol_pct
 - description: Multi-panel fatigue and durability characterization with S-N curve and stiffness degradation
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_polymers_multipanel.py
   id: fatigue_durability_multipanel
   type: multi_panel
   column_roles:
@@ -120,12 +116,10 @@ figure_archetypes:
       column: aging_time_h
       column2: strength_retention_pct
 - description: Mechanism diagram illustrating fiber-matrix load transfer and interface failure modes
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
   id: mechanism_diagram
   type: diagram
   column_roles: []
 - description: Scatter regression of laminate strength versus fiber volume fraction
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
   id: scatter_regression
   type: scatter
   column_roles:
@@ -167,19 +161,7 @@ properties:
   unit: '%'
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/polymer_stress_strain.csv
-  - skills/materials-figure/scripts/figures4materials/data/polymer_tensile.csv
-  - skills/materials-figure/scripts/figures4materials/data/polymer_dsc.csv
-  - skills/materials-figure/scripts/figures4materials/data/polymer_aging.csv
-  - skills/materials-figure/scripts/figures4materials/data/mechanical_properties.csv
-  - skills/materials-figure/scripts/figures4materials/data/scatter_regression.csv
-  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanical_property_radar.py
-  - skills/materials-figure/scripts/figures4materials/plot_polymers_multipanel.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
-  - skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
 standards:
 - purpose: Tension testing of polymer matrix composite materials
   standard: ASTM D3039

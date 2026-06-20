@@ -1,4 +1,4 @@
-characterization:
+﻿characterization:
 - evidence_tier: strong
   method: DMA
   purpose: 'Viscoelastic properties: storage/loss modulus, tan δ, Tg'
@@ -58,7 +58,6 @@ description:
 family: polymers
 figure_archetypes:
 - description: Tensile stress-strain curves up to failure
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   id: stress_strain
   type: stress_strain
   column_roles:
@@ -69,7 +68,6 @@ figure_archetypes:
     y_values: {"column": "stress_mpa"}
     group_by: {"column": "sample_id"}
 - description: DMA temperature sweep showing Tg and viscoelastic properties
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_dma_thermomechanical.py
   id: dma_elastomer
   type: line_plot
   column_roles:
@@ -78,14 +76,12 @@ figure_archetypes:
   - tan_delta
 - description: 'Multi-panel polymer characterization: tensile comparison, DSC, stress-strain,
     and aging retention'
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_polymers_multipanel.py
   id: polymers_multipanel
   type: multi_panel
   column_roles:
   - subfigures
 - description: Aging test showing property retention (tensile and elongation) versus
     aging time across formulations
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_aging_test.py
   id: aging_test
   type: grouped_bar
   column_roles:
@@ -93,7 +89,6 @@ figure_archetypes:
   - series
 - description: TGA curve (weight vs. temperature) for filler content and thermal decomposition
     assessment
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_tga_dtg_curve.py
   id: tga_filler_content
   type: tga_curve
   column_roles:
@@ -101,7 +96,6 @@ figure_archetypes:
   - weight
 - description: Mechanism diagram of crosslink network and filler reinforcement with
     evidence certainty
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
   id: mechanism_diagram
   type: diagram
   column_roles: []
@@ -146,21 +140,7 @@ properties:
   unit: '%'
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/polymer_stress_strain.csv
-  - skills/materials-figure/scripts/figures4materials/data/dma_thermomechanical.csv
-  - skills/materials-figure/scripts/figures4materials/data/polymer_tensile.csv
-  - skills/materials-figure/scripts/figures4materials/data/polymer_dsc.csv
-  - skills/materials-figure/scripts/figures4materials/data/polymer_aging.csv
-  - skills/materials-figure/scripts/figures4materials/data/aging_test.csv
-  - skills/materials-figure/scripts/figures4materials/data/tga_dtg_curve.csv
-  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
-  - skills/materials-figure/scripts/figures4materials/plot_dma_thermomechanical.py
-  - skills/materials-figure/scripts/figures4materials/plot_polymers_multipanel.py
-  - skills/materials-figure/scripts/figures4materials/plot_aging_test.py
-  - skills/materials-figure/scripts/figures4materials/plot_tga_dtg_curve.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
 standards:
 - purpose: Vulcanized rubber and thermoplastic elastomers tension testing
   standard: ASTM D412 / ISO 37

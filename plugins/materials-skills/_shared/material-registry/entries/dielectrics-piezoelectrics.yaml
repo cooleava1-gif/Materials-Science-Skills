@@ -1,4 +1,4 @@
-characterization:
+﻿characterization:
 - evidence_tier: definitive
   method: Impedance Spectroscopy
   purpose: Dielectric constant, loss tangent, conductivity, relaxation
@@ -68,7 +68,6 @@ description:
 family: functional
 figure_archetypes:
 - description: X-ray diffraction pattern for phase identification and tetragonality
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
   id: xrd_pattern
   type: xrd_pattern
   column_roles:
@@ -82,7 +81,6 @@ figure_archetypes:
     - key: Doped BTO
       column: doped_BTO
 - description: Dielectric constant trend with uncertainty across frequency
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
   id: dielectric_trend
   type: line_plot
   column_roles:
@@ -94,7 +92,6 @@ figure_archetypes:
     y_errors: {"column": "dielectric_constant_std"}
 - description: Ferroelectric P-E hysteresis loop showing remanent polarization and
     coercive field
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_polarization_curve.py
   id: pe_loop
   type: line_plot
   column_roles:
@@ -105,7 +102,6 @@ figure_archetypes:
     y_values: {"column": "polarization"}
     group_by: {"column": "sample_id"}
 - description: Impedance spectroscopy Nyquist plot for grain and grain boundary contributions
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_eis.py
   id: eis_nyquist
   type: eis_plot
   column_roles:
@@ -117,18 +113,15 @@ figure_archetypes:
     z_imag: {"column": "z_imag"}
 - description: 'Multi-panel dielectric characterization: permittivity + loss + P-E
     loop'
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_functional_multipanel.py
   id: dielectric_multipanel
   type: multi_panel
   column_roles:
   - subfigures
 - description: Ferroelectric phase transition and domain wall motion mechanism diagram
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
   id: mechanism_diagram
   type: diagram
   column_roles: []
 - description: Scatter regression of piezoelectric coefficient d33 versus composition
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
   id: d33_vs_composition
   type: scatter
   column_roles:
@@ -184,20 +177,7 @@ properties:
   unit: °C
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/dielectrics-piezoelectrics_xrd.csv
-  - skills/materials-figure/scripts/figures4materials/data/dielectrics-piezoelectrics_trend_curve.csv
-  - skills/materials-figure/scripts/figures4materials/data/functional_pe_loop.csv
-  - skills/materials-figure/scripts/figures4materials/data/functional_impedance.csv
-  - skills/materials-figure/scripts/figures4materials/data/scatter_regression.csv
-  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
-  - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
-  - skills/materials-figure/scripts/figures4materials/plot_polarization_curve.py
-  - skills/materials-figure/scripts/figures4materials/plot_eis.py
-  - skills/materials-figure/scripts/figures4materials/plot_functional_multipanel.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
-  - skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
 standards:
 - purpose: Dielectric constant and dissipation factor of insulating materials
   standard: ASTM D150

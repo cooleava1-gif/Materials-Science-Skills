@@ -1,4 +1,4 @@
-characterization:
+﻿characterization:
 - evidence_tier: strong
   method: SEM/EDS
   purpose: γ/γ′ microstructure, precipitate size/fraction, TCP phase identification
@@ -63,14 +63,12 @@ description:
 family: metals
 figure_archetypes:
 - description: Creep strain vs. time curves at different stress/temperature conditions
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_aging_test.py
   id: creep_curve
   type: line_plot
   column_roles:
   - time
   - strain
 - description: Tensile stress-strain at elevated temperatures
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   id: stress_strain
   type: stress_strain
   column_roles:
@@ -78,14 +76,12 @@ figure_archetypes:
   - stress
 - description: 'Multi-panel metals characterization: tensile comparison, stress-strain,
     hardness profile, and corrosion polarization'
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_metals_multipanel.py
   id: metals_multipanel
   type: multi_panel
   column_roles:
   - subfigures
 - description: Creep-recovery response under multi-cycle loading showing elastic/plastic/viscous
     strain partitioning
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_creep_recovery.py
   id: creep_recovery
   type: line_plot
   column_roles:
@@ -93,13 +89,11 @@ figure_archetypes:
   - strain
 - description: Mechanism diagram of γ′ precipitate strengthening and coarsening with
     evidence certainty
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
   id: mechanism_diagram
   type: diagram
   column_roles: []
 - description: TGA oxidation mass-change curve (weight vs. temperature) for high-temperature
     oxidation assessment
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_tga_dtg_curve.py
   id: tga_oxidation
   type: tga_curve
   column_roles:
@@ -141,20 +135,7 @@ properties:
   unit: g²/(cm⁴·s)
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/metals_stress_strain.csv
-  - skills/materials-figure/scripts/figures4materials/data/aging_test.csv
-  - skills/materials-figure/scripts/figures4materials/data/metals_tensile.csv
-  - skills/materials-figure/scripts/figures4materials/data/metals_corrosion.csv
-  - skills/materials-figure/scripts/figures4materials/data/creep_recovery.csv
-  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
-  - skills/materials-figure/scripts/figures4materials/data/tga_dtg_curve.csv
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
-  - skills/materials-figure/scripts/figures4materials/plot_aging_test.py
-  - skills/materials-figure/scripts/figures4materials/plot_metals_multipanel.py
-  - skills/materials-figure/scripts/figures4materials/plot_creep_recovery.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
-  - skills/materials-figure/scripts/figures4materials/plot_tga_dtg_curve.py
 standards:
 - purpose: Uniaxial creep and stress-rupture testing of metallic materials
   standard: ASTM E139 / ISO 204

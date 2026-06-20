@@ -1,4 +1,4 @@
-characterization:
+﻿characterization:
 - evidence_tier: definitive
   method: XRD
   purpose: Phase composition after service, reaction layer identification
@@ -59,39 +59,33 @@ description:
 family: ceramics
 figure_archetypes:
 - description: Residual strength vs. number of thermal cycles for thermal shock resistance
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_aging_test.py
   id: thermal_cycling
   type: line_plot
   column_roles:
   - cycles
   - strength
 - description: Densification behavior during firing
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_sintering_curve.py
   id: sintering_curve
   type: sintering_curve
   column_roles:
   - temperature
   - shrinkage
 - description: Cold crushing strength compared across refractory formulations
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_ceramic_strength.py
   id: cold_crushing_strength
   type: grouped_bar
   column_roles:
   - category
   - strength
 - description: Refractory degradation and slag corrosion mechanism diagram
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
   id: mechanism_diagram
   type: diagram
   column_roles: []
 - description: SEM microstructure analysis of refractory corrosion interface
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_sem_analysis.py
   id: sem_analysis
   type: sem_image
   column_roles:
   - image_path
 - description: Scatter regression of cold crushing strength versus porosity
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
   id: scatter_regression
   type: scatter
   column_roles:
@@ -138,20 +132,7 @@ properties:
   unit: "%"
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/sintering_curve.csv
-  - skills/materials-figure/scripts/figures4materials/data/ceramic_composition_strength.csv
-  - skills/materials-figure/scripts/figures4materials/data/ceramic_conductivity.csv
-  - skills/materials-figure/scripts/figures4materials/data/aging_test.csv
-  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
-  - skills/materials-figure/scripts/figures4materials/data/sem_analysis.csv
-  - skills/materials-figure/scripts/figures4materials/data/scatter_regression.csv
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_sintering_curve.py
-  - skills/materials-figure/scripts/figures4materials/plot_aging_test.py
-  - skills/materials-figure/scripts/figures4materials/plot_ceramic_strength.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
-  - skills/materials-figure/scripts/figures4materials/plot_sem_analysis.py
-  - skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
 standards:
 - purpose: Cold crushing strength and modulus of rupture of refractories
   standard: ASTM C133

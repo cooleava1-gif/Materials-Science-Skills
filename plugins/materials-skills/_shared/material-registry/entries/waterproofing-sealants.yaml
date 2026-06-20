@@ -1,4 +1,4 @@
-characterization:
+﻿characterization:
 - evidence_tier: definitive
   method: Tensile/Elongation Testing
   purpose: Mechanical properties of membranes and sealants
@@ -55,14 +55,12 @@ description:
 family: civil
 figure_archetypes:
 - description: Adhesion pull-off bonding strength on different substrates
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_grouped_bar.py
   id: adhesion_strength_bar
   type: grouped_bar
   column_roles:
   - x_labels
   - series
 - description: Tensile properties of sealant materials
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   id: tensile_properties
   type: stress_strain
   column_roles:
@@ -76,28 +74,24 @@ figure_archetypes:
     group_by:
       column: sample_id
 - description: Water absorption curve of membrane materials over immersion time
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_civil_water_absorption.py
   id: water-absorption
   type: line_plot
   column_roles:
   - time
   - weight_gain
 - description: Boxplot-style grouped comparison of sealant performance across batches
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_civil_boxplot_points.py
   id: boxplot
   type: grouped_bar
   column_roles:
   - x_labels
   - series
 - description: Error-bar trend of property variation with aging time or dosage
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_civil_errorbar_trend.py
   id: errorbar-trend
   type: line_plot
   column_roles:
   - x_values
   - y_values
 - description: Mechanism diagram of waterproofing adhesion and moisture barrier action
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
   id: mechanism_diagram
   type: diagram
   column_roles: []
@@ -154,16 +148,4 @@ standards:
   standard: ASTM D2137
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/bonding_strength.csv
-  - skills/materials-figure/scripts/figures4materials/data/polymer_stress_strain.csv
-  - skills/materials-figure/scripts/figures4materials/data/civil_water_absorption.csv
-  - skills/materials-figure/scripts/figures4materials/data/civil_boxplot_points.csv
-  - skills/materials-figure/scripts/figures4materials/data/civil_errorbar_trend.csv
-  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_civil_boxplot_points.py
-  - skills/materials-figure/scripts/figures4materials/plot_civil_water_absorption.py
-  - skills/materials-figure/scripts/figures4materials/plot_civil_errorbar_trend.py
-  - skills/materials-figure/scripts/figures4materials/plot_grouped_bar.py
-  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py

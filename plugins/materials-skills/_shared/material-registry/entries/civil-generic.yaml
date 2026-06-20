@@ -1,4 +1,4 @@
-characterization:
+﻿characterization:
 - evidence_tier: definitive
   method: Mechanical Testing
   purpose: Load-deformation, mechanical strength evaluation
@@ -50,42 +50,36 @@ description:
 family: civil
 figure_archetypes:
 - description: Stress-strain response under load
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   id: cg_stress_strain
   type: stress_strain
   column_roles:
   - strain
   - stress
 - description: Multi-property radar comparison
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanical_property_radar.py
   id: cg_mechanical_radar
   type: radar_chart
   column_roles:
   - categories
   - series_dict
 - description: Box plot comparing mechanical properties across material groups
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_civil_boxplot_points.py
   id: boxplot
   type: grouped_bar
   column_roles:
   - x_labels
   - series
 - description: Error bar trend showing property variation with dosage or parameter
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_civil_errorbar_trend.py
   id: errorbar-trend
   type: line_plot
   column_roles:
   - x_values
   - y_values
 - description: Grouped bar chart comparing performance metrics across conditions
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_grouped_bar.py
   id: grouped-bar
   type: grouped_bar
   column_roles:
   - x_labels
   - series
 - description: Mechanism diagram of general civil material behavior and failure modes
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
   id: mechanism_diagram
   type: diagram
   column_roles: []
@@ -133,12 +127,4 @@ standards:
   standard: ASTM C496
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/mechanical_properties.csv
-  - skills/materials-figure/scripts/figures4materials/data/stress_strain.csv
-  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_civil_boxplot_points.py
-  - skills/materials-figure/scripts/figures4materials/plot_civil_errorbar_trend.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanical_property_radar.py
-  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py

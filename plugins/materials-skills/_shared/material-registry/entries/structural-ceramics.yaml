@@ -1,4 +1,4 @@
-characterization:
+﻿characterization:
 - evidence_tier: strong
   method: SEM
   purpose: 'Microstructure: grain size, porosity, fracture surface analysis'
@@ -65,34 +65,29 @@ description:
 family: ceramics
 figure_archetypes:
 - description: Weibull distribution of flexural strength for reliability assessment
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_weibull_strength.py
   id: weibull_plot
   type: line_plot
   column_roles:
   - strength
   - probability
 - description: Dilatometric sintering curve (shrinkage vs. temperature)
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_sintering_curve.py
   id: sintering_curve
   type: sintering_curve
   column_roles:
   - temperature
   - shrinkage
 - description: 'Multi-panel ceramic characterization: strength + conductivity + sintering'
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_ceramic_strength.py
   id: ceramic_strength_comparison
   type: multi_panel
   column_roles:
   - subfigures
 - description: Thermal conductivity vs. temperature for ceramic samples
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_ceramic_conductivity.py
   id: ceramic_conductivity
   type: conductivity_plot
   column_roles:
   - temperature
   - conductivity
 - description: Stress-strain curves for ceramic materials
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   id: stress_strain
   type: stress_strain
   column_roles:
@@ -101,7 +96,6 @@ figure_archetypes:
   column_map:
     x_values: {"column": "strain_pct"}
 - description: XRD pattern for phase identification
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
   id: xrd_pattern
   type: xrd_pattern
   column_roles:
@@ -157,19 +151,7 @@ properties:
   unit: dimensionless
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/weibull_strength.csv
-  - skills/materials-figure/scripts/figures4materials/data/ceramic_composition_strength.csv
-  - skills/materials-figure/scripts/figures4materials/data/sintering_curve.csv
-  - skills/materials-figure/scripts/figures4materials/data/ceramic_conductivity.csv
-  - skills/materials-figure/scripts/figures4materials/data/xrd_pattern.csv
-  - skills/materials-figure/scripts/figures4materials/data/stress_strain.csv
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_weibull_strength.py
-  - skills/materials-figure/scripts/figures4materials/plot_sintering_curve.py
-  - skills/materials-figure/scripts/figures4materials/plot_ceramic_strength.py
-  - skills/materials-figure/scripts/figures4materials/plot_ceramic_conductivity.py
-  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
-  - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
 standards:
 - purpose: Flexural strength of advanced ceramics at ambient temperature
   standard: ASTM C1161 / EN 843-1

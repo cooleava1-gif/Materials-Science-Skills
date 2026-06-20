@@ -14,11 +14,7 @@ boundaries instead of as loose images.
 - `assets/materials4papers/` — 12 top-journal reference examples (XRD, sintering, Weibull, durability, corrosion, EBSD, Raman mapping, etc.)
 - `assets/chart-atlas/` — 15 chart-type atlas PNGs (XRD, mechanical, thermal, spectroscopy, microscopy, performance, durability, electrochemistry, comparison, composite, phase diagram, kinetics, adsorption, rheology, degradation)
 - `assets/gallery/` — 8 submission-grade composite figures (cement hydration, steel microstructure, polymer composite, ceramics reliability, asphalt review, nano characterization, concrete durability, functional coating)
-- `scripts/figures4materials/` — 68 archived reference plotting scripts for materials
-  characterization (XRD, stress-strain, TGA/DSC, Weibull, EIS, sintering,
-  rheology, FTIR, SEM, durability, corrosion, freeze-thaw, etc.). These are
-  reference examples; the LLM now writes plotting code directly.
-- `examples/figure-packages/` — 7 runnable figure packages with real CSV data and matplotlib scripts (see below)
+- `examples/figure-packages/` — 3 runnable figure packages with real CSV data and matplotlib scripts (see below)
 
 **LLM-driven figure creation** — In LLM-as-artist mode, the LLM writes plotting code directly based on the validated contract and source data. The workflow is:
 
@@ -61,7 +57,7 @@ The LLM generates `figure_contract.md`, `source_data.csv`, `plot.py`, `figure.sv
   route back to reader, citation, writing, or data work before polishing the
   image.
 
-**Runnable figure packages** — Seven example packages with real CSV data and
+**Runnable figure packages** — Three example packages with real CSV data and
 matplotlib scripts that run standalone. Each demonstrates a different
 characterization archetype:
 
@@ -70,10 +66,6 @@ characterization archetype:
 | `examples/figure-packages/ceramics-xrd-phase-identification/` | XRD phase analysis | `plot_xrd.py` |
 | `examples/figure-packages/ceramics-sintering-optimization/` | Sintering curve | `plot_sintering.py` |
 | `examples/figure-packages/ceramics-weibull-reliability/` | Weibull strength | `plot_weibull.py` |
-| `examples/figure-packages/construction-materials-durability/` | Durability retention | `plot.py` |
-| `examples/figure-packages/steel-corrosion-trend/` | Corrosion errorbar trend | `plot.py` |
-| `examples/figure-packages/sustainability-freeze-thaw/` | Freeze-thaw cycling | `plot.py` |
-| `examples/figure-packages/timber-water-absorption/` | Water absorption kinetics | `plot.py` |
 
 Run any package locally:
 
@@ -91,12 +83,11 @@ skills/materials-figure/
 ├── manifest.yaml
 ├── scripts/
 │   ├── validate_materials_claims.py   optional materials knowledge validation
-│   ├── check_storyboard.py            optional multi-figure storyboard check
-│   └── figures4materials/             68 reference plotting scripts
+│   └── check_storyboard.py            optional multi-figure storyboard check
 ├── assets/
 │   ├── materials4papers/              12 top-journal reference examples
-│   ├── chart-atlas/                   10 chart-type atlas PNGs
-│   ├── gallery/                       5 submission-grade composite figures
+│   ├── chart-atlas/                   15 chart-type atlas PNGs
+│   ├── gallery/                       8 submission-grade composite figures
 │   └── templates/                     contract, plot.py, caption, QA templates
 └── references/
     ├── chart-atlas.md                 chart family routing and usage

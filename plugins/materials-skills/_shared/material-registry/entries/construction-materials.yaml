@@ -1,4 +1,4 @@
-characterization:
+﻿characterization:
 - evidence_tier: definitive
   method: Mechanical Testing
   purpose: Compressive strength, tensile strength, elasticity modulus
@@ -50,42 +50,36 @@ description:
 family: civil
 figure_archetypes:
 - description: Compressive and tensile stress-strain behavior
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   id: cm_stress_strain
   type: stress_strain
   column_roles:
   - strain
   - stress
 - description: Mechanical properties comparisons across building materials
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanical_property_radar.py
   id: cm_mechanical_radar
   type: radar_chart
   column_roles:
   - categories
   - series_dict
 - description: Property trend over curing time or parameter variation with error bars
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_civil_errorbar_trend.py
   id: line-trend
   type: line_plot
   column_roles:
   - x_values
   - y_values
 - description: Error-bar trend of strength development or dosage response
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
   id: errorbar-trend
   type: line_plot
   column_roles:
   - x_values
   - y_values
 - description: Grouped bar chart comparing performance metrics across material groups
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_grouped_bar.py
   id: grouped-bar
   type: grouped_bar
   column_roles:
   - x_labels
   - series
 - description: Mechanism diagram of building material hardening and bonding mechanisms
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
   id: mechanism_diagram
   type: diagram
   column_roles: []
@@ -133,15 +127,4 @@ standards:
   standard: ASTM C469
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/mechanical_properties.csv
-  - skills/materials-figure/scripts/figures4materials/data/stress_strain.csv
-  - skills/materials-figure/scripts/figures4materials/data/errorbar_trend.csv
-  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_civil_durability_retention.py
-  - skills/materials-figure/scripts/figures4materials/plot_civil_errorbar_trend.py
-  - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
-  - skills/materials-figure/scripts/figures4materials/plot_grouped_bar.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanical_property_radar.py
-  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py

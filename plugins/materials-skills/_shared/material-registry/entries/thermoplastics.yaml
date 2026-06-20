@@ -1,4 +1,4 @@
-characterization:
+﻿characterization:
 - evidence_tier: definitive
   method: DSC
   purpose: Melting T, crystallization T, glass transition, crystallinity %
@@ -68,7 +68,6 @@ description:
 family: polymers
 figure_archetypes:
 - description: Tensile stress-strain curves for different formulations
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   id: stress_strain
   type: stress_strain
   column_roles:
@@ -79,7 +78,6 @@ figure_archetypes:
     y_values: {"column": "stress_mpa"}
     group_by: {"column": "sample_id"}
 - description: DSC heating/cooling curves showing melting and crystallization peaks
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_dsc_curve.py
   id: dsc_curve
   type: dsc_curve
   column_roles:
@@ -88,7 +86,6 @@ figure_archetypes:
   column_map:
     temperature: {"column": "temperature"}
 - description: Normalized multi-property radar for formulation comparison
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanical_property_radar.py
   id: mechanical_radar
   type: radar_chart
   column_roles:
@@ -102,21 +99,18 @@ figure_archetypes:
     - key: Modified
       column: modified_index
 - description: TGA weight loss and derivative curves showing thermal decomposition
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_tga_dtg_curve.py
   id: tga_thermal
   type: tga_curve
   column_roles:
   - temperature
   - weight
 - description: DMA storage/loss modulus and tan delta vs. temperature
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_dma_thermomechanical.py
   id: dma_curve
   type: line_plot
   column_roles:
   - temperature
   - modulus
 - description: Polymer multipanel combining stress-strain, DSC, and TGA data
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_polymers_multipanel.py
   id: polymers_multipanel
   type: multi_panel
   column_roles:
@@ -162,18 +156,7 @@ properties:
   unit: g/10 min
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/polymer_stress_strain.csv
-  - skills/materials-figure/scripts/figures4materials/data/dsc_curve.csv
-  - skills/materials-figure/scripts/figures4materials/data/mechanical_properties.csv
-  - skills/materials-figure/scripts/figures4materials/data/tga_dtg_curve.csv
-  - skills/materials-figure/scripts/figures4materials/data/dma_thermomechanical.csv
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
-  - skills/materials-figure/scripts/figures4materials/plot_dsc_curve.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanical_property_radar.py
-  - skills/materials-figure/scripts/figures4materials/plot_tga_dtg_curve.py
-  - skills/materials-figure/scripts/figures4materials/plot_dma_thermomechanical.py
-  - skills/materials-figure/scripts/figures4materials/plot_polymers_multipanel.py
 standards:
 - purpose: Tensile properties of plastics
   standard: ASTM D638 / ISO 527

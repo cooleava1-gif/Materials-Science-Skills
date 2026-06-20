@@ -84,8 +84,7 @@ All scripts use `matplotlib.use("Agg")` for headless rendering.
 ## Relationship to Other Assets
 
 - **templates/figure-package/**: Contract and QA templates
-- **scripts/figures4materials/**: 66 archived reference plotting scripts
-- **examples/figure-packages/**: 7 runnable figure packages with real CSV data
+- **examples/figure-packages/**: 3 runnable figure packages with real CSV data
 
 The `materials4papers/` examples are **reference implementations**, not automated tools. They demonstrate best practices for creating publication-ready figures from real experimental data.
 

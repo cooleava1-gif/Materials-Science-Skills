@@ -1,4 +1,4 @@
-characterization:
+﻿characterization:
 - evidence_tier: definitive
   method: LCA
   purpose: Environmental impact quantification (cradle-to-gate, cradle-to-grave)
@@ -56,42 +56,36 @@ description:
 family: civil
 figure_archetypes:
 - description: LCA system boundary or environmental impact stage chart
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_lca_boundary.py
   id: lca_boundary
   type: diagram
   column_roles:
   - x_values
   - y_series
 - description: Relative durability properties retention over weathering/coupled cycles
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_durability_retention.py
   id: durability_retention_bar
   type: grouped_bar
   column_roles:
   - x_labels
   - series
 - description: Strength retention over freeze-thaw cycles
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_freeze_thaw_cycle.py
   id: freeze-thaw-durability
   type: line_plot
   column_roles:
   - cycles
   - strength_retention
 - description: Water absorption curve of durable/recycled materials over immersion time
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_civil_water_absorption.py
   id: water-absorption
   type: line_plot
   column_roles:
   - time
   - weight_gain
 - description: Property retention trend over aging or exposure time with error bars
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_civil_errorbar_trend.py
   id: line-trend
   type: line_plot
   column_roles:
   - x_values
   - y_values
 - description: Mechanism diagram of coupled durability degradation processes
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
   id: mechanism_diagram
   type: diagram
   column_roles: []
@@ -144,17 +138,4 @@ standards:
   standard: ASTM C876
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/durability_retention.csv
-  - skills/materials-figure/scripts/figures4materials/data/lca_boundary.csv
-  - skills/materials-figure/scripts/figures4materials/data/freeze_thaw_cycle.csv
-  - skills/materials-figure/scripts/figures4materials/data/civil_water_absorption.csv
-  - skills/materials-figure/scripts/figures4materials/data/civil_errorbar_trend.csv
-  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_civil_durability_retention.py
-  - skills/materials-figure/scripts/figures4materials/plot_civil_water_absorption.py
-  - skills/materials-figure/scripts/figures4materials/plot_durability_retention.py
-  - skills/materials-figure/scripts/figures4materials/plot_lca_boundary.py
-  - skills/materials-figure/scripts/figures4materials/plot_freeze_thaw_cycle.py
-  - skills/materials-figure/scripts/figures4materials/plot_civil_errorbar_trend.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py

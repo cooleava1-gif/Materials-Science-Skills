@@ -1,6 +1,0 @@
-dosage_pct,bond_strength_mpa,storage_stability_pct,viscosity_mpas
-0,0.43,88,220
-5,0.49,91,265
-10,0.55,94,330
-15,0.61,96,420
-20,0.57,93,610

@@ -1,4 +1,4 @@
-characterization:
+﻿characterization:
 - evidence_tier: definitive
   key_features:
   - Kiessig fringes for film thickness and roughness
@@ -86,7 +86,6 @@ family: nano
 figure_archetypes:
 - description: XRD pattern overlay for thin film phase identification comparing as-deposited
     and annealed states
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
   id: xrd_pattern
   type: xrd_pattern
   column_roles:
@@ -94,7 +93,6 @@ figure_archetypes:
   - y_series
 - description: Nanoindentation hardness trend with uncertainty across film thickness
     or deposition power
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
   id: hardness_trend
   type: line_plot
   column_roles:
@@ -103,7 +101,6 @@ figure_archetypes:
   - y_errors
 - description: Nanoindentation stress-strain or load-displacement curves for thin film
     mechanical response comparison
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   id: stress_strain
   type: stress_strain
   column_roles:
@@ -111,21 +108,18 @@ figure_archetypes:
   - y_series
 - description: Multi-panel thin film characterization combining XRD, hardness, roughness,
     and adhesion data
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_nano_multipanel.py
   id: nano_multipanel
   type: multi_panel
   column_roles:
   - subfigures
 - description: Film growth mode and interface bonding mechanism schematic with evidence
     certainty labeling
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
   id: mechanism_diagram
   type: diagram
   column_roles:
   - components
 - description: Hardness versus film thickness scatter regression for thickness-dependent
     mechanical property
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
   id: hardness_thickness_scatter
   type: scatter
   column_roles:
@@ -133,7 +127,6 @@ figure_archetypes:
   - y_values
 - description: Graphical abstract panel for thin film review summarizing deposition,
     microstructure, and performance
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_graphical_abstract.py
   id: graphical_abstract
   type: diagram
   column_roles:
@@ -188,21 +181,7 @@ properties:
   unit: dimensionless
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/nano-thin-films_xrd.csv
-  - skills/materials-figure/scripts/figures4materials/data/nano-thin-films_trend_curve.csv
-  - skills/materials-figure/scripts/figures4materials/data/stress_strain.csv
-  - skills/materials-figure/scripts/figures4materials/data/scatter_regression.csv
-  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
-  - skills/materials-figure/scripts/figures4materials/data/graphical_abstract.csv
-  - skills/materials-figure/scripts/figures4materials/data/nano_xrd.csv
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
-  - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
-  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
-  - skills/materials-figure/scripts/figures4materials/plot_nano_multipanel.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
-  - skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
-  - skills/materials-figure/scripts/figures4materials/plot_graphical_abstract.py
 standards:
 - purpose: Measurement of thickness of metallic and oxide coatings by microscopical
     examination of cross section

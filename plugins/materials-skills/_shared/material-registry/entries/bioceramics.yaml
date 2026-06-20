@@ -1,4 +1,4 @@
-characterization:
+﻿characterization:
 - evidence_tier: definitive
   method: XRD
   purpose: Phase purity, crystallinity, apatite formation in SBF
@@ -62,40 +62,34 @@ description:
 family: ceramics
 figure_archetypes:
 - description: XRD patterns before and after SBF immersion (apatite formation)
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
   id: xrd_pattern
   type: xrd_pattern
   column_roles:
   - angle
   - intensity
 - description: Mechanical testing of porous scaffolds
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   id: stress_strain
   type: stress_strain
   column_roles:
   - strain
   - stress
 - description: Ion release concentration of calcium and silicon over time in SBF
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
   id: ion_release_kinetics
   type: line_plot
   column_roles:
   - time
   - concentration
 - description: Bioceramic bioactivity and degradation mechanism diagram
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
   id: mechanism_diagram
   type: diagram
   column_roles: []
 - description: SEM microstructure analysis of apatite formation on bioceramic surface
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_sem_analysis.py
   id: sem_analysis
   type: sem_image
   column_roles:
   - image_path
 - description: Weibull distribution of bioceramic compressive strength for reliability
     assessment
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_weibull_strength.py
   id: weibull_strength
   type: line_plot
   column_roles:
@@ -143,19 +137,7 @@ properties:
   unit: ppm/day
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/xrd_pattern.csv
-  - skills/materials-figure/scripts/figures4materials/data/stress_strain.csv
-  - skills/materials-figure/scripts/figures4materials/data/errorbar_trend.csv
-  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
-  - skills/materials-figure/scripts/figures4materials/data/sem_analysis.csv
-  - skills/materials-figure/scripts/figures4materials/data/weibull_strength.csv
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
-  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
-  - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
-  - skills/materials-figure/scripts/figures4materials/plot_sem_analysis.py
-  - skills/materials-figure/scripts/figures4materials/plot_weibull_strength.py
 standards:
 - purpose: In vitro evaluation for apatite-forming ability of implant materials
   standard: ISO 23317

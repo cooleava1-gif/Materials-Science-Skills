@@ -1,7 +1,0 @@
-figure_name: sustainability-freeze-thaw
-panels:
-  - panel: a
-    chart_type: main
-    script: skills/materials-figure/scripts/figures4materials/plot_freeze_thaw_cycle.py
-    data: skills/materials-figure/scripts/figures4materials/data/freeze_thaw_cycle.csv
-    caption: Freeze-thaw durability for sustainable construction systems.

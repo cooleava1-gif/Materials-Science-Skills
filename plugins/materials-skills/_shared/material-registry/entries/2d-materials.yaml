@@ -1,4 +1,4 @@
-characterization:
+﻿characterization:
 - evidence_tier: definitive
   key_features:
   - G/2D ratio for graphene layer number estimation
@@ -86,7 +86,6 @@ family: nano
 figure_archetypes:
 - description: XRD pattern overlay for 2D material phase identification and layer stacking
     comparison (monolayer vs. few-layer)
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
   id: xrd_pattern
   type: xrd_pattern
   column_roles:
@@ -94,7 +93,6 @@ figure_archetypes:
   - y_series
 - description: Photocurrent or carrier mobility trend with uncertainty across laser
     power or layer number
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
   id: photocurrent_trend
   type: line_plot
   column_roles:
@@ -103,21 +101,18 @@ figure_archetypes:
   - y_errors
 - description: Multi-panel 2D material characterization combining Raman, AFM thickness,
     XRD, and electrical data
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_nano_multipanel.py
   id: nano_multipanel
   type: multi_panel
   column_roles:
   - subfigures
 - description: Layer coupling and interface effect mechanism schematic with evidence
     certainty labeling
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
   id: mechanism_diagram
   type: diagram
   column_roles:
   - components
 - description: Carrier mobility versus layer number scatter regression for thickness-dependent
     transport property
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
   id: carrier_mobility_scatter
   type: scatter
   column_roles:
@@ -125,14 +120,12 @@ figure_archetypes:
   - y_values
 - description: Graphical abstract panel for 2D materials review summarizing synthesis,
     properties, and applications
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_graphical_abstract.py
   id: graphical_abstract
   type: diagram
   column_roles:
   - panels
 - description: SEM/AFM micrograph panel showing 2D flake morphology, lateral size,
     and surface topography
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_sem_analysis.py
   id: sem_image
   type: sem_image
   column_roles:
@@ -187,21 +180,7 @@ properties:
   unit: Å
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/2d-materials_xrd.csv
-  - skills/materials-figure/scripts/figures4materials/data/2d-materials_trend_curve.csv
-  - skills/materials-figure/scripts/figures4materials/data/sem_analysis.csv
-  - skills/materials-figure/scripts/figures4materials/data/scatter_regression.csv
-  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
-  - skills/materials-figure/scripts/figures4materials/data/graphical_abstract.csv
-  - skills/materials-figure/scripts/figures4materials/data/nano_xrd.csv
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
-  - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
-  - skills/materials-figure/scripts/figures4materials/plot_nano_multipanel.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
-  - skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
-  - skills/materials-figure/scripts/figures4materials/plot_graphical_abstract.py
-  - skills/materials-figure/scripts/figures4materials/plot_sem_analysis.py
 standards:
 - purpose: Standard guide for characterization of graphene and related 2D materials
   standard: ASTM F1711

@@ -1,4 +1,4 @@
-characterization:
+﻿characterization:
 - evidence_tier: strong
   method: SEM
   purpose: Pore structure, fiber morphology, aerogel network visualization
@@ -59,41 +59,35 @@ description:
 family: civil
 figure_archetypes:
 - description: Thermal conductivity plotted against density for insulation materials
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_insulation_conductivity_vs_density.py
   id: conductivity_vs_density
   type: conductivity_plot
   column_roles:
   - x_labels
   - series
 - description: Thermal conductivity vs. temperature at different humidity levels
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_insulation_conductivity_vs_temp.py
   id: conductivity_vs_temperature
   type: line_plot
   column_roles:
   - x_values
   - y_series
 - description: 'Multi-panel: density vs. conductivity, humidity effect, stress-strain'
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_insulation_multipanel.py
   id: insulation_multipanel
   type: multi_panel
   column_roles:
   - subfigures
 - description: Compressive stress-strain curve for aerogel/fiber insulation
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_insulation_stress_strain.py
   id: insulation_stress_strain
   type: stress_strain
   column_roles:
   - strain
   - stress
 - description: TGA thermal stability curve for insulation material decomposition temperature
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_tga_dtg_curve.py
   id: tga_thermal
   type: tga_curve
   column_roles:
   - temperature
   - weight
 - description: Mechanism diagram of heat transfer pathways in porous insulation
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
   id: mechanism_diagram
   type: diagram
   column_roles: []
@@ -135,18 +129,7 @@ properties:
   unit: mm²/s
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/insulation_conductivity_vs_density.csv
-  - skills/materials-figure/scripts/figures4materials/data/insulation_conductivity_humidity.csv
-  - skills/materials-figure/scripts/figures4materials/data/insulation_stress_strain.csv
-  - skills/materials-figure/scripts/figures4materials/data/tga_dtg_curve.csv
-  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_insulation_conductivity_vs_density.py
-  - skills/materials-figure/scripts/figures4materials/plot_insulation_conductivity_vs_temp.py
-  - skills/materials-figure/scripts/figures4materials/plot_insulation_multipanel.py
-  - skills/materials-figure/scripts/figures4materials/plot_insulation_stress_strain.py
-  - skills/materials-figure/scripts/figures4materials/plot_tga_dtg_curve.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
 standards:
 - purpose: Thermal conductivity by heat flow meter
   standard: ASTM C518 / ISO 8301

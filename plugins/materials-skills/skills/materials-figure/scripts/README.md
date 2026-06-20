@@ -19,7 +19,3 @@ The following scripts are retained as **archival references** required by the `f
 
 - `check_storyboard.py` - Validates figure storyboard structure
 - `validate_materials_claims.py` - Validates materials-related claims in documentation
-
-## Subdirectories
-
-- `figures4materials/` - Collection of plotting scripts for various materials figures

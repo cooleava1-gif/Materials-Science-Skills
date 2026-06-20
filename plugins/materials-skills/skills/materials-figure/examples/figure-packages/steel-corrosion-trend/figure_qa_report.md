@@ -1,8 +1,0 @@
-# Figure QA Report: steel-corrosion-trend
-
-- [x] Source data file present
-- [x] Plot script referenced
-- [x] Caption boundary documented
-- [ ] Peer review completed
-
-No major issues.

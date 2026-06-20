@@ -1,5 +1,0 @@
-variable,Bond strength,Moisture retention,Viscosity,Storage stability
-Bond strength,1.00,0.82,0.63,-0.28
-Moisture retention,0.82,1.00,0.51,-0.18
-Viscosity,0.63,0.51,1.00,-0.72
-Storage stability,-0.28,-0.18,-0.72,1.00

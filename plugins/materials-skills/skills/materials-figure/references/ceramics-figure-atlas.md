@@ -20,7 +20,7 @@ A curated library of reusable figure archetypes for ceramics manuscripts. Each e
 | 12 | Impedance (Nyquist) plot | Grain + grain boundary | Z', Z", frequency, T | ✅ in atlas |
 | 13 | SEM micrograph panel | Grain morphology | Image files, scale bars | (requires SEM assets) |
 | 14 | Bar chart — mechanical | Strength/toughness/hardness | Grouped by composition | (uses plot_ceramic_strength.py) |
-| 15 | Dielectric properties | ε′ and tan δ vs frequency | Frequency, ε′, tan δ | (uses plots from figures4materials) |
+| 15 | Dielectric properties | ε′ and tan δ vs frequency | Frequency, ε′, tan δ | (requires impedance data) |
 | 16 | Porosity distribution | Pore size (MIP) | Pore diameter, log intrusion | (uses plot_particle_size_distribution.py) |
 | 17 | Multi-panel summary | Processing → Structure → Properties | Combined data | (requires composition) |
 

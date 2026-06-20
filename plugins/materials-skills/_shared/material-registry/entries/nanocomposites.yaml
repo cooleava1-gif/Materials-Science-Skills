@@ -1,4 +1,4 @@
-characterization:
+﻿characterization:
 - evidence_tier: definitive
   key_features:
   - Individual filler dispersion and exfoliation degree (layered fillers)
@@ -88,7 +88,6 @@ family: nano
 figure_archetypes:
 - description: XRD pattern overlay for nanocomposite phase identification comparing neat
     matrix and different filler loadings
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
   id: xrd_pattern
   type: xrd_pattern
   column_roles:
@@ -96,7 +95,6 @@ figure_archetypes:
   - y_series
 - description: Tensile strength or modulus trend with uncertainty across filler loading
     showing optimal reinforcement window
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
   id: tensile_trend
   type: line_plot
   column_roles:
@@ -105,7 +103,6 @@ figure_archetypes:
   - y_errors
 - description: Stress-strain curves comparing neat matrix and nanocomposite for reinforcement
     and ductility trade-off
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   id: stress_strain
   type: stress_strain
   column_roles:
@@ -113,21 +110,18 @@ figure_archetypes:
   - y_series
 - description: Multi-panel nanocomposite characterization combining dispersion, loading
     effect, XRD, and mechanical data
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_nano_multipanel.py
   id: nano_multipanel
   type: multi_panel
   column_roles:
   - subfigures
 - description: Interface enhancement and load transfer mechanism schematic with evidence
     certainty labeling
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
   id: mechanism_diagram
   type: diagram
   column_roles:
   - components
 - description: Modulus versus filler loading scatter regression for reinforcement efficiency
     and percolation assessment
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
   id: modulus_loading_scatter
   type: scatter
   column_roles:
@@ -135,7 +129,6 @@ figure_archetypes:
   - y_values
 - description: Property correlation heatmap across nanocomposite formulations showing
     inter-property relationships
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_property_correlation.py
   id: property_correlation
   type: heatmap
   column_roles:
@@ -190,21 +183,7 @@ properties:
   unit: °C
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/nanocomposites_xrd.csv
-  - skills/materials-figure/scripts/figures4materials/data/nanocomposites_trend_curve.csv
-  - skills/materials-figure/scripts/figures4materials/data/stress_strain.csv
-  - skills/materials-figure/scripts/figures4materials/data/scatter_regression.csv
-  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
-  - skills/materials-figure/scripts/figures4materials/data/property_correlation.csv
-  - skills/materials-figure/scripts/figures4materials/data/nano_loading.csv
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
-  - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
-  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
-  - skills/materials-figure/scripts/figures4materials/plot_nano_multipanel.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
-  - skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
-  - skills/materials-figure/scripts/figures4materials/plot_property_correlation.py
 standards:
 - purpose: Tensile properties of plastics for nanocomposite mechanical characterization
   standard: ASTM D638

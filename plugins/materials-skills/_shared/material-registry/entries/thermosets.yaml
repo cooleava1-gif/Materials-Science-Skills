@@ -1,4 +1,4 @@
-characterization:
+﻿characterization:
 - evidence_tier: definitive
   method: DSC
   purpose: Curing exotherm, degree of cure, residual heat, Tg
@@ -60,7 +60,6 @@ description:
 family: polymers
 figure_archetypes:
 - description: DSC exotherm showing curing peak and residual heat
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_dsc_curve.py
   id: dsc_curing_curve
   type: dsc_curve
   column_roles:
@@ -69,7 +68,6 @@ figure_archetypes:
   column_map:
     temperature: {"column": "temperature"}
 - description: DMA temperature sweep showing storage modulus and tan δ
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_dma_thermomechanical.py
   id: dma_curve
   type: line_plot
   column_roles:
@@ -78,7 +76,6 @@ figure_archetypes:
   - tan_delta
 - description: TGA decomposition curve (weight vs. temperature) for thermal stability
     and char yield assessment
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_tga_dtg_curve.py
   id: tga_thermal
   type: tga_curve
   column_roles:
@@ -86,7 +83,6 @@ figure_archetypes:
   - weight
 - description: FTIR overlay of uncured and cured resin with difference spectrum for
     curing conversion evidence
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_ftir_curing_evidence.py
   id: ftir_cure
   type: ftir_overlay
   column_roles:
@@ -94,14 +90,12 @@ figure_archetypes:
   - absorbances
 - description: 'Multi-panel polymer characterization: tensile comparison, DSC, stress-strain,
     and aging retention'
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_polymers_multipanel.py
   id: polymers_multipanel
   type: multi_panel
   column_roles:
   - subfigures
 - description: Tensile stress-strain curves for different resin formulations and cure
     schedules
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   id: stress_strain
   type: stress_strain
   column_roles:
@@ -147,21 +141,7 @@ properties:
   unit: mol/cm³
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/dsc_curve.csv
-  - skills/materials-figure/scripts/figures4materials/data/dma_thermomechanical.csv
-  - skills/materials-figure/scripts/figures4materials/data/tga_dtg_curve.csv
-  - skills/materials-figure/scripts/figures4materials/data/ftir_spectra.csv
-  - skills/materials-figure/scripts/figures4materials/data/polymer_tensile.csv
-  - skills/materials-figure/scripts/figures4materials/data/polymer_dsc.csv
-  - skills/materials-figure/scripts/figures4materials/data/polymer_aging.csv
-  - skills/materials-figure/scripts/figures4materials/data/polymer_stress_strain.csv
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_dsc_curve.py
-  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
-  - skills/materials-figure/scripts/figures4materials/plot_dma_thermomechanical.py
-  - skills/materials-figure/scripts/figures4materials/plot_tga_dtg_curve.py
-  - skills/materials-figure/scripts/figures4materials/plot_ftir_curing_evidence.py
-  - skills/materials-figure/scripts/figures4materials/plot_polymers_multipanel.py
 standards:
 - purpose: Tensile properties of plastics
   standard: ASTM D638 / ISO 527

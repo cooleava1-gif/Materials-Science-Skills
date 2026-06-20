@@ -1,4 +1,4 @@
-characterization:
+﻿characterization:
 - evidence_tier: strong
   method: XRD
   purpose: Epitaxial quality, strain, composition (Vegard's law)
@@ -68,7 +68,6 @@ description:
 family: functional
 figure_archetypes:
 - description: X-ray diffraction pattern for phase identification and epitaxial quality
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
   id: xrd_pattern
   type: xrd_pattern
   column_roles:
@@ -82,7 +81,6 @@ figure_archetypes:
     - key: Nanowire Silicon
       column: nanowire_silicon
 - description: Hall mobility trend with uncertainty across annealing temperature
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
   id: hall_mobility_trend
   type: line_plot
   column_roles:
@@ -93,14 +91,12 @@ figure_archetypes:
     y_values: {"column": "mobility_cm2_Vs"}
     y_errors: {"column": "mobility_cm2_Vs_std"}
 - description: Cyclic voltammetry curve for electrochemical interface characterization
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_cv.py
   id: cv_curve
   type: cv_curve
   column_roles:
   - voltage
   - current
 - description: Electrochemical impedance spectroscopy Nyquist plot for carrier transport
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_eis.py
   id: eis_nyquist
   type: eis_plot
   column_roles:
@@ -112,19 +108,16 @@ figure_archetypes:
     z_imag: {"column": "z_imag"}
 - description: 'Multi-panel semiconductor characterization: mobility + resistivity +
     bandgap'
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_functional_multipanel.py
   id: semiconductor_multipanel
   type: multi_panel
   column_roles:
   - subfigures
 - description: Defect and doping mechanism diagram linking microstructure to carrier
     transport
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
   id: mechanism_diagram
   type: diagram
   column_roles: []
 - description: Scatter regression of carrier mobility versus carrier concentration
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
   id: mobility_vs_concentration
   type: scatter
   column_roles:
@@ -179,19 +172,7 @@ properties:
   unit: μs
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/semiconductors_xrd.csv
-  - skills/materials-figure/scripts/figures4materials/data/semiconductors_trend_curve.csv
-  - skills/materials-figure/scripts/figures4materials/data/functional_impedance.csv
-  - skills/materials-figure/scripts/figures4materials/data/scatter_regression.csv
-  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
-  - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
-  - skills/materials-figure/scripts/figures4materials/plot_cv.py
-  - skills/materials-figure/scripts/figures4materials/plot_eis.py
-  - skills/materials-figure/scripts/figures4materials/plot_functional_multipanel.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
-  - skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
 standards:
 - purpose: Resistivity of semiconductor materials (four-point probe and Hall method)
   standard: ASTM F76

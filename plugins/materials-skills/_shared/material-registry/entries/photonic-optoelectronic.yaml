@@ -1,4 +1,4 @@
-characterization:
+﻿characterization:
 - evidence_tier: definitive
   method: UV-Vis Spectroscopy
   purpose: Absorption edge, bandgap determination (Tauc plot)
@@ -67,7 +67,6 @@ description:
 family: functional
 figure_archetypes:
 - description: X-ray diffraction pattern for crystal structure and thin film orientation
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
   id: xrd_pattern
   type: xrd_pattern
   column_roles:
@@ -81,7 +80,6 @@ figure_archetypes:
     - key: Nanocrystal Perovskite
       column: nanocrystal_perovskite
 - description: External quantum efficiency trend with uncertainty across wavelength
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
   id: eqe_trend
   type: line_plot
   column_roles:
@@ -92,7 +90,6 @@ figure_archetypes:
     y_values: {"column": "EQE_percent"}
     y_errors: {"column": "EQE_percent_std"}
 - description: UV-Vis absorption spectrum for bandgap determination (Tauc plot)
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
   id: uvis_absorption
   type: line_plot
   column_roles:
@@ -102,26 +99,22 @@ figure_archetypes:
     x_values: {"column": "wavelength_nm"}
     y_values: {"column": "absorbance"}
 - description: 'Multi-panel optoelectronic characterization: EQE + absorption + PL'
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_functional_multipanel.py
   id: optoelectronic_multipanel
   type: multi_panel
   column_roles:
   - subfigures
 - description: Energy band diagram illustrating absorption, transport and recombination
     mechanisms
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
   id: band_diagram
   type: diagram
   column_roles: []
 - description: Scatter regression of EQE versus absorber thickness
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
   id: eqe_vs_thickness
   type: scatter
   column_roles:
   - x_values
   - y_values
 - description: Graphical abstract summarizing optoelectronic device design and performance
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_graphical_abstract.py
   id: graphical_abstract
   type: diagram
   column_roles: []
@@ -173,19 +166,7 @@ properties:
   unit: mA/cm²
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/photonic-optoelectronic_xrd.csv
-  - skills/materials-figure/scripts/figures4materials/data/photonic-optoelectronic_trend_curve.csv
-  - skills/materials-figure/scripts/figures4materials/data/nano_uvis.csv
-  - skills/materials-figure/scripts/figures4materials/data/scatter_regression.csv
-  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
-  - skills/materials-figure/scripts/figures4materials/data/graphical_abstract.csv
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
-  - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
-  - skills/materials-figure/scripts/figures4materials/plot_functional_multipanel.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
-  - skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
-  - skills/materials-figure/scripts/figures4materials/plot_graphical_abstract.py
 standards:
 - purpose: Solar simulator performance requirements for PV testing
   standard: IEC 60904-9

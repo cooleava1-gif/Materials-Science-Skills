@@ -1,4 +1,4 @@
-characterization:
+﻿characterization:
 - evidence_tier: strong
   method: SEM/EDS
   purpose: Precipitate analysis, fracture surface, corrosion morphology
@@ -60,14 +60,12 @@ description:
 family: metals
 figure_archetypes:
 - description: Tensile stress-strain curves
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
   id: stress_strain
   type: stress_strain
   column_roles:
   - strain
   - stress
 - description: Age-hardening response (hardness vs. aging time) at different temperatures
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
   id: age_hardening_curve
   type: line_plot
   column_roles:
@@ -75,14 +73,12 @@ figure_archetypes:
   - hardness
 - description: 'Multi-panel metals characterization: tensile comparison, stress-strain,
     hardness profile, and corrosion polarization'
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_metals_multipanel.py
   id: metals_multipanel
   type: multi_panel
   column_roles:
   - subfigures
 - description: S-N fatigue curve (stress amplitude vs. cycles to failure) for cyclic
     loading assessment
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_sn_fatigue.py
   id: sn_fatigue
   type: line_plot
   column_roles:
@@ -90,13 +86,11 @@ figure_archetypes:
   - cycles
 - description: Mechanism diagram linking alloy composition, precipitates, and strengthening
     routes with evidence certainty
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
   id: mechanism_diagram
   type: diagram
   column_roles: []
 - description: Scatter regression of yield strength versus grain size for Hall-Petch
     analysis
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
   id: scatter_regression
   type: scatter
   column_roles:
@@ -144,20 +138,7 @@ properties:
   unit: "% IACS"
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/metals_stress_strain.csv
-  - skills/materials-figure/scripts/figures4materials/data/metals_hardness_profile.csv
-  - skills/materials-figure/scripts/figures4materials/data/metals_tensile.csv
-  - skills/materials-figure/scripts/figures4materials/data/metals_corrosion.csv
-  - skills/materials-figure/scripts/figures4materials/data/sn_fatigue.csv
-  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
-  - skills/materials-figure/scripts/figures4materials/data/scatter_regression.csv
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_stress_strain.py
-  - skills/materials-figure/scripts/figures4materials/plot_errorbar_trend.py
-  - skills/materials-figure/scripts/figures4materials/plot_metals_multipanel.py
-  - skills/materials-figure/scripts/figures4materials/plot_sn_fatigue.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
-  - skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
 standards:
 - purpose: Tension testing of metallic materials at room temperature
   standard: ASTM E8 / E8M

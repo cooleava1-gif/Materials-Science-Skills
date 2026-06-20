@@ -1,4 +1,4 @@
-characterization:
+﻿characterization:
 - evidence_tier: definitive
   method: XRD
   purpose: Phase identification, tetragonality (c/a ratio), crystallite size
@@ -68,7 +68,6 @@ description:
 family: ceramics
 figure_archetypes:
 - description: XRD patterns showing phase evolution with composition
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
   id: xrd_pattern
   type: xrd_pattern
   column_roles:
@@ -86,7 +85,6 @@ figure_archetypes:
     - key: 15% WER
       column: 15%_wer
 - description: Densification behavior during sintering
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_sintering_curve.py
   id: sintering_curve
   type: sintering_curve
   column_roles:
@@ -97,7 +95,6 @@ figure_archetypes:
     y1_values: {"column": "relative_density_pct"}
     y2_values: {"column": "open_porosity_pct"}
 - description: Impedance Nyquist plot showing grain and grain boundary contributions
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_eis.py
   id: impedance_nyquist
   type: eis_plot
   column_roles:
@@ -109,19 +106,16 @@ figure_archetypes:
     z_imag: {"column": "z_imag"}
 - description: Ferroelectric P-E hysteresis loop showing remnant polarization and
     coercive field
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_functional_multipanel.py
   id: pe_hysteresis
   type: line_plot
   column_roles:
   - electric_field
   - polarization
 - description: Ferroelectric phase transition and domain wall motion mechanism diagram
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
   id: mechanism_diagram
   type: diagram
   column_roles: []
 - description: Scatter regression of piezoelectric coefficient d33 versus composition
-  figure_script: skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
   id: scatter_regression
   type: scatter
   column_roles:
@@ -169,19 +163,7 @@ properties:
   unit: kV/mm
 skill_mapping:
   data_schemas:
-  - skills/materials-figure/scripts/figures4materials/data/functional_impedance.csv
-  - skills/materials-figure/scripts/figures4materials/data/functional_pe_loop.csv
-  - skills/materials-figure/scripts/figures4materials/data/xrd_pattern.csv
-  - skills/materials-figure/scripts/figures4materials/data/sintering_curve.csv
-  - skills/materials-figure/scripts/figures4materials/data/scatter_regression.csv
-  - skills/materials-figure/scripts/figures4materials/data/mechanism_diagram.csv
   figure_scripts:
-  - skills/materials-figure/scripts/figures4materials/plot_xrd_pattern.py
-  - skills/materials-figure/scripts/figures4materials/plot_sintering_curve.py
-  - skills/materials-figure/scripts/figures4materials/plot_eis.py
-  - skills/materials-figure/scripts/figures4materials/plot_functional_multipanel.py
-  - skills/materials-figure/scripts/figures4materials/plot_mechanism_diagram.py
-  - skills/materials-figure/scripts/figures4materials/plot_scatter_regression.py
 standards:
 - purpose: Permittivity and dielectric dissipation factor determined under AC voltage
   standard: ASTM D150
