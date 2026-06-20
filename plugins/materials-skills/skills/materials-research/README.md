@@ -9,9 +9,10 @@ literature-review planning, journal targeting, experiment routing, submission
 strategy, PPT planning, and reviewer-risk framing — any cross-skill workflow
 that needs paper-stage and evidence-level judgment.
 
-**Built from** — A front-door router that orchestrates 11 companion skills
+**Built from** — A front-door router that orchestrates 12 companion skills
 (reader, citation, writing, polishing, response, reviewer, paper2ppt, pptx,
-figure, data, doe), grounded in the shared paper-production contract:
+figure, data, doe, paper-to-patent), grounded in the shared paper-production
+contract:
 
 - `references/paper-production-orchestrator.md` — stage-gated production
   contract and gate-report template
@@ -91,10 +92,13 @@ skills/materials-research/
 
 **Validation**
 
-- Core regression tests:
-  `plugins/materials-skills/skills/materials-research/tests/test_paper_production_orchestrator.py`
-  and `test_pressure_examples_library.py`
-- Pressure tests live under
-  `plugins/materials-skills/skills/materials-research/tests/pressure-tests/`
+- The paper-production orchestrator is exercised end-to-end by the
+  `materials-paper-to-patent` and `materials-figure` skill tests; no
+  dedicated test files live under `materials-research/tests/` yet.
+- Pressure-test case catalogue:
+  `plugins/materials-skills/skills/materials-research/references/pressure-test-suite.md`
+  (16 case descriptions; the runtime case files are not yet shipped).
+- Pressure-test asset auditor:
+  `plugins/materials-skills/skills/materials-research/scripts/audit_pressure_assets.py`
 - Bundle verification:
   `python .\scripts\run_release_checks.py --json`

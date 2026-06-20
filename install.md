@@ -127,6 +127,33 @@ Expected shape:
 1. `materials-paper2ppt` creates slide-ready Markdown.
 2. `materials-pptx` turns the outline into a real PowerPoint deck.
 
+### Path D: Paper To Chinese Invention Patent
+
+Prompt:
+
+```text
+Convert this materials paper into an evidence-grounded Chinese invention patent
+application draft.
+```
+
+Expected shape:
+
+1. `materials-research` resolves `source_format` / `task_mode` /
+   `invention_type` (default: `process-material`).
+2. `materials-paper-to-patent` builds the source map, terminology ledger,
+   and evidence ledger.
+3. `materials-paper-to-patent` drafts claims with the
+   claim-feature → source-id map.
+4. `validate_patent_claims.py` runs the 7-rule civil content check; the
+   `validate_patent_draft.py` runs the structural check.
+5. `build_patent_package.py` renders the DOCX (description + claims +
+   abstract + cover letter) and the `flowchart.svg`.
+
+Notes: figure notes are produced as text; the actual figures are generated
+by `materials-figure`. The default `invention_type` is `process-material`;
+switch via `manifest.yaml` for `apparatus-system` / `algorithm-software` /
+`mixed`.
+
 ## Guided Demo Routes
 
 To see the visual proof side first, open [docs/gallery/README.md](docs/gallery/README.md).
@@ -138,6 +165,8 @@ If this is your first time with the bundle, open these in order:
 1. [README.md](README.md)
 2. `plugins/materials-skills/skills/materials-research/README.md`
 3. the README for the production skill you actually need
+4. if you plan to convert papers to patents,
+   `plugins/materials-skills/skills/materials-paper-to-patent/README.md`
 
 ## Troubleshooting
 

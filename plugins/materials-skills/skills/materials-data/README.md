@@ -11,6 +11,20 @@ papered over.
 **Built from** — FAIR and dataset-package references, domain data schemas, and
 templates routed by task, domain, and journal:
 
+**Nine domain data schemas** — One per material sub-direction, covering the
+canonical CSV column order, FAIR metadata fields, and journal-adapted
+data-availability statement template:
+
+- `asphalt` — mix design, modifier dosage, performance window
+- `cement-concrete` — mix proportions, hydration, durability
+- `ceramics` — sintering, mechanical, Weibull reliability
+- `civil` — generic civil-engineering measurement
+- `functional` — sensors, energy storage, smart materials
+- `metals` — composition, heat-treatment, mechanical response
+- `nano` — nanoparticle size, surface area, dispersion
+- `polymers` — formulation, processing, mechanical/thermal
+- `thermal-insulation` — thermal conductivity, density, fire resistance
+
 - `references/fair-checklist.md` — lightweight FAIR audit checklist
 - `references/dataset-package.md` — dataset package and experiment template
   rules

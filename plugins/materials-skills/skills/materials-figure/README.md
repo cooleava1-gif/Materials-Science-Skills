@@ -116,6 +116,8 @@ sintering curve.
   `plugins/materials-skills/skills/materials-figure/scripts/validate_materials_claims.py`
 - Multi-figure storyboard check:
   `plugins/materials-skills/skills/materials-figure/scripts/check_storyboard.py`
+- End-to-end evaluation cases:
+  `plugins/materials-skills/skills/materials-figure/evals/evals.json`
 - Bundle verification:
   repo root: `python .\plugins\materials-skills\scripts\run_release_checks.py --json`
   plugin root: `python .\scripts\run_release_checks.py --json`

@@ -10,7 +10,25 @@ so the output hands off cleanly to polishing, reviewer, or response loops
 instead of hiding gaps.
 
 **Built from** — A large narrative and section-pattern library plus phrase
-banks routed by paper type, section, language, and journal family:
+banks routed by 6 axes simultaneously (paper type, section, language,
+journal family, material family, domain):
+
+**Six routing axes** — Drives the section template, phrase bank, and domain
+narrative simultaneously:
+
+| Axis | Examples |
+|---|---|
+| `paper_type` | experimental-manuscript / review-paper / methods-paper |
+| `section` | abstract / introduction / methods / results-discussion / conclusion / full-argument |
+| `language` | zh / en |
+| `journal_family` | CBM / CCC / RMPD / JBE / nature-materials / acs-nano / … |
+| `material_family` | civil / polymers / metals / ceramics / functional / nano |
+| `domain` | WER-EA / asphalt / cement-concrete / refractories / bioceramics / … |
+
+The two material axes (`material_family` and `domain`) are what make the
+writing skill vertical for materials science: they route into the matching
+domain narrative, the matching phrase bank, and the matching section-pattern
+arc in a single pass.
 
 - `references/` — 42 narrative and strategy references: 34 domain narrative
   guides (asphalt, cement/concrete, ceramics, polymers, metals, functional,
@@ -27,8 +45,8 @@ banks routed by paper type, section, language, and journal family:
   WER-EA mini-review templates
 - `scripts/` — `build_manuscript_outline.py` for outline scaffolding and
   `audit_materials_manuscript.py` for draft auditing
-- `static/fragments/` — section, paper-type, and domain fragments loaded by
-  the manifest axes
+- `static/fragments/` — section, paper_type, journal_family, language,
+  material_family, and domain fragments loaded by the manifest axes
 
 **Key rules enforced**
 
@@ -80,5 +98,9 @@ skills/materials-writing/
 
 - Audit script:
   `plugins/materials-skills/skills/materials-writing/scripts/audit_materials_manuscript.py`
+- Outline scaffolding:
+  `plugins/materials-skills/skills/materials-writing/scripts/build_manuscript_outline.py`
+- Unit test:
+  `plugins/materials-skills/skills/materials-writing/tests/test_writing_skill.py`
 - Bundle verification:
   `python .\scripts\run_release_checks.py --json`

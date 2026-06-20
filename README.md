@@ -1,25 +1,28 @@
 # Materials Science Skills
 
 A full-cycle Codex skill bundle for materials science research. It connects
-routing, reading, citation, writing, figure production, data packaging,
-experiment design, reviewer simulation, response drafting, and PPTX generation
-into one workflow instead of leaving each step as a separate prompt.
+routing, reading, citation, writing, polishing, figure production, data
+packaging, experiment design, peer review simulation, reviewer-response
+drafting, slide preparation, and **paper-to-patent conversion** into one
+workflow instead of leaving each step as a separate prompt.
 
-材料科学研究的全流程 Codex 技能包。把路由、阅读、引文检索、写作、配图、数据打包、
-实验设计、审稿模拟、回复信撰写、PPT 生成串成一条工作流，而不是让每一步都成为孤立的提示。
+材料科学研究的全流程 Codex 技能包。把路由、阅读、引文检索、写作、润色、
+配图、数据打包、实验设计、审稿模拟、回复信撰写、演讲准备、**论文转专利**
+串成一条工作流，而不是让每一步都成为孤立的提示。
 
-The bundle currently covers **29 material systems** across civil/construction,
-polymers, metals, ceramics, and functional/nano materials. Each system carries
-a narrative arc, figure scripts, reviewer criteria, and worked example packages
-where the coverage tier has reached `full`.
+The bundle ships **13 skills** covering **29 material systems** across
+civil/construction, polymers, metals, ceramics, and functional/nano materials.
+Each system carries a narrative arc, figure scripts, reviewer criteria, and
+worked example packages where the coverage tier has reached `full`.
 
-本技能包当前覆盖 **29 个材料体系**，涵盖土木/建筑、聚合物、金属、陶瓷、功能/纳米材料。
-每个体系都带有叙事主线、配图脚本、审稿标准和完整示例包（`full` 覆盖等级）。
+本技能包发布 **13 个 skills**，覆盖 **29 个材料体系**，涵盖土木/建筑、聚合物、
+金属、陶瓷、功能/纳米材料。每个体系都带有叙事主线、配图脚本、审稿标准和
+完整示例包（`full` 覆盖等级）。
 
 <table>
   <tr>
     <td align="center">
-      <b>Chart-Type Atlas — 6 figure families</b><br/>
+      <b>Chart-Type Atlas — 21 figure families</b><br/>
       <img width="720" alt="Chart-Type Atlas" src="docs/gallery/gallery_chart_atlas.png" />
     </td>
   </tr>
@@ -39,17 +42,50 @@ where the coverage tier has reached `full`.
 
 ## What the bundle does
 
-1. **Routes** your request to the right material domain and production skill.
-2. **Reads** papers into source-anchored evidence packages.
-3. **Searches** literature through an MCP-backed academic search server.
-4. **Writes** manuscript sections, review outlines, and argument chains.
-5. **Polishes** prose with claim-strength calibration.
-6. **Draws** journal-ready figures from CSV data and reader handoffs.
-7. **Packages** data with FAIR checks and data-availability statements.
-8. **Designs** experiments with factorial, Taguchi, and mixture matrices.
-9. **Reviews** drafts like a peer reviewer before submission.
-10. **Responds** to reviewer comments with point-by-point replies.
-11. **Presents** papers as Chinese journal-club slide outlines or real `.pptx` decks.
+1. **Routes** your request to the right material domain and production skill
+   via a profile-first router (`materials-research`).
+2. **Reads** papers into source-anchored evidence packages
+   (`materials-reader`).
+3. **Searches** literature through an MCP-backed academic search server that
+   queries 7+ databases (`materials-citation`).
+4. **Writes** manuscript sections, review outlines, and argument chains
+   (`materials-writing`).
+5. **Polishes** prose with claim-strength calibration and overclaim reduction
+   (`materials-polishing`).
+6. **Draws** journal-ready figures from CSV data and reader handoffs in
+   LLM-driven workflow (`materials-figure`).
+7. **Packages** data with FAIR checks and journal-ready data-availability
+   statements across 9 domain schemas (`materials-data`).
+8. **Designs** experiments with factorial, Taguchi, and mixture matrices
+   (`materials-doe`).
+9. **Reviews** drafts like a peer reviewer with 22 domain-specific criteria
+   (`materials-reviewer`).
+10. **Responds** to reviewer comments with point-by-point replies
+    (`materials-response`).
+11. **Presents** papers as Chinese journal-club slide outlines or real `.pptx`
+    decks (`materials-paper2ppt` + `materials-pptx`).
+12. **Converts** papers into evidence-grounded Chinese invention-patent
+    applications, with a civil patent knowledge base and a claim-validation
+    engine (`materials-paper-to-patent`).
+
+## Profile-first routing
+
+The bundle follows a **profile-first routing** protocol defined in
+[`_shared/core/direction-profile.md`](plugins/materials-skills/skills/_shared/core/direction-profile.md).
+On first use, the router asks the user once for their current materials
+research direction, saves it to a user-local file `.materials/profile.yaml`
+(not tracked by git), and uses it to set defaults for `material_family` and
+`domain` across all 13 skills. Later sessions skip the question and only
+briefly remind the user which direction is active.
+
+| Layer | Source | Behaviour |
+|---|---|---|
+| 1 | Explicit direction in the current user request | Used immediately |
+| 2 | `.materials/profile.yaml` saved locally | Default fallback |
+| 3 | Neutral / general materials support | Last-resort fallback |
+
+This is what makes the bundle work like an **operating system for materials
+research** instead of a set of disconnected skills.
 
 ## Installation
 
@@ -72,9 +108,10 @@ Codex Desktop users can add the same repository as a custom plugin marketplace:
 - Branch/ref: `main`
 - Plugin: `materials-skills`
 
-After installation, all `materials-*` skills are available through the plugin
-as a complete bundle, together with the shared support directory. If the skills
-do not appear immediately, refresh the plugin page or start a new Codex session.
+After installation, all 13 `materials-*` skills become available through the
+plugin as a complete bundle, together with the shared support directory. If
+the skills do not appear immediately, refresh the plugin page or start a new
+Codex session.
 
 ### 2. Manual Skills Install
 
@@ -86,7 +123,7 @@ cd Materials-Science-Skills
 .\scripts\install.ps1
 ```
 
-The installer copies all `materials-*` skills plus `_shared` into
+The installer copies all 13 `materials-*` skills plus `_shared` into
 `$CODEX_HOME\skills` if `CODEX_HOME` is set, or into `~\.codex\skills`
 otherwise. It also removes stale target directories before reinstalling so old
 files do not survive an update.
@@ -129,26 +166,27 @@ Optional environment variables:
 
 For the full walkthrough, see [install.md](install.md).
 
-## Skill index
+## Skill index (13 skills)
 
 | Skill | Status | Purpose | Trigger keywords |
 |---|---|---|---|
-| [`materials-research`](plugins/materials-skills/skills/materials-research/README.md) | Stable | Domain routing, topic angle, workflow plan, risk map | "materials research", "topic routing", "workflow plan" |
+| [`materials-research`](plugins/materials-skills/skills/materials-research/README.md) | Stable | Profile-first router, stage-gated plan, coverage_tier report | "materials research", "topic routing", "workflow plan" |
 | [`materials-reader`](plugins/materials-skills/skills/materials-reader/README.md) | Stable | Source-anchored reader package, evidence-chain matrix | "reader package", "evidence chain", "paper notes" |
-| [`materials-citation`](plugins/materials-skills/skills/materials-citation/README.md) | Stable | Screened citation matrix, normalized IDs, reference gaps | "citation matrix", "literature screening", "reference gap" |
-| [`materials-writing`](plugins/materials-skills/skills/materials-writing/README.md) | Stable | Manuscript sections, review outlines, argument chains | "manuscript draft", "review outline", "argument chain" |
-| [`materials-polishing`](plugins/materials-skills/skills/materials-polishing/README.md) | Stable | Polished text, claim-strength audit, overclaim flags | "polish", "claim strength", "academic tone" |
-| [`materials-figure`](plugins/materials-skills/skills/materials-figure/README.md) | Stable | Journal-ready SVG/PNG/PDF/TIFF figures from data | "figure", "publication plot", "mechanism map" |
-| [`materials-data`](plugins/materials-skills/skills/materials-data/README.md) | Stable | FAIR package, data availability statement, metadata | "FAIR package", "data availability", "dataset" |
-| [`materials-doe`](plugins/materials-skills/skills/materials-doe/README.md) | Stable | Experiment plan, methods paragraph, analysis naming | "DOE", "experiment design", "orthogonal array" |
-| [`materials-reviewer`](plugins/materials-skills/skills/materials-reviewer/README.md) | Stable | Simulated peer review, desk-reject risk report | "peer review", "desk-reject risk", "reviewer report" |
-| [`materials-response`](plugins/materials-skills/skills/materials-response/README.md) | Stable | Point-by-point response letter, rebuttal package | "response letter", "rebuttal", "reviewer comment" |
-| [`materials-paper2ppt`](plugins/materials-skills/skills/materials-paper2ppt/README.md) | Stable | Slide-ready Markdown, talk structure | "paper to slides", "journal club", "slide outline" |
-| [`materials-pptx`](plugins/materials-skills/skills/materials-pptx/README.md) | Stable | Real `.pptx` deck | "pptx", "powerpoint", "slide deck" |
+| [`materials-citation`](plugins/materials-skills/skills/materials-citation/README.md) | Stable | MCP-backed search, citation matrix, reference-gap audit | "citation matrix", "literature screening", "reference gap" |
+| [`materials-writing`](plugins/materials-skills/skills/materials-writing/README.md) | Stable | 6-axis manuscript drafting, 42 narrative references, section arcs | "manuscript draft", "review outline", "argument chain" |
+| [`materials-polishing`](plugins/materials-skills/skills/materials-polishing/README.md) | Stable | Claim-strength audit, overclaim reduction, journal-tone tightening | "polish", "claim strength", "academic tone" |
+| [`materials-figure`](plugins/materials-skills/skills/materials-figure/README.md) | Stable | LLM-driven figure contract + plot, 21 atlas + 12 gallery + 20 examples | "figure", "publication plot", "mechanism map" |
+| [`materials-data`](plugins/materials-skills/skills/materials-data/README.md) | Stable | FAIR package, 9 domain schemas, data availability statement | "FAIR package", "data availability", "dataset" |
+| [`materials-doe`](plugins/materials-skills/skills/materials-doe/README.md) | Stable | Factorial / Taguchi / mixture matrices, methods paragraph | "DOE", "experiment design", "orthogonal array" |
+| [`materials-reviewer`](plugins/materials-skills/skills/materials-reviewer/README.md) | Stable | 5-axis peer review, 22 domain criteria, desk-reject risk | "peer review", "desk-reject risk", "reviewer report" |
+| [`materials-response`](plugins/materials-skills/skills/materials-response/README.md) | Stable | Point-by-point response, rebuttal package, action mapping | "response letter", "rebuttal", "reviewer comment" |
+| [`materials-paper2ppt`](plugins/materials-skills/skills/materials-paper2ppt/README.md) | Stable | Slide-ready Markdown, talk structure for group meeting / journal club | "paper to slides", "journal club", "slide outline" |
+| [`materials-pptx`](plugins/materials-skills/skills/materials-pptx/README.md) | Stable | Real `.pptx` deck with dependency-light OOXML writer | "pptx", "powerpoint", "slide deck" |
+| [`materials-paper-to-patent`](plugins/materials-skills/skills/materials-paper-to-patent/README.md) | Stable | Chinese invention-patent application, civil patent KB, claim validator | "patent", "claim", "invention disclosure" |
 
 ---
 
-## materials-figure
+## materials-figure — the flagship
 
 **What it does** — Generates journal-ready multi-panel figures for materials
 manuscripts: mechanism maps, evidence heatmaps, dosage-window plots,
@@ -156,7 +194,7 @@ characterization panels, review figures, and full figure packages with source
 data, caption boundaries, and export QA. Python-only backend, SVG-first
 output, with PNG/PDF/TIFF export bundles.
 
-**LLM-driven figure creation** - This is no longer a fixed generator-script
+**LLM-driven figure creation** — This is no longer a fixed generator-script
 pipeline. The skill validates a figure contract and source-data anchor first;
 then the LLM writes `plot.py` directly from the contract, data, chart-atlas
 reference, legend rules, and reviewer-risk notes.
@@ -167,30 +205,22 @@ figure_contract.md -> source_data.csv -> LLM writes plot.py
   -> caption.md + qa_report.md + asset_manifest.md
 ```
 
-**Chart-type atlas** - The skill ships 15 current PNG atlas boards covering
-XRD, mechanical curves, thermal analysis, spectroscopy, microscopy,
-performance, durability, electrochemistry, comparison, composite layouts,
-phase diagrams, kinetics, adsorption, rheology, and degradation. These visual
-references guide chart selection in the LLM-driven workflow.
+**Visual assets shipped with the skill** — 53 production-grade reference
+figures organised in three layers:
+
+| Layer | Count | Purpose |
+|---|---|---|
+| `assets/chart-atlas/` | **21 PNG atlas boards** | Chart-type selection (XRD, mechanical, thermal, microscopy, performance, electrochemistry, …) |
+| `assets/gallery/` | **12 composite proof figures** | Submission-grade multi-panel reference figures |
+| `assets/materials4papers/` | **20 worked examples** | End-to-end figure packages per paper type |
 
 | ![XRD diffraction](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-01-xrd-diffraction.png) | ![Mechanical curves](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-02-mechanical-curves.png) | ![Thermal analysis](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-03-thermal-analysis.png) |
 |---|---|---|
 | ![Microscopy plates](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-05-microscopy.png) | ![Performance bars](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-06-performance-bar.png) | ![Composite layouts](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-10-composite-layout.png) |
 
-**Gallery composites** - The current release ships 8 submission-grade
-composite proof figures spanning cement hydration, asphalt review logic,
-durability, polymer composites, nano characterization, and functional coatings.
-They demonstrate panel structure, certainty-tier legends, and claim boundaries
-for the LLM-driven workflow.
-
 | ![Cement hydration composite](plugins/materials-skills/skills/materials-figure/assets/gallery/fig1-cement-hydration-mechanism.png) | ![Asphalt review composite](plugins/materials-skills/skills/materials-figure/assets/gallery/fig5-asphalt-modification-review.png) | ![Concrete durability composite](plugins/materials-skills/skills/materials-figure/assets/gallery/fig7-concrete-microstructure-durability.png) |
 |---|---|---|
 | ![Functional coating composite](plugins/materials-skills/skills/materials-figure/assets/gallery/fig8-functional-coating-performance.png) | ![Polymer composite composite](plugins/materials-skills/skills/materials-figure/assets/gallery/fig3-polymer-composite-multifunctional.png) | ![Nano characterization composite](plugins/materials-skills/skills/materials-figure/assets/gallery/fig6-nano-material-characterization.png) |
-
-**Top-journal examples** - The `materials4papers` examples provide
-publication-style reference implementations for XRD, EBSD, Weibull reliability,
-TGA/DTG, Raman mapping, nanoparticle size statistics, and related materials
-figure families.
 
 | ![Cement XRD example](plugins/materials-skills/skills/materials-figure/assets/materials4papers/cement_hydration_xrd/figures/xrd_hydration_stacked.png) | ![Steel EBSD example](plugins/materials-skills/skills/materials-figure/assets/materials4papers/steel_microstructure_ebsd/figures/ebsd_ipf_maps.png) | ![Polymer thermal example](plugins/materials-skills/skills/materials-figure/assets/materials4papers/polymer_thermal_degradation/figures/tga_dtg_thermal.png) |
 |---|---|---|
@@ -225,13 +255,100 @@ figure-package/
 
 ---
 
-## materials-writing
+## materials-paper-to-patent — Chinese invention-patent conversion
+
+**What it does** — Turns a materials research paper into an evidence-grounded
+Chinese invention-patent application draft. The default `invention_type` is
+`process-material` (配方/工艺/材料类发明专利), tuned for civil/construction
+materials, polymers, metals, ceramics, and functional materials.
+
+**Three-axis routing** — The skill is driven by three axes, with a default for
+each:
+
+| Axis | Values | Default |
+|---|---|---|
+| `source_format` | `pdf-text` / `scanned-pdf` / `pasted-text` / `mixed-project` | `pdf-text` |
+| `task_mode` | `full-draft` / `claim-set` / `disclosure-analysis` / `paper-patent-audit` | `full-draft` |
+| `invention_type` | `process-material` / `device` / `system` / `mixture-formula` | `process-material` |
+
+**Civil patent knowledge base** — The skill ships a curated
+`static/core/patent_kb.yaml` covering Chinese Patent Law articles 22 / 26.3
+/ 26.4 / 31.1 / 33, CNIPA examination guidelines, 4 invention-type verb
+patterns, 9 claim anti-patterns (e.g. algorithm-software fall-back, missing
+technical features, unsupported overclaims), 7 unit-alias groups, and 6
+material-domain links (civil_cement_concrete, civil_asphalt, civil_insulation,
+ceramics_structural, polymer_composite, metal_alloy).
+
+**Claim-validation engine** — `scripts/validate_patent_claims.py` runs 7
+rule functions on every draft (independent-claim technical features,
+dependent-claim references, specification support, anti-patterns, unit
+consistency, invention-type alignment, claim-count limits). Output severity
+levels are `ERROR` (blocks submission) / `WARNING` (review before submit) /
+`INFO` (advisory).
+
+**Scripts** (9 total): PDF text extraction, project initialisation, claim
+auditing, structural validation, claim-content validation, package building,
+DOCX rendering, SVG flowchart rendering, and LaTeX→OMML math conversion.
+
+**Outputs** — `draft.json` (machine-readable structure), a complete DOCX
+application (description + claims + abstract + cover letter), and a
+`flowchart.svg` for the process diagram. Figure notes are produced as text;
+the actual figures are generated by `materials-figure`.
+
+---
+
+## materials-research — the router
+
+**What it does** — The front door of the bundle. Detects task type, material
+domain, and journal family, then hands off to the right companion skill. Best
+for topic positioning, journal fit, paper strategy, reviewer-risk framing,
+and combined workflows such as mini-review + figure planning.
+
+**Fragment system** — 71 fragments drive the routing decisions:
+
+| Axis | Count | Purpose |
+|---|---|---|
+| `task` | 13 | What the user wants to do (mini-review, evidence-audit, …) |
+| `domain` | **36** | Which material sub-direction (asphalt, cement-concrete, ceramics, …) |
+| `journal` | 22 | Which target family (CBM, CCC, RMPD, JBE, ACS, nature-materials, …) |
+
+**Stage-gated plan** — Every router output is a 6-stage plan
+(positioning → reading → citation → writing → polishing → reviewer/response)
+with explicit handoff rows to companion skills, plus a `coverage_tier` report
+(`full` / `partial` / `skeleton` / `generic`).
+
+**Profile-first routing** — Honours the user-local
+`.materials/profile.yaml` set by the `_shared/core/direction-profile.md`
+protocol. See the *Profile-first routing* section above.
+
+---
+
+## materials-writing — the 6-axis manuscript engine
 
 **What it does** — Turns claims, results, notes, and outlines into argument
-chains, abstracts, introductions, results/discussion sections, conclusions, or
-review outlines while keeping missing evidence visible. Built for materials
-science manuscripts across civil/construction, polymers, metals, ceramics, and
-functional/nano materials.
+chains, abstracts, introductions, results/discussion sections, conclusions,
+or review outlines while keeping missing evidence visible. Built for
+materials-science manuscripts across civil/construction, polymers, metals,
+ceramics, and functional/nano materials.
+
+**Six-axis routing** — Drives the section template, phrase bank, and domain
+narrative simultaneously:
+
+| Axis | Examples |
+|---|---|
+| `paper_type` | experimental / review / method / data-paper / case-study |
+| `section` | abstract / intro / R-D / conclusion / cover-letter |
+| `language` | zh / en |
+| `journal_family` | CBM / CCC / RMPD / JBE / nature-materials / acs-nano / … |
+| `material_family` | civil / polymer / metal / ceramic / functional / nano |
+| `domain` | WER-EA / asphalt / cement-concrete / ceramics / … |
+
+**Reference corpus** — 44 references, including 42 narrative references, 5
+section arcs (abstract claim arc, intro gap ladder, R-D evidence chain,
+conclusion boundary, review synthesis), 10 domain phrase banks (WER-EA,
+insulation, polymer composite, cement-concrete, ceramics, metals-alloys,
+durability-sustainability, civil-general, nano, functional), and 22 domain
+paragraph patterns.
 
 **Key rules enforced**
 
@@ -240,6 +357,93 @@ functional/nano materials.
 - Section-aware tense and hedging: past tense for results, present for
   established knowledge, hedged for inferred mechanisms.
 - Review outlines separate synthesis structure from borrowed structure.
+
+---
+
+## materials-data — FAIR packaging with 9 domain schemas
+
+**What it does** — Raw/processed dataset organisation, metadata, FAIR
+checks, supplementary-data packaging, and journal-ready data-availability
+statements. Outputs a FAIR package with audit report, dataset README,
+metadata template, and a statement ready to paste into a submission.
+
+**Nine domain data schemas** — The skill ships ready-to-use column
+templates for:
+
+- `asphalt` — mix design, modifier dosage, performance window
+- `cement-concrete` — mix proportions, hydration, durability
+- `ceramics` — sintering, mechanical, Weibull reliability
+- `civil` — generic civil-engineering measurement
+- `functional` — sensors, energy storage, smart materials
+- `metals` — composition, heat-treatment, mechanical response
+- `nano` — nanoparticle size, surface area, dispersion
+- `polymers` — formulation, processing, mechanical/thermal
+- `thermal-insulation` — thermal conductivity, density, fire resistance
+
+**Coverage** — Each schema includes the canonical CSV column order, FAIR
+metadata fields, and the data-availability statement template adapted for
+the most common target journals in that domain.
+
+---
+
+## materials-reviewer — peer review with 22 domain criteria
+
+**What it does** — Simulates peer review before submission or resubmission.
+Checks novelty and evidence sufficiency, flags figure/statistics gaps, and
+produces reviewer-style reports with editorial criteria for the material
+domain. Outputs a desk-reject risk report so weak packages get routed back
+to reader, citation, writing, or figure work before submission.
+
+**Five review axes** — originality / importance / interdisciplinary /
+technical validity / readability.
+
+**Twenty-two domain-specific criteria** — One per material sub-direction,
+covering the typical reviewer concerns and desk-reject risk patterns in
+each:
+
+asphalt, cement, ceramics, construction-materials, civil-generic,
+waterproofing-sealants, timber-masonry, steel, geotechnical,
+nano, nano-thin-films, 2d-materials, nanocomposites, nanoparticles,
+photonic-optoelectronic, dielectrics-piezoelectrics, semiconductors,
+polymers, metals, insulation, functional, sustainability-durability.
+
+---
+
+## materials-citation — search, screen, structure
+
+**What it does** — Literature search strategy, source screening, citation
+matrices, reference-gap audits, ID normalisation, and claim-source
+alignment. Its MCP-backed search tools query academic sources and export
+structured citation evidence with evidence layer, source role, source
+quality, reader anchor, figure handoff, and reviewer-risk fields.
+
+**MCP academic search** — The bundled MCP server queries Crossref, OpenAlex,
+Semantic Scholar, PubMed, arXiv, Scopus, and ScienceDirect, with domain
+classification for materials science. Exports BibTeX, CSL-JSON, RIS, and
+JSONL. A 13-test unit suite covers MCP adapters, search-plan generators, and
+fallback paths.
+
+---
+
+## materials-reader
+
+**What it does** — Use when the raw material is a paper, PDF, abstract,
+figure caption, or pasted text. Produces standard reader packages,
+source-grounded notes, figure/table evidence maps,
+claim-evidence-mechanism-boundary matrices, and handoff rows for citation
+and figure skills. Has its own `evals.json` for end-to-end quality checks.
+
+---
+
+## materials-polishing
+
+**What it does** — Use after text exists. Handles English polishing,
+Chinese-to-English academic rewriting, claim-strength control, overclaim
+reduction, and journal-tone tightening. Outputs polished text plus a
+claim-strength audit that flags overclaims and unsupported hedging. Ships
+22 references including a `claim-strength-ladder` (a quantitative ladder
+calibrating causal / associative / correlative / speculative claims) and
+domain-specific language rulebooks. Has its own `evals.json`.
 
 ---
 
@@ -266,33 +470,9 @@ screening and response surface extensions.
 - "Plan a factorial experiment for concrete durability factors"
 
 **Boundaries** — This skill plans experiments and generates matrices. It does
-not execute tests, analyze collected data, or produce manuscript text. For
+not execute tests, analyse collected data, or produce manuscript text. For
 data analysis or figure production, hand off to `materials-data` or
 `materials-figure`.
-
----
-
-## materials-citation
-
-**What it does** — Literature search strategy, source screening, citation
-matrices, reference-gap audits, ID normalization, and claim-source alignment.
-Its MCP-backed search tools query academic sources and export structured
-citation evidence with evidence layer, source role, source quality, reader
-anchor, figure handoff, and reviewer-risk fields.
-
-**MCP academic search** — The bundled MCP server queries Crossref, OpenAlex,
-Semantic Scholar, PubMed, arXiv, Scopus, and ScienceDirect, with domain
-classification for materials science. Exports BibTeX, CSL-JSON, RIS, and JSONL.
-
----
-
-## materials-reviewer
-
-**What it does** — Simulates peer review before submission or resubmission.
-Checks novelty and evidence sufficiency, flags figure/statistics gaps, and
-produces reviewer-style reports with editorial criteria for the material
-domain. Outputs a desk-reject risk report so weak packages get routed back to
-reader, citation, writing, or figure work before submission.
 
 ---
 
@@ -302,34 +482,7 @@ reader, citation, writing, or figure work before submission.
 from manuscript action, drafts point-by-point replies, and prevents
 unsupported promises such as claiming new experiments were completed. Outputs
 a response letter plus a rebuttal package with action items and risk flags.
-
----
-
-## materials-data
-
-**What it does** — Raw/processed dataset organization, metadata, FAIR checks,
-supplementary data packaging, and data availability statements. Outputs a FAIR
-package with audit report, dataset README, metadata template, and
-journal-ready data availability statement.
-
----
-
-## materials-reader
-
-**What it does** — Use when the raw material is a paper, PDF, abstract,
-figure caption, or pasted text. Produces standard reader packages,
-source-grounded notes, figure/table evidence maps,
-claim-evidence-mechanism-boundary matrices, and handoff rows for citation and
-figure skills.
-
----
-
-## materials-polishing
-
-**What it does** — Use after text exists. Handles English polishing,
-Chinese-to-English academic rewriting, claim-strength control, overclaim
-reduction, and journal-tone tightening. Outputs polished text plus a
-claim-strength audit that flags overclaims and unsupported hedging.
+Has its own `evals.json`.
 
 ---
 
@@ -339,23 +492,46 @@ claim-strength audit that flags overclaims and unsupported hedging.
 review matrices, and research outlines into slide-ready Markdown. It is the
 handoff layer before real PowerPoint generation. `materials-pptx` then turns
 structured Markdown or JSON slide specs into a real `.pptx` deck with notes
-and image placement.
+and image placement, using a dependency-light OOXML writer (no python-pptx
+required).
 
 ---
 
-## materials-research
+## Shared core — `_shared/`
 
-**What it does** — Front door for broad materials work. Detects task type,
-material domain, and journal family, then hands off to the right companion
-skill. Best for topic positioning, journal fit, paper strategy, reviewer-risk
-framing, and combined workflows such as mini-review plus figure planning.
+All 13 skills share a small set of protocol files under
+[`plugins/materials-skills/skills/_shared/`](plugins/materials-skills/skills/_shared/):
 
----
+| File | Purpose |
+|---|---|
+| `core/direction-profile.md` | Profile-first routing protocol (first-use question, `.materials/profile.yaml` storage) |
+| `core/claim-strength-ladder.md` | Quantitative claim-strength calibration (causal → associative → correlative → speculative) |
+| `core/evidence-contract.md` | Required fields for any claim evidence tuple (claim-id, source-id, evidence-layer, source-quality, …) |
+| `core/source-basis.md` | Source taxonomy and reliability tiers |
+| `core/stance.md` | How to handle disagreements, hedges, and uncertainty |
+| `core/terminology-ledger.md` | Canonical term normalisation across skills |
+| `core/ethics.md` | Ethics, attribution, and "do not fabricate" guardrails |
+| `journal-formats/` | **17 journal format guides** (CBM, CCC, RMPD, JBE, IJPE, WER-EA, nature-materials, acs-nano, acta-materialia, advanced-materials, advanced-functional-materials, ceramics-international, energy-buildings, jacers, jmca, nano-letters, progress-polymer-science, thermal-sciences, …) |
+
+## Quantitative summary (transparent counts)
+
+- **13 skills** with stable status
+- **29 material systems** at `full` coverage tier
+- **53 production-grade figure assets** (21 atlas + 12 gallery + 20 examples)
+- **71 routing fragments** (13 task + 36 domain + 22 journal)
+- **17 journal format guides**
+- **22 reviewer-criteria documents** (one per material sub-direction)
+- **9 domain data schemas** for FAIR packaging
+- **44 references** in `materials-writing`
+- **7 shared core protocols** + 17 journal-format guides
+- **9 scripts** in `materials-paper-to-patent` + **3+ scripts** across other skills
+- **47 unit tests** across the bundle
+- **4 evals.json** files (figure / reader / polishing / response)
 
 ## Visual Gallery
 
-See [docs/gallery/README.md](docs/gallery/README.md) for editorial proof boards
-and figure-package previews.
+See [docs/gallery/README.md](docs/gallery/README.md) for editorial proof
+boards and figure-package previews.
 
 ## Four Workflow Entry Points
 
@@ -372,6 +548,19 @@ This bundle structures materials research work with stronger evidence, routing,
 and packaging discipline. It does not replace deep reading, real experimental
 evidence, supervisor judgment, official journal instructions, or institutional
 requirements.
+
+## Roadmap (transparent gaps)
+
+- **Evals / pressure-test coverage** is currently at 4 of 13 skills; the
+  bundle still needs cross-skill pressure tests to make every skill
+  production-stable.
+- **Submission end-to-end** is partially covered (cover letter + response
+  letter + data availability), but LaTeX-class templates for the 17 journal
+  families are not yet shipped.
+- **Grant writing** is out of scope for the current release; it would
+  require a dedicated `materials-grant` skill.
+- **Lab execution** is out of scope; `materials-doe` plans experiments but
+  does not run them.
 
 ## Acknowledgements
 
