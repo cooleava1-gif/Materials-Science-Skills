@@ -22,6 +22,4 @@ The following scripts are retained as **archival references** required by the `f
 
 ## Subdirectories
 
-- `ceramics_atlas/` - Scripts for generating ceramics atlas figures
 - `figures4materials/` - Collection of plotting scripts for various materials figures
-- `wer_ea_atlas/` - Scripts for generating WER-EA atlas figures
