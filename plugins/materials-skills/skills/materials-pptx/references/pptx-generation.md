@@ -43,7 +43,7 @@ With per-slide images and speaker notes:
       "notes": ["Explain the control group and dosage range.", "Do not overstate durability."],
       "images": [
         {
-          "path": "../../materials-figure/assets/wer-ea-atlas/generated/wer_ea_mechanism_map.svg",
+          "path": "../../materials-figure/assets/gallery/fig1-cement-hydration-mechanism.png",
           "alt": "WER-EA mechanism map",
           "crop": {"left": 3, "top": 0, "right": 3, "bottom": 6}
         }
@@ -65,7 +65,7 @@ Accepted Markdown shape:
 - Evidence
 Speaker note:
 - Explain what the figure supports.
-![WER-EA mechanism map](../../materials-figure/assets/wer-ea-atlas/generated/wer_ea_mechanism_map.svg)
+![WER-EA mechanism map](../../materials-figure/assets/gallery/fig1-cement-hydration-mechanism.png)
 ```
 
 The script is dependency-light and writes Office Open XML directly using Python standard libraries. It supports PNG/JPEG images, source-rectangle cropping, and speaker notes.

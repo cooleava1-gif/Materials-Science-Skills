@@ -11,8 +11,10 @@ boundaries instead of as loose images.
 **Built from** — A figure-package template system and reference examples:
 
 - `assets/templates/figure-package/` — contract, plot.py, caption, QA report, and asset manifest templates
-- `assets/materials4papers/` — 5 Nature-style reference examples (XRD, sintering, Weibull, durability, corrosion)
-- `scripts/figures4materials/` — 66 archived reference plotting scripts for materials
+- `assets/materials4papers/` — 12 top-journal reference examples (XRD, sintering, Weibull, durability, corrosion, EBSD, Raman mapping, etc.)
+- `assets/chart-atlas/` — 10 chart-type atlas PNGs (XRD, mechanical, thermal, spectroscopy, microscopy, etc.)
+- `assets/gallery/` — 5 submission-grade composite figures (cement hydration, steel microstructure, polymer composite, ceramics reliability, asphalt review)
+- `scripts/figures4materials/` — 68 archived reference plotting scripts for materials
   characterization (XRD, stress-strain, TGA/DSC, Weibull, EIS, sintering,
   rheology, FTIR, SEM, durability, corrosion, freeze-thaw, etc.). These are
   reference examples; the LLM now writes plotting code directly.
@@ -90,19 +92,22 @@ skills/materials-figure/
 ├── scripts/
 │   ├── validate_materials_claims.py   optional materials knowledge validation
 │   ├── check_storyboard.py            optional multi-figure storyboard check
-│   └── figures4materials/             66 reference plotting scripts
+│   └── figures4materials/             68 reference plotting scripts
 ├── assets/
-│   ├── materials4papers/              5 Nature-style reference examples
+│   ├── materials4papers/              12 top-journal reference examples
+│   ├── chart-atlas/                   10 chart-type atlas PNGs
+│   ├── gallery/                       5 submission-grade composite figures
 │   └── templates/                     contract, plot.py, caption, QA templates
 └── references/
     ├── chart-atlas.md                 chart family routing and usage
+    ├── figure-gallery.md              gallery composite figures guide
     ├── figure-package-protocol.md     figure package contract
     ├── figure-production-spec.md      production specification
     ├── figure-qa-contract.md          QA contract
     ├── figure-design-theory.md        typography, layout, export policy
     ├── materials-figure-atlas.md      atlas routing
-    ├── wer-ea-figure-atlas.md         WER-EA atlas guide
-    └── ceramics-figure-atlas.md       ceramics atlas guide
+    ├── materials-validation.md        materials knowledge validation guide
+    └── multi-figure-storyboard.md     multi-figure narrative composition
 ```
 
 **Supported chart types** — Stacked bar, grouped bar, horizontal ablation bar,
