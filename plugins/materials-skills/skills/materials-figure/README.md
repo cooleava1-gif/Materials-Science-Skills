@@ -12,8 +12,8 @@ boundaries instead of as loose images.
 
 - `assets/templates/figure-package/` — contract, plot.py, caption, QA report, and asset manifest templates
 - `assets/materials4papers/` — 12 top-journal reference examples (XRD, sintering, Weibull, durability, corrosion, EBSD, Raman mapping, etc.)
-- `assets/chart-atlas/` — 10 chart-type atlas PNGs (XRD, mechanical, thermal, spectroscopy, microscopy, etc.)
-- `assets/gallery/` — 5 submission-grade composite figures (cement hydration, steel microstructure, polymer composite, ceramics reliability, asphalt review)
+- `assets/chart-atlas/` — 15 chart-type atlas PNGs (XRD, mechanical, thermal, spectroscopy, microscopy, performance, durability, electrochemistry, comparison, composite, phase diagram, kinetics, adsorption, rheology, degradation)
+- `assets/gallery/` — 8 submission-grade composite figures (cement hydration, steel microstructure, polymer composite, ceramics reliability, asphalt review, nano characterization, concrete durability, functional coating)
 - `scripts/figures4materials/` — 68 archived reference plotting scripts for materials
   characterization (XRD, stress-strain, TGA/DSC, Weibull, EIS, sintering,
   rheology, FTIR, SEM, durability, corrosion, freeze-thaw, etc.). These are

@@ -606,7 +606,7 @@ cbar.set_label('Response')
 
 ## Visual Atlas (PNG Previews)
 
-The `assets/chart-atlas/` directory contains 10 pre-generated PNG atlas
+The `assets/chart-atlas/` directory contains 15 pre-generated PNG atlas
 images. Each atlas is a 4×4 panel grid showing one chart family with
 4 column variants and 4 row data distributions. Use these as visual
 quick-reference when choosing a chart type.
@@ -623,6 +623,11 @@ quick-reference when choosing a chart type.
 | `atlas-08-electrochemistry.png` | Electrochemistry | Nyquist / Bode / CV / polarization |
 | `atlas-09-comparison.png` | Multi-index comparison | radar / bubble matrix / parallel coordinates / heatmap |
 | `atlas-10-composite-layout.png` | Composite layouts | schematic+data / image+plot / mechanism+evidence / review summary |
+| `atlas-11-phase-diagram.png` | Phase diagrams | binary phase / ternary triangle / TTT / CCT |
+| `atlas-12-kinetics.png` | Kinetics curves | Avrami / Arrhenius / reaction rate / conversion vs time |
+| `atlas-13-adsorption.png` | Adsorption isotherms | Langmuir / Freundlich / BET / adsorption kinetics |
+| `atlas-14-rheology.png` | Rheology | flow curve / viscosity / G'G'' / creep-recovery |
+| `atlas-15-degradation.png` | Degradation / aging | mass loss / strength retention / color change / Mw decay |
 
 ## LLM-as-Artist Mode
 

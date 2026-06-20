@@ -18,7 +18,7 @@ The gallery is not a decoration library. Each figure card links visual form to a
 
 ## Gallery Composite Figures (PNG Previews)
 
-The `assets/gallery/` directory contains 5 submission-grade composite
+The `assets/gallery/` directory contains 8 submission-grade composite
 figures demonstrating complete materials science visual narratives. Each
 figure uses asymmetric GridSpec layouts with labeled panels (a)-(i).
 
@@ -29,6 +29,9 @@ figure uses asymmetric GridSpec layouts with labeled panels (a)-(i).
 | `fig3-polymer-composite-multifunctional.png` | Polymer composite multifunctional | 8 (a-h) | Advanced Functional Materials |
 | `fig4-ceramics-reliability-assessment.png` | Ceramics reliability assessment | 8 (a-h) | J. Am. Ceram. Soc. |
 | `fig5-asphalt-modification-review.png` | Asphalt modification review | 9 (a-i) | Construction and Building Materials |
+| `fig6-nano-material-characterization.png` | Nano material characterization | 8 (a-h) | ACS Nano |
+| `fig7-concrete-microstructure-durability.png` | Concrete microstructure-durability | 8 (a-h) | Cement and Concrete Research |
+| `fig8-functional-coating-performance.png` | Functional coating performance | 9 (a-i) | Advanced Materials |
 
 Use these as visual reference for:
 - Asymmetric multi-panel layout patterns
