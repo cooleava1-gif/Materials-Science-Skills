@@ -28,6 +28,12 @@ If the figure contains materials-science entities (XRD peaks/phases, FTIR wavenu
 
 Figures without materials-science entities (e.g. pure flowcharts or workflow diagrams) pass with no checks. Errors block plotting; warnings allow plotting but flag the claim for review.
 
+The validation engine lives at `scripts/validate_materials_claims.py`. It scans
+`source_data.csv` and `figure_contract.md` against `static/core/materials_kb.yaml`,
+emits errors (XRD/FTIR phase mismatches) and warnings (performance out of
+range). Run it as part of the QA gate before claiming a figure package is
+journal-ready.
+
 ## Optional: Multi-figure storyboard
 
 When a task spans more than one figure (e.g. a manuscript), the storyboard gate sits above individual figure contracts. Write `figure_storyboard.yaml` (see `assets/templates/figure-storyboard/`) defining:

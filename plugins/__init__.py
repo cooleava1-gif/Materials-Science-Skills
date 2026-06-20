@@ -1,0 +1,1 @@
+"""Materials skills plugin package."""

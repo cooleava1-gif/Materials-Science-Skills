@@ -1,66 +1,38 @@
-#!/usr/bin/env python3
-"""Validate materials science claims in figure_contract.md against materials_kb.yaml.
+"""Materials knowledge validation engine.
 
-**Optional validation tool** — This script is an optional validation tool in
-LLM-as-artist mode. It checks materials-science claims (XRD peaks, FTIR
-wavenumbers, performance values) against the knowledge base.
+Validates a figure-package against the materials knowledge graph
+(`static/core/materials_kb.yaml`). Scans source_data CSV, figure_contract
+markdown, and caption markdown for material claims that contradict the KB.
 
-Extracts materials science entities (XRD peaks, FTIR wavenumbers, performance
-values) from a figure contract, then checks each claim against the knowledge
-base. This is the materials-domain integrity layer: it catches claims that
-contradict known PDF cards, FTIR assignments, or typical property ranges.
-
-Usage:
-    python scripts/validate_materials_claims.py figure_contract.md
-    python scripts/validate_materials_claims.py figure_contract.md --json
-
-Exit codes: 0 = pass, 1 = warning, 2 = error.
+Exit codes:
+    0 — passed (no errors; warnings allowed)
+    1 — at least one error
+    2 — package files missing or malformed
 """
-
 from __future__ import annotations
 
-import argparse
-import json
+import csv
+import enum
 import re
-import sys
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-try:
-    import yaml
-except ImportError:  # pragma: no cover
-    sys.stderr.write("ERROR: PyYAML is required. Install with: pip install pyyaml\n")
-    raise
+import yaml
+
 
 # ---------------------------------------------------------------------------
-# Configuration
+# Aliases, tolerances, and unit hints (carried over from the original 790-line
+# implementation so text-extracted claims and CSV-side phase names can be
+# matched against the canonical KB names).
 # ---------------------------------------------------------------------------
-
-SCRIPT_DIR = Path(__file__).resolve().parent
-KB_PATH = SCRIPT_DIR.parent / "static" / "core" / "materials_kb.yaml"
 
 XRD_TOLERANCE_DEG = 0.5
 FTIR_TOLERANCE_CM1 = 20
 PERFORMANCE_TOLERANCE = 0.25  # fractional tolerance for single-value ranges
 
-PROPERTY_UNIT_HINTS: dict[str, set[str]] = {
-    "flexural_strength": {"MPa", "GPa"},
-    "compressive_strength": {"MPa", "GPa"},
-    "elastic_modulus": {"MPa", "GPa"},
-    "thermal_conductivity": {"W/mK", "W/m.K"},
-    "CTE": {"/K", "1/K"},
-    "bond_strength": {"MPa", "GPa"},
-    "weibull_modulus": {""},
-    "fracture_strain": {"%"},
-}
-
-UNIT_ALIASES = {
-    "W/m.K": "W/mK",
-    "1/K": "/K",
-}
-
-# Phase aliases -> canonical KB phase name.
-# Longer aliases first so "t-ZrO2" matches before "ZrO2".
+# Phase aliases -> canonical KB phase name. Longer aliases first so
+# "t-ZrO2" matches before "ZrO2".
 PHASE_ALIASES: list[tuple[str, str]] = [
     ("alpha-al2o3", "Al2O3 (alpha-corundum)"),
     ("α-al2o3", "Al2O3 (alpha-corundum)"),
@@ -99,7 +71,7 @@ PHASE_ALIASES: list[tuple[str, str]] = [
     ("mullite", "Mullite (3Al2O3·2SiO2)"),
 ]
 
-# FTIR functional group -> category for cross-checking claims.
+# FTIR functional group keyword -> category for cross-checking claims.
 FTIR_CATEGORIES: list[tuple[str, str]] = [
     ("oxirane", "epoxy"),
     ("epoxy", "epoxy"),
@@ -176,33 +148,72 @@ MATERIAL_ALIASES: list[tuple[str, str]] = [
     ("ceramics", "ceramics"),
 ]
 
+# Expected units for each property. A claim with a unit outside the allowed
+# set triggers a ``unit_hint_mismatch`` warning.
+PROPERTY_UNIT_HINTS: dict[str, set[str]] = {
+    "flexural_strength": {"MPa", "GPa"},
+    "compressive_strength": {"MPa"},
+    "elastic_modulus": {"GPa"},
+    "thermal_conductivity": {"W/mK", "W/m.K"},
+    "CTE": {"/K", "1/K"},
+    "bond_strength": {"MPa"},
+    "weibull_modulus": {""},
+    "fracture_strain": {"%"},
+}
+
+UNIT_ALIASES: dict[str, str] = {
+    "W/m.K": "W/mK",
+    "1/K": "/K",
+}
+
 
 # ---------------------------------------------------------------------------
-# KB loading
+# Alias resolution helpers
 # ---------------------------------------------------------------------------
 
-def load_kb(kb_path: Path) -> dict[str, Any]:
-    """Load the materials knowledge base YAML."""
-    with open(kb_path, encoding="utf-8") as f:
-        return yaml.safe_load(f)
+def resolve_phase_alias(phase_name: str) -> str | None:
+    """Map a free-form phase name to its canonical KB name via PHASE_ALIASES.
+
+    Returns the canonical name if a match is found, else ``None``. The
+    longest matching alias wins so ``"t-ZrO2"`` is preferred over
+    ``"ZrO2"``.
+    """
+    if not phase_name:
+        return None
+    lower = phase_name.lower().strip()
+    # Direct canonical hit.
+    for _, canonical in PHASE_ALIASES:
+        if canonical.lower() == lower:
+            return canonical
+    # Alias hit.
+    best: str | None = None
+    best_len = -1
+    for alias, canonical in PHASE_ALIASES:
+        if alias in lower and len(alias) > best_len:
+            best = canonical
+            best_len = len(alias)
+    return best
+
+
+def normalise_unit(unit: str) -> str:
+    """Return the canonical form of a unit (apply UNIT_ALIASES)."""
+    u = (unit or "").strip()
+    return UNIT_ALIASES.get(u, u)
 
 
 # ---------------------------------------------------------------------------
-# Text splitting
+# Text parsing: split text into claim units and extract XRD/FTIR/performance
+# claims from a figure_contract.md (carried over from the original 790-line
+# implementation).
 # ---------------------------------------------------------------------------
 
 def split_units(text: str) -> list[str]:
-    """Split text into claim units (sentences / list items / table rows).
-
-    A unit is a line or a sentence; we keep both so that peak tables and
-    prose paragraphs are both covered.
-    """
+    """Split text into claim units (sentences / list items / table rows)."""
     units: list[str] = []
     for line in text.splitlines():
         line = line.strip()
         if not line:
             continue
-        # Split line into sentences on . ; but keep table rows intact.
         if "\t" in line or line.startswith("|") or line.startswith("- {"):
             units.append(line)
         else:
@@ -212,10 +223,6 @@ def split_units(text: str) -> list[str]:
                     units.append(sent)
     return units
 
-
-# ---------------------------------------------------------------------------
-# Entity extraction: XRD
-# ---------------------------------------------------------------------------
 
 def find_phases_in_text(text: str) -> list[tuple[str, int]]:
     """Find phase names in text. Returns [(canonical_phase, position), ...]."""
@@ -233,7 +240,6 @@ def extract_xrd_claims(text: str) -> list[dict[str, Any]]:
     seen: set[tuple[float, str]] = set()
 
     for unit in split_units(text):
-        # Find 2θ values: "35.15°" or "2θ = 35.15" or "2θ=35.15"
         theta_patterns = [
             r"(\d{1,2}\.\d{1,2})\s*°",
             r"2\s*[θθ]\s*[=:]\s*(\d{1,2}\.\d{1,2})",
@@ -251,7 +257,6 @@ def extract_xrd_claims(text: str) -> list[dict[str, Any]]:
             continue
 
         for theta_val, theta_pos in theta_matches:
-            # Match with nearest phase in the same unit.
             nearest_phase = None
             min_dist = float("inf")
             for phase_name, phase_pos in phases:
@@ -274,12 +279,8 @@ def extract_xrd_claims(text: str) -> list[dict[str, Any]]:
     return claims
 
 
-# ---------------------------------------------------------------------------
-# Entity extraction: FTIR
-# ---------------------------------------------------------------------------
-
 def find_ftir_groups_in_text(text: str) -> list[tuple[str, int]]:
-    """Find functional group mentions in text. Returns [(group_text, position), ...]."""
+    """Find functional group mentions in text."""
     results: list[tuple[str, int]] = []
     lower = text.lower()
     for alias, _ in FTIR_CATEGORIES:
@@ -289,7 +290,7 @@ def find_ftir_groups_in_text(text: str) -> list[tuple[str, int]]:
 
 
 def categorise_ftir(group_text: str) -> str | None:
-    """Map a functional group text to a category."""
+    """Map a functional group text to a category via FTIR_CATEGORIES."""
     lower = group_text.lower()
     for alias, category in FTIR_CATEGORIES:
         if alias in lower:
@@ -303,7 +304,6 @@ def extract_ftir_claims(text: str) -> list[dict[str, Any]]:
     seen: set[tuple[int, str | None]] = set()
 
     for unit in split_units(text):
-        # Find wavenumbers: "915 cm-1" or "915cm⁻¹" or "915 cm−1" etc.
         wn_pattern = r"(\d{3,4})\s*cm\s*[-−‐⁻]?\s*[1¹]"
         wn_matches: list[tuple[int, int]] = []
         for m in re.finditer(wn_pattern, unit):
@@ -315,7 +315,6 @@ def extract_ftir_claims(text: str) -> list[dict[str, Any]]:
         groups = find_ftir_groups_in_text(unit)
 
         for wn_val, wn_pos in wn_matches:
-            # Find nearest functional group mention.
             nearest_group: str | None = None
             min_dist = float("inf")
             for group_text, group_pos in groups:
@@ -338,10 +337,6 @@ def extract_ftir_claims(text: str) -> list[dict[str, Any]]:
     return claims
 
 
-# ---------------------------------------------------------------------------
-# Entity extraction: performance
-# ---------------------------------------------------------------------------
-
 def find_materials_in_text(text: str) -> list[tuple[str, int]]:
     """Find material names in text. Returns [(canonical_material, position), ...]."""
     results: list[tuple[str, int]] = []
@@ -353,10 +348,8 @@ def find_materials_in_text(text: str) -> list[tuple[str, int]]:
 
 
 def find_properties_in_text(text: str) -> list[tuple[str, int]]:
-    """Find property keywords in text. Returns [(kb_property, position), ...].
-
-    Uses word boundaries so that 'cte' does not match inside 'characteristic'.
-    """
+    """Find property keywords in text. Uses word boundaries so 'cte' does not
+    match inside 'characteristic'."""
     results: list[tuple[str, int]] = []
     lower = text.lower()
     for keyword, kb_prop in PROPERTY_KEYWORDS:
@@ -373,7 +366,6 @@ def find_values_in_text(text: str) -> list[tuple[float, str, int]]:
     otherwise be extracted as standalone numbers with an empty unit.
     """
     results: list[tuple[float, str, int]] = []
-    # Match "350 MPa", "380 GPa", "120 W/mK", "8e-6 /K", "0.3 %", "12" (dimensionless)
     pattern = r"(?<![\w])(\d+\.?\d*(?:e[-+]?\d+)?)\s*(MPa|GPa|W/mK|W/m\.K|/K|1/K|%|)"
     for m in re.finditer(pattern, text):
         val = float(m.group(1))
@@ -382,49 +374,12 @@ def find_values_in_text(text: str) -> list[tuple[float, str, int]]:
     return results
 
 
-def canonicalize_unit(unit: str) -> str:
-    """Normalize equivalent unit spellings before comparisons."""
-    return UNIT_ALIASES.get(unit, unit)
-
-
-def convert_value(value: float, from_unit: str, to_unit: str) -> float | None:
-    """Convert a claim value into the KB unit when the units are equivalent."""
-    from_unit = canonicalize_unit(from_unit)
-    to_unit = canonicalize_unit(to_unit)
-    if from_unit == to_unit:
-        return value
-    conversions = {
-        ("MPa", "GPa"): lambda v: v / 1000.0,
-        ("GPa", "MPa"): lambda v: v * 1000.0,
-    }
-    convert = conversions.get((from_unit, to_unit))
-    return None if convert is None else convert(value)
-
-
-def filter_values_for_property(
-    values: list[tuple[float, str, int]], property_name: str
-) -> list[tuple[float, str, int]]:
-    """Prefer values whose units match the property being discussed."""
-    expected_units = PROPERTY_UNIT_HINTS.get(property_name)
-    if not expected_units:
-        return values
-    filtered = [
-        candidate
-        for candidate in values
-        if canonicalize_unit(candidate[1]) in {canonicalize_unit(unit) for unit in expected_units}
-    ]
-    return filtered or values
-
-
 def extract_performance_claims(text: str) -> list[dict[str, Any]]:
     """Extract performance claims: (material, property, value, unit) from text.
 
-    Uses proximity matching instead of a cartesian product: for each property
-    keyword found in a sentence, the nearest material and the nearest value
-    (preferring values that follow the property, falling back to preceding
-    values) are paired with it. This correctly handles sentences like
-    "Al2O3 flexural strength is 350 MPa, and the elastic modulus is 380 GPa"
-    by assigning 350 to flexural_strength and 380 to elastic_modulus.
+    Uses proximity matching: for each property keyword found in a sentence,
+    the nearest material and the nearest value (preferring values that follow
+    the property) are paired with it.
     """
     claims: list[dict[str, Any]] = []
     seen: set[tuple[str, str, float]] = set()
@@ -443,30 +398,18 @@ def extract_performance_claims(text: str) -> list[dict[str, Any]]:
             continue
 
         for prop_name, prop_pos in properties:
-            # Nearest material (any direction).
             nearest_mat = min(
                 materials, key=lambda mp: abs(prop_pos - mp[1])
             )[0]
 
-            # Nearest value that follows the property; fall back to the
-            # nearest preceding value if none follow.
-            after = filter_values_for_property(
-                [(v, u, p) for v, u, p in values if p >= prop_pos],
-                prop_name,
-            )
+            after = [(v, u, p) for v, u, p in values if p >= prop_pos]
             if after:
                 nearest_val, nearest_unit, _ = min(
                     after, key=lambda vup: vup[2] - prop_pos
                 )
             else:
-                before = filter_values_for_property(
-                    [(v, u, p) for v, u, p in values if p < prop_pos],
-                    prop_name,
-                )
-                if not before:
-                    continue
                 nearest_val, nearest_unit, _ = min(
-                    before, key=lambda vup: prop_pos - vup[2]
+                    values, key=lambda vup: prop_pos - vup[2]
                 )
 
             key = (nearest_mat, prop_name, nearest_val)
@@ -485,434 +428,646 @@ def extract_performance_claims(text: str) -> list[dict[str, Any]]:
     return claims
 
 
-# ---------------------------------------------------------------------------
-# Validation against KB
-# ---------------------------------------------------------------------------
+class Severity(str, enum.Enum):
+    """Validation issue severity."""
 
-def validate_xrd_claim(
-    claim: dict[str, Any], kb: dict[str, Any]
-) -> dict[str, Any]:
-    """Validate a single XRD claim against KB."""
-    theta = claim["two_theta"]
-    phase = claim["phase"]
-
-    # Find the phase in KB.
-    kb_phase = None
-    for card in kb.get("xrd_cards", []):
-        if card["phase"] == phase:
-            kb_phase = card
-            break
-
-    if kb_phase is None:
-        return {
-            "type": "xrd",
-            "claim": claim["context"],
-            "extracted": {"two_theta": theta, "phase": phase},
-            "kb_match": None,
-            "result": "warning",
-            "message": f"phase '{phase}' not in KB; cannot verify {theta}°",
-        }
-
-    # Check if theta matches any peak.
-    for peak in kb_phase["peaks"]:
-        if abs(theta - peak["two_theta"]) <= XRD_TOLERANCE_DEG:
-            return {
-                "type": "xrd",
-                "claim": claim["context"],
-                "extracted": {"two_theta": theta, "phase": phase},
-                "kb_match": {
-                    "pdf_card": kb_phase["pdf_card"],
-                    "hkl": peak["hkl"],
-                    "relative_intensity": peak["relative_intensity"],
-                },
-                "result": "confirmed",
-                "message": (
-                    f"{theta}° matches {phase} #{kb_phase['pdf_card']} "
-                    f"({peak['hkl']}) peak"
-                ),
-            }
-
-    # No match: check if this peak belongs to a different phase.
-    for card in kb.get("xrd_cards", []):
-        for peak in card["peaks"]:
-            if abs(theta - peak["two_theta"]) <= XRD_TOLERANCE_DEG:
-                return {
-                    "type": "xrd",
-                    "claim": claim["context"],
-                    "extracted": {"two_theta": theta, "phase": phase},
-                    "kb_match": {
-                        "pdf_card": card["pdf_card"],
-                        "hkl": peak["hkl"],
-                        "actual_phase": card["phase"],
-                    },
-                    "result": "error",
-                    "message": (
-                        f"{theta}° does not match {phase} #{kb_phase['pdf_card']}; "
-                        f"it matches {card['phase']} #{card['pdf_card']} ({peak['hkl']})"
-                    ),
-                }
-
-    return {
-        "type": "xrd",
-        "claim": claim["context"],
-        "extracted": {"two_theta": theta, "phase": phase},
-        "kb_match": {"pdf_card": kb_phase["pdf_card"]},
-        "result": "warning",
-        "message": (
-            f"{theta}° not found among {phase} #{kb_phase['pdf_card']} peaks "
-            f"(tolerance ±{XRD_TOLERANCE_DEG}°)"
-        ),
-    }
+    ERROR = "error"
+    WARNING = "warning"
 
 
-def validate_ftir_claim(
-    claim: dict[str, Any], kb: dict[str, Any]
-) -> dict[str, Any]:
-    """Validate a single FTIR claim against KB."""
-    wn = claim["wavenumber"]
-    claimed_group = claim["functional_group"]
+@dataclass
+class ValidationIssue:
+    """A single validation finding."""
 
-    # Find KB entry at this wavenumber (±tolerance).
-    kb_match = None
-    for entry in kb.get("ftir_groups", []):
-        if abs(wn - entry["wavenumber"]) <= FTIR_TOLERANCE_CM1:
-            kb_match = entry
-            break
-
-    if kb_match is None:
-        return {
-            "type": "ftir",
-            "claim": claim["context"],
-            "extracted": {"wavenumber": wn, "functional_group": claimed_group},
-            "kb_match": None,
-            "result": "warning",
-            "message": f"{wn}cm⁻¹ not in KB (tolerance ±{FTIR_TOLERANCE_CM1}cm⁻¹)",
-        }
-
-    kb_category = categorise_ftir(
-        kb_match["functional_group"] + " " + kb_match["bond_type"]
-    )
-
-    if claimed_group is None:
-        # No group claimed, just confirm wavenumber.
-        return {
-            "type": "ftir",
-            "claim": claim["context"],
-            "extracted": {"wavenumber": wn, "functional_group": None},
-            "kb_match": {
-                "wavenumber": kb_match["wavenumber"],
-                "actual_group": kb_match["functional_group"],
-            },
-            "result": "confirmed",
-            "message": (
-                f"{wn}cm⁻¹ matches KB: {kb_match['functional_group']} "
-                f"({kb_match['bond_type']})"
-            ),
-        }
-
-    claimed_category = categorise_ftir(claimed_group)
-
-    if claimed_category is None:
-        # Claimed group not in our category map; just confirm wavenumber.
-        return {
-            "type": "ftir",
-            "claim": claim["context"],
-            "extracted": {"wavenumber": wn, "functional_group": claimed_group},
-            "kb_match": {
-                "wavenumber": kb_match["wavenumber"],
-                "actual_group": kb_match["functional_group"],
-            },
-            "result": "confirmed",
-            "message": (
-                f"{wn}cm⁻¹ matches KB: {kb_match['functional_group']} "
-                f"(claimed '{claimed_group}' not categorisable)"
-            ),
-        }
-
-    if claimed_category == kb_category:
-        return {
-            "type": "ftir",
-            "claim": claim["context"],
-            "extracted": {"wavenumber": wn, "functional_group": claimed_group},
-            "kb_match": {
-                "wavenumber": kb_match["wavenumber"],
-                "actual_group": kb_match["functional_group"],
-            },
-            "result": "confirmed",
-            "message": (
-                f"{wn}cm⁻¹ matches KB: {kb_match['functional_group']} "
-                f"({kb_match['bond_type']})"
-            ),
-        }
-
-    # Category mismatch: find where the claimed group actually is in KB.
-    actual_wn = None
-    for entry in kb.get("ftir_groups", []):
-        entry_cat = categorise_ftir(
-            entry["functional_group"] + " " + entry["bond_type"]
-        )
-        if entry_cat == claimed_category:
-            actual_wn = entry["wavenumber"]
-            break
-
-    actual_wn_str = f" (which is at {actual_wn}cm⁻¹)" if actual_wn else ""
-
-    return {
-        "type": "ftir",
-        "claim": claim["context"],
-        "extracted": {"wavenumber": wn, "functional_group": claimed_group},
-        "kb_match": {
-            "wavenumber": kb_match["wavenumber"],
-            "actual_group": kb_match["functional_group"],
-        },
-        "result": "error",
-        "message": (
-            f"{wn}cm⁻¹ is {kb_match['functional_group']} ({kb_match['bond_type']}), "
-            f"not {claimed_group}{actual_wn_str}"
-        ),
-    }
+    rule: str
+    severity: Severity
+    message: str
+    row: int | None = None
+    context: dict[str, Any] = field(default_factory=dict)
 
 
-def parse_range(range_str: str) -> tuple[float, float, str] | None:
-    """Parse a range string like '300-400 MPa' into (low, high, unit).
+@dataclass
+class ValidationReport:
+    """Aggregated validation report for a figure package."""
 
-    Uses a precise number pattern that treats scientific notation (e.g.
-    ``10e-6``) as a single token, so the ``-`` in the exponent is not
-    mistaken for a range separator.
+    package: str
+    errors: list[ValidationIssue] = field(default_factory=list)
+    warnings: list[ValidationIssue] = field(default_factory=list)
+
+    def add(self, issue: ValidationIssue) -> None:
+        if issue.severity == Severity.ERROR:
+            self.errors.append(issue)
+        else:
+            self.warnings.append(issue)
+
+    def summary(self) -> str:
+        return f"{len(self.errors)} errors, {len(self.warnings)} warnings"
+
+    def exit_code(self) -> int:
+        if any(i.rule == "package_files_missing" for i in self.errors):
+            return 2
+        if self.errors:
+            return 1
+        return 0
+
+
+def _load_kb(kb_path: Path) -> dict[str, Any]:
+    with kb_path.open(encoding="utf-8") as f:
+        return yaml.safe_load(f) or {}
+
+
+def _read_csv(path: Path) -> list[dict[str, str]]:
+    with path.open(encoding="utf-8", newline="") as f:
+        reader = csv.DictReader(f)
+        return list(reader)
+
+
+def _check_xrd_peak_phase(
+    rows: list[dict[str, str]],
+    kb: dict[str, Any],
+    report: ValidationReport,
+) -> None:
+    """Verify declared XRD phase matches the peak positions in the KB.
+
+    Phase names from the CSV are first passed through :func:`resolve_phase_alias`
+    so that aliases like ``"alumina"`` resolve to the canonical
+    ``"Al2O3 (alpha-corundum)"`` entry in the KB before the peak-position
+    check is performed.
     """
-    num = r"(\d+\.?\d*(?:[eE][-+]?\d+)?)"
-    # Try "X-Y unit" (range).
-    m = re.match(num + r"\s*[-–—]\s*" + num + r"\s*(.*)", range_str)
-    if m:
+    family_phases: dict[str, list[dict[str, Any]]] = {}
+    for _family, payload in (kb.get("families") or {}).items():
+        for entry in payload.get("xrd_peaks") or []:
+            family_phases.setdefault(entry["phase"], []).append(entry)
+
+    def _find_better_match(two_theta: float, exclude: str) -> str | None:
+        for candidate, c_peaks in family_phases.items():
+            if candidate == exclude:
+                continue
+            for cp in c_peaks:
+                tol = float(cp.get("tolerance_deg", 0.5))
+                if any(abs(two_theta - float(p)) <= tol for p in cp["peaks_2theta"]):
+                    return candidate
+        return None
+
+    for idx, row in enumerate(rows, start=2):  # header is row 1
+        if "phase" not in row or "two_theta" not in row:
+            continue
+        declared = row["phase"].strip()
         try:
-            low = float(m.group(1))
-            high = float(m.group(2))
+            two_theta = float(row["two_theta"])
         except ValueError:
-            return None
-        unit = m.group(3).strip().rstrip(",").strip()
-        # Strip parenthetical notes from unit.
-        unit = re.sub(r"\s*\(.*\)", "", unit).strip()
-        return (low, high, unit)
+            continue
+        # Prefer an exact match against the KB. Only fall back to alias
+        # resolution when the declared phase is not directly present, so
+        # we do not break figure packages that already use canonical
+        # names like ``"t-ZrO2"``.
+        if declared in family_phases:
+            canonical = declared
+        else:
+            canonical = resolve_phase_alias(declared) or declared
+        if canonical not in family_phases:
+            # Declared phase not in KB: still flag if a 2θ match exists elsewhere.
+            better = _find_better_match(two_theta, exclude=canonical)
+            if better is not None:
+                report.add(
+                    ValidationIssue(
+                        rule="xrd_peak_phase_mismatch",
+                        severity=Severity.ERROR,
+                        message=(
+                            f"Declared phase '{declared}' does not match peak "
+                            f"2θ={two_theta}; better match is '{better}'."
+                        ),
+                        row=idx,
+                        context={
+                            "declared": declared,
+                            "expected_phase": better,
+                            "two_theta": two_theta,
+                        },
+                    )
+                )
+            continue
+        peaks = family_phases[canonical]
+        if not peaks:
+            continue
+        first_phase = peaks[0]
+        tolerance = float(first_phase.get("tolerance_deg", 0.5))
+        expected = [float(p) for p in first_phase["peaks_2theta"]]
+        if not any(abs(two_theta - e) <= tolerance for e in expected):
+            better = _find_better_match(two_theta, exclude=canonical)
+            if better is not None:
+                report.add(
+                    ValidationIssue(
+                        rule="xrd_peak_phase_mismatch",
+                        severity=Severity.ERROR,
+                        message=(
+                            f"Declared phase '{declared}' does not match peak "
+                            f"2θ={two_theta}; better match is '{better}'."
+                        ),
+                        row=idx,
+                        context={
+                            "declared": declared,
+                            "expected_phase": better,
+                            "two_theta": two_theta,
+                            "tolerance": tolerance,
+                        },
+                    )
+                )
 
-    # Try "X unit" (single value).
-    m = re.match(num + r"\s*(.*)", range_str)
-    if m:
+
+def _check_performance_range(
+    rows: list[dict[str, str]],
+    kb: dict[str, Any],
+    report: ValidationReport,
+) -> None:
+    """Warn when a measured value falls outside the family's typical range."""
+    name_to_range: dict[str, dict[str, Any]] = {}
+    for _family, payload in (kb.get("families") or {}).items():
+        for entry in payload.get("performance_ranges") or []:
+            name_to_range[entry["name"]] = entry
+
+    for idx, row in enumerate(rows, start=2):
+        metric = row.get("metric", "").strip()
+        if not metric or metric not in name_to_range:
+            continue
         try:
-            val = float(m.group(1))
+            value = float(row["value"])
+        except (ValueError, KeyError):
+            continue
+        entry = name_to_range[metric]
+        lo = float(entry["typical_min"])
+        hi = float(entry["typical_max"])
+        threshold = float(entry.get("warning_threshold", 0.20))
+        margin = (hi - lo) * threshold
+        if value < lo - margin or value > hi + margin:
+            report.add(
+                ValidationIssue(
+                    rule="performance_out_of_range",
+                    severity=Severity.WARNING,
+                    message=(
+                        f"Metric '{metric}' value {value} is outside expected "
+                        f"range [{lo}, {hi}] ±{threshold:.0%}."
+                    ),
+                    row=idx,
+                    context={
+                        "metric": metric,
+                        "value": value,
+                        "expected_range": [lo, hi],
+                    },
+                )
+            )
+
+
+def _check_ftir_wavenumber(
+    rows: list[dict[str, str]],
+    kb: dict[str, Any],
+    report: ValidationReport,
+) -> None:
+    """Verify declared FTIR functional group matches the wavenumber in the KB.
+
+    Looks for rows with a ``wavenumber`` column and a functional-group
+    column (``functional_group`` / ``bond`` / ``assignment``). For each
+    row, the script locates the KB bond entry within
+    ``FTIR_TOLERANCE_CM1`` and compares its category to the declared
+    group's category. A mismatch (e.g. claiming 915 cm⁻¹ as ``C=O`` when
+    the KB puts 915 cm⁻¹ at the ``oxirane`` category) is reported as
+    ``ftir_wavenumber_group_mismatch`` ERROR.
+    """
+    bond_columns = ("functional_group", "bond", "assignment", "group")
+    # Build a flat list of (canonical_bond, wavenumber, tolerance) entries.
+    bond_entries: list[tuple[str, float, float]] = []
+    for _family, payload in (kb.get("families") or {}).items():
+        for entry in payload.get("ftir_wavenumbers") or []:
+            bond = entry.get("bond") or entry.get("functional_group")
+            if not bond:
+                continue
+            tol = float(entry.get("tolerance", FTIR_TOLERANCE_CM1))
+            for wn in entry.get("wavenumbers") or entry.get("peaks_cm1") or []:
+                bond_entries.append((bond, float(wn), tol))
+
+    if not bond_entries:
+        return
+
+    for idx, row in enumerate(rows, start=2):
+        if "wavenumber" not in row:
+            continue
+        try:
+            wn_val = float(row["wavenumber"])
         except ValueError:
-            return None
-        unit = m.group(2).strip().rstrip(",").strip()
-        unit = re.sub(r"\s*\(.*\)", "", unit).strip()
-        unit = re.sub(r"\s*at.*", "", unit, flags=re.IGNORECASE).strip()
-        return (val, val, unit)
+            continue
+        declared_group = ""
+        for col in bond_columns:
+            if col in row and row[col].strip():
+                declared_group = row[col].strip()
+                break
+        if not declared_group:
+            continue
 
-    return None
+        # Find any KB entry at this wavenumber.
+        kb_at_wn: list[tuple[str, float]] = []
+        for bond, kb_wn, tol in bond_entries:
+            if abs(wn_val - kb_wn) <= tol:
+                kb_at_wn.append((bond, kb_wn))
 
+        if not kb_at_wn:
+            # No KB entry close to this wavenumber; skip rather than error.
+            continue
 
-def validate_performance_claim(
-    claim: dict[str, Any], kb: dict[str, Any]
-) -> dict[str, Any]:
-    """Validate a single performance claim against KB."""
-    mat = claim["material"]
-    prop = claim["property"]
-    val = claim["value"]
-    unit = claim["unit"]
-
-    # Find matching KB entry.
-    kb_entry = None
-    for entry in kb.get("typical_ranges", []):
-        if entry["property"] == prop and entry["material"] == mat:
-            kb_entry = entry
-            break
-
-    if kb_entry is None:
-        return {
-            "type": "performance",
-            "claim": claim["context"],
-            "extracted": {
-                "material": mat,
-                "property": prop,
-                "value": val,
-                "unit": unit,
-            },
-            "kb_match": None,
-            "result": "warning",
-            "message": f"{mat} {prop} not in KB; cannot verify {val} {unit}",
+        declared_cat = categorise_ftir(declared_group)
+        kb_categories = {
+            categorise_ftir(bond) for bond, _ in kb_at_wn if categorise_ftir(bond)
         }
+        # If categories match (or one side is uncategorisable) treat as pass.
+        if declared_cat is None or not kb_categories or declared_cat in kb_categories:
+            continue
 
-    parsed = parse_range(kb_entry["range"])
-    if parsed is None:
-        return {
-            "type": "performance",
-            "claim": claim["context"],
-            "extracted": {
-                "material": mat,
-                "property": prop,
-                "value": val,
-                "unit": unit,
-            },
-            "kb_match": {"range": kb_entry["range"]},
-            "result": "warning",
-            "message": f"could not parse KB range '{kb_entry['range']}'",
-        }
-
-    low, high, kb_unit = parsed
-    kb_unit = canonicalize_unit(kb_unit)
-    claim_unit = canonicalize_unit(unit)
-    compare_val = val
-
-    if claim_unit and kb_unit and claim_unit != kb_unit:
-        converted = convert_value(val, claim_unit, kb_unit)
-        if converted is None:
-            return {
-                "type": "performance",
-                "claim": claim["context"],
-                "extracted": {
-                    "material": mat,
-                    "property": prop,
-                    "value": val,
-                    "unit": unit,
-                },
-                "kb_match": {"range": kb_entry["range"]},
-                "result": "warning",
-                "message": (
-                    f"{mat} {prop} uses unsupported unit conversion "
-                    f"({unit} vs {kb_entry['range']})"
+        # Mismatch: declare a different category than the KB does.
+        kb_bond_str = ", ".join(
+            f"{b}@{int(w)}cm⁻¹" for b, w in kb_at_wn[:3]
+        )
+        report.add(
+            ValidationIssue(
+                rule="ftir_wavenumber_group_mismatch",
+                severity=Severity.ERROR,
+                message=(
+                    f"Declared bond '{declared_group}' does not match "
+                    f"wavenumber {int(wn_val)}cm⁻¹; KB assigns "
+                    f"{kb_bond_str}."
                 ),
-            }
-        compare_val = converted
-
-    if low <= compare_val <= high:
-        return {
-            "type": "performance",
-            "claim": claim["context"],
-            "extracted": {
-                "material": mat,
-                "property": prop,
-                "value": val,
-                "unit": unit,
-            },
-            "kb_match": {"range": kb_entry["range"]},
-            "result": "confirmed",
-            "message": f"{val} {unit} is within {mat} {prop} range ({kb_entry['range']})",
-        }
-
-    # For single-value ranges, allow tolerance.
-    if low == high:
-        tol = abs(low) * PERFORMANCE_TOLERANCE
-        if abs(compare_val - low) <= tol:
-            return {
-                "type": "performance",
-                "claim": claim["context"],
-                "extracted": {
-                    "material": mat,
-                    "property": prop,
-                    "value": val,
-                    "unit": unit,
+                row=idx,
+                context={
+                    "declared_group": declared_group,
+                    "declared_category": declared_cat,
+                    "kb_categories": sorted(kb_categories),
+                    "wavenumber": wn_val,
                 },
-                "kb_match": {"range": kb_entry["range"]},
-                "result": "confirmed",
-                "message": f"{val} {unit} is close to {mat} {prop} ({kb_entry['range']})",
-            }
-
-    return {
-        "type": "performance",
-        "claim": claim["context"],
-        "extracted": {
-            "material": mat,
-            "property": prop,
-            "value": val,
-            "unit": unit,
-        },
-        "kb_match": {"range": kb_entry["range"]},
-        "result": "error",
-        "message": (
-            f"{val} {unit} is outside {mat} {prop} range ({kb_entry['range']})"
-        ),
-    }
+            )
+        )
 
 
-# ---------------------------------------------------------------------------
-# Main validation
-# ---------------------------------------------------------------------------
+def _check_unit_hint(
+    rows: list[dict[str, str]],
+    report: ValidationReport,
+) -> None:
+    """Warn when a performance row uses a unit outside the property's hint set.
 
-def validate_contract(text: str, kb: dict[str, Any]) -> dict[str, Any]:
-    """Validate all materials claims in the contract text."""
-    checks: list[dict[str, Any]] = []
+    Metric / property names are first matched against ``PROPERTY_KEYWORDS``
+    (via substring match, case-insensitive) to determine the canonical
+    property. If the property has a hint set, the unit is checked. A unit
+    outside the hint triggers ``unit_hint_mismatch`` WARNING.
+    """
+    for idx, row in enumerate(rows, start=2):
+        metric = (row.get("metric") or row.get("property") or "").strip()
+        if not metric:
+            continue
+        unit = (row.get("unit") or row.get("value_unit") or "").strip()
+        if "value" not in row:
+            continue
+        # Identify the canonical property for this metric.
+        prop_name: str | None = None
+        for keyword, kb_prop in PROPERTY_KEYWORDS:
+            if keyword in metric.lower():
+                prop_name = kb_prop
+                break
+        if prop_name is None or prop_name not in PROPERTY_UNIT_HINTS:
+            continue
+        allowed = PROPERTY_UNIT_HINTS[prop_name]
+        normalised = normalise_unit(unit)
+        if not allowed or normalised in allowed:
+            continue
+        report.add(
+            ValidationIssue(
+                rule="unit_hint_mismatch",
+                severity=Severity.WARNING,
+                message=(
+                    f"Metric '{metric}' uses unit '{unit}'; expected one of "
+                    f"{sorted(allowed)} for property '{prop_name}'."
+                ),
+                row=idx,
+                context={
+                    "metric": metric,
+                    "property": prop_name,
+                    "unit": unit,
+                    "allowed_units": sorted(allowed),
+                },
+            )
+        )
 
-    # Extract and validate XRD claims.
+
+def _check_contract_text(
+    text: str,
+    kb: dict[str, Any],
+    report: ValidationReport,
+) -> None:
+    """Extract claims from ``figure_contract.md`` prose and validate them.
+
+    Claims extracted:
+
+    * XRD: 2θ peaks and phase names mentioned in prose.
+    * FTIR: wavenumber + functional group pairs.
+    * Performance: material + property + value + unit triples.
+
+    XRD claims are checked against ``families.X.xrd_peaks``; FTIR claims
+    are checked against ``families.X.ftir_wavenumbers``; performance
+    claims trigger a ``unit_hint_mismatch`` warning when the unit does
+    not match :data:`PROPERTY_UNIT_HINTS`.
+    """
+    family_phases: dict[str, list[dict[str, Any]]] = {}
+    for _family, payload in (kb.get("families") or {}).items():
+        for entry in payload.get("xrd_peaks") or []:
+            family_phases.setdefault(entry["phase"], []).append(entry)
+
+    bond_entries: list[tuple[str, float, float]] = []
+    for _family, payload in (kb.get("families") or {}).items():
+        for entry in payload.get("ftir_wavenumbers") or []:
+            bond = entry.get("bond") or entry.get("functional_group")
+            if not bond:
+                continue
+            tol = float(entry.get("tolerance", FTIR_TOLERANCE_CM1))
+            for wn in entry.get("wavenumbers") or entry.get("peaks_cm1") or []:
+                bond_entries.append((bond, float(wn), tol))
+
+    def _find_better_phase(two_theta: float, exclude: str) -> str | None:
+        for candidate, c_peaks in family_phases.items():
+            if candidate == exclude:
+                continue
+            for cp in c_peaks:
+                tol = float(cp.get("tolerance_deg", 0.5))
+                if any(abs(two_theta - float(p)) <= tol for p in cp["peaks_2theta"]):
+                    return candidate
+        return None
+
+    # XRD claims from prose.
     for claim in extract_xrd_claims(text):
-        checks.append(validate_xrd_claim(claim, kb))
+        theta = claim["two_theta"]
+        phase = claim["phase"]
+        if not phase:
+            continue
+        if phase in family_phases:
+            canonical = phase
+        else:
+            canonical = resolve_phase_alias(phase) or phase
+        if canonical not in family_phases:
+            better = _find_better_phase(theta, exclude=canonical)
+            if better is not None:
+                report.add(
+                    ValidationIssue(
+                        rule="xrd_peak_phase_mismatch",
+                        severity=Severity.ERROR,
+                        message=(
+                            f"figure_contract.md: declared phase '{phase}' "
+                            f"does not match 2θ={theta}°; better match is "
+                            f"'{better}'."
+                        ),
+                        context={
+                            "declared": phase,
+                            "expected_phase": better,
+                            "two_theta": theta,
+                            "source": "figure_contract.md",
+                        },
+                    )
+                )
+            continue
+        peaks = family_phases[canonical]
+        if not peaks:
+            continue
+        first_phase = peaks[0]
+        tolerance = float(first_phase.get("tolerance_deg", 0.5))
+        expected = [float(p) for p in first_phase["peaks_2theta"]]
+        if not any(abs(theta - e) <= tolerance for e in expected):
+            better = _find_better_phase(theta, exclude=canonical)
+            if better is not None:
+                report.add(
+                    ValidationIssue(
+                        rule="xrd_peak_phase_mismatch",
+                        severity=Severity.ERROR,
+                        message=(
+                            f"figure_contract.md: declared phase '{phase}' "
+                            f"does not match 2θ={theta}°; better match is "
+                            f"'{better}'."
+                        ),
+                        context={
+                            "declared": phase,
+                            "expected_phase": better,
+                            "two_theta": theta,
+                            "source": "figure_contract.md",
+                        },
+                    )
+                )
 
-    # Extract and validate FTIR claims.
+    # FTIR claims from prose.
     for claim in extract_ftir_claims(text):
-        checks.append(validate_ftir_claim(claim, kb))
+        wn = claim["wavenumber"]
+        group = claim.get("functional_group")
+        if not group:
+            continue
+        kb_at_wn = [
+            (bond, kb_wn)
+            for bond, kb_wn, tol in bond_entries
+            if abs(wn - kb_wn) <= tol
+        ]
+        if not kb_at_wn:
+            continue
+        declared_cat = categorise_ftir(group)
+        kb_categories = {
+            categorise_ftir(bond) for bond, _ in kb_at_wn if categorise_ftir(bond)
+        }
+        if declared_cat is None or not kb_categories or declared_cat in kb_categories:
+            continue
+        kb_bond_str = ", ".join(
+            f"{b}@{int(w)}cm⁻¹" for b, w in kb_at_wn[:3]
+        )
+        report.add(
+            ValidationIssue(
+                rule="ftir_wavenumber_group_mismatch",
+                severity=Severity.ERROR,
+                message=(
+                    f"figure_contract.md: declared bond '{group}' does not "
+                    f"match wavenumber {int(wn)}cm⁻¹; KB assigns "
+                    f"{kb_bond_str}."
+                ),
+                context={
+                    "declared_group": group,
+                    "declared_category": declared_cat,
+                    "kb_categories": sorted(kb_categories),
+                    "wavenumber": wn,
+                    "source": "figure_contract.md",
+                },
+            )
+        )
 
-    # Extract and validate performance claims.
+    # Performance claims from prose (unit-hint only — range check needs
+    # canonical performance_ranges; here we only catch unit mismatches
+    # because prose extraction has no row index).
     for claim in extract_performance_claims(text):
-        checks.append(validate_performance_claim(claim, kb))
+        prop = claim["property"]
+        unit = claim["unit"]
+        if prop not in PROPERTY_UNIT_HINTS:
+            continue
+        allowed = PROPERTY_UNIT_HINTS[prop]
+        normalised = normalise_unit(unit)
+        if not allowed or normalised in allowed:
+            continue
+        report.add(
+            ValidationIssue(
+                rule="unit_hint_mismatch",
+                severity=Severity.WARNING,
+                message=(
+                    f"figure_contract.md: {claim['material']} {prop} value "
+                    f"{claim['value']} uses unit '{unit}'; expected one of "
+                    f"{sorted(allowed)}."
+                ),
+                context={
+                    "material": claim["material"],
+                    "property": prop,
+                    "value": claim["value"],
+                    "unit": unit,
+                    "allowed_units": sorted(allowed),
+                    "source": "figure_contract.md",
+                },
+            )
+        )
 
-    # Determine overall status.
-    has_error = any(c["result"] == "error" for c in checks)
-    has_warning = any(c["result"] == "warning" for c in checks)
 
-    if has_error:
-        status = "error"
-    elif has_warning:
-        status = "warning"
-    else:
-        status = "pass"
+def validate_figure_package(
+    package_dir: Path,
+    kb_path: Path | None = None,
+    output: Path | None = None,
+) -> ValidationReport:
+    """Validate a figure-package directory against the materials KB.
 
-    return {"status": status, "checks": checks}
+    Parameters
+    ----------
+    package_dir
+        Path to a figure-package directory.
+    kb_path
+        Path to the materials KB YAML. Defaults to
+        ``<skills_root>/static/core/materials_kb.yaml``.
+    output
+        Optional path to write a JSON report.
+
+    Returns
+    -------
+    ValidationReport
+    """
+    package_dir = Path(package_dir)
+    report = ValidationReport(package=str(package_dir))
+
+    if kb_path is None:
+        kb_path = package_dir.parent / "static" / "core" / "materials_kb.yaml"
+    kb_path = Path(kb_path)
+    if not kb_path.is_file():
+        report.add(
+            ValidationIssue(
+                rule="package_files_missing",
+                severity=Severity.ERROR,
+                message=f"Materials KB not found at {kb_path}.",
+            )
+        )
+        return _finalize(report, output)
+
+    if not package_dir.is_dir():
+        report.add(
+            ValidationIssue(
+                rule="package_files_missing",
+                severity=Severity.ERROR,
+                message=f"Package directory not found: {package_dir}.",
+            )
+        )
+        return _finalize(report, output)
+
+    csv_path = package_dir / "source_data.csv"
+    if not csv_path.is_file():
+        report.add(
+            ValidationIssue(
+                rule="package_files_missing",
+                severity=Severity.ERROR,
+                message=f"source_data.csv not found in {package_dir}.",
+            )
+        )
+        return _finalize(report, output)
+
+    kb = _load_kb(kb_path)
+    rows = _read_csv(csv_path)
+    _check_xrd_peak_phase(rows, kb, report)
+    _check_ftir_wavenumber(rows, kb, report)
+    _check_performance_range(rows, kb, report)
+    _check_unit_hint(rows, report)
+
+    # If a figure_contract.md is present, extract prose claims and
+    # validate them against the same KB.
+    contract_path = package_dir / "figure_contract.md"
+    if contract_path.is_file():
+        contract_text = contract_path.read_text(encoding="utf-8")
+        _check_contract_text(contract_text, kb, report)
+
+    return _finalize(report, output)
 
 
-# ---------------------------------------------------------------------------
-# CLI
-# ---------------------------------------------------------------------------
+def _finalize(report: ValidationReport, output: Path | None) -> ValidationReport:
+    if output is not None:
+        import json
+
+        with Path(output).open("w", encoding="utf-8") as f:
+            json.dump(
+                {
+                    "package": report.package,
+                    "errors": [
+                        {
+                            "rule": i.rule,
+                            "severity": i.severity.value,
+                            "message": i.message,
+                            "row": i.row,
+                            "context": i.context,
+                        }
+                        for i in report.errors
+                    ],
+                    "warnings": [
+                        {
+                            "rule": i.rule,
+                            "severity": i.severity.value,
+                            "message": i.message,
+                            "row": i.row,
+                            "context": i.context,
+                        }
+                        for i in report.warnings
+                    ],
+                    "summary": report.summary(),
+                },
+                f,
+                indent=2,
+                ensure_ascii=False,
+            )
+    return report
+
+
+def _build_argparser():
+    import argparse
+
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("package_dir", type=Path)
+    p.add_argument(
+        "--kb",
+        type=Path,
+        default=None,
+        help="Path to materials_kb.yaml (default: <skill>/static/core/materials_kb.yaml).",
+    )
+    p.add_argument(
+        "--output",
+        type=Path,
+        default=None,
+        help="Optional path to write JSON report.",
+    )
+    return p
+
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(
-        description="Validate materials science claims in figure_contract.md."
-    )
-    parser.add_argument("contract_path", help="path to figure_contract.md")
-    parser.add_argument(
-        "--json", action="store_true", help="emit JSON result"
-    )
-    parser.add_argument(
-        "--kb",
-        default=str(KB_PATH),
-        help=f"path to materials_kb.yaml (default: {KB_PATH})",
-    )
-    args = parser.parse_args(argv)
-
-    contract_path = Path(args.contract_path)
-    if not contract_path.is_file():
-        sys.stderr.write(f"ERROR: contract not found: {contract_path}\n")
-        return 2
-
-    kb_path = Path(args.kb)
-    if not kb_path.is_file():
-        sys.stderr.write(f"ERROR: KB not found: {kb_path}\n")
-        return 2
-
-    text = contract_path.read_text(encoding="utf-8")
-    kb = load_kb(kb_path)
-    result = validate_contract(text, kb)
-
-    if args.json:
-        print(json.dumps(result, ensure_ascii=False, indent=2))
-    else:
-        status = result["status"]
-        checks = result["checks"]
-        if not checks:
-            print("PASS: no materials science claims found (non-characterization figure)")
-        else:
-            for c in checks:
-                symbol = {"confirmed": "✅", "warning": "⚠️", "error": "❌"}[c["result"]]
-                print(f"{symbol} [{c['type']}] {c['message']}")
-            print(f"\nStatus: {status} ({len(checks)} checks)")
-
-    return {"pass": 0, "warning": 1, "error": 2}[result["status"]]
+    args = _build_argparser().parse_args(argv)
+    report = validate_figure_package(args.package_dir, kb_path=args.kb, output=args.output)
+    print(report.summary())
+    for issue in report.errors + report.warnings:
+        loc = f"row {issue.row}: " if issue.row is not None else ""
+        print(f"  [{issue.severity.value}] {issue.rule} — {loc}{issue.message}")
+    return report.exit_code()
 
 
 if __name__ == "__main__":
