@@ -1,0 +1,10 @@
+atlas_id: 20
+name: atlas-20-mechanism-flowchart
+family: civil
+chart_type: flowchart
+kb_validation_refs:
+- Asphalt DSR G*/sin δ @ 64°C (kPa)
+qa_gates:
+- editable_svg_text
+- 300_dpi
+- no_default_seaborn_palette

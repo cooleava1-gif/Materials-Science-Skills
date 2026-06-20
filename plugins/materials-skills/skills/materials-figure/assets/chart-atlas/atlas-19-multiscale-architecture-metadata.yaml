@@ -1,0 +1,9 @@
+atlas_id: 19
+name: atlas-19-multiscale-architecture
+family: all
+chart_type: schematic
+kb_validation_refs: []
+qa_gates:
+- editable_svg_text
+- 300_dpi
+- no_default_seaborn_palette

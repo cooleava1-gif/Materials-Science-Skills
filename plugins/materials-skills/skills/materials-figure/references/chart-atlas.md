@@ -629,6 +629,17 @@ quick-reference when choosing a chart type.
 | `atlas-14-rheology.png` | Rheology | flow curve / viscosity / G'G'' / creep-recovery |
 | `atlas-15-degradation.png` | Degradation / aging | mass loss / strength retention / color change / Mw decay |
 
+## Atlas 16–21 (added 2026-06-20)
+
+| ID | Name | Family | Chart type |
+|---|---|---|---|
+| 16 | pore-size-distribution | thermal-insulation | distribution+semilog |
+| 17 | electrochemical-impedance | functional | nyquist+bode |
+| 18 | mercury-intrusion | civil | log-scale twin axis |
+| 19 | multiscale-architecture | all | schematic |
+| 20 | mechanism-flowchart | civil | flowchart |
+| 21 | graphical-abstract | all | graphical abstract |
+
 ## LLM-as-Artist Mode
 
 The LLM writes plotting code directly using matplotlib, following the code
