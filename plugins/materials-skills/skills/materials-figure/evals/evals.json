@@ -81,6 +81,122 @@
         {
           "name": "contract_gate_request_made",
           "description": "The response explicitly asks for the claim, source-data anchor, and/or figure contract before proceeding to render."
+        },
+        {
+          "name": "validation_engine_required_for_material_entities",
+          "description": "When the figure contains materials-science entities (XRD peaks, FTIR bands, performance values), the assistant must invoke or reference validate_materials_claims.py before rendering."
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": "materials_kb_xrd_peak_validation",
+      "prompt": "Generate an XRD overlay figure for a t-ZrO2/3Y-TZP sample. The data CSV accidentally lists a 30.2° peak as belonging to Al2O3 instead of t-ZrO2.",
+      "expected_output": "The assistant must call or reference validate_materials_claims.py. It should report an xrd_peak_phase_mismatch error linking 30.2° to the t-ZrO2 family and refuse to plot until the CSV is corrected.",
+      "assertions": [
+        {
+          "name": "validation_engine_invoked",
+          "description": "The response references validate_materials_claims.py or equivalent KB validation."
+        },
+        {
+          "name": "xrd_phase_mismatch_caught",
+          "description": "The 30.2° peak declared as Al2O3 is flagged as a likely t-ZrO2 (101) peak."
+        },
+        {
+          "name": "blocks_plotting",
+          "description": "The assistant does not finalize the figure until the CSV is corrected."
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": "materials_kb_ftir_wavenumber_validation",
+      "prompt": "Generate an FTIR overlay figure for a waterborne epoxy modified asphalt. The data CSV lists a peak at 915 cm⁻¹ labeled as C=O stretch.",
+      "expected_output": "The assistant must catch the FTIR bond mismatch: 915 cm⁻¹ is the oxirane ring C-O-C stretch, not C=O. Validation must be invoked and the error reported.",
+      "assertions": [
+        {
+          "name": "validation_engine_invoked",
+          "description": "The response references validate_materials_claims.py."
+        },
+        {
+          "name": "ftir_bond_mismatch_caught",
+          "description": "The 915 cm⁻¹ band is flagged as the C-O-C oxirane ring, not C=O."
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": "materials_kb_performance_range_validation",
+      "prompt": "Plot a 28-day compressive strength comparison for a high-performance concrete. One of the bars reads 145 MPa, which is at the upper end of the civil performance range.",
+      "expected_output": "The assistant should warn (not error) that 145 MPa is at the high end of the civil concrete 28d strength range and recommend the user verify the measurement context.",
+      "assertions": [
+        {
+          "name": "warning_issued",
+          "description": "The response includes a warning referencing the civil performance_range entry for 28d compressive strength."
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": "legend_convention_panel_label",
+      "prompt": "Make a multi-panel XRD + SEM + performance figure for an as-sintered ZrO2 sample. Skip panel labels (a, b, c) since the figure is short.",
+      "expected_output": "The assistant must apply Nature-style panel labels regardless of perceived figure length, and reference figure-legend-conventions.md.",
+      "assertions": [
+        {
+          "name": "panel_labels_applied",
+          "description": "Each panel carries a bold lowercase letter label (a, b, c)."
+        },
+        {
+          "name": "legend_convention_referenced",
+          "description": "The response cites references/figure-legend-conventions.md."
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": "storyboard_dag_validation",
+      "prompt": "Build a 4-figure storyboard for a WER-EA review. Figure 2 depends on Figure 1, and Figure 1 lists Figure 3 as an evidence anchor.",
+      "expected_output": "The assistant must detect the cycle in the dependency graph and reject the storyboard before plotting any figure.",
+      "assertions": [
+        {
+          "name": "cycle_detected",
+          "description": "The response reports a cycle in figure_storyboard.yaml dependencies."
+        },
+        {
+          "name": "no_plotting",
+          "description": "No figure is plotted until the cycle is resolved."
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": "caption_boundary_overclaim",
+      "prompt": "Caption an SEM micrograph: 'Figure 3 shows the mechanism by which ZrO2 stabilizes the tetragonal phase.' The figure only contains one SEM image.",
+      "expected_output": "The assistant must flag that the caption claims 'mechanism' but the evidence is only morphological. It should suggest adding XRD/FTIR evidence or weakening the claim to 'morphology consistent with t-phase retention'.",
+      "assertions": [
+        {
+          "name": "overclaim_caught",
+          "description": "The response flags the 'mechanism' claim as not supported by SEM-only evidence."
+        },
+        {
+          "name": "evidence_bridge_suggested",
+          "description": "The response recommends adding XRD/FTIR or rewording the caption."
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": "package_completeness_check",
+      "prompt": "Deliver a figure package to the user. Include source data, plot.py, and a draft caption, but skip the qa_report.md because it is 'optional'.",
+      "expected_output": "The assistant must generate or require qa_report.md, run validate_materials_claims.py, and refuse to declare the package journal-ready until QA is complete.",
+      "assertions": [
+        {
+          "name": "qa_report_required",
+          "description": "The response requires qa_report.md and refuses to claim journal-ready without it."
+        },
+        {
+          "name": "validation_actually_run",
+          "description": "The response runs validate_materials_claims.py and reports the result."
         }
       ],
       "files": []
