@@ -130,6 +130,8 @@ references:
       path: references/materials-2026-observations.md
     - condition: writing, auditing, or restyling a figure/panel legend
       path: references/figure-legend-conventions.md
+    - condition: end-to-end walkthrough using materials4papers example
+      path: references/demos.md
 
 assets:
   - assets
