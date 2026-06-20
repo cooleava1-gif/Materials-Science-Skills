@@ -84,31 +84,28 @@ def check_independent_claim_technical_features(claims: list[dict], kb: dict) -> 
 
 def check_dependent_claim_references(claims: list[dict], kb: dict) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
-    valid_predecessors = (
-        {c.get("number") for c in claims if c.get("type") == "dependent"}
-        | {c.get("number") for c in claims if c.get("type") == "independent"}
-        | {0}
-    )
+    claim_numbers = {c.get("number") for c in claims}
     ref_pattern = re.compile(r"权利要求\s*(\d+)")
     for claim in claims:
         if claim.get("type") != "dependent":
             continue
+        claim_number = claim.get("number")
         text = str(claim.get("text", ""))
         numbers = [int(n) for n in ref_pattern.findall(text)]
         for n in numbers:
-            if n not in valid_predecessors:
+            if n not in claim_numbers or (isinstance(claim_number, int) and n >= claim_number):
                 issues.append(ValidationIssue(
                     Severity.ERROR,
                     "bad_dependent_reference",
-                    f"从属权利要求{claim.get('number')}引用了不存在的权利要求{n}",
-                    claim_number=claim.get("number"),
+                    f"从属权利要求{claim_number}引用了不存在或非前置的权利要求{n}",
+                    claim_number=claim_number,
                 ))
         if not numbers:
             issues.append(ValidationIssue(
                 Severity.ERROR,
                 "no_dependent_reference",
-                f"从属权利要求{claim.get('number')}未引用任何权利要求",
-                claim_number=claim.get("number"),
+                f"从属权利要求{claim_number}未引用任何权利要求",
+                claim_number=claim_number,
             ))
     return issues
 

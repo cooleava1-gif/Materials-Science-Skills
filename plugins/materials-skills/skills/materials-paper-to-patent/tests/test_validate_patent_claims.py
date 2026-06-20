@@ -82,6 +82,24 @@ def test_dependent_claim_bad_reference_fails():
     assert any(i.severity == Severity.ERROR for i in issues)
 
 
+def test_dependent_claim_later_reference_fails():
+    draft = _base_draft()
+    draft["claims"].append({
+        "number": 2,
+        "type": "dependent",
+        "text": "根据权利要求3所述的水泥基复合材料，其特征在于：所述骨料为碎石。",
+        "feature_map": ["P004"],
+    })
+    draft["claims"].append({
+        "number": 3,
+        "type": "dependent",
+        "text": "根据权利要求1所述的水泥基复合材料，其特征在于：所述水灰比为0.35。",
+        "feature_map": ["P005"],
+    })
+    issues = check_dependent_claim_references(draft["claims"], KB)
+    assert any(i.severity == Severity.ERROR for i in issues)
+
+
 def test_support_in_specification_passes():
     draft = _base_draft()
     issues = check_support_in_specification(draft["claims"], draft["specification"], KB)

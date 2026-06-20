@@ -84,13 +84,13 @@ def main() -> int:
     validator = importlib.util.module_from_spec(validator_spec)
     sys.modules[validator_spec.name] = validator
     validator_spec.loader.exec_module(validator)
-    validation_findings = validator.validate(data)
+    validation_findings = validator.validate_draft(data)
     args.output_dir.mkdir(parents=True, exist_ok=True)
     validation_report = args.output_dir / f"{args.prefix}-草稿验证报告.txt"
     validation_report.write_text(
         validator.format_report(validation_findings), encoding="utf-8"
     )
-    if any(item.level == "ERROR" for item in validation_findings):
+    if any(item.severity == validator.Severity.ERROR for item in validation_findings):
         print(validation_report)
         raise SystemExit(1)
 
@@ -99,14 +99,18 @@ def main() -> int:
     figure_script = root / "render_flowchart_svg.py"
 
     figure_dir = args.output_dir / f"{args.prefix}-figures"
+    flow_steps = args.draft.parent / "flow-steps.json"
+    if not flow_steps.exists():
+        raise ValueError(f"Missing flowchart steps file: {flow_steps}")
     run(
         [
             sys.executable,
             str(figure_script),
-            str(args.draft),
-            "--output-dir",
-            str(figure_dir),
-            "--png",
+            str(flow_steps),
+            "--output",
+            str(figure_dir / "figure-1.svg"),
+            "--png-output",
+            str(figure_dir / "figure-1.png"),
         ]
     )
 

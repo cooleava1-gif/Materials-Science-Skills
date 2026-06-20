@@ -34,8 +34,8 @@ python scripts/build_patent_package.py examples/civil-concrete-strengthening/dra
 
 ## What it demonstrates
 
-- Two independent product claims, one dependent claim narrowing the cement
-  type.
+- One independent product claim and one dependent claim narrowing the
+  aggregate to crushed stone.
 - Source IDs (`P001`, `P002`, `P003`) tagging the disclosure.
 - A single main figure (flowchart) reused as abstract figure.
 - Range with unit (w/b=0.30-0.40) and explicit concrete strength output

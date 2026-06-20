@@ -18,6 +18,26 @@ V_SPACING = 40
 COLS = 3
 
 
+def _layout(steps: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    nodes: list[dict[str, Any]] = []
+    n = len(steps) or 1
+    for index, step in enumerate(steps):
+        col = index % COLS
+        row = index // COLS
+        kind = str(step.get("kind", "step"))
+        if index == 0:
+            kind = "start"
+        if index == n - 1:
+            kind = "end" if step.get("kind") == "end" else "result"
+        nodes.append({
+            "x": 60 + col * (NODE_W + H_SPACING),
+            "y": 40 + row * (NODE_H + V_SPACING),
+            "label": str(step.get("label", f"步骤{index + 1}"))[:24],
+            "kind": kind,
+        })
+    return nodes
+
+
 def _node(x: int, y: int, label: str, kind: str = "step") -> str:
     fill = {
         "start": "#e8f4ea",
@@ -47,28 +67,15 @@ def _arrow(x1: int, y1: int, x2: int, y2: int) -> str:
 def render_svg(steps: list[dict[str, Any]], title: str = "工艺流程图") -> str:
     nodes: list[str] = []
     arrows: list[str] = []
-    n = len(steps) or 1
-    cols = COLS
-    rows = (n + cols - 1) // cols
-    for index, step in enumerate(steps):
-        col = index % cols
-        row = index // cols
-        x = 60 + col * (NODE_W + H_SPACING)
-        y = 40 + row * (NODE_H + V_SPACING)
-        label = str(step.get("label", f"步骤{index + 1}"))[:24]
-        kind = str(step.get("kind", "step"))
-        if index == 0:
-            kind = "start"
-        if index == n - 1:
-            kind = "result" if "result" not in {k for s in steps for k in s} else "result"
-            if step.get("kind") == "end":
-                kind = "end"
-        nodes.append(_node(x, y, label, kind))
+    layout = _layout(steps)
+    for index, node in enumerate(layout):
+        x = int(node["x"])
+        y = int(node["y"])
+        nodes.append(_node(x, y, str(node["label"]), str(node["kind"])))
         if index > 0:
-            prev_col = (index - 1) % cols
-            prev_row = (index - 1) // cols
-            px = 60 + prev_col * (NODE_W + H_SPACING) + NODE_W
-            py = 40 + prev_row * (NODE_H + V_SPACING) + NODE_H // 2
+            prev = layout[index - 1]
+            px = int(prev["x"]) + NODE_W
+            py = int(prev["y"]) + NODE_H // 2
             arrows.append(_arrow(px, py, x, y + NODE_H // 2))
 
     defs = (
@@ -90,10 +97,62 @@ def render_svg(steps: list[dict[str, Any]], title: str = "工艺流程图") -> s
     )
 
 
+def render_png(steps: list[dict[str, Any]], output: Path, title: str = "工艺流程图") -> None:
+    from PIL import Image, ImageDraw, ImageFont
+
+    image = Image.new("RGB", (VIEWBOX_W, VIEWBOX_H), "white")
+    draw = ImageDraw.Draw(image)
+    try:
+        title_font = ImageFont.truetype("msyh.ttc", 22)
+        body_font = ImageFont.truetype("msyh.ttc", 18)
+    except OSError:
+        title_font = ImageFont.load_default()
+        body_font = ImageFont.load_default()
+
+    fills = {
+        "start": "#e8f4ea",
+        "step": "#eef2ff",
+        "decision": "#fff7e6",
+        "result": "#fde6e6",
+        "end": "#e8eaf6",
+    }
+    draw.text((VIEWBOX_W // 2, 18), title, fill="#111111", font=title_font, anchor="mm")
+    layout = _layout(steps)
+    for index, node in enumerate(layout):
+        x = int(node["x"])
+        y = int(node["y"])
+        if index > 0:
+            prev = layout[index - 1]
+            start = (int(prev["x"]) + NODE_W, int(prev["y"]) + NODE_H // 2)
+            end = (x, y + NODE_H // 2)
+            draw.line([start, end], fill="#1f2933", width=2)
+            draw.polygon(
+                [(end[0], end[1]), (end[0] - 10, end[1] - 5), (end[0] - 10, end[1] + 5)],
+                fill="#1f2933",
+            )
+        draw.rounded_rectangle(
+            [x, y, x + NODE_W, y + NODE_H],
+            radius=6,
+            fill=fills.get(str(node["kind"]), "#eef2ff"),
+            outline="#1f2933",
+            width=2,
+        )
+        draw.text(
+            (x + NODE_W // 2, y + NODE_H // 2),
+            str(node["label"]),
+            fill="#111111",
+            font=body_font,
+            anchor="mm",
+        )
+    output.parent.mkdir(parents=True, exist_ok=True)
+    image.save(output)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("steps", type=Path, help="JSON file with steps: [{label, kind?}]")
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--png-output", type=Path, help="Optional PNG output path")
     parser.add_argument("--title", default="工艺流程图")
     args = parser.parse_args()
 
@@ -107,6 +166,8 @@ def main() -> int:
         return 2
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(render_svg(steps, title=args.title), encoding="utf-8")
+    if args.png_output:
+        render_png(steps, args.png_output, title=args.title)
     print(args.output)
     return 0
 

@@ -1,7 +1,7 @@
 # Draft Schema (draft.json)
 
 A complete draft.json contains the following top-level keys. See
-`assets/templates/draft-template.json` for a working example.
+`examples/civil-concrete-strengthening/draft.json` for a working example.
 
 ```yaml
 title: string            # 发明名称
