@@ -554,3 +554,78 @@ performance_relations:
 - [validate_materials_claims.py](../scripts/validate_materials_claims.py) — Validation script
 - [multi-figure-storyboard.md](multi-figure-storyboard.md) — Multi-figure narrative orchestration
 - [figure-package-protocol.md](figure-package-protocol.md) — Complete figure package workflow
+
+---
+
+## 9. KB schema migration (2026-06-20)
+
+The materials knowledge base was rewritten in Phase 2 to use a family-grouped
+schema that matches the Phase 1 validation engine
+(`scripts/validate_materials_claims.py`). The earlier flat schema in this
+document (sections 1–8) describes the historical format; the new schema is
+authoritative for the engine and for any new entries.
+
+### 9.1 What changed
+
+- **Old schema** (pre-2026-06-20): top-level keys `xrd_cards`,
+  `ftir_groups`, `typical_ranges`, `thermal_events_top`, with each entry
+  tagged by `phase`, `material`, or `wavenumber` as a flat list across all
+  materials families.
+- **New schema** (2026-06-20): top-level `families:` with seven required
+  family keys. Each family has four parallel lists:
+  - `xrd_peaks` — declared `phase` with `peaks_2theta` list, `card` string,
+    and `tolerance_deg`.
+  - `ftir_wavenumbers` — declared `bond` with `wavenumber` and
+    `tolerance`.
+  - `performance_ranges` — `name` plus `typical_min`, `typical_max`, and
+    `warning_threshold`.
+  - `thermal_events` — `name` plus `temperature_c` and `tolerance`.
+
+### 9.2 Engine alignment
+
+The Phase 1 validation engine (`validate_materials_claims.py`) was already
+shipped against the new schema in commit `7354911`. Its
+`_check_xrd_peak_phase` and `_check_performance_range` functions read
+`kb["families"][family]["xrd_peaks"]` and
+`kb["families"][family]["performance_ranges"]` directly. Therefore, the
+KB must remain in the new schema; do not reintroduce the old top-level
+keys or the engine will silently skip the entries.
+
+### 9.3 Family coverage
+
+The new KB covers the seven materials families used throughout this skill
+plus ≥30 entries per family (≥210 total):
+
+| Family | xrd_peaks | ftir_wavenumbers | performance_ranges | thermal_events | Total |
+|---|---|---|---|---|---|
+| civil | 8 | 6 | 10 | 6 | 30 |
+| polymers | 6 | 8 | 8 | 8 | 30 |
+| metals | 8 | 4 | 10 | 8 | 30 |
+| ceramics | 10 | 6 | 6 | 8 | 30 |
+| functional | 8 | 6 | 8 | 8 | 30 |
+| nano | 6 | 6 | 8 | 10 | 30 |
+| thermal-insulation | 4 | 6 | 10 | 10 | 30 |
+| **Total** | **50** | **42** | **60** | **58** | **210** |
+
+### 9.4 Authoring rules going forward
+
+1. Always add new entries under the matching `families.<family>.xrd_peaks`
+   / `ftir_wavenumbers` / `performance_ranges` / `thermal_events` list.
+2. Do not invent new top-level keys; the engine iterates over a fixed
+   set of four sub-keys per family.
+3. Keep each family at ≥30 total entries; tests in
+   `scripts/tests/test_materials_kb.py` enforce this floor.
+4. Use `tolerance_deg` (XRD) and `tolerance` (FTIR / thermal) values that
+   match the engine's matching logic; too-tight tolerances will trigger
+   false-positive `xrd_peak_phase_mismatch` errors against real data.
+5. Phase aliases (e.g., `Al2O3` ↔ `Alumina α-Al2O3`) are resolved in the
+   engine; you can keep canonical names without manually aliasing.
+
+### 9.5 Migration safety net
+
+The pre-migration KB is preserved at
+`docs/superpowers/specs/_kb_old_schema.yaml.bak` (gitignored) for
+reference. If a regression is suspected, diff that backup against the
+new `materials_kb.yaml` to recover any entries that did not survive the
+rewrite.
+
