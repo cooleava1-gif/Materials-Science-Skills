@@ -1,4 +1,4 @@
-﻿characterization:
+characterization:
 - evidence_tier: strong
   method: SEM/EDS
   purpose: γ/γ′ microstructure, precipitate size/fraction, TCP phase identification
@@ -23,8 +23,8 @@ claim_types:
   - Larson-Miller parameter or other time-temperature extrapolation basis
   type: creep_resistance
 - common_risks:
-  - Claiming γ′ strengthening without TEM evidence of precipitate size, fraction, and
-    coherency
+  - Claiming γ′ strengthening without TEM evidence of precipitate size, fraction,
+    and coherency
   - Inferring microstructural stability from the as-processed condition without aging/exposure
     evidence
   - Over-interpreting lattice misfit without high-resolution XRD or TEM measurement
@@ -134,8 +134,10 @@ properties:
   typical_range: 1e-13–1e-10
   unit: g²/(cm⁴·s)
 skill_mapping:
-  data_schemas:
-  figure_scripts:
+  data_schemas: null
+  figure_scripts: null
+  figure_packages:
+  - skills/materials-figure/assets/materials4papers/alloy_stress_strain
 standards:
 - purpose: Uniaxial creep and stress-rupture testing of metallic materials
   standard: ASTM E139 / ISO 204

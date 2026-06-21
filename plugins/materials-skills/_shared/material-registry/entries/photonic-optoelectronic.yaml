@@ -1,4 +1,4 @@
-﻿characterization:
+characterization:
 - evidence_tier: definitive
   method: UV-Vis Spectroscopy
   purpose: Absorption edge, bandgap determination (Tauc plot)
@@ -73,7 +73,8 @@ figure_archetypes:
   - angle
   - intensity
   column_map:
-    x_values: {"column": "two_theta"}
+    x_values:
+      column: two_theta
     y_series:
     - key: Bulk Perovskite
       column: bulk_perovskite
@@ -86,9 +87,12 @@ figure_archetypes:
   - wavelength
   - eqe
   column_map:
-    x_values: {"column": "wavelength_nm"}
-    y_values: {"column": "EQE_percent"}
-    y_errors: {"column": "EQE_percent_std"}
+    x_values:
+      column: wavelength_nm
+    y_values:
+      column: EQE_percent
+    y_errors:
+      column: EQE_percent_std
 - description: UV-Vis absorption spectrum for bandgap determination (Tauc plot)
   id: uvis_absorption
   type: line_plot
@@ -96,8 +100,10 @@ figure_archetypes:
   - wavelength
   - absorbance
   column_map:
-    x_values: {"column": "wavelength_nm"}
-    y_values: {"column": "absorbance"}
+    x_values:
+      column: wavelength_nm
+    y_values:
+      column: absorbance
 - description: 'Multi-panel optoelectronic characterization: EQE + absorption + PL'
   id: optoelectronic_multipanel
   type: multi_panel
@@ -165,8 +171,10 @@ properties:
   typical_range: 5–50
   unit: mA/cm²
 skill_mapping:
-  data_schemas:
-  figure_scripts:
+  data_schemas: null
+  figure_scripts: null
+  figure_packages:
+  - skills/materials-figure/assets/materials4papers/17-nano_gisaxs_2d
 standards:
 - purpose: Solar simulator performance requirements for PV testing
   standard: IEC 60904-9

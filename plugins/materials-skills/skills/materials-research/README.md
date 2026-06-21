@@ -19,10 +19,11 @@ contract:
 - `references/companion-modules.md` — companion-skill handoff map
 - `references/reviewer-risk-checklist.md` — pre-submission reviewer risk
 - `references/journal-shortlist.md` — materials journal positioning
-- `static/fragments/task/` — 13 task-routing fragments: research-positioning,
+- `static/fragments/task/` — 15 task-routing fragments: research-positioning,
   reading, literature-review, citation-mapping, manuscript-writing,
   journal-targeting, experiment-design, data-analysis, data-fair,
-  figure-table, reviewer-audit, presentation, pptx-generation
+  figure-table, reviewer-audit, reviewer-response, submission-package,
+  presentation, pptx-generation
 - `static/fragments/domain/` — 36 material-domain fragments
 - `static/fragments/journal/` — 20 journal-family fragments
 - `../_shared/paper-production/weakness-routing.md` — weakness routing
@@ -55,7 +56,7 @@ skills/materials-research/
 ├── static/
 │   ├── core/                             contract, evidence-contract, stance, workflow
 │   └── fragments/
-│       ├── task/                         13 task-routing fragments (listed below)
+│       ├── task/                         15 task-routing fragments (listed below)
 │       │   ├── research-positioning.md
 │       │   ├── reading.md
 │       │   ├── literature-review.md
@@ -67,6 +68,8 @@ skills/materials-research/
 │       │   ├── data-fair.md
 │       │   ├── figure-table.md
 │       │   ├── reviewer-audit.md
+│       │   ├── reviewer-response.md
+│       │   ├── submission-package.md
 │       │   ├── presentation.md
 │       │   └── pptx-generation.md
 │       ├── domain/                       36 material-domain fragments
@@ -102,3 +105,33 @@ skills/materials-research/
   `plugins/materials-skills/skills/materials-research/scripts/audit_pressure_assets.py`
 - Bundle verification:
   `python .\scripts\run_release_checks.py --json`
+
+## When To Use
+
+Use `materials-research` when the user request matches this skill's production surface and the needed inputs are available or can be explicitly marked as missing.
+
+## Inputs
+
+Typical inputs are the user prompt, material direction/profile, target journal or task mode when relevant, and any source text, data, figures, reviewer comments, or package artifacts needed by the skill.
+
+## Outputs
+
+Outputs are structured handoffs or artifacts described above in this README. Missing evidence, author input needs, and unsupported claims stay visible instead of being hidden in fluent prose.
+
+## Example
+
+```text
+Route a broad WER-EA mini-review request into companion skills.
+```
+
+## Validation
+
+Run the skill-specific scripts or tests listed above when they apply, then run the bundle gate from the repository root:
+
+```powershell
+python .\scripts\run_release_checks.py --json
+```
+
+## Boundaries
+
+This skill does not invent experiments, citations, measurements, journal facts, private file paths, or completed actions. Time-sensitive journal or legal facts should be checked against official sources before submission or filing.

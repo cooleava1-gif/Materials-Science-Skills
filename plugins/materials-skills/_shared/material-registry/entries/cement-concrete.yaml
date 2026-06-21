@@ -1,4 +1,4 @@
-﻿characterization:
+characterization:
 - evidence_tier: strong
   method: XRD
   purpose: Phase identification of clinker minerals and hydration products (C₃S, C₂S,
@@ -156,8 +156,10 @@ properties:
   typical_range: 200–500
   unit: J/g
 skill_mapping:
-  data_schemas:
-  figure_scripts:
+  data_schemas: null
+  figure_scripts: null
+  figure_packages:
+  - skills/materials-figure/assets/materials4papers/cement_hydration_xrd
 standards:
 - purpose: Compressive strength of cylindrical/cubic specimens
   standard: ASTM C39 / GB/T 50081

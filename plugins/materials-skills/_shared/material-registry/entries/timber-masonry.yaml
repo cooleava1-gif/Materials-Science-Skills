@@ -1,4 +1,4 @@
-﻿characterization:
+characterization:
 - evidence_tier: definitive
   method: Mechanical Testing
   purpose: Compression, bending, and tension parallel/perpendicular to grain
@@ -123,5 +123,7 @@ standards:
 - purpose: Bending properties of wood (ISO 13061-3)
   standard: ISO 13061-3
 skill_mapping:
-  data_schemas:
-  figure_scripts:
+  data_schemas: null
+  figure_scripts: null
+  figure_packages:
+  - skills/materials-figure/assets/materials4papers/tack_coat_interface_schematic

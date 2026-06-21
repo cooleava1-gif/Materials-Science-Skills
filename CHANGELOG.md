@@ -21,7 +21,7 @@ and this project follows [Semantic Versioning](https://semver.org/) loosely:
 - Add `install.md` Path D "Paper to Chinese Invention Patent" plus a
   patent-pointer in the recommended-reading order.
 
-## v0.3.0 — 2026-06-20 — 13 skills + figure upgrade
+## v1.1.0 — 2026-06-20 — 13 skills + figure upgrade
 
 ### Added
 - 13th skill: `materials-paper-to-patent` (Chinese invention patent
@@ -96,11 +96,10 @@ and this project follows [Semantic Versioning](https://semver.org/) loosely:
 - `materials-data` 9 domain data schemas (asphalt, cement-concrete,
   ceramics, civil, functional, metals, nano, polymers, thermal-insulation).
 
-## v1.0.0 — 2026-04 — Initial public release
+## v2026.06.05-review-first — 2026-06-05 — Initial public release
 
 ### Added
-- Initial release of the civil-materials-skills Codex plugin bundle
-  (commit `8557a0e Release civil materials skills v1.0.0`).
+- Initial tagged release of the civil-materials-skills Codex plugin bundle.
 - 12 starter skills covering the full research pipeline: router,
   reader, citation, writing, polishing, figure, data, doe, reviewer,
   response, paper2ppt, pptx.
@@ -112,6 +111,6 @@ and this project follows [Semantic Versioning](https://semver.org/) loosely:
   (`terminology-ledger`, `stance`, `source-basis`, `ethics`).
 - First journal-format guide set under `_shared/journal-formats/`.
 
-[Unreleased]: https://github.com/cooleava1-gif/Materials-Science-Skills/compare/v0.3.0...HEAD
-[0.3.0]: https://github.com/cooleava1-gif/Materials-Science-Skills/compare/v1.0.0...v0.3.0
-[1.0.0]: https://github.com/cooleava1-gif/Materials-Science-Skills/releases/tag/v1.0.0
+[Unreleased]: https://github.com/cooleava1-gif/Materials-Science-Skills/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/cooleava1-gif/Materials-Science-Skills/compare/v2026.06.05-review-first...v1.1.0
+[v2026.06.05-review-first]: https://github.com/cooleava1-gif/Materials-Science-Skills/releases/tag/v2026.06.05-review-first

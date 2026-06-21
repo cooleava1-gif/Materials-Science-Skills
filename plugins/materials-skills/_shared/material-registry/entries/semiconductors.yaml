@@ -1,4 +1,4 @@
-﻿characterization:
+characterization:
 - evidence_tier: strong
   method: XRD
   purpose: Epitaxial quality, strain, composition (Vegard's law)
@@ -74,7 +74,8 @@ figure_archetypes:
   - angle
   - intensity
   column_map:
-    x_values: {"column": "two_theta"}
+    x_values:
+      column: two_theta
     y_series:
     - key: Bulk Silicon
       column: bulk_silicon
@@ -87,9 +88,12 @@ figure_archetypes:
   - x_values
   - y_values
   column_map:
-    x_values: {"column": "annealing_temp_C"}
-    y_values: {"column": "mobility_cm2_Vs"}
-    y_errors: {"column": "mobility_cm2_Vs_std"}
+    x_values:
+      column: annealing_temp_C
+    y_values:
+      column: mobility_cm2_Vs
+    y_errors:
+      column: mobility_cm2_Vs_std
 - description: Cyclic voltammetry curve for electrochemical interface characterization
   id: cv_curve
   type: cv_curve
@@ -103,11 +107,14 @@ figure_archetypes:
   - z_real
   - z_imag
   column_map:
-    frequency: {"column": "log_freq_hz"}
-    z_real: {"column": "z_real"}
-    z_imag: {"column": "z_imag"}
-- description: 'Multi-panel semiconductor characterization: mobility + resistivity +
-    bandgap'
+    frequency:
+      column: log_freq_hz
+    z_real:
+      column: z_real
+    z_imag:
+      column: z_imag
+- description: 'Multi-panel semiconductor characterization: mobility + resistivity
+    + bandgap'
   id: semiconductor_multipanel
   type: multi_panel
   column_roles:
@@ -171,8 +178,10 @@ properties:
   typical_range: 0.1–1000
   unit: μs
 skill_mapping:
-  data_schemas:
-  figure_scripts:
+  data_schemas: null
+  figure_scripts: null
+  figure_packages:
+  - skills/materials-figure/assets/materials4papers/17-nano_gisaxs_2d
 standards:
 - purpose: Resistivity of semiconductor materials (four-point probe and Hall method)
   standard: ASTM F76

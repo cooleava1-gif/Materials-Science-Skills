@@ -1,4 +1,4 @@
-﻿characterization:
+characterization:
 - evidence_tier: definitive
   method: XRD
   purpose: Phase purity, crystallinity, apatite formation in SBF
@@ -122,13 +122,13 @@ properties:
   test_methods:
   - ISO 10993-9 / ISO 10993-13
   typical_range: 0.1–5
-  unit: "%/week"
+  unit: '%/week'
 - id: porosity
   name: Porosity
   test_methods:
   - ASTM C373 / ISO 5017
   typical_range: 30–90
-  unit: "%"
+  unit: '%'
 - id: dissolution_rate_ion
   name: Ion Dissolution Rate
   test_methods:
@@ -136,8 +136,10 @@ properties:
   typical_range: 1–50
   unit: ppm/day
 skill_mapping:
-  data_schemas:
-  figure_scripts:
+  data_schemas: null
+  figure_scripts: null
+  figure_packages:
+  - skills/materials-figure/assets/materials4papers/ceramics_weibull_reliability
 standards:
 - purpose: In vitro evaluation for apatite-forming ability of implant materials
   standard: ISO 23317

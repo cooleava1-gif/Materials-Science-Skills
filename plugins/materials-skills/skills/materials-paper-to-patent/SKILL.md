@@ -13,6 +13,10 @@ the application directly from the paper abstract or contribution list.
 Read `manifest.yaml`, then read every file under `always_load` (including
 `static/core/patent_kb.yaml`).
 
+Apply profile-first routing from `.materials/profile.yaml`; on first use, ask
+for the user's materials direction once and save it locally before selecting
+the default material family/domain for the patent workflow.
+
 Detect these axes from the user's files and request:
 
 - `source_format`: selectable PDF, scanned PDF, pasted text, or mixed project;

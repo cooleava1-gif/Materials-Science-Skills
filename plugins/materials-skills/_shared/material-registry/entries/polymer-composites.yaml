@@ -1,4 +1,4 @@
-﻿characterization:
+characterization:
 - evidence_tier: strong
   method: SEM
   purpose: Fiber-matrix interface, fracture surface, void analysis
@@ -69,9 +69,12 @@ figure_archetypes:
   - strain
   - stress
   column_map:
-    x_values: {"column": "strain_pct"}
-    y_values: {"column": "stress_mpa"}
-    group_by: {"column": "sample_id"}
+    x_values:
+      column: strain_pct
+    y_values:
+      column: stress_mpa
+    group_by:
+      column: sample_id
 - description: Normalized multi-property radar for composite comparison
   id: mechanical_radar
   type: radar_chart
@@ -79,13 +82,15 @@ figure_archetypes:
   - categories
   - series_dict
   column_map:
-    categories: {"column": "property"}
+    categories:
+      column: property
     series:
     - key: Control
       column: control_index
     - key: Modified
       column: modified_index
-- description: Composite multi-panel characterization combining stress-strain and interface properties
+- description: Composite multi-panel characterization combining stress-strain and
+    interface properties
   id: composite_multipanel
   type: multi_panel
   column_roles:
@@ -99,7 +104,8 @@ figure_archetypes:
       column: ilss_mpa
     - key: Fiber Volume
       column: fiber_vol_pct
-- description: Multi-panel fatigue and durability characterization with S-N curve and stiffness degradation
+- description: Multi-panel fatigue and durability characterization with S-N curve
+    and stiffness degradation
   id: fatigue_durability_multipanel
   type: multi_panel
   column_roles:
@@ -115,7 +121,8 @@ figure_archetypes:
     - key: Aging Retention
       column: aging_time_h
       column2: strength_retention_pct
-- description: Mechanism diagram illustrating fiber-matrix load transfer and interface failure modes
+- description: Mechanism diagram illustrating fiber-matrix load transfer and interface
+    failure modes
   id: mechanism_diagram
   type: diagram
   column_roles: []
@@ -160,8 +167,10 @@ properties:
   typical_range: 40–70
   unit: '%'
 skill_mapping:
-  data_schemas:
-  figure_scripts:
+  data_schemas: null
+  figure_scripts: null
+  figure_packages:
+  - skills/materials-figure/assets/materials4papers/polymer_thermal_degradation
 standards:
 - purpose: Tension testing of polymer matrix composite materials
   standard: ASTM D3039

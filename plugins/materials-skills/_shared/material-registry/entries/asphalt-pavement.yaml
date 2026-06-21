@@ -1,4 +1,4 @@
-﻿characterization:
+characterization:
 - evidence_tier: strong
   key_features:
   - 915 cm⁻¹ (epoxide C–O stretching, decreases with curing)
@@ -259,8 +259,10 @@ properties:
   typical_range: 45–65
   unit: °C
 skill_mapping:
-  data_schemas:
-  figure_scripts:
+  data_schemas: null
+  figure_scripts: null
+  figure_packages:
+  - skills/materials-figure/assets/materials4papers/asphalt_bonding_performance
 standards:
 - purpose: Pull-off bonding strength of coatings and adhesive systems
   standard: ASTM D4541 / GB/T 5210

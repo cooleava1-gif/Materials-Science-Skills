@@ -1,4 +1,4 @@
-﻿characterization:
+characterization:
 - evidence_tier: definitive
   method: TEM/HRTEM
   purpose: Particle size, shape, crystallinity, lattice fringe analysis
@@ -64,7 +64,7 @@ claim_types:
   evidence_required:
   - Dose-response cytotoxicity across multiple cell lines
   - ROS generation and membrane integrity assays
-  - 'Size- and dose-dependent viability data with IC50'
+  - Size- and dose-dependent viability data with IC50
   type: toxicity_assessment
 coverage_tier: full
 cross_references:
@@ -86,8 +86,8 @@ description:
   - Nano-enhanced composites
 family: nano
 figure_archetypes:
-- description: XRD pattern overlay for Au/Ag nanoparticle phase identification and crystallinity
-    comparison
+- description: XRD pattern overlay for Au/Ag nanoparticle phase identification and
+    crystallinity comparison
   id: xrd_pattern
   type: xrd_pattern
   column_roles:
@@ -181,8 +181,10 @@ properties:
   typical_range: 0.05–0.5
   unit: PDI
 skill_mapping:
-  data_schemas:
-  figure_scripts:
+  data_schemas: null
+  figure_scripts: null
+  figure_packages:
+  - skills/materials-figure/assets/materials4papers/nanoparticle_size_distribution
 standards:
 - purpose: Particle size analysis by dynamic light scattering (DLS)
   standard: ISO 22412

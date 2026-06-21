@@ -99,3 +99,33 @@ skills/materials-reader/
   `plugins/materials-skills/skills/materials-reader/tests/pressure-tests/overclaim-from-figure-caption.md`
 - Bundle verification:
   `python .\scripts\run_release_checks.py --json`
+
+## When To Use
+
+Use `materials-reader` when the user request matches this skill's production surface and the needed inputs are available or can be explicitly marked as missing.
+
+## Inputs
+
+Typical inputs are the user prompt, material direction/profile, target journal or task mode when relevant, and any source text, data, figures, reviewer comments, or package artifacts needed by the skill.
+
+## Outputs
+
+Outputs are structured handoffs or artifacts described above in this README. Missing evidence, author input needs, and unsupported claims stay visible instead of being hidden in fluent prose.
+
+## Example
+
+```text
+Build a source-grounded reader package from a pasted abstract and figures.
+```
+
+## Validation
+
+Run the skill-specific scripts or tests listed above when they apply, then run the bundle gate from the repository root:
+
+```powershell
+python .\scripts\run_release_checks.py --json
+```
+
+## Boundaries
+
+This skill does not invent experiments, citations, measurements, journal facts, private file paths, or completed actions. Time-sensitive journal or legal facts should be checked against official sources before submission or filing.

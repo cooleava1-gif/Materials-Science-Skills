@@ -1,4 +1,4 @@
-﻿characterization:
+characterization:
 - evidence_tier: strong
   method: SEM/EDS
   purpose: Precipitate analysis, fracture surface, corrosion morphology
@@ -14,16 +14,21 @@
 claim_types:
 - common_risks:
   - Reporting single-condition YS/UTS without a baseline alloy for comparison
-  - Comparing properties from different processing or aging conditions as if they were alloy-driven
+  - Comparing properties from different processing or aging conditions as if they
+    were alloy-driven
   - Ignoring anisotropy in wrought or extruded Al and Mg products
   evidence_required:
-  - Tensile data (YS, UTS, elongation) per ASTM E8/E8M or ASTM B557 with specimen geometry
-  - Control/baseline alloy and processing conditions (heat treatment, deformation route)
+  - Tensile data (YS, UTS, elongation) per ASTM E8/E8M or ASTM B557 with specimen
+    geometry
+  - Control/baseline alloy and processing conditions (heat treatment, deformation
+    route)
   - Replicate measurements with reported variability
   type: performance_improvement
 - common_risks:
-  - Claiming precipitation strengthening without TEM evidence of precipitate size and density
-  - Inferring a strengthening mechanism from hardness alone without microstructural proof
+  - Claiming precipitation strengthening without TEM evidence of precipitate size
+    and density
+  - Inferring a strengthening mechanism from hardness alone without microstructural
+    proof
   - Over-interpreting DSC peaks without correlating them to specific phases
   evidence_required:
   - TEM/SEM precipitate analysis (size, distribution, coherency)
@@ -123,7 +128,7 @@ properties:
   test_methods:
   - ASTM E8 / ISO 6892-1
   typical_range: 2–60
-  unit: "%"
+  unit: '%'
 - id: density
   name: Density
   test_methods:
@@ -135,10 +140,12 @@ properties:
   test_methods:
   - ASTM E1004
   typical_range: 5–101
-  unit: "% IACS"
+  unit: '% IACS'
 skill_mapping:
-  data_schemas:
-  figure_scripts:
+  data_schemas: null
+  figure_scripts: null
+  figure_packages:
+  - skills/materials-figure/assets/materials4papers/steel_microstructure_ebsd
 standards:
 - purpose: Tension testing of metallic materials at room temperature
   standard: ASTM E8 / E8M

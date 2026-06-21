@@ -1,4 +1,4 @@
-﻿characterization:
+characterization:
 - evidence_tier: definitive
   method: DSC
   purpose: Curing exotherm, degree of cure, residual heat, Tg
@@ -66,7 +66,8 @@ figure_archetypes:
   - temperature
   - heat_flow
   column_map:
-    temperature: {"column": "temperature"}
+    temperature:
+      column: temperature
 - description: DMA temperature sweep showing storage modulus and tan δ
   id: dma_curve
   type: line_plot
@@ -102,9 +103,12 @@ figure_archetypes:
   - strain
   - stress
   column_map:
-    x_values: {"column": "strain_pct"}
-    y_values: {"column": "stress_mpa"}
-    group_by: {"column": "sample_id"}
+    x_values:
+      column: strain_pct
+    y_values:
+      column: stress_mpa
+    group_by:
+      column: sample_id
 id: thermosets
 name: Thermosetting Polymers
 narrative:
@@ -140,8 +144,10 @@ properties:
   typical_range: 0.001–0.01
   unit: mol/cm³
 skill_mapping:
-  data_schemas:
-  figure_scripts:
+  data_schemas: null
+  figure_scripts: null
+  figure_packages:
+  - skills/materials-figure/assets/materials4papers/polymer_thermal_degradation
 standards:
 - purpose: Tensile properties of plastics
   standard: ASTM D638 / ISO 527

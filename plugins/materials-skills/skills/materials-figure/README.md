@@ -142,3 +142,33 @@ sintering curve.
 |---|---|---|
 | 01–12 | Original families (XRD, fatigue, weibull, etc.) | v2.0 |
 | 13–20 | Multiscale abstract, hierarchical mechanism, ceramic Nyquist, polymer GPC, nano GISAXS, in-situ XRD, multifield T-ε, asphalt CT | 2026-06-20 |
+
+## When To Use
+
+Use `materials-figure` when the user request matches this skill's production surface and the needed inputs are available or can be explicitly marked as missing.
+
+## Inputs
+
+Typical inputs are the user prompt, material direction/profile, target journal or task mode when relevant, and any source text, data, figures, reviewer comments, or package artifacts needed by the skill.
+
+## Outputs
+
+Outputs are structured handoffs or artifacts described above in this README. Missing evidence, author input needs, and unsupported claims stay visible instead of being hidden in fluent prose.
+
+## Example
+
+```text
+Create a figure contract and export bundle for a dosage-window plot.
+```
+
+## Validation
+
+Run the skill-specific scripts or tests listed above when they apply, then run the bundle gate from the repository root:
+
+```powershell
+python .\scripts\run_release_checks.py --json
+```
+
+## Boundaries
+
+This skill does not invent experiments, citations, measurements, journal facts, private file paths, or completed actions. Time-sensitive journal or legal facts should be checked against official sources before submission or filing.

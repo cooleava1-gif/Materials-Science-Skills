@@ -1,4 +1,4 @@
-﻿characterization:
+characterization:
 - evidence_tier: strong
   method: DMA
   purpose: 'Viscoelastic properties: storage/loss modulus, tan δ, Tg'
@@ -64,9 +64,12 @@ figure_archetypes:
   - strain
   - stress
   column_map:
-    x_values: {"column": "strain_pct"}
-    y_values: {"column": "stress_mpa"}
-    group_by: {"column": "sample_id"}
+    x_values:
+      column: strain_pct
+    y_values:
+      column: stress_mpa
+    group_by:
+      column: sample_id
 - description: DMA temperature sweep showing Tg and viscoelastic properties
   id: dma_elastomer
   type: line_plot
@@ -139,8 +142,10 @@ properties:
   typical_range: 10–50
   unit: '%'
 skill_mapping:
-  data_schemas:
-  figure_scripts:
+  data_schemas: null
+  figure_scripts: null
+  figure_packages:
+  - skills/materials-figure/assets/materials4papers/polymer_thermal_degradation
 standards:
 - purpose: Vulcanized rubber and thermoplastic elastomers tension testing
   standard: ASTM D412 / ISO 37

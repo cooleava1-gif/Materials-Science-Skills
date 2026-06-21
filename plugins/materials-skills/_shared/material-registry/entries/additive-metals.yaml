@@ -1,4 +1,4 @@
-﻿characterization:
+characterization:
 - evidence_tier: definitive
   method: OM/SEM
   purpose: Melt pool morphology, porosity, lack-of-fusion defects, grain structure
@@ -68,9 +68,12 @@ figure_archetypes:
   - strain
   - stress
   column_map:
-    x_values: {"column": "strain_pct"}
-    y_values: {"column": "stress_mpa"}
-    group_by: {"column": "condition"}
+    x_values:
+      column: strain_pct
+    y_values:
+      column: stress_mpa
+    group_by:
+      column: condition
 - description: SEM/EBSD microstructure image showing melt pool morphology and grain
     orientation
   id: ebsd_map
@@ -85,12 +88,18 @@ figure_archetypes:
   - speed
   - density
   column_map:
-    x_values: {"column": "wer_pct"}
-    y_values: {"column": "curing_temp_c"}
-    z_values: {"column": "bond_strength_mpa"}
-    xlabel: {"value": "Laser Power (W)"}
-    ylabel: {"value": "Scan Speed (mm/s)"}
-    figure_name: {"value": "additive_metals_process_window"}
+    x_values:
+      column: wer_pct
+    y_values:
+      column: curing_temp_c
+    z_values:
+      column: bond_strength_mpa
+    xlabel:
+      value: Laser Power (W)
+    ylabel:
+      value: Scan Speed (mm/s)
+    figure_name:
+      value: additive_metals_process_window
 - description: 'Multi-panel metals characterization: tensile comparison, stress-strain,
     hardness profile, and corrosion polarization'
   id: metals_multipanel
@@ -130,7 +139,7 @@ properties:
   test_methods:
   - ASTM B962 / Micro-CT
   typical_range: 98–99.9
-  unit: "%"
+  unit: '%'
 - id: surface_roughness
   name: Surface Roughness (Ra)
   test_methods:
@@ -144,8 +153,10 @@ properties:
   typical_range: -500–500
   unit: MPa
 skill_mapping:
-  data_schemas:
-  figure_scripts:
+  data_schemas: null
+  figure_scripts: null
+  figure_packages:
+  - skills/materials-figure/assets/materials4papers/alloy_stress_strain
 standards:
 - purpose: Evaluating mechanical properties of metal materials produced via AM
   standard: ASTM F3122

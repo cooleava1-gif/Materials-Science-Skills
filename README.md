@@ -40,6 +40,20 @@ worked example packages where the coverage tier has reached `full`.
   </tr>
 </table>
 
+## Quick Start
+
+Start with one of the bundled workflow prompts:
+
+```text
+Help me run a WER-EA mini-review workflow from screening to figure planning.
+```
+
+For a local verification pass after installing or updating the bundle, run:
+
+```powershell
+python .\scripts\run_release_checks.py --json
+```
+
 ## What the bundle does
 
 1. **Routes** your request to the right material domain and production skill
@@ -88,6 +102,8 @@ This is what makes the bundle work like an **operating system for materials
 research** instead of a set of disconnected skills.
 
 ## Installation
+
+## Installation Paths
 
 ### 1. Codex Plugin (recommended)
 
@@ -165,6 +181,8 @@ Optional environment variables:
 - `NCBI_API_KEY`
 
 For the full walkthrough, see [install.md](install.md).
+
+## Skills
 
 ## Skill index (13 skills)
 
@@ -308,9 +326,9 @@ and combined workflows such as mini-review + figure planning.
 
 | Axis | Count | Purpose |
 |---|---|---|
-| `task` | 13 | What the user wants to do (mini-review, evidence-audit, …) |
+| `task` | 15 | What the user wants to do (mini-review, evidence-audit, response, submission, …) |
 | `domain` | **36** | Which material sub-direction (asphalt, cement-concrete, ceramics, …) |
-| `journal` | 22 | Which target family (CBM, CCC, RMPD, JBE, ACS, nature-materials, …) |
+| `journal` | 20 | Which target family (CBM, CCC, RMPD, JBE, ACS, nature-materials, …) |
 
 **Stage-gated plan** — Every router output is a 6-stage plan
 (positioning → reading → citation → writing → polishing → reviewer/response)
@@ -516,9 +534,14 @@ All 13 skills share a small set of protocol files under
 ## Quantitative summary (transparent counts)
 
 - **13 skills** with stable status
+- currently covers **29 material systems**
 - **29 material systems** at `full` coverage tier
+- | 🟢 **full** | 29 |
+- | 🟡 **partial** | 0 |
+- | 🔵 **skeleton** | 0 |
+- | ⚪ **generic** | 0 |
 - **53 production-grade figure assets** (21 atlas + 12 gallery + 20 examples)
-- **71 routing fragments** (13 task + 36 domain + 22 journal)
+- **71 routing fragments** (15 task + 36 domain + 20 journal)
 - **17 journal format guides**
 - **22 reviewer-criteria documents** (one per material sub-direction)
 - **9 domain data schemas** for FAIR packaging
@@ -533,6 +556,8 @@ All 13 skills share a small set of protocol files under
 See [docs/gallery/README.md](docs/gallery/README.md) for editorial proof
 boards and figure-package previews.
 
+![WER-EA figure proof board](plugins/materials-skills/skills/materials-figure/assets/showcase-proof/wer_ea_figure_proof_board.png)
+
 ## Four Workflow Entry Points
 
 | Entry | Best for |
@@ -541,6 +566,19 @@ boards and figure-package previews.
 | Experimental manuscript | Evidence-gap audit before discussion drafting |
 | Revision loop | Post-review response + rebuttal package |
 | Paper to presentation | Journal-club PPT from a paper package |
+
+## Guided Demos
+
+See [docs/workflows/README.md](docs/workflows/README.md) for four concrete
+workflow demos: WER-EA mini-review, experimental manuscript, revision loop,
+and paper to presentation.
+
+## Outcome Showcases
+
+See [docs/showcases/README.md](docs/showcases/README.md) for submission,
+reviewer-response, and FAIR-data package outcomes. The material coverage
+dashboard is tracked in [docs/coverage-dashboard.md](docs/coverage-dashboard.md),
+and the concise skill index is in [docs/skills-index.md](docs/skills-index.md).
 
 ## Scope
 

@@ -4,7 +4,27 @@ Visual proof boards, chart-type atlases, and worked figure packages generated
 by the `materials-figure` skill. Every board here is real output from the
 current code; nothing is mock-up.
 
-## 1. Composite Gallery Boards (3)
+## Screenshot Gallery
+
+![Reader-package proof wall](../../plugins/materials-skills/skills/materials-figure/assets/showcase-proof/reader_package_proof_wall.png)
+
+![WER-EA figure proof board](../../plugins/materials-skills/skills/materials-figure/assets/showcase-proof/wer_ea_figure_proof_board.png)
+
+![SBR-WER performance proof board](../../plugins/materials-skills/skills/materials-figure/assets/showcase-proof/sbr_wer_performance_proof_board.png)
+
+![Interlayer fatigue proof board](../../plugins/materials-skills/skills/materials-figure/assets/showcase-proof/interlayer_fatigue_proof_board.png)
+
+## Workflow Proof
+
+The proof boards above are tracked under
+`plugins/materials-skills/skills/materials-figure/assets/showcase-proof/` and
+are referenced by the Codex plugin metadata. They show the reader-package,
+WER-EA figure, SBR-WER performance, and interlayer-fatigue routes with real
+visual signal.
+
+## Artifact Deep Dives
+
+### Composite Gallery Boards (3)
 
 Three composite boards, each assembling 6 representative figures into a single
 overview image. All figures are generated from the current chart-type atlas,
@@ -78,7 +98,7 @@ canonical paper type:
 | `fig11-graphical-abstract` | Graphical abstract template |
 | `fig12-evidence-chain` | Evidence-chain visual summary |
 
-## 2. Figure-package worked examples (20 `materials4papers`)
+### Figure-package worked examples (20 `materials4papers`)
 
 The full set of **20 worked figure packages** lives under
 [`plugins/materials-skills/skills/materials-figure/assets/materials4papers/`](../../plugins/materials-skills/skills/materials-figure/assets/materials4papers/).
@@ -109,7 +129,7 @@ Each directory is a complete figure package: `figure_contract.md` +
 | `19-multifield_temperature_strain` | multifield | Temperature / strain multifield |
 | `20-asphalt_fracture_ct_reconstruction` | asphalt | CT reconstruction of fracture |
 
-## 3. Quantitative summary
+### Quantitative summary
 
 | Asset layer | Count | Location |
 |---|---|---|
@@ -121,3 +141,8 @@ Each directory is a complete figure package: `figure_contract.md` +
 
 The figure-package architecture is described in
 [`plugins/materials-skills/skills/materials-figure/README.md`](../../plugins/materials-skills/skills/materials-figure/README.md#figure-package-structure).
+
+## Outcome Showcases
+
+See [docs/showcases](../showcases/README.md) for the submission package,
+reviewer-response, and FAIR-data package routes that use these proof assets.

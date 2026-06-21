@@ -1,4 +1,4 @@
-﻿characterization:
+characterization:
 - evidence_tier: strong
   method: SEM
   purpose: Pore structure, fiber morphology, aerogel network visualization
@@ -128,8 +128,10 @@ properties:
   typical_range: 0.1–1.0
   unit: mm²/s
 skill_mapping:
-  data_schemas:
-  figure_scripts:
+  data_schemas: null
+  figure_scripts: null
+  figure_packages:
+  - skills/materials-figure/assets/materials4papers/19-multifield_temperature_strain
 standards:
 - purpose: Thermal conductivity by heat flow meter
   standard: ASTM C518 / ISO 8301

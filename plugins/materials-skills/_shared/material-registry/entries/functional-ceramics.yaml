@@ -1,4 +1,4 @@
-﻿characterization:
+characterization:
 - evidence_tier: definitive
   method: XRD
   purpose: Phase identification, tetragonality (c/a ratio), crystallite size
@@ -74,7 +74,8 @@ figure_archetypes:
   - angle
   - intensity
   column_map:
-    x_values: {"column": "two_theta"}
+    x_values:
+      column: two_theta
     y_series:
     - key: Pure asphalt
       column: pure_asphalt
@@ -91,9 +92,12 @@ figure_archetypes:
   - temperature
   - shrinkage
   column_map:
-    x_values: {"column": "temperature"}
-    y1_values: {"column": "relative_density_pct"}
-    y2_values: {"column": "open_porosity_pct"}
+    x_values:
+      column: temperature
+    y1_values:
+      column: relative_density_pct
+    y2_values:
+      column: open_porosity_pct
 - description: Impedance Nyquist plot showing grain and grain boundary contributions
   id: impedance_nyquist
   type: eis_plot
@@ -101,9 +105,12 @@ figure_archetypes:
   - real
   - imaginary
   column_map:
-    frequency: {"column": "log_freq_hz"}
-    z_real: {"column": "z_real"}
-    z_imag: {"column": "z_imag"}
+    frequency:
+      column: log_freq_hz
+    z_real:
+      column: z_real
+    z_imag:
+      column: z_imag
 - description: Ferroelectric P-E hysteresis loop showing remnant polarization and
     coercive field
   id: pe_hysteresis
@@ -162,8 +169,10 @@ properties:
   typical_range: 0.5–5
   unit: kV/mm
 skill_mapping:
-  data_schemas:
-  figure_scripts:
+  data_schemas: null
+  figure_scripts: null
+  figure_packages:
+  - skills/materials-figure/assets/materials4papers/ceramics_weibull_reliability
 standards:
 - purpose: Permittivity and dielectric dissipation factor determined under AC voltage
   standard: ASTM D150

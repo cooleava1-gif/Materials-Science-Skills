@@ -8,6 +8,7 @@ description: >
   API, pattern, and QA material stays in on-demand references.
 
 always_load:
+  - ../_shared/core/direction-profile.md
   # Skill-local core
   - static/core/contract.md
   - static/core/stance.md

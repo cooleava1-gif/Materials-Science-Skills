@@ -1,4 +1,4 @@
-﻿characterization:
+characterization:
 - evidence_tier: definitive
   method: OM (Optical Microscopy)
   purpose: Grain size, phase fraction (ferrite, pearlite, martensite, austenite),
@@ -22,8 +22,8 @@ claim_types:
   - Ignoring strain rate and specimen orientation effects on the trade-off
   evidence_required:
   - Tensile data (YS, UTS, elongation) per ASTM E8/E8M with specimen geometry
-  - Comparison across different heat treatment conditions (e.g., quench & temper, anneal,
-    normalize)
+  - Comparison across different heat treatment conditions (e.g., quench & temper,
+    anneal, normalize)
   - Processing condition documentation (austenitizing temperature, cooling rate, tempering)
   type: strength_ductility_balance
 - common_risks:
@@ -74,9 +74,12 @@ figure_archetypes:
   - strain
   - stress
   column_map:
-    x_values: {"column": "strain_pct"}
-    y_values: {"column": "stress_mpa"}
-    group_by: {"column": "condition"}
+    x_values:
+      column: strain_pct
+    y_values:
+      column: stress_mpa
+    group_by:
+      column: condition
 - description: Potentiodynamic polarization curves for corrosion assessment
   id: polarization_curve
   type: line_plot
@@ -84,19 +87,26 @@ figure_archetypes:
   - potential
   - current_density
   column_map:
-    x_values: {"column": "potential_mv"}
-    y_values: {"column": "current_log_a_cm2"}
-    group_by: {"column": "condition"}
-- description: Hardness profile across the heat-affected zone (HAZ) or carburized layer
+    x_values:
+      column: potential_mv
+    y_values:
+      column: current_log_a_cm2
+    group_by:
+      column: condition
+- description: Hardness profile across the heat-affected zone (HAZ) or carburized
+    layer
   id: hardness_profile
   type: line_plot
   column_roles:
   - distance
   - hardness
   column_map:
-    x_values: {"column": "distance_mm"}
-    y_values: {"column": "hardness_HV"}
-    figure_name: {"value": "metals_hardness_profile"}
+    x_values:
+      column: distance_mm
+    y_values:
+      column: hardness_HV
+    figure_name:
+      value: metals_hardness_profile
 - description: 'Multi-panel metals characterization: tensile comparison, stress-strain,
     hardness profile, and corrosion polarization'
   id: metals_multipanel
@@ -142,7 +152,7 @@ properties:
   test_methods:
   - ASTM E8 / ISO 6892-1
   typical_range: 5–50
-  unit: "%"
+  unit: '%'
 - id: vickers_hardness
   name: Vickers Hardness
   test_methods:
@@ -156,8 +166,10 @@ properties:
   typical_range: 10–300
   unit: J
 skill_mapping:
-  data_schemas:
-  figure_scripts:
+  data_schemas: null
+  figure_scripts: null
+  figure_packages:
+  - skills/materials-figure/assets/materials4papers/steel_microstructure_ebsd
 standards:
 - purpose: Tension testing of metallic materials at room temperature
   standard: ASTM E8 / E8M

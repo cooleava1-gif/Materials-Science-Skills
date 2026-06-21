@@ -158,6 +158,13 @@ switch via `manifest.yaml` for `apparatus-system` / `algorithm-software` /
 
 To see the visual proof side first, open [docs/gallery/README.md](docs/gallery/README.md).
 
+## Showcase Shortcuts
+
+- Workflow demos: [docs/workflows/README.md](docs/workflows/README.md)
+- Outcome showcases: [docs/showcases/README.md](docs/showcases/README.md)
+- Coverage dashboard: [docs/coverage-dashboard.md](docs/coverage-dashboard.md)
+- Skills index: [docs/skills-index.md](docs/skills-index.md)
+
 ## Recommended Reading Order
 
 If this is your first time with the bundle, open these in order:

@@ -1,4 +1,4 @@
-﻿characterization:
+characterization:
 - evidence_tier: definitive
   key_features:
   - Individual filler dispersion and exfoliation degree (layered fillers)
@@ -63,7 +63,7 @@ claim_types:
   - Loading-dependent property curve showing sigmoidal transition
   - Rheological percolation (storage modulus vs. loading) or electrical percolation
     (conductivity vs. loading)
-  - 'Fitted percolation threshold with confidence interval'
+  - Fitted percolation threshold with confidence interval
   type: percolation_analysis
 coverage_tier: full
 cross_references:
@@ -86,8 +86,8 @@ description:
   - Barrier films and packaging
 family: nano
 figure_archetypes:
-- description: XRD pattern overlay for nanocomposite phase identification comparing neat
-    matrix and different filler loadings
+- description: XRD pattern overlay for nanocomposite phase identification comparing
+    neat matrix and different filler loadings
   id: xrd_pattern
   type: xrd_pattern
   column_roles:
@@ -120,8 +120,8 @@ figure_archetypes:
   type: diagram
   column_roles:
   - components
-- description: Modulus versus filler loading scatter regression for reinforcement efficiency
-    and percolation assessment
+- description: Modulus versus filler loading scatter regression for reinforcement
+    efficiency and percolation assessment
   id: modulus_loading_scatter
   type: scatter
   column_roles:
@@ -182,8 +182,10 @@ properties:
   typical_range: -100 to 250
   unit: °C
 skill_mapping:
-  data_schemas:
-  figure_scripts:
+  data_schemas: null
+  figure_scripts: null
+  figure_packages:
+  - skills/materials-figure/assets/materials4papers/nanoparticle_size_distribution
 standards:
 - purpose: Tensile properties of plastics for nanocomposite mechanical characterization
   standard: ASTM D638
