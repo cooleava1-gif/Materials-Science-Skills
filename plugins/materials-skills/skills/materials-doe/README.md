@@ -1,5 +1,7 @@
 # materials-doe
 
+**Version:** 1.0.0
+
 **What it does** — Design-of-experiments planning and matrix generation for
 civil engineering and construction materials research. Supports classical
 factorial, Taguchi orthogonal array, and mixture/simplex designs with factor
