@@ -1,5 +1,7 @@
 # materials-paper2ppt
 
+**Version:** 1.0.0
+
 **What it does** — Converts papers, reading notes, review matrices, and
 research outlines into slide-ready Markdown for civil engineering and
 construction materials presentations. It is the handoff layer before real

@@ -9,6 +9,13 @@ description: Use when turning civil engineering and construction materials paper
 
 Create materials presentations around the evidence chain, not manuscript section order.
 
+## Layered architecture
+
+This skill is split into two layers:
+
+- A **static layer** under `static/` that holds reusable content fragments.
+- A **dynamic layer** (this file plus [manifest.yaml](manifest.yaml)) that detects the request's axes and loads only the fragments needed for the current job.
+
 ## Protocol
 
 1. Read [manifest.yaml](manifest.yaml), then load every `always_load` file.

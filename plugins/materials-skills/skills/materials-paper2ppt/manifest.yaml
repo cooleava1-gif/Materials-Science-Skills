@@ -95,6 +95,8 @@ axes:
         path: static/fragments/domain/domain-context.md
         triggers: ["nano", "nanoparticle", "2D material", "纳米"]
 
+references: {}
+
 assets:
   - assets
 scripts:
