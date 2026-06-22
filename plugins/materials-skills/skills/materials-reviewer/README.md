@@ -1,5 +1,7 @@
 # materials-reviewer
 
+**Version:** 1.0.0
+
 **What it does** — Simulates 2-3 independent peer reviewers plus a
 cross-review synthesis before you submit or resubmit. It pressure-tests
 novelty and evidence sufficiency, flags figure and statistics gaps, audits
