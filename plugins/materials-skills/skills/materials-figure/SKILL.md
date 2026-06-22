@@ -8,10 +8,12 @@ author: Community contribution, refactored into static/dynamic layers
 
 # Materials Science Figure Making — Router
 
+## Layered architecture
+
 This skill is split into two layers:
 
-- A **static layer** under `static/` that holds versioned, reusable content fragments (the figure contract, default stance, materials knowledge base, and a Python quick-start).
-- A **dynamic layer** (this file plus `manifest.yaml`) that loads the core fragments and optionally loads materials knowledge validation or multi-figure storyboard when needed. The large body of design, API, pattern, and QA material lives in on-demand references.
+- A **static layer** under `static/` that holds reusable content fragments.
+- A **dynamic layer** (this file plus [manifest.yaml](manifest.yaml)) that detects the request's axes and loads only the fragments needed for the current job.
 
 Do not try to apply the figure logic from memory or from this router. Always load fragments from disk as described below.
 

@@ -1,5 +1,7 @@
 # materials-figure
 
+**Version:** 2.0.0
+
 **What it does** — Generates journal-ready multi-panel figures for materials
 manuscripts: mechanism maps, evidence heatmaps, dosage-window plots,
 characterization panels, review figures, and full figure packages with source
