@@ -1,31 +1,23 @@
 # materials-polishing
 
 **What it does** — The language and claim-strength control layer for materials
-prose. It polishes rough English, rewrites Chinese source into academic
-English, tightens journal tone, and audits overclaim risk for abstracts,
-introductions, discussions, conclusions, highlights, and cover letters. Output
-preserves facts, units, citations, and evidence strength, keeps
-missing-evidence markers visible, and returns revision-safe wording that can
-hand back to writing or response workflows.
+prose. Version 1.2.0 splits the skill into a static fragment layer and a dynamic
+router. The router loads only the fragments needed for the current polish job:
+section guide, paper type, journal family, language mode, material family, and
+domain. Output preserves facts, units, citations, and evidence strength, keeps
+missing-evidence markers visible, and returns revision-safe wording.
 
 **Built from** — A reference rulebook plus section, journal-family, language,
-and domain fragments routed by the manifest axes:
+paper-type, material-family, and domain fragments routed by the manifest axes:
 
-- `references/claim-strength-ladder.md` — calibrates causal vs. associative
-  wording and downgrade paths
-- `references/hourglass-structure.md` — verifies section flow and paragraph
-  order
-- `references/language-rulebook.md` — SCI style and academic style rules
-- `references/chinese-to-english-patterns.md` — zh-to-en rewriting patterns
-- `references/` — 22 files total: section guides (abstract, introduction,
-  results-discussion, conclusions, cover-letter), domain language guides
-  (pavement, cement-concrete, polymers, ceramics, metals, insulation, nano,
-  functional), plus style-guardrails, vocabulary-upgrade, citation-integrity,
-  british-english, and proofreading
+- `static/core/` — stance, failure-modes, polishing contract, workflow, output format
+- `static/fragments/section/` — per-section playbooks (abstract, introduction, methods, results, discussion, conclusion, title)
+- `static/fragments/paper_type/` — research vs. review argument chains
+- `static/fragments/language/` — English rules and Chinese-to-English patterns
+- `static/fragments/domain/` — material-system-specific evidence norms
+- `references/` — deep-dive guides (claim-strength ladder, hourglass structure, language rulebook, zh-to-en patterns, style guardrails, vocabulary upgrade, citation integrity, British English, proofreading, section guides, cover letter, and domain language guides)
 - `assets/templates/polishing-request-template.md` — request scaffolding
 - `scripts/audit_sentences.py` — sentence-length and style auditing
-- `static/fragments/` — language (en, zh-to-en), paper_type (research, review),
-  and domain fragments
 
 **Key rules enforced**
 
@@ -73,8 +65,10 @@ skills/materials-polishing/
 │   ├── nano-language.md
 │   └── functional-language.md
 └── static/fragments/
+    ├── core/            stance, failure-modes, workflow, output format, contract
     ├── language/        en, zh-to-en
     ├── paper_type/      research, review
+    ├── section/         abstract, introduction, methods, results, discussion, conclusion, title
     └── domain/          civil, polymers, metals, ceramics, functional, nano
 ```
 

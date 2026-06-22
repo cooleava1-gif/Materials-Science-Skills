@@ -1,4 +1,4 @@
-version: "1.1.0"
+version: "1.2.0"
 
 always_load:
   - static/core/contract.md
@@ -17,6 +17,10 @@ always_load:
 
 axes:
   section:
+    detect: |
+      Identify which section(s) the user wants polished. The user may name one or several.
+      If unclear, ask before loading. Skip this axis only when the user provides standalone
+      prose with no section context.
     default: generic
     values:
       abstract:
@@ -25,23 +29,42 @@ axes:
       introduction:
         path: references/introduction.md
         triggers: ["introduction", "intro", "引言", "前言"]
+      methods:
+        path: static/fragments/section/methods.md
+        triggers: ["methods", "methodology", "实验方法", "方法"]
       results-discussion:
         path: references/results-discussion.md
         triggers: ["results", "discussion", "results and discussion", "结果", "讨论"]
       conclusions:
         path: references/conclusions.md
         triggers: ["conclusion", "conclusions", "closing paragraph", "结论"]
+      title:
+        path: static/fragments/section/title.md
+        triggers: ["title", "标题"]
       cover-letter:
         path: references/cover-letter.md
         triggers: ["cover letter", "submission letter", "投稿信", "cover"]
       generic:
         path: references/style-guardrails.md
         triggers: ["polish", "rewrite", "translate", "润色", "翻译", "改写"]
-      claim-strength:
-        path: ../_shared/core/claim-strength-ladder.md
-        triggers: ["overclaim", "claim", "causality", "novelty", "strengthen", "弱化", "因果", "创新性"]
+
+  paper_type:
+    detect: |
+      Decide what kind of paper or section is being polished. Default to research.
+      Use the user's stated framing first; fall back to inference from the text.
+    default: research
+    values:
+      research:
+        path: static/fragments/paper_type/research.md
+        triggers: ["research", "experimental", "results", "data", "实验", "研究"]
+      review:
+        path: static/fragments/paper_type/review.md
+        triggers: ["review", "mini-review", "literature review", "综述", "进展"]
 
   journal_family:
+    detect: |
+      Identify the target journal family from the user's prompt or manuscript.
+      Default to materials for generic or unspecified requests.
     default: materials
     values:
       materials:
