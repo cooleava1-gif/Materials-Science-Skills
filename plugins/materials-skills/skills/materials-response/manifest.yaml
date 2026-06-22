@@ -119,6 +119,8 @@ axes:
         path: static/fragments/domain/nano.md
         triggers: ["nano", "nanoparticle", "2D material", "纳米"]
 
+references: {}
+
 assets:
   - assets
 scripts:

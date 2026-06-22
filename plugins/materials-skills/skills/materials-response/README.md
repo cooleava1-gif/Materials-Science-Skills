@@ -1,5 +1,7 @@
 # materials-response
 
+**Version:** 1.1.0
+
 **What it does** — Drafts point-by-point reviewer replies after the comments
 arrive, keeping the response letter tied to actual manuscript changes instead
 of vague promises. It separates response tone from manuscript action, maps
