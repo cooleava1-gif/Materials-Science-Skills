@@ -72,6 +72,8 @@ axes:
         path: static/fragments/template/journal-club.md
         triggers: ["journal club", "literature", "paper reading", "文献汇报", "精读"]
 
+references: {}
+
 assets:
   - assets
 scripts:

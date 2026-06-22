@@ -1,5 +1,7 @@
 # materials-pptx
 
+**Version:** 1.0.0
+
 **What it does** — Turns structured Markdown or JSON slide specs into a real
 `.pptx` deck for civil engineering and construction materials presentations,
 with speaker notes and image placement. It is the generation layer after the

@@ -9,6 +9,13 @@ description: Use when generating or converting real PowerPoint .pptx slide decks
 
 Generate real `.pptx` decks for materials research, not only slide outlines.
 
+## Layered architecture
+
+This skill is split into two layers:
+
+- A **static layer** under `static/` that holds reusable content fragments.
+- A **dynamic layer** (this file plus [manifest.yaml](manifest.yaml)) that detects the request's axes and loads only the fragments needed for the current job.
+
 ## Protocol
 
 1. Read [manifest.yaml](manifest.yaml), then load every `always_load` file.
