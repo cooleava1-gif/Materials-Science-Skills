@@ -8,6 +8,13 @@ description: Use when reading, translating, extracting, or organizing full paper
 
 Read and organize materials papers into structured bilingual notes with source anchors.
 
+## Layered architecture
+
+This skill is split into two layers:
+
+- A **static layer** under `static/` that holds reusable content fragments.
+- A **dynamic layer** (this file plus [manifest.yaml](manifest.yaml)) that detects the request's axes and loads only the fragments needed for the current job.
+
 ## Protocol
 
 1. Read [manifest.yaml](manifest.yaml), then load every `always_load` file.

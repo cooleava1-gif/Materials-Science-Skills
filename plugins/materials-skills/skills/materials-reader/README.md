@@ -1,5 +1,7 @@
 # materials-reader
 
+**Version:** 1.2.0
+
 **What it does** — The source-grounded reading engine for the bundle. Use it
 when the raw material is a paper, PDF, abstract, figure caption, or pasted
 source text and you need structured notes you can trust downstream. It
