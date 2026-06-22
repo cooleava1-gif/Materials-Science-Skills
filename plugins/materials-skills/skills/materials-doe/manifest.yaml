@@ -126,5 +126,5 @@ handoffs:
       from: materials-reader
       optional: true
 release_checks:
-  - python scripts/run_release_checks.py --json
-  - python scripts/check_skill_architecture.py --json
+  - scripts/run_release_checks.py --json
+  - scripts/check_skill_architecture.py --json

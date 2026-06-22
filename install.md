@@ -58,7 +58,7 @@ Example Codex MCP configuration:
 [mcp_servers."materials-academic-search"]
 command = "python"
 args = ["./skills/materials-citation/mcp/academic_search/server.py"]
-cwd = "plugins/materials-skills"
+cwd = "."
 ```
 
 Optional environment variables:

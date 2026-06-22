@@ -170,7 +170,7 @@ Example Codex MCP configuration:
 [mcp_servers."materials-academic-search"]
 command = "python"
 args = ["./skills/materials-citation/mcp/academic_search/server.py"]
-cwd = "plugins/materials-skills"
+cwd = "."
 ```
 
 Optional environment variables:
@@ -529,7 +529,7 @@ All 13 skills share a small set of protocol files under
 | `core/stance.md` | How to handle disagreements, hedges, and uncertainty |
 | `core/terminology-ledger.md` | Canonical term normalisation across skills |
 | `core/ethics.md` | Ethics, attribution, and "do not fabricate" guardrails |
-| `journal-formats/` | **17 journal format guides** (CBM, CCC, RMPD, JBE, IJPE, WER-EA, nature-materials, acs-nano, acta-materialia, advanced-materials, advanced-functional-materials, ceramics-international, energy-buildings, jacers, jmca, nano-letters, progress-polymer-science, thermal-sciences, …) |
+| `journal-formats/` | **17 journal format guides** (CBM, CCC, RMPD, JBE, nature-materials, acs-nano, acta-materialia, advanced-materials, advanced-functional-materials, ceramics-international, energy-buildings, building-environment, jacers, jmca, nano-letters, progress-polymer-science, thermal-sciences) |
 
 ## Quantitative summary (transparent counts)
 
