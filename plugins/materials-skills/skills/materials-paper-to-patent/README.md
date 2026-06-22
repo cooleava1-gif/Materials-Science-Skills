@@ -1,5 +1,7 @@
 # materials-paper-to-patent
 
+**Version:** 1.0.0
+
 Convert materials science papers into evidence-grounded Chinese invention
 patent drafts. Default invention type is **process-material**; switch via
 `manifest.yaml` axes for algorithm, apparatus, or mixed inventions.
