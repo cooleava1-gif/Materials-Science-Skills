@@ -1,5 +1,7 @@
 # materials-data
 
+**Version:** 1.1.0
+
 **What it does** — Packages the material behind a manuscript into a cleaner,
 FAIR-aware submission surface. It organizes raw and processed datasets, writes
 metadata and file-organization plans, drafts data availability statements,
