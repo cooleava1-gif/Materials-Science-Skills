@@ -1,5 +1,7 @@
 # materials-research
 
+**Version:** 1.1.0
+
 **What it does** — The front door and paper-production orchestrator for the
 bundle. Start here when the user need is broad, multi-stage, or not yet
 pinned to one companion skill. It detects the task type, material domain, and
