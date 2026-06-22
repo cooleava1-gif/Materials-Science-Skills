@@ -49,6 +49,23 @@ def _read_yaml(path: Path) -> dict[str, Any]:
     return data if isinstance(data, dict) else {}
 
 
+def _read_skill_frontmatter(skill_md_path: Path) -> dict[str, Any]:
+    """Parse YAML frontmatter from SKILL.md if present."""
+    if not skill_md_path.exists():
+        return {}
+    text = skill_md_path.read_text(encoding="utf-8")
+    if not text.startswith("---"):
+        return {}
+    end = text.find("---", 3)
+    if end == -1:
+        return {}
+    try:
+        data = yaml.safe_load(text[3:end])
+    except Exception as exc:
+        return {"__yaml_error__": str(exc)}
+    return data if isinstance(data, dict) else {}
+
+
 def _as_posix(path: Path) -> str:
     return path.as_posix()
 
@@ -112,6 +129,42 @@ def _collect_triggers(value: Any, prefix: str = "") -> list[tuple[str, str]]:
     return triggers
 
 
+def _check_consistency(skill_dir: Path, manifest: dict[str, Any]) -> dict[str, Any]:
+    """Return standardization warnings for a single skill."""
+    skill_md_path = skill_dir / "SKILL.md"
+    readme_path = skill_dir / "README.md"
+    front = _read_skill_frontmatter(skill_md_path)
+
+    version = manifest.get("version")
+    skill_version = front.get("version") if isinstance(front, dict) else None
+    version_mismatch = None
+    if version is not None and skill_version is not None and version != skill_version:
+        version_mismatch = f"manifest version {version!r} != SKILL.md version {skill_version!r}"
+
+    readme_missing_version = None
+    if version is not None and readme_path.exists():
+        readme_text = readme_path.read_text(encoding="utf-8")
+        if version not in readme_text:
+            readme_missing_version = f"README.md does not mention version {version!r}"
+
+    missing_references_block = None
+    if "references" not in manifest:
+        missing_references_block = "manifest missing 'references' block"
+
+    skill_missing_router_terms = None
+    if skill_md_path.exists():
+        body = skill_md_path.read_text(encoding="utf-8").lower()
+        if "manifest" not in body or "axes" not in body:
+            skill_missing_router_terms = "SKILL.md does not mention both 'manifest' and 'axes'"
+
+    return {
+        "version_mismatch": version_mismatch,
+        "readme_missing_version": readme_missing_version,
+        "missing_references_block": missing_references_block,
+        "skill_missing_router_terms": skill_missing_router_terms,
+    }
+
+
 def _path_exists(skill_dir: Path, path_text: str) -> bool:
     return (skill_dir / path_text).resolve().exists()
 
@@ -171,6 +224,9 @@ def inspect_skill(skill_dir: Path) -> dict[str, object]:
     ]
 
     hard_issues = missing_router_files + yaml_errors + missing_manifest_paths + missing_declared_paths
+    consistency = _check_consistency(skill_dir, manifest)
+    consistency_issues = [v for v in consistency.values() if v is not None]
+
     return {
         "skill": skill_dir.name,
         "path": _as_posix(skill_dir),
@@ -184,10 +240,12 @@ def inspect_skill(skill_dir: Path) -> dict[str, object]:
         "checked_manifest_paths": sorted(set(checked_manifest_paths)),
         "mojibake_triggers": mojibake_triggers,
         "yaml_errors": yaml_errors,
+        "consistency": consistency,
         "warnings": {
             "missing_exact_core_files": core["missing_exact"],
             "missing_standard_manifest_blocks": missing_manifest_blocks,
             "mojibake_triggers": mojibake_triggers,
+            "consistency_issues": consistency_issues,
         },
     }
 
@@ -199,6 +257,8 @@ def inspect_all(root: Path = Path("skills")) -> dict[str, object]:
     skills = [path for path in sorted(root.glob("materials-*")) if path.is_dir()]
     skill_reports = [inspect_skill(skill_dir) for skill_dir in skills]
     hard_failures = [report["skill"] for report in skill_reports if report["status"] != "pass"]
+    if not skill_reports:
+        hard_failures.append(f"no skills found under {root}")
 
     warnings = {
         "skills_with_missing_exact_core_files": [
@@ -209,6 +269,11 @@ def inspect_all(root: Path = Path("skills")) -> dict[str, object]:
         ],
         "skills_with_mojibake_triggers": [
             report["skill"] for report in skill_reports if report["mojibake_triggers"]
+        ],
+        "skills_with_consistency_issues": [
+            report["skill"]
+            for report in skill_reports
+            if report["warnings"].get("consistency_issues")
         ],
     }
     return {

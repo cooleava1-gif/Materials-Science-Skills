@@ -257,6 +257,8 @@ def inspect_all(root: Path = Path("plugins/materials-skills/skills")) -> dict[st
     skills = [path for path in sorted(root.glob("materials-*")) if path.is_dir()]
     skill_reports = [inspect_skill(skill_dir) for skill_dir in skills]
     hard_failures = [report["skill"] for report in skill_reports if report["status"] != "pass"]
+    if not skill_reports:
+        hard_failures.append(f"no skills found under {root}")
 
     warnings = {
         "skills_with_missing_exact_core_files": [
