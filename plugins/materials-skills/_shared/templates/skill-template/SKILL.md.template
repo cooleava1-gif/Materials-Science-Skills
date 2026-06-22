@@ -1,0 +1,30 @@
+---
+name: <skill-name>
+version: "1.0.0"
+description: <one-sentence description matching manifest>
+---
+
+# <Skill Display Name>
+
+<Brief capability statement>.
+
+## Layered architecture
+
+This skill is split into two layers:
+
+- A **static layer** under `static/` that holds reusable content fragments — core stance, workflow, output format, and per-axis playbooks.
+- A **dynamic layer** (this file plus [manifest.yaml](manifest.yaml)) that detects the request's axes and loads only the fragments needed for the current job.
+
+Read fragments from disk; do not apply logic from memory or from this router.
+
+## Routing protocol
+
+1. Read [manifest.yaml](manifest.yaml) and load every file under `always_load`.
+2. Detect the axis values from the user's request using the `detect:` prompts in the manifest.
+3. Load only the matching axis fragments.
+4. Apply the fragments in priority order and produce the deliverable.
+
+## Gates
+
+- Do not hallucinate facts not present in the user's input or loaded fragments.
+- Surface uncertainty explicitly.

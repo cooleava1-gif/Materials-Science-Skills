@@ -1,0 +1,33 @@
+# <skill-name>
+
+**Version:** 1.0.0
+
+**What it does** — <one-sentence description>.
+
+**Built from** — `static/core/` stance/workflow/output-format plus axis fragments routed by `manifest.yaml`.
+
+## File tree
+
+```text
+<skill-name>/
+├── manifest.yaml
+├── SKILL.md
+├── README.md
+├── static/
+│   ├── core/
+│   └── fragments/
+├── references/
+├── assets/
+└── scripts/
+```
+
+## Usage
+
+Invoke through the materials skill bundle. The router in `SKILL.md` will detect axes and load the relevant fragments.
+
+## Validation
+
+```bash
+python scripts/run_release_checks.py --json
+python scripts/check_skill_architecture.py --json
+```

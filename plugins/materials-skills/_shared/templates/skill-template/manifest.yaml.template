@@ -1,0 +1,34 @@
+version: "1.0.0"
+
+always_load:
+  - static/core/contract.md
+  - static/core/stance.md
+  - static/core/workflow.md
+  - static/core/output-format.md
+
+axes:
+  section:
+    detect: "Which section or task is the target?"
+    default: generic
+    values:
+      generic:
+        path: static/fragments/section/generic.md
+        triggers: ["help", "default", "generic"]
+
+references: {}
+
+assets:
+  templates: []
+
+scripts:
+  lint: []
+
+tests:
+  integration: []
+
+quality_gates: []
+
+handoffs: {}
+
+release_checks:
+  - python scripts/run_release_checks.py --json
