@@ -1,5 +1,7 @@
 # materials-writing
 
+**Version:** 1.1.0
+
 **What it does** — Turns evidence and structure into manuscript prose for
 materials science. It drafts review outlines, argument chains, and bounded
 section text (abstracts, introductions, methods, results/discussion,
