@@ -1,5 +1,7 @@
 # materials-citation
 
+**Version:** 1.1.0
+
 **What it does** — The literature-screening and claim-source mapping layer for
 materials manuscripts. It builds search strategies, screens candidate records
 into citation matrices with explicit evidence layers and source roles, runs
