@@ -150,3 +150,166 @@ Optimize welding parameters for defect-free joints with balanced strength and to
 | 9 | 890 | polymer | 400 | 60 |
 
 Responses: yield strength, UTS, elongation, hardness, Charpy impact energy.
+
+---
+
+## Experiment Type 5: Heat Treatment Process Optimization (RSM Template)
+
+Optimize quenching and tempering parameters for optimal strength-toughness
+balance using response surface methodology.
+
+### Factors and Responses (Box-Behnken, 4 factors)
+
+| Factor | Unit | Low (-1) | Center (0) | High (+1) |
+|--------|------|----------|-----------|-----------|
+| Austenitizing temperature | °C | 820 | 870 | 920 |
+| Austenitizing time | min | 20 | 45 | 90 |
+| Tempering temperature | °C | 200 | 400 | 600 |
+| Tempering time | min | 60 | 120 | 240 |
+
+| Response | Unit | Standard |
+|----------|------|----------|
+| Yield strength (Rp0.2) | MPa | ASTM E8 |
+| UTS | MPa | ASTM E8 |
+| Elongation | % | ASTM E8 |
+| Hardness | HRC | ASTM E18 |
+| Charpy V impact energy | J | ASTM E23 |
+
+### Box-Behnken Design (27 runs, 4 factors)
+
+Use the standard 4-factor BBD matrix in `static/core/response-surface.md` with:
+A = austenitizing temperature, B = austenitizing time, C = tempering temperature,
+D = tempering time. The design has 24 edge-midpoint runs plus 3 center points;
+each non-center run varies exactly two factors at ±1 and holds the other two at 0.
+
+### Analysis Plan
+
+1. Fit quadratic model for each response
+2. ANOVA with backward elimination
+3. Check model diagnostics: R², adj-R², lack-of-fit
+4. Response surface plots for key factor pairs (e.g., tempering temp vs tempering time)
+5. Multi-response optimization: find strength-toughness trade-off frontier
+6. Desirability function optimization with target properties
+7. Confirmation at 2-3 optimal heat treatment schedules
+
+---
+
+## Experiment Type 6: LPBF Process Parameter Screening (Plackett-Burman Template)
+
+Screen many laser powder bed fusion (LPBF) parameters to identify those most
+affecting density, surface quality, and mechanical properties.
+
+### Factors (L12 Plackett-Burman, 11 factors)
+
+| Factor | Unit | Low (-) | High (+) |
+|--------|------|---------|----------|
+| A: Laser power | W | 150 | 300 |
+| B: Scan speed | mm/s | 600 | 1200 |
+| C: Layer thickness | µm | 20 | 50 |
+| D: Hatch spacing | µm | 80 | 150 |
+| E: Scan strategy | — | Stripe | Chessboard |
+| F: Scan rotation | ° | 0 | 67 |
+| G: Laser spot size | µm | 50 | 100 |
+| H: Preheat temperature | °C | 25 | 200 |
+| I: Powder layer thickness | µm | 20 | 60 |
+| J: Gas flow rate | m/s | 2 | 10 |
+| K: Post-heat treatment | — | As-built | Stress relieved |
+
+### Responses
+
+| Response | Unit | Standard |
+|----------|------|----------|
+| Relative density | % | Archimedes (ASTM B311) |
+| Surface roughness (Ra) | µm | Profilometer |
+| Yield strength | MPa | ASTM E8 |
+| Elongation | % | ASTM E8 |
+| Microhardness | HV | ASTM E92 |
+
+### L12 Design Matrix
+
+| Run | A | B | C | D | E | F | G | H | I | J | K |
+|-----|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | + | + | - | + | + | + | - | - | - | + | - |
+| 2 | - | + | + | - | + | + | + | - | - | - | + |
+| 3 | + | - | + | + | - | + | + | + | - | - | - |
+| 4 | - | + | - | + | + | - | + | + | + | - | - |
+| 5 | - | - | + | - | + | + | - | + | + | + | - |
+| 6 | - | - | - | + | - | + | + | - | + | + | + |
+| 7 | + | - | - | - | + | - | + | + | - | + | + |
+| 8 | + | + | - | - | - | + | - | + | + | - | + |
+| 9 | + | + | + | - | - | - | + | - | + | + | - |
+| 10 | - | + | + | + | - | - | - | + | - | + | + |
+| 11 | + | - | + | + | + | - | - | - | + | - | + |
+| 12 | - | - | - | - | - | - | - | - | - | - | - |
+
+### Analysis Guidance
+
+1. Calculate main effects for density, roughness, and strength
+2. Pareto chart analysis to rank factor importance
+3. Normal probability plot to identify statistically significant effects
+4. Typically the strongest factors are laser power, scan speed, and hatch spacing
+5. Follow up with RSM on the 3-4 most important parameters
+6. Energy density (P/v·h·t) is a useful composite metric but hides individual effects
+
+---
+
+## Experiment Type 7: Alloy Composition Optimization (Mixture Design Template)
+
+Optimize multi-component alloy composition using statistical mixture design.
+Appropriate when alloying elements sum to 100% (balance element + additions).
+
+### Components (4-component simplex centroid)
+
+Example: High-entropy alloy or multi-component steel system
+
+| Component | Range | Typical |
+|-----------|-------|---------|
+| x₁: Base metal (Fe/Ni/Cu) | 60 – 85% | ~75% |
+| x₂: Alloying element A (Cr/Mn) | 5 – 20% | ~10% |
+| x₃: Alloying element B (Co/Nb) | 3 – 15% | ~8% |
+| x₄: Minor element (Mo/V/W/Ti) | 0.5 – 5% | ~2% |
+
+**Constraint:** x₁ + x₂ + x₃ + x₄ = 100% (by atomic or weight percent)
+
+Note: With constraints, use extreme vertices design rather than standard simplex.
+Below is a standard simplex centroid for reference.
+
+### Simplex Centroid Design (4 components, 15 runs)
+
+| Run | x₁ Base | x₂ Element A | x₃ Element B | x₄ Minor | Description |
+|-----|---------|-------------|-------------|----------|-------------|
+| 1 | 100% | 0% | 0% | 0% | Pure base metal |
+| 2 | 0% | 100% | 0% | 0% | Pure element A |
+| 3 | 0% | 0% | 100% | 0% | Pure element B |
+| 4 | 0% | 0% | 0% | 100% | Pure minor element |
+| 5 | 50% | 50% | 0% | 0% | Binary 1-2 |
+| 6 | 50% | 0% | 50% | 0% | Binary 1-3 |
+| 7 | 50% | 0% | 0% | 50% | Binary 1-4 |
+| 8 | 0% | 50% | 50% | 0% | Binary 2-3 |
+| 9 | 0% | 50% | 0% | 50% | Binary 2-4 |
+| 10 | 0% | 0% | 50% | 50% | Binary 3-4 |
+| 11 | 33.3% | 33.3% | 33.3% | 0% | Ternary 1-2-3 |
+| 12 | 33.3% | 33.3% | 0% | 33.3% | Ternary 1-2-4 |
+| 13 | 33.3% | 0% | 33.3% | 33.3% | Ternary 1-3-4 |
+| 14 | 0% | 33.3% | 33.3% | 33.3% | Ternary 2-3-4 |
+| 15 | 25% | 25% | 25% | 25% | Overall centroid |
+
+### Responses
+
+| Response | Unit | Standard |
+|----------|------|----------|
+| Yield strength | MPa | ASTM E8 |
+| UTS | MPa | ASTM E8 |
+| Elongation | % | ASTM E8 |
+| Hardness | HV | ASTM E92 |
+| Charpy impact energy | J | ASTM E23 |
+| Corrosion rate | mm/yr | ASTM G102 |
+
+### Analysis Plan
+
+1. Fit quadratic mixture model (special cubic if ternary points available)
+2. ANOVA for significance of element effects and interactions
+3. Ternary contour plots for key combinations
+4. Multi-response optimization: strength-ductility balance, corrosion resistance
+5. Desirability function optimization
+6. Confirmation at optimal composition
