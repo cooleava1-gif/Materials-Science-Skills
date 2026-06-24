@@ -26,7 +26,7 @@ Strategy:
 - explain where they were used.
 
 Example (civil):
-> We added recent references on waterborne epoxy emulsified asphalt, tack coat bonding, and moisture-conditioned interlayer performance. These references are now used to clarify the research gap in the Introduction and to compare the pull-off strength results in Section [x].
+> We added recent references on the studied construction material system, interface bonding, and moisture-conditioned performance retention. These references are now used to clarify the research gap in the Introduction and to compare the key performance results in Section [x].
 
 Example (ceramics):
 > Additional references on [specific ceramic] sintering behavior, phase evolution, and mechanical properties have been added. These are cited in the Introduction to strengthen the processing rationale and in the Discussion to contextualize our density and strength values.
@@ -41,7 +41,7 @@ Strategy:
 
 Example:
 
-> We agree that the original novelty statement was too broad. The revised manuscript now positions the contribution as the combined evaluation of emulsion stability, curing behavior, bonding performance, and moisture-conditioned retention for this waterborne epoxy emulsified asphalt system, rather than as a universal modifier mechanism.
+> We agree that the original novelty statement was too broad. The revised manuscript now positions the contribution as the combined evaluation of processing stability, microstructural evidence, performance response, and durability retention for the studied material system, rather than as a universal modifier mechanism.
 
 ## 4. Literature Comparison Is Insufficient
 

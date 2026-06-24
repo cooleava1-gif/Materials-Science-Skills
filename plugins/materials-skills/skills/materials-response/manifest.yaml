@@ -1,4 +1,4 @@
-version: "1.1.0"
+version: "1.2.0"
 
 always_load:
   - static/core/contract.md
@@ -19,10 +19,19 @@ axes:
         triggers: ["reviewer", "comments", "response", "point-by-point", "逐条回复", "回复审稿人"]
       response-patterns:
         path: references/response-patterns.md
-        triggers: ["English needs major revision", "add more references", "novelty", "sample size", "error bars", "raw data", "conflicting reviewers", "高频审稿意见"]
+        triggers: ["English needs major revision", "add more references", "novelty", "sample size", "error bars", "raw data", "高频审稿意见"]
+      strategy-library:
+        path: references/reviewer-strategy-library.md
+        triggers: ["strategy", "novelty challenge", "method justification", "scope boundary", "conflicting reviewers", "策略", "新颖性质疑", "方法论证", "范围界定"]
+      remediation-plans:
+        path: references/experiment-remediation-plans.md
+        triggers: ["experiment plan", "remediation", "补救方案", "实验计划", "补充实验", "FTIR", "SEM", "XRD", "mechanical testing", "durability testing"]
+      comment-patterns:
+        path: references/reviewer-comment-patterns.md
+        triggers: ["reviewer pattern", "common comment", "typical concern", "审稿模式", "常见意见", "典型问题", "pattern recognition"]
       revision-plan:
         path: references/experiment-revision.md
-        triggers: ["revise", "experiment", "additional test", "revision plan", "补实验", "修改方案"]
+        triggers: ["revise", "experiment", "revision plan", "补实验", "修改方案"]
       document-format:
         path: references/response-document-format.md
         triggers: ["author response", "tracked changes", "revision cover letter", "response document", "回复文档", "修回格式"]
@@ -45,6 +54,15 @@ axes:
       writing:
         path: references/language-bank.md
         triggers: ["grammar", "English", "clarity", "language", "表达", "英文"]
+      novelty:
+        path: references/reviewer-strategy-library.md
+        triggers: ["novelty", "contribution", "incremental", "新颖性", "贡献", "创新性"]
+      method:
+        path: references/reviewer-strategy-library.md
+        triggers: ["method", "justification", "sample size", "statistics", "方法", "论证", "样本量"]
+      scope:
+        path: references/reviewer-strategy-library.md
+        triggers: ["scope", "beyond scope", "another journal", "范围", "超出范围"]
 
   journal_family:
     default: materials
@@ -119,7 +137,47 @@ axes:
         path: static/fragments/domain/nano.md
         triggers: ["nano", "nanoparticle", "2D material", "纳米"]
 
-references: {}
+  experiment_type:
+    detect: "What type of experiment is requested?"
+    default: none
+    values:
+      none:
+        path: ../_shared/core/direction-profile.md
+        triggers: ["no experiment request", "neutral experiment fallback"]
+      general:
+        path: references/experiment-remediation-plans.md
+        triggers: ["experiment", "test", "实验", "测试"]
+      mechanism:
+        path: references/experiment-remediation-plans.md
+        triggers: ["FTIR", "SEM", "XRD", "TG", "mechanism", "characterization", "机理", "表征"]
+      performance:
+        path: references/experiment-remediation-plans.md
+        triggers: ["mechanical", "durability", "bonding", "rheology", "性能", "耐久", "粘结"]
+      statistical:
+        path: references/experiment-remediation-plans.md
+        triggers: ["replicate", "sample size", "ANOVA", "statistics", "重复", "样本量", "统计"]
+      comparison:
+        path: references/experiment-remediation-plans.md
+        triggers: ["control", "baseline", "benchmark", "comparison", "对照", "基准", "比较"]
+
+references:
+  on_demand:
+    - condition: reviewer comment requires strategic response beyond simple revision
+      path: references/reviewer-strategy-library.md
+    - condition: reviewer requests additional experiments or evidence
+      path: references/experiment-remediation-plans.md
+    - condition: reviewer comment matches common patterns or needs pattern recognition
+      path: references/reviewer-comment-patterns.md
+    - condition: high-frequency comment patterns (language, references, novelty, sample size)
+      path: references/response-patterns.md
+    - condition: mechanism or performance revision plans
+      path: references/experiment-revision.md
+    - condition: response document formatting (author response, tracked changes)
+      path: references/response-document-format.md
+    - condition: language polishing and tone adjustment
+      path: references/language-bank.md
+    - condition: risk audit before resubmission
+      path: references/response-risk-checklist.md
 
 assets:
   - assets

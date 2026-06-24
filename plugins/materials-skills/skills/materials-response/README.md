@@ -1,6 +1,6 @@
 # materials-response
 
-**Version:** 1.1.0
+**Version:** 1.2.0
 
 **What it does** — Drafts point-by-point reviewer replies after the comments
 arrive, keeping the response letter tied to actual manuscript changes instead
@@ -19,6 +19,12 @@ layers:
 - `references/response-patterns.md` — high-frequency comment patterns
   (language, references, novelty, sample size, error bars, conflicting
   reviewers)
+- `references/reviewer-strategy-library.md` — strategic responses for complex
+  reviewer challenges (novelty, method, scope, conflicting reviewers)
+- `references/experiment-remediation-plans.md` — concrete experiment proposals
+  for mechanism, performance, statistical, and characterization evidence
+- `references/reviewer-comment-patterns.md` — common reviewer comment patterns
+  with underlying concerns and response strategies
 - `references/experiment-revision.md` — mechanism/performance revision plans
 - `references/response-document-format.md` — author response, tracked
   changes, cover letter format
@@ -40,6 +46,9 @@ layers:
 - Responses must stand alone without the reviewer re-reading the manuscript.
 - Separate tone management from technical repair; a firm reply still needs a
   real fix or an honest scope boundary.
+- Use experiment remediation plans for concrete, actionable experiment proposals.
+- Apply reviewer strategy library for complex or challenging reviewer comments.
+- Recognize common comment patterns to prepare appropriate responses.
 
 **Action mapping** — Each reviewer comment is mapped to one of:
 
@@ -55,6 +64,20 @@ layers:
 proof-of-change language keyed to revision locations, a routed weakness list
 for writing / figure / data / reader fixes, and a cleaner split between tone
 management and technical repair.
+
+**Enhanced capabilities (v1.2.0)**
+
+- **Reviewer Strategy Library**: Strategic responses for novelty challenges,
+  method justification, scope boundaries, conflicting reviewers, data
+  reproducibility, and ethics concerns.
+- **Experiment Remediation Plans**: Concrete experiment proposals for FTIR,
+  SEM, XRD, TG/DTG, mechanical testing, durability testing, bonding/adhesion
+  testing, rheological testing, replicate testing, DOE, particle size
+  distribution, BET, and spectroscopic characterization. Includes decision
+  framework and response templates.
+- **Reviewer Comment Patterns**: Common patterns for novelty, method, writing,
+  scope, and domain-specific concerns. Each pattern includes typical wording,
+  underlying concern, and response strategy.
 
 **Reference files**
 
@@ -77,6 +100,9 @@ skills/materials-response/
 └── references/
     ├── response-strategy.md             point-by-point strategy and structure
     ├── response-patterns.md             high-frequency comment patterns
+    ├── reviewer-strategy-library.md     strategic responses for complex challenges
+    ├── experiment-remediation-plans.md  concrete experiment proposals
+    ├── reviewer-comment-patterns.md     common comment patterns with strategies
     ├── experiment-revision.md           mechanism/performance revision plans
     ├── response-document-format.md      author response, tracked changes format
     ├── language-bank.md                 rebuttal tone and phrasing
