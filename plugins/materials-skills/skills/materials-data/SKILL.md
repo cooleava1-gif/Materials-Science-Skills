@@ -20,10 +20,11 @@ This skill is split into two layers:
 
 1. Read [manifest.yaml](manifest.yaml), then load every `always_load` file.
 2. Apply profile-first routing from `.materials/profile.yaml`; on first use, ask for direction once and save it locally.
-3. Detect `task`, `domain`, and `journal`.
-4. Load only the matching fragments.
-5. Produce: experiment data template, FAIR audit, dataset package, data availability statement, or submission-ready dataset folder.
-6. Never invent measurements, replicate counts, standards, or environmental conditions.
+3. Detect `input_source`. If the user provides `experiment-record.yaml`, validate it against `_shared/core/experiment-record-schema.yaml` before scaffolding the package.
+4. Detect `task`, `domain`, and `journal`.
+5. Load only the matching fragments.
+6. Produce: experiment data template, FAIR audit, dataset package, data availability statement, or submission-ready dataset folder.
+7. Never invent measurements, replicate counts, standards, or environmental conditions.
 
 ## Gates
 

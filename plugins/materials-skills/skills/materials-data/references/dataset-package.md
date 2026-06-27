@@ -40,3 +40,23 @@ dataset-package/
 
 - Processed tables should include formulas, aggregation logic, and uncertainty type.
 - Figure-ready tables should keep links to raw sample IDs.
+
+## Building a package from an experiment record
+
+If `materials-doe` produced an `experiment-record.yaml`, pass it to the package builder:
+
+```powershell
+python plugins/materials-skills/skills/materials-data/scripts/build_fair_package.py `
+  --topic "WER-EA optimization" `
+  --domain asphalt `
+  --journal CBM `
+  --output-dir ./datasets `
+  --experiment-record ./experiment-record.yaml
+```
+
+The builder will:
+
+1. Validate the record against `_shared/core/experiment-record-schema.yaml`.
+2. Pre-fill `metadata.md` with experiment design, factors, responses, materials, processing, and characterization.
+3. Generate a CSV template whose columns match the record's factors and response variables.
+4. Write `experiment_record_link.yaml` documenting the source record.

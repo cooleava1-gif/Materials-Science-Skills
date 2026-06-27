@@ -105,6 +105,18 @@ axes:
       generic:
         path: references/data-availability-statements.md
         triggers: ["journal", "submission", "SCI"]
+
+  input_source:
+    detect: "Is the dataset built from an experiment record or manually?"
+    default: manual
+    values:
+      manual:
+        path: static/core/workflow.md
+        triggers: ["manual", "from scratch", "no record"]
+      experiment-record:
+        path: static/core/experiment-record-input.md
+        triggers: ["experiment record", "doe output", "from doe", "yaml"]
+
 references:
   on_demand:
     availability-rules:
@@ -159,6 +171,9 @@ references:
       path: assets/templates/experiment-data-template-insulation.csv
       when: "The user needs a thermal insulation experiment data template."
 
+    experiment-record-to-dataset:
+      path: references/experiment-record-to-dataset.md
+      when: "The dataset package is built from an experiment record."
     table-system:
       path: references/table-system.md
       when: "The user needs table system templates."

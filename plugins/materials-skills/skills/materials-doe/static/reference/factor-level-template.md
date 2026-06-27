@@ -101,3 +101,27 @@ Select measurable outputs that directly reflect performance:
 | Binder ratio | 0.1–0.5 | 0.15, 0.25, 0.35 |
 | Curing temperature (°C) | 20–80 | 25, 40, 55, 70 |
 | Sample thickness (mm) | 10–50 | 10, 20, 30, 40 |
+
+## YAML record export
+
+After the factor-level table is confirmed, convert it into an `experiment-record.yaml` fragment:
+
+```yaml
+factors:
+  - name: <factor_a>
+    unit: <unit>
+    type: continuous
+    levels: [<level_1>, <level_2>, <level_3>]
+  - name: <factor_b>
+    unit: <unit>
+    type: continuous
+    levels: [<level_1>, <level_2>, <level_3>]
+
+response_variables:
+  - name: <response_a>
+    unit: <unit>
+    measurement_method: "<standard or protocol>"
+    replicate_count: 3
+```
+
+Fill in `design.runs` from the chosen design matrix (orthogonal, RSM, screening, or mixture).

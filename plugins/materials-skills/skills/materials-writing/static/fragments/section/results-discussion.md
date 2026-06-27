@@ -24,3 +24,7 @@ Do not discuss mechanism before the result is clear. Do not infer mechanism from
 - [ ] Are error bars or confidence intervals reported for all quantitative data?
 - [ ] Is competing explanations addressed (not just the preferred mechanism)?
 - [ ] Is the comparison with literature fair (same material system, test condition, scale)?
+
+## Record-driven Results drafting
+
+If `experiment-record.yaml` is available, use `results-from-record.md` to generate a first draft of the Results section. Map each run in `design.runs` to a data statement, and leave `[needs quantitative result]` placeholders where measured values are missing.

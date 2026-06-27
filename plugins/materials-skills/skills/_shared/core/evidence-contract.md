@@ -65,3 +65,14 @@ For experimental articles, distinguish:
 - inferred mechanism,
 - practical implication,
 - limitation or untested condition.
+
+## Experiment record evidence links
+
+When an `experiment-record.yaml` is available, each entry in its `evidence_links` list maps directly to the claim-evidence ladder above:
+
+- `claim` → the sentence or conclusion.
+- `evidence_type` + `figure_or_table` → the evidence.
+- `mechanism_evidence` → the mechanism.
+- `boundary` → the conditions where the claim may not hold.
+
+Use the record's `evidence_links` to pre-populate an evidence audit table before drafting or reviewing a manuscript. If `mechanism_evidence` is absent, flag `[needs mechanism evidence]` before allowing a mechanism claim in the Discussion.

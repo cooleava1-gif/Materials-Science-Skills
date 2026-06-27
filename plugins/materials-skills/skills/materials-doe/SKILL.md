@@ -26,7 +26,8 @@ This skill is split into two layers:
 7. If mixture-design mode: define components and constraints, choose simplex lattice or centroid, generate mixture matrix, specify ternary plot analysis.
 8. For classical or orthogonal designs: identify factors, levels, and constraints; generate the test matrix.
 9. For mix designs: identify component bounds, constraints, and simplex type; generate the mixture matrix.
-10. Deliver the matrix as a structured table (CSV or markdown) with analysis strategy notes.
+10. Emit experiment record (default) — Generate `experiment-record.yaml` using the schema in `_shared/core/experiment-record-schema.yaml`. Respect the `output_format` axis; if `textual`, skip this step.
+11. Deliver the matrix as a structured table (CSV or markdown) with analysis strategy notes.
 
 ## Gates
 

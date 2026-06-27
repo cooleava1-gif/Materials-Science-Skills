@@ -63,6 +63,21 @@ axes:
       full-argument:
         path: references/argument-chain.md
         triggers: ["outline", "manuscript structure", "paper framework", "论文框架"]
+      cover-letter:
+        path: static/fragments/section/cover-letter.md
+        triggers: ["cover letter", "submission letter", "editor letter"]
+      highlights:
+        path: static/fragments/section/highlights.md
+        triggers: ["highlights", "bullet summary", "key points"]
+      methods-from-record:
+        path: static/fragments/section/methods-from-record.md
+        triggers: ["methods from record", "methods from doe", "record-driven methods"]
+      results-from-record:
+        path: static/fragments/section/results-from-record.md
+        triggers: ["results from record", "results from doe", "record-driven results"]
+      discussion-mechanism:
+        path: static/fragments/section/discussion-mechanism.md
+        triggers: ["mechanism discussion", "mechanism interpretation", "rival explanations"]
 
   language:
     detect: "What language is the user writing in or translating to?"
@@ -144,6 +159,17 @@ axes:
       nano:
         path: static/fragments/domain/nano.md
         triggers: ["nano", "nanoparticle", "2D material", "graphene", "mxene", "纳米"]
+
+  input_source:
+    detect: "Is the draft based on an experiment record or manual notes?"
+    default: manual
+    values:
+      manual:
+        path: ../_shared/core/direction-profile.md
+        triggers: ["manual", "notes", "from scratch"]
+      experiment-record:
+        path: references/experiment-record-for-writing.md
+        triggers: ["experiment record", "from doe", "record", "yaml"]
 
 references:
   on_demand:

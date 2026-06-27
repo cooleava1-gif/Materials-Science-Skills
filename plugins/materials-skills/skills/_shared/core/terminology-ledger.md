@@ -50,3 +50,14 @@ For Chinese-authored manuscripts, maintain a bilingual column:
 | 粘层 | tack coat | not "bonding layer" or "adhesive layer" |
 | 固化剂 | curing agent | not "hardener" (avoid ambiguity) |
 | 针入度 | penetration | unit: 0.1 mm |
+
+## Initializing the ledger from an experiment record
+
+If the user supplies an `experiment-record.yaml`, seed the terminology ledger from its `terminology` block before reading any manuscript text:
+
+1. For each entry, use `canonical` as the authoritative term.
+2. If `abbreviation` is present, record the first-use expansion as `canonical (abbreviation)`.
+3. Add `variants` as terms that must be normalized to `canonical`.
+4. Treat `unit` fields in `response_variables`, `factors`, and `terminology` as locked notation; do not allow drift (e.g., `MPa` vs `Mpa`).
+
+Present the seeded ledger to the user in the usual table format and ask only if conflicts exist between the record and the source text.

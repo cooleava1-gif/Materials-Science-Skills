@@ -30,7 +30,7 @@ Follow these steps every time the skill is invoked.
 
 ### 1. Load the manifest and the core layer
 
-Read [manifest.yaml](manifest.yaml). It declares six axes — `paper_type`, `section`, `language`, `journal_family`, `material_family`, `domain` — the allowed values, and the file paths each value maps to.
+Read [manifest.yaml](manifest.yaml). It declares seven axes — `paper_type`, `section`, `language`, `journal_family`, `material_family`, `domain`, `input_source` — the allowed values, and the file paths each value maps to.
 
 Also read every file listed under `always_load`. These hold the default stance, writing workflow, evidence contract, claim-strength ladder, terminology ledger, and ethics that apply to every drafting job.
 
@@ -38,12 +38,16 @@ Also read every file listed under `always_load`. These hold the default stance, 
 
 Apply profile-first routing from `.materials/profile.yaml`; on first use, ask for direction once and save it locally. This sets the default `material_family` and `domain` before axis detection.
 
-### 3. Detect the six axis values
+### 2b. Load experiment record if provided
+
+If the user provides `experiment-record.yaml`, load it and seed the terminology ledger and evidence audit table before detecting sections.
+
+### 3. Detect the seven axis values
 
 For each axis in the manifest, decide the value using the manifest's `detect:` hint and the user's input:
 
 - `paper_type` — experimental-manuscript / review-paper / methods-paper. Default: experimental-manuscript.
-- `section` — abstract / introduction / methods / results-discussion / conclusion / full-argument. May be multiple. Ask the user if it is ambiguous and matters for the draft.
+- `section` — abstract / introduction / methods / results-discussion / conclusion / full-argument / cover-letter / highlights / methods-from-record / results-from-record / discussion-mechanism. May be multiple. Ask the user if it is ambiguous and matters for the draft.
 - `language` — en or zh-to-en. Detect from the user's notes themselves.
 - `journal_family` — CBM / CCC / RMPD / JBE / materials. Default: materials.
 - `material_family` — neutral / civil / polymers / metals / ceramics / functional / nano. Default: neutral (or the saved profile value).

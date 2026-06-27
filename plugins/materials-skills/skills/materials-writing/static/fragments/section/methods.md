@@ -32,3 +32,7 @@ If a method detail is unknown, keep a placeholder instead of smoothing over it.
 - [ ] Would a researcher in the same field reproduce your experiment from the description?
 - [ ] Are all processing variables that affect the result reported?
 - [ ] Is the number of replicates and statistical treatment reported?
+
+## Record-driven Methods drafting
+
+If the user provides `experiment-record.yaml`, follow `methods-from-record.md` to generate the first draft, then apply the domain-specific reporting checklist above.

@@ -6,6 +6,15 @@ from __future__ import annotations
 import argparse
 import re
 from pathlib import Path
+from typing import Any
+
+import yaml
+
+
+try:
+    import jsonschema
+except ImportError:  # pragma: no cover
+    jsonschema = None  # type: ignore[assignment]
 
 
 CSV_HEADER = "sample_id,formulation_id,asphalt_type,emulsifier_type,waterborne_epoxy_type,epoxy_dosage,binder_type,water_binder_ratio,curing_condition,demulsification_condition,test_standard,temperature,humidity,aging_condition,replicate_count,measured_property,value,unit,raw_or_processed,processing_note\n"
@@ -16,7 +25,126 @@ def slug(value: str) -> str:
     return cleaned[:70] or "materials_dataset"
 
 
-def build_package(topic: str, domain: str, journal: str, output_dir: Path) -> Path:
+def load_record(path: Path) -> dict[str, Any]:
+    return yaml.safe_load(path.read_text(encoding="utf-8"))
+
+
+def validate_record(record: dict[str, Any], schema_path: Path) -> None:
+    if jsonschema is None:
+        raise RuntimeError("jsonschema is required to validate experiment-record.yaml")
+    schema = yaml.safe_load(schema_path.read_text(encoding="utf-8"))
+    jsonschema.validate(record, schema)
+
+
+def csv_header_from_record(record: dict[str, Any]) -> str:
+    factors = record.get("factors", [])
+    responses = record.get("response_variables", [])
+    cols = ["run_id"]
+    cols.extend(f["name"] for f in factors)
+    cols.extend(r["name"] for r in responses)
+    cols.extend(["replicate_count", "notes"])
+    return ",".join(cols) + "\n"
+
+
+def metadata_from_record(record: dict[str, Any]) -> str:
+    study_id = record.get("study_id", "[needs confirmation]")
+    title = record.get("title", "[needs confirmation]")
+    profile = record.get("direction_profile", {})
+    domain = profile.get("domain", "[needs confirmation]")
+    family = profile.get("material_family", "[needs confirmation]")
+    design = record.get("design", {})
+    design_type = design.get("type", "[needs confirmation]")
+    run_count = len(design.get("runs", []))
+
+    factors_block = "\n".join(
+        f"- {f.get('name', '')}: levels={f.get('levels', [])}, unit={f.get('unit', '')}, type={f.get('type', '')}"
+        for f in record.get("factors", [])
+    ) or "- [needs confirmation]"
+
+    responses_block = "\n".join(
+        f"- {r.get('name', '')}: unit={r.get('unit', '')}, method={r.get('measurement_method', '')}, replicates={r.get('replicate_count', '')}"
+        for r in record.get("response_variables", [])
+    ) or "- [needs confirmation]"
+
+    materials_block = "\n".join(
+        f"- role={m.get('role', '')}, name={m.get('name', '')}, supplier={m.get('supplier') or '[needs supplier]'}, spec={m.get('specification') or '[needs specification]'}"
+        for m in record.get("materials", [])
+    ) or "- [needs confirmation]"
+
+    processing_block = "\n".join(
+        f"- step={p.get('step', '')}, equipment={p.get('equipment') or '[needs equipment]'}, parameters={p.get('parameters', {})}"
+        for p in record.get("processing", [])
+    ) or "- [needs confirmation]"
+
+    char_block = "\n".join(
+        f"- name={c.get('name', '')}, standard={c.get('standard') or '[needs standard]'}, instrument={c.get('instrument') or '[needs instrument]'}"
+        for c in record.get("characterization", [])
+    ) or "- [needs confirmation]"
+
+    return f"""# Dataset Metadata
+
+## Study Identity
+
+- study_id: {study_id}
+- topic: {title}
+- material_domain: {domain}
+- material_family: {family}
+- target_journal: [needs confirmation]
+- data_contact: [needs confirmation]
+- repository_or_supplement_url: [needs confirmation]
+
+## Experiment Design
+
+- design_type: {design_type}
+- run_count: {run_count}
+
+### Factors
+
+{factors_block}
+
+### Response Variables
+
+{responses_block}
+
+## Materials
+
+{materials_block}
+
+## Processing
+
+{processing_block}
+
+## Characterization
+
+{char_block}
+
+## Data Locations
+
+- raw_data_location: raw_data/
+- processed_data_location: processed_data/
+- figure_data_location: figures/
+- processing_note: [needs confirmation]
+- uncertainty_type: [SD/SE/CI/not applicable]
+
+## Linked Record
+
+- experiment_record: experiment_record_link.yaml
+"""
+
+
+def build_package(
+    topic: str,
+    domain: str,
+    journal: str,
+    output_dir: Path,
+    experiment_record: Path | None = None,
+) -> Path:
+    record: dict[str, Any] | None = None
+    if experiment_record is not None:
+        record = load_record(experiment_record)
+        schema_path = Path("plugins/materials-skills/skills/_shared/core/experiment-record-schema.yaml")
+        validate_record(record, schema_path)
+
     package_dir = output_dir / f"{slug(topic)}_{journal.lower()}_fair_package"
     raw_dir = package_dir / "raw_data"
     processed_dir = package_dir / "processed_data"
@@ -25,8 +153,17 @@ def build_package(topic: str, domain: str, journal: str, output_dir: Path) -> Pa
         directory.mkdir(parents=True, exist_ok=True)
         (directory / ".gitkeep").write_text("", encoding="utf-8")
 
-    (raw_dir / "experiment_data_template.csv").write_text(CSV_HEADER, encoding="utf-8")
-    (package_dir / "metadata.md").write_text(metadata(topic, domain, journal), encoding="utf-8")
+    if record is not None:
+        (raw_dir / "experiment_data_template.csv").write_text(csv_header_from_record(record), encoding="utf-8")
+        (package_dir / "metadata.md").write_text(metadata_from_record(record), encoding="utf-8")
+        (package_dir / "experiment_record_link.yaml").write_text(
+            f"source_record_path: {experiment_record}\nrecord_version: {record.get('version', 'unknown')}\n",
+            encoding="utf-8",
+        )
+    else:
+        (raw_dir / "experiment_data_template.csv").write_text(CSV_HEADER, encoding="utf-8")
+        (package_dir / "metadata.md").write_text(metadata(topic, domain, journal), encoding="utf-8")
+
     (package_dir / "README.md").write_text(readme(topic, journal), encoding="utf-8")
     (package_dir / "data_availability_statement.md").write_text(data_availability(journal), encoding="utf-8")
     (package_dir / "fair_audit.md").write_text(fair_audit(), encoding="utf-8")
@@ -126,9 +263,16 @@ def main() -> int:
     parser.add_argument("--domain", default="asphalt")
     parser.add_argument("--journal", default="generic")
     parser.add_argument("--output-dir", required=True)
+    parser.add_argument("--experiment-record", type=Path, default=None)
     args = parser.parse_args()
 
-    package_dir = build_package(args.topic, args.domain, args.journal, Path(args.output_dir))
+    package_dir = build_package(
+        args.topic,
+        args.domain,
+        args.journal,
+        Path(args.output_dir),
+        args.experiment_record,
+    )
     print(package_dir)
     return 0
 

@@ -12,6 +12,7 @@ import subprocess
 import sys
 from pathlib import Path
 
+import yaml
 from skill_manifest import discover_skill_names
 
 SKILLS_ROOT = Path(__file__).resolve().parents[1] / "plugins" / "materials-skills" / "skills"
@@ -46,6 +47,47 @@ WRITING_MATURITY_FILES = [
     "references/phrase-banks/polymer-composites.md",
     "scripts/audit_materials_manuscript.py",
 ]
+
+EXPERIMENT_RECORD_FILES = [
+    "plugins/materials-skills/skills/_shared/core/experiment-record-schema.yaml",
+    "plugins/materials-skills/skills/_shared/core/experiment-record-example.yaml",
+    "plugins/materials-skills/skills/materials-doe/static/core/experiment-record-output.md",
+    "plugins/materials-skills/skills/materials-doe/assets/templates/experiment-record-template.yaml",
+    "plugins/materials-skills/skills/materials-data/static/core/experiment-record-input.md",
+    "plugins/materials-skills/skills/materials-data/references/experiment-record-to-dataset.md",
+    "plugins/materials-skills/skills/materials-writing/static/fragments/section/methods-from-record.md",
+    "plugins/materials-skills/skills/materials-writing/static/fragments/section/results-from-record.md",
+    "plugins/materials-skills/skills/materials-writing/static/fragments/section/discussion-mechanism.md",
+    "plugins/materials-skills/skills/materials-writing/static/fragments/section/cover-letter.md",
+    "plugins/materials-skills/skills/materials-writing/static/fragments/section/highlights.md",
+    "plugins/materials-skills/skills/materials-writing/references/experiment-record-for-writing.md",
+]
+
+
+def check_experiment_record_files() -> list[str]:
+    issues = []
+    for rel in EXPERIMENT_RECORD_FILES:
+        if not (REPO_ROOT / rel).exists():
+            issues.append(f"missing {rel}")
+    return issues
+
+
+def check_experiment_record() -> list[str]:
+    """Validate the experiment-record example against the shared schema."""
+    issues = []
+    schema_path = REPO_ROOT / "plugins/materials-skills/skills/_shared/core/experiment-record-schema.yaml"
+    example_path = REPO_ROOT / "plugins/materials-skills/skills/_shared/core/experiment-record-example.yaml"
+    try:
+        import jsonschema
+        schema = yaml.safe_load(schema_path.read_text(encoding="utf-8"))
+        example = yaml.safe_load(example_path.read_text(encoding="utf-8"))
+        jsonschema.validate(example, schema)
+    except ImportError:
+        issues.append("jsonschema not available")
+    except Exception as exc:  # pragma: no cover
+        issues.append(f"experiment-record example validation failed: {exc}")
+    return issues
+
 
 def collect_paper_production_orchestrator_issues(skill_root: Path) -> list[str]:
     issues = []
@@ -270,6 +312,10 @@ def main() -> int:
     mcp_drift_issues = collect_mcp_server_drift_issues()
     if mcp_drift_issues:
         all_issues.setdefault("mcp_server", []).extend(mcp_drift_issues)
+
+    experiment_record_issues = check_experiment_record_files() + check_experiment_record()
+    if experiment_record_issues:
+        all_issues["experiment_record_contract"] = experiment_record_issues
 
     if args.json:
         print(json.dumps({"status": "pass" if not all_issues else "fail", "issues": all_issues}, indent=2))

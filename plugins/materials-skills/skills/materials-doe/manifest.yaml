@@ -107,6 +107,17 @@ axes:
         path: static/core/response-surface.md
         triggers: ["analysis plan", "ANOVA", "分析计划", "方差分析", "分析方法"]
 
+  output_format:
+    detect: "In what format should the design be delivered?"
+    default: yaml-record
+    values:
+      yaml-record:
+        path: static/core/experiment-record-output.md
+        triggers: ["yaml", "record", "experiment-record", "machine-readable", "default"]
+      textual:
+        path: static/core/output-format.md
+        triggers: ["text", "summary", "table only", "no yaml"]
+
 references:
   on_demand:
     - condition: user needs response surface methodology or central composite design or Box-Behnken

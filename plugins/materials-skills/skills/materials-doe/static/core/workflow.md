@@ -71,3 +71,7 @@ General workflow for design-of-experiments planning.
 3. List factors and levels.
 4. Generate the experimental matrix.
 5. Define the analysis strategy.
+6. **Emit `experiment-record.yaml`** (default)
+   - Populate the record from the confirmed factor table, response variables, and design matrix.
+   - Ask the user for `materials`, `processing`, and `characterization` details or leave placeholders.
+   - Save the file as `experiment-record.yaml` alongside the design summary.
