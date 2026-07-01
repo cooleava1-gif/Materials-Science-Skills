@@ -32,11 +32,28 @@ class SlideImage:
 
 
 @dataclass
+class TableData:
+    headers: list[str]
+    rows: list[list[str]]
+
+
+# Layout constants
+LAYOUT_TITLE_CONTENT = "title-content"
+LAYOUT_TITLE_ONLY = "title-only"
+LAYOUT_TWO_COLUMN = "two-column"
+LAYOUT_TABLE = "table"
+VALID_LAYOUTS = {LAYOUT_TITLE_CONTENT, LAYOUT_TITLE_ONLY, LAYOUT_TWO_COLUMN, LAYOUT_TABLE}
+
+
+@dataclass
 class Slide:
     title: str
     bullets: list[str]
     notes: list[str] = field(default_factory=list)
     images: list[SlideImage] = field(default_factory=list)
+    kind: str = "content"
+    layout: str = LAYOUT_TITLE_CONTENT
+    table: TableData | None = None
 
 
 PROJECT_REPORT_ZH = [
@@ -108,8 +125,19 @@ def parse_markdown(path: Path) -> list[Slide]:
     mode = "bullets"
     heading = re.compile(r"^##\s+(?:Slide\s+\d+\s*[-–]\s*)?(.+?)\s*$", re.I)
     image = re.compile(r"!\[(.*?)\]\((.*?)\)")
+    layout_comment = re.compile(r"<!--\s*layout:\s*(\S+)\s*-->", re.I)
     for raw in path.read_text(encoding="utf-8").splitlines():
         line = raw.strip()
+        # Check for layout comment (applies to the next slide or current slide)
+        layout_match = layout_comment.search(line)
+        if layout_match:
+            layout_name = layout_match.group(1).lower()
+            if layout_name in VALID_LAYOUTS:
+                if current is not None:
+                    current.layout = layout_name
+                    if layout_name == LAYOUT_TABLE:
+                        current.kind = "table"
+            continue
         match = heading.match(line)
         if match:
             current = Slide(match.group(1), [])
@@ -179,19 +207,54 @@ def parse_json(path: Path) -> list[Slide]:
         if isinstance(notes, str):
             notes = [notes]
         images = [slide_image_from_dict(img, path.parent) for img in item.get("images", []) if isinstance(img, dict)]
+
+        # Parse layout
+        layout = str(item.get("layout", LAYOUT_TITLE_CONTENT)).lower()
+        if layout not in VALID_LAYOUTS:
+            layout = LAYOUT_TITLE_CONTENT
+
+        # Parse kind
+        kind = str(item.get("kind", "content")).lower()
+
+        # Parse table data
+        table = None
+        table_data = item.get("table_data") or item.get("table")
+        if isinstance(table_data, dict):
+            headers = [str(h) for h in table_data.get("headers", [])]
+            rows = [[str(cell) for cell in row] for row in table_data.get("rows", [])]
+            if headers:
+                table = TableData(headers=headers, rows=rows)
+                if layout == LAYOUT_TITLE_CONTENT:
+                    layout = LAYOUT_TABLE
+                kind = "table"
+
         slides.append(
             Slide(
                 title=str(item.get("title", "Untitled")),
                 bullets=[str(x) for x in item.get("bullets", [])],
                 notes=[str(x) for x in notes],
                 images=images,
+                kind=kind,
+                layout=layout,
+                table=table,
             )
         )
     return slides
 
 
 def preset(deck_type: str, language: str) -> list[Slide]:
-    return [Slide(s.title, list(s.bullets), list(s.notes), list(s.images)) for s in PRESETS.get((deck_type, language), PROJECT_REPORT_ZH)]
+    return [
+        Slide(
+            title=s.title,
+            bullets=list(s.bullets),
+            notes=list(s.notes),
+            images=list(s.images),
+            kind=s.kind,
+            layout=s.layout,
+            table=s.table,
+        )
+        for s in PRESETS.get((deck_type, language), PROJECT_REPORT_ZH)
+    ]
 
 
 def substitute(slides: list[Slide], title: str, presenter: str) -> list[Slide]:
@@ -206,10 +269,13 @@ def substitute(slides: list[Slide], title: str, presenter: str) -> list[Slide]:
 
     return [
         Slide(
-            safe_format(slide.title),
-            [safe_format(bullet) for bullet in slide.bullets],
-            [safe_format(note) for note in slide.notes],
-            slide.images,
+            title=safe_format(slide.title),
+            bullets=[safe_format(bullet) for bullet in slide.bullets],
+            notes=[safe_format(note) for note in slide.notes],
+            images=slide.images,
+            kind=slide.kind,
+            layout=slide.layout,
+            table=slide.table,
         )
         for slide in slides
     ]
@@ -280,27 +346,162 @@ def image_shape(shape_id: int, rel_id: str, image: SlideImage) -> str:
 </p:pic>"""
 
 
-def slide_xml(slide: Slide, slide_no: int, image_rels: list[str]) -> str:
+def table_xml(table: TableData, x: int, y: int, cx: int, cy: int) -> str:
+    """Generate OOXML <a:tbl> element for a table."""
+    num_cols = len(table.headers)
+    num_rows = len(table.rows) + 1  # +1 for header
+    col_width = cx // num_cols if num_cols else cx
+
+    # Adaptive font size: shrink for larger tables
+    max_dim = max(num_rows, num_cols)
+    if max_dim <= 4:
+        font_size = 1400
+    elif max_dim <= 7:
+        font_size = 1200
+    elif max_dim <= 10:
+        font_size = 1000
+    else:
+        font_size = 800
+
+    row_height = cy // num_rows if num_rows else cy
+
+    # Grid columns
+    grid_cols = "".join(f'<a:gridCol w="{col_width}"/>' for _ in range(num_cols))
+
+    # Header row
+    header_cells = ""
+    for header in table.headers:
+        header_cells += (
+            f'<a:tc>'
+            f'<a:txBody><a:bodyPr/><a:lstStyle/>'
+            f'<a:p><a:pPr algn="ctr"/>'
+            f'<a:r><a:rPr lang="zh-CN" sz="{font_size}" b="1" dirty="0"/>'
+            f'<a:t>{escape(header)}</a:t></a:r></a:p>'
+            f'</a:txBody>'
+            f'<a:tcPr><a:solidFill><a:srgbClr val="A16207"/></a:solidFill></a:tcPr>'
+            f'</a:tc>'
+        )
+    header_row = (
+        f'<a:tr h="{row_height}">'
+        f'<a:tcPr><a:solidFill><a:srgbClr val="A16207"/></a:solidFill></a:tcPr>'
+        f'{header_cells}'
+        f'</a:tr>'
+    )
+
+    # Data rows
+    data_rows = ""
+    for row in table.rows:
+        cells = ""
+        for val in row:
+            cells += (
+                f'<a:tc>'
+                f'<a:txBody><a:bodyPr/><a:lstStyle/>'
+                f'<a:p><a:pPr algn="ctr"/>'
+                f'<a:r><a:rPr lang="zh-CN" sz="{font_size}" dirty="0"/>'
+                f'<a:t>{escape(val)}</a:t></a:r></a:p>'
+                f'</a:txBody>'
+                f'</a:tc>'
+            )
+        # Pad missing cells if row is shorter than headers
+        for _ in range(num_cols - len(row)):
+            cells += '<a:tc><a:txBody><a:bodyPr/><a:lstStyle/><a:p/></a:txBody></a:tc>'
+        data_rows += f'<a:tr h="{row_height}">{cells}</a:tr>'
+
+    return (
+        f'<a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/table">'
+        f'<a:tbl><a:tblPr firstRow="1" bandRow="1"/>'
+        f'<a:tblGrid>{grid_cols}</a:tblGrid>'
+        f'{header_row}{data_rows}'
+        f'</a:tbl></a:graphicData>'
+    )
+
+
+def _slide_wrapper(bg_color: str, shapes_xml: str) -> str:
+    """Common slide XML wrapper with background and shape tree."""
+    return f"""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<p:sld xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="{NS_OFFICE_REL}" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
+  <p:cSld>
+    <p:bg><p:bgPr><a:solidFill><a:srgbClr val="{bg_color}"/></a:solidFill></p:bgPr></p:bg>
+    <p:spTree>
+      <p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr>
+      <p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/><a:chOff x="0" y="0"/><a:chExt cx="0" cy="0"/></a:xfrm></p:grpSpPr>
+      {shapes_xml}
+    </p:spTree>
+  </p:cSld>
+  <p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr>
+</p:sld>"""
+
+
+def _slide_xml_title_content(slide: Slide, slide_no: int, image_rels: list[str]) -> str:
+    """Default layout: title + content body + optional images + footer."""
     title = shape(2, "Title", 640000, 420000, 10800000, 760000, [slide.title], 3400)
     body_width = 5_650_000 if slide.images else 10_300_000
     body = shape(3, "Content", 900000, 1450000, body_width, 4500000, slide.bullets, 2350)
     footer = shape(4, "Footer", 900000, 6250000, 10300000, 300000, [f"Civil materials research · {slide_no}"], 1150)
     images = "".join(image_shape(10 + idx, rel_id, image) for idx, (rel_id, image) in enumerate(zip(image_rels, slide.images), 1))
-    return f"""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<p:sld xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="{NS_OFFICE_REL}" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
-  <p:cSld>
-    <p:bg><p:bgPr><a:solidFill><a:srgbClr val="F7F4EC"/></a:solidFill></p:bgPr></p:bg>
-    <p:spTree>
-      <p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr>
-      <p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/><a:chOff x="0" y="0"/><a:chExt cx="0" cy="0"/></a:xfrm></p:grpSpPr>
-      {title}
-      {body}
-      {images}
-      {footer}
-    </p:spTree>
-  </p:cSld>
-  <p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr>
-</p:sld>"""
+    return _slide_wrapper("F7F4EC", f"{title}\n      {body}\n      {images}\n      {footer}")
+
+
+def _slide_xml_title_only(slide: Slide, slide_no: int, _image_rels: list[str]) -> str:
+    """Title-only layout: title + footer, no content area."""
+    title = shape(2, "Title", 640000, 420000, 10800000, 760000, [slide.title], 3400)
+    footer = shape(4, "Footer", 900000, 6250000, 10300000, 300000, [f"Civil materials research · {slide_no}"], 1150)
+    return _slide_wrapper("F7F4EC", f"{title}\n      {footer}")
+
+
+def _slide_xml_two_column(slide: Slide, slide_no: int, _image_rels: list[str]) -> str:
+    """Two-column layout: title + left column + right column + footer."""
+    title = shape(2, "Title", 640000, 420000, 10800000, 760000, [slide.title], 3400)
+    footer = shape(5, "Footer", 900000, 6250000, 10300000, 300000, [f"Civil materials research · {slide_no}"], 1150)
+
+    # Split bullets into two columns
+    mid = len(slide.bullets) // 2
+    left_bullets = slide.bullets[:mid] if mid else slide.bullets
+    right_bullets = slide.bullets[mid:] if mid else []
+    if not right_bullets:
+        right_bullets = [""]
+
+    left_col = shape(3, "Left Column", 457200, 1450000, 5486400, 4500000, left_bullets, 2000)
+    right_col = shape(4, "Right Column", 6248400, 1450000, 5486400, 4500000, right_bullets, 2000)
+    return _slide_wrapper("F7F4EC", f"{title}\n      {left_col}\n      {right_col}\n      {footer}")
+
+
+def _slide_xml_table(slide: Slide, slide_no: int, _image_rels: list[str]) -> str:
+    """Table layout: title + table + footer."""
+    title = shape(2, "Title", 640000, 420000, 10800000, 760000, [slide.title], 3400)
+    footer = shape(4, "Footer", 900000, 6250000, 10300000, 300000, [f"Civil materials research · {slide_no}"], 1150)
+
+    table_content = ""
+    if slide.table:
+        # Table area: ~9 inches wide (8229600 EMU), positioned below title
+        table_x = 914400
+        table_y = 1500000
+        table_cx = 10363200
+        table_cy = 4500000
+        tbl = table_xml(slide.table, table_x, table_y, table_cx, table_cy)
+        table_content = (
+            f'<p:graphicFrame><p:nvGraphicFramePr>'
+            f'<p:cNvPr id="3" name="Table 1"/>'
+            f'<p:cNvGraphicFramePr><a:graphicFrameLocks noGrp="1"/></p:cNvGraphicFramePr>'
+            f'<p:nvPr/></p:nvGraphicFramePr>'
+            f'<p:xfrm><a:off x="{table_x}" y="{table_y}"/>'
+            f'<a:ext cx="{table_cx}" cy="{table_cy}"/></p:xfrm>'
+            f'{tbl}'
+            f'</p:graphicFrame>'
+        )
+    return _slide_wrapper("F7F4EC", f"{title}\n      {table_content}\n      {footer}")
+
+
+def slide_xml(slide: Slide, slide_no: int, image_rels: list[str]) -> str:
+    """Dispatch to the correct slide XML builder based on layout."""
+    layout = slide.layout if slide.layout in VALID_LAYOUTS else LAYOUT_TITLE_CONTENT
+    if layout == LAYOUT_TITLE_ONLY:
+        return _slide_xml_title_only(slide, slide_no, image_rels)
+    if layout == LAYOUT_TWO_COLUMN:
+        return _slide_xml_two_column(slide, slide_no, image_rels)
+    if layout == LAYOUT_TABLE:
+        return _slide_xml_table(slide, slide_no, image_rels)
+    return _slide_xml_title_content(slide, slide_no, image_rels)
 
 
 def notes_slide_xml(slide: Slide, slide_no: int) -> str:
@@ -333,6 +534,9 @@ def content_types(slide_count: int, image_exts: set[str]) -> str:
         '<Override PartName="/ppt/presentation.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml"/>',
         '<Override PartName="/ppt/slideMasters/slideMaster1.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slideMaster+xml"/>',
         '<Override PartName="/ppt/slideLayouts/slideLayout1.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml"/>',
+        '<Override PartName="/ppt/slideLayouts/slideLayout2.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml"/>',
+        '<Override PartName="/ppt/slideLayouts/slideLayout3.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml"/>',
+        '<Override PartName="/ppt/slideLayouts/slideLayout4.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml"/>',
         '<Override PartName="/ppt/notesMasters/notesMaster1.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.notesMaster+xml"/>',
         '<Override PartName="/ppt/theme/theme1.xml" ContentType="application/vnd.openxmlformats-officedocument.theme+xml"/>',
         '<Override PartName="/ppt/presProps.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.presProps+xml"/>',
@@ -383,15 +587,31 @@ SLIDE_MASTER = f"""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <p:sldMaster xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="{NS_OFFICE_REL}" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
   <p:cSld><p:spTree><p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/><a:chOff x="0" y="0"/><a:chExt cx="0" cy="0"/></a:xfrm></p:grpSpPr></p:spTree></p:cSld>
   <p:clrMap bg1="lt1" tx1="dk1" bg2="lt2" tx2="dk2" accent1="accent1" accent2="accent2" accent3="accent3" accent4="accent4" accent5="accent5" accent6="accent6" hlink="hlink" folHlink="folHlink"/>
-  <p:sldLayoutIdLst><p:sldLayoutId id="2147483649" r:id="rId1"/></p:sldLayoutIdLst>
+  <p:sldLayoutIdLst>
+    <p:sldLayoutId id="2147483649" r:id="rId1"/>
+    <p:sldLayoutId id="2147483650" r:id="rId2"/>
+    <p:sldLayoutId id="2147483651" r:id="rId3"/>
+    <p:sldLayoutId id="2147483652" r:id="rId4"/>
+  </p:sldLayoutIdLst>
   <p:txStyles><p:titleStyle/><p:bodyStyle/><p:otherStyle/></p:txStyles>
 </p:sldMaster>"""
 
-SLIDE_LAYOUT = f"""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<p:sldLayout xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="{NS_OFFICE_REL}" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" type="obj" preserve="1">
-  <p:cSld name="Materials Science Layout"><p:spTree><p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/><a:chOff x="0" y="0"/><a:chExt cx="0" cy="0"/></a:xfrm></p:grpSpPr></p:spTree></p:cSld>
+def _slide_layout_xml(name: str, layout_type: str) -> str:
+    """Generate a slideLayout XML string."""
+    return f"""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<p:sldLayout xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="{NS_OFFICE_REL}" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" type="{layout_type}" preserve="1">
+  <p:cSld name="{escape(name)}"><p:spTree><p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/><a:chOff x="0" y="0"/><a:chExt cx="0" cy="0"/></a:xfrm></p:grpSpPr></p:spTree></p:cSld>
   <p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr>
 </p:sldLayout>"""
+
+
+# Layout mapping: layout name -> (display name, OOXML type attribute, layout file index)
+LAYOUT_DEFS = {
+    LAYOUT_TITLE_CONTENT: ("Title Content", "obj", 1),
+    LAYOUT_TITLE_ONLY: ("Title Only", "title", 2),
+    LAYOUT_TWO_COLUMN: ("Two Column", "twoObj", 3),
+    LAYOUT_TABLE: ("Table", "tbl", 4),
+}
 
 NOTES_MASTER = f"""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <p:notesMaster xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="{NS_OFFICE_REL}" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
@@ -456,12 +676,21 @@ def write_pptx(slides: list[Slide], output: Path, title: str) -> None:
         zf.writestr("ppt/slideMasters/slideMaster1.xml", SLIDE_MASTER)
         zf.writestr("ppt/slideMasters/_rels/slideMaster1.xml.rels", rels([
             ("rId1", f"{NS_OFFICE_REL}/slideLayout", "../slideLayouts/slideLayout1.xml"),
-            ("rId2", f"{NS_OFFICE_REL}/theme", "../theme/theme1.xml"),
+            ("rId2", f"{NS_OFFICE_REL}/slideLayout", "../slideLayouts/slideLayout2.xml"),
+            ("rId3", f"{NS_OFFICE_REL}/slideLayout", "../slideLayouts/slideLayout3.xml"),
+            ("rId4", f"{NS_OFFICE_REL}/slideLayout", "../slideLayouts/slideLayout4.xml"),
+            ("rId5", f"{NS_OFFICE_REL}/theme", "../theme/theme1.xml"),
         ]))
-        zf.writestr("ppt/slideLayouts/slideLayout1.xml", SLIDE_LAYOUT)
-        zf.writestr("ppt/slideLayouts/_rels/slideLayout1.xml.rels", rels([
-            ("rId1", f"{NS_OFFICE_REL}/slideMaster", "../slideMasters/slideMaster1.xml"),
-        ]))
+        # Write all 4 slide layouts
+        for layout_name, (display_name, ooxml_type, layout_idx) in LAYOUT_DEFS.items():
+            zf.writestr(
+                f"ppt/slideLayouts/slideLayout{layout_idx}.xml",
+                _slide_layout_xml(display_name, ooxml_type),
+            )
+            zf.writestr(
+                f"ppt/slideLayouts/_rels/slideLayout{layout_idx}.xml.rels",
+                rels([("rId1", f"{NS_OFFICE_REL}/slideMaster", "../slideMasters/slideMaster1.xml")]),
+            )
         zf.writestr("ppt/notesMasters/notesMaster1.xml", NOTES_MASTER)
         zf.writestr("ppt/notesMasters/_rels/notesMaster1.xml.rels", rels([
             ("rId1", f"{NS_OFFICE_REL}/theme", "../theme/theme1.xml"),
@@ -472,7 +701,10 @@ def write_pptx(slides: list[Slide], output: Path, title: str) -> None:
 
         media_id = 1
         for idx, slide in enumerate(slides, 1):
-            slide_rels = [("rId1", f"{NS_OFFICE_REL}/slideLayout", "../slideLayouts/slideLayout1.xml")]
+            # Determine which layout file this slide should reference
+            layout_name = slide.layout if slide.layout in VALID_LAYOUTS else LAYOUT_TITLE_CONTENT
+            layout_idx = LAYOUT_DEFS[layout_name][2]
+            slide_rels = [("rId1", f"{NS_OFFICE_REL}/slideLayout", f"../slideLayouts/slideLayout{layout_idx}.xml")]
             image_rel_ids = []
             for image in slide.images:
                 if not image.path.exists():

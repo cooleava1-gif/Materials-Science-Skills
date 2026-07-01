@@ -124,6 +124,87 @@ class WritingOutlineScriptTest(unittest.TestCase):
             ]:
                 self.assertIn(phrase, text)
 
+    def test_outline_no_hardcoded_content_for_different_topic(self):
+        """A different topic must not contain waterborne-epoxy remnants."""
+        script = SKILL_ROOT / "scripts" / "build_manuscript_outline.py"
+
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp) / "outline.md"
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(script),
+                    "--topic",
+                    "ceramic matrix composites",
+                    "--output",
+                    str(output),
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+
+            text = output.read_text(encoding="utf-8")
+            for forbidden in [
+                "waterborne epoxy",
+                "tack coat",
+                "emulsion",
+                "Modified emulsion",
+                "emulsified asphalt",
+            ]:
+                self.assertNotIn(
+                    forbidden, text,
+                    f"Output should not contain hardcoded remnant: {forbidden!r}",
+                )
+            # Section headers must still be present
+            for phrase in [
+                "One-sentence argument",
+                "Claim-evidence-boundary table",
+                "Abstract",
+                "Introduction",
+                "Results and Discussion",
+                "Missing evidence to confirm",
+            ]:
+                self.assertIn(phrase, text)
+
+    def test_outline_review_paper_type(self):
+        """--paper-type review-paper should produce review/literature text."""
+        script = SKILL_ROOT / "scripts" / "build_manuscript_outline.py"
+
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp) / "outline.md"
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(script),
+                    "--topic",
+                    "ceramic matrix composites",
+                    "--paper-type",
+                    "review-paper",
+                    "--output",
+                    str(output),
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+
+            text = output.read_text(encoding="utf-8")
+            # The one-sentence argument should mention "review"
+            self.assertIn("review", text.lower())
+            # Missing evidence section should mention literature-related items
+            self.assertIn("literature", text.lower())
+            # Section headers must still be present
+            for phrase in [
+                "One-sentence argument",
+                "Claim-evidence-boundary table",
+                "Abstract",
+                "Introduction",
+                "Results and Discussion",
+                "Missing evidence to confirm",
+            ]:
+                self.assertIn(phrase, text)
+
 
 if __name__ == "__main__":
     unittest.main()

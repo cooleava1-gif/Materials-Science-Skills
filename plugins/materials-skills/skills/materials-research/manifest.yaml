@@ -1,4 +1,4 @@
-version: 1.1.0
+﻿version: 1.1.0
 always_load:
 - static/core/contract.md
 - ../_shared/core/direction-profile.md
@@ -335,22 +335,16 @@ axes:
         - no saved family
       civil:
         path: static/fragments/domain/civil-family.md
-        trigger_file: ../../_shared/triggers/family/civil.yaml
       polymers:
         path: static/fragments/domain/polymers-family.md
-        trigger_file: ../../_shared/triggers/family/polymers.yaml
       metals:
         path: static/fragments/domain/metals-family.md
-        trigger_file: ../../_shared/triggers/family/metals.yaml
       ceramics:
         path: static/fragments/domain/ceramics-family.md
-        trigger_file: ../../_shared/triggers/family/ceramics.yaml
       functional:
         path: static/fragments/domain/functional-family.md
-        trigger_file: ../../_shared/triggers/family/functional.yaml
       nano:
         path: static/fragments/domain/nano-family.md
-        trigger_file: ../../_shared/triggers/family/nano.yaml
   domain:
     detect: Which materials field is central?
     default: general
@@ -363,119 +357,90 @@ axes:
         - neutral routing
       asphalt-pavement:
         path: static/fragments/domain/asphalt-pavement.md
-        trigger_file: ../../_shared/triggers/domain/asphalt-pavement.yaml
         coverage_tier: full
       cement-concrete:
         path: static/fragments/domain/cement-concrete.md
-        trigger_file: ../../_shared/triggers/domain/cement-concrete.yaml
         coverage_tier: full
       construction-materials:
         path: static/fragments/domain/construction-materials.md
-        trigger_file: ../../_shared/triggers/domain/construction-materials.yaml
         coverage_tier: full
       steel-metal:
         path: static/fragments/domain/steel-metal.md
-        trigger_file: ../../_shared/triggers/domain/steel-metal.yaml
         coverage_tier: full
       geotechnical-materials:
         path: static/fragments/domain/geotechnical-materials.md
-        trigger_file: ../../_shared/triggers/domain/geotechnical-materials.yaml
         coverage_tier: full
       timber-masonry:
         path: static/fragments/domain/timber-masonry.md
-        trigger_file: ../../_shared/triggers/domain/timber-masonry.yaml
         coverage_tier: full
       waterproofing-sealants:
         path: static/fragments/domain/waterproofing-sealants.md
-        trigger_file: ../../_shared/triggers/domain/waterproofing-sealants.yaml
         coverage_tier: full
       sustainability-durability:
         path: static/fragments/domain/sustainability-durability.md
-        trigger_file: ../../_shared/triggers/domain/sustainability-durability.yaml
         coverage_tier: full
       civil-generic:
         path: static/fragments/domain/civil-generic.md
-        trigger_file: ../../_shared/triggers/domain/civil-generic.yaml
         coverage_tier: full
       thermoplastics:
         path: static/fragments/domain/thermoplastics.md
-        trigger_file: ../../_shared/triggers/domain/thermoplastics.yaml
         coverage_tier: full
       thermosets:
         path: static/fragments/domain/thermosets.md
-        trigger_file: ../../_shared/triggers/domain/thermosets.yaml
         coverage_tier: full
       rubber-elastomers:
         path: static/fragments/domain/rubber-elastomers.md
-        trigger_file: ../../_shared/triggers/domain/rubber-elastomers.yaml
         coverage_tier: full
       polymer-composites:
         path: static/fragments/domain/polymer-composites.md
-        trigger_file: ../../_shared/triggers/domain/polymer-composites.yaml
         coverage_tier: full
       ferrous-alloys:
         path: static/fragments/domain/ferrous-alloys.md
-        trigger_file: ../../_shared/triggers/domain/ferrous-alloys.yaml
         coverage_tier: full
       nonferrous-alloys:
         path: static/fragments/domain/nonferrous-alloys.md
-        trigger_file: ../../_shared/triggers/domain/nonferrous-alloys.yaml
         coverage_tier: full
       high-temperature-alloys:
         path: static/fragments/domain/high-temperature-alloys.md
-        trigger_file: ../../_shared/triggers/domain/high-temperature-alloys.yaml
         coverage_tier: full
       additive-metals:
         path: static/fragments/domain/additive-metals.md
-        trigger_file: ../../_shared/triggers/domain/additive-metals.yaml
         coverage_tier: full
       structural-ceramics:
         path: static/fragments/domain/structural-ceramics.md
-        trigger_file: ../../_shared/triggers/domain/structural-ceramics.yaml
         coverage_tier: full
       functional-ceramics:
         path: static/fragments/domain/functional-ceramics.md
-        trigger_file: ../../_shared/triggers/domain/functional-ceramics.yaml
         coverage_tier: full
       refractories:
         path: static/fragments/domain/refractories.md
-        trigger_file: ../../_shared/triggers/domain/refractories.yaml
         coverage_tier: full
       bioceramics:
         path: static/fragments/domain/bioceramics.md
-        trigger_file: ../../_shared/triggers/domain/bioceramics.yaml
         coverage_tier: full
       semiconductors:
         path: static/fragments/domain/semiconductors.md
-        trigger_file: ../../_shared/triggers/domain/semiconductors.yaml
         coverage_tier: full
       dielectrics-piezoelectrics:
         path: static/fragments/domain/dielectrics-piezoelectrics.md
-        trigger_file: ../../_shared/triggers/domain/dielectrics-piezoelectrics.yaml
         coverage_tier: full
       photonic-optoelectronic:
         path: static/fragments/domain/photonic-optoelectronic.md
-        trigger_file: ../../_shared/triggers/domain/photonic-optoelectronic.yaml
         coverage_tier: full
       nanoparticles:
         path: static/fragments/domain/nanoparticles.md
-        trigger_file: ../../_shared/triggers/domain/nanoparticles.yaml
         coverage_tier: full
       nano-thin-films:
         path: static/fragments/domain/nano-thin-films.md
-        trigger_file: ../../_shared/triggers/domain/nano-thin-films.yaml
         coverage_tier: full
       2d-materials:
         path: static/fragments/domain/2d-materials.md
-        trigger_file: ../../_shared/triggers/domain/2d-materials.yaml
         coverage_tier: full
       nanocomposites:
         path: static/fragments/domain/nanocomposites.md
-        trigger_file: ../../_shared/triggers/domain/nanocomposites.yaml
         coverage_tier: full
       thermal-insulation:
         path: static/fragments/domain/thermal-insulation.md
-        trigger_file: ../../_shared/triggers/domain/thermal-insulation.yaml
         coverage_tier: full
   journal:
     detect: Which target journal or journal family is named?
@@ -483,70 +448,48 @@ axes:
     values:
       cbm:
         path: static/fragments/journal/cbm.md
-        trigger_file: ../../_shared/triggers/journal/cbm.yaml
       cbm-transportation:
         path: static/fragments/journal/cbm-transportation.md
-        trigger_file: ../../_shared/triggers/journal/cbm-transportation.yaml
       ccc:
         path: static/fragments/journal/ccc.md
-        trigger_file: ../../_shared/triggers/journal/ccc.yaml
       cscm:
         path: static/fragments/journal/cscm.md
-        trigger_file: ../../_shared/triggers/journal/cscm.yaml
       jbe:
         path: static/fragments/journal/jbe.md
-        trigger_file: ../../_shared/triggers/journal/jbe.yaml
       rmpd-ijpe:
         path: static/fragments/journal/rmpd-ijpe.md
-        trigger_file: ../../_shared/triggers/journal/rmpd-ijpe.yaml
       jre:
         path: static/fragments/journal/jre.md
-        trigger_file: ../../_shared/triggers/journal/jre.yaml
       generic:
         path: static/fragments/journal/generic.md
-        trigger_file: ../../_shared/triggers/journal/generic.yaml
       jacers:
         path: static/fragments/journal/jacers.md
-        trigger_file: ../../_shared/triggers/journal/jacers.yaml
       ceramics-international:
         path: static/fragments/journal/ceramics-international.md
-        trigger_file: ../../_shared/triggers/journal/ceramics-international.yaml
       energy-buildings:
         path: static/fragments/journal/energy-buildings.md
-        trigger_file: ../../_shared/triggers/journal/energy-buildings.yaml
       building-environment:
         path: static/fragments/journal/building-environment.md
-        trigger_file: ../../_shared/triggers/journal/building-environment.yaml
       ceramics:
         path: static/fragments/domain/ceramics.md
-        trigger_file: ../../_shared/triggers/journal/ceramics.yaml
       thermal-insulation:
         path: static/fragments/domain/thermal-insulation.md
-        trigger_file: ../../_shared/triggers/journal/thermal-insulation.yaml
       nature-materials:
         path: static/fragments/journal/nature-materials.md
-        trigger_file: ../../_shared/triggers/journal/nature-materials.yaml
       advanced-materials:
         path: static/fragments/journal/advanced-materials.md
-        trigger_file: ../../_shared/triggers/journal/advanced-materials.yaml
       acs-nano:
         path: static/fragments/journal/acs-nano.md
-        trigger_file: ../../_shared/triggers/journal/acs-nano.yaml
       nano-letters:
         path: static/fragments/journal/nano-letters.md
-        trigger_file: ../../_shared/triggers/journal/nano-letters.yaml
       advanced-functional-materials:
         path: static/fragments/journal/advanced-functional-materials.md
-        trigger_file: ../../_shared/triggers/journal/advanced-functional-materials.yaml
       jmca:
         path: static/fragments/journal/jmca.md
-        trigger_file: ../../_shared/triggers/journal/jmca.yaml
       progress-polymer-science:
         path: static/fragments/journal/progress-polymer-science.md
-        trigger_file: ../../_shared/triggers/journal/progress-polymer-science.yaml
       acta-materialia:
         path: static/fragments/journal/acta-materialia.md
-        trigger_file: ../../_shared/triggers/journal/acta-materialia.yaml
 references:
   on_demand:
     asphalt-waterborne-epoxy:

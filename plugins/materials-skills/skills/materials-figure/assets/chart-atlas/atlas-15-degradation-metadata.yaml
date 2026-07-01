@@ -1,0 +1,27 @@
+atlas_id: 15
+name: atlas-15-degradation
+family: civil
+chart_type: Degradation/aging figures
+description: Material degradation and aging figures tracking property decay under environmental and service conditions
+domain_mapping:
+  - civil
+  - polymers
+  - metals
+  - functional
+variants:
+  - mass loss vs time/exposure
+  - strength retention curve
+  - color change (Delta E) vs exposure
+  - molecular weight (Mw) decay
+recommended_data:
+  - exposure time-property CSV
+  - environmental condition metadata (UV, humidity, temperature)
+  - percentage retention calculations
+  - degradation model fitting parameters
+qa_gates:
+  - editable_svg_text
+  - 300_dpi
+  - no_default_seaborn_palette
+kb_validation_refs: []
+svg_file: atlas-15-degradation.svg
+png_file: atlas-15-degradation.png

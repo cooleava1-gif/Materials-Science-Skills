@@ -1,0 +1,29 @@
+atlas_id: 9
+name: atlas-09-comparison
+family: all
+chart_type: Multi-index comparison
+description: Multi-index comparison figures for screening and ranking material systems across multiple performance dimensions
+domain_mapping:
+  - civil
+  - metals
+  - polymers
+  - ceramics
+  - functional
+  - nano
+variants:
+  - radar chart
+  - bubble matrix
+  - parallel coordinates plot
+  - heatmap comparison
+recommended_data:
+  - normalized performance index CSV
+  - category and metric labels
+  - weighting or normalization method metadata
+  - raw (unnormalized) supplementary values
+qa_gates:
+  - editable_svg_text
+  - 300_dpi
+  - no_default_seaborn_palette
+kb_validation_refs: []
+svg_file: atlas-09-comparison.svg
+png_file: atlas-09-comparison.png

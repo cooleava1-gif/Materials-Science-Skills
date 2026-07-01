@@ -1,0 +1,27 @@
+atlas_id: 14
+name: atlas-14-rheology
+family: polymers
+chart_type: Rheology flow curves
+description: Rheological characterization plots including flow curves, viscosity profiles, viscoelastic moduli, and creep-recovery
+domain_mapping:
+  - polymers
+  - civil
+  - functional
+  - nano
+variants:
+  - flow curve (shear stress vs shear rate)
+  - viscosity vs shear rate
+  - storage/loss modulus (G' G'') vs frequency
+  - creep-recovery curve
+recommended_data:
+  - shear-rate-shear-stress CSV
+  - frequency-storage-loss-modulus CSV
+  - time-strain creep-recovery CSV
+  - temperature and geometry metadata
+qa_gates:
+  - editable_svg_text
+  - 300_dpi
+  - no_default_seaborn_palette
+kb_validation_refs: []
+svg_file: atlas-14-rheology.svg
+png_file: atlas-14-rheology.png

@@ -164,7 +164,7 @@ class AcademicSearchService:
         queries = suggest_queries(
             topic=topic,
             journal_family=journal_family,
-            material_domain=args.get("material_domain") or "asphalt",
+            material_domain=args.get("material_domain") or "general",
             evidence_layer=evidence_layer,
             year_range=year_range,
             limit=1,
@@ -274,7 +274,7 @@ class AcademicSearchService:
         queries = suggest_queries(
             topic=topic,
             journal_family=journal_family,
-            material_domain=args.get("material_domain") or "asphalt",
+            material_domain=args.get("material_domain") or "general",
             evidence_layer=evidence_layer,
             year_range=year_range,
             limit=1,
@@ -322,7 +322,7 @@ class AcademicSearchService:
             "queries": suggest_queries(
                 topic=_required(args, "topic"),
                 journal_family=args.get("journal_family"),
-                material_domain=args.get("material_domain") or "asphalt",
+                material_domain=args.get("material_domain") or "general",
                 evidence_layer=args.get("evidence_layer"),
                 year_range=args.get("year_range"),
                 limit=_safe_limit(args.get("limit"), default=6),
@@ -367,7 +367,7 @@ class AcademicSearchService:
                     "search_query": suggest_queries(
                         topic=topic or claim,
                         journal_family=args.get("journal_family"),
-                        material_domain=args.get("material_domain") or "asphalt",
+                        material_domain=args.get("material_domain") or "general",
                         evidence_layer=layers[0] if layers else None,
                         year_range=args.get("year_range"),
                         limit=1,
@@ -410,7 +410,7 @@ class AcademicSearchService:
             query = suggest_queries(
                 topic=topic,
                 journal_family=journals,
-                material_domain=args.get("material_domain") or "asphalt",
+                material_domain=args.get("material_domain") or "general",
                 evidence_layer=evidence_layer,
                 year_range=args.get("year_range"),
                 limit=1,
