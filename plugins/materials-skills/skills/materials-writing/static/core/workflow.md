@@ -52,7 +52,7 @@ Sweep for `first`, `novel`, `unique`, `comprehensive`, `proves`, `significantly 
 
 ## 10. Output
 
-Return the draft plus notes in the six-part format defined in [output-format.md](output-format.md): Draft, Section outline, Assumptions, Claim-evidence map, Why this structure, To redirect me.
+Return the section draft plus notes in the six-part format defined in [output-format.md](output-format.md): Draft, Section outline, Assumptions, Claim-evidence map, Why this structure, To redirect me.
 
 ## 11. Revise by targeted edit, not full rewrite
 

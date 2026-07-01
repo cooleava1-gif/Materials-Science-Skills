@@ -111,7 +111,14 @@ axes:
         path: references/insulation-reviewer-criteria.md
         triggers: ["thermal insulation", "aerogel", "foam", "insulation", "隔热", "保温"]
 
-references: {}
+references:
+  on_demand:
+    functional-reviewer-criteria:
+      path: references/functional-reviewer-criteria.md
+      when: The manuscript targets functional, electronic, dielectric, piezoelectric, or semiconductor materials.
+    nano-reviewer-criteria:
+      path: references/nano-reviewer-criteria.md
+      when: The manuscript targets nanomaterials, nanoparticles, 2D materials, or nanocomposites.
 
 assets: []
 scripts:
