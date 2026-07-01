@@ -82,13 +82,16 @@ axes:
       rmpd-ijpe:
         path: references/journal-search-profiles.md
         triggers: ["RMPD", "Road Materials and Pavement Design", "IJPE", "International Journal of Pavement Engineering"]
-  material_domain:
+  domain:
     detect: "Which material domain does the literature search target?"
     default: general
     values:
       general:
         path: ../_shared/core/direction-profile.md
         triggers: ["general fallback", "profile fallback", "neutral routing"]
+      civil:
+        path: static/fragments/domain/civil.md
+        triggers: ["civil", "asphalt", "cement", "concrete", "pavement", "construction", "building", "土木", "建筑", "道路"]
       asphalt:
         path: static/fragments/domain/asphalt.md
         triggers: ["asphalt", "emulsified asphalt", "waterborne epoxy", "bitumen", "pavement", "沥青", "乳化沥青", "水性环氧"]

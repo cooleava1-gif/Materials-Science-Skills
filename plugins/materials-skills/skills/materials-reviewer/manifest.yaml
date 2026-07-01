@@ -41,39 +41,6 @@ axes:
         path: references/editorial-criteria.md
         triggers: ["JBE", "Journal of Building Engineering", "CSCM", "building"]
 
-  material_domain:
-    default: general
-    values:
-      general:
-        path: ../_shared/core/direction-profile.md
-        triggers: ["general fallback", "profile fallback", "neutral routing"]
-      asphalt-emulsion:
-        path: references/asphalt-reviewer-criteria.md
-        triggers: ["asphalt", "emulsified asphalt", "tack coat", "waterborne epoxy", "bonding", "沥青", "乳化沥青"]
-      cement-concrete:
-        path: references/cement-reviewer-criteria.md
-        triggers: ["cement", "concrete", "hydration", "mortar", "UHPC", "geopolymer", "水泥", "混凝土", "砂浆"]
-      mechanism:
-        path: references/mechanism-evidence-checklist.md
-        triggers: ["mechanism", "FTIR", "SEM", "fluorescence", "rheology", "XRD", "TG"]
-      ceramics:
-        path: references/ceramics-reviewer-criteria.md
-        triggers: ["ceramic", "sintering", "alumina", "zirconia", "carbide", "陶瓷"]
-      thermal-insulation:
-        path: references/insulation-reviewer-criteria.md
-        triggers: ["thermal insulation", "aerogel", "foam", "insulation", "隔热", "保温"]
-      polymers:
-        path: references/polymers-reviewer-criteria.md
-        triggers: ["polymer", "resin", "rubber", "elastomer", "高分子", "聚合物"]
-      metals:
-        path: references/metals-reviewer-criteria.md
-        triggers: ["metal", "alloy", "steel", "corrosion", "金属", "合金"]
-      functional:
-        path: references/functional-reviewer-criteria.md
-        triggers: ["semiconductor", "dielectric", "piezoelectric", "半导体", "介电"]
-      nano:
-        path: references/nano-reviewer-criteria.md
-        triggers: ["nano", "nanoparticle", "2D material", "纳米"]
   review_scope:
     default: full-manuscript
     values:
@@ -137,6 +104,12 @@ axes:
       nano:
         path: static/fragments/domain/nano.md
         triggers: ["nano", "nanoparticle", "2D material", "纳米"]
+      mechanism:
+        path: references/mechanism-evidence-checklist.md
+        triggers: ["mechanism", "FTIR", "SEM", "fluorescence", "rheology", "XRD", "TG"]
+      thermal-insulation:
+        path: references/insulation-reviewer-criteria.md
+        triggers: ["thermal insulation", "aerogel", "foam", "insulation", "隔热", "保温"]
 
 references: {}
 

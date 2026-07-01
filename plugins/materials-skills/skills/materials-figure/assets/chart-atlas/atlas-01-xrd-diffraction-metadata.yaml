@@ -1,0 +1,27 @@
+atlas_id: 1
+name: atlas-01-xrd-diffraction
+family: all
+chart_type: XRD diffraction patterns
+description: X-ray diffraction patterns for crystalline phase identification and comparison
+domain_mapping:
+  - civil
+  - ceramics
+  - metals
+  - functional
+  - nano
+variants:
+  - single phase pattern
+  - multi-phase overlay
+  - peak annotation
+  - difference plot
+recommended_data:
+  - 2theta-intensity CSV
+  - ICDD/JCPDS card reference peaks
+  - baseline-corrected scan data
+qa_gates:
+  - editable_svg_text
+  - 300_dpi
+  - no_default_seaborn_palette
+kb_validation_refs: []
+svg_file: atlas-01-xrd-diffraction.svg
+png_file: atlas-01-xrd-diffraction.png

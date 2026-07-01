@@ -72,7 +72,7 @@ def suggest_queries(
     *,
     topic: str,
     journal_family: str | Iterable[str] | None = None,
-    material_domain: str | None = "asphalt",
+    material_domain: str | None = "general",
     evidence_layer: str | None = None,
     year_range: str | None = None,
     limit: int = 6,

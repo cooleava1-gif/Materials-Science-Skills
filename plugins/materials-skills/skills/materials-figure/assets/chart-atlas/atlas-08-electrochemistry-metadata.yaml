@@ -1,0 +1,27 @@
+atlas_id: 8
+name: atlas-08-electrochemistry
+family: functional
+chart_type: Electrochemistry plots
+description: Electrochemical characterization plots including impedance, cyclic voltammetry, and polarization curves
+domain_mapping:
+  - functional
+  - metals
+  - nano
+  - ceramics
+variants:
+  - Nyquist plot
+  - Bode plot
+  - cyclic voltammogram (CV)
+  - potentiodynamic polarization curve
+recommended_data:
+  - frequency-impedance CSV (Z real, Z imag)
+  - potential-current density CSV
+  - cycle number-capacitance CSV
+  - electrochemical test parameters
+qa_gates:
+  - editable_svg_text
+  - 300_dpi
+  - no_default_seaborn_palette
+kb_validation_refs: []
+svg_file: atlas-08-electrochemistry.svg
+png_file: atlas-08-electrochemistry.png

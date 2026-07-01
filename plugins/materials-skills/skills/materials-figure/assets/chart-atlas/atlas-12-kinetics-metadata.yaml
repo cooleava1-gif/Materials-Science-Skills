@@ -1,0 +1,29 @@
+atlas_id: 12
+name: atlas-12-kinetics
+family: all
+chart_type: Kinetics curves
+description: Reaction kinetics and transformation curves including Avrami, Arrhenius, reaction rate, and conversion plots
+domain_mapping:
+  - civil
+  - metals
+  - ceramics
+  - polymers
+  - functional
+  - nano
+variants:
+  - Avrami transformation plot
+  - Arrhenius plot
+  - reaction rate vs time curve
+  - conversion vs time curve
+recommended_data:
+  - time-conversion CSV
+  - temperature-rate CSV for Arrhenius
+  - activation energy metadata
+  - reaction model parameters
+qa_gates:
+  - editable_svg_text
+  - 300_dpi
+  - no_default_seaborn_palette
+kb_validation_refs: []
+svg_file: atlas-12-kinetics.svg
+png_file: atlas-12-kinetics.png

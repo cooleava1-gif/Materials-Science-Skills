@@ -1,0 +1,27 @@
+atlas_id: 7
+name: atlas-07-durability
+family: civil
+chart_type: Durability/degradation figures
+description: Figures showing material durability performance under environmental exposure conditions
+domain_mapping:
+  - civil
+  - metals
+  - polymers
+  - ceramics
+variants:
+  - retention bar chart
+  - degradation trend curve
+  - freeze-thaw cycle plot
+  - aging exposure comparison
+recommended_data:
+  - exposure condition metadata (cycles, temperature, duration)
+  - before/after property measurements CSV
+  - retention percentage calculations
+  - environmental standard reference
+qa_gates:
+  - editable_svg_text
+  - 300_dpi
+  - no_default_seaborn_palette
+kb_validation_refs: []
+svg_file: atlas-07-durability.svg
+png_file: atlas-07-durability.png

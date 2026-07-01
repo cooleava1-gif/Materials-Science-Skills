@@ -1,0 +1,27 @@
+atlas_id: 11
+name: atlas-11-phase-diagram
+family: all
+chart_type: Phase diagrams
+description: Phase equilibrium diagrams for alloy, ceramic, and cementitious systems including binary, ternary, TTT, and CCT diagrams
+domain_mapping:
+  - metals
+  - ceramics
+  - civil
+  - functional
+variants:
+  - binary phase diagram
+  - ternary composition triangle
+  - TTT (time-temperature-transformation) diagram
+  - CCT (continuous cooling transformation) diagram
+recommended_data:
+  - composition-temperature phase boundary CSV
+  - phase label annotations
+  - invariant point data (eutectic, peritectic)
+  - cooling rate or hold time metadata
+qa_gates:
+  - editable_svg_text
+  - 300_dpi
+  - no_default_seaborn_palette
+kb_validation_refs: []
+svg_file: atlas-11-phase-diagram.svg
+png_file: atlas-11-phase-diagram.png

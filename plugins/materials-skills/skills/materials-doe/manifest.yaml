@@ -65,6 +65,9 @@ axes:
       general:
         path: ../_shared/core/direction-profile.md
         triggers: ["general fallback", "profile fallback", "neutral routing"]
+      civil:
+        path: static/reference/civil-experiments.md
+        triggers: ["civil", "asphalt", "cement", "concrete", "pavement", "construction", "土木", "建筑", "道路"]
       asphalt:
         path: static/reference/asphalt-experiments.md
         triggers: ["asphalt", "emulsified asphalt", "waterborne epoxy", "bitumen", "沥青", "乳化沥青", "水性环氧"]
