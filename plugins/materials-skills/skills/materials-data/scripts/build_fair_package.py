@@ -17,7 +17,35 @@ except ImportError:  # pragma: no cover
     jsonschema = None  # type: ignore[assignment]
 
 
-CSV_HEADER = "sample_id,formulation_id,asphalt_type,emulsifier_type,waterborne_epoxy_type,epoxy_dosage,binder_type,water_binder_ratio,curing_condition,demulsification_condition,test_standard,temperature,humidity,aging_condition,replicate_count,measured_property,value,unit,raw_or_processed,processing_note\n"
+_COMMON_CSV_COLUMNS = [
+    "sample_id",
+    "formulation_id",
+    "binder_or_matrix",
+    "modifier_or_additive",
+    "dosage",
+    "mixing_parameter_1",
+    "mixing_parameter_2",
+    "curing_condition",
+    "test_standard",
+    "temperature",
+    "humidity",
+    "replicate_count",
+    "measured_property",
+    "value",
+    "unit",
+    "raw_or_processed",
+    "processing_note",
+]
+
+
+def csv_header_for_domain(domain: str) -> str:
+    """Return a domain-adaptive CSV header line.
+
+    Currently all domains share the same generic columns; the *domain*
+    parameter is accepted so that domain-specific extensions can be added
+    later without changing the call-site.
+    """
+    return ",".join(_COMMON_CSV_COLUMNS) + "\n"
 
 
 def slug(value: str) -> str:
@@ -161,7 +189,7 @@ def build_package(
             encoding="utf-8",
         )
     else:
-        (raw_dir / "experiment_data_template.csv").write_text(CSV_HEADER, encoding="utf-8")
+        (raw_dir / "experiment_data_template.csv").write_text(csv_header_for_domain(domain), encoding="utf-8")
         (package_dir / "metadata.md").write_text(metadata(topic, domain, journal), encoding="utf-8")
 
     (package_dir / "README.md").write_text(readme(topic, journal), encoding="utf-8")
@@ -185,20 +213,15 @@ def metadata(topic: str, domain: str, journal: str) -> str:
 ## Materials Science Fields
 
 - sample_id: [stable sample identifier]
-- formulation_id: [mix or binder formulation identifier]
-- asphalt_type: [needs confirmation]
-- emulsifier_type: [needs confirmation]
-- waterborne_epoxy_type: [needs confirmation]
-- epoxy_dosage: [needs confirmation]
-- binder_type: [needs confirmation]
-- water_binder_ratio: [needs confirmation]
-- curing_condition: [needs confirmation]
-- demulsification_condition: [needs confirmation]
-- test_standard: [needs confirmation]
-- temperature: [needs confirmation]
-- humidity: [needs confirmation]
-- aging_condition: [needs confirmation]
-- replicate_count: [needs confirmation]
+- formulation_id: [mix or formulation identifier]
+- binder_or_matrix: [primary binder or matrix material]
+- modifier_or_additive: [modifier, filler, or additive]
+- dosage: [modifier dosage with unit]
+- mixing_parameters: [key mixing/processing parameters]
+- curing_condition: [curing or conditioning protocol]
+- test_standard: [applicable test standard]
+- environmental_conditions: [temperature, humidity, aging]
+- replicate_count: [number of replicates per condition]
 
 ## Processing
 
@@ -232,7 +255,7 @@ def readme(topic: str, journal: str) -> str:
 
 ## Reuse Notes
 
-Check units, test_standard, replicate_count, temperature, humidity, curing_condition, and aging_condition before reusing this dataset.
+Check units, test_standard, replicate_count, temperature, humidity, curing_condition, and environmental_conditions before reusing this dataset.
 """
 
 
@@ -260,7 +283,7 @@ def fair_audit() -> str:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--topic", required=True)
-    parser.add_argument("--domain", default="asphalt")
+    parser.add_argument("--domain", default="generic")
     parser.add_argument("--journal", default="generic")
     parser.add_argument("--output-dir", required=True)
     parser.add_argument("--experiment-record", type=Path, default=None)
