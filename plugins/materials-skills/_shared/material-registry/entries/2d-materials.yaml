@@ -179,7 +179,7 @@ properties:
   typical_range: 3.0–7.0
   unit: Å
 skill_mapping:
-  data_schemas: null
+  data_schemas: [skills/materials-data/references/nano-data-schema.md]
   figure_scripts: null
   figure_packages:
   - skills/materials-figure/assets/materials4papers/2d_material_raman_mapping

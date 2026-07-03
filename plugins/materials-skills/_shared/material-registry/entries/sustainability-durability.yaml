@@ -138,7 +138,7 @@ standards:
     and carbonation indication)
   standard: ASTM C876
 skill_mapping:
-  data_schemas: null
+  data_schemas: [skills/materials-data/references/civil-data-schema.md]
   figure_scripts: null
   figure_packages:
   - skills/materials-figure/assets/materials4papers/concrete_durability_retention

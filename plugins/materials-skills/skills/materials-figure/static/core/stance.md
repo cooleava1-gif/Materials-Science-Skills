@@ -39,7 +39,7 @@ When a task spans more than one figure (e.g. a manuscript), use the storyboard g
 
 ## When to load this skill
 
-- Python figures for **papers, slides, or reports** targeting materials science journals, construction materials research, or civil engineering publications.
+- Python figures for **papers, slides, or reports** targeting materials science and engineering journals and publications.
 - Requests involving **XRD/FTIR/TG/DTG spectra, SEM/TEM image plates, performance curves, mechanism schematics, multi-panel grids**, or **PDF/SVG/high-DPI** output.
 - Any mention of "materials figure", "construction materials plot", "XRD pattern", "FTIR spectrum", "performance curve", "mechanism schematic", "review evidence map", or "论文配图、材料科学图、土木材料图".
 - Requests to improve a figure's logic, aesthetics, panel layout, figure legend, export quality, or journal-readiness.

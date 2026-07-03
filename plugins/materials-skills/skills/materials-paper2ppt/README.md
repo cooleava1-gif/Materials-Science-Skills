@@ -3,8 +3,8 @@
 **Version:** 1.0.0
 
 **What it does** — Converts papers, reading notes, review matrices, and
-research outlines into slide-ready Markdown for civil engineering and
-construction materials presentations. It is the handoff layer before real
+research outlines into slide-ready Markdown for materials science and
+engineering presentations. It is the handoff layer before real
 PowerPoint generation: it structures the talk around the evidence chain rather
 than manuscript section order, emits a slide-by-slide Markdown outline with
 Chinese titles, pacing, figure placement, and speaker notes, then hands off to

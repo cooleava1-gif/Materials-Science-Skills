@@ -126,7 +126,7 @@ standards:
 - purpose: Static modulus of elasticity of concrete in compression
   standard: ASTM C469
 skill_mapping:
-  data_schemas: null
+  data_schemas: [skills/materials-data/references/civil-data-schema.md]
   figure_scripts: null
   figure_packages:
   - skills/materials-figure/assets/materials4papers/multifunctional_composite_radar

@@ -2,7 +2,7 @@
 name: materials-citation
 version: "1.1.0"
 stability: stable
-description: Use when searching, screening, organizing, or mapping literature and citations for civil engineering and construction materials manuscripts.
+description: Use when searching, screening, organizing, or mapping literature and citations for materials science and engineering manuscripts.
 ---
 
 # Materials Science Citation

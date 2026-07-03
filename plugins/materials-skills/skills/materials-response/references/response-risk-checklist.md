@@ -1,6 +1,6 @@
 # Response Risk Audit Guide
 
-A risk assessment and compliance guide for peer-review rebuttal packages in civil engineering and materials science. Use this guide to audit response drafts before resubmission.
+A risk assessment and compliance guide for peer-review rebuttal packages in materials science and engineering. Use this guide to audit response drafts before resubmission.
 
 ---
 

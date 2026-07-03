@@ -2,7 +2,7 @@
 name: materials-pptx
 version: "1.0.0"
 stability: stable
-description: Use when generating or converting real PowerPoint .pptx slide decks for civil engineering and construction materials research.
+description: Use when generating or converting real PowerPoint .pptx slide decks for materials science and engineering research.
 ---
 
 # Materials Science PPTX

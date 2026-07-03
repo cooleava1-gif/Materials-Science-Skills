@@ -1,6 +1,6 @@
 # Materials Science Academic-Search MCP
 
-Local stdio MCP server for civil engineering and construction-materials literature search.
+Local stdio MCP server for materials science and engineering literature search.
 
 ## Run Tests
 

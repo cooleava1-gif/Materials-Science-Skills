@@ -120,6 +120,7 @@ quality_gates:
   - claims must stay inside the civil patent knowledge base
 
 handoffs:
+  provides: {}
   consumes:
     - handoff: reader-package
       from: materials-reader

@@ -123,7 +123,7 @@ standards:
 - purpose: Bending properties of wood (ISO 13061-3)
   standard: ISO 13061-3
 skill_mapping:
-  data_schemas: null
+  data_schemas: [skills/materials-data/references/civil-data-schema.md]
   figure_scripts: null
   figure_packages:
   - skills/materials-figure/assets/materials4papers/tack_coat_interface_schematic

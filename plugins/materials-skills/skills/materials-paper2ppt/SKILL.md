@@ -2,7 +2,7 @@
 name: materials-paper2ppt
 version: "1.0.0"
 stability: stable
-description: Use when turning civil engineering and construction materials papers into Chinese PPT outlines or PPTX-ready decks.
+description: Use when turning materials science and engineering papers into Chinese PPT outlines or PPTX-ready decks.
 ---
 
 # Materials Science Paper2PPT

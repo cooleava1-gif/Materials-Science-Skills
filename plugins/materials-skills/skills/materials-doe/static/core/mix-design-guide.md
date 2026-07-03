@@ -1,6 +1,6 @@
 # Mix Design Guide
 
-Domain-specific mix design methods for concrete, mortar, and other proportioned construction materials.
+Domain-specific mix design methods for concrete, mortar, polymer blends, ceramic slurries, and other proportioned material systems.
 
 ## When to Use Mix Design Mode
 

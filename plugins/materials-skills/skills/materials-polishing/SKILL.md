@@ -3,8 +3,8 @@ name: materials-polishing
 version: "1.2.0"
 stability: stable
 description: >-
-  Polish, restructure, or translate academic prose for civil engineering and
-  construction materials research while preserving scientific responsibility.
+  Polish, restructure, or translate academic prose for materials science and
+  engineering research while preserving scientific responsibility.
   Use when the user asks to polish a manuscript paragraph, abstract,
   introduction, results, discussion, conclusion, title, methods section, or
   Chinese academic draft for publication-quality English. Also trigger on

@@ -2,7 +2,7 @@
 name: materials-response
 version: "1.2.0"
 stability: stable
-description: Use when drafting, auditing, or strengthening point-by-point reviewer response letters for civil engineering and construction materials manuscripts. Now includes reviewer strategy library, experiment remediation plans, and comment pattern recognition.
+description: Use when drafting, auditing, or strengthening point-by-point reviewer response letters for materials science and engineering manuscripts. Now includes reviewer strategy library, experiment remediation plans, and comment pattern recognition.
 ---
 
 # Materials Science Response

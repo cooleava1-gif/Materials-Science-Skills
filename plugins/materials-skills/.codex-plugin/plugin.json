@@ -1,7 +1,7 @@
 {
   "name": "materials-skills",
   "version": "1.1.0",
-  "description": "Full-cycle civil engineering and construction-materials research skills for literature, writing, figures, data, PPTX, citations, and reviewer responses.",
+  "description": "Full-cycle materials science and engineering research skills for literature, writing, figures, data, PPTX, citations, and reviewer responses.",
   "author": {
     "name": "Materials Science Skills contributors"
   },
@@ -10,7 +10,7 @@
   "license": "MIT",
   "keywords": [
     "materials",
-    "construction-materials",
+    "materials-science",
     "asphalt",
     "cement",
     "concrete",
@@ -23,10 +23,10 @@
   "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "Materials Science Skills",
-    "shortDescription": "Paper-production workflows for materials research.",
+    "shortDescription": "Paper-production workflows for materials science research.",
     "longDescription": "Use Materials Science Skills to run routed materials paper-production workflows across research planning, citation screening, reader packages, manuscript drafting, English polishing, figure packages, FAIR data organization, reviewer simulation, reviewer responses, and PPTX generation.",
     "developerName": "Materials Science Skills contributors",
-    "category": "Research",
+    "category": "Science",
     "capabilities": [
       "Interactive",
       "Read",

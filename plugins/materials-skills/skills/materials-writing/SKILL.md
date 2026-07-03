@@ -1,7 +1,7 @@
 ---
 name: materials-writing
 version: "1.1.0"
-description: Use when drafting, restructuring, or auditing manuscripts for civil engineering and construction materials research.
+description: Use when drafting, restructuring, or auditing manuscripts for materials science and engineering research.
 ---
 
 # Materials Science Writing

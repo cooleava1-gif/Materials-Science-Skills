@@ -1,6 +1,6 @@
 # Materials Science Figure Gallery
 
-Use this gallery when the user asks for a journal-ready figure plan, a PPT figure, a manuscript figure package, or a visual style example for civil engineering and construction-materials research.
+Use this gallery when the user asks for a journal-ready figure plan, a PPT figure, a manuscript figure package, or a visual style example for materials science and engineering research.
 
 The gallery is not a decoration library. Each figure card links visual form to a reviewer-safe claim, the required data structure, a caption pattern, and common overclaim risks.
 

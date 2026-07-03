@@ -75,7 +75,7 @@ TOOL_DEFINITIONS: list[dict[str, Any]] = [
     },
     {
         "name": "search_civil_materials",
-        "description": "Search scholarly sources for civil engineering and construction-materials papers with journal and evidence-layer filters.",
+        "description": "Search scholarly sources for materials science and engineering papers with journal and evidence-layer filters.",
         "inputSchema": {
             "type": "object",
             "properties": {
