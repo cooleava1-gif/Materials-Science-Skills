@@ -21,6 +21,10 @@ auth.json
 *.sqlite-shm
 *.sqlite-wal
 outputs/
+node_modules/
+package.json
+package-lock.json
+skills-evaluation-report/
 docs/superpowers/
 docs/compose/
 .reasonix/

@@ -42,6 +42,8 @@ WRITING_MATURITY_FILES = [
     "scripts/audit_materials_manuscript.py",
 ]
 
+EVAL_REQUIRED_FIELDS = ("id", "prompt", "expected_output", "assertions")
+
 def collect_paper_production_orchestrator_issues(skill_root: Path) -> list[str]:
     issues = []
     shared = skill_root / "_shared" / "paper-production"
@@ -80,6 +82,60 @@ def check_skill_basics(skill_name: str) -> list[str]:
     for fname in ["SKILL.md", "manifest.yaml"]:
         if not (root / fname).exists():
             issues.append(f"{skill_name}: missing {fname}")
+    return issues
+
+
+def collect_eval_contract_issues(skills_root: Path = SKILLS_ROOT) -> list[str]:
+    """Validate per-skill eval assets used for release regression coverage."""
+
+    issues: list[str] = []
+    for skill_name in discover_skill_names(skills_root):
+        eval_path = skills_root / skill_name / "evals" / "evals.json"
+        if not eval_path.exists():
+            issues.append(f"{skill_name}: missing evals/evals.json")
+            continue
+
+        try:
+            payload = json.loads(eval_path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+            issues.append(f"{skill_name}: invalid evals/evals.json ({exc})")
+            continue
+
+        if not isinstance(payload, dict):
+            issues.append(f"{skill_name}: evals/evals.json must contain a JSON object")
+            continue
+
+        if payload.get("skill_name") != skill_name:
+            issues.append(
+                f"{skill_name}: evals/evals.json skill_name must equal '{skill_name}'"
+            )
+
+        evals = payload.get("evals")
+        if not isinstance(evals, list) or not evals:
+            issues.append(f"{skill_name}: evals/evals.json must define a non-empty evals list")
+            continue
+
+        for index, eval_case in enumerate(evals, start=1):
+            label = f"{skill_name}: eval #{index}"
+            if not isinstance(eval_case, dict):
+                issues.append(f"{label} must be a JSON object")
+                continue
+
+            missing = [
+                field for field in EVAL_REQUIRED_FIELDS if not eval_case.get(field)
+            ]
+            if missing:
+                issues.append(f"{label} missing required fields: {', '.join(missing)}")
+                continue
+
+            assertions = eval_case.get("assertions")
+            if not isinstance(assertions, list) or not assertions:
+                issues.append(f"{label} assertions must be a non-empty list")
+
+            files = eval_case.get("files", [])
+            if files is not None and not isinstance(files, list):
+                issues.append(f"{label} files must be a list when provided")
+
     return issues
 
 
@@ -138,6 +194,10 @@ def main() -> int:
         issues = check_skill_basics(skill)
         if issues:
             all_issues[skill] = issues
+
+    eval_contract_issues = collect_eval_contract_issues(SKILLS_ROOT)
+    if eval_contract_issues:
+        all_issues["eval_contract"] = eval_contract_issues
 
     # paper-production orchestrator check
     orchestrator_issues = collect_paper_production_orchestrator_issues(SKILLS_ROOT)

@@ -24,7 +24,7 @@ worked example, and 3 unit tests.
 
 The default `invention_type = process-material` (rather than the more
 common `algorithm-software` in the nature-skills upstream) reflects the
-civil-engineering and construction-materials focus of this bundle.
+materials science and engineering focus of this bundle.
 
 ## Civil-patent knowledge base — `static/core/patent_kb.yaml`
 
@@ -155,10 +155,8 @@ skills/materials-paper-to-patent/
 
 - Unit tests (3):
   `plugins/materials-skills/skills/materials-paper-to-patent/tests/test_*.py`
-- (A dedicated `evals/evals.json` and a `tests/pressure-tests/` directory
-  are not yet shipped for this skill; the figure / reader / polishing /
-  response skills each have their own `evals.json` that exercises the
-  cross-skill flow.)
+- A dedicated `evals/evals.json` is now shipped for this skill; a dedicated
+  `tests/pressure-tests/` directory is not yet shipped.
 - Bundle verification:
   `python .\scripts\run_release_checks.py --json`
 
