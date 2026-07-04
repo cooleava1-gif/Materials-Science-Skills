@@ -74,7 +74,7 @@ TOOL_DEFINITIONS: list[dict[str, Any]] = [
         },
     },
     {
-        "name": "search_civil_materials",
+        "name": "search_materials",
         "description": "Search scholarly sources for materials science and engineering papers with journal and evidence-layer filters.",
         "inputSchema": {
             "type": "object",
@@ -247,8 +247,8 @@ def _call_tool(service: AcademicSearchService, name: str | None, args: dict[str,
         return service.convert_citation_records(args)
     if name == "deduplicate_citation_records":
         return service.deduplicate_citation_records(args)
-    if name == "search_civil_materials":
-        return _run_async_or_sync(service, "search_civil_materials", "search_materials_async", args)
+    if name == "search_materials":
+        return _run_async_or_sync(service, "search_materials", "search_materials_async", args)
     if name == "fetch_paper_metadata":
         return _run_async_or_sync(service, "fetch_paper_metadata", "fetch_paper_metadata_async", args)
     if name == "suggest_search_queries":

@@ -86,7 +86,7 @@ class AcademicSearchServiceTest(unittest.TestCase):
         )
         service = AcademicSearchService(adapters=[adapter_a, adapter_b])
 
-        result = service.search_civil_materials(
+        result = service.search_materials(
             {
                 "topic": "waterborne epoxy modified emulsified asphalt bonding performance",
                 "journal_family": ["CBM"],
@@ -125,7 +125,7 @@ class AcademicSearchServiceTest(unittest.TestCase):
             ]
         )
 
-        result = service.search_civil_materials(
+        result = service.search_materials(
             {
                 "topic": "waterborne epoxy modified emulsified asphalt bonding performance",
                 "limit": "not-a-number",
@@ -144,7 +144,7 @@ class AcademicSearchServiceTest(unittest.TestCase):
         )
 
         with self.assertLogs("academic_search.service", level="WARNING") as captured:
-            result = service.search_civil_materials(
+            result = service.search_materials(
                 {
                     "topic": "waterborne epoxy modified emulsified asphalt bonding performance",
                 }

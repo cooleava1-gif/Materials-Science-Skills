@@ -170,14 +170,14 @@ Example Codex MCP configuration:
 [mcp_servers."materials-academic-search"]
 command = "python"
 args = ["./skills/materials-citation/mcp/academic_search/server.py"]
-cwd = "."
+cwd = "plugins/materials-skills"
 ```
 
 Optional environment variables:
 
 - `OPENALEX_API_KEY`
 - `SEMANTIC_SCHOLAR_API_KEY`
-- `CIVIL_MATERIALS_CONTACT_EMAIL`
+- `MATERIALS_CONTACT_EMAIL`
 - `NCBI_API_KEY`
 
 For the full walkthrough, see [install.md](install.md).

@@ -25,7 +25,7 @@ class PubMedAdapter:
         timeout: float = 20.0,
         sleep: Any = time.sleep,
     ) -> None:
-        self.email = (email if email is not None else os.getenv("CIVIL_MATERIALS_CONTACT_EMAIL", "")).strip()
+        self.email = (email if email is not None else os.getenv("MATERIALS_CONTACT_EMAIL", "")).strip()
         self.api_key = (api_key if api_key is not None else os.getenv("NCBI_API_KEY", "")).strip()
         self.timeout = timeout
         self.sleep = sleep

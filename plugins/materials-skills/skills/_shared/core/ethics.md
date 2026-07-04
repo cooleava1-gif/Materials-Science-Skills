@@ -23,7 +23,7 @@ Make it obvious:
 - someone else's ideas, data, methods, wording, structure, images, or distinctive interpretation
 - Do not assume internet material is public domain just because it is online.
 
-## Civil-materials specific prohibitions
+## Materials-specific prohibitions
 
 Never fabricate or guess:
 

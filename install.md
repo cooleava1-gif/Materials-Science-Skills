@@ -65,7 +65,7 @@ Optional environment variables:
 
 - `OPENALEX_API_KEY`
 - `SEMANTIC_SCHOLAR_API_KEY`
-- `CIVIL_MATERIALS_CONTACT_EMAIL`
+- `MATERIALS_CONTACT_EMAIL`
 - `NCBI_API_KEY`
 
 ## Verify The Install

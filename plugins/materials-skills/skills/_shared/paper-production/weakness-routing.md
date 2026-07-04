@@ -21,7 +21,7 @@ Allowed `status` values are `open`, `routed`, `fixed`, `blocked`, and
 | Weakness type | Route to | Required fix | Expected artifact |
 |---|---|---|---|
 | citation coverage too narrow | materials-citation | Run targeted search, source quality audit, and citation matrix update. | updated citation matrix |
-| recent WER-EA literature missing | materials-citation | Run recent-year WER-EA search and update screening criteria. | recent-source addendum |
+| recent {material_domain} literature missing | materials-citation | Run recent-year {material_domain} search and update screening criteria. | recent-source addendum |
 | mechanism evidence too speculative | materials-reader; materials-citation | Rebuild claim-evidence-mechanism-boundary rows and mark missing evidence. | mechanism evidence table |
 | source anchor missing | materials-reader | Add page, section, figure, table, original excerpt, and confidence label. | source_map update |
 | manuscript reads like paper list | materials-writing | Rebuild section logic around evidence roles and review questions. | revised argument chain |

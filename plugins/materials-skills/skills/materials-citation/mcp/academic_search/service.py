@@ -155,7 +155,7 @@ class AcademicSearchService:
         deduplicated = deduplicate_records(records)
         return {"records": deduplicated, "count": len(deduplicated), "input_count": len(records)}
 
-    def search_civil_materials(self, args: dict[str, Any]) -> dict[str, Any]:
+    def search_materials(self, args: dict[str, Any]) -> dict[str, Any]:
         topic = _required(args, "topic")
         limit = _safe_limit(args.get("limit"), default=10)
         journal_family = args.get("journal_family")
@@ -265,7 +265,7 @@ class AcademicSearchService:
         return records, warnings
 
     async def search_materials_async(self, args: dict[str, Any]) -> dict[str, Any]:
-        """Concurrent version of :meth:`search_civil_materials`."""
+        """Concurrent version of :meth:`search_materials`."""
         topic = _required(args, "topic")
         limit = _safe_limit(args.get("limit"), default=10)
         journal_family = args.get("journal_family")

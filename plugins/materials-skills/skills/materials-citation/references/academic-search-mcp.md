@@ -21,7 +21,7 @@ This MCP is the upstream search and metadata-verification layer for `materials-c
 
 ## Public Tools
 
-### `search_civil_materials`
+### `search_materials`
 
 Use for first-pass paper retrieval.
 
@@ -141,7 +141,7 @@ Do not mix mechanism citations and performance citations unless the source direc
 ## Recommended Workflow
 
 1. Use `suggest_search_queries` for search strategy.
-2. Use `search_civil_materials` to retrieve candidates.
+2. Use `search_materials` to retrieve candidates.
 3. Use `lookup_mesh` when PubMed vocabulary may improve topic wording.
 4. Use `fetch_paper_metadata` to verify DOI/title/journal/year before citing.
 5. Use `build_claim_source_map` to map sources to manuscript claims.
@@ -156,7 +156,7 @@ Do not mix mechanism citations and performance citations unless the source direc
 - Semantic Scholar is used for abstracts, citation counts, and paper IDs when available.
 - OpenAlex is skipped unless `OPENALEX_API_KEY` is set.
 - `SEMANTIC_SCHOLAR_API_KEY` is optional.
-- `CIVIL_MATERIALS_CONTACT_EMAIL` is optional for Crossref polite-pool requests and recommended for PubMed.
+- `MATERIALS_CONTACT_EMAIL` is optional for Crossref polite-pool requests and recommended for PubMed.
 - `NCBI_API_KEY` is optional for PubMed rate-limit improvement.
 
 ## What It Does Not Do

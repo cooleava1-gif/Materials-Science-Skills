@@ -12,6 +12,7 @@ should appear.
 | [Experimental manuscript](experimental-manuscript.md) | Evidence-gap audit before discussion drafting | research -> data -> figure -> writing -> reviewer |
 | [Revision loop](revision-loop.md) | Reviewer comments and rebuttal planning | reviewer -> response -> writing -> polishing |
 | [Paper to presentation](paper-to-presentation.md) | Journal-club outline and deck creation | paper2ppt -> pptx |
+| [Ceramics Sintering Manuscript](ceramics-sintering-manuscript.md) | YSZ sintering experiment to JACerS submission pipeline | doe -> data -> citation -> reader -> writing -> figure -> reviewer -> response |
 
 Run `python .\scripts\run_release_checks.py --json` after changing skill
 files, and run `python -m pytest tests/test_product_docs_contract.py -q` after

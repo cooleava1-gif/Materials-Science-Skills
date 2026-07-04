@@ -17,7 +17,7 @@ class CrossrefAdapter:
 
     def __init__(self, *, timeout: float = 20.0) -> None:
         self.timeout = timeout
-        self.mailto = os.getenv("CIVIL_MATERIALS_CONTACT_EMAIL", "").strip()
+        self.mailto = os.getenv("MATERIALS_CONTACT_EMAIL", "").strip()
 
     def search(self, query: str, *, journals=None, year_range: str | None = None, limit: int = 10) -> list[dict[str, Any]]:
         params: dict[str, Any] = {
