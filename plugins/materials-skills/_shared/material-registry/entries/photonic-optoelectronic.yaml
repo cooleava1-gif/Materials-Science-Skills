@@ -171,7 +171,7 @@ properties:
   typical_range: 5–50
   unit: mA/cm²
 skill_mapping:
-  data_schemas: null
+  data_schemas: [skills/materials-data/references/functional-data-schema.md]
   figure_scripts: null
   figure_packages:
   - skills/materials-figure/assets/materials4papers/17-nano_gisaxs_2d

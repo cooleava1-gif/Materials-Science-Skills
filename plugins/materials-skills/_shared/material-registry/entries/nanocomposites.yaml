@@ -182,7 +182,7 @@ properties:
   typical_range: -100 to 250
   unit: °C
 skill_mapping:
-  data_schemas: null
+  data_schemas: [skills/materials-data/references/nano-data-schema.md]
   figure_scripts: null
   figure_packages:
   - skills/materials-figure/assets/materials4papers/nanoparticle_size_distribution

@@ -1,7 +1,7 @@
 ---
 name: materials-reader
 version: "1.2.0"
-description: Use when reading, translating, extracting, or organizing full papers for civil engineering and construction materials research.
+description: Use when reading, translating, extracting, or organizing full papers for materials science and engineering research.
 ---
 
 # Materials Science Reader

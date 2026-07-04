@@ -131,7 +131,7 @@ properties:
   typical_range: 10–30
   unit: '%'
 skill_mapping:
-  data_schemas: null
+  data_schemas: [skills/materials-data/references/ceramics-data-schema.md]
   figure_scripts: null
   figure_packages:
   - skills/materials-figure/assets/materials4papers/ceramics_weibull_reliability

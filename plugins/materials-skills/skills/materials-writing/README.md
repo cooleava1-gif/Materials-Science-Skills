@@ -1,129 +1,125 @@
 # materials-writing
 
-**Version:** 1.1.0
+**Version:** 1.2.0
 
-**What it does** — Turns evidence and structure into manuscript prose for
-materials science. It drafts review outlines, argument chains, and bounded
-section text (abstracts, introductions, methods, results/discussion,
-conclusions) from claims, results, reader-package artifacts, or Chinese source
-drafts. Every claim stays anchored to evidence through a
-claim-evidence-mechanism-boundary matrix, and missing evidence is kept explicit
-so the output hands off cleanly to polishing, reviewer, or response loops
-instead of hiding gaps.
+**What it does** — `materials-writing` is an evidence-first, section-aware drafting engine for materials science manuscripts. It turns claims, results, notes, and outlines into bounded prose. It does not generate freeform text from prompts; it runs a staged workflow that locks terminology, writes a one-sentence argument, maps paragraph messages, passes a confirmation gate, and only then drafts prose that can be traced back to evidence.
 
-**Built from** — A large narrative and section-pattern library plus phrase
-banks routed by 6 axes simultaneously (paper type, section, language,
-journal family, material family, domain):
+**Four design principles**
 
-**Six routing axes** — Drives the section template, phrase bank, and domain
-narrative simultaneously:
+| Principle | What it means in practice |
+|---|---|
+| Evidence first | Every major claim maps to evidence; missing evidence is surfaced as `[TO CONFIRM: ...]` placeholders. |
+| Section aware | Each section has explicit moves: Introduction uses a gap ladder; Results moves observation → quantified result → mechanism evidence → alternative → boundary; Conclusion states contribution, limitation, next step, and overclaim boundary. |
+| Profile aware | `material_family` and `domain` axes route into domain narratives, phrase banks, and section patterns in one pass. |
+| Handoff friendly | Outputs claim-evidence maps and terminology ledgers that feed cleanly into `materials-citation`, `materials-doe`, `materials-reader`, and `materials-polishing`. |
+
+**Seven routing axes** — Drives the section template, phrase bank, and domain narrative simultaneously:
 
 | Axis | Examples |
 |---|---|
 | `paper_type` | experimental-manuscript / review-paper / methods-paper |
 | `section` | abstract / introduction / methods / results-discussion / conclusion / full-argument |
-| `language` | zh / en |
-| `journal_family` | CBM / CCC / RMPD / JBE / nature-materials / acs-nano / … |
+| `language` | en / zh-to-en |
+| `journal_family` | CBM / CCC / RMPD / JBE / materials |
 | `material_family` | civil / polymers / metals / ceramics / functional / nano |
-| `domain` | WER-EA / asphalt / cement-concrete / refractories / bioceramics / … |
+| `domain` | civil / polymers / metals / ceramics / functional / nano |
+| `input_source` | manual / experiment-record |
 
-The two material axes (`material_family` and `domain`) are what make the
-writing skill vertical for materials science: they route into the matching
-domain narrative, the matching phrase bank, and the matching section-pattern
-arc in a single pass.
+The two material axes (`material_family` and `domain`) are what make the writing skill vertical for materials science: they route into the matching domain narrative, the matching phrase bank, and the matching section-pattern arc in a single pass.
 
-- `references/` — 42 narrative and strategy references: 34 domain narrative
-  guides (asphalt, cement/concrete, ceramics, polymers, metals, functional,
-  nano, insulation, timber/masonry, WER-EA, refractories, bioceramics, etc.)
-  plus argument-chain, review-paper-strategy, wer-ea-mini-review-pipeline,
-  reviewer-risk-writing, published-article-patterns, and table-system
-- `references/section-patterns/` — 5 section arcs: abstract claim arc,
-  introduction gap ladder, results-discussion evidence chain, conclusion
-  boundary, review synthesis patterns
-- `references/phrase-banks/` — 10 domain phrase banks (WER-EA, thermal
-  insulation, polymer composites, cement/concrete, ceramics, metals/alloys,
-  durability/sustainability, civil-general, nano, functional)
-- `assets/templates/` — manuscript-argument, section-draft, table-system, and
-  WER-EA mini-review templates
-- `scripts/` — `build_manuscript_outline.py` for outline scaffolding and
-  `audit_materials_manuscript.py` for draft auditing
-- `static/fragments/` — section, paper_type, journal_family, language,
-  material_family, and domain fragments loaded by the manifest axes
-
-**Key rules enforced**
-
-| Domain | Core rule |
-|---|---|
-| Evidence first | Every claim maps to evidence; no overclaim, no speculation as fact. |
-| Abstract | Background pain -> contribution -> result -> application boundary. |
-| Introduction | Gap ladder from field progress to explicit evidence gap and novelty. |
-| Method | Replicates, standards, units, and conditions stay explicit. |
-| Results/Discussion | Observation -> mechanism evidence -> alternative-explanation exclusion. |
-| Conclusion | State contribution, limitations, next steps, and overclaim boundary. |
-| Chinese notes | zh-to-en drafting preserves facts and evidence strength, not literal wording. |
-
-**Reference files**
+**File layout**
 
 ```text
 skills/materials-writing/
 ├── README.md
-├── SKILL.md
-├── manifest.yaml
+├── SKILL.md                    # router and handoff contract
+├── manifest.yaml               # seven-axis manifest and on-demand references
+├── agents/
+│   └── openai.yaml             # agent interface
 ├── scripts/
-│   ├── build_manuscript_outline.py    outline scaffolding
-│   └── audit_materials_manuscript.py  draft auditing
+│   ├── build_manuscript_outline.py    # outline scaffolding
+│   └── audit_materials_manuscript.py  # draft auditing
 ├── assets/templates/
 │   ├── manuscript-argument-template.md
 │   ├── section-draft-template.md
 │   ├── table-system-template.md
 │   └── wer-ea-mini-review-template.md
 ├── references/
-│   ├── argument-chain.md              paper logic and contribution chain
-│   ├── review-paper-strategy.md       mini-review / review strategy
-│   ├── wer-ea-mini-review-pipeline.md WER-EA review pipeline
-│   ├── reviewer-risk-writing.md       overclaim and missing-evidence risk
-│   ├── published-article-patterns.md  sentence templates from real papers
-│   ├── table-system.md                table system templates
-│   ├── *-narrative.md                 34 domain narrative guides (asphalt,
-│   │                                   cement, ceramics, polymers, metals,
-│   │                                   functional, nano, insulation, WER-EA,
-│   │                                   timber/masonry, refractories, ...)
-│   ├── section-patterns/              5 section arcs (abstract, intro, R&D, conclusion, review)
-│   └── phrase-banks/                  10 domain phrase banks
-└── static/fragments/
-    ├── section/        abstract, introduction, methods, results-discussion, conclusion
-    ├── paper_type/     experimental-manuscript, review-paper, methods-paper
-    └── domain/         civil, polymers, metals, ceramics, functional, nano
+│   ├── argument-chain.md              # fast one-sentence argument template
+│   ├── article-architecture.md        # full-paper move map
+│   ├── review-paper-strategy.md       # synthesis-axes review strategy
+│   ├── wer-ea-mini-review-pipeline.md # WER-EA review pipeline
+│   ├── reviewer-risk-writing.md       # overclaim and missing-evidence risk
+│   ├── published-article-patterns.md  # sentence templates from real papers
+│   ├── paragraph-flow.md              # one-paragraph-one-message reference
+│   ├── table-system.md                # table system templates
+│   ├── experiment-record-for-writing.md # record-to-prose guidance
+│   ├── *-narrative.md                 # 34 domain narrative guides
+│   ├── section-patterns/              # 5 section arcs
+│   ├── phrase-banks/                  # 10 domain phrase banks
+│   └── examples/                      # example library
+├── static/fragments/
+│   ├── core/           # contract, workflow, output-format, stance stub
+│   ├── section/        # abstract, introduction, methods, results-discussion, conclusion, ...
+│   ├── paper_type/     # experimental-manuscript, review-paper, methods-paper
+│   ├── journal/        # CBM, CCC, RMPD, JBE, materials
+│   ├── language/       # en, zh-to-en
+│   └── domain/         # civil, polymers, metals, ceramics, functional, nano
+└── tests/
+    ├── test_writing_skill.py
+    ├── test_narrative_guides.py
+    ├── scenarios/      # behavior-protecting scenarios
+    └── pressure-tests/ # missing-data writing pressure test
 ```
 
-**Validation**
+**Key rules enforced**
 
-- Audit script:
-  `plugins/materials-skills/skills/materials-writing/scripts/audit_materials_manuscript.py`
-- Outline scaffolding:
-  `plugins/materials-skills/skills/materials-writing/scripts/build_manuscript_outline.py`
-- Unit test:
-  `plugins/materials-skills/skills/materials-writing/tests/test_writing_skill.py`
-- Bundle verification:
-  `python .\scripts\run_release_checks.py --json`
+| Domain | Core rule |
+|---|---|
+| Evidence first | Every claim maps to evidence; no overclaim, no speculation as fact. |
+| Terminology lock | Canonical forms are locked before drafting; drafts do not reintroduce variants. |
+| Confirmation gate | Full section output is produced only after the one-sentence argument, plan, and terminology are confirmed. |
+| Paragraph flow | One paragraph, one message; first sentence forecasts the message; transitions carry the argument forward. |
+| Abstract | Background pain -> contribution -> result -> application boundary. |
+| Introduction | Gap ladder from field progress to explicit evidence gap and paper entry. |
+| Method | Synthesis/preparation route, test standards, replicate count, condition control. |
+| Results/Discussion | Observation -> quantified result -> mechanism evidence -> alternative explanation -> boundary. |
+| Conclusion | Contribution, limitation, next step, and overclaim boundary. |
+| Review paper | Organized by synthesis axes (mechanism, material design, performance trade-off, research agenda), not paper-by-paper. |
+| Chinese notes | zh-to-en drafting preserves facts and evidence strength, not literal wording. |
 
-## When To Use
+**Example 1: From weak introduction to gap ladder**
+
+- Weak: "Few studies have investigated waterborne epoxy modified emulsified asphalt."
+- Stronger: "While dry bonding strength of WER-EA tack coats has been reported, wet bonding retention after freeze-thaw conditioning and the corresponding interface morphology evolution remain unquantified."
+
+The skill turns the weak version into the stronger one by mapping the introduction onto field progress → contradiction → evidence gap → paper entry.
+
+**Example 2: From result to bounded claim-evidence map**
+
+Input: "Bonding strength increased from 0.43 MPa to 0.55 MPa at 10% epoxy."
+
+Output claim-evidence map:
+
+```text
+Claim: 10% epoxy increases WER-EA tack-coat bonding strength under dry conditions.
+Evidence: Pull-off test data, control vs. 10% epoxy, measured at 25 °C.
+Boundary: Dry conditions only; wet/aged data not provided.
+```
+
+The skill keeps the claim tied to the measurement and explicitly states the boundary instead of generalizing to field durability.
+
+**When To Use**
 
 Use `materials-writing` when the user request matches this skill's production surface and the needed inputs are available or can be explicitly marked as missing.
 
 ## Inputs
 
-Typical inputs are the user prompt, material direction/profile, target journal or task mode when relevant, and any source text, data, figures, reviewer comments, or package artifacts needed by the skill.
+Typical inputs are the user prompt, material direction/profile, target journal or task mode when relevant, and any source text, data, figures, reviewer comments, reader-package artifacts, doe-handoff artifacts, or experiment-record files needed by the skill.
 
 ## Outputs
 
-Outputs are structured handoffs or artifacts described above in this README. Missing evidence, author input needs, and unsupported claims stay visible instead of being hidden in fluent prose.
-
-## Example
-
-```text
-Draft a bounded results/discussion argument chain from evidence rows.
-```
+Outputs are structured handoffs or artifacts described above. Every output follows the six-part writing format: Draft, Section outline, Assumptions, Claim-evidence map, Why this structure, To redirect me. Missing evidence, author input needs, and unsupported claims stay visible instead of being hidden in fluent prose.
 
 ## Validation
 
@@ -131,6 +127,7 @@ Run the skill-specific scripts or tests listed above when they apply, then run t
 
 ```powershell
 python .\scripts\run_release_checks.py --json
+python .\scripts\check_skill_architecture.py --json
 ```
 
 ## Boundaries

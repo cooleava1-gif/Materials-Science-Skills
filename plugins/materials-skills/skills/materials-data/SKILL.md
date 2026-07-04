@@ -2,7 +2,7 @@
 name: materials-data
 version: "1.1.0"
 stability: stable
-description: Use when organizing, auditing, packaging, or drafting data and FAIR materials for civil engineering and construction materials manuscripts.
+description: Use when organizing, auditing, packaging, or drafting data and FAIR materials for materials science and engineering manuscripts.
 ---
 
 # Materials Science Data And FAIR

@@ -15,7 +15,7 @@ civil/construction, polymers, metals, ceramics, and functional/nano materials.
 Each system carries a narrative arc, figure scripts, reviewer criteria, and
 worked example packages where the coverage tier has reached `full`.
 
-本技能包发布 **13 个 skills**，覆盖 **29 个材料体系**，涵盖土木/建筑、聚合物、
+本技能包发布 **13 个 skills**，覆盖 **29 个材料体系**，涵盖土木、聚合物、
 金属、陶瓷、功能/纳米材料。每个体系都带有叙事主线、配图脚本、审稿标准和
 完整示例包（`full` 覆盖等级）。
 
@@ -170,14 +170,14 @@ Example Codex MCP configuration:
 [mcp_servers."materials-academic-search"]
 command = "python"
 args = ["./skills/materials-citation/mcp/academic_search/server.py"]
-cwd = "."
+cwd = "plugins/materials-skills"
 ```
 
 Optional environment variables:
 
 - `OPENALEX_API_KEY`
 - `SEMANTIC_SCHOLAR_API_KEY`
-- `CIVIL_MATERIALS_CONTACT_EMAIL`
+- `MATERIALS_CONTACT_EMAIL`
 - `NCBI_API_KEY`
 
 For the full walkthrough, see [install.md](install.md).
@@ -197,10 +197,12 @@ For the full walkthrough, see [install.md](install.md).
 | [`materials-data`](plugins/materials-skills/skills/materials-data/README.md) | Stable | FAIR package, 9 domain schemas, data availability statement | "FAIR package", "data availability", "dataset" |
 | [`materials-doe`](plugins/materials-skills/skills/materials-doe/README.md) | Stable | Factorial / Taguchi / mixture matrices, methods paragraph | "DOE", "experiment design", "orthogonal array" |
 | [`materials-reviewer`](plugins/materials-skills/skills/materials-reviewer/README.md) | Stable | 5-axis peer review, 22 domain criteria, desk-reject risk | "peer review", "desk-reject risk", "reviewer report" |
-| [`materials-response`](plugins/materials-skills/skills/materials-response/README.md) | Stable | Point-by-point response, rebuttal package, action mapping | "response letter", "rebuttal", "reviewer comment" |
-| [`materials-paper2ppt`](plugins/materials-skills/skills/materials-paper2ppt/README.md) | Stable | Slide-ready Markdown, talk structure for group meeting / journal club | "paper to slides", "journal club", "slide outline" |
-| [`materials-pptx`](plugins/materials-skills/skills/materials-pptx/README.md) | Stable | Real `.pptx` deck with dependency-light OOXML writer | "pptx", "powerpoint", "slide deck" |
-| [`materials-paper-to-patent`](plugins/materials-skills/skills/materials-paper-to-patent/README.md) | Stable | Chinese invention-patent application, civil patent KB, claim validator | "patent", "claim", "invention disclosure" |
+| [`materials-response`](plugins/materials-skills/skills/materials-response/README.md) | Beta | Point-by-point response, rebuttal package, action mapping | "response letter", "rebuttal", "reviewer comment" |
+| [`materials-paper2ppt`](plugins/materials-skills/skills/materials-paper2ppt/README.md) | Beta | Slide-ready Markdown, talk structure for group meeting / journal club | "paper to slides", "journal club", "slide outline" |
+| [`materials-pptx`](plugins/materials-skills/skills/materials-pptx/README.md) | Beta | Real `.pptx` deck with dependency-light OOXML writer | "pptx", "powerpoint", "slide deck" |
+| [`materials-paper-to-patent`](plugins/materials-skills/skills/materials-paper-to-patent/README.md) | Beta | Chinese invention-patent application, civil patent KB, claim validator | "patent", "claim", "invention disclosure" |
+
+> **Status legend:** `Stable` = regression-covered, cross-skill handoffs documented, and used in worked examples. `Beta` = functional and documented, but still accumulating cross-skill pressure tests or domain coverage depth.
 
 ---
 
@@ -391,7 +393,7 @@ templates for:
 - `asphalt` — mix design, modifier dosage, performance window
 - `cement-concrete` — mix proportions, hydration, durability
 - `ceramics` — sintering, mechanical, Weibull reliability
-- `civil` — generic civil-engineering measurement
+- `civil` — generic engineering measurement
 - `functional` — sensors, energy storage, smart materials
 - `metals` — composition, heat-treatment, mechanical response
 - `nano` — nanoparticle size, surface area, dispersion
@@ -468,7 +470,7 @@ domain-specific language rulebooks. Has its own `evals.json`.
 ## materials-doe
 
 **What it does** — Design-of-experiments planning and matrix generation for
-civil engineering and construction materials research. Supports classical
+materials science and engineering research. Supports classical
 factorial, Taguchi orthogonal array, and mixture/simplex designs with factor
 screening and response surface extensions.
 
@@ -549,7 +551,7 @@ All 13 skills share a small set of protocol files under
 - **7 shared core protocols** + 17 journal-format guides
 - **9 scripts** in `materials-paper-to-patent` + **3+ scripts** across other skills
 - **47 unit tests** across the bundle
-- **4 evals.json** files (figure / reader / polishing / response)
+- **13 evals.json** files (one per materials-* skill)
 
 ## Visual Gallery
 
@@ -589,9 +591,9 @@ requirements.
 
 ## Roadmap (transparent gaps)
 
-- **Evals / pressure-test coverage** is currently at 4 of 13 skills; the
-  bundle still needs cross-skill pressure tests to make every skill
-  production-stable.
+- **Evals coverage** is now at 13 of 13 skills, but cross-skill pressure
+  tests are still uneven and the bundle still needs broader end-to-end
+  pressure testing to make every skill production-stable.
 - **Submission end-to-end** is partially covered (cover letter + response
   letter + data availability), but LaTeX-class templates for the 17 journal
   families are not yet shipped.

@@ -1,6 +1,6 @@
 # Language Bank
 
-A registry of academic rebuttal stems, framing language, and tone qualifiers for materials science and civil engineering peer review.
+A registry of academic rebuttal stems, framing language, and tone qualifiers for materials science and engineering peer review.
 
 ## 1. Acknowledge and Accept
 

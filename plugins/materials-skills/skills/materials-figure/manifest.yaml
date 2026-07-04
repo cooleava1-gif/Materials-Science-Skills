@@ -1,5 +1,6 @@
 name: materials-figure
 version: 2.0.0
+status: stable
 description: >
   Declarative manifest for the static/dynamic split. SKILL.md uses this to
   decide which fragments to load for a given figure request. The main axis is

@@ -186,7 +186,7 @@ properties:
   typical_range: 50–600
   unit: °C
 skill_mapping:
-  data_schemas: null
+  data_schemas: [skills/materials-data/references/functional-data-schema.md]
   figure_scripts: null
   figure_packages:
   - skills/materials-figure/assets/materials4papers/15-ceramic_nyquist_plot

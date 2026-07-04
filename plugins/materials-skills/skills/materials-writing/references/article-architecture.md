@@ -8,14 +8,16 @@ A strong materials paper can usually be reduced to:
 
 `field-scale need -> unresolved bottleneck -> proposed move -> decisive evidence -> broader implication -> boundary`
 
-Each section carries one link of this chain:
+Each section carries one link of this chain, and each link must be visible to the reader:
 
-- abstract: condenses the whole chain into one paragraph.
-- introduction: establishes the need and the gap.
-- methods: proves the evidence is reproducible and credible.
-- results: provides the data that supports each claim.
-- discussion: explains what the data means and where it is bounded.
-- conclusion: limits the contribution and points to next work.
+| Section | Link | What it must earn |
+|---|---|---|
+| Abstract | compresses the full chain | the reader sees the problem, contribution, result, and boundary in one paragraph |
+| Introduction | earns the gap | field progress leads to a specific missing evidence, not just a missing topic |
+| Methods | justifies the evidence | the measurements are reproducible and the conditions are controlled |
+| Results | shows the data | observations are quantified and compared against baselines |
+| Discussion | interprets and limits | mechanism evidence is cross-validated, alternatives are addressed, boundaries are stated |
+| Conclusion | restates the contribution without inflating it | contribution, limitation, next step, and overclaim boundary are all present |
 
 If one link is missing, mark it as missing rather than writing around it.
 
@@ -32,9 +34,9 @@ If one link is missing, mark it as missing rather than writing around it.
 ### Introduction
 
 1. Field progress and why the topic matters.
-2. Current performance boundary.
+2. Current performance boundary or contradiction.
 3. Strategy evolution in prior work.
-4. The remaining capability gap.
+4. The remaining evidence gap.
 5. This paper's design and how it is validated.
 
 ### Methods
@@ -76,6 +78,7 @@ After a full read, check:
 - Is the gap stated explicitly, not implied?
 - Is the boundary condition declared, not hidden?
 - Does each section open with its move, not with throat-clearing?
+- Does the conclusion restate rather than inflate the contribution?
 
 ## Relationship to argument-chain.md
 

@@ -3,7 +3,7 @@
 **Version:** v1.1.0
 
 **What it does** — Design-of-experiments planning and matrix generation for
-civil engineering and construction materials research. Supports six design
+materials science and engineering research. Supports six design
 modes: classical DOE, orthogonal array/Taguchi methods, mix design, factor
 screening (Plackett-Burman, fractional factorial), response surface methodology
 (CCD, BBD), and mixture design (Simplex lattice, Simplex centroid, extreme

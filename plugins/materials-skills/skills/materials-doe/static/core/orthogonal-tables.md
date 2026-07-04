@@ -1,6 +1,6 @@
 # Orthogonal Arrays and Analysis Formulas
 
-Standard orthogonal arrays for screening and main-effect estimation in civil engineering materials experiments.
+Standard orthogonal arrays for screening and main-effect estimation in materials science and engineering experiments.
 
 ## L9 Orthogonal Array (3^4)
 

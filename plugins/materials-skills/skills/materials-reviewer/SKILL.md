@@ -2,7 +2,7 @@
 name: materials-reviewer
 version: "1.0.0"
 stability: stable
-description: Use when simulating peer review, auditing manuscript risk, or stress-testing claims for civil engineering and construction materials research.
+description: Use when simulating peer review, auditing manuscript risk, or stress-testing claims for materials science and engineering research.
 ---
 
 # Materials Science Reviewer

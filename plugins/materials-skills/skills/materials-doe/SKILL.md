@@ -1,7 +1,7 @@
 ---
 name: materials-doe
 version: "1.1.0"
-description: Use when planning, generating, or auditing design-of-experiments matrices for civil engineering and construction materials research. Covers classical factorial, Taguchi orthogonal arrays, screening designs (Plackett-Burman, fractional factorial), response surface methodology (CCD, Box-Behnken), and mixture designs.
+description: Use when planning, generating, or auditing design-of-experiments matrices for materials science and engineering research. Covers classical factorial, Taguchi orthogonal arrays, screening designs (Plackett-Burman, fractional factorial), response surface methodology (CCD, Box-Behnken), and mixture designs.
 ---
 
 # Materials Science Design of Experiments

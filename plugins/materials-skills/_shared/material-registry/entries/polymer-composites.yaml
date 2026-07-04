@@ -167,7 +167,7 @@ properties:
   typical_range: 40–70
   unit: '%'
 skill_mapping:
-  data_schemas: null
+  data_schemas: [skills/materials-data/references/polymers-data-schema.md]
   figure_scripts: null
   figure_packages:
   - skills/materials-figure/assets/materials4papers/polymer_thermal_degradation

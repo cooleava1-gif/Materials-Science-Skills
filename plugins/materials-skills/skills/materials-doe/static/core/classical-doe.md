@@ -1,6 +1,6 @@
 # Classical DOE Procedures
 
-Standard design-of-experiments procedures for civil engineering materials research when orthogonal arrays are not appropriate.
+Standard design-of-experiments procedures for materials science and engineering research when orthogonal arrays are not appropriate.
 
 ## Single-Factor Design
 

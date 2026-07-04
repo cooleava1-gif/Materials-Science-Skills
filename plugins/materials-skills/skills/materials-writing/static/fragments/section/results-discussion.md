@@ -2,14 +2,22 @@
 
 > **Domain context**: The `domain` axis has loaded domain-specific writing guidance for [detected domain]. The structure below is general; the domain guide contains field-specific characterization expectations and mechanism evidence standards. Use both together.
 
-Each paragraph should follow:
+Each results/discussion paragraph should move through the evidence chain in this order:
 
-1. Result — state the observation quantitatively.
-2. Comparison — compare with control, baseline, or literature.
-3. Mechanism or interpretation — supported by characterization evidence.
-4. Limitation — what the result does not explain or what condition bounds it.
+1. **Observation** — describe what was seen or measured.
+2. **Quantified result** — report the number with units, replicate count, and uncertainty where available.
+3. **Mechanism evidence** — interpret the result using characterization data. Do not jump into mechanism language before the result is clear.
+4. **Alternative explanation** — acknowledge a competing interpretation and explain why the evidence favors the preferred one.
+5. **Boundary** — state the condition, scale, or measurement limit that bounds the claim.
 
-Do not discuss mechanism before the result is clear. Do not infer mechanism from performance alone. Link each performance trend to characterization evidence.
+## Hard rules
+
+- Do not discuss mechanism before the result is clear.
+- Do not infer mechanism from performance alone. Link each performance trend to characterization evidence.
+- Keep claims near the data that support them; do not stack claims at the top and leave evidence at the bottom.
+- Every paragraph carries one message only: result, comparison, mechanism, or Limitation.
+
+## Domain characterization reminders
 
 - **Civil materials**: FTIR, SEM, fluorescence microscopy, rheology, TGA/DSC.
 - **Ceramics**: XRD, SEM/TEM, EDS, density/porosity, Weibull analysis.
@@ -22,7 +30,7 @@ Do not discuss mechanism before the result is clear. Do not infer mechanism from
 
 - [ ] Does each key result have a corresponding characterization evidence?
 - [ ] Are error bars or confidence intervals reported for all quantitative data?
-- [ ] Is competing explanations addressed (not just the preferred mechanism)?
+- [ ] Is a competing explanation addressed (not just the preferred mechanism)?
 - [ ] Is the comparison with literature fair (same material system, test condition, scale)?
 
 ## Record-driven Results drafting

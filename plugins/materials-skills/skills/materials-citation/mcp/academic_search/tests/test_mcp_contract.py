@@ -10,7 +10,7 @@ from academic_search.server import handle_message
 
 
 class StubService:
-    def search_civil_materials(self, args):
+    def search_materials(self, args):
         return {"records": [{"title": args["topic"], "source_provenance": []}], "warnings": []}
 
     def fetch_paper_metadata(self, args):
@@ -71,7 +71,7 @@ class McpContractTest(unittest.TestCase):
         self.assertEqual(
             names,
             {
-                "search_civil_materials",
+                "search_materials",
                 "fetch_paper_metadata",
                 "suggest_search_queries",
                 "build_claim_source_map",
@@ -93,7 +93,7 @@ class McpContractTest(unittest.TestCase):
                 "id": 3,
                 "method": "tools/call",
                 "params": {
-                    "name": "search_civil_materials",
+                    "name": "search_materials",
                     "arguments": {"topic": "waterborne epoxy modified emulsified asphalt"},
                 },
             },

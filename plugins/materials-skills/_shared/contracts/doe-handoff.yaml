@@ -24,6 +24,9 @@ artifacts:
   data_template.csv:
     description: "Empty CSV with column headers for collecting experimental responses"
     required: true
+  experiment_record.yaml:
+    description: "Structured experiment record conforming to _shared/core/experiment-record-schema.yaml"
+    required: true
   analysis_results.json:
     description: "Serialized ANOVA table, effect sizes, and model statistics after analysis"
     required: false

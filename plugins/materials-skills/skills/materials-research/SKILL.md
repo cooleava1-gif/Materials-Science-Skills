@@ -1,7 +1,7 @@
 ---
 name: materials-research
 version: "1.1.0"
-description: Use when planning, scoping, or routing a civil engineering and construction materials research workflow across multiple skills.
+description: Use when planning, scoping, or routing a materials science and engineering research workflow across multiple skills.
 ---
 
 # Materials Science Research
