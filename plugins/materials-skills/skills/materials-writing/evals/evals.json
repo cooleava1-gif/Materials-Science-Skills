@@ -92,6 +92,54 @@
         }
       ],
       "files": []
+    },
+    {
+      "id": "confirmation-gate-before-prose",
+      "prompt": "Draft the Introduction for my paper on waterborne epoxy modified emulsified asphalt tack coat. I compare 10%, 15%, and 20% epoxy and measure bonding strength, viscosity, and storage stability.",
+      "expected_output": "The assistant must pass a confirmation gate before writing full section prose. The gate must surface: (1) the one-sentence argument, (2) the detected paper type, section, and paragraph-message plan, (3) the locked terminology (WER-EA, epoxy content, tack coat, bonding strength, viscosity, storage stability), (4) key assumptions (e.g., that the contribution is the dosage-performance-constructability trade-off), and (5) at most 2-3 targeted questions on genuinely ambiguous points. The assistant must not produce a full Introduction before the gate.",
+      "assertions": [
+        {
+          "name": "one_sentence_argument_present",
+          "description": "The response states a one-sentence argument before producing full prose."
+        },
+        {
+          "name": "terminology_locked",
+          "description": "The response locks canonical terminology before drafting."
+        },
+        {
+          "name": "asks_confirmation",
+          "description": "The assistant explicitly asks the user to confirm or correct the plan before drafting."
+        },
+        {
+          "name": "no_full_section_before_gate",
+          "description": "No full Introduction section is produced before the confirmation gate."
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": "paragraph-flow-regression",
+      "prompt": "Fix the flow of this results/discussion paragraph: 'The bonding strength of WER-EA tack coat increased from 0.43 MPa to 0.55 MPa at 10% epoxy content. This improvement is due to the oxirane groups reacting with the asphalt interface, forming a more continuous interfacial morphology that improves load transfer. The moisture conditioning retained 75% of the dry strength. Storage stability was acceptable for 7 days.'",
+      "expected_output": "The assistant must identify that the original paragraph carries multiple messages (result, mechanism, durability, storage stability) and split it into single-message paragraphs. Each new paragraph must open with a first sentence that forecasts its message, and transitions must carry the argument forward. The assistant must not invent additional characterization evidence and must produce a paragraph-message map in the section outline.",
+      "assertions": [
+        {
+          "name": "multi_message_split",
+          "description": "The original multi-message paragraph is split into single-message paragraphs."
+        },
+        {
+          "name": "topic_sentences_forecast",
+          "description": "Each paragraph's first sentence forecasts its message."
+        },
+        {
+          "name": "transitions_advance_argument",
+          "description": "Transitions carry the argument forward rather than just continuing the topic."
+        },
+        {
+          "name": "paragraph_message_map",
+          "description": "The section outline shows the paragraph-message mapping."
+        }
+      ],
+      "files": []
     }
   ]
 }

@@ -1,14 +1,25 @@
 # Reviewer Risk Writing
 
-Check every draft for these risks:
+Check every draft for these risks before producing output.
 
-- overclaim from performance to mechanism,
-- missing evidence for novelty,
-- missing test conditions,
-- missing replicate count or statistics,
-- journal fit mismatch,
-- durability wording without wet/aged/service conditioning,
-- field application language without field or simulated-service data.
+## Explicit warning patterns
+
+| Risk pattern | Why reviewers attack it | Self-check | Fix |
+|---|---|---|---|
+| **Mechanism without characterization** | Inferring a full reaction or failure mechanism from a single signal. | Does every mechanism claim have at least two independent characterizations cross-validating it? | Downgrade to `consistent with` until a second technique is added, or add the second technique. |
+| **Durability without service-condition evidence** | Claiming durability without wet, aged, or conditioned data. | Is every durability claim supported by an aging or service-condition test? | Add the test, or bound the claim to dry/lab conditions. |
+| **Optimum claims without statistics** | Calling a dosage "optimal" without a full dose-response curve or statistical support. | Is the complete tested range reported, including the descending branch? | Complete the curve, or say `the highest value in the tested range`. |
+| **Field claims without field validation** | Claiming field performance from lab-scale data. | Is every performance claim bounded to the tested conditions? | Add `under the tested conditions` or an explicit scale/simulation boundary. |
+
+## General risks
+
+- overclaim from performance to mechanism.
+- missing evidence for novelty.
+- Missing test conditions.
+- Missing replicate count or statistics.
+- journal fit mismatch.
+- Durability wording without wet/aged/service conditioning.
+- Field application language without field or simulated-service data.
 
 Reviewer-safe writing states what is proven, why it matters, and what remains bounded.
 
@@ -60,7 +71,7 @@ Weibull analysis with fewer than 10 specimens; no error bars; no replicate count
 
 ## Adversarial self-review workflow
 
-After drafting, switch to reviewer mode and scan every claim against the six dimensions above. Mark each located risk as `high`, `medium`, or `low`:
+After drafting, switch to reviewer mode and scan every claim against the dimensions above. Mark each located risk as `high`, `medium`, or `low`:
 
 - `high`: a reviewer would likely reject or require major revision on this point.
 - `medium`: a reviewer would request clarification or an additional sentence.

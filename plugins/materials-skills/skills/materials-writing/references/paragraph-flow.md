@@ -6,6 +6,17 @@ Use this reference when the user asks whether a paragraph flows, makes sense, or
 
 One paragraph carries one message, and the first sentence announces it. Flow is not decoration: a paragraph flows when an external reader can identify the message, see how the first sentence forecasts it, and see how each following sentence serves it.
 
+Allowed paragraph messages:
+
+- context
+- gap
+- approach
+- result
+- comparison
+- mechanism
+- implication
+- limitation
+
 ## Reader test
 
 Read as a skeptical but fair external reader and ask:
@@ -16,7 +27,7 @@ Read as a skeptical but fair external reader and ask:
 4. Does the transition between paragraphs advance the argument, not just continue it?
 5. Is any sentence carrying material that belongs in another paragraph?
 
-## Reverse outlining
+## reverse outlining
 
 For a section-level flow check:
 
@@ -28,6 +39,20 @@ For a section-level flow check:
 6. Rewrite the transitions so each paragraph opening pushes the argument forward.
 
 If reverse outlining is hard, the section probably has a hidden structure problem.
+
+## reverse-outline example: splitting a two-message paragraph
+
+Original paragraph (two messages: result + mechanism):
+
+> The bonding strength of WER-EA tack coat increased from 0.43 MPa to 0.55 MPa at 10% epoxy content. This improvement is due to the oxirane groups reacting with the asphalt interface, forming a more continuous interfacial morphology that improves load transfer.
+
+Split and repaired:
+
+> **Result paragraph**: The bonding strength of WER-EA tack coat increased from 0.43 MPa to 0.55 MPa at 10% epoxy content, measured under dry conditions at 25 °C.
+>
+> **Mechanism paragraph**: This strength increase is consistent with a more continuous interfacial morphology: FTIR shows the oxirane peak at 915 cm⁻¹ decreases with curing time, and SEM images show fewer voids at the interface at 10% epoxy than in the control.
+
+Transition added: "This strength increase is consistent with ..." links the result paragraph to the mechanism paragraph and advances the argument.
 
 ## Materials-specific paragraph patterns
 

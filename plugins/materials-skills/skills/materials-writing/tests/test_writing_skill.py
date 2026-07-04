@@ -4,18 +4,18 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts.skill_manifest import discover_skill_names
-
-
-
 def _find_repo_root():
     p = Path(__file__).resolve()
     for parent in [p] + list(p.parents):
         if (parent / ".git").exists() or (parent / "AGENTS.md").exists():
             return parent
     return p.parents[3]
+
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 REPO_ROOT = _find_repo_root()
+sys.path.insert(0, str(REPO_ROOT / "plugins" / "materials-skills"))
+
+from scripts.skill_manifest import discover_skill_names
 
 
 class WritingSkillStructureTest(unittest.TestCase):
@@ -24,15 +24,17 @@ class WritingSkillStructureTest(unittest.TestCase):
         manifest = SKILL_ROOT / "manifest.yaml"
         openai = SKILL_ROOT / "agents" / "openai.yaml"
         release_script = REPO_ROOT / "scripts" / "run_release_checks.py"
+        plugin_release_script = REPO_ROOT / "plugins" / "materials-skills" / "scripts" / "run_release_checks.py"
         readme = REPO_ROOT / "README.md"
 
-        for path in [skill, manifest, openai]:
+        for path in [skill, manifest, openai, release_script, plugin_release_script]:
             self.assertTrue(path.exists(), f"{path.name} should exist")
 
         skill_text = skill.read_text(encoding="utf-8")
         manifest_text = manifest.read_text(encoding="utf-8")
         openai_text = openai.read_text(encoding="utf-8")
         release_text = release_script.read_text(encoding="utf-8")
+        plugin_release_text = plugin_release_script.read_text(encoding="utf-8")
         readme_text = readme.read_text(encoding="utf-8")
 
         self.assertIn("name: materials-writing", skill_text)
@@ -44,7 +46,7 @@ class WritingSkillStructureTest(unittest.TestCase):
             self.assertIn(phrase, manifest_text)
         for phrase in ["interface:", "policy:", "allow_implicit_invocation"]:
             self.assertIn(phrase, openai_text)
-        self.assertIn("discover_skill_names", release_text)
+        self.assertIn("discover_skill_names", plugin_release_text)
         self.assertIn("materials-writing", discover_skill_names())
         self.assertIn("materials-writing", readme_text)
 
@@ -54,9 +56,9 @@ class WritingSkillStructureTest(unittest.TestCase):
             str(Path("..") / "_shared" / "core" / "stance.md"): ["Never invent", "Placeholder conventions", "claim-evidence chain"],
             "static/core/workflow.md": ["one-sentence argument", "claim-evidence-boundary", "section draft"],
             "static/fragments/paper_type/experimental-manuscript.md": ["waterborne epoxy", "test matrix", "mechanism"],
-            "static/fragments/paper_type/review-paper.md": ["small review", "thematic logic", "knowledge gap"],
+            "static/fragments/paper_type/review-paper.md": ["small review", "thematic dimensions", "knowledge gap"],
             "static/fragments/section/abstract.md": ["Background", "Gap", "Method", "Result", "Implication"],
-            "static/fragments/section/introduction.md": ["funnel", "gap chain", "contribution"],
+            "static/fragments/section/introduction.md": ["gap ladder", "evidence gap", "paper entry"],
             "static/fragments/section/results-discussion.md": ["Result", "Mechanism", "Limitation"],
             "references/argument-chain.md": ["Problem", "Gap", "Hypothesis", "Evidence", "Boundary"],
             "references/waterborne-epoxy-narrative.md": ["emulsified asphalt", "bonding performance", "curing"],
