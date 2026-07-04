@@ -13,6 +13,7 @@ import subprocess
 import sys
 from pathlib import Path
 
+import yaml
 from skill_manifest import discover_skill_names
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -30,6 +31,12 @@ FIGURE_HARD_WORKFLOW_FILES = [
     "scripts/compose_multipanel_figure.py",
 ]
 
+FIGURE_GOLDEN_PACKAGES = [
+    "wer-ea-full",
+    "thermal-insulation-partial-to-full",
+    "polymer-composites-partial-to-full",
+]
+
 WRITING_MATURITY_FILES = [
     "references/section-patterns/abstract-claim-arc.md",
     "references/section-patterns/introduction-gap-ladder.md",
@@ -43,6 +50,52 @@ WRITING_MATURITY_FILES = [
 ]
 
 EVAL_REQUIRED_FIELDS = ("id", "prompt", "expected_output", "assertions")
+
+EXPERIMENT_RECORD_FILES = [
+    "skills/_shared/core/experiment-record-schema.yaml",
+    "skills/_shared/core/experiment-record-example.yaml",
+    "skills/materials-doe/static/core/experiment-record-output.md",
+    "skills/materials-doe/assets/templates/experiment-record-template.yaml",
+    "skills/materials-data/static/core/experiment-record-input.md",
+    "skills/materials-data/references/experiment-record-to-dataset.md",
+    "skills/materials-writing/static/fragments/section/methods-from-record.md",
+    "skills/materials-writing/static/fragments/section/results-from-record.md",
+    "skills/materials-writing/static/fragments/section/discussion-mechanism.md",
+    "skills/materials-writing/static/fragments/section/cover-letter.md",
+    "skills/materials-writing/static/fragments/section/highlights.md",
+    "skills/materials-writing/references/experiment-record-for-writing.md",
+]
+
+
+def check_experiment_record_files() -> list[str]:
+    issues = []
+    for rel in EXPERIMENT_RECORD_FILES:
+        if not (REPO_ROOT / rel).exists():
+            issues.append(f"missing {rel}")
+    return issues
+
+
+def check_experiment_record() -> list[str]:
+    """Validate the experiment-record example against the shared schema.
+
+    Skips schema validation when jsonschema is not installed; file existence
+    is still enforced by check_experiment_record_files().
+    """
+    issues = []
+    schema_path = REPO_ROOT / "skills/_shared/core/experiment-record-schema.yaml"
+    example_path = REPO_ROOT / "skills/_shared/core/experiment-record-example.yaml"
+    try:
+        import jsonschema
+        schema = yaml.safe_load(schema_path.read_text(encoding="utf-8"))
+        example = yaml.safe_load(example_path.read_text(encoding="utf-8"))
+        jsonschema.validate(example, schema)
+    except ImportError:
+        # Schema validation is optional when dependency is missing.
+        pass
+    except Exception as exc:  # pragma: no cover
+        issues.append(f"experiment-record example validation failed: {exc}")
+    return issues
+
 
 def collect_paper_production_orchestrator_issues(skill_root: Path) -> list[str]:
     issues = []
@@ -217,6 +270,11 @@ def main() -> int:
     audit_script = figure_root / "scripts" / "audit_figure_package.py"
     if not audit_script.exists():
         figure_issues.append("missing scripts/audit_figure_package.py")
+    for package in FIGURE_GOLDEN_PACKAGES:
+        package_root = figure_root / "examples" / "figure-packages" / package
+        for fname in ["README.md", "figure_storyboard.yaml", "caption_boundary.md", "figure_qa_report.md"]:
+            if not (package_root / fname).exists():
+                figure_issues.append(f"missing examples/figure-packages/{package}/{fname}")
     if figure_issues:
         all_issues["figure_hard_workflow"] = figure_issues
 
@@ -325,6 +383,10 @@ def main() -> int:
     mcp_drift_issues = collect_mcp_server_drift_issues()
     if mcp_drift_issues:
         all_issues.setdefault("mcp_server", []).extend(mcp_drift_issues)
+
+    experiment_record_issues = check_experiment_record_files() + check_experiment_record()
+    if experiment_record_issues:
+        all_issues["experiment_record_contract"] = experiment_record_issues
 
     if args.json:
         print(json.dumps({"status": "pass" if not all_issues else "fail", "issues": all_issues}, indent=2))

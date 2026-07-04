@@ -1,5 +1,6 @@
 name: materials-paper-to-patent
 version: 1.0.0
+status: beta
 description: >
   Agent-neutral routing manifest for converting materials science research
   disclosures into evidence-grounded Chinese invention patent drafts. Default

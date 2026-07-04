@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import re
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -15,6 +16,10 @@ try:
     import jsonschema
 except ImportError:  # pragma: no cover
     jsonschema = None  # type: ignore[assignment]
+
+
+SKILL_ROOT = Path(__file__).resolve().parents[1]
+SCHEMA_PATH = SKILL_ROOT.parent / "_shared" / "core" / "experiment-record-schema.yaml"
 
 
 _COMMON_CSV_COLUMNS = [
@@ -58,8 +63,10 @@ def load_record(path: Path) -> dict[str, Any]:
 
 
 def validate_record(record: dict[str, Any], schema_path: Path) -> None:
+    """Validate record when jsonschema is available; otherwise warn and continue."""
     if jsonschema is None:
-        raise RuntimeError("jsonschema is required to validate experiment-record.yaml")
+        print("warning: jsonschema not installed; skipping experiment-record schema validation", file=sys.stderr)
+        return
     schema = yaml.safe_load(schema_path.read_text(encoding="utf-8"))
     jsonschema.validate(record, schema)
 
@@ -170,7 +177,7 @@ def build_package(
     record: dict[str, Any] | None = None
     if experiment_record is not None:
         record = load_record(experiment_record)
-        schema_path = Path("plugins/materials-skills/skills/_shared/core/experiment-record-schema.yaml")
+        schema_path = SCHEMA_PATH if SCHEMA_PATH.exists() else Path("plugins/materials-skills/skills/_shared/core/experiment-record-schema.yaml")
         validate_record(record, schema_path)
 
     package_dir = output_dir / f"{slug(topic)}_{journal.lower()}_fair_package"
@@ -219,6 +226,7 @@ def metadata(topic: str, domain: str, journal: str) -> str:
 - dosage: [modifier dosage with unit]
 - mixing_parameters: [key mixing/processing parameters]
 - curing_condition: [curing or conditioning protocol]
+- aging_condition: [thermal, UV, moisture, freeze-thaw, or none]
 - test_standard: [applicable test standard]
 - environmental_conditions: [temperature, humidity, aging]
 - replicate_count: [number of replicates per condition]

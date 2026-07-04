@@ -17,6 +17,7 @@ import yaml
 
 REQUIRED_CORE_FILES = ("static/core/contract.md", "static/core/workflow.md")
 REQUIRED_ROUTER_FILES = ("SKILL.md", "manifest.yaml", "agents/openai.yaml")
+VALID_MATURITY_STATUSES = {"stable", "beta", "draft"}
 STANDARD_MANIFEST_BLOCKS = (
     "assets",
     "scripts",
@@ -129,6 +130,50 @@ def _collect_triggers(value: Any, prefix: str = "") -> list[tuple[str, str]]:
     return triggers
 
 
+def _iter_trigger_files(manifest: dict[str, Any]) -> list[tuple[str, str]]:
+    """Yield (location, trigger_file_path) for all axis values with trigger_file."""
+    results: list[tuple[str, str]] = []
+    axes = manifest.get("axes", {})
+    if not isinstance(axes, dict):
+        return results
+    for axis_name, axis in axes.items():
+        if not isinstance(axis, dict):
+            continue
+        values = axis.get("values", {})
+        if not isinstance(values, dict):
+            continue
+        for value_name, value_data in values.items():
+            if isinstance(value_data, dict):
+                tf = value_data.get("trigger_file")
+                if isinstance(tf, str) and tf:
+                    results.append((f"axes.{axis_name}.values.{value_name}.trigger_file", tf))
+    return results
+
+
+def _iter_reference_paths(manifest: dict[str, Any]) -> list[tuple[str, str]]:
+    """Yield (location, path) for all references.on_demand entries."""
+    results: list[tuple[str, str]] = []
+    refs = manifest.get("references", {})
+    if not isinstance(refs, dict):
+        return results
+    on_demand = refs.get("on_demand", {})
+    if isinstance(on_demand, list):
+        for idx, entry in enumerate(on_demand):
+            if isinstance(entry, dict):
+                p = entry.get("path")
+                if isinstance(p, str) and p:
+                    results.append((f"references.on_demand[{idx}].path", p))
+    elif isinstance(on_demand, dict):
+        for key, entry in on_demand.items():
+            if isinstance(entry, dict):
+                p = entry.get("path")
+                if isinstance(p, str) and p:
+                    results.append((f"references.on_demand.{key}.path", p))
+            elif isinstance(entry, str) and entry:
+                results.append((f"references.on_demand.{key}", entry))
+    return results
+
+
 def _check_consistency(skill_dir: Path, manifest: dict[str, Any]) -> dict[str, Any]:
     """Return standardization warnings for a single skill."""
     skill_md_path = skill_dir / "SKILL.md"
@@ -196,6 +241,13 @@ def inspect_skill(skill_dir: Path) -> dict[str, object]:
     core = _core_status(skill_dir)
     missing_manifest_blocks = [block for block in STANDARD_MANIFEST_BLOCKS if block not in manifest]
 
+    status = manifest.get("status")
+    status_issue = None
+    if not status:
+        status_issue = "manifest missing 'status' field"
+    elif str(status).lower() not in VALID_MATURITY_STATUSES:
+        status_issue = f"manifest status {status!r} not in {sorted(VALID_MATURITY_STATUSES)}"
+
     missing_manifest_paths: list[str] = []
     checked_manifest_paths: list[str] = []
     for path_text in manifest.get("always_load", []) if isinstance(manifest.get("always_load"), list) else []:
@@ -217,13 +269,33 @@ def inspect_skill(skill_dir: Path) -> dict[str, object]:
             if not _path_exists(skill_dir, path_text):
                 missing_declared_paths.append(path_text)
 
+    missing_trigger_files: list[str] = []
+    for location, path_text in _iter_trigger_files(manifest):
+        checked_manifest_paths.append(path_text)
+        if not _path_exists(skill_dir, path_text):
+            missing_trigger_files.append(f"{location}: {path_text}")
+
+    missing_reference_paths: list[str] = []
+    for location, path_text in _iter_reference_paths(manifest):
+        checked_manifest_paths.append(path_text)
+        if not _path_exists(skill_dir, path_text):
+            missing_reference_paths.append(f"{location}: {path_text}")
+
     mojibake_triggers = [
         {"location": location, "trigger": trigger}
         for location, trigger in _collect_triggers(manifest)
         if any(marker in trigger for marker in MOJIBAKE_MARKERS)
     ]
 
-    hard_issues = missing_router_files + yaml_errors + missing_manifest_paths + missing_declared_paths
+    hard_issues = (
+        missing_router_files
+        + yaml_errors
+        + ([status_issue] if status_issue else [])
+        + missing_manifest_paths
+        + missing_declared_paths
+        + missing_trigger_files
+        + missing_reference_paths
+    )
     consistency = _check_consistency(skill_dir, manifest)
     consistency_issues = [v for v in consistency.values() if v is not None]
 
@@ -235,8 +307,12 @@ def inspect_skill(skill_dir: Path) -> dict[str, object]:
         "missing_core_files": core["missing_exact"],
         "compatible_core_files": core["compatible_core_files"],
         "missing_manifest_blocks": missing_manifest_blocks,
+        "manifest_status": status,
+        "manifest_status_issue": status_issue,
         "missing_manifest_paths": sorted(set(missing_manifest_paths)),
         "missing_declared_paths": sorted(set(missing_declared_paths)),
+        "missing_trigger_files": sorted(set(missing_trigger_files)),
+        "missing_reference_paths": sorted(set(missing_reference_paths)),
         "checked_manifest_paths": sorted(set(checked_manifest_paths)),
         "mojibake_triggers": mojibake_triggers,
         "yaml_errors": yaml_errors,
@@ -250,10 +326,14 @@ def inspect_skill(skill_dir: Path) -> dict[str, object]:
     }
 
 
-def inspect_all(root: Path = Path("skills")) -> dict[str, object]:
+PLUGIN_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_SKILLS_ROOT = PLUGIN_ROOT / "skills"
+
+
+def inspect_all(root: Path | None = None) -> dict[str, object]:
     """Inspect every materials-* skill and return a JSON-safe report."""
 
-    root = Path(root)
+    root = Path(root) if root is not None else DEFAULT_SKILLS_ROOT
     skills = [path for path in sorted(root.glob("materials-*")) if path.is_dir()]
     skill_reports = [inspect_skill(skill_dir) for skill_dir in skills]
     hard_failures = [report["skill"] for report in skill_reports if report["status"] != "pass"]
@@ -292,7 +372,7 @@ def main(argv: list[str] | None = None) -> int:
     """Print JSON. Exit 0 only when every required architecture check passes."""
 
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--root", type=Path, default=Path("skills"))
+    parser.add_argument("--root", type=Path, default=None, help="Skills root directory (default: plugin skills dir)")
     parser.add_argument("--json", action="store_true", help="Print machine-readable JSON.")
     args = parser.parse_args(argv)
 

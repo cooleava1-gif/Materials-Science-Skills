@@ -9,12 +9,22 @@ from pathlib import Path
 
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 AUDIT_SCRIPT = SKILL_ROOT / "scripts" / "audit_fair_dataset.py"
+BUILD_SCRIPT = SKILL_ROOT / "scripts" / "build_fair_package.py"
 
 
 def load_audit_module():
     spec = importlib.util.spec_from_file_location("audit_fair_dataset", AUDIT_SCRIPT)
     if spec is None or spec.loader is None:
         raise RuntimeError("Could not load audit_fair_dataset.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_build_module():
+    spec = importlib.util.spec_from_file_location("build_fair_package", BUILD_SCRIPT)
+    if spec is None or spec.loader is None:
+        raise RuntimeError("Could not load build_fair_package.py")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -88,15 +98,20 @@ class MaterialsDataSkillStructureTest(unittest.TestCase):
 
 
 class MaterialsDataScriptsTest(unittest.TestCase):
+    def test_build_fair_package_default_schema_path_exists(self):
+        build_module = load_build_module()
+
+        self.assertTrue(build_module.SCHEMA_PATH.exists())
+        self.assertEqual(build_module.SCHEMA_PATH.name, "experiment-record-schema.yaml")
+
     def test_build_fair_package_creates_submission_ready_structure(self):
-        script = SKILL_ROOT / "scripts" / "build_fair_package.py"
-        self.assertTrue(script.exists(), "build_fair_package.py should exist")
+        self.assertTrue(BUILD_SCRIPT.exists(), "build_fair_package.py should exist")
 
         with tempfile.TemporaryDirectory() as tmp:
             result = subprocess.run(
                 [
                     sys.executable,
-                    str(script),
+                    str(BUILD_SCRIPT),
                     "--topic",
                     "waterborne epoxy modified emulsified asphalt bonding performance",
                     "--domain",

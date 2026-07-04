@@ -197,10 +197,12 @@ For the full walkthrough, see [install.md](install.md).
 | [`materials-data`](plugins/materials-skills/skills/materials-data/README.md) | Stable | FAIR package, 9 domain schemas, data availability statement | "FAIR package", "data availability", "dataset" |
 | [`materials-doe`](plugins/materials-skills/skills/materials-doe/README.md) | Stable | Factorial / Taguchi / mixture matrices, methods paragraph | "DOE", "experiment design", "orthogonal array" |
 | [`materials-reviewer`](plugins/materials-skills/skills/materials-reviewer/README.md) | Stable | 5-axis peer review, 22 domain criteria, desk-reject risk | "peer review", "desk-reject risk", "reviewer report" |
-| [`materials-response`](plugins/materials-skills/skills/materials-response/README.md) | Stable | Point-by-point response, rebuttal package, action mapping | "response letter", "rebuttal", "reviewer comment" |
-| [`materials-paper2ppt`](plugins/materials-skills/skills/materials-paper2ppt/README.md) | Stable | Slide-ready Markdown, talk structure for group meeting / journal club | "paper to slides", "journal club", "slide outline" |
-| [`materials-pptx`](plugins/materials-skills/skills/materials-pptx/README.md) | Stable | Real `.pptx` deck with dependency-light OOXML writer | "pptx", "powerpoint", "slide deck" |
-| [`materials-paper-to-patent`](plugins/materials-skills/skills/materials-paper-to-patent/README.md) | Stable | Chinese invention-patent application, civil patent KB, claim validator | "patent", "claim", "invention disclosure" |
+| [`materials-response`](plugins/materials-skills/skills/materials-response/README.md) | Beta | Point-by-point response, rebuttal package, action mapping | "response letter", "rebuttal", "reviewer comment" |
+| [`materials-paper2ppt`](plugins/materials-skills/skills/materials-paper2ppt/README.md) | Beta | Slide-ready Markdown, talk structure for group meeting / journal club | "paper to slides", "journal club", "slide outline" |
+| [`materials-pptx`](plugins/materials-skills/skills/materials-pptx/README.md) | Beta | Real `.pptx` deck with dependency-light OOXML writer | "pptx", "powerpoint", "slide deck" |
+| [`materials-paper-to-patent`](plugins/materials-skills/skills/materials-paper-to-patent/README.md) | Beta | Chinese invention-patent application, civil patent KB, claim validator | "patent", "claim", "invention disclosure" |
+
+> **Status legend:** `Stable` = regression-covered, cross-skill handoffs documented, and used in worked examples. `Beta` = functional and documented, but still accumulating cross-skill pressure tests or domain coverage depth.
 
 ---
 

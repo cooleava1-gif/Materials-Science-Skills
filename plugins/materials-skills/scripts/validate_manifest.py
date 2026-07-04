@@ -122,12 +122,19 @@ def _collect_all_referenced_paths(manifest: dict, skill_root: Path) -> set[Path]
             if p.exists():
                 referenced.add(p.resolve())
 
-    # scripts
+    # scripts — supports both plain strings and structured entries with
+    # ``path`` plus optional metadata (e.g. domain_restriction).
     for script in manifest.get("scripts", []):
         if isinstance(script, str):
             p = skill_root / script
             if p.exists():
                 referenced.add(p.resolve())
+        elif isinstance(script, dict):
+            sp = script.get("path")
+            if sp and isinstance(sp, str):
+                p = skill_root / sp
+                if p.exists():
+                    referenced.add(p.resolve())
 
     # handoffs.provides.*.contract
     handoffs = manifest.get("handoffs", {})

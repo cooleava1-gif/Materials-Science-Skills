@@ -10,6 +10,7 @@ should appear.
 |---|---|---|
 | [WER-EA mini-review](wer-ea-mini-review.md) | Review planning for waterborne epoxy asphalt | research -> citation -> reader -> writing -> figure |
 | [Experimental manuscript](experimental-manuscript.md) | Evidence-gap audit before discussion drafting | research -> data -> figure -> writing -> reviewer |
+| [Experimental pipeline](experimental-pipeline.md) | Closed DOE -> record -> data -> figure loop | doe -> data -> figure |
 | [Revision loop](revision-loop.md) | Reviewer comments and rebuttal planning | reviewer -> response -> writing -> polishing |
 | [Paper to presentation](paper-to-presentation.md) | Journal-club outline and deck creation | paper2ppt -> pptx |
 | [Ceramics Sintering Manuscript](ceramics-sintering-manuscript.md) | YSZ sintering experiment to JACerS submission pipeline | doe -> data -> citation -> reader -> writing -> figure -> reviewer -> response |
