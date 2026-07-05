@@ -193,7 +193,7 @@ For the full walkthrough, see [install.md](install.md).
 | [`materials-citation`](plugins/materials-skills/skills/materials-citation/README.md) | Stable | MCP-backed search, citation matrix, reference-gap audit | "citation matrix", "literature screening", "reference gap" |
 | [`materials-writing`](plugins/materials-skills/skills/materials-writing/README.md) | Stable | 6-axis manuscript drafting, 42 narrative references, section arcs | "manuscript draft", "review outline", "argument chain" |
 | [`materials-polishing`](plugins/materials-skills/skills/materials-polishing/README.md) | Stable | Claim-strength audit, overclaim reduction, journal-tone tightening | "polish", "claim strength", "academic tone" |
-| [`materials-figure`](plugins/materials-skills/skills/materials-figure/README.md) | Stable | LLM-driven figure contract + plot, 21 atlas + 12 gallery + 20 examples | "figure", "publication plot", "mechanism map" |
+| [`materials-figure`](plugins/materials-skills/skills/materials-figure/README.md) | Stable | LLM-driven figure contract + plot, representative atlas/gallery samples | "figure", "publication plot", "mechanism map" |
 | [`materials-data`](plugins/materials-skills/skills/materials-data/README.md) | Stable | FAIR package, 9 domain schemas, data availability statement | "FAIR package", "data availability", "dataset" |
 | [`materials-doe`](plugins/materials-skills/skills/materials-doe/README.md) | Stable | Factorial / Taguchi / mixture matrices, methods paragraph | "DOE", "experiment design", "orthogonal array" |
 | [`materials-reviewer`](plugins/materials-skills/skills/materials-reviewer/README.md) | Stable | 5-axis peer review, 22 domain criteria, desk-reject risk | "peer review", "desk-reject risk", "reviewer report" |
@@ -202,7 +202,7 @@ For the full walkthrough, see [install.md](install.md).
 | [`materials-pptx`](plugins/materials-skills/skills/materials-pptx/README.md) | Beta | Real `.pptx` deck with dependency-light OOXML writer | "pptx", "powerpoint", "slide deck" |
 | [`materials-paper-to-patent`](plugins/materials-skills/skills/materials-paper-to-patent/README.md) | Beta | Chinese invention-patent application, civil patent KB, claim validator | "patent", "claim", "invention disclosure" |
 
-> **Status legend:** `Stable` = regression-covered, cross-skill handoffs documented, and used in worked examples. `Beta` = functional and documented, but still accumulating cross-skill pressure tests or domain coverage depth.
+> **Status legend:** `Stable` = documented, installable, and covered by the public lightweight release gate. `Beta` = functional and documented, but still accumulating domain coverage depth.
 
 ---
 
@@ -225,26 +225,22 @@ figure_contract.md -> source_data.csv -> LLM writes plot.py
   -> caption.md + qa_report.md + asset_manifest.md
 ```
 
-**Visual assets shipped with the skill** — 53 production-grade reference
-figures organised in three layers:
+**Visual assets shipped with the skill** - representative visual samples are
+kept in the public repository so the package stays readable and installable.
+The full internal regression suite and large generated figure corpus are not
+part of the public GitHub delivery.
 
-| Layer | Count | Purpose |
+| Layer | Public boundary | Purpose |
 |---|---|---|
-| `assets/chart-atlas/` | **21 PNG atlas boards** | Chart-type selection (XRD, mechanical, thermal, microscopy, performance, electrochemistry, …) |
-| `assets/gallery/` | **12 composite proof figures** | Submission-grade multi-panel reference figures |
-| `assets/materials4papers/` | **20 worked examples** | End-to-end figure packages per paper type |
+| `assets/chart-atlas/` | representative PNG atlas boards | Chart-type selection examples |
+| `assets/gallery/` | representative composite figures | Submission-grade multi-panel references |
+| `assets/showcase-proof/` | WER-EA proof board | End-to-end visual proof for the flagship workflow |
 
-| ![XRD diffraction](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-01-xrd-diffraction.png) | ![Mechanical curves](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-02-mechanical-curves.png) | ![Thermal analysis](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-03-thermal-analysis.png) |
+| ![XRD diffraction](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-01-xrd-diffraction.png) | ![Mechanical curves](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-02-mechanical-curves.png) | ![Performance bars](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-06-performance-bar.png) |
 |---|---|---|
-| ![Microscopy plates](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-05-microscopy.png) | ![Performance bars](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-06-performance-bar.png) | ![Composite layouts](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-10-composite-layout.png) |
+| ![Composite layouts](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-10-composite-layout.png) | ![Asphalt review composite](plugins/materials-skills/skills/materials-figure/assets/gallery/fig5-asphalt-modification-review.png) | ![XRD SEM performance composite](plugins/materials-skills/skills/materials-figure/assets/gallery/fig9-multipanel-xrd-sem-perf.png) |
 
-| ![Cement hydration composite](plugins/materials-skills/skills/materials-figure/assets/gallery/fig1-cement-hydration-mechanism.png) | ![Asphalt review composite](plugins/materials-skills/skills/materials-figure/assets/gallery/fig5-asphalt-modification-review.png) | ![Concrete durability composite](plugins/materials-skills/skills/materials-figure/assets/gallery/fig7-concrete-microstructure-durability.png) |
-|---|---|---|
-| ![Functional coating composite](plugins/materials-skills/skills/materials-figure/assets/gallery/fig8-functional-coating-performance.png) | ![Polymer composite composite](plugins/materials-skills/skills/materials-figure/assets/gallery/fig3-polymer-composite-multifunctional.png) | ![Nano characterization composite](plugins/materials-skills/skills/materials-figure/assets/gallery/fig6-nano-material-characterization.png) |
-
-| ![Cement XRD example](plugins/materials-skills/skills/materials-figure/assets/materials4papers/cement_hydration_xrd/figures/xrd_hydration_stacked.png) | ![Steel EBSD example](plugins/materials-skills/skills/materials-figure/assets/materials4papers/steel_microstructure_ebsd/figures/ebsd_ipf_maps.png) | ![Polymer thermal example](plugins/materials-skills/skills/materials-figure/assets/materials4papers/polymer_thermal_degradation/figures/tga_dtg_thermal.png) |
-|---|---|---|
-| ![Ceramics Weibull example](plugins/materials-skills/skills/materials-figure/assets/materials4papers/ceramics_weibull_reliability/figures/weibull_reliability.png) | ![Raman mapping example](plugins/materials-skills/skills/materials-figure/assets/materials4papers/2d_material_raman_mapping/figures/raman_mapping.png) | ![Nanoparticle distribution example](plugins/materials-skills/skills/materials-figure/assets/materials4papers/nanoparticle_size_distribution/figures/nanoparticle_distribution.png) |
+![WER-EA figure proof board](plugins/materials-skills/skills/materials-figure/assets/showcase-proof/wer_ea_figure_proof_board.png)
 
 **Figure package structure** — Every serious output is delivered as a figure
 package, not a loose image:
@@ -533,25 +529,19 @@ All 13 skills share a small set of protocol files under
 | `core/ethics.md` | Ethics, attribution, and "do not fabricate" guardrails |
 | `journal-formats/` | **17 journal format guides** (CBM, CCC, RMPD, JBE, nature-materials, acs-nano, acta-materialia, advanced-materials, advanced-functional-materials, ceramics-international, energy-buildings, building-environment, jacers, jmca, nano-letters, progress-polymer-science, thermal-sciences) |
 
-## Quantitative summary (transparent counts)
+## Quantitative summary (public delivery boundary)
 
-- **13 skills** with stable status
-- currently covers **29 material systems**
-- **29 material systems** at `full` coverage tier
-- | 🟢 **full** | 29 |
-- | 🟡 **partial** | 0 |
-- | 🔵 **skeleton** | 0 |
-- | ⚪ **generic** | 0 |
-- **53 production-grade figure assets** (21 atlas + 12 gallery + 20 examples)
-- **71 routing fragments** (15 task + 36 domain + 20 journal)
-- **17 journal format guides**
-- **22 reviewer-criteria documents** (one per material sub-direction)
-- **9 domain data schemas** for FAIR packaging
-- **44 references** in `materials-writing`
-- **7 shared core protocols** + 17 journal-format guides
-- **9 scripts** in `materials-paper-to-patent` + **3+ scripts** across other skills
-- **47 unit tests** across the bundle
-- **13 evals.json** files (one per materials-* skill)
+- **13 materials-* skills** plus shared contracts under `_shared`.
+- **29 material systems** represented in the material registry.
+- **Representative figure samples** are shipped for public browsing; the large generated figure corpus is intentionally not part of the GitHub package.
+- **71 routing fragments** (15 task + 36 domain + 20 journal).
+- **17 journal format guides**.
+- **22 reviewer-criteria documents**.
+- **9 domain data schemas** for FAIR packaging.
+- **44 references** in `materials-writing`.
+- **Public verification:** `python .\scripts\run_release_checks.py --json`.
+
+The public repository does not ship the internal Python regression suite or the full generated visual asset pack. Those are treated as maintainer-side validation assets.
 
 ## Visual Gallery
 

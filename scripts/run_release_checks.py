@@ -37,10 +37,8 @@ def _load_plugin_module():
 
 _PLUGIN_MODULE = _load_plugin_module()
 FIGURE_HARD_WORKFLOW_FILES = _PLUGIN_MODULE.FIGURE_HARD_WORKFLOW_FILES
-FIGURE_CURRENT_ASSET_FILES = _PLUGIN_MODULE.FIGURE_CURRENT_ASSET_FILES
-FIGURE_GOLDEN_PACKAGES = _PLUGIN_MODULE.FIGURE_GOLDEN_PACKAGES
+FIGURE_REPRESENTATIVE_ASSET_FILES = _PLUGIN_MODULE.FIGURE_REPRESENTATIVE_ASSET_FILES
 WRITING_MATURITY_FILES = _PLUGIN_MODULE.WRITING_MATURITY_FILES
-collect_eval_contract_issues = _PLUGIN_MODULE.collect_eval_contract_issues
 collect_paper_production_orchestrator_issues = _PLUGIN_MODULE.collect_paper_production_orchestrator_issues
 collect_writing_maturity_issues = _PLUGIN_MODULE.collect_writing_maturity_issues
 check_skill_basics = _PLUGIN_MODULE.check_skill_basics

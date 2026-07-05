@@ -65,11 +65,7 @@ skills/materials-writing/
 │   ├── journal/        # CBM, CCC, RMPD, JBE, materials
 │   ├── language/       # en, zh-to-en
 │   └── domain/         # civil, polymers, metals, ceramics, functional, nano
-└── tests/
-    ├── test_writing_skill.py
-    ├── test_narrative_guides.py
-    ├── scenarios/      # behavior-protecting scenarios
-    └── pressure-tests/ # missing-data writing pressure test
+(public package: internal writing regression tests are not shipped)
 ```
 
 **Key rules enforced**

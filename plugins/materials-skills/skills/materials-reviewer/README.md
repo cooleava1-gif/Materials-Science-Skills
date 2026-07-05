@@ -31,9 +31,7 @@ readability), plus scope and domain routing:
 - `static/fragments/domain/` — 6 material-domain routing fragments
 - `assets/templates/review-report-template.md` — report scaffold
 - `scripts/build_review_report.py` — assembles the reviewer-style report
-- (Pressure-test files and a dedicated test_*.py are not yet shipped; the
-  bundle's overall pytest and release-check suites cover the cross-skill
-  flow instead.)
+- public verification through the repository release gate
 
 **Key rules enforced**
 
@@ -101,12 +99,11 @@ skills/materials-reviewer/
 
 **Validation**
 
-- Core regression test:
-  `plugins/materials-skills/skills/materials-reviewer/tests/test_reviewer_skill.py`
-- Pressure test:
-  `plugins/materials-skills/skills/materials-reviewer/tests/pressure-tests/weak-manuscript-review.md`
+- Run `scripts/build_review_report.py` when changing report generation.
 - Bundle verification:
   `python .\scripts\run_release_checks.py --json`
+
+The public GitHub package does not ship the internal reviewer regression suite.
 
 ## When To Use
 

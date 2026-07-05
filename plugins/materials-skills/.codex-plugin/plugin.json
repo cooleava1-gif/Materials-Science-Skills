@@ -39,10 +39,7 @@
     ],
     "brandColor": "#3F6F5E",
     "screenshots": [
-      "./skills/materials-figure/assets/showcase-proof/reader_package_proof_wall.png",
-      "./skills/materials-figure/assets/showcase-proof/wer_ea_figure_proof_board.png",
-      "./skills/materials-figure/assets/showcase-proof/sbr_wer_performance_proof_board.png",
-      "./skills/materials-figure/assets/showcase-proof/interlayer_fatigue_proof_board.png"
+      "./skills/materials-figure/assets/showcase-proof/wer_ea_figure_proof_board.png"
     ]
   }
 }

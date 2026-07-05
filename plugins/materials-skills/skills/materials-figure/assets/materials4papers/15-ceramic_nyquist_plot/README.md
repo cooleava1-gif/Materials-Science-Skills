@@ -13,4 +13,4 @@ python plot.py
 
 - `data/synthetic.csv` — 7 rows with `freq_Hz,Z_real_ohm,Z_imag_ohm`.
 - `plot.py` — reads CSV, plots Nyquist curve with equal aspect.
-- `figures/ceramic_nyquist_plot.png` + `.svg` — generated output.
+- `figures/` - generated locally when `plot.py` is run; image outputs are not tracked in the public package.`n

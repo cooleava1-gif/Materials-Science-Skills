@@ -36,8 +36,7 @@ protocols, schema-validated output packages, and reusable templates:
 - `assets/templates/` — 15 templates (notes, handoffs, tables, QA)
 - `scripts/` — build / audit / validate reader package, evidence-chain audit,
   PDF visual asset extraction, new-note scaffolding
-- `tests/pressure-tests/overclaim-from-figure-caption.md` — overclaim
-  regression
+- public verification through the repository release gate
 
 **Key rules enforced**
 
@@ -91,16 +90,12 @@ skills/materials-reader/
 
 **Validation**
 
-- Contract tests live under
-  `plugins/materials-skills/skills/materials-reader/tests/`
-- Key checks: `test_reader_package_contract.py`,
-  `test_reader_handoff.py`, `test_validate_reader_package.py`,
-  `test_reader_package_scripts.py`, `test_reader_references.py`,
-  `test_pdf_visual_assets.py`
-- Pressure test:
-  `plugins/materials-skills/skills/materials-reader/tests/pressure-tests/overclaim-from-figure-caption.md`
+- Run reader package scripts directly when changing package generation:
+  `build_reader_package.py`, `validate_reader_package.py`, and `audit_reader_package.py`.
 - Bundle verification:
   `python .\scripts\run_release_checks.py --json`
+
+The public GitHub package does not ship the internal reader regression suite.
 
 ## When To Use
 

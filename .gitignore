@@ -43,16 +43,16 @@ changes-summary.md
 github-push-recommendation.md
 docs/architecture/
 
-# Internal test and validation scripts (local only)
-# Allow skill-level tests to be tracked
-!plugins/materials-skills/skills/*/tests/
-!plugins/materials-skills/skills/*/tests/**
-!plugins/materials-skills/scripts/tests/
-!plugins/materials-skills/scripts/tests/**
-plugins/materials-skills/skills/*/tests/**/__pycache__/
-plugins/materials-skills/skills/*/tests/**/*.py[cod]
-plugins/materials-skills/scripts/tests/**/__pycache__/
-plugins/materials-skills/scripts/tests/**/*.py[cod]
+# Internal test suites are local-only in the public GitHub delivery.
+tests/
+plugins/materials-skills/scripts/tests/
+plugins/materials-skills/skills/*/tests/
+plugins/materials-skills/skills/*/scripts/tests/
+plugins/materials-skills/skills/_shared/test_*.py
+plugins/materials-skills/skills/_shared/paper-production/test_*.py
+plugins/materials-skills/skills/materials-citation/mcp/academic_search/tests/
+
+# Internal validation scripts (local only unless already tracked as wrappers)
 scripts/check_skill_architecture.py
 scripts/claim_strength_audit.py
 scripts/generate_narrative.py
@@ -75,3 +75,23 @@ plugins/materials-skills/skills/materials-figure/examples/figure-packages/**/fig
 
 # Generated script outputs (regenerated on demand; keep source CSVs tracked)
 plugins/materials-skills/skills/materials-figure/scripts/figures4materials/figures/
+
+# Optional generated figure asset packs. Representative samples remain tracked.
+plugins/materials-skills/skills/materials-figure/assets/chart-atlas/*.png
+plugins/materials-skills/skills/materials-figure/assets/chart-atlas/*.svg
+plugins/materials-skills/skills/materials-figure/assets/chart-atlas/*-metadata.yaml
+!plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-01-xrd-diffraction.png
+!plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-01-xrd-diffraction-metadata.yaml
+!plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-02-mechanical-curves.png
+!plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-02-mechanical-curves-metadata.yaml
+!plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-06-performance-bar.png
+!plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-06-performance-bar-metadata.yaml
+!plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-10-composite-layout.png
+!plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-10-composite-layout-metadata.yaml
+plugins/materials-skills/skills/materials-figure/assets/gallery/*.png
+plugins/materials-skills/skills/materials-figure/assets/gallery/*.svg
+!plugins/materials-skills/skills/materials-figure/assets/gallery/fig5-asphalt-modification-review.png
+!plugins/materials-skills/skills/materials-figure/assets/gallery/fig9-multipanel-xrd-sem-perf.png
+plugins/materials-skills/skills/materials-figure/assets/showcase-proof/*.png
+!plugins/materials-skills/skills/materials-figure/assets/showcase-proof/wer_ea_figure_proof_board.png
+plugins/materials-skills/skills/materials-figure/assets/materials4papers/**/figures/

@@ -13,4 +13,4 @@ python plot.py
 
 - `data/synthetic.csv` — 8 rows with `qy_inv_nm,qz_inv_nm,intensity`.
 - `plot.py` — reads CSV, scatters points with viridis color mapping.
-- `figures/nano_gisaxs_2d.png` + `.svg` — generated output.
+- `figures/` - generated locally when `plot.py` is run; image outputs are not tracked in the public package.`n

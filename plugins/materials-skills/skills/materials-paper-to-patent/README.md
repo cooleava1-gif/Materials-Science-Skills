@@ -11,8 +11,8 @@ patent drafts. Default invention type is **process-material**; switch via
 通过 manifest axes 切换为 algorithm / apparatus / mixed。
 
 **Built from** — A 3-axis routing system, a curated civil-patent knowledge
-base, a 7-rule claims-content validator, 9 Python scripts, 5 references, 1
-worked example, and 3 unit tests.
+base, a 7-rule claims-content validator, 9 Python scripts, 5 references, and
+1 worked example.
 
 ## Three-axis routing
 
@@ -144,19 +144,13 @@ skills/materials-paper-to-patent/
 │       ├── README.md
 │       ├── draft.json
 │       └── flow-steps.json
-└── tests/
-    ├── __init__.py
-    ├── test_validate_patent_claims.py
-    ├── test_validate_patent_draft.py
-    └── test_build_patent_package.py
 ```
 
 ## Validation
 
-- Unit tests (3):
-  `plugins/materials-skills/skills/materials-paper-to-patent/tests/test_*.py`
-- A dedicated `evals/evals.json` is now shipped for this skill; a dedicated
-  `tests/pressure-tests/` directory is not yet shipped.
+- Run the validation scripts against representative drafts when changing the
+  patent workflow.
+- A dedicated `evals/evals.json` is shipped for this skill.
 - Bundle verification:
   `python .\scripts\run_release_checks.py --json`
 

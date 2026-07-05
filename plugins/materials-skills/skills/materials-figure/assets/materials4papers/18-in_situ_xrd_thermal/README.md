@@ -13,4 +13,4 @@ python plot.py
 
 - `data/synthetic.csv` — 8 rows with `temperature_c,two_theta,phase,intensity`.
 - `plot.py` — reads CSV, plots offset per-temperature markers by phase.
-- `figures/in_situ_xrd_thermal.png` + `.svg` — generated output.
+- `figures/` - generated locally when `plot.py` is run; image outputs are not tracked in the public package.`n

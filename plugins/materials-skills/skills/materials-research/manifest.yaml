@@ -662,7 +662,6 @@ companion_skills:
 assets: []
 scripts:
 - scripts
-tests:
 - tests
 quality_gates:
 - release gate must report no issues for this skill

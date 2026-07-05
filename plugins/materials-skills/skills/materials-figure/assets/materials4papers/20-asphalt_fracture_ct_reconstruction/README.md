@@ -13,4 +13,4 @@ python plot.py
 
 - `data/synthetic.csv` — 6 rows with `slice_z_um,crack_area_um2,crack_count`.
 - `plot.py` — reads CSV, dual-axis bar+line profile.
-- `figures/asphalt_fracture_ct_reconstruction.png` + `.svg` — generated output.
+- `figures/` - generated locally when `plot.py` is run; image outputs are not tracked in the public package.`n

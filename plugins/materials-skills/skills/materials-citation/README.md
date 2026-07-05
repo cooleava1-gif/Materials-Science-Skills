@@ -97,7 +97,6 @@ skills/materials-citation/
 │   ├── domain/                         classifier, identifiers, journals, queries
 │   ├── export/                         bibtex, csl_json, ris, jsonl, formats
 │   ├── importers/citation_files.py     RIS/BibTeX/CSV import
-│   └── tests/                          14 adapter, service, and contract tests
 └── static/fragments/
     └── domain/    asphalt, cement-concrete, materials, ceramics, thermal-insulation,
                     polymers, metals, nano, functional
@@ -105,10 +104,11 @@ skills/materials-citation/
 
 **Validation**
 
-- MCP and service tests:
-  `plugins/materials-skills/skills/materials-citation/mcp/academic_search/tests/`
+- MCP smoke checks can be run directly against the local server/service when needed.
 - Bundle verification:
   `python .\scripts\run_release_checks.py --json`
+
+The public GitHub package does not ship the internal MCP unit-test suite.
 
 ## When To Use
 
