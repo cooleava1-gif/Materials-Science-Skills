@@ -18,26 +18,14 @@ The gallery is not a decoration library. Each figure card links visual form to a
 
 ## Gallery Composite Figures (PNG Previews)
 
-The `assets/gallery/` directory contains 12 submission-grade composite
-figures demonstrating complete materials science visual narratives. The
-first eight figures use asymmetric GridSpec layouts with labeled panels
-(a)-(i); figures 9-12 add multi-panel characterization/performance examples,
-graphical abstract layouts, and evidence-chain summaries.
+The public `assets/gallery/` directory contains representative
+submission-grade composite figures. The full generated gallery is maintained
+outside the GitHub package so the installable skill bundle stays compact.
 
 | Gallery file | Theme | Panels | Journal style |
 |---|---|---|---|
-| `fig1-cement-hydration-mechanism.png` | Cement hydration mechanism | 6 (a-f) | Cement and Concrete Research |
-| `fig2-steel-microstructure-property.png` | Steel microstructure-property | 7 (a-g) | Acta Materialia |
-| `fig3-polymer-composite-multifunctional.png` | Polymer composite multifunctional | 8 (a-h) | Advanced Functional Materials |
-| `fig4-ceramics-reliability-assessment.png` | Ceramics reliability assessment | 8 (a-h) | J. Am. Ceram. Soc. |
 | `fig5-asphalt-modification-review.png` | Asphalt modification review | 9 (a-i) | Construction and Building Materials |
-| `fig6-nano-material-characterization.png` | Nano material characterization | 8 (a-h) | ACS Nano |
-| `fig7-concrete-microstructure-durability.png` | Concrete microstructure-durability | 8 (a-h) | Cement and Concrete Research |
-| `fig8-functional-coating-performance.png` | Functional coating performance | 9 (a-i) | Advanced Materials |
 | `fig9-multipanel-xrd-sem-perf.png` | XRD + SEM + performance | 4 (a-d) | Materials characterization |
-| `fig10-multipanel-ftir-tg-morph.png` | FTIR + TG + morphology | 4 (a-d) | Polymer/composite characterization |
-| `fig11-graphical-abstract.png` | Graphical abstract | 1 visual narrative | Broad materials journals |
-| `fig12-evidence-chain.png` | Evidence-chain summary | 4 evidence blocks | Review or mechanism papers |
 
 Use these as visual reference for:
 - Asymmetric multi-panel layout patterns

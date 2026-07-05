@@ -614,8 +614,7 @@ plus ≥30 entries per family (≥210 total):
    / `ftir_wavenumbers` / `performance_ranges` / `thermal_events` list.
 2. Do not invent new top-level keys; the engine iterates over a fixed
    set of four sub-keys per family.
-3. Keep each family at ≥30 total entries; tests in
-   `scripts/tests/test_materials_kb.py` enforce this floor.
+3. Keep each family at the documented coverage floor; validate with the public release gate and targeted script checks before publishing changes.
 4. Use `tolerance_deg` (XRD) and `tolerance` (FTIR / thermal) values that
    match the engine's matching logic; too-tight tolerances will trigger
    false-positive `xrd_peak_phase_mismatch` errors against real data.

@@ -5,10 +5,15 @@ from __future__ import annotations
 
 import argparse
 import csv
+import sys
 from pathlib import Path
+
+if __package__ in {None, ""}:
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from _citation_common import (
     CSV_FIELDS,
+    DEFAULT_CLAIMS,
     build_claim_row,
     build_query,
     classify_evidence_layers,

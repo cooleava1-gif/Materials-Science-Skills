@@ -9,8 +9,6 @@ Exit codes:
     1 — at least one error
     2 — package files missing or malformed
 """
-from __future__ import annotations
-
 import csv
 import enum
 import re
@@ -19,6 +17,8 @@ from pathlib import Path
 from typing import Any
 
 import yaml
+
+KB_PATH = Path(__file__).resolve().parents[1] / "static" / "core" / "materials_kb.yaml"
 
 
 # ---------------------------------------------------------------------------
@@ -199,6 +199,18 @@ def normalise_unit(unit: str) -> str:
     """Return the canonical form of a unit (apply UNIT_ALIASES)."""
     u = (unit or "").strip()
     return UNIT_ALIASES.get(u, u)
+
+
+def unit_is_allowed_for_property(prop_name: str, unit: str) -> bool:
+    """Return whether a unit is acceptable for a parsed property claim."""
+
+    allowed = PROPERTY_UNIT_HINTS.get(prop_name, set())
+    normalised = normalise_unit(unit)
+    if not allowed or normalised in allowed:
+        return True
+    if normalised in {"MPa", "GPa"} and allowed.intersection({"MPa", "GPa"}):
+        return True
+    return False
 
 
 # ---------------------------------------------------------------------------
@@ -402,14 +414,22 @@ def extract_performance_claims(text: str) -> list[dict[str, Any]]:
                 materials, key=lambda mp: abs(prop_pos - mp[1])
             )[0]
 
-            after = [(v, u, p) for v, u, p in values if p >= prop_pos]
+            allowed_units = PROPERTY_UNIT_HINTS.get(prop_name, set())
+            unit_matched_values = [
+                (v, u, p)
+                for v, u, p in values
+                if unit_is_allowed_for_property(prop_name, u)
+            ]
+            candidate_values = unit_matched_values or values
+
+            after = [(v, u, p) for v, u, p in candidate_values if p >= prop_pos]
             if after:
                 nearest_val, nearest_unit, _ = min(
                     after, key=lambda vup: vup[2] - prop_pos
                 )
             else:
                 nearest_val, nearest_unit, _ = min(
-                    values, key=lambda vup: prop_pos - vup[2]
+                    candidate_values, key=lambda vup: prop_pos - vup[2]
                 )
 
             key = (nearest_mat, prop_name, nearest_val)
@@ -474,6 +494,32 @@ class ValidationReport:
 def _load_kb(kb_path: Path) -> dict[str, Any]:
     with kb_path.open(encoding="utf-8") as f:
         return yaml.safe_load(f) or {}
+
+
+def load_kb(kb_path: Path) -> dict[str, Any]:
+    """Compatibility wrapper for tests and small validation utilities."""
+
+    return _load_kb(kb_path)
+
+
+def validate_contract(text: str, kb: dict[str, Any]) -> dict[str, Any]:
+    """Validate contract prose and return a compact compatibility report."""
+
+    report = ValidationReport(package="<contract-text>")
+    _check_contract_text(text, kb, report)
+    issues = report.errors + report.warnings
+    return {
+        "status": "fail" if report.errors else "pass",
+        "checks": [
+            {
+                "rule": issue.rule,
+                "result": "error" if issue.severity == Severity.ERROR else "warning",
+                "message": issue.message,
+                "context": issue.context,
+            }
+            for issue in issues
+        ] or [{"rule": "contract_text", "result": "confirmed"}],
+    }
 
 
 def _read_csv(path: Path) -> list[dict[str, str]]:
@@ -731,8 +777,7 @@ def _check_unit_hint(
         if prop_name is None or prop_name not in PROPERTY_UNIT_HINTS:
             continue
         allowed = PROPERTY_UNIT_HINTS[prop_name]
-        normalised = normalise_unit(unit)
-        if not allowed or normalised in allowed:
+        if unit_is_allowed_for_property(prop_name, unit):
             continue
         report.add(
             ValidationIssue(
@@ -904,8 +949,7 @@ def _check_contract_text(
         if prop not in PROPERTY_UNIT_HINTS:
             continue
         allowed = PROPERTY_UNIT_HINTS[prop]
-        normalised = normalise_unit(unit)
-        if not allowed or normalised in allowed:
+        if unit_is_allowed_for_property(prop, unit):
             continue
         report.add(
             ValidationIssue(
@@ -953,7 +997,7 @@ def validate_figure_package(
     report = ValidationReport(package=str(package_dir))
 
     if kb_path is None:
-        kb_path = Path(__file__).resolve().parents[1] / "static" / "core" / "materials_kb.yaml"
+        kb_path = KB_PATH
     kb_path = Path(kb_path)
     if not kb_path.is_file():
         report.add(

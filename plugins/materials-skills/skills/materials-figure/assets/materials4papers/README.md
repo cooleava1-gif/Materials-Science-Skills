@@ -4,11 +4,11 @@ Real-world example figures for materials science manuscripts, following the styl
 
 ## Purpose
 
-This directory contains complete, reproducible figure examples for common materials science manuscript types. Each example includes:
+This directory contains reproducible figure source examples for common materials science manuscript types. Each example includes:
 
 - **plot.py**: Complete plotting script with journal-specific formatting
 - **data/**: CSV source data files (synthetic but realistic)
-- **figures/**: Generated PNG preview images
+- **figures/**: Generated locally when `plot.py` is run; image outputs are ignored in the public package
 
 These examples demonstrate how to create publication-ready figures using matplotlib with proper rcParams, font handling, and output settings.
 
@@ -50,7 +50,7 @@ cd figure_name
 python plot.py
 ```
 
-The script will read data from `data/` and save the figure to `figures/`.
+The script will read data from `data/` and save the figure to `figures/`. Generated images are local outputs and are not tracked in the public GitHub delivery.
 
 ## Requirements
 

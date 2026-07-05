@@ -13,4 +13,4 @@ python plot.py
 
 - `data/synthetic.csv` — 4 rows with `level,label,size_label,value`.
 - `plot.py` — reads CSV, draws four labeled circles with size hints.
-- `figures/multiscale_graphical_abstract.png` + `.svg` — generated output.
+- `figures/` - generated locally when `plot.py` is run; image outputs are not tracked in the public package.`n

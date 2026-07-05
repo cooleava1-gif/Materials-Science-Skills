@@ -29,7 +29,7 @@ contract:
 - `static/fragments/domain/` — 36 material-domain fragments
 - `static/fragments/journal/` — 20 journal-family fragments
 - `../_shared/paper-production/weakness-routing.md` — weakness routing
-- `tests/pressure-tests/` — 16 cross-skill pressure regressions
+- shared paper-production templates and release-gate checks
 
 **Key rules enforced**
 
@@ -50,8 +50,6 @@ skills/materials-research/
 ├── README.md
 ├── SKILL.md
 ├── manifest.yaml
-├── scripts/
-│   └── audit_pressure_assets.py          pressure-test asset auditor
 ├── assets/
 │   └── templates/
 │       └── research-routing-template.md  routing plan scaffold
@@ -97,16 +95,12 @@ skills/materials-research/
 
 **Validation**
 
-- The paper-production orchestrator is exercised end-to-end by the
-  `materials-paper-to-patent` and `materials-figure` skill tests; no
-  dedicated test files live under `materials-research/tests/` yet.
-- Pressure-test case catalogue:
-  `plugins/materials-skills/skills/materials-research/references/pressure-test-suite.md`
-  (16 case descriptions; the runtime case files are not yet shipped).
-- Pressure-test asset auditor:
-  `plugins/materials-skills/skills/materials-research/scripts/audit_pressure_assets.py`
+- Paper-production contract files live under `references/` and
+  `../_shared/paper-production/`.
 - Bundle verification:
   `python .\scripts\run_release_checks.py --json`
+
+The public GitHub package does not ship the internal pressure-test files.
 
 ## When To Use
 

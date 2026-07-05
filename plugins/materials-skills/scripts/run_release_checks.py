@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
-"""Run release checks across all materials skills.
+"""Run public release checks across all materials skills.
 
-Checks file presence, manifest validity, trigger coverage, and asset completeness.
+The public GitHub package is an installable skill bundle, not the full internal
+regression workspace. This gate checks manifests, declared paths, core skill
+directories, shared contracts, and representative visual assets.
 """
 
 from __future__ import annotations
 
 import argparse
 import json
-import os
-import subprocess
-import sys
 from pathlib import Path
 
 import yaml
@@ -31,10 +30,26 @@ FIGURE_HARD_WORKFLOW_FILES = [
     "scripts/compose_multipanel_figure.py",
 ]
 
-FIGURE_GOLDEN_PACKAGES = [
-    "wer-ea-full",
-    "thermal-insulation-partial-to-full",
-    "polymer-composites-partial-to-full",
+FIGURE_REPRESENTATIVE_ASSET_FILES = [
+    "references/automatic-figure-package.md",
+    "references/figure-gallery.md",
+    "references/review-figure-intake.md",
+    "references/wer-ea-review-figure-contract.md",
+    "references/chart-atlas.md",
+    "references/demos.md",
+    "assets/templates/review-figure-intake-template.csv",
+    "assets/templates/wer-ea-figure-contract-template.md",
+    "assets/chart-atlas/atlas-01-xrd-diffraction.png",
+    "assets/chart-atlas/atlas-02-mechanical-curves.png",
+    "assets/chart-atlas/atlas-06-performance-bar.png",
+    "assets/chart-atlas/atlas-10-composite-layout.png",
+    "assets/gallery/fig5-asphalt-modification-review.png",
+    "assets/gallery/fig9-multipanel-xrd-sem-perf.png",
+    "assets/showcase-proof/showcase_manifest.json",
+    "assets/showcase-proof/wer_ea_figure_proof_board.png",
+    "scripts/check_storyboard.py",
+    "scripts/data_package_to_figure_handoff.py",
+    "scripts/validate_materials_claims.py",
 ]
 
 WRITING_MATURITY_FILES = [
@@ -48,8 +63,6 @@ WRITING_MATURITY_FILES = [
     "references/phrase-banks/polymer-composites.md",
     "scripts/audit_materials_manuscript.py",
 ]
-
-EVAL_REQUIRED_FIELDS = ("id", "prompt", "expected_output", "assertions")
 
 EXPERIMENT_RECORD_FILES = [
     "skills/_shared/core/experiment-record-schema.yaml",
@@ -138,102 +151,6 @@ def check_skill_basics(skill_name: str) -> list[str]:
     return issues
 
 
-def collect_eval_contract_issues(skills_root: Path = SKILLS_ROOT) -> list[str]:
-    """Validate per-skill eval assets used for release regression coverage."""
-
-    issues: list[str] = []
-    for skill_name in discover_skill_names(skills_root):
-        eval_path = skills_root / skill_name / "evals" / "evals.json"
-        if not eval_path.exists():
-            issues.append(f"{skill_name}: missing evals/evals.json")
-            continue
-
-        try:
-            payload = json.loads(eval_path.read_text(encoding="utf-8"))
-        except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
-            issues.append(f"{skill_name}: invalid evals/evals.json ({exc})")
-            continue
-
-        if not isinstance(payload, dict):
-            issues.append(f"{skill_name}: evals/evals.json must contain a JSON object")
-            continue
-
-        if payload.get("skill_name") != skill_name:
-            issues.append(
-                f"{skill_name}: evals/evals.json skill_name must equal '{skill_name}'"
-            )
-
-        evals = payload.get("evals")
-        if not isinstance(evals, list) or not evals:
-            issues.append(f"{skill_name}: evals/evals.json must define a non-empty evals list")
-            continue
-
-        for index, eval_case in enumerate(evals, start=1):
-            label = f"{skill_name}: eval #{index}"
-            if not isinstance(eval_case, dict):
-                issues.append(f"{label} must be a JSON object")
-                continue
-
-            missing = [
-                field for field in EVAL_REQUIRED_FIELDS if not eval_case.get(field)
-            ]
-            if missing:
-                issues.append(f"{label} missing required fields: {', '.join(missing)}")
-                continue
-
-            assertions = eval_case.get("assertions")
-            if not isinstance(assertions, list) or not assertions:
-                issues.append(f"{label} assertions must be a non-empty list")
-
-            files = eval_case.get("files", [])
-            if files is not None and not isinstance(files, list):
-                issues.append(f"{label} files must be a list when provided")
-
-    return issues
-
-
-def collect_mcp_server_drift_issues() -> list[str]:
-    """Detect drift between the canonical MCP server and the skill/plugin copy.
-
-    Deprecated: the canonical MCP server now lives inside the plugin package.
-    This check is kept for API compatibility and always returns an empty list.
-    """
-    return []
-
-
-def collect_mcp_server_issues() -> list[str]:
-    """Run academic-search MCP tests inside the plugin package."""
-
-    tests_root = SKILLS_ROOT / "materials-citation" / "mcp" / "academic_search" / "tests"
-    if not tests_root.exists():
-        return ["missing skills/materials-citation/mcp/academic_search/tests"]
-    result = subprocess.run(
-        [
-            sys.executable,
-            "-m",
-            "unittest",
-            "discover",
-            "-s",
-            str(tests_root),
-            "-p",
-            "test_*.py",
-            "-v",
-        ],
-        cwd=SKILLS_ROOT.parent,
-        capture_output=True,
-        text=True,
-        check=False,
-    )
-    if result.returncode == 0:
-        return []
-    output = "\n".join(part for part in (result.stdout, result.stderr) if part).strip()
-    return [output[-4000:] or f"MCP server tests failed with exit {result.returncode}"]
-
-
-def should_skip_mcp_tests() -> bool:
-    return os.environ.get("MATERIALS_SKIP_MCP_TESTS") == "1"
-
-
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--json", action="store_true", help="JSON output.")
@@ -248,10 +165,6 @@ def main() -> int:
         if issues:
             all_issues[skill] = issues
 
-    eval_contract_issues = collect_eval_contract_issues(SKILLS_ROOT)
-    if eval_contract_issues:
-        all_issues["eval_contract"] = eval_contract_issues
-
     # paper-production orchestrator check
     orchestrator_issues = collect_paper_production_orchestrator_issues(SKILLS_ROOT)
     if orchestrator_issues:
@@ -261,20 +174,18 @@ def main() -> int:
     if writing_maturity_issues:
         all_issues["writing_maturity"] = writing_maturity_issues
 
-    # figure_hard_workflow check
+    # Representative figure delivery boundary check.
     figure_root = SKILLS_ROOT / "materials-figure"
     figure_issues = []
     for fname in FIGURE_HARD_WORKFLOW_FILES:
         if not (figure_root / fname).exists():
             figure_issues.append(f"missing {fname}")
+    for fname in FIGURE_REPRESENTATIVE_ASSET_FILES:
+        if not (figure_root / fname).exists():
+            figure_issues.append(f"missing {fname}")
     audit_script = figure_root / "scripts" / "audit_figure_package.py"
     if not audit_script.exists():
         figure_issues.append("missing scripts/audit_figure_package.py")
-    for package in FIGURE_GOLDEN_PACKAGES:
-        package_root = figure_root / "examples" / "figure-packages" / package
-        for fname in ["README.md", "figure_storyboard.yaml", "caption_boundary.md", "figure_qa_report.md"]:
-            if not (package_root / fname).exists():
-                figure_issues.append(f"missing examples/figure-packages/{package}/{fname}")
     if figure_issues:
         all_issues["figure_hard_workflow"] = figure_issues
 
@@ -312,24 +223,6 @@ def main() -> int:
                     all_issues.setdefault(key, []).extend(vals)
     except Exception as exc:
         all_issues["manifest_validation"] = [f"manifest validation error: {exc}"]
-
-    # behavioral contract test discovery (record count only)
-    try:
-        spec3 = importlib.util.spec_from_file_location(
-            "run_behavioral_tests",
-            Path(__file__).parent / "run_behavioral_tests.py"
-        )
-        if spec3 and spec3.loader:
-            mod3 = importlib.util.module_from_spec(spec3)
-            spec3.loader.exec_module(mod3)
-            bt_issues = mod3.run_all(silent=True)
-            total_scenarios = sum(len(v) for v in bt_issues.values())
-            if total_scenarios == 0:
-                all_issues.setdefault("behavioral_tests", []).append(
-                    "no behavioral test scenarios found under skills/*/tests/scenarios/"
-                )
-    except Exception as exc:
-        all_issues["behavioral_tests"] = [f"behavioral test error: {exc}"]
 
     # material registry validation
     try:
@@ -374,15 +267,6 @@ def main() -> int:
                         all_issues.setdefault("architecture", []).append(f"shared_mirror.{key}: {value}")
     except Exception as exc:
         all_issues["architecture"] = [f"architecture validation error: {exc}"]
-
-    if not should_skip_mcp_tests():
-        mcp_issues = collect_mcp_server_issues()
-        if mcp_issues:
-            all_issues["mcp_server"] = mcp_issues
-
-    mcp_drift_issues = collect_mcp_server_drift_issues()
-    if mcp_drift_issues:
-        all_issues.setdefault("mcp_server", []).extend(mcp_drift_issues)
 
     experiment_record_issues = check_experiment_record_files() + check_experiment_record()
     if experiment_record_issues:

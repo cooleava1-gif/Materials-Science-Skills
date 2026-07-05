@@ -13,4 +13,4 @@ python plot.py
 
 - `data/synthetic.csv` — 4 rows with `step,label,parent`.
 - `plot.py` — reads CSV, draws a left-to-right arrow chain of steps.
-- `figures/hierarchical_mechanism_schematic.png` + `.svg` — generated output.
+- `figures/` - generated locally when `plot.py` is run; image outputs are not tracked in the public package.`n

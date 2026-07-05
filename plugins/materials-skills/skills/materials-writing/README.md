@@ -65,11 +65,7 @@ skills/materials-writing/
 │   ├── journal/        # CBM, CCC, RMPD, JBE, materials
 │   ├── language/       # en, zh-to-en
 │   └── domain/         # civil, polymers, metals, ceramics, functional, nano
-└── tests/
-    ├── test_writing_skill.py
-    ├── test_narrative_guides.py
-    ├── scenarios/      # behavior-protecting scenarios
-    └── pressure-tests/ # missing-data writing pressure test
+(public package: internal writing regression tests are not shipped)
 ```
 
 **Key rules enforced**
@@ -88,14 +84,16 @@ skills/materials-writing/
 | Review paper | Organized by synthesis axes (mechanism, material design, performance trade-off, research agenda), not paper-by-paper. |
 | Chinese notes | zh-to-en drafting preserves facts and evidence strength, not literal wording. |
 
-**Example 1: From weak introduction to gap ladder**
+## Example
+
+### Example 1: From weak introduction to gap ladder
 
 - Weak: "Few studies have investigated waterborne epoxy modified emulsified asphalt."
 - Stronger: "While dry bonding strength of WER-EA tack coats has been reported, wet bonding retention after freeze-thaw conditioning and the corresponding interface morphology evolution remain unquantified."
 
 The skill turns the weak version into the stronger one by mapping the introduction onto field progress → contradiction → evidence gap → paper entry.
 
-**Example 2: From result to bounded claim-evidence map**
+### Example 2: From result to bounded claim-evidence map
 
 Input: "Bonding strength increased from 0.43 MPa to 0.55 MPa at 10% epoxy."
 
@@ -109,7 +107,7 @@ Boundary: Dry conditions only; wet/aged data not provided.
 
 The skill keeps the claim tied to the measurement and explicitly states the boundary instead of generalizing to field durability.
 
-**When To Use**
+## When To Use
 
 Use `materials-writing` when the user request matches this skill's production surface and the needed inputs are available or can be explicitly marked as missing.
 

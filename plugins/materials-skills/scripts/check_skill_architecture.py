@@ -21,7 +21,6 @@ VALID_MATURITY_STATUSES = {"stable", "beta", "draft"}
 STANDARD_MANIFEST_BLOCKS = (
     "assets",
     "scripts",
-    "tests",
     "quality_gates",
     "handoffs",
     "release_checks",
@@ -263,7 +262,7 @@ def inspect_skill(skill_dir: Path) -> dict[str, object]:
                 missing_manifest_paths.append(path_text)
 
     missing_declared_paths: list[str] = []
-    for block in ("assets", "scripts", "tests"):
+    for block in ("assets", "scripts"):
         for path_text in _collect_declared_paths(manifest.get(block)):
             checked_manifest_paths.append(path_text)
             if not _path_exists(skill_dir, path_text):

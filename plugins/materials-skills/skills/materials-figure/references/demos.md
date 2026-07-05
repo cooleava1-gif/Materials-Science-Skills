@@ -31,8 +31,8 @@ consumption of alite peaks and growth of portlandite + C-S-H gel.
    - Panel labels **a, b, c** added.
    - Caption grounded in XRD evidence; no mechanism overclaim.
 7. **Deliver** the figure package with `figure_contract.md`, `qa_report.md`,
-   `caption.md`, `asset_manifest.md`, `source_data.csv`, `plot.py`,
-   `figures/*.svg`, `figures/*.png`.
+   `caption.md`, `asset_manifest.md`, `source_data.csv`, `plot.py`, and
+   locally generated figure exports.
 
 ## Demo 2: Composite fatigue S-N curves
 
