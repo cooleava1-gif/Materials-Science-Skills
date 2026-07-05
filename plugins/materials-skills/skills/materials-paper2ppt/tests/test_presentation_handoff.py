@@ -24,7 +24,10 @@ class Paper2PptStructureTest(unittest.TestCase):
         skill_text = (SKILL_ROOT / "SKILL.md").read_text(encoding="utf-8")
         manifest_text = (SKILL_ROOT / "manifest.yaml").read_text(encoding="utf-8")
         contract_text = (SKILL_ROOT / "static" / "core" / "contract.md").read_text(encoding="utf-8")
-        release_text = (REPO_ROOT / "scripts" / "run_release_checks.py").read_text(encoding="utf-8")
+        release_text = (
+            REPO_ROOT / "plugins" / "materials-skills" / "scripts" / "run_release_checks.py"
+        ).read_text(encoding="utf-8")
+        root_release_text = (REPO_ROOT / "scripts" / "run_release_checks.py").read_text(encoding="utf-8")
 
         self.assertIn("materials-pptx", skill_text)
         self.assertIn("--pptx-output", skill_text)
@@ -33,6 +36,7 @@ class Paper2PptStructureTest(unittest.TestCase):
         self.assertIn("speaker notes", contract_text.lower())
         self.assertIn("limitations", contract_text.lower())
         self.assertIn("discover_skill_names", release_text)
+        self.assertIn("materials-skills", root_release_text)
         self.assertIn("materials-paper2ppt", discover_skill_names())
 
 

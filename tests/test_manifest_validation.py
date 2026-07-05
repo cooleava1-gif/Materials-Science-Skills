@@ -62,7 +62,9 @@ class ManifestValidationTest(unittest.TestCase):
         self.assertEqual(report["status"], "pass")
 
     def test_release_check_includes_eval_contract_validation(self):
-        release_text = (SCRIPTS_DIR / "run_release_checks.py").read_text(encoding="utf-8")
+        release_text = (
+            REPO_ROOT / "plugins" / "materials-skills" / "scripts" / "run_release_checks.py"
+        ).read_text(encoding="utf-8")
         self.assertIn("collect_eval_contract_issues", release_text)
         self.assertIn("eval_contract", release_text)
 

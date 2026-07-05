@@ -60,10 +60,11 @@ scripts/materials_profile.py
 scripts/run_behavioral_tests.py
 scripts/run_pressure_tests.py
 scripts/run_release_checks.py
-scripts/skill_manifest.py
-scripts/validate_handoffs.py
-scripts/validate_manifest.py
 scripts/validate_registry.py
+
+# Local PPTX generation outputs and vendored design experiments
+plugins/materials-skills/skills/materials-pptx/output/
+plugins/materials-skills/skills/materials-pptx/third_party/
 
 # Reproducible bundled figure-package exports. Keep source files tracked.
 plugins/materials-skills/skills/materials-figure/examples/figure-packages/**/figure.svg

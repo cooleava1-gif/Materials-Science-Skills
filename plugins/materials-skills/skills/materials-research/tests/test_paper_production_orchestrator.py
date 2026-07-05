@@ -13,12 +13,6 @@ REPO_ROOT = PLUGIN_ROOT.parents[1]
 SHARED_ROOT = SKILLS_ROOT / "_shared" / "paper-production"
 WEAKNESS_EXAMPLE = SHARED_ROOT / "examples" / "wer-ea-mini-review-weakness-routing.csv"
 GATE_EXAMPLE = SHARED_ROOT / "examples" / "wer-ea-mini-review-gate-report.md"
-ROUTE_EXAMPLE = (
-    RESEARCH_ROOT
-    / "examples"
-    / "library"
-    / "paper-production-mini-review-example.md"
-)
 
 
 WEAKNESS_FIELDS = [
@@ -129,13 +123,13 @@ class PaperProductionOrchestratorTest(unittest.TestCase):
     def test_filled_paper_production_examples_exist_and_are_linked(self):
         self.assertTrue(WEAKNESS_EXAMPLE.exists())
         self.assertTrue(GATE_EXAMPLE.exists())
-        self.assertTrue(ROUTE_EXAMPLE.exists())
 
         route_doc = (RESEARCH_ROOT / "references" / "paper-production-orchestrator.md").read_text(
             encoding="utf-8"
         )
         for phrase in [
-            "paper-production-mini-review-example.md",
+            "weakness-routing-template.csv",
+            "paper-gate-report-template.md",
             "wer-ea-mini-review-weakness-routing.csv",
             "wer-ea-mini-review-gate-report.md",
         ]:
@@ -251,6 +245,7 @@ class PaperProductionOrchestratorTest(unittest.TestCase):
                     path.read_text(encoding="utf-8")
                     for path in [
                         root / "static" / "core" / "contract.md",
+                        root / "static" / "core" / "figure-contract.md",
                         root / "manifest.yaml",
                     ]
                     if path.exists()
@@ -259,10 +254,9 @@ class PaperProductionOrchestratorTest(unittest.TestCase):
                     self.assertIn(phrase, text)
 
     def test_release_gate_contains_paper_production_bucket(self):
-        release_text = (REPO_ROOT / "scripts" / "run_release_checks.py").read_text(encoding="utf-8")
+        release_text = (PLUGIN_ROOT / "scripts" / "run_release_checks.py").read_text(encoding="utf-8")
         self.assertIn("paper_production_orchestrator", release_text)
         self.assertIn("collect_paper_production_orchestrator_issues", release_text)
-        self.assertIn("paper-production-mini-review-example.md", release_text)
         self.assertIn("wer-ea-mini-review-weakness-routing.csv", release_text)
         self.assertIn("wer-ea-mini-review-gate-report.md", release_text)
 

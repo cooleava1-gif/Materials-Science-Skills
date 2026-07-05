@@ -31,6 +31,23 @@ FIGURE_HARD_WORKFLOW_FILES = [
     "scripts/compose_multipanel_figure.py",
 ]
 
+FIGURE_CURRENT_ASSET_FILES = [
+    "references/automatic-figure-package.md",
+    "references/figure-gallery.md",
+    "references/review-figure-intake.md",
+    "references/wer-ea-review-figure-contract.md",
+    "assets/templates/review-figure-intake-template.csv",
+    "assets/templates/wer-ea-figure-contract-template.md",
+    "assets/gallery/fig9-multipanel-xrd-sem-perf.svg",
+    "assets/gallery/fig12-evidence-chain.png",
+    "assets/showcase-proof/showcase_manifest.json",
+    "assets/showcase-proof/wer_ea_figure_proof_board.png",
+    "assets/materials4papers/README.md",
+    "scripts/check_storyboard.py",
+    "scripts/data_package_to_figure_handoff.py",
+    "scripts/validate_materials_claims.py",
+]
+
 FIGURE_GOLDEN_PACKAGES = [
     "wer-ea-full",
     "thermal-insulation-partial-to-full",
@@ -267,6 +284,15 @@ def main() -> int:
     for fname in FIGURE_HARD_WORKFLOW_FILES:
         if not (figure_root / fname).exists():
             figure_issues.append(f"missing {fname}")
+    for fname in FIGURE_CURRENT_ASSET_FILES:
+        if not (figure_root / fname).exists():
+            figure_issues.append(f"missing {fname}")
+    materials4papers_dirs = [
+        path for path in (figure_root / "assets" / "materials4papers").iterdir()
+        if path.is_dir()
+    ] if (figure_root / "assets" / "materials4papers").exists() else []
+    if len(materials4papers_dirs) < 15:
+        figure_issues.append("assets/materials4papers must include at least 15 example directories")
     audit_script = figure_root / "scripts" / "audit_figure_package.py"
     if not audit_script.exists():
         figure_issues.append("missing scripts/audit_figure_package.py")

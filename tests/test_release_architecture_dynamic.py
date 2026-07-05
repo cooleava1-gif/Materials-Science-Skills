@@ -37,12 +37,17 @@ class DynamicReleaseArchitectureTest(unittest.TestCase):
         self.assertIn("materials-doe", discovered)
 
     def test_release_check_has_no_static_materials_skill_list(self):
-        release_text = (REPO_ROOT / "scripts" / "run_release_checks.py").read_text(
+        root_release_text = (REPO_ROOT / "scripts" / "run_release_checks.py").read_text(
+            encoding="utf-8"
+        )
+        plugin_release_text = (PLUGIN_ROOT / "scripts" / "run_release_checks.py").read_text(
             encoding="utf-8"
         )
 
-        self.assertNotIn("ALL_SKILLS = [", release_text)
-        self.assertIn("discover_skill_names", release_text)
+        self.assertIn("plugins", root_release_text)
+        self.assertIn("materials-skills", root_release_text)
+        self.assertNotIn("ALL_SKILLS = [", plugin_release_text)
+        self.assertIn("discover_skill_names", plugin_release_text)
 
     def test_plugin_package_exposes_plugin_descriptor(self):
         self.assertTrue((PLUGIN_ROOT / ".codex-plugin" / "plugin.json").is_file())

@@ -78,25 +78,24 @@ class ReviewFigureIntakeContractTest(unittest.TestCase):
         self.assertIn("evidence heatmaps", wer_text)
 
     def test_skill_and_manifest_route_handoff_intake(self):
-        skill_text = (SKILL_ROOT / "SKILL.md").read_text(encoding="utf-8")
         manifest_text = (SKILL_ROOT / "manifest.yaml").read_text(encoding="utf-8")
 
         for phrase in [
-            "handoff_intake:",
             "references/review-figure-intake.md",
+            "citation-handoff",
+            "reader-package",
         ]:
             self.assertIn(phrase, manifest_text)
 
         for phrase in [
-            "handoff_intake:",
             "references/review-figure-intake.md",
             "reader handoff",
             "citation matrix",
-            "review figure intake",
+            "Review-Figure Intake",
             "evidence heatmap",
             "mechanism map",
         ]:
-            self.assertIn(phrase, manifest_text)
+            self.assertIn(phrase, manifest_text + (SKILL_ROOT / "references" / "review-figure-intake.md").read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

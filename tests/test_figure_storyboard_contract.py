@@ -134,7 +134,7 @@ panels:
                 self.assertIn(phrase, combined, f"{package} should cover {phrase}")
 
     def test_release_gate_tracks_figure_maturity_assets(self):
-        release_text = (REPO_ROOT / "scripts" / "run_release_checks.py").read_text(encoding="utf-8")
+        release_text = (PLUGIN_ROOT / "scripts" / "run_release_checks.py").read_text(encoding="utf-8")
         for phrase in [
             "FIGURE_GOLDEN_PACKAGES",
             "materials-figure-atlas.md",

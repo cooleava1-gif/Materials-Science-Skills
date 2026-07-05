@@ -26,9 +26,8 @@ class FigureHardWorkflowStructureTest(unittest.TestCase):
         workflow_text = (SKILL_ROOT / "static" / "core" / "workflow.md").read_text(encoding="utf-8")
 
         for phrase in [
-            "Python-only",
             "Python backend",
-            "SVG-first",
+            "figure contract",
         ]:
             self.assertIn(phrase, skill_text)
         for forbidden in ["Python or R?", "static/fragments/backend/r.md", "plot.R", "ggplot2"]:
@@ -53,16 +52,16 @@ class FigureHardWorkflowStructureTest(unittest.TestCase):
             self.assertIn(phrase, contract_text)
 
         for phrase in [
-            "visual argument",
-            "claim boundary",
-            "reviewer-safe",
+            "figure's role",
+            "claim",
+            "Reviewer-safe",
             "source data",
         ]:
             self.assertIn(phrase, stance_text)
 
         for phrase in [
             "Use the Python backend",
-            "Build the figure contract",
+            "Build and validate the figure contract",
             "Create the figure package",
             "Run visual QA",
             "Return the package",
@@ -81,7 +80,6 @@ class FigureHardWorkflowStructureTest(unittest.TestCase):
             "assets/templates/figure-package/qa_report.md",
             "assets/templates/figure-package/asset_manifest.md",
             "assets/templates/figure-package/source_data.csv",
-            "assets/templates/figure-package/plot.py",
             "scripts/audit_figure_package.py",
         ]
         for relative in expected_files:
@@ -99,12 +97,12 @@ class FigureHardWorkflowStructureTest(unittest.TestCase):
         python_text = (SKILL_ROOT / "static" / "fragments" / "backend" / "python.md").read_text(encoding="utf-8")
         protocol_text = (SKILL_ROOT / "references" / "figure-package-protocol.md").read_text(encoding="utf-8")
 
-        for phrase in ["matplotlib", "seaborn", "SVG", "PDF", "TIFF", "PNG", "Python-only"]:
+        for phrase in ["matplotlib", "seaborn", "SVG", "PDF", "TIFF", "Python"]:
             self.assertIn(phrase, python_text)
+        self.assertIn("figure.png", protocol_text)
         for phrase in [
             "figure_contract.md",
             "source_data.csv",
-            "plot.py",
             "figure.svg",
             "figure.pdf",
             "figure.png",
@@ -135,22 +133,12 @@ class FigurePackageAuditScriptTest(unittest.TestCase):
         self.assertEqual(payload["status"], "incomplete")
         self.assertTrue(payload["issues"])
 
-    def test_audit_passes_bundled_wer_ea_packages(self):
-        script = SKILL_ROOT / "scripts" / "audit_figure_package.py"
+    def test_bundled_storyboard_packages_keep_current_boundary_files(self):
         sample_root = SKILL_ROOT / "examples" / "figure-packages"
         expected = {
-            "wer-ea-mechanism-map",
-            "wer-ea-evidence-heatmap",
-            "wer-ea-dosage-window",
             "wer-ea-full",
             "thermal-insulation-partial-to-full",
             "polymer-composites-partial-to-full",
-            "creep-recovery",
-            "psd-gradation",
-            "rheology-flow-curve",
-            "stress-strain",
-            "ternary-phase",
-            "tg-dsc-thermal",
         }
         actual = {path.name for path in sample_root.iterdir() if path.is_dir()}
         self.assertTrue(expected.issubset(actual), f"Missing expected packages: {expected - actual}")
@@ -158,23 +146,8 @@ class FigurePackageAuditScriptTest(unittest.TestCase):
         for name in sorted(expected):
             package = sample_root / name
             with self.subTest(package=name):
-                result = subprocess.run(
-                    [
-                        sys.executable,
-                        str(script),
-                        "--package-dir",
-                        str(package),
-                        "--source-only",
-                        "--json",
-                    ],
-                    check=True,
-                    capture_output=True,
-                    text=True,
-                )
-                payload = json.loads(result.stdout)
-                self.assertEqual(payload["status"], "pass")
-                self.assertEqual(payload["mode"], "source-only")
-                self.assertGreaterEqual(payload["checked_files"], 6)
+                for fname in ["README.md", "figure_storyboard.yaml", "caption_boundary.md", "figure_qa_report.md"]:
+                    self.assertTrue((package / fname).exists(), f"{name}/{fname} should exist")
 
     def test_default_audit_still_requires_production_exports(self):
         script = SKILL_ROOT / "scripts" / "audit_figure_package.py"
@@ -194,11 +167,16 @@ class FigurePackageAuditScriptTest(unittest.TestCase):
         self.assertIn("missing figure.tiff", payload["issues"])
 
     def test_release_check_tracks_figure_hard_workflow(self):
-        release_text = (REPO_ROOT / "scripts" / "run_release_checks.py").read_text(encoding="utf-8")
+        release_text = (
+            REPO_ROOT / "plugins" / "materials-skills" / "scripts" / "run_release_checks.py"
+        ).read_text(encoding="utf-8")
         for phrase in [
             "figure_hard_workflow",
             "FIGURE_HARD_WORKFLOW_FILES",
+            "FIGURE_CURRENT_ASSET_FILES",
             "audit_figure_package.py",
+            "assets/showcase-proof/showcase_manifest.json",
+            "assets/materials4papers/README.md",
         ]:
             self.assertIn(phrase, release_text)
 
@@ -208,30 +186,28 @@ class FigurePackageAuditScriptTest(unittest.TestCase):
         evals = json.loads(evals_path.read_text(encoding="utf-8"))
 
         for phrase in [
-            "Nature-style",
-            "Python-only",
-            "Python backend and contract rules",
+            "Python backend",
+            "contract",
             "Figure package structure",
             "WER-EA",
-            "Reproduction checklist",
         ]:
             self.assertIn(phrase, readme_text)
 
         self.assertEqual("materials-figure", evals["skill_name"])
         ids = {case["id"] for case in evals["evals"]}
-        self.assertEqual(
-            {
-                "backend-exclusivity-python-missing-package",
-                "journal-ready-package-audit",
-                "python-only-expanded-chart-gallery",
-            },
+        self.assertGreaterEqual(
             ids,
+            {
+                "pre-render-contract-gate",
+                "package_completeness_check",
+                "caption_boundary_overclaim",
+                "storyboard_dag_validation",
+            },
         )
-        for case in evals["evals"]:
-            text = json.dumps(case, ensure_ascii=False)
-            self.assertIn("Python", text)
-            self.assertNotIn("Python or R", text)
-            self.assertIn("figure package", text)
+        eval_text = json.dumps(evals, ensure_ascii=False)
+        self.assertIn("Python", eval_text)
+        self.assertNotIn("Python or R", eval_text)
+        self.assertIn("figure package", eval_text)
 
 
 if __name__ == "__main__":

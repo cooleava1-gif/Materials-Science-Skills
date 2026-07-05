@@ -130,7 +130,7 @@ class WritingMaturityContractTest(unittest.TestCase):
         )
 
     def test_release_gate_tracks_writing_maturity_assets(self):
-        release_text = (REPO_ROOT / "scripts" / "run_release_checks.py").read_text(encoding="utf-8")
+        release_text = (PLUGIN_ROOT / "scripts" / "run_release_checks.py").read_text(encoding="utf-8")
         for phrase in [
             "WRITING_MATURITY_FILES",
             "abstract-claim-arc.md",

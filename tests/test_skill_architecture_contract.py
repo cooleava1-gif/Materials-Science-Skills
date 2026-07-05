@@ -137,9 +137,17 @@ axes:
         )
 
     def test_release_check_includes_architecture_validation(self):
-        release_text = (REPO_ROOT / "scripts" / "run_release_checks.py").read_text(encoding="utf-8")
+        root_architecture_text = (REPO_ROOT / "scripts" / "check_skill_architecture.py").read_text(encoding="utf-8")
+        release_text = (
+            REPO_ROOT
+            / "plugins"
+            / "materials-skills"
+            / "scripts"
+            / "run_release_checks.py"
+        ).read_text(encoding="utf-8")
         self.assertIn("check_skill_architecture.py", release_text)
         self.assertIn("inspect_all", release_text)
+        self.assertIn("inspect_all", root_architecture_text)
 
 
 if __name__ == "__main__":

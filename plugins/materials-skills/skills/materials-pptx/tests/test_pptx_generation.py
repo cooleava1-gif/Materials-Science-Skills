@@ -34,7 +34,10 @@ class PptxStructureTest(unittest.TestCase):
         skill_text = (SKILL_ROOT / "SKILL.md").read_text(encoding="utf-8")
         manifest_text = (SKILL_ROOT / "manifest.yaml").read_text(encoding="utf-8")
         contract_text = (SKILL_ROOT / "static" / "core" / "contract.md").read_text(encoding="utf-8")
-        release_text = (REPO_ROOT / "scripts" / "run_release_checks.py").read_text(encoding="utf-8")
+        release_text = (
+            REPO_ROOT / "plugins" / "materials-skills" / "scripts" / "run_release_checks.py"
+        ).read_text(encoding="utf-8")
+        root_release_text = (REPO_ROOT / "scripts" / "run_release_checks.py").read_text(encoding="utf-8")
 
         manifest_text = (SKILL_ROOT / "manifest.yaml").read_text(encoding="utf-8")
         self.assertTrue((SKILL_ROOT / "references" / "deck-structures.md").exists())
@@ -47,6 +50,7 @@ class PptxStructureTest(unittest.TestCase):
         self.assertIn("ppt/media/", contract_text)
         self.assertIn("ppt/notesSlides/", contract_text)
         self.assertIn("discover_skill_names", release_text)
+        self.assertIn("materials-skills", root_release_text)
         self.assertIn("materials-pptx", discover_skill_names())
 
 

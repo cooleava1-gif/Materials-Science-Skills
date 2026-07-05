@@ -79,10 +79,14 @@ class ReviewerSkillStructureTest(unittest.TestCase):
             self.assertIn(section, pressure_text)
 
     def test_release_checks_include_reviewer_skill(self):
-        release_script = REPO_ROOT / "scripts" / "run_release_checks.py"
+        release_script = REPO_ROOT / "plugins" / "materials-skills" / "scripts" / "run_release_checks.py"
+        root_release_script = REPO_ROOT / "scripts" / "run_release_checks.py"
         text = release_script.read_text(encoding="utf-8")
+        root_text = root_release_script.read_text(encoding="utf-8")
 
         self.assertIn("discover_skill_names", text)
+        self.assertIn("plugins", root_text)
+        self.assertIn("materials-skills", root_text)
         self.assertIn("materials-reviewer", discover_skill_names())
 
     def test_research_router_lists_reviewer_companion_skill(self):
