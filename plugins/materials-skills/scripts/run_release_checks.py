@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import subprocess
 from pathlib import Path
 
 import yaml
@@ -50,6 +51,24 @@ FIGURE_REPRESENTATIVE_ASSET_FILES = [
     "scripts/check_storyboard.py",
     "scripts/data_package_to_figure_handoff.py",
     "scripts/validate_materials_claims.py",
+]
+
+HTML_DECK_PUBLIC_FILES = [
+    "SKILL.md",
+    "README.md",
+    "manifest.yaml",
+    "agents/openai.yaml",
+    "assets/templates/deck-outline-template.json",
+    "assets/templates/deck-outline-template.md",
+    "evals/evals.json",
+    "references/html-deck-generation.md",
+    "references/html-first-academic-deck.md",
+    "references/playwright-verification.md",
+    "scripts/build_deck.mjs",
+    "scripts/render_html_deck.mjs",
+    "scripts/verify_deck_html.mjs",
+    "static/core/contract.md",
+    "static/core/workflow.md",
 ]
 
 WRITING_MATURITY_FILES = [
@@ -151,6 +170,47 @@ def check_skill_basics(skill_name: str) -> list[str]:
     return issues
 
 
+def collect_public_boundary_issues(skills_root: Path = SKILLS_ROOT) -> list[str]:
+    """Keep internal tests, vendored experiments, and retired skills out of GitHub delivery."""
+
+    issues: list[str] = []
+    retired_skills = ["materials-" + "paper2" + "ppt", "materials-" + "pptx"]
+    for skill_name in retired_skills:
+        if (skills_root / skill_name).exists():
+            issues.append(f"retired public skill still present: {skill_name}")
+
+    def is_ignored(path: Path) -> bool:
+        try:
+            result = subprocess.run(
+                ["git", "check-ignore", "-q", str(path)],
+                cwd=REPO_ROOT,
+                check=False,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
+        except (OSError, ValueError):
+            return False
+        return result.returncode == 0
+
+    def should_block(path: Path) -> bool:
+        return path.exists() and not is_ignored(path)
+
+    for skill_dir in skills_root.glob("materials-*"):
+        for rel in ["tests", "scripts/tests", "third_party"]:
+            if should_block(skill_dir / rel):
+                issues.append(f"{skill_dir.name}: public package must not include {rel}")
+
+    blocked_paths = [
+        REPO_ROOT / "tests",
+        REPO_ROOT / "scripts" / "tests",
+        REPO_ROOT / "skills" / "_shared" / "tests",
+    ]
+    for path in blocked_paths:
+        if should_block(path):
+            issues.append(f"public package must not include {path.relative_to(REPO_ROOT).as_posix()}")
+    return issues
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--json", action="store_true", help="JSON output.")
@@ -188,6 +248,18 @@ def main() -> int:
         figure_issues.append("missing scripts/audit_figure_package.py")
     if figure_issues:
         all_issues["figure_hard_workflow"] = figure_issues
+
+    html_deck_root = SKILLS_ROOT / "materials-html-deck"
+    html_deck_issues = []
+    for fname in HTML_DECK_PUBLIC_FILES:
+        if not (html_deck_root / fname).exists():
+            html_deck_issues.append(f"missing {fname}")
+    if html_deck_issues:
+        all_issues["html_deck_public_boundary"] = html_deck_issues
+
+    public_boundary_issues = collect_public_boundary_issues(SKILLS_ROOT)
+    if public_boundary_issues:
+        all_issues["public_delivery_boundary"] = public_boundary_issues
 
     # handoff contract validation
     try:

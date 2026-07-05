@@ -10,7 +10,7 @@ workflow instead of leaving each step as a separate prompt.
 配图、数据打包、实验设计、审稿模拟、回复信撰写、演讲准备、**论文转专利**
 串成一条工作流，而不是让每一步都成为孤立的提示。
 
-The bundle ships **13 skills** covering **29 material systems** across
+The bundle ships **12 skills** covering **29 material systems** across
 civil/construction, polymers, metals, ceramics, and functional/nano materials.
 Each system carries a narrative arc, figure scripts, reviewer criteria, and
 worked example packages where the coverage tier has reached `full`.
@@ -76,8 +76,8 @@ python .\scripts\run_release_checks.py --json
    (`materials-reviewer`).
 10. **Responds** to reviewer comments with point-by-point replies
     (`materials-response`).
-11. **Presents** papers as Chinese journal-club slide outlines or real `.pptx`
-    decks (`materials-paper2ppt` + `materials-pptx`).
+11. **Presents** papers as verified browser-native HTML academic decks
+    (`materials-html-deck`).
 12. **Converts** papers into evidence-grounded Chinese invention-patent
     applications, with a civil patent knowledge base and a claim-validation
     engine (`materials-paper-to-patent`).
@@ -89,7 +89,7 @@ The bundle follows a **profile-first routing** protocol defined in
 On first use, the router asks the user once for their current materials
 research direction, saves it to a user-local file `.materials/profile.yaml`
 (not tracked by git), and uses it to set defaults for `material_family` and
-`domain` across all 13 skills. Later sessions skip the question and only
+`domain` across all 12 skills. Later sessions skip the question and only
 briefly remind the user which direction is active.
 
 | Layer | Source | Behaviour |
@@ -124,7 +124,7 @@ Codex Desktop users can add the same repository as a custom plugin marketplace:
 - Branch/ref: `main`
 - Plugin: `materials-skills`
 
-After installation, all 13 `materials-*` skills become available through the
+After installation, all 12 `materials-*` skills become available through the
 plugin as a complete bundle, together with the shared support directory. If
 the skills do not appear immediately, refresh the plugin page or start a new
 Codex session.
@@ -139,7 +139,7 @@ cd Materials-Science-Skills
 .\scripts\install.ps1
 ```
 
-The installer copies all 13 `materials-*` skills plus `_shared` into
+The installer copies all 12 `materials-*` skills plus `_shared` into
 `$CODEX_HOME\skills` if `CODEX_HOME` is set, or into `~\.codex\skills`
 otherwise. It also removes stale target directories before reinstalling so old
 files do not survive an update.
@@ -184,7 +184,7 @@ For the full walkthrough, see [install.md](install.md).
 
 ## Skills
 
-## Skill index (13 skills)
+## Skill index (12 skills)
 
 | Skill | Status | Purpose | Trigger keywords |
 |---|---|---|---|
@@ -198,8 +198,7 @@ For the full walkthrough, see [install.md](install.md).
 | [`materials-doe`](plugins/materials-skills/skills/materials-doe/README.md) | Stable | Factorial / Taguchi / mixture matrices, methods paragraph | "DOE", "experiment design", "orthogonal array" |
 | [`materials-reviewer`](plugins/materials-skills/skills/materials-reviewer/README.md) | Stable | 5-axis peer review, 22 domain criteria, desk-reject risk | "peer review", "desk-reject risk", "reviewer report" |
 | [`materials-response`](plugins/materials-skills/skills/materials-response/README.md) | Beta | Point-by-point response, rebuttal package, action mapping | "response letter", "rebuttal", "reviewer comment" |
-| [`materials-paper2ppt`](plugins/materials-skills/skills/materials-paper2ppt/README.md) | Beta | Slide-ready Markdown, talk structure for group meeting / journal club | "paper to slides", "journal club", "slide outline" |
-| [`materials-pptx`](plugins/materials-skills/skills/materials-pptx/README.md) | Beta | Real `.pptx` deck with dependency-light OOXML writer | "pptx", "powerpoint", "slide deck" |
+| [`materials-html-deck`](plugins/materials-skills/skills/materials-html-deck/README.md) | Beta | Browser-native HTML academic deck generation with strict Playwright QA | "html deck", "academic deck", "slide deck", "paper to slides", "journal club" |
 | [`materials-paper-to-patent`](plugins/materials-skills/skills/materials-paper-to-patent/README.md) | Beta | Chinese invention-patent application, civil patent KB, claim validator | "patent", "claim", "invention disclosure" |
 
 > **Status legend:** `Stable` = documented, installable, and covered by the public lightweight release gate. `Beta` = functional and documented, but still accumulating domain coverage depth.
@@ -502,20 +501,18 @@ Has its own `evals.json`.
 
 ---
 
-## materials-paper2ppt & materials-pptx
+## materials-html-deck
 
-**What it does** — `materials-paper2ppt` converts papers, reading notes,
-review matrices, and research outlines into slide-ready Markdown. It is the
-handoff layer before real PowerPoint generation. `materials-pptx` then turns
-structured Markdown or JSON slide specs into a real `.pptx` deck with notes
-and image placement, using a dependency-light OOXML writer (no python-pptx
-required).
+**What it does** — `materials-html-deck` converts papers, reading notes,
+review matrices, and research outlines into browser-native HTML academic
+decks: retained `index.html`, per-slide HTML files, shared design tokens,
+Playwright screenshots, QA reports, speaker notes, and an asset manifest.
 
 ---
 
 ## Shared core — `_shared/`
 
-All 13 skills share a small set of protocol files under
+All 12 skills share a small set of protocol files under
 [`plugins/materials-skills/skills/_shared/`](plugins/materials-skills/skills/_shared/):
 
 | File | Purpose |
@@ -531,7 +528,7 @@ All 13 skills share a small set of protocol files under
 
 ## Quantitative summary (public delivery boundary)
 
-- **13 materials-* skills** plus shared contracts under `_shared`.
+- **12 materials-* skills** plus shared contracts under `_shared`.
 - **29 material systems** represented in the material registry.
 - **Representative figure samples** are shipped for public browsing; the large generated figure corpus is intentionally not part of the GitHub package.
 - **71 routing fragments** (15 task + 36 domain + 20 journal).
@@ -557,7 +554,7 @@ boards and figure-package previews.
 | WER-EA mini-review | Systematic review + figure planning for asphalt emulsion materials |
 | Experimental manuscript | Evidence-gap audit before discussion drafting |
 | Revision loop | Post-review response + rebuttal package |
-| Paper to presentation | Journal-club PPT from a paper package |
+| Paper to presentation | Journal-club HTML deck from a paper package |
 
 ## Guided Demos
 
@@ -581,9 +578,8 @@ requirements.
 
 ## Roadmap (transparent gaps)
 
-- **Evals coverage** is now at 13 of 13 skills, but cross-skill pressure
-  tests are still uneven and the bundle still needs broader end-to-end
-  pressure testing to make every skill production-stable.
+- **Internal regression coverage** is maintained outside the public GitHub
+  delivery; the public package keeps only the lightweight release gate.
 - **Submission end-to-end** is partially covered (cover letter + response
   letter + data availability), but LaTeX-class templates for the 17 journal
   families are not yet shipped.
