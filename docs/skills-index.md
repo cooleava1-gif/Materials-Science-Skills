@@ -12,8 +12,7 @@
 | `materials-doe` | Experiment design matrices | data, writing |
 | `materials-reviewer` | Simulated peer review and risk report | response, writing |
 | `materials-response` | Point-by-point rebuttal package | writing, polishing |
-| `materials-paper2ppt` | Slide-ready outline | pptx |
-| `materials-pptx` | Real PowerPoint deck | paper2ppt |
+| `materials-html-deck` | Slide-ready outline and verified HTML academic deck | figure |
 | `materials-paper-to-patent` | Chinese invention-patent draft | figure, data |
 
 The bundle uses profile-first routing from `.materials/profile.yaml` when the

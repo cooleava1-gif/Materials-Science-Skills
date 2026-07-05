@@ -3,8 +3,7 @@ version: "1.0"
 description: "Figure planning and evidence mapping handoff from review-figure intake"
 produced_by: materials-figure
 consumed_by:
-  - materials-paper2ppt
-  - materials-pptx
+  - materials-html-deck
   - materials-research
   - materials-paper-to-patent
 

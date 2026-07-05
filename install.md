@@ -119,13 +119,13 @@ Expected shape:
 Prompt:
 
 ```text
-Turn this paper package into a journal-club slide outline and then a real PPTX.
+Turn this paper package into a journal-club outline and verified HTML academic deck.
 ```
 
 Expected shape:
 
-1. `materials-paper2ppt` creates slide-ready Markdown.
-2. `materials-pptx` turns the outline into a real PowerPoint deck.
+1. `materials-html-deck` creates the slide story, speaker notes, and retained HTML deck.
+2. `materials-figure` supports figure placement or redrawing when needed.
 
 ### Path D: Paper To Chinese Invention Patent
 

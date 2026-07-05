@@ -1,8 +1,8 @@
-# Task: Presentation and PPT
+# Task: Presentation and HTML Deck
 
 Goal: convert a paper or project into a clear materials research talk.
 
-For full PPT outlines, journal-club decks, or group-meeting slide structures, prefer the companion skill `materials-paper2ppt`.
+For full academic deck outlines, journal-club decks, or group-meeting slide structures, use the companion skill `materials-html-deck`.
 
 Default Chinese presentation arc:
 

@@ -14,8 +14,7 @@ REQUIRED_MODULES = [
     "materials-citation",
     "materials-polishing",
     "materials-response",
-    "materials-paper2ppt",
-    "materials-pptx",
+    "materials-html-deck",
     "materials-figure",
     "materials-data",
 ]
@@ -28,7 +27,7 @@ REQUIRED_THEMES = [
     "literal translation",
     "weak novelty",
     "figure caption",
-    "pptx missing data",
+    "HTML deck missing data",
     "FAIR data",
     "reviewer response",
     "statistics",

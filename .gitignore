@@ -62,9 +62,11 @@ scripts/run_pressure_tests.py
 scripts/run_release_checks.py
 scripts/validate_registry.py
 
-# Local PPTX generation outputs and vendored design experiments
-plugins/materials-skills/skills/materials-pptx/output/
-plugins/materials-skills/skills/materials-pptx/third_party/
+# Local HTML deck generation outputs and vendored design experiments
+plugins/materials-skills/skills/materials-html-deck/output/
+plugins/materials-skills/skills/materials-html-deck/outputs/
+plugins/materials-skills/skills/materials-html-deck/dist/
+plugins/materials-skills/skills/materials-html-deck/third_party/
 
 # Reproducible bundled figure-package exports. Keep source files tracked.
 plugins/materials-skills/skills/materials-figure/examples/figure-packages/**/figure.svg
