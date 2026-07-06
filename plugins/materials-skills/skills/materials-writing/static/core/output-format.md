@@ -2,6 +2,21 @@
 
 Return every draft in this six-part structure. The structure is designed to keep evidence visible, revision cheap, and handoffs clean.
 
+For `compose`, `revise`, `hybrid`, or `qa` state-machine runs, prepend a
+compact status block before the six-part draft:
+
+```text
+State: compose / revise / hybrid / qa
+Artifact: path or pasted text label
+Score/status: average score and pass / revise / stop
+Remaining risks: highest-risk evidence, method, argument, or language issue
+Stop/continue reason: stopping rule or next revision target
+Next action: one concrete action only
+```
+
+The status block does not replace the six-part structure. It records the
+project loop so the next run can update `state.json` honestly.
+
 ## 1. Draft
 
 The requested prose. Each paragraph carries one message only. The first sentence of each paragraph forecasts its message. Placeholders mark missing evidence instead of inventing content.

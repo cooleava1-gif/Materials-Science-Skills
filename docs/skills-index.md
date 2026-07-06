@@ -5,7 +5,8 @@
 | `materials-research` | Router and paper-production orchestrator | All companion skills |
 | `materials-reader` | Source-grounded reader package | citation, writing, figure |
 | `materials-citation` | Search strategy and citation matrix | reader, writing |
-| `materials-writing` | Manuscript sections and argument chains | polishing, reviewer |
+| `materials-literature-pipeline` | Recurring discovery and source-depth triage | research, reader, citation |
+| `materials-writing` | Stateful manuscript sections and argument chains | polishing, reviewer |
 | `materials-polishing` | Claim-strength and language tightening | reviewer, response |
 | `materials-figure` | Figure contracts and publication plots | writing, data |
 | `materials-data` | FAIR dataset package | writing, figure |

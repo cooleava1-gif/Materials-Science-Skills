@@ -39,14 +39,6 @@ FIGURE_REPRESENTATIVE_ASSET_FILES = [
     "references/demos.md",
     "assets/templates/review-figure-intake-template.csv",
     "assets/templates/wer-ea-figure-contract-template.md",
-    "assets/chart-atlas/atlas-01-xrd-diffraction.png",
-    "assets/chart-atlas/atlas-02-mechanical-curves.png",
-    "assets/chart-atlas/atlas-06-performance-bar.png",
-    "assets/chart-atlas/atlas-10-composite-layout.png",
-    "assets/gallery/fig5-asphalt-modification-review.png",
-    "assets/gallery/fig9-multipanel-xrd-sem-perf.png",
-    "assets/showcase-proof/showcase_manifest.json",
-    "assets/showcase-proof/wer_ea_figure_proof_board.png",
     "scripts/check_storyboard.py",
     "scripts/data_package_to_figure_handoff.py",
     "scripts/validate_materials_claims.py",
@@ -64,6 +56,25 @@ WRITING_MATURITY_FILES = [
     "scripts/audit_materials_manuscript.py",
 ]
 
+WRITING_STATE_MACHINE_FILES = [
+    "assets/templates/foundation/00_scope.md",
+    "assets/templates/foundation/01_research_canon.md",
+    "assets/templates/foundation/02_evidence_table.md",
+    "assets/templates/foundation/03_argument_map.md",
+    "assets/templates/foundation/04_section_contracts.md",
+    "assets/templates/foundation/05_style_guide.md",
+    "assets/templates/foundation/state-template.json",
+    "references/state-machine/foundation-files.md",
+    "references/state-machine/evaluation-rubric.md",
+    "references/state-machine/stopping-rules.md",
+    "references/state-machine/validation-checklist.md",
+    "static/fragments/writing_mode/compose.md",
+    "static/fragments/writing_mode/revise.md",
+    "static/fragments/writing_mode/hybrid.md",
+    "static/fragments/writing_mode/qa.md",
+    "scripts/init_writing_project.py",
+]
+
 EXPERIMENT_RECORD_FILES = [
     "skills/_shared/core/experiment-record-schema.yaml",
     "skills/_shared/core/experiment-record-example.yaml",
@@ -79,10 +90,38 @@ EXPERIMENT_RECORD_FILES = [
     "skills/materials-writing/references/experiment-record-for-writing.md",
 ]
 
+STRATEGIC_UPGRADE_FILES = [
+    "skills/_shared/core/research-state-contract.md",
+    "skills/_shared/core/research-state-template.yaml",
+    "skills/materials-literature-pipeline/SKILL.md",
+    "skills/materials-literature-pipeline/README.md",
+    "skills/materials-literature-pipeline/manifest.yaml",
+    "skills/materials-literature-pipeline/static/core/contract.md",
+    "skills/materials-literature-pipeline/static/core/workflow.md",
+    "skills/materials-literature-pipeline/static/core/scoring.md",
+    "skills/materials-literature-pipeline/references/cron-operations.md",
+    "skills/materials-literature-pipeline/references/push-format.md",
+    "skills/materials-literature-pipeline/references/degradation-strategy.md",
+    "skills/materials-literature-pipeline/references/gap-analysis.md",
+    "skills/materials-literature-pipeline/references/review-compilation-workflow.md",
+    "skills/materials-literature-pipeline/assets/templates/literature-pipeline-digest.md",
+    "skills/materials-literature-pipeline/assets/templates/literature-candidate-table.csv",
+    "skills/materials-writing/references/content-first-qa-pipeline.md",
+    "_shared/contracts/literature-pipeline-handoff.yaml",
+]
+
 
 def check_experiment_record_files() -> list[str]:
     issues = []
     for rel in EXPERIMENT_RECORD_FILES:
+        if not (REPO_ROOT / rel).exists():
+            issues.append(f"missing {rel}")
+    return issues
+
+
+def check_strategic_upgrade_files() -> list[str]:
+    issues = []
+    for rel in STRATEGIC_UPGRADE_FILES:
         if not (REPO_ROOT / rel).exists():
             issues.append(f"missing {rel}")
     return issues
@@ -139,6 +178,15 @@ def collect_writing_maturity_issues(skill_root: Path) -> list[str]:
     return issues
 
 
+def collect_writing_state_machine_issues(skill_root: Path) -> list[str]:
+    issues = []
+    writing_root = skill_root / "materials-writing"
+    for name in WRITING_STATE_MACHINE_FILES:
+        if not (writing_root / name).exists():
+            issues.append(f"missing materials-writing/{name}")
+    return issues
+
+
 def check_skill_basics(skill_name: str) -> list[str]:
     issues = []
     root = SKILLS_ROOT / skill_name
@@ -173,6 +221,10 @@ def main() -> int:
     writing_maturity_issues = collect_writing_maturity_issues(SKILLS_ROOT)
     if writing_maturity_issues:
         all_issues["writing_maturity"] = writing_maturity_issues
+
+    writing_state_machine_issues = collect_writing_state_machine_issues(SKILLS_ROOT)
+    if writing_state_machine_issues:
+        all_issues["writing_state_machine"] = writing_state_machine_issues
 
     # Representative figure delivery boundary check.
     figure_root = SKILLS_ROOT / "materials-figure"
@@ -271,6 +323,10 @@ def main() -> int:
     experiment_record_issues = check_experiment_record_files() + check_experiment_record()
     if experiment_record_issues:
         all_issues["experiment_record_contract"] = experiment_record_issues
+
+    strategic_upgrade_issues = check_strategic_upgrade_files()
+    if strategic_upgrade_issues:
+        all_issues["strategic_upgrade"] = strategic_upgrade_issues
 
     if args.json:
         print(json.dumps({"status": "pass" if not all_issues else "fail", "issues": all_issues}, indent=2))

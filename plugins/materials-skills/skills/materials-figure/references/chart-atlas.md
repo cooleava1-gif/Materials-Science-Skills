@@ -604,22 +604,17 @@ cbar.set_label('Response')
 - Put control, dosage, temperature, curing condition, and test standard in the
   figure plan or caption when available.
 
-## Visual Atlas (PNG Previews)
+## Public Preview Boundary
 
-The public `assets/chart-atlas/` directory contains representative PNG atlas
-boards. The full generated atlas is maintained outside the GitHub package so
-the installable skill bundle stays compact. Use these samples as visual
-quick-reference when choosing a chart type.
-
-| Atlas file | Chart family | Variants |
-|---|---|---|
-| `atlas-01-xrd-diffraction.png` | XRD diffraction patterns | single phase / multi-phase overlay / peak annotation / difference plot |
-| `atlas-02-mechanical-curves.png` | Mechanical curves | stress-strain / load-displacement / creep / fatigue S-N |
-| `atlas-06-performance-bar.png` | Performance bar charts | single / grouped / stacked / signed delta |
-| `atlas-10-composite-layout.png` | Composite layouts | schematic+data / image+plot / mechanism+evidence / review summary |
+The installable skill bundle does not ship generated chart-atlas PNG boards.
+Use the compact repository-level preview board at
+`docs/gallery/gallery_chart_atlas.png` for visual orientation, and use the
+rules in this reference plus the figure-package templates for actual delivery.
+The full generated atlas is a maintainer-side asset pack.
 
 ## LLM-as-Artist Mode
 
 The LLM writes plotting code directly using matplotlib, following the code
-patterns and reviewer checklists above. Use the PNG atlas images as visual
-reference for chart type selection. For source-level examples, see the figure-package templates and retained `materials4papers` data/script examples.
+patterns and reviewer checklists above. Use the public preview board only as
+visual orientation. For source-level examples, see the figure-package templates
+and small runnable examples.

@@ -15,6 +15,23 @@ always_load:
   - static/core/output-format.md
 
 axes:
+  writing_mode:
+    detect: "Which writing state-machine mode is needed?"
+    default: compose
+    values:
+      compose:
+        path: static/fragments/writing_mode/compose.md
+        triggers: ["compose", "from scratch", "new draft", "build foundation"]
+      revise:
+        path: static/fragments/writing_mode/revise.md
+        triggers: ["revise", "revision", "improve existing draft", "edit manuscript"]
+      hybrid:
+        path: static/fragments/writing_mode/hybrid.md
+        triggers: ["hybrid", "expand draft", "restructure draft", "partial draft"]
+      qa:
+        path: static/fragments/writing_mode/qa.md
+        triggers: ["qa", "audit", "score draft", "quality gate"]
+
   paper_type:
     detect: "What type of paper is being drafted?"
     default: experimental-manuscript
@@ -189,6 +206,21 @@ references:
     reviewer-risk-writing:
       path: references/reviewer-risk-writing.md
       when: "The draft needs overclaim, missing-evidence, or journal-fit risk checking."
+    content-first-qa-pipeline:
+      path: references/content-first-qa-pipeline.md
+      when: "The user asks to audit, QA, check, or revise a manuscript/proposal/review after drafting."
+    foundation-files:
+      path: references/state-machine/foundation-files.md
+      when: "The writing task needs project foundation files before compose, revise, hybrid, or QA work."
+    stopping-rules:
+      path: references/state-machine/stopping-rules.md
+      when: "The writing task is in a revision or QA loop and needs a stop/continue decision."
+    evaluation-rubric:
+      path: references/state-machine/evaluation-rubric.md
+      when: "The writing task needs dimension scores, score anchors, or delivery thresholds."
+    validation-checklist:
+      path: references/state-machine/validation-checklist.md
+      when: "The writing task needs traceability, methods, argument, risk, and output validation checks."
     journal-cbm-facts:
       path: ../_shared/journal-formats/cbm.md
       when: "The target journal is CBM, Construction and Building Materials."
@@ -295,6 +327,7 @@ assets:
   - assets
 scripts:
   - scripts
+  - scripts/init_writing_project.py
 quality_gates:
   - release gate must report no issues for this skill
   - claims must stay inside the skill evidence contract

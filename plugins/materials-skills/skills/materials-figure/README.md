@@ -4,19 +4,17 @@
 
 **What it does** — Generates journal-ready multi-panel figures for materials
 manuscripts: mechanism maps, evidence heatmaps, dosage-window plots,
-characterization panels, review figures, and full figure packages with source
+characterization panels, review figures, and figure packages with source
 data, caption boundaries, and export QA. Python-only backend, SVG-first
 output, with PNG/PDF/TIFF export bundles. The skill treats figures as evidence
 packages with source-anchored data, certainty-tier legends, and claim
 boundaries instead of as loose images.
 
-**Built from** - A figure-package template system and representative public samples:
+**Built from** - A figure-package template system and lightweight public examples:
 
 - `assets/templates/figure-package/` - contract, plot.py, caption, QA report, and asset manifest templates
-- `assets/chart-atlas/` - representative chart-type atlas PNGs kept for public browsing
-- `assets/gallery/` - representative submission-grade composite figures
-- `assets/showcase-proof/` - WER-EA proof board for the flagship workflow
 - `examples/figure-packages/` - small runnable source packages with real CSV data and matplotlib scripts
+- repository-level `docs/gallery/` - compact preview boards for public browsing
 
 The public GitHub package keeps the skill installable and readable. The full generated image corpus and internal regression tests are not shipped in this repository.
 
@@ -92,10 +90,8 @@ skills/materials-figure/
 │   ├── data_package_to_figure_handoff.py
 │   └── check_storyboard.py            optional multi-figure storyboard check
 ├── assets/
-│   ├── chart-atlas/                   representative public atlas PNGs
-│   ├── gallery/                       representative public composites
-│   ├── showcase-proof/                WER-EA proof board
 │   └── templates/                     contract, plot.py, caption, QA templates
+├── examples/figure-packages/          small runnable source examples
 └── references/
     ├── chart-atlas.md                 chart family routing and usage
     ├── figure-gallery.md              gallery sample guide
@@ -127,13 +123,15 @@ sintering curve.
 
 ### Public visual sample boundary
 
-The public package retains a compact representative set:
+The public package retains compact repository-level preview boards in
+`docs/gallery/` and small runnable source examples in `examples/figure-packages/`.
+It does not ship generated atlas/gallery/showcase image directories inside the
+installable skill bundle.
 
-- chart atlas samples: XRD, mechanical curves, performance bars, and composite layouts
-- gallery samples: asphalt modification review and XRD/SEM/performance multi-panel proof
-- showcase proof: WER-EA figure proof board
-
-The broader generated chart atlas, gallery composites, and `materials4papers` image outputs are maintainer-side assets. Future releases can publish them as a separate asset pack without expanding the installable skill bundle.
+The generated chart atlas, gallery composites, showcase boards, and
+`materials4papers` image outputs are maintainer-side assets. Future releases
+can publish them as a separate asset pack without expanding the installable
+skill bundle.
 
 ## When To Use
 

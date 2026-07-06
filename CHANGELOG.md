@@ -9,10 +9,44 @@ and this project follows [Semantic Versioning](https://semver.org/) loosely:
 
 ## [Unreleased]
 
+### Added
+- Add beta `materials-literature-pipeline` as the 14th skill for recurring
+  materials literature discovery, candidate scoring, source-depth triage,
+  digest delivery, degradation handling, gap analysis, and review-compilation
+  handoffs.
+- Add a shared research-state contract and template linking literature
+  candidates, reader packages, citation handoffs, DOE, data, figures, claims,
+  and reviewer risks through `source_map`, `doe_map`, `data_map`,
+  `figure_map`, `claim_map`, and `risk_map`.
+- Add `literature-pipeline-handoff.yaml` with an explicit candidate-table
+  interface and six-field score breakdown.
+- Add `materials-writing` foundation templates, project `state.json` template,
+  writing-mode fragments, and a lightweight initializer for compose/revise/
+  hybrid/QA writing loops.
+- Add anchored `materials-writing` evaluation rubric, stopping rules, and
+  validation checklist for content-first QA decisions.
+
+### Changed
+- Route `materials-research` to `materials-literature-pipeline` only for
+  recurring discovery, candidate scoring, and literature-digest triage before
+  deep reading.
+- Update release checks to require the literature-pipeline, research-state, and
+  content-first QA assets added by this upgrade.
+- Clarify that literature-pipeline scores are discovery priorities only:
+  metadata-only and abstract-screened records cannot support manuscript claims
+  until full-source reading or data extraction verifies them.
+- Extend `materials-writing` routing with a visible `writing_mode` axis and
+  require state-machine outputs to report artifact, score/status, remaining
+  risks, stop-or-continue reason, and one next action.
+- Slim the public GitHub delivery boundary: generated figure atlas/gallery/
+  showcase images and Python regression tests are maintainer-side assets, while
+  the public release gate checks installable skill contracts, templates,
+  references, and lightweight preview documentation.
+
 ### Documentation
 - Sync root `README.md` and 6 key skill READMEs (`materials-research`,
   `materials-figure`, `materials-writing`, `materials-data`,
-  `materials-reviewer`, `materials-paper-to-patent`) to actual code: 13
+  `materials-reviewer`, `materials-paper-to-patent`) to actual code: 14
   skills listed, 21/12/20 figure-asset counts corrected, profile-first
   routing described, 6-axis manuscript writing explained, 22 domain
   reviewer-criteria enumerated.

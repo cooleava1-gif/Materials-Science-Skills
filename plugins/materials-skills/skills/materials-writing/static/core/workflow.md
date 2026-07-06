@@ -2,9 +2,21 @@
 
 Run this 5-stage loop for every drafting or restructuring task. Do not skip stages 1-4 just because the user asked for prose immediately.
 
+## State-machine preflight
+
+When `writing_mode` is `compose`, `revise`, `hybrid`, or `qa`, check for
+foundation files and `state.json` before Stage 1. If they are absent and the
+task needs continuity across runs, initialize them from
+`assets/templates/foundation/` or provide the exact initialization command.
+
+State-aware runs must carry these fields forward: `writing_mode`, `round`,
+`scores`, `previous_scores`, `technical_debts`, `stop_status`, and `artifacts`.
+If the active files cannot be edited directly, return a state patch for the
+user project instead of silently dropping the state update.
+
 ## Stage 1: Identify the job and lock terminology
 
-Identify the target section, paper type, journal family, material family, domain, and input source from the user's input and the loaded fragments. On first contact with the material, extract the recurring terms — materials, binders, modifiers, test methods, standards, units, abbreviations — into a Terminology Ledger and lock the canonical forms before drafting any prose. See [../../_shared/core/terminology-ledger.md](../../_shared/core/terminology-ledger.md).
+Identify the writing mode, target section, paper type, journal family, material family, domain, and input source from the user's input and the loaded fragments. On first contact with the material, extract the recurring terms — materials, binders, modifiers, test methods, standards, units, abbreviations — into a Terminology Ledger and lock the canonical forms before drafting any prose. See [../../_shared/core/terminology-ledger.md](../../_shared/core/terminology-ledger.md).
 
 If the user provides `experiment-record.yaml`, seed the ledger from the record's `materials`, `methods`, and `measurements` blocks. Flag any record field that is missing, ambiguous, or conflicts with the prompt.
 
@@ -47,6 +59,7 @@ Drafting a full section on a wrong assumed premise wastes the whole draft and is
 
 - **One-sentence argument** (from stage 2) — echo it back in plain language.
 - **Plan**: detected paper type, section(s), journal family, material family, domain, and the paragraph map from stage 3 as a short bullet list.
+- **State**: detected writing mode, current round, score status, and whether foundation files are complete enough for this run.
 - **Terminology lock**: the canonical forms from stage 1 for the main materials, modifiers, test methods, and standards.
 - **Key assumptions**: anything inferred rather than told — especially the core contribution, the leading result, and the mechanism evidence. Mark each clearly as an assumption.
 - **At most 2-3 targeted questions**, only on genuinely ambiguous, high-leverage points. Do not pad the list.
@@ -78,6 +91,10 @@ Sweep for `first`, `novel`, `unique`, `comprehensive`, `proves`, `significantly 
 ### 5e. Output
 
 Return the section draft plus notes in the six-part format defined in [output-format.md](output-format.md): Draft, Section outline, Assumptions, Claim-evidence map, Why this structure, To redirect me.
+
+For state-machine runs, include a compact status block with current artifact,
+score/status, remaining risks, stop-or-continue reason, and one next action.
+Apply the stopping rules before recommending another full revision loop.
 
 ### 5f. Revise by targeted edit, not full rewrite
 

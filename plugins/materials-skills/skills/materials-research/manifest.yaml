@@ -5,6 +5,7 @@ always_load:
 - ../_shared/core/direction-profile.md
 - ../_shared/core/stance.md
 - ../_shared/core/evidence-contract.md
+- ../_shared/core/research-state-contract.md
 - ../_shared/paper-production/weakness-routing.md
 - static/core/workflow.md
 axes:
@@ -631,6 +632,10 @@ references:
       path: references/pressure-test-suite.md
       when: The task asks for pressure tests, failure modes, regression coverage,
         skill validation, or reviewer-safe behavior checks across modules.
+    research-state-contract:
+      path: ../_shared/core/research-state-contract.md
+      when: The task spans literature, DOE, data, figures,
+        writing, or reviewer-risk traceability.
     journal-cbm-facts:
       path: ../_shared/journal-formats/cbm.md
       when: The target journal is CBM, Construction and Building Materials, or the
@@ -659,6 +664,7 @@ companion_skills:
   figure: materials-figure
   data: materials-data
   doe: materials-doe
+  literature_pipeline: materials-literature-pipeline
 assets: []
 scripts:
 - scripts
@@ -687,6 +693,9 @@ handoffs:
     optional: false
   - handoff: doe-handoff
     from: materials-doe
+    optional: true
+  - handoff: literature-pipeline-handoff
+    from: materials-literature-pipeline
     optional: true
   - handoff: gate-report
     from: materials-research

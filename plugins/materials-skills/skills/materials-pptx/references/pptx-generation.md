@@ -43,8 +43,8 @@ With per-slide images and speaker notes:
       "notes": ["Explain the control group and dosage range.", "Do not overstate durability."],
       "images": [
         {
-          "path": "../../materials-figure/assets/gallery/fig5-asphalt-modification-review.png",
-          "alt": "Asphalt modification review composite",
+          "path": "figures/evidence-map.png",
+          "alt": "Evidence map figure",
           "crop": {"left": 3, "top": 0, "right": 3, "bottom": 6}
         }
       ]
@@ -65,7 +65,7 @@ Accepted Markdown shape:
 - Evidence
 Speaker note:
 - Explain what the figure supports.
-![Asphalt modification review composite](../../materials-figure/assets/gallery/fig5-asphalt-modification-review.png)
+![Evidence map figure](figures/evidence-map.png)
 ```
 
 The script is dependency-light and writes Office Open XML directly using Python standard libraries. It supports PNG/JPEG images, source-rectangle cropping, and speaker notes.

@@ -132,7 +132,7 @@ references:
       path: references/ceramics-review-figure-contract.md
     - condition: ceramics figure atlas, sintering-Weibull-XRD-conductivity figure library, or atlas data templates
       path: references/ceramics-figure-atlas.md
-    - condition: WER-EA figure atlas, reusable review-figure library, atlas data templates, or generated SVG/PNG examples
+    - condition: WER-EA figure atlas, reusable review-figure library, atlas data templates, or figure-planning examples
       path: references/wer-ea-figure-atlas.md
     - condition: polymer figures, thermoplastic/thermoset/rubber/composite plots, or polymer processing figure packages
       path: references/polymers-figure-package.md
