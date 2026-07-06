@@ -1,8 +1,0 @@
-interface:
-  display_name: "Materials Science PPTX"
-  short_description: "One-click PPTX deck generation for materials research."
-  default_prompt: "Use $materials-pptx to generate a materials PowerPoint deck."
-  brand_color: "#6B5F3A"
-
-policy:
-  allow_implicit_invocation: true

@@ -156,20 +156,19 @@ axes:
       presentation:
         path: static/fragments/task/presentation.md
         triggers:
-        - PPT
         - slides
         - journal club
-        - PowerPoint
         - 组会
         - 汇报
         - 幻灯片
-      pptx-generation:
-        path: static/fragments/task/pptx-generation.md
+      html-deck-generation:
+        path: static/fragments/task/html-deck-generation.md
         triggers:
-        - real pptx
-        - generate pptx
-        - PowerPoint file
-        - 生成PPTX
+        - html deck
+        - generate html deck
+        - browser slides
+        - academic deck
+        - 生成HTML deck
         - 生成PPT
         - 制作PPT
       reviewer-audit:
@@ -618,7 +617,7 @@ references:
       path: references/companion-modules.md
       when: The task should be handed off to materials-reader, materials-citation,
         materials-writing, materials-polishing, materials-response, materials-reviewer,
-        materials-paper2ppt, materials-pptx, materials-figure, or materials-doe.
+        materials-html-deck, materials-figure, or materials-doe.
     paper-production-orchestrator:
       path: references/paper-production-orchestrator.md
       when: The user asks for WER-EA mini-review production, experimental manuscript
@@ -659,8 +658,7 @@ companion_skills:
   polishing: materials-polishing
   response: materials-response
   reviewer: materials-reviewer
-  paper2ppt: materials-paper2ppt
-  pptx: materials-pptx
+  html_deck: materials-html-deck
   figure: materials-figure
   data: materials-data
   doe: materials-doe
@@ -668,7 +666,6 @@ companion_skills:
 assets: []
 scripts:
 - scripts
-- tests
 quality_gates:
 - release gate must report no issues for this skill
 - claims must stay inside the skill evidence contract

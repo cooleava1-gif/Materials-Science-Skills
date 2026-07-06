@@ -2,9 +2,9 @@
 
 Use this reference when `materials-research` must coordinate a full paper
 production workflow instead of answering a single research question. The
-orchestrator routes work across reader, citation, writing, polishing, reviewer,
-response, figure, data, paper2ppt, and pptx skills without duplicating those
-contracts.
+orchestrator routes work across reader, citation, literature pipeline,
+writing, polishing, reviewer, response, figure, data, and HTML deck skills
+without duplicating those contracts.
 
 ## Operating Contract
 

@@ -8,11 +8,11 @@ pinned to one companion skill. It detects the task type, material domain, and
 journal family, then hands off to the right companion skill with a
 stage-gated plan. It covers topic positioning, paper-angle design,
 literature-review planning, journal targeting, experiment routing, submission
-strategy, PPT planning, and reviewer-risk framing — any cross-skill workflow
+strategy, HTML deck planning, and reviewer-risk framing — any cross-skill workflow
 that needs paper-stage and evidence-level judgment.
 
-**Built from** — A front-door router that orchestrates 12 companion skills
-(reader, citation, writing, polishing, response, reviewer, paper2ppt, pptx,
+**Built from** — A front-door router that orchestrates 11 companion skills
+(reader, citation, writing, polishing, response, reviewer, html-deck,
 figure, data, doe, paper-to-patent), grounded in the shared paper-production
 contract:
 
@@ -25,7 +25,7 @@ contract:
   reading, literature-review, citation-mapping, manuscript-writing,
   journal-targeting, experiment-design, data-analysis, data-fair,
   figure-table, reviewer-audit, reviewer-response, submission-package,
-  presentation, pptx-generation
+  presentation, html-deck-generation
 - `static/fragments/domain/` — 36 material-domain fragments
 - `static/fragments/journal/` — 20 journal-family fragments
 - `../_shared/paper-production/weakness-routing.md` — weakness routing
@@ -71,7 +71,7 @@ skills/materials-research/
 │       │   ├── reviewer-response.md
 │       │   ├── submission-package.md
 │       │   ├── presentation.md
-│       │   └── pptx-generation.md
+│       │   └── html-deck-generation.md
 │       ├── domain/                       36 material-domain fragments
 │       └── journal/                      20 journal-family fragments
 └── references/
