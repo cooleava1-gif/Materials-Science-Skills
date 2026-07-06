@@ -16,16 +16,12 @@ The gallery is not a decoration library. Each figure card links visual form to a
 | mechanism schematic | Explain material design and claim boundaries | Interpretive summary, not direct data |
 | characterization templates | Plan XRD, TG/DTG, FTIR overlay, SEM/TEM, and uncertainty figures | Mechanism or method evidence when measurements support it |
 
-## Gallery Composite Figures (PNG Previews)
+## Public Preview Boundary
 
-The public `assets/gallery/` directory contains representative
-submission-grade composite figures. The full generated gallery is maintained
-outside the GitHub package so the installable skill bundle stays compact.
-
-| Gallery file | Theme | Panels | Journal style |
-|---|---|---|---|
-| `fig5-asphalt-modification-review.png` | Asphalt modification review | 9 (a-i) | Construction and Building Materials |
-| `fig9-multipanel-xrd-sem-perf.png` | XRD + SEM + performance | 4 (a-d) | Materials characterization |
+The installable skill bundle does not ship generated gallery composite PNGs.
+Use the compact repository-level preview boards in `docs/gallery/` for visual
+orientation, and use the gallery cards below for planning the actual figure
+contract. The full generated gallery is a maintainer-side asset pack.
 
 Use these as visual reference for:
 - Asymmetric multi-panel layout patterns

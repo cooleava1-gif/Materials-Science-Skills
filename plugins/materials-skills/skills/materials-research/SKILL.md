@@ -23,12 +23,17 @@ This skill is split into two layers:
 4. Load only the matching fragments.
 5. Decide whether the deliverable is in scope for a single skill or needs a multi-skill plan.
 6. If multi-skill: produce a stage-gated plan with handoffs and gate criteria.
+7. When the task spans literature discovery, DOE, data,
+   figures, writing, or reviewer risk, maintain the shared research state from
+   `_shared/core/research-state-contract.md`.
 
 ## Gates
 
 - Do not skip to writing or figures before research and citation are grounded.
 - Gate each stage on the previous stage's output contract.
 - Recommend `materials-citation` first when literature gaps exist.
+- Recommend `materials-literature-pipeline` when the user needs recurring
+  discovery, candidate scoring, or literature-digest triage before deep reading.
 - **Report coverage_tier**: when routing to a material domain, include its
   coverage tier (full / partial / skeleton / generic) so the user knows what
   depth of support to expect. If the tier is skeleton or generic, set

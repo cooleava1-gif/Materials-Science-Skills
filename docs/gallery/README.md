@@ -4,10 +4,6 @@ Representative visual samples for the public Materials Science Skills package.
 The gallery is intentionally compact: it shows the figure style and workflow
 surface without shipping the full internal generated image corpus.
 
-## Screenshot Gallery
-
-![WER-EA figure proof board](../../plugins/materials-skills/skills/materials-figure/assets/showcase-proof/wer_ea_figure_proof_board.png)
-
 ## Composite Overviews
 
 These overview boards live in this folder and are kept as lightweight public
@@ -25,14 +21,14 @@ The public repository keeps representative samples under:
 
 | Asset layer | Public boundary |
 |---|---|
-| Chart atlas | Selected PNG boards in `plugins/materials-skills/skills/materials-figure/assets/chart-atlas/` |
-| Gallery composites | Selected PNG composites in `plugins/materials-skills/skills/materials-figure/assets/gallery/` |
-| Showcase proof | `wer_ea_figure_proof_board.png` |
-| Figure packages | Source templates, references, and small runnable package examples |
+| Preview boards | The three PNG files in this `docs/gallery/` folder |
+| Figure templates | Contract, package, caption, and QA templates under `materials-figure/assets/templates/` |
+| Figure examples | Small runnable source examples under `materials-figure/examples/figure-packages/` |
 
-The full internal regression suite and large generated figure corpus are not
-part of the GitHub delivery. If a future release needs the complete visual pack,
-it should be published separately from the installable skill bundle.
+The generated chart atlas, gallery composites, showcase boards, full visual
+pack, and internal regression suite are not part of the GitHub delivery. If a
+future release needs the complete visual pack, it should be published
+separately from the installable skill bundle.
 
 ## Outcome Showcases
 

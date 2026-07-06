@@ -14,7 +14,6 @@ Build a FAIR supplementary data package for this materials manuscript.
 ## Proof Assets
 
 - `docs/gallery/gallery_material_systems.png`
-- `plugins/materials-skills/skills/materials-figure/assets/showcase-proof/wer_ea_figure_proof_board.png`
 
 ## Build Path
 

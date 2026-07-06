@@ -1,7 +1,7 @@
 {
   "name": "materials-skills",
   "version": "1.1.0",
-  "description": "Full-cycle materials science and engineering research skills for literature, writing, figures, data, HTML decks, citations, and reviewer responses.",
+  "description": "Full-cycle materials science and engineering research skills for literature pipelines, writing, figures, data, HTML decks, citations, and reviewer responses.",
   "author": {
     "name": "Materials Science Skills contributors"
   },
@@ -16,6 +16,7 @@
     "concrete",
     "research",
     "citations",
+    "literature-pipeline",
     "manuscript",
     "html-deck"
   ],
@@ -23,8 +24,8 @@
   "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "Materials Science Skills",
-    "shortDescription": "Paper-production workflows for materials science research.",
-    "longDescription": "Use Materials Science Skills to run routed materials paper-production workflows across research planning, citation screening, reader packages, manuscript drafting, English polishing, figure packages, FAIR data organization, reviewer simulation, reviewer responses, and HTML academic deck generation.",
+    "shortDescription": "Traceable materials paper-production workflows.",
+    "longDescription": "Use Materials Science Skills to run routed materials research workflows across literature discovery pipelines, research planning, citation screening, reader packages, DOE planning, manuscript drafting, English polishing, figure packages, FAIR data organization, reviewer simulation, reviewer responses, and HTML academic deck generation.",
     "developerName": "Materials Science Skills contributors",
     "category": "Science",
     "capabilities": [
@@ -34,12 +35,11 @@
     ],
     "defaultPrompt": [
       "Help me run a WER-EA mini-review workflow from screening to figure planning.",
+      "Set up a weekly literature pipeline for my materials topic with candidate scoring.",
       "Audit this experimental manuscript for evidence gaps before I draft the discussion.",
       "Turn this paper package into a journal-club outline and verified HTML academic deck."
     ],
     "brandColor": "#3F6F5E",
-    "screenshots": [
-      "./skills/materials-figure/assets/showcase-proof/wer_ea_figure_proof_board.png"
-    ]
+    "screenshots": []
   }
 }

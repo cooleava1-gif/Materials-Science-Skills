@@ -2,21 +2,23 @@
 
 **Version:** 1.2.0
 
-**What it does** — `materials-writing` is an evidence-first, section-aware drafting engine for materials science manuscripts. It turns claims, results, notes, and outlines into bounded prose. It does not generate freeform text from prompts; it runs a staged workflow that locks terminology, writes a one-sentence argument, maps paragraph messages, passes a confirmation gate, and only then drafts prose that can be traced back to evidence.
+**What it does** — `materials-writing` is an evidence-first, section-aware drafting engine for materials science manuscripts. It turns claims, results, notes, and outlines into bounded prose. It can also initialize foundation files and project-level `state.json` for compose, revise, hybrid, and QA loops. It does not generate freeform text from prompts; it runs a staged workflow that locks terminology, writes a one-sentence argument, maps paragraph messages, passes a confirmation gate, and only then drafts prose that can be traced back to evidence.
 
-**Four design principles**
+**Five design principles**
 
 | Principle | What it means in practice |
 |---|---|
 | Evidence first | Every major claim maps to evidence; missing evidence is surfaced as `[TO CONFIRM: ...]` placeholders. |
 | Section aware | Each section has explicit moves: Introduction uses a gap ladder; Results moves observation → quantified result → mechanism evidence → alternative → boundary; Conclusion states contribution, limitation, next step, and overclaim boundary. |
+| Stateful when needed | Foundation files and `state.json` track scope, canon, evidence, argument, section contracts, style, scores, rounds, and stopping decisions. |
 | Profile aware | `material_family` and `domain` axes route into domain narratives, phrase banks, and section patterns in one pass. |
 | Handoff friendly | Outputs claim-evidence maps and terminology ledgers that feed cleanly into `materials-citation`, `materials-doe`, `materials-reader`, and `materials-polishing`. |
 
-**Seven routing axes** — Drives the section template, phrase bank, and domain narrative simultaneously:
+**Eight routing axes** — Drives writing mode, section template, phrase bank, and domain narrative simultaneously:
 
 | Axis | Examples |
 |---|---|
+| `writing_mode` | compose / revise / hybrid / qa |
 | `paper_type` | experimental-manuscript / review-paper / methods-paper |
 | `section` | abstract / introduction / methods / results-discussion / conclusion / full-argument |
 | `language` | en / zh-to-en |
@@ -33,17 +35,19 @@ The two material axes (`material_family` and `domain`) are what make the writing
 skills/materials-writing/
 ├── README.md
 ├── SKILL.md                    # router and handoff contract
-├── manifest.yaml               # seven-axis manifest and on-demand references
+├── manifest.yaml               # eight-axis manifest and on-demand references
 ├── agents/
 │   └── openai.yaml             # agent interface
 ├── scripts/
 │   ├── build_manuscript_outline.py    # outline scaffolding
-│   └── audit_materials_manuscript.py  # draft auditing
+│   ├── audit_materials_manuscript.py  # draft auditing
+│   └── init_writing_project.py        # foundation/state initializer
 ├── assets/templates/
 │   ├── manuscript-argument-template.md
 │   ├── section-draft-template.md
 │   ├── table-system-template.md
-│   └── wer-ea-mini-review-template.md
+│   ├── wer-ea-mini-review-template.md
+│   └── foundation/                    # 00-05 foundation files + state template
 ├── references/
 │   ├── argument-chain.md              # fast one-sentence argument template
 │   ├── article-architecture.md        # full-paper move map
@@ -54,18 +58,19 @@ skills/materials-writing/
 │   ├── paragraph-flow.md              # one-paragraph-one-message reference
 │   ├── table-system.md                # table system templates
 │   ├── experiment-record-for-writing.md # record-to-prose guidance
-│   ├── *-narrative.md                 # 34 domain narrative guides
-│   ├── section-patterns/              # 5 section arcs
-│   ├── phrase-banks/                  # 10 domain phrase banks
+│   ├── *-narrative.md                 # domain narrative guides
+│   ├── section-patterns/              # section arcs
+│   ├── phrase-banks/                  # domain phrase banks
+│   ├── state-machine/                 # foundation, rubric, stopping, validation rules
 │   └── examples/                      # example library
 ├── static/fragments/
 │   ├── core/           # contract, workflow, output-format, stance stub
+│   ├── writing_mode/   # compose, revise, hybrid, qa
 │   ├── section/        # abstract, introduction, methods, results-discussion, conclusion, ...
 │   ├── paper_type/     # experimental-manuscript, review-paper, methods-paper
 │   ├── journal/        # CBM, CCC, RMPD, JBE, materials
 │   ├── language/       # en, zh-to-en
 │   └── domain/         # civil, polymers, metals, ceramics, functional, nano
-(public package: internal writing regression tests are not shipped)
 ```
 
 **Key rules enforced**
@@ -73,6 +78,10 @@ skills/materials-writing/
 | Domain | Core rule |
 |---|---|
 | Evidence first | Every claim maps to evidence; no overclaim, no speculation as fact. |
+| Foundation first | Compose/revise/hybrid/QA loops use `00_scope.md` through `05_style_guide.md` before prose when continuity matters. |
+| State tracking | `state.json` records writing mode, round, scores, previous scores, technical debts, stop status, and artifacts. |
+| Stop rules | Revision stops after three full rounds, low score gain, missing key evidence, unresolved specialist conflict, or target reached. |
+| Score anchors | QA uses eight 0-10 dimensions with 3/5/7/9 anchors to avoid score inflation. |
 | Terminology lock | Canonical forms are locked before drafting; drafts do not reintroduce variants. |
 | Confirmation gate | Full section output is produced only after the one-sentence argument, plan, and terminology are confirmed. |
 | Paragraph flow | One paragraph, one message; first sentence forecasts the message; transitions carry the argument forward. |
@@ -117,7 +126,7 @@ Typical inputs are the user prompt, material direction/profile, target journal o
 
 ## Outputs
 
-Outputs are structured handoffs or artifacts described above. Every output follows the six-part writing format: Draft, Section outline, Assumptions, Claim-evidence map, Why this structure, To redirect me. Missing evidence, author input needs, and unsupported claims stay visible instead of being hidden in fluent prose.
+Outputs are structured handoffs or artifacts described above. Every output follows the six-part writing format: Draft, Section outline, Assumptions, Claim-evidence map, Why this structure, To redirect me. State-machine runs also prepend current artifact, score/status, remaining risks, stop-or-continue reason, and one next action. Missing evidence, author input needs, and unsupported claims stay visible instead of being hidden in fluent prose.
 
 ## Validation
 

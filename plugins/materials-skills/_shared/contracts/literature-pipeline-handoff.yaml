@@ -1,0 +1,45 @@
+name: literature-pipeline-handoff
+version: "1.0"
+description: "Materials literature discovery digest with scoring, source depth, evidence-layer labels, and next-reading actions"
+produced_by: materials-literature-pipeline
+consumed_by:
+  - materials-research
+
+artifacts:
+  literature_candidate_table.csv:
+    description: "Candidate papers with deduplication keys, scores, evidence layers, and reading priority"
+    required: true
+    columns:
+      candidate_id: { type: string, required: true }
+      title: { type: string, required: true }
+      year: { type: string, required: false }
+      venue: { type: string, required: false }
+      doi: { type: string, required: false }
+      dedup_key: { type: string, required: true }
+      material_system_match: { type: string, required: true }
+      evidence_layer: { type: string, required: true }
+      source_depth: { type: string, required: true }
+      topic_fit: { type: number, required: true }
+      evidence_layer_score: { type: number, required: true }
+      method_relevance: { type: number, required: true }
+      material_system_proximity: { type: number, required: true }
+      source_quality: { type: number, required: true }
+      actionability: { type: number, required: true }
+      score_total: { type: number, required: true }
+      next_action: { type: string, required: true }
+      evidence_boundary: { type: string, required: true }
+  literature_digest.md:
+    description: "Digest of top candidates with source-depth caveats and recommended next actions"
+    required: true
+  search_strategy.md:
+    description: "Boolean queries, databases, filters, and exclusion rules"
+    required: false
+
+templates:
+  - ../../skills/materials-literature-pipeline/assets/templates/literature-candidate-table.csv
+  - ../../skills/materials-literature-pipeline/assets/templates/literature-pipeline-digest.md
+
+notes:
+  score_breakdown: "Represented by the six numeric columns topic_fit, evidence_layer_score, method_relevance, material_system_proximity, source_quality, and actionability; do not add a JSON score_breakdown column."
+  evidence_boundary: "Metadata-only and abstract-screened candidates support discovery prioritization only, not manuscript claims."
+  research_state: "Consumers should write candidates to research-state source_map.candidates when a multi-skill workflow is active."
