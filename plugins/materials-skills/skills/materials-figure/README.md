@@ -4,19 +4,19 @@
 
 **What it does** — Generates journal-ready multi-panel figures for materials
 manuscripts: mechanism maps, evidence heatmaps, dosage-window plots,
-characterization panels, review figures, and full figure packages with source
+characterization panels, review figures, and figure packages with source
 data, caption boundaries, and export QA. Python-only backend, SVG-first
 output, with PNG/PDF/TIFF export bundles. The skill treats figures as evidence
 packages with source-anchored data, certainty-tier legends, and claim
 boundaries instead of as loose images.
 
-**Built from** — A figure-package template system and reference examples:
+**Built from** - A figure-package template system and lightweight public examples:
 
-- `assets/templates/figure-package/` — contract, plot.py, caption, QA report, and asset manifest templates
-- `assets/materials4papers/` — 20 top-journal reference examples (XRD, sintering, Weibull, durability, corrosion, EBSD, Raman mapping, multiscale abstract, Nyquist, GPC, GISAXS, in-situ XRD, multifield T-ε, CT reconstruction, etc.)
-- `assets/chart-atlas/` — 21 chart-type atlas PNGs (XRD, mechanical, thermal, spectroscopy, microscopy, performance, durability, electrochemistry, comparison, composite, phase diagram, kinetics, adsorption, rheology, degradation, porosity, MIP, multiscale, mechanism flowchart, graphical abstract)
-- `assets/gallery/` — 12 submission-grade composite figures (cement hydration, steel microstructure, polymer composite, ceramics reliability, asphalt review, nano characterization, concrete durability, functional coating, multi-panel XRD+SEM+perf, FTIR+TG+morph, graphical abstract, evidence chain)
-- `examples/figure-packages/` — 3 runnable figure packages with real CSV data and matplotlib scripts (see below)
+- `assets/templates/figure-package/` - contract, plot.py, caption, QA report, and asset manifest templates
+- `examples/figure-packages/` - small runnable source packages with real CSV data and matplotlib scripts
+- repository-level `docs/gallery/` - compact preview boards for public browsing
+
+The public GitHub package keeps the skill installable and readable. The full generated image corpus and internal regression tests are not shipped in this repository.
 
 **Figure package structure** - A production output is a rerunnable package, not a loose image.
 
@@ -87,15 +87,14 @@ skills/materials-figure/
 ├── manifest.yaml
 ├── scripts/
 │   ├── validate_materials_claims.py   optional materials knowledge validation
+│   ├── data_package_to_figure_handoff.py
 │   └── check_storyboard.py            optional multi-figure storyboard check
 ├── assets/
-│   ├── materials4papers/              20 top-journal reference examples
-│   ├── chart-atlas/                   21 chart-type atlas PNGs
-│   ├── gallery/                       12 submission-grade composite figures
 │   └── templates/                     contract, plot.py, caption, QA templates
+├── examples/figure-packages/          small runnable source examples
 └── references/
     ├── chart-atlas.md                 chart family routing and usage
-    ├── figure-gallery.md              gallery composite figures guide
+    ├── figure-gallery.md              gallery sample guide
     ├── figure-package-protocol.md     figure package contract
     ├── figure-production-spec.md      production specification
     ├── figure-qa-contract.md          QA contract
@@ -118,32 +117,21 @@ sintering curve.
   `plugins/materials-skills/skills/materials-figure/scripts/validate_materials_claims.py`
 - Multi-figure storyboard check:
   `plugins/materials-skills/skills/materials-figure/scripts/check_storyboard.py`
-- End-to-end evaluation cases:
-  `plugins/materials-skills/skills/materials-figure/evals/evals.json`
 - Bundle verification:
-  repo root: `python .\plugins\materials-skills\scripts\run_release_checks.py --json`
+  repo root: `python .\scripts\run_release_checks.py --json`
   plugin root: `python .\scripts\run_release_checks.py --json`
 
-### Chart atlas (21 entries)
+### Public visual sample boundary
 
-| Range | Family focus | Added |
-|---|---|---|
-| 01–15 | Original chart families (XRD, FTIR, performance, mechanism, etc.) | v2.0 |
-| 16–21 | Porosity, impedance, MIP, multiscale, mechanism flowchart, graphical abstract | 2026-06-20 |
+The public package retains compact repository-level preview boards in
+`docs/gallery/` and small runnable source examples in `examples/figure-packages/`.
+It does not ship generated atlas/gallery/showcase image directories inside the
+installable skill bundle.
 
-### Gallery (12 entries)
-
-| Range | Type |
-|---|---|
-| 01–08 | Single-figure exemplars (original) |
-| 09–12 | Multi-panel (XRD+SEM+perf, FTIR+TG+morph), graphical abstract, evidence chain |
-
-### materials4papers (20 examples)
-
-| Range | Family | Type |
-|---|---|---|
-| 01–12 | Original families (XRD, fatigue, weibull, etc.) | v2.0 |
-| 13–20 | Multiscale abstract, hierarchical mechanism, ceramic Nyquist, polymer GPC, nano GISAXS, in-situ XRD, multifield T-ε, asphalt CT | 2026-06-20 |
+The generated chart atlas, gallery composites, showcase boards, and
+`materials4papers` image outputs are maintainer-side assets. Future releases
+can publish them as a separate asset pack without expanding the installable
+skill bundle.
 
 ## When To Use
 
@@ -165,7 +153,7 @@ Create a figure contract and export bundle for a dosage-window plot.
 
 ## Validation
 
-Run the skill-specific scripts or tests listed above when they apply, then run the bundle gate from the repository root:
+Run the skill-specific scripts listed above when they apply, then run the public bundle gate from the repository root:
 
 ```powershell
 python .\scripts\run_release_checks.py --json

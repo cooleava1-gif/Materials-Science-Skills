@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-"""Run release checks across all materials skills.
+"""Run public release checks across all materials skills.
 
-Checks file presence, manifest validity, trigger coverage, and asset completeness.
+The public GitHub package is an installable skill bundle, not the full internal
+regression workspace. This gate checks manifests, declared paths, core skill
+directories, shared contracts, and representative visual assets.
 """
 
 from __future__ import annotations
 
 import argparse
 import json
-import os
 import subprocess
-import sys
 from pathlib import Path
 
 import yaml
@@ -31,10 +31,36 @@ FIGURE_HARD_WORKFLOW_FILES = [
     "scripts/compose_multipanel_figure.py",
 ]
 
-FIGURE_GOLDEN_PACKAGES = [
-    "wer-ea-full",
-    "thermal-insulation-partial-to-full",
-    "polymer-composites-partial-to-full",
+FIGURE_REPRESENTATIVE_ASSET_FILES = [
+    "references/automatic-figure-package.md",
+    "references/figure-gallery.md",
+    "references/review-figure-intake.md",
+    "references/wer-ea-review-figure-contract.md",
+    "references/chart-atlas.md",
+    "references/demos.md",
+    "assets/templates/review-figure-intake-template.csv",
+    "assets/templates/wer-ea-figure-contract-template.md",
+    "scripts/check_storyboard.py",
+    "scripts/data_package_to_figure_handoff.py",
+    "scripts/validate_materials_claims.py",
+]
+
+HTML_DECK_PUBLIC_FILES = [
+    "SKILL.md",
+    "README.md",
+    "manifest.yaml",
+    "agents/openai.yaml",
+    "assets/templates/deck-outline-template.json",
+    "assets/templates/deck-outline-template.md",
+    "evals/evals.json",
+    "references/html-deck-generation.md",
+    "references/html-first-academic-deck.md",
+    "references/playwright-verification.md",
+    "scripts/build_deck.mjs",
+    "scripts/render_html_deck.mjs",
+    "scripts/verify_deck_html.mjs",
+    "static/core/contract.md",
+    "static/core/workflow.md",
 ]
 
 WRITING_MATURITY_FILES = [
@@ -49,7 +75,23 @@ WRITING_MATURITY_FILES = [
     "scripts/audit_materials_manuscript.py",
 ]
 
-EVAL_REQUIRED_FIELDS = ("id", "prompt", "expected_output", "assertions")
+WRITING_STATE_MACHINE_FILES = [
+    # Foundation/state-machine references remain explicit opt-in assets. The
+    # slim writing router intentionally does not require a writing_mode axis or
+    # default fragments for compose/revise/hybrid/qa.
+    "assets/templates/foundation/00_scope.md",
+    "assets/templates/foundation/01_research_canon.md",
+    "assets/templates/foundation/02_evidence_table.md",
+    "assets/templates/foundation/03_argument_map.md",
+    "assets/templates/foundation/04_section_contracts.md",
+    "assets/templates/foundation/05_style_guide.md",
+    "assets/templates/foundation/state-template.json",
+    "references/state-machine/foundation-files.md",
+    "references/state-machine/evaluation-rubric.md",
+    "references/state-machine/stopping-rules.md",
+    "references/state-machine/validation-checklist.md",
+    "scripts/init_writing_project.py",
+]
 
 EXPERIMENT_RECORD_FILES = [
     "skills/_shared/core/experiment-record-schema.yaml",
@@ -66,10 +108,38 @@ EXPERIMENT_RECORD_FILES = [
     "skills/materials-writing/references/experiment-record-for-writing.md",
 ]
 
+STRATEGIC_UPGRADE_FILES = [
+    "skills/_shared/core/research-state-contract.md",
+    "skills/_shared/core/research-state-template.yaml",
+    "skills/materials-literature-pipeline/SKILL.md",
+    "skills/materials-literature-pipeline/README.md",
+    "skills/materials-literature-pipeline/manifest.yaml",
+    "skills/materials-literature-pipeline/static/core/contract.md",
+    "skills/materials-literature-pipeline/static/core/workflow.md",
+    "skills/materials-literature-pipeline/static/core/scoring.md",
+    "skills/materials-literature-pipeline/references/cron-operations.md",
+    "skills/materials-literature-pipeline/references/push-format.md",
+    "skills/materials-literature-pipeline/references/degradation-strategy.md",
+    "skills/materials-literature-pipeline/references/gap-analysis.md",
+    "skills/materials-literature-pipeline/references/review-compilation-workflow.md",
+    "skills/materials-literature-pipeline/assets/templates/literature-pipeline-digest.md",
+    "skills/materials-literature-pipeline/assets/templates/literature-candidate-table.csv",
+    "skills/materials-writing/references/content-first-qa-pipeline.md",
+    "_shared/contracts/literature-pipeline-handoff.yaml",
+]
+
 
 def check_experiment_record_files() -> list[str]:
     issues = []
     for rel in EXPERIMENT_RECORD_FILES:
+        if not (REPO_ROOT / rel).exists():
+            issues.append(f"missing {rel}")
+    return issues
+
+
+def check_strategic_upgrade_files() -> list[str]:
+    issues = []
+    for rel in STRATEGIC_UPGRADE_FILES:
         if not (REPO_ROOT / rel).exists():
             issues.append(f"missing {rel}")
     return issues
@@ -126,6 +196,15 @@ def collect_writing_maturity_issues(skill_root: Path) -> list[str]:
     return issues
 
 
+def collect_writing_state_machine_issues(skill_root: Path) -> list[str]:
+    issues = []
+    writing_root = skill_root / "materials-writing"
+    for name in WRITING_STATE_MACHINE_FILES:
+        if not (writing_root / name).exists():
+            issues.append(f"missing materials-writing/{name}")
+    return issues
+
+
 def check_skill_basics(skill_name: str) -> list[str]:
     issues = []
     root = SKILLS_ROOT / skill_name
@@ -138,100 +217,45 @@ def check_skill_basics(skill_name: str) -> list[str]:
     return issues
 
 
-def collect_eval_contract_issues(skills_root: Path = SKILLS_ROOT) -> list[str]:
-    """Validate per-skill eval assets used for release regression coverage."""
+def collect_public_boundary_issues(skills_root: Path = SKILLS_ROOT) -> list[str]:
+    """Keep internal tests, vendored experiments, and retired skills out of GitHub delivery."""
 
     issues: list[str] = []
-    for skill_name in discover_skill_names(skills_root):
-        eval_path = skills_root / skill_name / "evals" / "evals.json"
-        if not eval_path.exists():
-            issues.append(f"{skill_name}: missing evals/evals.json")
-            continue
+    retired_skills = ["materials-" + "paper2" + "ppt", "materials-" + "pptx"]
+    for skill_name in retired_skills:
+        if (skills_root / skill_name).exists():
+            issues.append(f"retired public skill still present: {skill_name}")
 
+    def is_ignored(path: Path) -> bool:
         try:
-            payload = json.loads(eval_path.read_text(encoding="utf-8"))
-        except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
-            issues.append(f"{skill_name}: invalid evals/evals.json ({exc})")
-            continue
-
-        if not isinstance(payload, dict):
-            issues.append(f"{skill_name}: evals/evals.json must contain a JSON object")
-            continue
-
-        if payload.get("skill_name") != skill_name:
-            issues.append(
-                f"{skill_name}: evals/evals.json skill_name must equal '{skill_name}'"
+            result = subprocess.run(
+                ["git", "check-ignore", "-q", str(path)],
+                cwd=REPO_ROOT,
+                check=False,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
             )
+        except (OSError, ValueError):
+            return False
+        return result.returncode == 0
 
-        evals = payload.get("evals")
-        if not isinstance(evals, list) or not evals:
-            issues.append(f"{skill_name}: evals/evals.json must define a non-empty evals list")
-            continue
+    def should_block(path: Path) -> bool:
+        return path.exists() and not is_ignored(path)
 
-        for index, eval_case in enumerate(evals, start=1):
-            label = f"{skill_name}: eval #{index}"
-            if not isinstance(eval_case, dict):
-                issues.append(f"{label} must be a JSON object")
-                continue
+    for skill_dir in skills_root.glob("materials-*"):
+        for rel in ["tests", "scripts/tests", "third_party"]:
+            if should_block(skill_dir / rel):
+                issues.append(f"{skill_dir.name}: public package must not include {rel}")
 
-            missing = [
-                field for field in EVAL_REQUIRED_FIELDS if not eval_case.get(field)
-            ]
-            if missing:
-                issues.append(f"{label} missing required fields: {', '.join(missing)}")
-                continue
-
-            assertions = eval_case.get("assertions")
-            if not isinstance(assertions, list) or not assertions:
-                issues.append(f"{label} assertions must be a non-empty list")
-
-            files = eval_case.get("files", [])
-            if files is not None and not isinstance(files, list):
-                issues.append(f"{label} files must be a list when provided")
-
+    blocked_paths = [
+        REPO_ROOT / "tests",
+        REPO_ROOT / "scripts" / "tests",
+        REPO_ROOT / "skills" / "_shared" / "tests",
+    ]
+    for path in blocked_paths:
+        if should_block(path):
+            issues.append(f"public package must not include {path.relative_to(REPO_ROOT).as_posix()}")
     return issues
-
-
-def collect_mcp_server_drift_issues() -> list[str]:
-    """Detect drift between the canonical MCP server and the skill/plugin copy.
-
-    Deprecated: the canonical MCP server now lives inside the plugin package.
-    This check is kept for API compatibility and always returns an empty list.
-    """
-    return []
-
-
-def collect_mcp_server_issues() -> list[str]:
-    """Run academic-search MCP tests inside the plugin package."""
-
-    tests_root = SKILLS_ROOT / "materials-citation" / "mcp" / "academic_search" / "tests"
-    if not tests_root.exists():
-        return ["missing skills/materials-citation/mcp/academic_search/tests"]
-    result = subprocess.run(
-        [
-            sys.executable,
-            "-m",
-            "unittest",
-            "discover",
-            "-s",
-            str(tests_root),
-            "-p",
-            "test_*.py",
-            "-v",
-        ],
-        cwd=SKILLS_ROOT.parent,
-        capture_output=True,
-        text=True,
-        check=False,
-    )
-    if result.returncode == 0:
-        return []
-    output = "\n".join(part for part in (result.stdout, result.stderr) if part).strip()
-    return [output[-4000:] or f"MCP server tests failed with exit {result.returncode}"]
-
-
-def should_skip_mcp_tests() -> bool:
-    return os.environ.get("MATERIALS_SKIP_MCP_TESTS") == "1"
 
 
 def main() -> int:
@@ -248,10 +272,6 @@ def main() -> int:
         if issues:
             all_issues[skill] = issues
 
-    eval_contract_issues = collect_eval_contract_issues(SKILLS_ROOT)
-    if eval_contract_issues:
-        all_issues["eval_contract"] = eval_contract_issues
-
     # paper-production orchestrator check
     orchestrator_issues = collect_paper_production_orchestrator_issues(SKILLS_ROOT)
     if orchestrator_issues:
@@ -261,22 +281,36 @@ def main() -> int:
     if writing_maturity_issues:
         all_issues["writing_maturity"] = writing_maturity_issues
 
-    # figure_hard_workflow check
+    writing_state_machine_issues = collect_writing_state_machine_issues(SKILLS_ROOT)
+    if writing_state_machine_issues:
+        all_issues["writing_state_machine"] = writing_state_machine_issues
+
+    # Representative figure delivery boundary check.
     figure_root = SKILLS_ROOT / "materials-figure"
     figure_issues = []
     for fname in FIGURE_HARD_WORKFLOW_FILES:
         if not (figure_root / fname).exists():
             figure_issues.append(f"missing {fname}")
+    for fname in FIGURE_REPRESENTATIVE_ASSET_FILES:
+        if not (figure_root / fname).exists():
+            figure_issues.append(f"missing {fname}")
     audit_script = figure_root / "scripts" / "audit_figure_package.py"
     if not audit_script.exists():
         figure_issues.append("missing scripts/audit_figure_package.py")
-    for package in FIGURE_GOLDEN_PACKAGES:
-        package_root = figure_root / "examples" / "figure-packages" / package
-        for fname in ["README.md", "figure_storyboard.yaml", "caption_boundary.md", "figure_qa_report.md"]:
-            if not (package_root / fname).exists():
-                figure_issues.append(f"missing examples/figure-packages/{package}/{fname}")
     if figure_issues:
         all_issues["figure_hard_workflow"] = figure_issues
+
+    html_deck_root = SKILLS_ROOT / "materials-html-deck"
+    html_deck_issues = []
+    for fname in HTML_DECK_PUBLIC_FILES:
+        if not (html_deck_root / fname).exists():
+            html_deck_issues.append(f"missing {fname}")
+    if html_deck_issues:
+        all_issues["html_deck_public_boundary"] = html_deck_issues
+
+    public_boundary_issues = collect_public_boundary_issues(SKILLS_ROOT)
+    if public_boundary_issues:
+        all_issues["public_delivery_boundary"] = public_boundary_issues
 
     # handoff contract validation
     try:
@@ -312,24 +346,6 @@ def main() -> int:
                     all_issues.setdefault(key, []).extend(vals)
     except Exception as exc:
         all_issues["manifest_validation"] = [f"manifest validation error: {exc}"]
-
-    # behavioral contract test discovery (record count only)
-    try:
-        spec3 = importlib.util.spec_from_file_location(
-            "run_behavioral_tests",
-            Path(__file__).parent / "run_behavioral_tests.py"
-        )
-        if spec3 and spec3.loader:
-            mod3 = importlib.util.module_from_spec(spec3)
-            spec3.loader.exec_module(mod3)
-            bt_issues = mod3.run_all(silent=True)
-            total_scenarios = sum(len(v) for v in bt_issues.values())
-            if total_scenarios == 0:
-                all_issues.setdefault("behavioral_tests", []).append(
-                    "no behavioral test scenarios found under skills/*/tests/scenarios/"
-                )
-    except Exception as exc:
-        all_issues["behavioral_tests"] = [f"behavioral test error: {exc}"]
 
     # material registry validation
     try:
@@ -375,18 +391,13 @@ def main() -> int:
     except Exception as exc:
         all_issues["architecture"] = [f"architecture validation error: {exc}"]
 
-    if not should_skip_mcp_tests():
-        mcp_issues = collect_mcp_server_issues()
-        if mcp_issues:
-            all_issues["mcp_server"] = mcp_issues
-
-    mcp_drift_issues = collect_mcp_server_drift_issues()
-    if mcp_drift_issues:
-        all_issues.setdefault("mcp_server", []).extend(mcp_drift_issues)
-
     experiment_record_issues = check_experiment_record_files() + check_experiment_record()
     if experiment_record_issues:
         all_issues["experiment_record_contract"] = experiment_record_issues
+
+    strategic_upgrade_issues = check_strategic_upgrade_files()
+    if strategic_upgrade_issues:
+        all_issues["strategic_upgrade"] = strategic_upgrade_issues
 
     if args.json:
         print(json.dumps({"status": "pass" if not all_issues else "fail", "issues": all_issues}, indent=2))

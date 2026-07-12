@@ -52,7 +52,6 @@ adapters/          — 8 academic data source adapters
 domain/            — Evidence classifier, journal databases, query builders, identifiers
 export/            — 5 export formats (RIS, BibTeX, GB/T 7714, CSL-JSON, JSONL)
 importers/         — Citation file parsers (RIS, BibTeX, NBIB, CSV)
-tests/             — 81 unit tests across adapters, service, MCP contract, export, domain
 ```
 
 ## Search Strategy
@@ -64,10 +63,13 @@ tests/             — 81 unit tests across adapters, service, MCP contract, exp
 5. Use `audit_reference_gaps` to identify missing evidence before submission
 6. Use `export_citation_matrix` to produce reviewer-ready citation audit
 
-## Run Tests
+## Public Verification
+
+The public GitHub package keeps the MCP server code and runtime requirements,
+but does not ship the internal unit-test suite. From the repository root, run:
 
 ```powershell
-python -m unittest discover -s "plugins/materials-skills/skills/materials-citation/mcp/academic_search/tests" -p "test_*.py" -v
+python .\scripts\run_release_checks.py --json
 ```
 
 ## Smoke Test

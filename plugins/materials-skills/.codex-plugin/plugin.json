@@ -1,7 +1,7 @@
 {
   "name": "materials-skills",
   "version": "1.1.0",
-  "description": "Full-cycle materials science and engineering research skills for literature, writing, figures, data, PPTX, citations, and reviewer responses.",
+  "description": "Full-cycle materials science and engineering research skills for literature pipelines, writing, figures, data, HTML decks, citations, and reviewer responses.",
   "author": {
     "name": "Materials Science Skills contributors"
   },
@@ -16,15 +16,16 @@
     "concrete",
     "research",
     "citations",
+    "literature-pipeline",
     "manuscript",
-    "pptx"
+    "html-deck"
   ],
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "Materials Science Skills",
-    "shortDescription": "Paper-production workflows for materials science research.",
-    "longDescription": "Use Materials Science Skills to run routed materials paper-production workflows across research planning, citation screening, reader packages, manuscript drafting, English polishing, figure packages, FAIR data organization, reviewer simulation, reviewer responses, and PPTX generation.",
+    "shortDescription": "Traceable materials paper-production workflows.",
+    "longDescription": "Use Materials Science Skills to run routed materials research workflows across literature discovery pipelines, research planning, citation screening, reader packages, DOE planning, manuscript drafting, English polishing, figure packages, FAIR data organization, reviewer simulation, reviewer responses, and HTML academic deck generation.",
     "developerName": "Materials Science Skills contributors",
     "category": "Science",
     "capabilities": [
@@ -34,15 +35,11 @@
     ],
     "defaultPrompt": [
       "Help me run a WER-EA mini-review workflow from screening to figure planning.",
+      "Set up a weekly literature pipeline for my materials topic with candidate scoring.",
       "Audit this experimental manuscript for evidence gaps before I draft the discussion.",
-      "Turn this paper package into a journal-club slide outline and then a real PPTX."
+      "Turn this paper package into a journal-club outline and verified HTML academic deck."
     ],
     "brandColor": "#3F6F5E",
-    "screenshots": [
-      "./skills/materials-figure/assets/showcase-proof/reader_package_proof_wall.png",
-      "./skills/materials-figure/assets/showcase-proof/wer_ea_figure_proof_board.png",
-      "./skills/materials-figure/assets/showcase-proof/sbr_wer_performance_proof_board.png",
-      "./skills/materials-figure/assets/showcase-proof/interlayer_fatigue_proof_board.png"
-    ]
+    "screenshots": []
   }
 }

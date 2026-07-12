@@ -182,8 +182,6 @@ assets:
   - assets
 scripts:
   - scripts
-tests:
-  - tests
 quality_gates:
   - release gate must report no issues for this skill
   - claims must stay inside the skill evidence contract

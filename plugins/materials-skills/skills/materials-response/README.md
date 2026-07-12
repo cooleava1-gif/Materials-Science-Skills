@@ -34,7 +34,7 @@ layers:
 - `static/fragments/domain/` — 6 material-domain routing fragments
 - `assets/templates/` — response-package and response-table templates
 - `scripts/build_response_package.py` — assembles the response package
-- `tests/pressure-tests/` — 10 difficult-case regressions
+- public verification through the repository release gate
 
 **Key rules enforced**
 
@@ -111,14 +111,11 @@ skills/materials-response/
 
 **Validation**
 
-- Core regression test:
-  `plugins/materials-skills/skills/materials-response/tests/test_response_examples.py`
-- Pressure tests:
-  `plugins/materials-skills/skills/materials-response/tests/pressure-tests/`
-  (10 difficult-case regressions including
-  `aggressive-reviewer-mechanism-request.md`)
+- Run `scripts/build_response_package.py` when changing response-package generation.
 - Bundle verification:
   `python .\scripts\run_release_checks.py --json`
+
+The public GitHub package does not ship the internal response regression suite.
 
 ## When To Use
 

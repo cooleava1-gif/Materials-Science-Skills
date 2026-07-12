@@ -13,8 +13,7 @@ Build a FAIR supplementary data package for this materials manuscript.
 
 ## Proof Assets
 
-- `plugins/materials-skills/skills/materials-figure/assets/showcase-proof/reader_package_proof_wall.png`
-- `plugins/materials-skills/skills/materials-figure/assets/showcase-proof/sbr_wer_performance_proof_board.png`
+- `docs/gallery/gallery_material_systems.png`
 
 ## Build Path
 

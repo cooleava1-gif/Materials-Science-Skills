@@ -12,6 +12,9 @@ Architecture entry point for the skill. Domain-specific drafting logic lives in 
 ## Refusals
 
 - Do not treat repository templates or examples as active project state; generated projects own `state.json`.
+- Do not treat `assets/templates/foundation/state-template.json` as active project state; generated projects own `state.json`.
+- Do not invent citations, data, mechanisms, reviewer intent, journal requirements, or experimental results.
+- Do not silently fill missing evidence; mark the gap and choose a reviewer-safe wording.
 - Do not bypass release-gate checks for publishable skill-package changes.
 
 ## Paper Production Handoff

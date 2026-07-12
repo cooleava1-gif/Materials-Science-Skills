@@ -72,13 +72,15 @@ python .\scripts\run_release_checks.py --json
    statements across 9 domain schemas (`materials-data`).
 8. **Designs** experiments with factorial, Taguchi, and mixture matrices
    (`materials-doe`).
-9. **Reviews** drafts like a peer reviewer with 22 domain-specific criteria
+9. **Runs** literature discovery pipelines with materials-specific scoring,
+    source-depth labels, and next-reading actions (`materials-literature-pipeline`).
+10. **Reviews** drafts like a peer reviewer with 22 domain-specific criteria
    (`materials-reviewer`).
-10. **Responds** to reviewer comments with point-by-point replies
+11. **Responds** to reviewer comments with point-by-point replies
     (`materials-response`).
-11. **Presents** papers as Chinese journal-club slide outlines or real `.pptx`
-    decks (`materials-paper2ppt` + `materials-pptx`).
-12. **Converts** papers into evidence-grounded Chinese invention-patent
+12. **Presents** papers as verified browser-native HTML academic decks
+    (`materials-html-deck`).
+13. **Converts** papers into evidence-grounded Chinese invention-patent
     applications, with a civil patent knowledge base and a claim-validation
     engine (`materials-paper-to-patent`).
 
@@ -191,18 +193,18 @@ For the full walkthrough, see [install.md](install.md).
 | [`materials-research`](plugins/materials-skills/skills/materials-research/README.md) | Stable | Profile-first router, stage-gated plan, coverage_tier report | "materials research", "topic routing", "workflow plan" |
 | [`materials-reader`](plugins/materials-skills/skills/materials-reader/README.md) | Stable | Source-anchored reader package, evidence-chain matrix | "reader package", "evidence chain", "paper notes" |
 | [`materials-citation`](plugins/materials-skills/skills/materials-citation/README.md) | Stable | MCP-backed search, citation matrix, reference-gap audit | "citation matrix", "literature screening", "reference gap" |
-| [`materials-writing`](plugins/materials-skills/skills/materials-writing/README.md) | Stable | 6-axis manuscript drafting, 42 narrative references, section arcs | "manuscript draft", "review outline", "argument chain" |
+| [`materials-literature-pipeline`](plugins/materials-skills/skills/materials-literature-pipeline/README.md) | Beta | Recurring discovery, candidate scoring, source-depth labels, digest handoff | "literature pipeline", "daily digest", "candidate scoring" |
+| [`materials-writing`](plugins/materials-skills/skills/materials-writing/README.md) | Stable | 8-axis stateful manuscript drafting, foundation files, section arcs | "manuscript draft", "review outline", "argument chain" |
 | [`materials-polishing`](plugins/materials-skills/skills/materials-polishing/README.md) | Stable | Claim-strength audit, overclaim reduction, journal-tone tightening | "polish", "claim strength", "academic tone" |
-| [`materials-figure`](plugins/materials-skills/skills/materials-figure/README.md) | Stable | LLM-driven figure contract + plot, 21 atlas + 12 gallery + 20 examples | "figure", "publication plot", "mechanism map" |
+| [`materials-figure`](plugins/materials-skills/skills/materials-figure/README.md) | Stable | LLM-driven figure contract + plot, representative atlas/gallery samples | "figure", "publication plot", "mechanism map" |
 | [`materials-data`](plugins/materials-skills/skills/materials-data/README.md) | Stable | FAIR package, 9 domain schemas, data availability statement | "FAIR package", "data availability", "dataset" |
 | [`materials-doe`](plugins/materials-skills/skills/materials-doe/README.md) | Stable | Factorial / Taguchi / mixture matrices, methods paragraph | "DOE", "experiment design", "orthogonal array" |
 | [`materials-reviewer`](plugins/materials-skills/skills/materials-reviewer/README.md) | Stable | 5-axis peer review, 22 domain criteria, desk-reject risk | "peer review", "desk-reject risk", "reviewer report" |
 | [`materials-response`](plugins/materials-skills/skills/materials-response/README.md) | Beta | Point-by-point response, rebuttal package, action mapping | "response letter", "rebuttal", "reviewer comment" |
-| [`materials-paper2ppt`](plugins/materials-skills/skills/materials-paper2ppt/README.md) | Beta | Slide-ready Markdown, talk structure for group meeting / journal club | "paper to slides", "journal club", "slide outline" |
-| [`materials-pptx`](plugins/materials-skills/skills/materials-pptx/README.md) | Beta | Real `.pptx` deck with dependency-light OOXML writer | "pptx", "powerpoint", "slide deck" |
+| [`materials-html-deck`](plugins/materials-skills/skills/materials-html-deck/README.md) | Beta | Browser-native HTML academic deck generation with strict Playwright QA | "html deck", "academic deck", "slide deck", "paper to slides", "journal club" |
 | [`materials-paper-to-patent`](plugins/materials-skills/skills/materials-paper-to-patent/README.md) | Beta | Chinese invention-patent application, civil patent KB, claim validator | "patent", "claim", "invention disclosure" |
 
-> **Status legend:** `Stable` = regression-covered, cross-skill handoffs documented, and used in worked examples. `Beta` = functional and documented, but still accumulating cross-skill pressure tests or domain coverage depth.
+> **Status legend:** `Stable` = documented, installable, and covered by the public lightweight release gate. `Beta` = functional and documented, but still accumulating domain coverage depth.
 
 ---
 
@@ -210,7 +212,7 @@ For the full walkthrough, see [install.md](install.md).
 
 **What it does** — Generates journal-ready multi-panel figures for materials
 manuscripts: mechanism maps, evidence heatmaps, dosage-window plots,
-characterization panels, review figures, and full figure packages with source
+characterization panels, review figures, and figure packages with source
 data, caption boundaries, and export QA. Python-only backend, SVG-first
 output, with PNG/PDF/TIFF export bundles.
 
@@ -225,26 +227,19 @@ figure_contract.md -> source_data.csv -> LLM writes plot.py
   -> caption.md + qa_report.md + asset_manifest.md
 ```
 
-**Visual assets shipped with the skill** — 53 production-grade reference
-figures organised in three layers:
+**Visual assets in the public repository** - lightweight preview boards are
+kept under `docs/gallery/` so the package stays readable and installable. The
+installable skill bundle does not ship generated atlas/gallery/showcase image
+directories.
 
-| Layer | Count | Purpose |
+| Layer | Public boundary | Purpose |
 |---|---|---|
-| `assets/chart-atlas/` | **21 PNG atlas boards** | Chart-type selection (XRD, mechanical, thermal, microscopy, performance, electrochemistry, …) |
-| `assets/gallery/` | **12 composite proof figures** | Submission-grade multi-panel reference figures |
-| `assets/materials4papers/` | **20 worked examples** | End-to-end figure packages per paper type |
+| `docs/gallery/` | compact preview boards | Public visual proof of the workflow |
+| `assets/templates/` | figure contracts and package templates | Reusable delivery structure |
+| `examples/figure-packages/` | small runnable source packages | Local examples with CSV data and scripts |
 
-| ![XRD diffraction](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-01-xrd-diffraction.png) | ![Mechanical curves](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-02-mechanical-curves.png) | ![Thermal analysis](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-03-thermal-analysis.png) |
+| ![Chart-Type Atlas](docs/gallery/gallery_chart_atlas.png) | ![WER-EA Research Workflow](docs/gallery/gallery_wer_ea_workflow.png) | ![Cross-Material-System Figures](docs/gallery/gallery_material_systems.png) |
 |---|---|---|
-| ![Microscopy plates](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-05-microscopy.png) | ![Performance bars](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-06-performance-bar.png) | ![Composite layouts](plugins/materials-skills/skills/materials-figure/assets/chart-atlas/atlas-10-composite-layout.png) |
-
-| ![Cement hydration composite](plugins/materials-skills/skills/materials-figure/assets/gallery/fig1-cement-hydration-mechanism.png) | ![Asphalt review composite](plugins/materials-skills/skills/materials-figure/assets/gallery/fig5-asphalt-modification-review.png) | ![Concrete durability composite](plugins/materials-skills/skills/materials-figure/assets/gallery/fig7-concrete-microstructure-durability.png) |
-|---|---|---|
-| ![Functional coating composite](plugins/materials-skills/skills/materials-figure/assets/gallery/fig8-functional-coating-performance.png) | ![Polymer composite composite](plugins/materials-skills/skills/materials-figure/assets/gallery/fig3-polymer-composite-multifunctional.png) | ![Nano characterization composite](plugins/materials-skills/skills/materials-figure/assets/gallery/fig6-nano-material-characterization.png) |
-
-| ![Cement XRD example](plugins/materials-skills/skills/materials-figure/assets/materials4papers/cement_hydration_xrd/figures/xrd_hydration_stacked.png) | ![Steel EBSD example](plugins/materials-skills/skills/materials-figure/assets/materials4papers/steel_microstructure_ebsd/figures/ebsd_ipf_maps.png) | ![Polymer thermal example](plugins/materials-skills/skills/materials-figure/assets/materials4papers/polymer_thermal_degradation/figures/tga_dtg_thermal.png) |
-|---|---|---|
-| ![Ceramics Weibull example](plugins/materials-skills/skills/materials-figure/assets/materials4papers/ceramics_weibull_reliability/figures/weibull_reliability.png) | ![Raman mapping example](plugins/materials-skills/skills/materials-figure/assets/materials4papers/2d_material_raman_mapping/figures/raman_mapping.png) | ![Nanoparticle distribution example](plugins/materials-skills/skills/materials-figure/assets/materials4papers/nanoparticle_size_distribution/figures/nanoparticle_distribution.png) |
 
 **Figure package structure** — Every serious output is delivered as a figure
 package, not a loose image:
@@ -324,7 +319,7 @@ domain, and journal family, then hands off to the right companion skill. Best
 for topic positioning, journal fit, paper strategy, reviewer-risk framing,
 and combined workflows such as mini-review + figure planning.
 
-**Fragment system** — 71 fragments drive the routing decisions:
+**Fragment system** — manifest-defined fragments drive the routing decisions:
 
 | Axis | Count | Purpose |
 |---|---|---|
@@ -343,36 +338,42 @@ protocol. See the *Profile-first routing* section above.
 
 ---
 
-## materials-writing — the 6-axis manuscript engine
+## materials-writing — the 8-axis stateful manuscript engine
 
 **What it does** — Turns claims, results, notes, and outlines into argument
 chains, abstracts, introductions, results/discussion sections, conclusions,
-or review outlines while keeping missing evidence visible. Built for
-materials-science manuscripts across civil/construction, polymers, metals,
-ceramics, and functional/nano materials.
+or review outlines while keeping missing evidence visible. It can initialize
+foundation files and project-level `state.json` for compose, revise, hybrid,
+and QA loops. Built for materials-science manuscripts across
+civil/construction, polymers, metals, ceramics, and functional/nano materials.
 
-**Six-axis routing** — Drives the section template, phrase bank, and domain
-narrative simultaneously:
+**Eight-axis routing** — Drives writing mode, section template, phrase bank,
+and domain narrative simultaneously:
 
 | Axis | Examples |
 |---|---|
+| `writing_mode` | compose / revise / hybrid / qa |
 | `paper_type` | experimental / review / method / data-paper / case-study |
 | `section` | abstract / intro / R-D / conclusion / cover-letter |
 | `language` | zh / en |
 | `journal_family` | CBM / CCC / RMPD / JBE / nature-materials / acs-nano / … |
 | `material_family` | civil / polymer / metal / ceramic / functional / nano |
 | `domain` | WER-EA / asphalt / cement-concrete / ceramics / … |
+| `input_source` | manual / experiment-record |
 
-**Reference corpus** — 44 references, including 42 narrative references, 5
-section arcs (abstract claim arc, intro gap ladder, R-D evidence chain,
-conclusion boundary, review synthesis), 10 domain phrase banks (WER-EA,
-insulation, polymer composite, cement-concrete, ceramics, metals-alloys,
-durability-sustainability, civil-general, nano, functional), and 22 domain
-paragraph patterns.
+**Reference corpus** — narrative references, state-machine references, 5 section
+arcs (abstract claim arc, intro gap ladder, R-D evidence chain, conclusion
+boundary, review synthesis), domain phrase banks, and domain paragraph
+patterns.
 
 **Key rules enforced**
 
 - Argument chain before prose: claim → evidence → mechanism → boundary.
+- Foundation files before stateful drafting when continuity matters.
+- `state.json` tracks writing mode, round, scores, technical debts, stop status,
+  and artifacts.
+- Revision loops stop on round limit, low score gain, missing key evidence,
+  unresolved specialist conflict, or target reached.
 - Missing evidence stays visible as explicit gaps, not hidden hedging.
 - Section-aware tense and hedging: past tense for results, present for
   established knowledge, hedged for inferred mechanisms.
@@ -506,14 +507,12 @@ Has its own `evals.json`.
 
 ---
 
-## materials-paper2ppt & materials-pptx
+## materials-html-deck
 
-**What it does** — `materials-paper2ppt` converts papers, reading notes,
-review matrices, and research outlines into slide-ready Markdown. It is the
-handoff layer before real PowerPoint generation. `materials-pptx` then turns
-structured Markdown or JSON slide specs into a real `.pptx` deck with notes
-and image placement, using a dependency-light OOXML writer (no python-pptx
-required).
+**What it does** — `materials-html-deck` converts papers, reading notes,
+review matrices, and research outlines into browser-native HTML academic
+decks: retained `index.html`, per-slide HTML files, shared design tokens,
+Playwright screenshots, QA reports, speaker notes, and an asset manifest.
 
 ---
 
@@ -533,32 +532,26 @@ All 13 skills share a small set of protocol files under
 | `core/ethics.md` | Ethics, attribution, and "do not fabricate" guardrails |
 | `journal-formats/` | **17 journal format guides** (CBM, CCC, RMPD, JBE, nature-materials, acs-nano, acta-materialia, advanced-materials, advanced-functional-materials, ceramics-international, energy-buildings, building-environment, jacers, jmca, nano-letters, progress-polymer-science, thermal-sciences) |
 
-## Quantitative summary (transparent counts)
+## Quantitative summary (public delivery boundary)
 
-- **13 skills** with stable status
-- currently covers **29 material systems**
-- **29 material systems** at `full` coverage tier
-- | 🟢 **full** | 29 |
-- | 🟡 **partial** | 0 |
-- | 🔵 **skeleton** | 0 |
-- | ⚪ **generic** | 0 |
-- **53 production-grade figure assets** (21 atlas + 12 gallery + 20 examples)
-- **71 routing fragments** (15 task + 36 domain + 20 journal)
-- **17 journal format guides**
-- **22 reviewer-criteria documents** (one per material sub-direction)
-- **9 domain data schemas** for FAIR packaging
-- **44 references** in `materials-writing`
-- **7 shared core protocols** + 17 journal-format guides
-- **9 scripts** in `materials-paper-to-patent` + **3+ scripts** across other skills
-- **47 unit tests** across the bundle
-- **13 evals.json** files (one per materials-* skill)
+- **13 materials-* skills** plus shared contracts under `_shared`.
+- **29 material systems** represented in the material registry.
+- **Lightweight figure preview boards** are shipped for public browsing; the generated atlas/gallery/showcase image corpus is intentionally not part of the installable skill bundle.
+- **Manifest-defined routing fragments** across task, domain, and journal axes.
+- **17 journal format guides**.
+- **22 reviewer-criteria documents**.
+- **9 domain data schemas** for FAIR packaging.
+- **State-machine writing assets** in `materials-writing`.
+- **Public verification:** `python .\scripts\run_release_checks.py --json`.
+
+The public repository does not ship the internal Python regression suite or the full generated visual asset pack. Those are treated as maintainer-side validation assets.
 
 ## Visual Gallery
 
 See [docs/gallery/README.md](docs/gallery/README.md) for editorial proof
 boards and figure-package previews.
 
-![WER-EA figure proof board](plugins/materials-skills/skills/materials-figure/assets/showcase-proof/wer_ea_figure_proof_board.png)
+![WER-EA workflow preview](docs/gallery/gallery_wer_ea_workflow.png)
 
 ## Four Workflow Entry Points
 
@@ -567,7 +560,7 @@ boards and figure-package previews.
 | WER-EA mini-review | Systematic review + figure planning for asphalt emulsion materials |
 | Experimental manuscript | Evidence-gap audit before discussion drafting |
 | Revision loop | Post-review response + rebuttal package |
-| Paper to presentation | Journal-club PPT from a paper package |
+| Paper to presentation | Journal-club HTML deck from a paper package |
 
 ## Guided Demos
 
@@ -591,9 +584,8 @@ requirements.
 
 ## Roadmap (transparent gaps)
 
-- **Evals coverage** is now at 13 of 13 skills, but cross-skill pressure
-  tests are still uneven and the bundle still needs broader end-to-end
-  pressure testing to make every skill production-stable.
+- **Internal regression coverage** is maintained outside the public GitHub
+  delivery; the public package keeps only the lightweight release gate.
 - **Submission end-to-end** is partially covered (cover letter + response
   letter + data availability), but LaTeX-class templates for the 17 journal
   families are not yet shipped.

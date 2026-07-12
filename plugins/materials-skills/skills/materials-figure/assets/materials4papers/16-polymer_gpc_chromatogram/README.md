@@ -13,4 +13,4 @@ python plot.py
 
 - `data/synthetic.csv` — 7 rows with `elution_mL,intensity`.
 - `plot.py` — reads CSV, plots filled chromatogram with peak label.
-- `figures/polymer_gpc_chromatogram.png` + `.svg` — generated output.
+- `figures/` - generated locally when `plot.py` is run; image outputs are not tracked in the public package.`n

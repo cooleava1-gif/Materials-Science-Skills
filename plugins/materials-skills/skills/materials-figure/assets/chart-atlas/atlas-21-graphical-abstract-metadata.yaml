@@ -1,9 +1,0 @@
-atlas_id: 21
-name: atlas-21-graphical-abstract
-family: all
-chart_type: graphical abstract
-kb_validation_refs: []
-qa_gates:
-- editable_svg_text
-- 300_dpi
-- no_default_seaborn_palette

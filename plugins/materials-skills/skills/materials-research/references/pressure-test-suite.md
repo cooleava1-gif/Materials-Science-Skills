@@ -11,8 +11,7 @@ The suite covers these modules:
 - materials-citation
 - materials-polishing
 - materials-response
-- materials-paper2ppt
-- materials-pptx
+- materials-html-deck
 - materials-figure
 - materials-data
 
@@ -27,7 +26,7 @@ The suite intentionally includes more than three failure classes:
 - literal translation and claim-strength drift
 - weak novelty and uncited gaps
 - figure caption overinterpretation
-- pptx missing data fabrication
+- HTML deck missing data fabrication
 - FAIR data availability overclaim
 - reviewer response defensiveness
 - statistics, replicate, and unit omissions

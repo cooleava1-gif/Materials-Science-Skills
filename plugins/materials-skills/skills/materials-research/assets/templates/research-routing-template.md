@@ -31,8 +31,7 @@ Use this template to plan a materials research workflow.
 | English polishing | materials-polishing | polished text |
 | Reviewer response | materials-response | response package |
 | Pre-submission audit | materials-reviewer | review report |
-| Slide deck | materials-paper2ppt | slide Markdown |
-| PPTX file | materials-pptx | .pptx file |
+| HTML deck | materials-html-deck | retained HTML deck directory |
 | Figures | materials-figure | figure package |
 | FAIR data | materials-data | data package |
 

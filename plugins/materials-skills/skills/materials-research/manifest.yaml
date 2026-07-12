@@ -5,6 +5,7 @@ always_load:
 - ../_shared/core/direction-profile.md
 - ../_shared/core/stance.md
 - ../_shared/core/evidence-contract.md
+- ../_shared/core/research-state-contract.md
 - ../_shared/paper-production/weakness-routing.md
 - static/core/workflow.md
 axes:
@@ -155,20 +156,19 @@ axes:
       presentation:
         path: static/fragments/task/presentation.md
         triggers:
-        - PPT
         - slides
         - journal club
-        - PowerPoint
         - 组会
         - 汇报
         - 幻灯片
-      pptx-generation:
-        path: static/fragments/task/pptx-generation.md
+      html-deck-generation:
+        path: static/fragments/task/html-deck-generation.md
         triggers:
-        - real pptx
-        - generate pptx
-        - PowerPoint file
-        - 生成PPTX
+        - html deck
+        - generate html deck
+        - browser slides
+        - academic deck
+        - 生成HTML deck
         - 生成PPT
         - 制作PPT
       reviewer-audit:
@@ -617,7 +617,7 @@ references:
       path: references/companion-modules.md
       when: The task should be handed off to materials-reader, materials-citation,
         materials-writing, materials-polishing, materials-response, materials-reviewer,
-        materials-paper2ppt, materials-pptx, materials-figure, or materials-doe.
+        materials-html-deck, materials-figure, or materials-doe.
     paper-production-orchestrator:
       path: references/paper-production-orchestrator.md
       when: The user asks for WER-EA mini-review production, experimental manuscript
@@ -631,6 +631,10 @@ references:
       path: references/pressure-test-suite.md
       when: The task asks for pressure tests, failure modes, regression coverage,
         skill validation, or reviewer-safe behavior checks across modules.
+    research-state-contract:
+      path: ../_shared/core/research-state-contract.md
+      when: The task spans literature, DOE, data, figures,
+        writing, or reviewer-risk traceability.
     journal-cbm-facts:
       path: ../_shared/journal-formats/cbm.md
       when: The target journal is CBM, Construction and Building Materials, or the
@@ -654,16 +658,14 @@ companion_skills:
   polishing: materials-polishing
   response: materials-response
   reviewer: materials-reviewer
-  paper2ppt: materials-paper2ppt
-  pptx: materials-pptx
+  html_deck: materials-html-deck
   figure: materials-figure
   data: materials-data
   doe: materials-doe
+  literature_pipeline: materials-literature-pipeline
 assets: []
 scripts:
 - scripts
-tests:
-- tests
 quality_gates:
 - release gate must report no issues for this skill
 - claims must stay inside the skill evidence contract
@@ -688,6 +690,9 @@ handoffs:
     optional: false
   - handoff: doe-handoff
     from: materials-doe
+    optional: true
+  - handoff: literature-pipeline-handoff
+    from: materials-literature-pipeline
     optional: true
   - handoff: gate-report
     from: materials-research

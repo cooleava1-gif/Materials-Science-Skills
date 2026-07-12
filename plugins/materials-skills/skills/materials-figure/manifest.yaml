@@ -132,7 +132,7 @@ references:
       path: references/ceramics-review-figure-contract.md
     - condition: ceramics figure atlas, sintering-Weibull-XRD-conductivity figure library, or atlas data templates
       path: references/ceramics-figure-atlas.md
-    - condition: WER-EA figure atlas, reusable review-figure library, atlas data templates, or generated SVG/PNG examples
+    - condition: WER-EA figure atlas, reusable review-figure library, atlas data templates, or figure-planning examples
       path: references/wer-ea-figure-atlas.md
     - condition: polymer figures, thermoplastic/thermoset/rubber/composite plots, or polymer processing figure packages
       path: references/polymers-figure-package.md
@@ -158,7 +158,7 @@ references:
       path: references/materials-2026-observations.md
     - condition: writing, auditing, or restyling a figure/panel legend
       path: references/figure-legend-conventions.md
-    - condition: end-to-end walkthrough using materials4papers example
+    - condition: source-level walkthrough using retained materials4papers data or scripts
       path: references/demos.md
 
 assets:
@@ -168,9 +168,6 @@ scripts:
   - scripts
   - scripts/validate_materials_claims.py
   - scripts/check_storyboard.py
-
-tests:
-  - tests
 
 quality_gates:
   - release gate must report no issues for this skill
