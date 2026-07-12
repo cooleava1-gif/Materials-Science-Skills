@@ -1,0 +1,17 @@
+contract_id: submission-package
+version: "1.0"
+description: Assembled submission package with cover letter, highlights, checklist, declarations, and source stubs.
+required_fields:
+  - manifest_path
+  - target_journal
+  - article_type
+  - package_dir
+optional_fields:
+  - writing_state_path
+  - figure_package_path
+  - fair_package_path
+  - weakness_routing_path
+status_values:
+  - ready
+  - dry-run
+  - blocked
