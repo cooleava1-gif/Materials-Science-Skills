@@ -35,6 +35,15 @@ def _decl(value: str, label: str) -> str:
     return f"[LIVE-VERIFICATION: {label} — user must verify]"
 
 
+def _get_suggested_reviewers(manifest: dict) -> list[str]:
+    reviewers = manifest.get("suggested_reviewers") or []
+    if isinstance(reviewers, str):
+        return [reviewers] if reviewers.strip() else []
+    if not isinstance(reviewers, list):
+        return []
+    return [reviewer for reviewer in reviewers if isinstance(reviewer, str) and reviewer.strip()]
+
+
 def render_cover_letter(manifest: dict, template: dict, abstract: str) -> str:
     journal_name = template.get("full_name", template.get("journal_id", ""))
     title = manifest.get("title", "[TITLE MISSING]")
@@ -49,7 +58,7 @@ def render_cover_letter(manifest: dict, template: dict, abstract: str) -> str:
         data_line = "Data availability: not applicable"
     else:
         data_line = "[LIVE-VERIFICATION: data availability status — user must verify]"
-    reviewers = manifest.get("suggested_reviewers") or []
+    reviewers = _get_suggested_reviewers(manifest)
     today = _dt.date.today().isoformat()
 
     lines = []

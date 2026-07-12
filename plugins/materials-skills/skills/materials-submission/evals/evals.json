@@ -5,32 +5,44 @@
     {
       "id": "manifest-validation",
       "description": "build_submission_package.py rejects a manifest missing title or corresponding_author",
-      "command": "python scripts/build_submission_package.py --manifest missing-fields.yaml --dry-run",
+      "command": "python scripts/build_submission_package.py --manifest evals/missing-fields.yaml --dry-run",
       "expected": "dry-run with refusal reason 'title is missing'"
     },
     {
       "id": "dry-run-output",
       "description": "dry-run prints MANIFEST.md preview and file list without creating the directory",
-      "command": "python scripts/build_submission_package.py --manifest valid.yaml --dry-run",
+      "command": "python scripts/build_submission_package.py --manifest evals/valid.yaml --dry-run",
       "expected": "stdout contains '=== DRY RUN ===' and 'MANIFEST.md'"
     },
     {
       "id": "refusal-live-verification",
       "description": "live_verification_acknowledged false forces dry-run",
-      "command": "python scripts/build_submission_package.py --manifest not-acknowledged.yaml --dry-run",
+      "command": "python scripts/build_submission_package.py --manifest evals/not-acknowledged.yaml --dry-run",
       "expected": "stderr contains 'live_verification_acknowledged is false'"
     },
     {
       "id": "cover-letter-placeholder",
       "description": "cover letter skeleton contains [LLM: ...] and [LIVE-VERIFICATION: ...] placeholders for empty fields",
-      "command": "python scripts/generate_cover_letter.py --manifest empty-decls.yaml --output -",
+      "command": "python scripts/generate_cover_letter.py --manifest evals/empty-decls.yaml --output -",
       "expected": "stdout contains '[LLM:' and '[LIVE-VERIFICATION:'"
     },
     {
       "id": "highlights-character-limit",
       "description": "generate_highlights.py rejects highlights over 85 characters",
-      "command": "python scripts/generate_highlights.py --journal cbm --highlights-file long-highlights.md",
+      "command": "python scripts/generate_highlights.py --journal cbm --highlights-file evals/long-highlights.md",
       "expected": "exit code 1 with 'Highlights exceeding character limit'"
+    },
+    {
+      "id": "invalid-article-type",
+      "description": "build_submission_package.py rejects an article type unavailable to the selected journal",
+      "command": "python scripts/build_submission_package.py --manifest evals/invalid-article-type.yaml --dry-run",
+      "expected": "stderr contains \"article_type 'editorial' not in\""
+    },
+    {
+      "id": "highlights-numeric-heading",
+      "description": "generate_highlights.py ignores decimal section headings when validating ordered highlights",
+      "command": "python scripts/generate_highlights.py --journal cbm --highlights-file evals/numeric-heading-highlights.md",
+      "expected": "stderr contains 'all highlights within limit'"
     },
     {
       "id": "checklist-assembly",

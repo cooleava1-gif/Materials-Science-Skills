@@ -152,6 +152,15 @@ def render_reviewer_risk(gates: dict) -> str:
     return "\n".join(lines)
 
 
+def get_suggested_reviewers(manifest: dict) -> list[str]:
+    reviewers = manifest.get("suggested_reviewers") or []
+    if isinstance(reviewers, str):
+        return [reviewers] if reviewers.strip() else []
+    if not isinstance(reviewers, list):
+        return []
+    return [reviewer for reviewer in reviewers if isinstance(reviewer, str) and reviewer.strip()]
+
+
 def write_package(pkg_dir: Path, manifest: dict, template: dict, writing_state: dict, gates: dict, abstract: str) -> list[str]:
     pkg_dir.mkdir(parents=True, exist_ok=True)
     written = []
@@ -240,7 +249,7 @@ def render_cover_letter_inline(manifest: dict, template: dict, abstract: str) ->
         f"- Conflicts of interest: {conflicts}",
         f"- {data_line}",
     ]
-    reviewers = manifest.get("suggested_reviewers") or []
+    reviewers = get_suggested_reviewers(manifest)
     if reviewers:
         lines.append("- Suggested reviewers:")
         for r in reviewers:
