@@ -1,0 +1,48 @@
+{
+  "skill": "materials-submission",
+  "version": "1.0.0",
+  "evals": [
+    {
+      "id": "manifest-validation",
+      "description": "build_submission_package.py rejects a manifest missing title or corresponding_author",
+      "command": "python scripts/build_submission_package.py --manifest missing-fields.yaml --dry-run",
+      "expected": "dry-run with refusal reason 'title is missing'"
+    },
+    {
+      "id": "dry-run-output",
+      "description": "dry-run prints MANIFEST.md preview and file list without creating the directory",
+      "command": "python scripts/build_submission_package.py --manifest valid.yaml --dry-run",
+      "expected": "stdout contains '=== DRY RUN ===' and 'MANIFEST.md'"
+    },
+    {
+      "id": "refusal-live-verification",
+      "description": "live_verification_acknowledged false forces dry-run",
+      "command": "python scripts/build_submission_package.py --manifest not-acknowledged.yaml --dry-run",
+      "expected": "stderr contains 'live_verification_acknowledged is false'"
+    },
+    {
+      "id": "cover-letter-placeholder",
+      "description": "cover letter skeleton contains [LLM: ...] and [LIVE-VERIFICATION: ...] placeholders for empty fields",
+      "command": "python scripts/generate_cover_letter.py --manifest empty-decls.yaml --output -",
+      "expected": "stdout contains '[LLM:' and '[LIVE-VERIFICATION:'"
+    },
+    {
+      "id": "highlights-character-limit",
+      "description": "generate_highlights.py rejects highlights over 85 characters",
+      "command": "python scripts/generate_highlights.py --journal cbm --highlights-file long-highlights.md",
+      "expected": "exit code 1 with 'Highlights exceeding character limit'"
+    },
+    {
+      "id": "checklist-assembly",
+      "description": "generate_checklist.py produces a checklist with journal-specific items",
+      "command": "python scripts/generate_checklist.py --journal cbm --article-type research-article --output -",
+      "expected": "stdout contains 'Data availability statement' and '[LIVE-VERIFICATION:'"
+    },
+    {
+      "id": "rmpd-no-highlights",
+      "description": "RMPD does not require highlights; generate_highlights.py exits 0 without writing",
+      "command": "python scripts/generate_highlights.py --journal rmpd --abstract 'test' --output -",
+      "expected": "stderr contains 'does not require highlights'"
+    }
+  ]
+}

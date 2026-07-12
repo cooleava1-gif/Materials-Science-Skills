@@ -98,6 +98,11 @@ Submission-package routing must keep live journal facts explicit. If scope,
 formatting, article type, declarations, or checklist items depend on current
 publisher guidance, mark them for live verification instead of guessing.
 
+Route C is implemented by `materials-submission`. When the user asks for
+cover-letter drafting, highlights, submission checklist, or final package
+assembly, route to `materials-submission` instead of duplicating the
+assembly logic in `materials-research`.
+
 ## Paper-Level Quality Gates
 
 Use `../_shared/paper-production/paper-gate-report-template.md` for the report.

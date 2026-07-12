@@ -15,6 +15,7 @@
 | `materials-response` | Point-by-point rebuttal package | writing, polishing |
 | `materials-html-deck` | Slide-ready outline and verified HTML academic deck | figure |
 | `materials-paper-to-patent` | Chinese invention-patent draft | figure, data |
+| `materials-submission` | Route C submission package assembly | research, writing, figure, data |
 
 The bundle uses profile-first routing from `.materials/profile.yaml` when the
 user has saved a local materials direction. That file is user-local and must

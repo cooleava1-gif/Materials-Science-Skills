@@ -15,6 +15,7 @@
 | Data and FAIR | `materials-data` | raw/processed data organization, metadata, FAIR audits, dataset packages, data availability statements |
 | Design of experiments | `materials-doe` | DOE methodology, factorial/screening designs, response surface optimization, robustness testing, orthogonal arrays, factor-level planning |
 | Literature pipeline | `materials-literature-pipeline` | recurring discovery, candidate scoring, source-depth labels, digest notes, next-reading actions |
+| Submission package | `materials-submission` | cover letter, highlights, submission checklist, declaration boundary, final package assembly for CBM, CCC, RMPD, JBE |
 
 Routing rule:
 

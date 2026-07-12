@@ -10,7 +10,7 @@ workflow instead of leaving each step as a separate prompt.
 配图、数据打包、实验设计、审稿模拟、回复信撰写、演讲准备、**论文转专利**
 串成一条工作流，而不是让每一步都成为孤立的提示。
 
-The bundle ships **13 skills** covering **29 material systems** across
+The bundle ships **14 skills** covering **29 material systems** across
 civil/construction, polymers, metals, ceramics, and functional/nano materials.
 Each system carries a narrative arc, figure scripts, reviewer criteria, and
 worked example packages where the coverage tier has reached `full`.
@@ -91,7 +91,7 @@ The bundle follows a **profile-first routing** protocol defined in
 On first use, the router asks the user once for their current materials
 research direction, saves it to a user-local file `.materials/profile.yaml`
 (not tracked by git), and uses it to set defaults for `material_family` and
-`domain` across all 13 skills. Later sessions skip the question and only
+`domain` across all 14 skills. Later sessions skip the question and only
 briefly remind the user which direction is active.
 
 | Layer | Source | Behaviour |
@@ -186,7 +186,7 @@ For the full walkthrough, see [install.md](install.md).
 
 ## Skills
 
-## Skill index (13 skills)
+## Skill index (14 skills)
 
 | Skill | Status | Purpose | Trigger keywords |
 |---|---|---|---|
@@ -518,7 +518,7 @@ Playwright screenshots, QA reports, speaker notes, and an asset manifest.
 
 ## Shared core — `_shared/`
 
-All 13 skills share a small set of protocol files under
+All 14 skills share a small set of protocol files under
 [`plugins/materials-skills/skills/_shared/`](plugins/materials-skills/skills/_shared/):
 
 | File | Purpose |
@@ -586,9 +586,9 @@ requirements.
 
 - **Internal regression coverage** is maintained outside the public GitHub
   delivery; the public package keeps only the lightweight release gate.
-- **Submission end-to-end** is partially covered (cover letter + response
-  letter + data availability), but LaTeX-class templates for the 17 journal
-  families are not yet shipped.
+- **Submission end-to-end** is partially covered. The four pilot journals
+  (CBM, CCC, RMPD, JBE) now have submission-package assembly via
+  `materials-submission`; 13 journal families still pending.
 - **Grant writing** is out of scope for the current release; it would
   require a dedicated `materials-grant` skill.
 - **Lab execution** is out of scope; `materials-doe` plans experiments but
