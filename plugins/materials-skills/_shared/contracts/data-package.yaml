@@ -5,6 +5,7 @@ produced_by: materials-data
 consumed_by:
   - materials-figure
   - materials-research
+  - materials-submission
 
 artifacts:
   metadata.md:

@@ -1,6 +1,9 @@
-contract_id: submission-package
+name: submission-package
 version: "1.0"
 description: Assembled submission package with cover letter, highlights, checklist, declarations, and source stubs.
+produced_by: materials-submission
+consumed_by:
+  - materials-research
 required_fields:
   - manifest_path
   - target_journal

@@ -4,6 +4,7 @@ description: "Paper-production stage gate report with weakness routing and go/no
 produced_by: materials-research
 consumed_by:
   - materials-research
+  - materials-submission
 
 artifacts:
   gate-report.md:

@@ -14,7 +14,7 @@ axes:
     values:
       full-package:
         path: static/core/workflow.md
-        triggers: ["submission package", "cover letter", "highlights", "submission checklist", "投稿包", "投稿信", "亮点", "投稿清单"]
+        triggers: ["submission package", "投稿包"]
       cover-letter-only:
         path: references/cover-letter-strategy.md
         triggers: ["cover letter", "投稿信", "editor letter"]

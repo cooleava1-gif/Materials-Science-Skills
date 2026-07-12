@@ -6,6 +6,7 @@ consumed_by:
   - materials-html-deck
   - materials-research
   - materials-paper-to-patent
+  - materials-submission
 
 artifacts:
   figure_handoff.csv:
