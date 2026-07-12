@@ -1,18 +1,17 @@
-# Building and Environment — Formatting Facts
+# Building and Environment Formatting Facts
 
-> Always verify against the journal's current Guide for Authors before final submission.
-> Official page: https://www.sciencedirect.com/journal/building-and-environment
+> Verify the current Guide for Authors before final submission.
 
-## Article types and limits
+## Article routes
 
-| Article type | Word limit | Abstract | References |
-|---|---|---|---|
-| Research article | ~9,000 | Structured (~300 words) | No hard cap |
-| Review article | ~12,000 | Unstructured (~300 words) | Comprehensive |
-| Short communication | ~4,000 | ~150 words | ~20 |
+- Research Article: up to 9,000 words excluding references; 250-word abstract.
+- Review Article: verify current limits.
+- Letter: 350-1,000 words; no abstract.
+- Comment and Opinion: 800-2,500 words; 100-word abstract.
 
-## Formatting
+## Required items
 
-- Double-spaced, numbered lines.
-- Figures: 300 dpi TIFF/PDF/EPS.
-- References: numbered Harvard style optional.
+- Highlights.
+- Graphical abstract is recommended.
+- Data availability, CRediT, competing-interest, funding, and conditional
+  ethics statements.

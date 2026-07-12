@@ -1,4 +1,4 @@
-version: "1.0.0"
+version: "1.1.0"
 status: beta
 
 always_load:
@@ -43,6 +43,24 @@ axes:
       jbe:
         path: ../../_shared/journal-templates/jbe.md
         triggers: ["JBE", "Journal of Building Engineering"]
+      building-environment:
+        path: ../../_shared/journal-templates/building-environment.md
+        triggers: ["Building and Environment", "BAE", "building environment"]
+      energy-buildings:
+        path: ../../_shared/journal-templates/energy-buildings.md
+        triggers: ["Energy and Buildings", "ENB", "energy buildings"]
+      ceramics-international:
+        path: ../../_shared/journal-templates/ceramics-international.md
+        triggers: ["Ceramics International", "Ceram. Int.", "ceramic int."]
+      acta-materialia:
+        path: ../../_shared/journal-templates/acta-materialia.md
+        triggers: ["Acta Materialia", "Acta Mater."]
+      jmca:
+        path: ../../_shared/journal-templates/jmca.md
+        triggers: ["JMCA", "Journal of Materials Chemistry A", "J. Mater. Chem. A"]
+      nature-materials:
+        path: ../../_shared/journal-templates/nature-materials.md
+        triggers: ["Nature Materials", "Nat. Mater."]
   article_type:
     detect: "Which article type is being submitted?"
     default: research-article
@@ -56,6 +74,18 @@ axes:
       short-communication:
         path: static/core/workflow.md
         triggers: ["short communication", "short paper", "简报"]
+      technical-note:
+        path: static/core/workflow.md
+        triggers: ["technical note", "technical notes", "技术说明"]
+      letter:
+        path: static/core/workflow.md
+        triggers: ["letter", "letter article", "来信"]
+      comment-and-opinion:
+        path: static/core/workflow.md
+        triggers: ["comment and opinion", "commentary", "评论与观点"]
+      perspective:
+        path: static/core/workflow.md
+        triggers: ["perspective", "perspective article", "视角"]
 
 references:
   on_demand:
@@ -86,6 +116,24 @@ references:
     journal-jbe-facts:
       path: ../_shared/journal-formats/jbe.md
       when: "The target journal is JBE."
+    journal-building-environment-facts:
+      path: ../_shared/journal-formats/building-environment.md
+      when: "The target journal is Building and Environment."
+    journal-energy-buildings-facts:
+      path: ../_shared/journal-formats/energy-buildings.md
+      when: "The target journal is Energy and Buildings."
+    journal-ceramics-international-facts:
+      path: ../_shared/journal-formats/ceramics-international.md
+      when: "The target journal is Ceramics International."
+    journal-acta-materialia-facts:
+      path: ../_shared/journal-formats/acta-materialia.md
+      when: "The target journal is Acta Materialia."
+    journal-jmca-facts:
+      path: ../_shared/journal-formats/jmca.md
+      when: "The target journal is JMCA."
+    journal-nature-materials-facts:
+      path: ../_shared/journal-formats/nature-materials.md
+      when: "The target journal is Nature Materials."
 
 assets:
   - assets

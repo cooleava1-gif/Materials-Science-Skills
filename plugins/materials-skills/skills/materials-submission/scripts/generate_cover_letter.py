@@ -15,18 +15,7 @@ from pathlib import Path
 
 import yaml
 
-PLUGIN_ROOT = Path(__file__).resolve().parents[3]
-JOURNAL_TEMPLATES = PLUGIN_ROOT / "_shared" / "journal-templates"
-
-PILOT_JOURNALS = ("cbm", "ccc", "rmpd", "jbe")
-
-
-def load_template(journal_id: str) -> dict:
-    path = JOURNAL_TEMPLATES / f"{journal_id}.yaml"
-    if not path.exists():
-        raise FileNotFoundError(f"journal template not found: {path}")
-    with path.open(encoding="utf-8") as fh:
-        return yaml.safe_load(fh)
+from template_support import SUPPORTED_JOURNALS, article_type_label, load_template
 
 
 def _decl(value: str, label: str) -> str:
@@ -48,6 +37,8 @@ def render_cover_letter(manifest: dict, template: dict, abstract: str) -> str:
     journal_name = template.get("full_name", template.get("journal_id", ""))
     title = manifest.get("title", "[TITLE MISSING]")
     article_type = manifest.get("article_type", "research-article")
+    article_label = article_type_label(template, article_type)
+    decl_req = template.get("declaration_requirements", {})
     corresponding = manifest.get("corresponding_author", "[CORRESPONDING AUTHOR MISSING]")
     funding = _decl(manifest.get("funding", ""), "funding statement")
     conflicts = _decl(manifest.get("conflicts", ""), "conflict of interest declaration")
@@ -57,7 +48,16 @@ def render_cover_letter(manifest: dict, template: dict, abstract: str) -> str:
     elif data_status == "not-applicable":
         data_line = "Data availability: not applicable"
     else:
-        data_line = "[LIVE-VERIFICATION: data availability status — user must verify]"
+        data_line = "[LIVE-VERIFICATION: data availability status - user must verify]"
+    code_line = ""
+    if decl_req.get("code_availability"):
+        code_status = manifest.get("code_availability_status", "")
+        if code_status == "ready":
+            code_line = "Code availability: ready"
+        elif code_status == "not-applicable":
+            code_line = "Code availability: not applicable"
+        else:
+            code_line = "[LIVE-VERIFICATION: code availability - verify if custom code was used]"
     reviewers = _get_suggested_reviewers(manifest)
     today = _dt.date.today().isoformat()
 
@@ -71,7 +71,7 @@ def render_cover_letter(manifest: dict, template: dict, abstract: str) -> str:
     lines.append("")
     lines.append("Dear Editor,")
     lines.append("")
-    lines.append(f'We wish to submit our manuscript entitled "{title}" for consideration as a {article_type} in {journal_name}.')
+    lines.append(f'We wish to submit our manuscript entitled "{title}" for consideration as a {article_label} in {journal_name}.')
     lines.append("")
     lines.append("[LLM: One paragraph summarizing the problem, approach, and key finding. "
                  "Use the manuscript title, the abstract below, and the journal's "
@@ -90,10 +90,16 @@ def render_cover_letter(manifest: dict, template: dict, abstract: str) -> str:
     lines.append(f"We believe this work aligns with the scope of {journal_name} because "
                  "[LLM: one sentence explaining the specific fit, using the triage points above].")
     lines.append("")
-    lines.append("Declarations:")
-    lines.append(f"- Funding: {funding}")
-    lines.append(f"- Conflicts of interest: {conflicts}")
-    lines.append(f"- {data_line}")
+    if any(decl_req.get(name) for name in ("funding", "conflict_of_interest", "data_availability", "code_availability")):
+        lines.append("Declarations:")
+    if decl_req.get("funding"):
+        lines.append(f"- Funding: {funding}")
+    if decl_req.get("conflict_of_interest"):
+        lines.append(f"- Conflicts of interest: {conflicts}")
+    if decl_req.get("data_availability"):
+        lines.append(f"- {data_line}")
+    if code_line:
+        lines.append(f"- {code_line}")
     if reviewers:
         lines.append("- Suggested reviewers:")
         for r in reviewers:
@@ -123,12 +129,15 @@ def main(argv: list[str] | None = None) -> int:
         manifest = yaml.safe_load(fh) or {}
 
     journal = manifest.get("target_journal")
-    if journal not in PILOT_JOURNALS:
-        print(f"target_journal {journal!r} not in pilot journals {PILOT_JOURNALS}", file=sys.stderr)
+    if journal not in SUPPORTED_JOURNALS:
+        print(f"target_journal {journal!r} not in supported journals {SUPPORTED_JOURNALS}", file=sys.stderr)
         return 1
 
     template = load_template(journal)
-    letter = render_cover_letter(manifest, template, args.abstract)
+    try:
+        letter = render_cover_letter(manifest, template, args.abstract)
+    except KeyError as exc:
+        parser.error(str(exc))
 
     if args.output == "-":
         print(letter)

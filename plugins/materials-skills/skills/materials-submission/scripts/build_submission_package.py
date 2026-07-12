@@ -16,11 +16,18 @@ from pathlib import Path
 
 import yaml
 
-PLUGIN_ROOT = Path(__file__).resolve().parents[3]
-JOURNAL_FORMATS = PLUGIN_ROOT / "_shared" / "journal-formats"
-JOURNAL_TEMPLATES = PLUGIN_ROOT / "_shared" / "journal-templates"
+from template_support import (
+    SUPPORTED_JOURNALS,
+    append_declaration_checklist_items,
+    append_required_field_items,
+    append_required_artifacts,
+    article_type_label,
+    find_article_type,
+    field_is_required,
+    load_template,
+    required_fields_for_article_type,
+)
 
-PILOT_JOURNALS = ("cbm", "ccc", "rmpd", "jbe")
 SKILL_DIR = Path(__file__).resolve().parents[1]
 
 
@@ -31,17 +38,13 @@ def load_yaml(path: Path) -> dict:
         return yaml.safe_load(fh) or {}
 
 
-def load_template(journal_id: str) -> dict:
-    return load_yaml(JOURNAL_TEMPLATES / f"{journal_id}.yaml")
-
-
 def check_refusal(manifest: dict, template: dict | None = None) -> list[str]:
     reasons = []
     if not manifest.get("live_verification_acknowledged"):
         reasons.append("live_verification_acknowledged is false")
     journal = manifest.get("target_journal")
-    if journal not in PILOT_JOURNALS:
-        reasons.append(f"target_journal {journal!r} not in pilot journals {PILOT_JOURNALS}")
+    if journal not in SUPPORTED_JOURNALS:
+        reasons.append(f"target_journal {journal!r} not in supported journals {SUPPORTED_JOURNALS}")
     if manifest.get("data_availability_status") == "pending" and not manifest.get("fair_package_path"):
         reasons.append("data_availability_status is pending but no fair_package_path set")
     if not manifest.get("title"):
@@ -117,15 +120,25 @@ def render_declarations(manifest: dict, template: dict) -> str:
         if value and value.strip():
             return f"- {label}: {value.strip()}"
         return f"- {label}: [LIVE-VERIFICATION: {key} — user must verify]"
-    lines.append(_line("Funding", manifest.get("funding", ""), "funding"))
-    lines.append(_line("Conflict of interest", manifest.get("conflicts", ""), "conflict of interest"))
+    if decl_req.get("funding"):
+        lines.append(_line("Funding", manifest.get("funding", ""), "funding"))
+    if decl_req.get("conflict_of_interest"):
+        lines.append(_line("Conflict of interest", manifest.get("conflicts", ""), "conflict of interest"))
     data_status = manifest.get("data_availability_status", "")
-    if data_status == "ready":
+    if decl_req.get("data_availability") and data_status == "ready":
         lines.append("- Data availability: ready (see FAIR package)")
-    elif data_status == "not-applicable":
+    elif decl_req.get("data_availability") and data_status == "not-applicable":
         lines.append("- Data availability: not applicable")
-    else:
-        lines.append("- Data availability: [LIVE-VERIFICATION: data availability — user must verify]")
+    elif decl_req.get("data_availability"):
+        lines.append("- Data availability: [LIVE-VERIFICATION: data availability - user must verify]")
+    if decl_req.get("code_availability"):
+        code_status = manifest.get("code_availability_status", "")
+        if code_status == "ready":
+            lines.append("- Code availability: ready")
+        elif code_status == "not-applicable":
+            lines.append("- Code availability: not applicable")
+        else:
+            lines.append("- Code availability: [LIVE-VERIFICATION: code availability - verify if custom code was used]")
     if decl_req.get("credit_author_statement"):
         lines.append("- CRediT author statement: [LIVE-VERIFICATION: user must fill CRediT roles]")
     if decl_req.get("ethics"):
@@ -171,11 +184,14 @@ def write_package(pkg_dir: Path, manifest: dict, template: dict, writing_state: 
     if template.get("highlights_required"):
         (pkg_dir / "highlights.md").write_text(render_highlights_inline(abstract, template), encoding="utf-8")
         written.append("highlights.md")
-    keywords = writing_state.get("keywords") or manifest.get("keywords") or []
-    (pkg_dir / "keywords.md").write_text("# Keywords\n\n" + "\n".join(f"- {k}" for k in keywords) + "\n", encoding="utf-8")
-    written.append("keywords.md")
-    (pkg_dir / "declarations.md").write_text(render_declarations(manifest, template), encoding="utf-8")
-    written.append("declarations.md")
+    article_type = manifest.get("article_type", "research-article")
+    if field_is_required(template, article_type, "keywords"):
+        keywords = writing_state.get("keywords") or manifest.get("keywords") or []
+        (pkg_dir / "keywords.md").write_text("# Keywords\n\n" + "\n".join(f"- {k}" for k in keywords) + "\n", encoding="utf-8")
+        written.append("keywords.md")
+    if field_is_required(template, article_type, "declarations"):
+        (pkg_dir / "declarations.md").write_text(render_declarations(manifest, template), encoding="utf-8")
+        written.append("declarations.md")
     (pkg_dir / "submission-checklist.md").write_text(render_checklist_inline(manifest, template), encoding="utf-8")
     written.append("submission-checklist.md")
     (pkg_dir / "manuscript").mkdir(exist_ok=True)
@@ -209,16 +225,27 @@ def render_cover_letter_inline(manifest: dict, template: dict, abstract: str) ->
     journal_name = template.get("full_name", "")
     title = manifest.get("title", "[TITLE MISSING]")
     article_type = manifest.get("article_type", "research-article")
+    article_label = article_type_label(template, article_type)
+    decl_req = template.get("declaration_requirements", {})
     corresponding = manifest.get("corresponding_author", "[CORRESPONDING AUTHOR MISSING]")
     funding = manifest.get("funding", "").strip() or "[LIVE-VERIFICATION: funding — user must verify]"
     conflicts = manifest.get("conflicts", "").strip() or "[LIVE-VERIFICATION: conflict of interest — user must verify]"
     data_status = manifest.get("data_availability_status", "")
     if data_status == "ready":
         data_line = "Data availability: ready (see FAIR package)"
-    elif data_status == "not-applicable":
+    elif decl_req.get("data_availability") and data_status == "not-applicable":
         data_line = "Data availability: not applicable"
-    else:
-        data_line = "[LIVE-VERIFICATION: data availability — user must verify]"
+    elif decl_req.get("data_availability"):
+        data_line = "[LIVE-VERIFICATION: data availability - user must verify]"
+    code_line = ""
+    if decl_req.get("code_availability"):
+        code_status = manifest.get("code_availability_status", "")
+        if code_status == "ready":
+            code_line = "Code availability: ready"
+        elif code_status == "not-applicable":
+            code_line = "Code availability: not applicable"
+        else:
+            code_line = "[LIVE-VERIFICATION: code availability - verify if custom code was used]"
     today = _dt.date.today().isoformat()
     lines = [
         f"# Cover Letter — {journal_name}", "",
@@ -226,7 +253,7 @@ def render_cover_letter_inline(manifest: dict, template: dict, abstract: str) ->
         "Editorial Office", journal_name, "",
         "Dear Editor,",
         "",
-        f'We wish to submit our manuscript entitled "{title}" for consideration as a {article_type} in {journal_name}.',
+        f'We wish to submit our manuscript entitled "{title}" for consideration as a {article_label} in {journal_name}.',
         "",
         "[LLM: One paragraph summarizing the problem, approach, and key finding. "
         "Use the title, abstract, and journal triage points. Do not repeat detailed methods or results.]",
@@ -244,11 +271,17 @@ def render_cover_letter_inline(manifest: dict, template: dict, abstract: str) ->
         f"We believe this work aligns with the scope of {journal_name} because "
         "[LLM: one sentence explaining the specific fit].",
         "",
-        "Declarations:",
-        f"- Funding: {funding}",
-        f"- Conflicts of interest: {conflicts}",
-        f"- {data_line}",
     ]
+    if any(decl_req.get(name) for name in ("funding", "conflict_of_interest", "data_availability", "code_availability")):
+        lines.append("Declarations:")
+    if decl_req.get("funding"):
+        lines.append(f"- Funding: {funding}")
+    if decl_req.get("conflict_of_interest"):
+        lines.append(f"- Conflicts of interest: {conflicts}")
+    if decl_req.get("data_availability"):
+        lines.append(f"- {data_line}")
+    if code_line:
+        lines.append(f"- {code_line}")
     reviewers = get_suggested_reviewers(manifest)
     if reviewers:
         lines.append("- Suggested reviewers:")
@@ -287,38 +320,23 @@ def render_highlights_inline(abstract: str, template: dict) -> str:
 
 def render_checklist_inline(manifest: dict, template: dict) -> str:
     article_type = manifest.get("article_type", "research-article")
-    at = {}
-    for entry in template.get("article_types", []):
-        if entry.get("id") == article_type:
-            at = entry
-            break
-    decl = template.get("declaration_requirements", {})
+    at = find_article_type(template, article_type)
     lines = [
-        f"# Submission Checklist — {template.get('full_name', template.get('journal_id'))}", "",
-        f"Article type: {article_type}",
+        f"# Submission Checklist - {template.get('full_name', template.get('journal_id'))}", "",
+        f"Article type: {article_type_label(template, article_type)}",
         f"Word limit: {at.get('word_limit', 'verify')}",
-        f"Abstract words: {at.get('abstract_words', 'verify')}",
+        f"Abstract words: {at.get('abstract_words', 'verify')}" if at.get("abstract_required") is not False else "Abstract: not required",
         "",
         "## Mandatory items",
-        "- [ ] Title",
-        "- [ ] Authors, affiliations, corresponding author",
-        f"- [ ] {at.get('abstract_structure', 'structured')} abstract within {at.get('abstract_words', 'verify')} words",
-        "- [ ] Keywords (3-6)",
     ]
+    append_required_field_items(lines, template, article_type)
     if template.get("highlights_required"):
         rules = template.get("highlights_rules", {})
         lines.append(f"- [ ] Highlights {rules.get('min_count',3)}-{rules.get('max_count',5)} items, ≤{rules.get('max_characters_per_item',85)} characters each")
-    lines += ["", "## Declarations"]
-    if decl.get("data_availability"):
-        lines.append("- [ ] Data availability statement")
-    if decl.get("credit_author_statement"):
-        lines.append("- [ ] CRediT author statement")
-    if decl.get("conflict_of_interest"):
-        lines.append("- [ ] Declaration of competing interest")
-    if decl.get("funding"):
-        lines.append("- [ ] Funding statement")
-    if decl.get("ethics"):
-        lines.append("- [ ] Ethics statement (if applicable)")
+    if field_is_required(template, article_type, "declarations"):
+        lines += ["", "## Declarations"]
+        append_declaration_checklist_items(lines, template)
+    append_required_artifacts(lines, template)
     lines += ["", "## Figures and references",
               "- [ ] Figures meet resolution and format requirements",
               "- [ ] References in journal style",
@@ -347,7 +365,7 @@ def main(argv: list[str] | None = None) -> int:
     manifest = load_yaml(manifest_path)
 
     journal = manifest.get("target_journal", "")
-    template = load_template(journal) if journal in PILOT_JOURNALS else {}
+    template = load_template(journal) if journal in SUPPORTED_JOURNALS else {}
     # Check refusal conditions (with template for article_type validation)
     reasons = check_refusal(manifest, template if template else None)
     if reasons:
@@ -367,7 +385,20 @@ def main(argv: list[str] | None = None) -> int:
         print(render_manifest_md(manifest, template, writing_state, gates))
         print("")
         print("Files that would be written:")
-        for f in ["MANIFEST.md", "cover-letter.md"] + (["highlights.md"] if template.get("highlights_required") else []) + ["keywords.md", "declarations.md", "submission-checklist.md", "manuscript/SOURCE.md", "figures/SOURCE.md", "data/SOURCE.md", "reviewer-risk-regression.md"]:
+        article_type = manifest.get("article_type", "research-article")
+        try:
+            required_fields = set(required_fields_for_article_type(template, article_type))
+        except KeyError:
+            required_fields = set(template.get("required_fields") or [])
+        files = ["MANIFEST.md", "cover-letter.md"]
+        if template.get("highlights_required"):
+            files.append("highlights.md")
+        if "keywords" in required_fields:
+            files.append("keywords.md")
+        if "declarations" in required_fields:
+            files.append("declarations.md")
+        files += ["submission-checklist.md", "manuscript/SOURCE.md", "figures/SOURCE.md", "data/SOURCE.md", "reviewer-risk-regression.md"]
+        for f in files:
             print(f"  {f}")
         return 0
 

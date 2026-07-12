@@ -11,20 +11,7 @@ import argparse
 import sys
 from pathlib import Path
 
-import yaml
-
-PLUGIN_ROOT = Path(__file__).resolve().parents[3]
-JOURNAL_TEMPLATES = PLUGIN_ROOT / "_shared" / "journal-templates"
-
-PILOT_JOURNALS = ("cbm", "ccc", "rmpd", "jbe")
-
-
-def load_template(journal_id: str) -> dict:
-    path = JOURNAL_TEMPLATES / f"{journal_id}.yaml"
-    if not path.exists():
-        raise FileNotFoundError(f"journal template not found: {path}")
-    with path.open(encoding="utf-8") as fh:
-        return yaml.safe_load(fh)
+from template_support import SUPPORTED_JOURNALS, load_template
 
 
 def render_skeleton(abstract: str, template: dict) -> str:
@@ -68,7 +55,7 @@ def validate_highlights(path: Path, max_chars: int) -> list[str]:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--journal", required=True, choices=PILOT_JOURNALS)
+    parser.add_argument("--journal", required=True, choices=SUPPORTED_JOURNALS)
     parser.add_argument("--abstract", default="", help="manuscript abstract")
     parser.add_argument("--highlights-file", help="existing highlights file to validate")
     parser.add_argument("--output", default="-", help="output path or '-' for stdout")

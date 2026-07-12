@@ -9,8 +9,8 @@ submission-package/
   MANIFEST.md
   cover-letter.md
   highlights.md
-  keywords.md
-  declarations.md
+  keywords.md              # when required by the article route
+  declarations.md          # when required by the article route
   submission-checklist.md
   manuscript/SOURCE.md
   figures/SOURCE.md

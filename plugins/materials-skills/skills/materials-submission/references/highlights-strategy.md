@@ -1,29 +1,11 @@
 # Highlights Strategy
 
-## When to produce
+Produce `highlights.md` only when `highlights_required` is true in the selected
+journal template.
 
-Produce `highlights.md` only when `highlights_required` is true in the
-journal-templates yaml. CBM, CCC, and JBE require highlights. RMPD does
-not.
+Current templates require highlights for CBM, CCC, JBE, Building and
+Environment, and Energy and Buildings. RMPD, Acta Materialia, Ceramics
+International, JMCA, and Nature Materials do not use this highlights output.
 
-## Inputs
-
-- Manuscript abstract (from writing state or manifest).
-- Optional key-findings fields from the writing state.
-
-## Generation
-
-The LLM extracts 3-5 highlights from the abstract. Each highlight must be
-a single line ≤85 characters.
-
-## Boundary
-
-Do not invent findings absent from the abstract. If the abstract is
-missing, the script leaves a placeholder and asks the user to supply an
-abstract first.
-
-## Character limit enforcement
-
-`generate_highlights.py` rejects any highlight longer than 85 characters
-and asks the LLM to rewrite it. The script exits non-zero if any highlight
-exceeds the limit after one rewrite.
+The generator enforces the template's item count and character limit. It must
+only extract claims supported by the supplied abstract.

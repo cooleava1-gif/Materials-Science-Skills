@@ -1,0 +1,60 @@
+journal_id: energy-buildings
+full_name: Energy and Buildings
+publisher: elsevier
+official_class: elsarticle.cls
+document_class_line: "\\documentclass[review,numbered]{elsarticle}"
+official_template_url: https://www.sciencedirect.com/journal/energy-and-buildings/publish/guide-for-authors
+submission_portal: https://www.editorialmanager.com/ENB/
+article_types:
+  - id: research-article
+    submission_label: Research Article
+    word_limit: "verify current Guide for Authors"
+    abstract_words: 250
+    abstract_structure: unstructured
+    references: "no hard cap"
+  - id: review-article
+    submission_label: Review Article
+    word_limit: "verify current Guide for Authors"
+    abstract_words: "verify current Guide for Authors"
+    abstract_structure: unstructured
+    references: "comprehensive"
+  - id: short-communication
+    submission_label: Short communication
+    word_limit: "verify current Guide for Authors"
+    abstract_words: "verify current Guide for Authors"
+    abstract_structure: unstructured
+    references: "verify current Guide for Authors"
+required_fields:
+  - title
+  - abstract
+  - keywords
+  - authors
+  - affiliations
+  - corresponding_author
+  - declarations
+declaration_requirements:
+  data_availability: true
+  credit_author_statement: true
+  conflict_of_interest: true
+  funding: true
+  ethics: conditional
+cover_letter_required_points:
+  - "What the finding is (one sentence)"
+  - "What is novel about it (one sentence)"
+  - "Why it matters to building energy performance (one sentence)"
+highlights_required: true
+highlights_rules:
+  min_count: 3
+  max_count: 5
+  max_characters_per_item: 85
+required_artifacts:
+  - id: graphical-abstract
+    label: Graphical abstract
+    stage: initial-submission
+    required: true
+live_verification_fields:
+  - word_limit
+  - abstract_words
+  - references_cap
+  - apc_rate
+  - submission_portal_url

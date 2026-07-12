@@ -23,7 +23,7 @@ article_types:
     references: 20
 required_fields:
   - title
-  - structured_abstract
+  - abstract
   - keywords
   - authors
   - affiliations

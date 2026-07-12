@@ -18,7 +18,7 @@ article_types:
     references: "100+"
 required_fields:
   - title
-  - unstructured_abstract
+  - abstract
   - keywords
   - authors
   - affiliations

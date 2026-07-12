@@ -1,0 +1,70 @@
+journal_id: jmca
+full_name: Journal of Materials Chemistry A
+publisher: rsc
+official_class: rsc-article.cls
+document_class_line: "\\documentclass{rsc}"
+official_template_url: https://www.rsc.org/publishing/publish-with-us/publish-a-journal-article/journal-of-materials-chemistry-a
+submission_portal: https://mc.manuscriptcentral.com/jmca
+article_types:
+  - id: research-article
+    submission_label: Article
+    word_limit: "about 6000"
+    abstract_words: 150
+    abstract_structure: unstructured
+    references: "40-60 typical"
+  - id: short-communication
+    submission_label: Communication
+    word_limit: 3000
+    abstract_words: 100
+    abstract_structure: unstructured
+    references: "20-25"
+  - id: review-article
+    submission_label: Review
+    word_limit: "8000-15000"
+    abstract_words: 200
+    abstract_structure: unstructured
+    references: "100+"
+  - id: perspective
+    submission_label: Perspective
+    word_limit: "about 4000"
+    abstract_words: 150
+    abstract_structure: unstructured
+    references: "about 50"
+required_fields:
+  - title
+  - abstract
+  - keywords
+  - authors
+  - affiliations
+  - corresponding_author
+  - declarations
+declaration_requirements:
+  data_availability: true
+  credit_author_statement: true
+  conflict_of_interest: true
+  funding: false
+  ethics: conditional
+cover_letter_required_points:
+  - "The materials advance for energy or sustainability (one sentence)"
+  - "Performance metrics and how they compare to state-of-the-art (one sentence)"
+  - "Broader impact on energy or environmental sustainability (one sentence)"
+highlights_required: false
+highlights_rules:
+  min_count: 0
+  max_count: 0
+  max_characters_per_item: 0
+required_artifacts:
+  - id: electronic-supplementary-information
+    label: Electronic Supplementary Information (ESI)
+    stage: initial-submission
+    required: conditional
+  - id: toc-entry
+    label: TOC entry
+    stage: revision
+    required: true
+live_verification_fields:
+  - word_limit
+  - abstract_words
+  - references_cap
+  - apc_rate
+  - submission_portal_url
