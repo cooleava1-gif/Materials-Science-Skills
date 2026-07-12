@@ -35,7 +35,7 @@ def load_template(journal_id: str) -> dict:
     return load_yaml(JOURNAL_TEMPLATES / f"{journal_id}.yaml")
 
 
-def check_refusal(manifest: dict) -> list[str]:
+def check_refusal(manifest: dict, template: dict | None = None) -> list[str]:
     reasons = []
     if not manifest.get("live_verification_acknowledged"):
         reasons.append("live_verification_acknowledged is false")
@@ -48,6 +48,12 @@ def check_refusal(manifest: dict) -> list[str]:
         reasons.append("title is missing")
     if not manifest.get("corresponding_author"):
         reasons.append("corresponding_author is missing")
+    # Validate article_type against journal template
+    article_type = manifest.get("article_type", "research-article")
+    if template and template.get("article_types"):
+        valid_types = [at.get("id") for at in template["article_types"]]
+        if article_type not in valid_types:
+            reasons.append(f"article_type {article_type!r} not in {valid_types}")
     return reasons
 
 
@@ -164,13 +170,25 @@ def write_package(pkg_dir: Path, manifest: dict, template: dict, writing_state: 
     (pkg_dir / "submission-checklist.md").write_text(render_checklist_inline(manifest, template), encoding="utf-8")
     written.append("submission-checklist.md")
     (pkg_dir / "manuscript").mkdir(exist_ok=True)
-    (pkg_dir / "manuscript" / "SOURCE.md").write_text(render_source_stub("Manuscript", manifest.get("writing_state_path", ""), "supplied" if manifest.get("writing_state_path") else "not_supplied"), encoding="utf-8")
+    ws_path = manifest.get("writing_state_path", "")
+    ws_status = "supplied" if ws_path else "not_supplied"
+    (pkg_dir / "manuscript" / "SOURCE.md").write_text(
+        render_source_stub("Manuscript", ws_path, ws_status), encoding="utf-8"
+    )
     written.append("manuscript/SOURCE.md")
     (pkg_dir / "figures").mkdir(exist_ok=True)
-    (pkg_dir / "figures" / "SOURCE.md").write_text(render_source_stub("Figures", manifest.get("figure_package_path", ""), "supplied" if manifest.get("figure_package_path") else "not_supplied"), encoding="utf-8")
+    fig_path = manifest.get("figure_package_path", "")
+    fig_status = "supplied" if fig_path else "not_supplied"
+    (pkg_dir / "figures" / "SOURCE.md").write_text(
+        render_source_stub("Figures", fig_path, fig_status), encoding="utf-8"
+    )
     written.append("figures/SOURCE.md")
     (pkg_dir / "data").mkdir(exist_ok=True)
-    (pkg_dir / "data" / "SOURCE.md").write_text(render_source_stub("Data", manifest.get("fair_package_path", ""), "supplied" if manifest.get("fair_package_path") else "not_supplied"), encoding="utf-8")
+    fair_path = manifest.get("fair_package_path", "")
+    fair_status = "supplied" if fair_path else "not_supplied"
+    (pkg_dir / "data" / "SOURCE.md").write_text(
+        render_source_stub("Data", fair_path, fair_status), encoding="utf-8"
+    )
     written.append("data/SOURCE.md")
     (pkg_dir / "reviewer-risk-regression.md").write_text(render_reviewer_risk(gates), encoding="utf-8")
     written.append("reviewer-risk-regression.md")
@@ -221,7 +239,15 @@ def render_cover_letter_inline(manifest: dict, template: dict, abstract: str) ->
         f"- Funding: {funding}",
         f"- Conflicts of interest: {conflicts}",
         f"- {data_line}",
-        "- Suggested reviewers: [omitted — supply real names only if available]",
+    ]
+    reviewers = manifest.get("suggested_reviewers") or []
+    if reviewers:
+        lines.append("- Suggested reviewers:")
+        for r in reviewers:
+            lines.append(f"  - {r}")
+    else:
+        lines.append("- Suggested reviewers: [omitted — supply real names only if available]")
+    lines += [
         "",
         "Thank you for your consideration.",
         "",
@@ -311,7 +337,10 @@ def main(argv: list[str] | None = None) -> int:
         return 1
     manifest = load_yaml(manifest_path)
 
-    reasons = check_refusal(manifest)
+    journal = manifest.get("target_journal", "")
+    template = load_template(journal) if journal in PILOT_JOURNALS else {}
+    # Check refusal conditions (with template for article_type validation)
+    reasons = check_refusal(manifest, template if template else None)
     if reasons:
         print("Refusal conditions met:", file=sys.stderr)
         for r in reasons:
@@ -319,8 +348,6 @@ def main(argv: list[str] | None = None) -> int:
         print("Emitting dry-run only.", file=sys.stderr)
         args.dry_run = True
 
-    journal = manifest.get("target_journal", "")
-    template = load_template(journal) if journal in PILOT_JOURNALS else {}
     writing_state = read_writing_state(manifest.get("writing_state_path", "")) if manifest.get("writing_state_path") else {}
     abstract = writing_state.get("abstract") or manifest.get("abstract") or ""
     rows = read_weakness_routing(manifest.get("weakness_routing_path", ""))

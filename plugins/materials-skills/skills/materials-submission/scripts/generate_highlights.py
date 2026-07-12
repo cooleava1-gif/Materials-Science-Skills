@@ -51,12 +51,15 @@ def render_skeleton(abstract: str, template: dict) -> str:
 
 
 def validate_highlights(path: Path, max_chars: int) -> list[str]:
+    import re
     text = path.read_text(encoding="utf-8")
     highlights = []
+    pattern = re.compile(r"^\d+\.\s+(.+)$")
     for line in text.splitlines():
         stripped = line.strip()
-        if stripped and stripped[0].isdigit() and "." in stripped[:3]:
-            highlight = stripped.split(".", 1)[1].strip()
+        match = pattern.match(stripped)
+        if match:
+            highlight = match.group(1).strip()
             if highlight and not highlight.startswith("[LLM"):
                 highlights.append(highlight)
     violations = [h for h in highlights if len(h) > max_chars]
