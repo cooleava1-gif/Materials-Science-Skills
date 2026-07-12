@@ -1,6 +1,6 @@
 # materials-writing
 
-**Version:** 1.2.0
+**Version:** 1.3.0
 
 **What it does** — `materials-writing` is an evidence-first, section-aware drafting engine for materials science manuscripts. It turns claims, results, notes, and outlines into bounded prose. It does not generate freeform text from prompts; it runs a staged workflow that locks terminology, writes a one-sentence argument, maps paragraph messages, passes a confirmation gate, and only then drafts prose that can be traced back to evidence.
 
@@ -27,6 +27,12 @@
 
 The two material axes (`material_family` and `domain`) are what make the writing skill vertical for materials science: they route into the matching domain narrative, the matching phrase bank, and the matching section-pattern arc in a single pass.
 
+**Tiered confirmation gate**
+
+- A genuinely local single-paragraph edit can run the terminology and argument checks internally and proceed directly to the edit when the claim, evidence, and boundary are clear.
+- A single-section, full-manuscript, or multi-section job shows the one-sentence argument, plan, terminology lock, assumptions, and targeted questions before full prose.
+- QA or multi-round revision loads the content-first pipeline and state-machine references on demand; it does not add those references to the default core prompt.
+
 **File layout**
 
 ```text
@@ -47,6 +53,8 @@ skills/materials-writing/
 ├── references/
 │   ├── argument-chain.md              # fast one-sentence argument template
 │   ├── article-architecture.md        # full-paper move map
+│   ├── content-first-qa-pipeline.md   # opt-in post-draft QA order
+│   ├── state-machine/                 # opt-in continuity and stop rules
 │   ├── review-paper-strategy.md       # synthesis-axes review strategy
 │   ├── wer-ea-mini-review-pipeline.md # WER-EA review pipeline
 │   ├── reviewer-risk-writing.md       # overclaim and missing-evidence risk
@@ -78,7 +86,7 @@ skills/materials-writing/
 |---|---|
 | Evidence first | Every claim maps to evidence; no overclaim, no speculation as fact. |
 | Terminology lock | Canonical forms are locked before drafting; drafts do not reintroduce variants. |
-| Confirmation gate | Full section output is produced only after the one-sentence argument, plan, and terminology are confirmed. |
+| Confirmation gate | Full section output is produced only after the one-sentence argument, plan, and terminology are shown for confirmation; only a genuinely local paragraph edit uses the fast path. |
 | Paragraph flow | One paragraph, one message; first sentence forecasts the message; transitions carry the argument forward. |
 | Abstract | Background pain -> contribution -> result -> application boundary. |
 | Introduction | Gap ladder from field progress to explicit evidence gap and paper entry. |

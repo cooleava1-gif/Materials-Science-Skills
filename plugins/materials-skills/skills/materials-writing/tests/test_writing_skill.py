@@ -4,6 +4,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+import yaml
+
 def _find_repo_root():
     p = Path(__file__).resolve()
     for parent in [p] + list(p.parents):
@@ -19,6 +21,41 @@ from scripts.skill_manifest import discover_skill_names
 
 
 class WritingSkillStructureTest(unittest.TestCase):
+    def test_slim_router_keeps_profile_and_explicit_fragment_loading(self):
+        manifest = yaml.safe_load((SKILL_ROOT / "manifest.yaml").read_text(encoding="utf-8"))
+        self.assertIn("../_shared/core/direction-profile.md", manifest["always_load"])
+
+        skill_text = (SKILL_ROOT / "SKILL.md").read_text(encoding="utf-8").lower()
+        self.assertIn("for each selected axis", skill_text)
+        self.assertIn("read the mapped path", skill_text)
+        self.assertIn("profile precedence", skill_text)
+
+    def test_opt_in_qa_references_are_declared_and_exist(self):
+        manifest = yaml.safe_load((SKILL_ROOT / "manifest.yaml").read_text(encoding="utf-8"))
+        on_demand = manifest["references"]["on_demand"]
+        expected = {
+            "foundation-files",
+            "stopping-rules",
+            "evaluation-rubric",
+            "validation-checklist",
+            "content-first-qa-pipeline",
+        }
+        self.assertTrue(expected.issubset(on_demand))
+        for name in expected:
+            path = SKILL_ROOT / on_demand[name]["path"]
+            self.assertTrue(path.exists(), f"missing QA reference: {path}")
+
+    def test_core_contract_links_resolve_from_static_core(self):
+        contract = (SKILL_ROOT / "static" / "core" / "contract.md").read_text(encoding="utf-8")
+        self.assertIn("../../../_shared/core/stance.md", contract)
+        self.assertIn("../../../_shared/paper-production/weakness-routing.md", contract)
+
+    def test_readme_documents_tiered_confirmation_gate(self):
+        readme = (SKILL_ROOT / "README.md").read_text(encoding="utf-8").lower()
+        self.assertIn("single-section", readme)
+        self.assertIn("full-manuscript", readme)
+        self.assertIn("confirmation gate", readme)
+
     def test_skill_entrypoint_manifest_agent_and_release_checks_exist(self):
         skill = SKILL_ROOT / "SKILL.md"
         manifest = SKILL_ROOT / "manifest.yaml"

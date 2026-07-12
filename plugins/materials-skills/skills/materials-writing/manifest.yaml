@@ -1,16 +1,14 @@
-version: "1.2.0"
+version: "1.3.0"
 status: stable
 
+# Minimal always_load: the architecture entry (contract), direction profile,
+# shared stance (identity + never-invent + placeholders), drafting workflow,
+# and output format. Everything else loads on demand from the axes or the
+# references.on_demand table below.
 always_load:
   - static/core/contract.md
   - ../_shared/core/direction-profile.md
   - ../_shared/core/stance.md
-  - ../_shared/core/evidence-contract.md
-  - ../_shared/core/claim-strength-ladder.md
-  - ../_shared/core/terminology-ledger.md
-  - ../_shared/core/ethics.md
-  - ../_shared/paper-production/weakness-routing.md
-  - static/core/stance.md
   - static/core/workflow.md
   - static/core/output-format.md
 
@@ -174,6 +172,36 @@ axes:
 
 references:
   on_demand:
+    evidence-contract:
+      path: ../_shared/core/evidence-contract.md
+      when: "Building a claim-evidence table, auditing overclaim, or checking evidence support for a major claim."
+    claim-strength-ladder:
+      path: ../_shared/core/claim-strength-ladder.md
+      when: "Calibrating verb strength to evidence (Stage 5b) or sweeping for overclaim words (Stage 5c)."
+    terminology-ledger:
+      path: ../_shared/core/terminology-ledger.md
+      when: "Locking recurring domain terms before drafting (Stage 1), or seeding the ledger from an experiment record."
+    ethics:
+      path: ../_shared/core/ethics.md
+      when: "Citation attribution, AI traffic-light boundary, or materials-specific fabrication prohibitions need checking."
+    weakness-routing:
+      path: ../_shared/paper-production/weakness-routing.md
+      when: "A handoff artifact is missing and the weakness must be routed instead of inventing evidence."
+    content-first-qa-pipeline:
+      path: references/content-first-qa-pipeline.md
+      when: "Auditing, revising, or polishing a draft after initial drafting; content review must precede language review."
+    foundation-files:
+      path: references/state-machine/foundation-files.md
+      when: "A QA or multi-round revision task needs project-level continuity and foundation-file checks."
+    stopping-rules:
+      path: references/state-machine/stopping-rules.md
+      when: "A QA or multi-round revision task needs a stop-or-continue decision."
+    evaluation-rubric:
+      path: references/state-machine/evaluation-rubric.md
+      when: "A QA task needs anchored dimension scores or a target threshold."
+    validation-checklist:
+      path: references/state-machine/validation-checklist.md
+      when: "A QA task needs traceability, methods, argument, risk, and output checks."
     argument-chain:
       path: references/argument-chain.md
       when: "The user needs paper logic, contribution chain, or section-to-section flow."
