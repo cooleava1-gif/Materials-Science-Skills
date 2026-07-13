@@ -81,6 +81,14 @@
         {
           "name": "correct_fragments_loaded",
           "description": "The response references or loads the appropriate domain and journal fragments corresponding to the detected classifications."
+        },
+        {
+          "name": "selected_fragments_loaded_from_manifest",
+          "description": "The routing protocol reads the mapped path for each selected task, domain, and journal axis from manifest.yaml before producing the plan."
+        },
+        {
+          "name": "evidence_contract_loaded_when_building_ladder",
+          "description": "When the workflow builds or inspects a claim-evidence ladder, the routing protocol loads the shared evidence-contract reference."
         }
       ],
       "files": []

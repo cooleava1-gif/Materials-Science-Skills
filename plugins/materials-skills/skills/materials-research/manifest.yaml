@@ -1,12 +1,11 @@
-version: 1.1.0
+version: 1.2.0
 status: stable
+# Minimal always_load: profile precedence, operating stance, and the core
+# workflow. evidence-contract, research-state-contract, and weakness-routing
+# load on demand — see the on_demand entries below.
 always_load:
-- static/core/contract.md
 - ../_shared/core/direction-profile.md
 - ../_shared/core/stance.md
-- ../_shared/core/evidence-contract.md
-- ../_shared/core/research-state-contract.md
-- ../_shared/paper-production/weakness-routing.md
 - static/core/workflow.md
 axes:
   task:
@@ -550,6 +549,10 @@ axes:
         trigger_file: ../../_shared/triggers/journal/acta-materialia.yaml
 references:
   on_demand:
+    evidence-contract:
+      path: ../_shared/core/evidence-contract.md
+      when: The task requires building or auditing a claim-evidence ladder, or
+        checking claim strength against the evidence hierarchy.
     asphalt-waterborne-epoxy:
       path: references/asphalt-waterborne-epoxy.md
       when: The task concerns waterborne epoxy modified emulsified asphalt, bonding,

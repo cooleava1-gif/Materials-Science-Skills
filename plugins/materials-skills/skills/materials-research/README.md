@@ -1,6 +1,6 @@
 # materials-research
 
-**Version:** 1.1.0
+**Version:** 1.2.0
 
 **What it does** — The front door and paper-production orchestrator for the
 bundle. Start here when the user need is broad, multi-stage, or not yet
