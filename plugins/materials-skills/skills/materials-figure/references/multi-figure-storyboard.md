@@ -480,7 +480,7 @@ A manuscript passes when:
 ## Related files
 
 - [SKILL.md](../SKILL.md) — When to use this skill
-- [contract.md](../static/core/contract.md) — The five-point figure contract
+- [contract.md](../static/core/contract.md) — The eight-point figure contract
 - [figure_storyboard.yaml](../assets/templates/figure-storyboard/figure_storyboard.yaml) — Storyboard template
 - [check_storyboard.py](../scripts/check_storyboard.py) — Storyboard validation script
 - [materials-validation.md](materials-validation.md) — Materials knowledge validation

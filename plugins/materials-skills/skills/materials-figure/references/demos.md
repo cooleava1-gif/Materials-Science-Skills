@@ -14,12 +14,15 @@ consumption of alite peaks and growth of portlandite + C-S-H gel.
 **Pipeline:**
 
 1. **Read** `plot.py` and `data/synthetic.csv` to understand the input.
-2. **Open** `static/core/contract.md` and write the five-point contract:
+2. **Open** `static/core/contract.md` and write the eight-point contract:
    - Core conclusion: see above
    - Evidence chain: stacked area chart of phase fractions over time
    - Archetype: quantitative grid (3 stacked subplots)
    - Backend: Python only
    - Export: 300 dpi PNG + SVG, color-vision-safe
+   - Statistics/image integrity: replicate count, error-bar definition, and image provenance
+   - Claim boundary: phase evidence is not a complete mechanism claim
+   - Reviewer risks: peak overlap, baseline correction, and incomplete phase matching
 3. **Package** the demo in a working output directory with `source_data.csv`
    and `figure_contract.md`. The `materials4papers/` source directories are
    reference examples; they are not themselves complete validation packages.
@@ -44,7 +47,7 @@ under tension-tension (R = 0.1) loading.
 **Pipeline:**
 
 1. **Read** `plot.py` and CSV (fatigue_cfrp.csv, fatigue_gfrp.csv).
-2. **Contract** the five points.
+2. **Contract** the eight required fields.
 3. **Package and validate** with the KB engine after copying the relevant CSV
    into `source_data.csv` and writing `figure_contract.md`; CFRP and GFRP are
    polymers, and the endurance claim should not contradict the KB.

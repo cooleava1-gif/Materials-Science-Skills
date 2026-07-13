@@ -1,6 +1,6 @@
 # materials-figure
 
-**Version:** 2.0.0
+**Version:** 2.1.0
 
 **What it does** — Generates journal-ready multi-panel figures for materials
 manuscripts: mechanism maps, evidence heatmaps, dosage-window plots,
@@ -40,7 +40,7 @@ figure-package/
 
 ```text
 contract draft -> LLM/user confirmation -> contract validation
-  -> validate_materials_claims.py (optional) -> LLM writes plot.py
+  -> materials validation when material entities are present -> LLM writes plot.py
   -> SVG/PNG export -> QA review
 ```
 
@@ -49,8 +49,9 @@ The LLM generates `figure_contract.md`, `source_data.csv`, `plot.py`, `figure.sv
 **Key rules enforced**
 
 - Python-only plotting backend; no silent fallback to another stack.
-- Figure contract written before plotting: core conclusion, evidence chain,
-  panel map, target journal, statistics/units/scale bars, claim boundary.
+- Figure contract written before plotting with eight required fields: core
+  conclusion, evidence chain, archetype, Python backend, journal/export
+  contract, statistics/image integrity, claim boundary, and reviewer risks.
 - Caption boundaries separate measured from inferred claims.
 - Export bundle includes SVG, PDF, PNG, and TIFF when possible.
 - QA report covers Python backend exclusivity, export checks, and caption
@@ -86,9 +87,9 @@ skills/materials-figure/
 ├── SKILL.md
 ├── manifest.yaml
 ├── scripts/
-│   ├── validate_materials_claims.py   optional materials knowledge validation
+│   ├── validate_materials_claims.py   conditional materials knowledge validation
 │   ├── data_package_to_figure_handoff.py
-│   └── check_storyboard.py            optional multi-figure storyboard check
+│   └── check_storyboard.py            multi-figure storyboard check
 ├── assets/
 │   └── templates/                     contract, plot.py, caption, QA templates
 ├── examples/figure-packages/          small runnable source examples
@@ -111,12 +112,14 @@ GridSpec multi-panel, XRD pattern, stress-strain curve, TGA/DSC overlay,
 thermal expansion, Weibull plot, grain-size distribution, EIS Nyquist plot,
 sintering curve.
 
-**Optional validation tools**
+**Conditional validation tools**
 
 - Materials knowledge validation:
   `plugins/materials-skills/skills/materials-figure/scripts/validate_materials_claims.py`
+  (mandatory when the figure contains XRD, FTIR, or performance claims)
 - Multi-figure storyboard check:
   `plugins/materials-skills/skills/materials-figure/scripts/check_storyboard.py`
+  (mandatory for multi-figure manuscript workflows)
 - Bundle verification:
   repo root: `python .\scripts\run_release_checks.py --json`
   plugin root: `python .\scripts\run_release_checks.py --json`

@@ -9,7 +9,7 @@ Python-only:
 
 ```text
 source table -> contract draft/review -> contract validation
-  -> materials validation (optional) -> LLM writes plot.py
+  -> materials validation when material entities are present -> LLM writes plot.py
   -> SVG/PNG export -> QA review
 ```
 
@@ -18,7 +18,7 @@ source table -> contract draft/review -> contract validation
 ### 1. Draft the figure contract
 
 Write `figure_contract.md` from the source table and the user's goal, filling
-all seven points with substantive content:
+all eight required fields with substantive content:
 
 - core conclusion,
 - evidence chain,
@@ -26,7 +26,7 @@ all seven points with substantive content:
 - Python backend readiness,
 - journal/export contract,
 - statistics and image integrity,
-- WER-EA or materials claim boundary,
+- materials claim boundary,
 - reviewer risks.
 
 ### 2. Validate the contract
@@ -34,12 +34,13 @@ all seven points with substantive content:
 Confirm or revise the draft with the user/LLM until every point holds real
 content. Validation passes -> proceed. Validation fails -> stop and revise.
 
-### 3. Optional materials knowledge validation
+### 3. Conditional materials knowledge validation
 
 If the figure contains materials-science entities (XRD peaks/phases, FTIR
-wavenumbers/functional groups, performance values), optionally run
-`scripts/validate_materials_claims.py` to check claims against
-`static/core/materials_kb.yaml`.
+wavenumbers/functional groups, performance values), load
+`static/core/materials_kb.yaml` and run `scripts/validate_materials_claims.py`
+before plotting. Figures without those entities may skip this stage. Errors
+block plotting; warnings flag claims for review.
 
 ### 4. LLM writes plot.py
 

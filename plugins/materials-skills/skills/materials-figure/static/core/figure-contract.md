@@ -2,7 +2,7 @@
 
 > **Figure contract is a blocking gate.** Before any plotting code, data
 > generation, preview, or rendered figure, write `figure_contract.md` with all
-> seven points carrying substantive content and pass validation.
+> eight points carrying substantive content and pass validation.
 > If validation fails, stop and revise the contract; do not plot. **This
 > overrides general autonomy/default-execution behavior for figure tasks.**
 
@@ -14,9 +14,9 @@ The Python backend is mandatory for plotting, previewing, exporting, and visual 
 
 Do not generate mock data, write plotting scripts, create previews, or render placeholder figures until the claim, source-data anchor, figure contract, and Python backend readiness are clear.
 
-## Seven-Point Contract
+## Eight-Point Contract
 
-All seven points must carry substantive content — not template-only, placeholder,
+All eight points must carry substantive content — not template-only, placeholder,
 or empty fields. A contract with any blank or placeholder point is treated as
 unwritten and fails validation.
 
@@ -27,14 +27,16 @@ unwritten and fails validation.
 5. **Journal/export contract**: target journal family, final width, font size, editable vector needs, raster DPI, and required formats.
 6. **Statistics and image integrity**: n, replicate definition, error-bar definition, test/correction, raw image provenance, scale bars, crop/contrast notes.
 7. **WER-EA boundary**: explicitly separate performance evidence, direct mechanism evidence, inferred mechanism, durability/service evidence, and unsupported field claims.
+8. **Reviewer risks**: list unresolved evidence gaps, ambiguity, or presentation risks that could change how the figure is interpreted.
 
 ## Contract Validation
 
-Validate the seven-point completeness of
+Validate the eight-point completeness of
 `figure_contract.md`: each point must be present and carry substantive content
 (non-template, non-placeholder, non-empty). Validation runs before any plotting
-script, data generation, preview, or rendered figure. Optional validation scripts
-(`scripts/validate_materials_claims.py`) are available for materials-domain checks.
+script, data generation, preview, or rendered figure. When materials-science
+entities are present, `scripts/validate_materials_claims.py` is a required
+materials-domain check.
 
 - Validation passes -> proceed to plotting under the Python-only backend gate.
 - Validation fails -> stop. Revise the contract so every point holds real
@@ -45,11 +47,12 @@ script, data generation, preview, or rendered figure. Optional validation script
 
 The figure contract always precedes plotting code. The mandated order is:
 
-1. Write `figure_contract.md` with all seven points holding substantive content.
-2. Validate the contract; stop if it fails.
-3. Optionally run `validate_materials_claims.py` against `materials_kb.yaml`; stop on
-   errors that contradict known material relations.
-4. Only after both validations pass, check the Python backend and proceed to
+1. For multi-figure work, write and validate the storyboard before individual contracts.
+2. Write `figure_contract.md` with all eight points holding substantive content.
+3. Validate the contract; stop if it fails.
+4. If materials-science entities are present, run `validate_materials_claims.py`
+   against `materials_kb.yaml`; stop on errors that contradict known material relations.
+5. Only after applicable validations pass, check the Python backend and proceed to
    plotting, source-data assembly, exports, and QA.
 
 This order is binding for both interactive figure work and the LLM-driven workflow. The LLM may draft the contract from the source
@@ -58,8 +61,8 @@ before any plotting script runs.
 
 ## Materials Knowledge Validation
 
-After the contract passes validation, optionally run
-`validate_materials_claims.py`. The validator extracts materials-science
+After the contract passes validation, run
+`validate_materials_claims.py` when materials-science entities are present. The validator extracts materials-science
 entities from the contract's evidence chain and checks them against
 `static/core/materials_kb.yaml`:
 

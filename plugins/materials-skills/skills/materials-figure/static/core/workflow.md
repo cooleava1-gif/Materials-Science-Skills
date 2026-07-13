@@ -4,18 +4,31 @@
 > before any plotting code, data generation, preview, or rendered figure. This
 > overrides general autonomy/default-execution behavior for figure tasks.
 
-> **Domain context**: The `domain` axis has loaded domain-specific figure guidance. Before plotting, review the domain guide for recommended figure types, panel structures, and format conventions.
+> **Python runtime gate**: check Python and required plotting packages before
+> rendering. If unavailable, stop and report the blocker.
 
-Run this workflow for any journal-ready figure, review figure, plotted data figure, or figure audit.
+Run this workflow for any journal-ready figure, review figure, plotted data
+figure, or figure audit. The eight stages below are ordered; skip only a stage
+explicitly marked as conditional.
 
-## 1. Use the Python backend
+## 1. Build and validate the multi-figure storyboard (conditional)
 
-Use the Python-only backend gate in `figure-contract.md`. Check Python and the required plotting packages before rendering. If a required package is unavailable, stop and report the blocker.
+For a task spanning more than one figure, write `figure_storyboard.yaml` (see
+`assets/templates/figure-storyboard/`) and run `check_storyboard.py` before
+writing any individual figure contract. The storyboard gate verifies:
+
+- narrative arc completeness and role coverage,
+- acyclic evidence dependencies (DAG),
+- cross-figure non-redundancy,
+- style consistency declarations.
+
+The storyboard must pass before individual figure contracts are written. For a
+single-figure task, skip this stage and proceed to the figure contract.
 
 ## 2. Build and validate the figure contract
 
-Before plotting, write or update `figure_contract.md` so that all seven points
-hold substantive content — not template-only, placeholder, or empty fields:
+Before plotting, write or update `figure_contract.md` with substantive content
+for all eight required fields:
 
 - core conclusion,
 - evidence chain,
@@ -23,87 +36,74 @@ hold substantive content — not template-only, placeholder, or empty fields:
 - Python backend readiness,
 - journal/export contract,
 - statistics and image-integrity needs,
-- WER-EA or materials claim boundary,
+- materials claim boundary,
 - reviewer risks.
 
-Then validate `figure_contract.md` manually or with optional validation tools.
+Then validate `figure_contract.md` manually or with the applicable validation
+tools.
 
-- Validation passes -> proceed to materials knowledge validation.
-- Validation fails -> stop. Revise the contract so every point holds real
-  content. Do not generate plotting scripts, mock data,
-  previews, or rendered figures while the contract is invalid.
+- Validation passes -> proceed to stage 3.
+- Validation fails -> stop. Revise the contract so every field holds real
+  content. Do not generate plotting scripts, mock data, previews, or rendered
+  figures while the contract is invalid.
 
-The contract always precedes plotting code. This is binding for both
-interactive figure work and the automatic table-plotting loop.
+The contract always precedes plotting code. This is binding for both interactive
+figure work and the automatic table-plotting loop.
 
-## 2b. Validate materials-science claims
+## 3. Validate materials-science claims (conditional)
 
-After the contract passes validation, optionally run
-`validate_materials_claims.py` against `figure_contract.md`. The validator
-extracts XRD peaks/phases, FTIR wavenumbers/functional groups, and performance
-values from the evidence chain and checks them against
-`static/core/materials_kb.yaml`.
+If the figure contains XRD peaks/phases, FTIR wavenumbers/functional groups, or
+performance values, load `static/core/materials_kb.yaml` and run
+`validate_materials_claims.py` against the figure package before plotting.
 
-- Claims that contradict known material relations (e.g. 915 cm⁻¹ assigned to
-  C=O, or 30° 2θ assigned to Al2O3) are errors and block plotting.
+- Errors that contradict known material relations block plotting.
 - Values far outside typical ranges are warnings for review.
-- Figures without materials-science entities (e.g. pure flowcharts) pass with
-  no checks.
+- Figures without materials-science entities skip this stage.
 
-## 2c. Validate the multi-figure storyboard (multi-figure tasks only)
-
-When the task spans more than one figure, write `figure_storyboard.yaml` (see
-`assets/templates/figure-storyboard/`) and run `check_storyboard.py` before
-individual figure contracts. The storyboard gate verifies:
-
-- narrative arc completeness and role coverage,
-- acyclic evidence dependencies (DAG),
-- cross-figure non-redundancy (no two figures show the same data panel),
-- style consistency declarations.
-
-The storyboard must pass before individual figure contracts are written.
-
-## 3. Load The Python Backend Fragment
+## 4. Load the Python backend
 
 Load `static/fragments/backend/python.md` and follow its execution rules.
+Before rendering, confirm Python and the packages required by the requested
+figure family. Do not use an alternate plotting backend.
 
-## 4. Check Source Data And Anchors
+## 5. Check source data and anchors
 
-Use actual source data, a table-system row, a `source_map.json` anchor, or PDF visual asset metadata. If the user has no evidence yet, produce a plan or template only and label the package `template-only`. If source anchors are missing, update the contract's evidence chain before proceeding; do not plot against an unanchored contract.
+Use actual source data, a table-system row, a `source_map.json` anchor, or PDF
+visual asset metadata. If the user has no evidence yet, produce a plan or
+template only and label the package `template-only`. If source anchors are
+missing, update the contract's evidence chain before proceeding; do not plot
+against an unanchored contract.
 
-## 5. LLM-driven figure creation
+## 6. Create the figure
 
-In LLM-as-artist mode, the LLM writes plotting code directly based on the validated contract and source data. The workflow is:
+In LLM-as-artist mode, write plotting code directly from the validated contract
+and source data:
 
 ```text
-contract draft -> LLM/user confirmation -> contract validation
-  -> validate_materials_claims.py (optional) -> LLM writes plot.py
-  -> SVG/PNG export -> QA review
+storyboard (if multi-figure) -> contract draft -> contract validation
+  -> materials validation (if applicable) -> Python backend check
+  -> source-anchor check -> plot.py -> exports
 ```
 
-1. Draft `figure_contract.md` from the source table and the user's goal,
-   filling all seven points with substantive content.
-2. Confirm or revise the draft with the user/LLM until every point holds real
-   content.
-3. Validate the contract. If validation fails, stop; do not plot.
-4. Optionally run `validate_materials_claims.py`. If it reports errors, stop and revise
-   the contract.
-5. The LLM writes `plot.py` directly using matplotlib or other Python plotting libraries, following the contract and source data.
-6. The LLM generates exports (SVG, PNG, PDF, TIFF) and writes `caption.md`, `qa_report.md`, and `asset_manifest.md`.
+The LLM writes `plot.py` using matplotlib or other Python plotting libraries
+that run under the Python backend, following the contract and source data.
 
-Stop for human clarification only when the table lacks numeric response
+Stop for human clarification only when the source table lacks numeric response
 columns, the scientific claim cannot be inferred safely, or the QA report has
-critical issues. Contract validation failure is always a stop condition; it
-never falls back to plotting.
+critical issues. Contract, storyboard, materials-validation, and source-anchor
+failures are stop conditions; they never fall back to plotting.
 
-## 6. Create the figure package
+## 7. Create the figure package
 
-Use `references/figure-package-protocol.md` and `assets/templates/figure-package/`. A production package should contain the contract, source data, Python plotting script, SVG/PDF/PNG/TIFF exports, caption, QA report, and asset manifest.
+Use `references/figure-package-protocol.md` and
+`assets/templates/figure-package/`. A production package should contain the
+contract, source data, Python plotting script, SVG/PDF/PNG/TIFF exports,
+caption, QA report, and asset manifest.
 
-## 7. Run visual QA
+## 8. Run visual QA and return the package
 
-Apply `references/figure-qa-contract.md`. Check export formats, final size, text readability, color choices, units, n/error bars/statistics, image scale bars, image provenance, and caption boundary.
-
-## 8. Return the package
-
-Return the package path, a short claim-evidence summary, the caption boundary, any failed QA items, and the reviewer-risk notes.
+Apply `references/figure-qa-contract.md`. Check export formats, final size,
+text readability, color choices, units, `n`/error bars/statistics, image scale
+bars, image provenance, and caption boundary. Return the package path, a short
+claim-evidence summary, the caption boundary, failed QA items, and reviewer-risk
+notes. Do not call the package journal-ready while critical QA items remain.

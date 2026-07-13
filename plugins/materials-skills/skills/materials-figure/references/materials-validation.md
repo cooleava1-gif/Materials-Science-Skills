@@ -2,7 +2,12 @@
 
 This reference explains how to validate materials-science claims against the knowledge base before plotting. The validation layer catches claims that contradict known PDF cards, FTIR assignments, or typical property ranges — errors that would otherwise survive into figure captions and trigger reviewer objections.
 
-**Scope**: This is an optional validation tool in LLM-as-artist mode. It checks materials-science entities (XRD peaks, FTIR wavenumbers, performance values) from a figure-package directory. The package must contain `source_data.csv`; if `figure_contract.md` is present, prose claims are also checked against `static/core/materials_kb.yaml`. Figures without materials-science entities (pure flowcharts, workflow diagrams) pass with no checks.
+**Scope**: This is a conditional validation gate in LLM-as-artist mode. When a
+figure contains materials-science entities (XRD peaks, FTIR wavenumbers, or
+performance values), run it before plotting. The package must contain
+`source_data.csv` and `figure_contract.md` for a plotting task. Figures without
+materials-science entities (pure flowcharts, workflow diagrams) may skip this
+gate.
 
 ---
 
@@ -453,7 +458,7 @@ for match in re.finditer(property_pattern, contract_text, re.IGNORECASE):
 Run validation **after** writing the figure contract but **before** plotting:
 
 ```
-1. Write figure_contract.md (claim, evidence chain, archetype)
+1. Write the complete eight-point figure_contract.md
 2. Put `figure_contract.md` and `source_data.csv` in the same figure-package directory
 3. Run validate_materials_claims.py path/to/figure-package
 4. Fix errors (❌) — these block plotting
@@ -550,7 +555,7 @@ performance_relations:
 ## Related files
 
 - [SKILL.md](../SKILL.md) — When to use this skill
-- [contract.md](../static/core/contract.md) — The five-point figure contract
+- [contract.md](../static/core/contract.md) — The eight-point figure contract
 - [materials_kb.yaml](../static/core/materials_kb.yaml) — The knowledge base
 - [validate_materials_claims.py](../scripts/validate_materials_claims.py) — Validation script
 - [multi-figure-storyboard.md](multi-figure-storyboard.md) — Multi-figure narrative orchestration

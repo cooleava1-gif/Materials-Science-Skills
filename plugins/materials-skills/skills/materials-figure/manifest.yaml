@@ -1,5 +1,5 @@
 name: materials-figure
-version: 2.0.0
+version: 2.1.0
 status: stable
 description: >
   Declarative manifest for the static/dynamic split. SKILL.md uses this to
@@ -8,12 +8,14 @@ description: >
   it must be checked before any figure is drawn. The large body of design,
   API, pattern, and QA material stays in on-demand references.
 
+# Minimal always_load: the profile protocol, figure contract, operating stance,
+# and 8-step workflow. materials_kb.yaml loads on demand only when a figure
+# contains materials-science entities (XRD/FTIR/performance).
 always_load:
   - ../_shared/core/direction-profile.md
-  # Skill-local core
   - static/core/contract.md
   - static/core/stance.md
-  - static/core/materials_kb.yaml
+  - static/core/workflow.md
 
 axes:
   backend:
@@ -90,6 +92,8 @@ axes:
 
 references:
   on_demand:
+    - condition: figure contains XRD peaks/phases, FTIR wavenumbers/functional groups, or performance values requiring validation against known material relations
+      path: static/core/materials_kb.yaml
     - condition: create a complete figure package or audit a package
       path: references/figure-package-protocol.md
     - condition: before final delivery, journal-ready package, microscopy image plate, or statistics-heavy figure
