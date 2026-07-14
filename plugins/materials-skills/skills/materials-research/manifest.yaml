@@ -1,11 +1,17 @@
 version: 1.2.0
 status: stable
-# Minimal always_load: profile precedence, operating stance, and the core
-# workflow. evidence-contract, research-state-contract, and weakness-routing
-# load on demand — see the on_demand entries below.
+# Minimal always_load: profile precedence and the core workflow. The detailed
+# shared stance, evidence contract, research-state contract, and weakness
+# routing load on demand — see the on_demand entries below.
+context_budget:
+  target_activation_bytes: 32768
+  max_activation_bytes: 34816
+  max_always_load: 2
+  max_skill_lines: 50
+  max_workflow_lines: 25
+
 always_load:
 - ../_shared/core/direction-profile.md
-- ../_shared/core/stance.md
 - static/core/workflow.md
 axes:
   task:
@@ -549,6 +555,10 @@ axes:
         trigger_file: ../../_shared/triggers/journal/acta-materialia.yaml
 references:
   on_demand:
+    stance:
+      path: ../_shared/core/stance.md
+      when: Detailed evidence placeholders, attribution, or collaborator stance
+        rules are needed beyond the router's compact evidence boundary.
     evidence-contract:
       path: ../_shared/core/evidence-contract.md
       when: The task requires building or auditing a claim-evidence ladder, or

@@ -112,6 +112,26 @@
         }
       ],
       "files": []
+    },
+    {
+      "id": "context-budget-and-opt-in-core",
+      "prompt": "Route a broad research-planning request for a waterborne epoxy modified emulsified asphalt study. The request needs cross-skill positioning and manuscript planning, but does not ask for a reviewer-risk loop or a persistent multi-stage state update.",
+      "expected_output": "The router must keep the default core context-budgeted: load the direction profile and workflow, keep the detailed shared stance out of always_load, and load evidence-contract, research-state-contract, or weakness-routing only when the task actually requires them. The router must retain profile-first routing, mapped-path loading, coverage_tier reporting, and the no-invention boundary.",
+      "assertions": [
+        {
+          "name": "context_budget_declared",
+          "description": "The manifest declares a bounded activation target, hard maximum, and maximum always_load count."
+        },
+        {
+          "name": "stance_is_opt_in",
+          "description": "The shared stance is available through references.on_demand rather than included in the default always_load list."
+        },
+        {
+          "name": "router_invariants_preserved",
+          "description": "Slimming the default core does not remove profile-first routing, explicit manifest path loading, coverage_tier reporting, or no-invention rules."
+        }
+      ],
+      "files": []
     }
   ]
 }

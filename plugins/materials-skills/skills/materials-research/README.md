@@ -33,6 +33,8 @@ contract:
 
 **Key rules enforced**
 
+- The default router core is context-budgeted to two files; detailed stance and
+  cross-stage contracts load only when the request needs them.
 - Do not skip to writing or figures before research and citation are
   grounded.
 - Do not duplicate the full procedures of every companion skill; once the
