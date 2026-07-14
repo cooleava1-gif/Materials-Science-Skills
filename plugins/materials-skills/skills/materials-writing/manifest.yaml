@@ -1,14 +1,18 @@
 version: "1.3.0"
 status: stable
+context_budget:
+  target_activation_bytes: 32768
+  max_activation_bytes: 34816
+  max_always_load: 4
+  max_skill_lines: 70
+  max_workflow_lines: 110
 
 # Minimal always_load: the architecture entry (contract), direction profile,
-# shared stance (identity + never-invent + placeholders), drafting workflow,
-# and output format. Everything else loads on demand from the axes or the
-# references.on_demand table below.
+# drafting workflow, and output format. The shared stance is available on
+# demand when a task needs its detailed placeholder and attribution rules.
 always_load:
   - static/core/contract.md
   - ../_shared/core/direction-profile.md
-  - ../_shared/core/stance.md
   - static/core/workflow.md
   - static/core/output-format.md
 
@@ -172,6 +176,9 @@ axes:
 
 references:
   on_demand:
+    stance:
+      path: ../_shared/core/stance.md
+      when: "Detailed evidence placeholders, attribution, or never-invent rules."
     evidence-contract:
       path: ../_shared/core/evidence-contract.md
       when: "Building a claim-evidence table, auditing overclaim, or checking evidence support for a major claim."

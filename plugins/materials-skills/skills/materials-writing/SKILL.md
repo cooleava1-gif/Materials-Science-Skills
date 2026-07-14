@@ -6,44 +6,63 @@ description: Use when drafting, restructuring, auditing, or statefully revising 
 
 # Materials Science Writing
 
-Turn claims, results, notes, and outlines into bounded manuscript prose. `materials-writing` is an evidence-first drafting engine: it locks terminology, writes a one-sentence argument, maps paragraph messages, and only then drafts prose traceable to evidence. Missing evidence stays visible as placeholders rather than hidden in fluent sentences.
+Use this skill as an evidence-first router for bounded materials-science
+manuscript prose. It locks terminology, builds an argument chain, maps
+paragraph messages, confirms the plan for complete sections, and keeps missing
+evidence visible.
 
-## Layered architecture
+## Architecture
 
-- **Static layer** under `static/` — versioned, reusable fragments (stance, workflow, section rules, paper-type playbooks, domain rules, journal framing, language guidance).
-- **Dynamic layer** — this file plus [manifest.yaml](manifest.yaml). The router detects the request's axes, loads only the matching fragments, and runs the shared workflow.
-
-The router stays short on purpose. Update fragments and the manifest, not this file, when adding scope.
+- `static/` contains reusable contracts, workflow rules, and routed fragments.
+- `manifest.yaml` declares the routing axes, default core, on-demand references,
+  assets, scripts, and handoffs.
+- `references/` is not default context; load only the paths selected by the
+  manifest or required by the task.
 
 ## Routing protocol
 
-1. **Load the manifest and the core layer.** Read [manifest.yaml](manifest.yaml), then load every file under `always_load` (contract, direction profile, shared stance, workflow, output format). These five files carry the architecture entry, profile protocol, never-invent rule, drafting workflow, and output structure that apply to every job.
+1. Read `manifest.yaml`, then load the four files under `always_load`:
+   `contract.md`, `direction-profile.md`, `workflow.md`, and `output-format.md`.
+2. Apply profile precedence:
+   explicit direction in the request > saved `.materials/profile.yaml` >
+   neutral/general fallback. Resolve `material_family` and `domain` only after
+   the profile is known.
+3. Detect `paper_type`, `section`, `language`, `journal_family`,
+   `material_family`, `domain`, and `input_source` from the request. Ask only
+   when ambiguity changes the output structure.
+4. Classify the job as a local edit, drafting, targeted revision, or
+   QA/multi-round revision. Load `content-first-qa-pipeline` and the relevant
+   state-machine references only for QA or continuity work.
+5. For each selected axis, read the mapped path declared in `manifest.yaml`;
+   do not infer its contents from trigger words. Load only selected fragments
+   and required on-demand references.
+6. Follow `static/core/workflow.md` and return the structure in
+   `static/core/output-format.md`.
 
-2. **Detect axes, then apply profile-first routing with explicit profile precedence.** Read [manifest.yaml](manifest.yaml) for the full axis table. Most axes are inferred from the user's input — only ask when a value is genuinely ambiguous and changes the output structure. Apply the profile precedence `explicit direction in the current request > saved .materials/profile.yaml > neutral/general fallback`. Load the saved profile before resolving `material_family` and `domain`; on first use, ask for the materials direction once and save it locally.
+## Blocking invariant
 
-   Classify the task mode separately as a local edit, drafting, targeted revision, or QA/multi-round revision. When the mode is QA or the user asks for multi-round revision, load `content-first-qa-pipeline`; when scoring or cross-run continuity is needed, also load the state-machine references listed under `references.on_demand` (foundation files, stopping rules, evaluation rubric, validation checklist) and run the preflight described in [static/core/workflow.md](static/core/workflow.md).
-
-3. **Load selected fragments.** For each selected axis, read the mapped path declared in `manifest.yaml`; do not infer a fragment's contents from its trigger words or assume that the core layer replaces axis-specific guidance. Load only selected fragments and the on-demand references required by the task.
-
-4. **Run the workflow.** Follow [static/core/workflow.md](static/core/workflow.md) end-to-end. The workflow is tiered: a genuinely local single-paragraph edit may run Stages 1-2 internally and go straight to drafting (Stage 5); a complete section, full manuscript, or multi-section job runs the complete 5-stage loop with the confirmation gate (Stage 4).
-
-## Blocking gate
-
-Do not invent citations, data, mechanisms, reviewer intent, journal requirements, or experimental results. When evidence is missing, write a placeholder (`[TO CONFIRM: ...]`) and list it under `Assumptions` instead of filling the gap with confident prose. This is the only hard gate; everything else is tiered by job size.
+Do not invent citations, data, mechanisms, reviewer intent, journal
+requirements, experimental results, or completed actions. When evidence is
+missing, use a visible `[TO CONFIRM: ...]` or `[needs evidence: ...]` marker,
+record it under `Assumptions`, and route the missing input instead of filling
+the gap with confident prose.
 
 ## Handoffs
 
-Produce handoff-ready artifacts when a companion skill is the next logical step:
+- `materials-reader`: route source-paper-intensive reading to `materials-reader`; consume
+  `reader-package` and `source_map`.
+- `materials-citation`: emit a claim-evidence-boundary table for citation
+  mapping.
+- `materials-doe`: route experiment-matrix or factor-design requests to `materials-doe`;
+  consume `doe-handoff` to align factors and responses with manuscript claims.
+- `materials-polishing`: pass the draft, claim-evidence map, and terminology
+  ledger without weakening evidence boundaries.
 
-- **materials-reader** — route to it for source-paper intensive reading; consume its `reader-package` / `source_map`.
-- **materials-citation** — emit a `claim-evidence-boundary` table so it can build the citation matrix without re-reading the draft.
-- **materials-doe** — route to it for an experiment matrix; consume its `doe-handoff` to align test variables with claims.
-- **materials-polishing** — pass the section draft, claim-evidence map, and terminology ledger for language polishing without losing evidence boundaries.
+When a handoff artifact is missing, use
+`../_shared/paper-production/weakness-routing.md`; never invent the artifact.
 
-If any handoff artifact is missing, mark the missing input and route the weakness through [../_shared/paper-production/weakness-routing.md](../_shared/paper-production/weakness-routing.md) instead of inventing evidence.
+## Scope
 
-## References
-
-Deep references under `references/` are not defaults. Open them on demand per the `references.on_demand` table in the manifest — for example `argument-chain.md` for paper logic, `review-paper-strategy.md` for review papers, `reviewer-risk-writing.md` for overclaim checks, `content-first-qa-pipeline.md` for post-draft audits, and the `state-machine/` files for multi-round QA.
-
-This structure mirrors the other `materials-*` skills so shared content can be lifted into the `_shared/` layer used by all of them.
+This skill drafts and audits bounded manuscript content. It does not replace
+deep reading, real experimental evidence, official journal instructions, or
+supervisor judgment.
