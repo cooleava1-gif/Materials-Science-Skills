@@ -25,6 +25,13 @@ STANDARD_MANIFEST_BLOCKS = (
     "handoffs",
     "release_checks",
 )
+CONTEXT_BUDGET_FIELDS = (
+    "target_activation_bytes",
+    "max_activation_bytes",
+    "max_always_load",
+    "max_skill_lines",
+    "max_workflow_lines",
+)
 MOJIBAKE_MARKERS = (
     "閺",
     "缁",
@@ -68,6 +75,47 @@ def _read_skill_frontmatter(skill_md_path: Path) -> dict[str, Any]:
 
 def _as_posix(path: Path) -> str:
     return path.as_posix()
+
+
+def _is_relative_to(path: Path, root: Path) -> bool:
+    try:
+        path.relative_to(root)
+    except ValueError:
+        return False
+    return True
+
+
+def _manifest_allowed_roots(skills_root: Path) -> list[Path]:
+    root = skills_root.resolve()
+    roots = [root]
+    plugin_shared = (root.parent / "_shared").resolve()
+    if plugin_shared.is_dir():
+        roots.append(plugin_shared)
+    return roots
+
+
+def _resolve_manifest_path(skills_root: Path, skill_dir: Path, path_text: str) -> Path | None:
+    path = Path(path_text)
+    if path.is_absolute():
+        return None
+    resolved = (skill_dir / path).resolve()
+    if not any(_is_relative_to(resolved, root) for root in _manifest_allowed_roots(skills_root)):
+        return None
+    return resolved
+
+
+def _resolve_cli_skill(root: Path, skill: str) -> Path:
+    skill_path = Path(skill)
+    if skill_path.is_absolute():
+        raise ValueError("--skill must be a single skill directory name under --root")
+    root = root.resolve()
+    resolved = (root / skill_path).resolve()
+    if not _is_relative_to(resolved, root):
+        raise ValueError("--skill must stay under --root")
+    relative = resolved.relative_to(root)
+    if len(relative.parts) != 1:
+        raise ValueError("--skill must be one directory name, not a path")
+    return resolved
 
 
 def _is_probable_path(value: str) -> bool:
@@ -209,8 +257,119 @@ def _check_consistency(skill_dir: Path, manifest: dict[str, Any]) -> dict[str, A
     }
 
 
-def _path_exists(skill_dir: Path, path_text: str) -> bool:
-    return (skill_dir / path_text).resolve().exists()
+def _path_exists(
+    skills_root: Path, skill_dir: Path, path_text: str, *, require_file: bool = False
+) -> bool:
+    path = _resolve_manifest_path(skills_root, skill_dir, path_text)
+    if not path:
+        return False
+    return path.is_file() if require_file else path.exists()
+
+
+def _line_count(path: Path) -> int:
+    if not path.exists():
+        return 0
+    return len(path.read_text(encoding="utf-8").splitlines())
+
+
+def _budget_ints(budget: dict[str, Any]) -> tuple[dict[str, int], list[str]]:
+    values: dict[str, int] = {}
+    hard_failures: list[str] = []
+    for field in CONTEXT_BUDGET_FIELDS:
+        if field not in budget:
+            hard_failures.append(f"context_budget.{field} is required")
+            continue
+        value = budget[field]
+        if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+            hard_failures.append(f"context_budget.{field} must be a non-negative integer")
+            continue
+        values[field] = value
+    target = values.get("target_activation_bytes")
+    maximum = values.get("max_activation_bytes")
+    if target is not None and maximum is not None and target > maximum:
+        hard_failures.append(
+            "context_budget.target_activation_bytes must be <= context_budget.max_activation_bytes"
+        )
+    return values, hard_failures
+
+
+def _context_budget_report(
+    skills_root: Path, skill_dir: Path, manifest: dict[str, Any]
+) -> dict[str, Any]:
+    if "context_budget" not in manifest:
+        return {
+            "declared": False,
+            "metrics": {},
+            "warnings": [],
+            "hard_failures": [],
+        }
+    budget = manifest.get("context_budget")
+    schema_failures: list[str] = []
+    budget_values: dict[str, int] = {}
+    if isinstance(budget, dict):
+        budget_values, schema_failures = _budget_ints(budget)
+    else:
+        schema_failures.append("context_budget must be a mapping")
+
+    skill_path = skill_dir / "SKILL.md"
+    manifest_path = skill_dir / "manifest.yaml"
+    workflow_path = skill_dir / "static" / "core" / "workflow.md"
+    always_load = manifest.get("always_load", [])
+    if not isinstance(always_load, list):
+        always_load = []
+
+    always_load_bytes = 0
+    for path_text in always_load:
+        if not isinstance(path_text, str):
+            continue
+        path = _resolve_manifest_path(skills_root, skill_dir, path_text)
+        if path and path.exists() and path.is_file():
+            always_load_bytes += path.stat().st_size
+
+    skill_bytes = skill_path.stat().st_size if skill_path.exists() else 0
+    manifest_bytes = manifest_path.stat().st_size if manifest_path.exists() else 0
+    activation_bytes = skill_bytes + manifest_bytes + always_load_bytes
+    metrics = {
+        "activation_bytes": activation_bytes,
+        "skill_bytes": skill_bytes,
+        "manifest_bytes": manifest_bytes,
+        "always_load_bytes": always_load_bytes,
+        "always_load_count": len(always_load),
+        "skill_lines": _line_count(skill_path),
+        "workflow_lines": _line_count(workflow_path),
+    }
+
+    warnings: list[str] = []
+    hard_failures: list[str] = list(schema_failures)
+
+    target = budget_values.get("target_activation_bytes")
+    if target is not None and activation_bytes > target:
+        warnings.append(f"activation bytes {activation_bytes} exceed target {target}")
+
+    maximum = budget_values.get("max_activation_bytes")
+    if maximum is not None and activation_bytes > maximum:
+        hard_failures.append(f"activation bytes {activation_bytes} exceed maximum {maximum}")
+
+    max_always = budget_values.get("max_always_load")
+    if max_always is not None and len(always_load) > max_always:
+        hard_failures.append(f"always_load count {len(always_load)} exceeds maximum {max_always}")
+
+    max_skill_lines = budget_values.get("max_skill_lines")
+    if max_skill_lines is not None and metrics["skill_lines"] > max_skill_lines:
+        hard_failures.append(f"SKILL.md lines {metrics['skill_lines']} exceed maximum {max_skill_lines}")
+
+    max_workflow_lines = budget_values.get("max_workflow_lines")
+    if max_workflow_lines is not None and metrics["workflow_lines"] > max_workflow_lines:
+        hard_failures.append(
+            f"workflow lines {metrics['workflow_lines']} exceed maximum {max_workflow_lines}"
+        )
+
+    return {
+        "declared": True,
+        "metrics": metrics,
+        "warnings": warnings,
+        "hard_failures": hard_failures,
+    }
 
 
 def _core_status(skill_dir: Path) -> dict[str, list[str]]:
@@ -225,10 +384,11 @@ def _core_status(skill_dir: Path) -> dict[str, list[str]]:
     return {"missing_exact": missing, "compatible_core_files": compatible}
 
 
-def inspect_skill(skill_dir: Path) -> dict[str, object]:
+def inspect_skill(skill_dir: Path, skills_root: Path | None = None) -> dict[str, object]:
     """Return missing files, missing manifest paths, and invalid trigger encodings."""
 
     skill_dir = Path(skill_dir)
+    skills_root = Path(skills_root) if skills_root is not None else skill_dir.parent
     manifest_path = skill_dir / "manifest.yaml"
     manifest = _read_yaml(manifest_path) if manifest_path.exists() else {}
     yaml_errors = []
@@ -251,33 +411,35 @@ def inspect_skill(skill_dir: Path) -> dict[str, object]:
     checked_manifest_paths: list[str] = []
     for path_text in manifest.get("always_load", []) if isinstance(manifest.get("always_load"), list) else []:
         checked_manifest_paths.append(path_text)
-        if not _path_exists(skill_dir, path_text):
+        if not isinstance(path_text, str) or not _path_exists(
+            skills_root, skill_dir, path_text, require_file=True
+        ):
             missing_manifest_paths.append(path_text)
 
     for _, value_data in _iter_axis_values(manifest):
         path_text = value_data.get("path")
         if isinstance(path_text, str):
             checked_manifest_paths.append(path_text)
-            if not _path_exists(skill_dir, path_text):
+            if not _path_exists(skills_root, skill_dir, path_text, require_file=True):
                 missing_manifest_paths.append(path_text)
 
     missing_declared_paths: list[str] = []
     for block in ("assets", "scripts"):
         for path_text in _collect_declared_paths(manifest.get(block)):
             checked_manifest_paths.append(path_text)
-            if not _path_exists(skill_dir, path_text):
+            if not _path_exists(skills_root, skill_dir, path_text):
                 missing_declared_paths.append(path_text)
 
     missing_trigger_files: list[str] = []
     for location, path_text in _iter_trigger_files(manifest):
         checked_manifest_paths.append(path_text)
-        if not _path_exists(skill_dir, path_text):
+        if not _path_exists(skills_root, skill_dir, path_text, require_file=True):
             missing_trigger_files.append(f"{location}: {path_text}")
 
     missing_reference_paths: list[str] = []
     for location, path_text in _iter_reference_paths(manifest):
         checked_manifest_paths.append(path_text)
-        if not _path_exists(skill_dir, path_text):
+        if not _path_exists(skills_root, skill_dir, path_text, require_file=True):
             missing_reference_paths.append(f"{location}: {path_text}")
 
     mojibake_triggers = [
@@ -285,6 +447,7 @@ def inspect_skill(skill_dir: Path) -> dict[str, object]:
         for location, trigger in _collect_triggers(manifest)
         if any(marker in trigger for marker in MOJIBAKE_MARKERS)
     ]
+    context_budget = _context_budget_report(skills_root, skill_dir, manifest)
 
     hard_issues = (
         missing_router_files
@@ -294,6 +457,7 @@ def inspect_skill(skill_dir: Path) -> dict[str, object]:
         + missing_declared_paths
         + missing_trigger_files
         + missing_reference_paths
+        + context_budget["hard_failures"]
     )
     consistency = _check_consistency(skill_dir, manifest)
     consistency_issues = [v for v in consistency.values() if v is not None]
@@ -314,12 +478,14 @@ def inspect_skill(skill_dir: Path) -> dict[str, object]:
         "missing_reference_paths": sorted(set(missing_reference_paths)),
         "checked_manifest_paths": sorted(set(checked_manifest_paths)),
         "mojibake_triggers": mojibake_triggers,
+        "context_budget": context_budget,
         "yaml_errors": yaml_errors,
         "consistency": consistency,
         "warnings": {
             "missing_exact_core_files": core["missing_exact"],
             "missing_standard_manifest_blocks": missing_manifest_blocks,
             "mojibake_triggers": mojibake_triggers,
+            "context_budget_warnings": context_budget["warnings"],
             "consistency_issues": consistency_issues,
         },
     }
@@ -334,7 +500,7 @@ def inspect_all(root: Path | None = None) -> dict[str, object]:
 
     root = Path(root) if root is not None else DEFAULT_SKILLS_ROOT
     skills = [path for path in sorted(root.glob("materials-*")) if path.is_dir()]
-    skill_reports = [inspect_skill(skill_dir) for skill_dir in skills]
+    skill_reports = [inspect_skill(skill_dir, root) for skill_dir in skills]
     hard_failures = [report["skill"] for report in skill_reports if report["status"] != "pass"]
     if not skill_reports:
         hard_failures.append(f"no skills found under {root}")
@@ -348,6 +514,9 @@ def inspect_all(root: Path | None = None) -> dict[str, object]:
         ],
         "skills_with_mojibake_triggers": [
             report["skill"] for report in skill_reports if report["mojibake_triggers"]
+        ],
+        "skills_over_context_target": [
+            report["skill"] for report in skill_reports if report["context_budget"]["warnings"]
         ],
         "skills_with_consistency_issues": [
             report["skill"]
@@ -372,10 +541,19 @@ def main(argv: list[str] | None = None) -> int:
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=None, help="Skills root directory (default: plugin skills dir)")
+    parser.add_argument("--skill", help="Inspect one skill directory by name.")
     parser.add_argument("--json", action="store_true", help="Print machine-readable JSON.")
     args = parser.parse_args(argv)
 
-    report = inspect_all(args.root)
+    root = Path(args.root) if args.root is not None else DEFAULT_SKILLS_ROOT
+    if args.skill:
+        try:
+            skill_dir = _resolve_cli_skill(root, args.skill)
+        except ValueError as exc:
+            parser.error(str(exc))
+        report = inspect_skill(skill_dir, root)
+    else:
+        report = inspect_all(root)
     print(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True))
     return 0 if report["status"] == "pass" else 1
 

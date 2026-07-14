@@ -1,20 +1,20 @@
-version: "1.2.0"
+version: "1.3.0"
 status: stable
+
+# Universal core only. Risk and document-scale guidance is loaded on demand.
+context_budget:
+  target_activation_bytes: 25600
+  max_activation_bytes: 28672
+  max_always_load: 5
+  max_skill_lines: 70
+  max_workflow_lines: 120
 
 always_load:
   - static/core/contract.md
-  - static/core/failure-modes.md
-  - static/core/output-format.md
   - static/core/stance.md
-  - ../_shared/core/direction-profile.md
-  - ../_shared/core/stance.md
-  - ../_shared/core/evidence-contract.md
-  - ../_shared/core/claim-strength-ladder.md
-  - ../_shared/core/terminology-ledger.md
-  - ../_shared/core/ethics.md
-  - ../_shared/paper-production/weakness-routing.md
-  - static/core/polishing-contract.md
   - static/core/workflow.md
+  - static/core/output-format.md
+  - ../_shared/core/direction-profile.md
 
 axes:
   section:
@@ -162,6 +162,24 @@ axes:
 
 references:
   on_demand:
+    failure-modes:
+      path: static/core/failure-modes.md
+      when: "The task needs structural repair, paragraph-flow diagnosis, multiple paragraphs, or section-function analysis."
+    evidence-contract:
+      path: ../_shared/core/evidence-contract.md
+      when: "The text contains mechanism, sustainability, applicability, durability, or other claim-evidence questions."
+    claim-strength:
+      path: ../_shared/core/claim-strength-ladder.md
+      when: "The text contains causal, statistical-significance, novelty, absolute, negative-result, or inconclusive-evidence wording."
+    terminology-ledger:
+      path: ../_shared/core/terminology-ledger.md
+      when: "The task spans multiple paragraphs or needs terminology, abbreviation, unit, notation, or bilingual consistency."
+    ethics:
+      path: ../_shared/core/ethics.md
+      when: "The task includes citation integrity, source attribution, sensitive material, or explicit AI-use boundaries."
+    weakness-routing:
+      path: ../_shared/paper-production/weakness-routing.md
+      when: "The polish is part of a paper-production handoff, reviewer weakness, or regression-gate workflow."
     journal-cbm-facts:
       path: ../_shared/journal-formats/cbm.md
       when: "The target journal is CBM, Construction and Building Materials."
@@ -180,12 +198,6 @@ references:
     zh-to-en-rules:
       path: static/fragments/language/zh-to-en.md
       when: "The user needs Chinese-to-English rules."
-    research-rules:
-      path: static/fragments/paper_type/research.md
-      when: "The user writes a research paper."
-    review-rules:
-      path: static/fragments/paper_type/review.md
-      when: "The user writes a review paper or the target journal is JBE, Journal of Building Engineering."
     claim-strength-local:
       path: references/claim-strength-ladder.md
       when: "The user needs a local copy of the claim strength ladder."
@@ -210,9 +222,6 @@ references:
     section-introduction:
       path: static/fragments/section/introduction.md
       when: "The user is polishing an introduction and needs section-specific guidance."
-    section-methods:
-      path: static/fragments/section/methods.md
-      when: "The user is polishing a methods section and needs section-specific guidance."
     section-results:
       path: static/fragments/section/results.md
       when: "The user is polishing a results section and needs section-specific guidance."
@@ -222,9 +231,6 @@ references:
     section-conclusion:
       path: static/fragments/section/conclusion.md
       when: "The user is polishing a conclusion and needs section-specific guidance."
-    section-title:
-      path: static/fragments/section/title.md
-      when: "The user is polishing a title and needs section-specific guidance."
 assets:
   - assets
 scripts:
