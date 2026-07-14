@@ -1,18 +1,15 @@
-# Energy and Buildings — Formatting Facts
+# Energy and Buildings Formatting Facts
 
-> Always verify against the journal's current Guide for Authors before final submission.
-> Official page: https://www.sciencedirect.com/journal/energy-and-buildings
+> Verify the current Guide for Authors before final submission.
 
-## Article types and limits
+## Article routes
 
-| Article type | Word limit | Abstract | References |
-|---|---|---|---|
-| Research article | ~9,000 | Structured (~300 words) | No hard cap |
-| Review article | ~12,000 | Unstructured (~300 words) | Comprehensive |
+- Research Article: unstructured abstract, 250 words.
+- Review Article and Short communication: verify current limits.
 
-## Formatting
+## Required items
 
-- Double-spaced, numbered lines.
-- Figures: 300 dpi TIFF/EPS.
-- References: numbered Vancouver style.
-- SI units required.
+- Highlights.
+- Graphical abstract.
+- Data availability, CRediT, competing-interest, funding, and conditional
+  ethics statements.

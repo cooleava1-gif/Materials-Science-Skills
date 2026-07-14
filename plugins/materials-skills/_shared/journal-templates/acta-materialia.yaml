@@ -1,0 +1,54 @@
+journal_id: acta-materialia
+full_name: Acta Materialia
+publisher: elsevier
+official_class: elsarticle.cls
+document_class_line: "\\documentclass[review,numbered]{elsarticle}"
+official_template_url: https://www.sciencedirect.com/journal/acta-materialia/publish/guide-for-authors
+submission_portal: https://www.editorialmanager.com/ACTAMAT/
+article_types:
+  - id: research-article
+    submission_label: Research article
+    word_limit: "no strict cap; verify current Guide for Authors"
+    abstract_words: 250
+    abstract_structure: unstructured
+    references: "40-60 typical"
+  - id: technical-note
+    submission_label: Technical Note
+    word_limit: "verify current Guide for Authors"
+    abstract_words: "verify current Guide for Authors"
+    abstract_structure: unstructured
+    references: "verify current Guide for Authors"
+required_fields:
+  - title
+  - abstract
+  - keywords
+  - authors
+  - affiliations
+  - corresponding_author
+  - declarations
+declaration_requirements:
+  data_availability: true
+  credit_author_statement: true
+  conflict_of_interest: true
+  funding: true
+  ethics: conditional
+cover_letter_required_points:
+  - "The materials science finding (one sentence)"
+  - "The processing-structure-property connection (one sentence)"
+  - "Why it matters to the structural/functional materials community (one sentence)"
+highlights_required: false
+highlights_rules:
+  min_count: 0
+  max_count: 0
+  max_characters_per_item: 0
+required_artifacts:
+  - id: graphical-abstract
+    label: Graphical abstract
+    stage: initial-submission
+    required: true
+live_verification_fields:
+  - word_limit
+  - abstract_words
+  - references_cap
+  - apc_rate
+  - submission_portal_url

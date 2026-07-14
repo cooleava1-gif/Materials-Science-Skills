@@ -5,8 +5,32 @@ produced_by: materials-data
 consumed_by:
   - materials-figure
   - materials-research
+  - materials-submission
+required_fields:
+  - contract
+  - contract_version
+  - status
+  - package_dir
+  - artifacts
+status_values:
+  - ready
+  - blocked
+artifact_status_values:
+  - ready
+  - missing
+required_artifacts:
+  - metadata
+  - readme
+  - data_availability_statement
+  - fair_audit
+  - raw_data
+  - processed_data
+  - figures
 
 artifacts:
+  data-package.yaml:
+    description: "Machine-readable data-package handoff manifest"
+    required: true
   metadata.md:
     description: "Dataset metadata with units, standards, and conditions"
     required: true

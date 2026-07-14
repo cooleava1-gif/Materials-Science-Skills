@@ -1,0 +1,52 @@
+journal_id: jbe
+full_name: Journal of Building Engineering
+publisher: elsevier
+official_class: elsarticle.cls
+document_class_line: "\\documentclass[review,numbered]{elsarticle}"
+official_template_url: https://www.sciencedirect.com/journal/journal-of-building-engineering/publish/guide-for-authors
+submission_portal: https://www.editorialmanager.com/JBE/
+article_types:
+  - id: research-article
+    word_limit: "6000-10000 (no strict cap)"
+    abstract_words: 250
+    abstract_structure: structured
+    references: "50-80 typical"
+  - id: review-article
+    word_limit: "8000-15000"
+    abstract_words: 300
+    abstract_structure: unstructured
+    references: "100+"
+  - id: short-communication
+    word_limit: 3000
+    abstract_words: 150
+    abstract_structure: structured
+    references: 20
+required_fields:
+  - title
+  - abstract
+  - keywords
+  - authors
+  - affiliations
+  - corresponding_author
+  - declarations
+declaration_requirements:
+  data_availability: true
+  credit_author_statement: true
+  conflict_of_interest: true
+  funding: true
+  ethics: conditional
+cover_letter_required_points:
+  - "What the finding is (one sentence)"
+  - "What is novel about it (one sentence)"
+  - "Why it matters to building engineering (one sentence)"
+highlights_required: true
+highlights_rules:
+  min_count: 3
+  max_count: 5
+  max_characters_per_item: 85
+live_verification_fields:
+  - word_limit
+  - abstract_words
+  - references_cap
+  - apc_rate
+  - submission_portal_url

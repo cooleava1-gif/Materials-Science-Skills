@@ -1,0 +1,69 @@
+journal_id: building-environment
+full_name: Building and Environment
+publisher: elsevier
+official_class: elsarticle.cls
+document_class_line: "\\documentclass[review,numbered]{elsarticle}"
+official_template_url: https://www.sciencedirect.com/journal/building-and-environment/publish/guide-for-authors
+submission_portal: https://www.editorialmanager.com/BAE/
+article_types:
+  - id: research-article
+    submission_label: Research Article
+    word_limit: "up to 9,000 words excluding references"
+    abstract_words: 250
+    abstract_structure: unstructured
+    references: "no hard cap"
+  - id: review-article
+    submission_label: Review Article
+    word_limit: "verify current Guide for Authors"
+    abstract_words: 250
+    abstract_structure: unstructured
+    references: "comprehensive"
+  - id: letter
+    submission_label: Letter
+    word_limit: "350-1,000 words"
+    abstract_required: false
+    required_fields_exclude:
+      - abstract
+    abstract_words: 0
+    abstract_structure: not-applicable
+    references: "verify current Guide for Authors"
+  - id: comment-and-opinion
+    submission_label: Comment and Opinion
+    word_limit: "800-2,500 words"
+    abstract_words: 100
+    abstract_structure: unstructured
+    references: "verify current Guide for Authors"
+required_fields:
+  - title
+  - abstract
+  - keywords
+  - authors
+  - affiliations
+  - corresponding_author
+  - declarations
+declaration_requirements:
+  data_availability: true
+  credit_author_statement: true
+  conflict_of_interest: true
+  funding: true
+  ethics: conditional
+cover_letter_required_points:
+  - "What the finding is (one sentence)"
+  - "What is novel about it (one sentence)"
+  - "Why it matters to the building science community (one sentence)"
+highlights_required: true
+highlights_rules:
+  min_count: 3
+  max_count: 5
+  max_characters_per_item: 85
+required_artifacts:
+  - id: graphical-abstract
+    label: Graphical abstract
+    stage: initial-submission
+    required: recommended
+live_verification_fields:
+  - word_limit
+  - abstract_words
+  - references_cap
+  - apc_rate
+  - submission_portal_url

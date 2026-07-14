@@ -1,5 +1,7 @@
 # Skills Index
 
+This index lists all 14 installable `materials-*` skills.
+
 | Skill | Primary role | Typical handoff |
 |---|---|---|
 | `materials-research` | Router and paper-production orchestrator | All companion skills |
@@ -15,6 +17,7 @@
 | `materials-response` | Point-by-point rebuttal package | writing, polishing |
 | `materials-html-deck` | Slide-ready outline and verified HTML academic deck | figure |
 | `materials-paper-to-patent` | Chinese invention-patent draft | figure, data |
+| `materials-submission` | Route C assembly for 10 supported journal templates | research, writing, figure, data |
 
 The bundle uses profile-first routing from `.materials/profile.yaml` when the
 user has saved a local materials direction. That file is user-local and must

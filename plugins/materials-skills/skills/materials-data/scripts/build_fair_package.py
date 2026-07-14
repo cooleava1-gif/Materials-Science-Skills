@@ -167,6 +167,34 @@ def metadata_from_record(record: dict[str, Any]) -> str:
 """
 
 
+def artifact_record(package_dir: Path, relative_path: str) -> dict[str, str]:
+    path = package_dir / relative_path
+    status = "ready" if path.exists() else "missing"
+    return {"status": status, "path": relative_path}
+
+
+def data_package_handoff(package_dir: Path) -> dict[str, Any]:
+    return {
+        "contract": "data-package",
+        "contract_version": "1.0",
+        "status": "ready",
+        "producer": "materials-data",
+        "package_dir": str(package_dir.resolve()),
+        "artifacts": {
+            "metadata": artifact_record(package_dir, "metadata.md"),
+            "readme": artifact_record(package_dir, "README.md"),
+            "data_availability_statement": artifact_record(
+                package_dir,
+                "data_availability_statement.md",
+            ),
+            "fair_audit": artifact_record(package_dir, "fair_audit.md"),
+            "raw_data": artifact_record(package_dir, "raw_data"),
+            "processed_data": artifact_record(package_dir, "processed_data"),
+            "figures": artifact_record(package_dir, "figures"),
+        },
+    }
+
+
 def build_package(
     topic: str,
     domain: str,
@@ -202,6 +230,10 @@ def build_package(
     (package_dir / "README.md").write_text(readme(topic, journal), encoding="utf-8")
     (package_dir / "data_availability_statement.md").write_text(data_availability(journal), encoding="utf-8")
     (package_dir / "fair_audit.md").write_text(fair_audit(), encoding="utf-8")
+    (package_dir / "data-package.yaml").write_text(
+        yaml.safe_dump(data_package_handoff(package_dir), sort_keys=False, allow_unicode=False),
+        encoding="utf-8",
+    )
     return package_dir
 
 

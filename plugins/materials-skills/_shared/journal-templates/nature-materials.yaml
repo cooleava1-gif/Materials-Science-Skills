@@ -1,0 +1,61 @@
+journal_id: nature-materials
+full_name: Nature Materials
+publisher: springer_nature
+official_class: nature-template
+document_class_line: "use the official Nature Materials LaTeX template"
+official_template_url: https://www.nature.com/nmat/for-authors
+submission_portal: https://editorialmanager.com/natmaterials/
+article_types:
+  - id: research-article
+    submission_label: Article
+    word_limit: "up to 3,000 main-text words"
+    abstract_words: 150
+    abstract_structure: unstructured
+    references: "50-80 typical"
+  - id: short-communication
+    submission_label: Letter
+    word_limit: "up to 2,000 main-text words"
+    abstract_words: 150
+    abstract_structure: unstructured
+    references: "about 30"
+  - id: review-article
+    submission_label: Review
+    word_limit: "5,000-6,000 main-text words"
+    abstract_words: "verify current Guide for Authors"
+    abstract_structure: unstructured
+    references: "100+"
+  - id: perspective
+    submission_label: Perspective
+    word_limit: "4,000-5,000 main-text words"
+    abstract_words: "verify current Guide for Authors"
+    abstract_structure: unstructured
+    references: "verify current Guide for Authors"
+required_fields:
+  - title
+  - abstract
+  - authors
+  - affiliations
+  - corresponding_author
+  - declarations
+declaration_requirements:
+  data_availability: true
+  code_availability: conditional
+  credit_author_statement: true
+  conflict_of_interest: true
+  funding: false
+  ethics: conditional
+cover_letter_required_points:
+  - "The key advance in one sentence"
+  - "Why it matters beyond the immediate subfield (cross-disciplinary impact)"
+  - "Why now — what makes this timely"
+highlights_required: false
+highlights_rules:
+  min_count: 0
+  max_count: 0
+  max_characters_per_item: 0
+live_verification_fields:
+  - word_limit
+  - abstract_words
+  - references_cap
+  - apc_rate
+  - submission_portal_url

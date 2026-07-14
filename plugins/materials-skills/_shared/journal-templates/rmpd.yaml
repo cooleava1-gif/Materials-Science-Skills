@@ -1,0 +1,47 @@
+journal_id: rmpd
+full_name: Road Materials and Pavement Design
+publisher: taylor_and_francis
+official_class: interact.cls
+document_class_line: "\\documentclass[interact]{interact}"
+official_template_url: https://www.tandfonline.com/action/authorSubmission?journalCode=trmp20&page=instructions
+submission_portal: https://mc.manuscriptcentral.com/trmpd
+article_types:
+  - id: research-article
+    word_limit: "6000-9000 (typical)"
+    abstract_words: 250
+    abstract_structure: unstructured
+    references: "40-70 typical"
+  - id: review-article
+    word_limit: "8000-15000"
+    abstract_words: 300
+    abstract_structure: unstructured
+    references: "100+"
+required_fields:
+  - title
+  - abstract
+  - keywords
+  - authors
+  - affiliations
+  - corresponding_author
+  - declarations
+declaration_requirements:
+  data_availability: true
+  credit_author_statement: true
+  conflict_of_interest: true
+  funding: true
+  ethics: conditional
+cover_letter_required_points:
+  - "What the finding is (one sentence)"
+  - "What is novel about it (one sentence)"
+  - "Why it matters to road materials and pavement design (one sentence)"
+highlights_required: false
+highlights_rules:
+  min_count: 0
+  max_count: 0
+  max_characters_per_item: 0
+live_verification_fields:
+  - word_limit
+  - abstract_words
+  - references_cap
+  - apc_rate
+  - submission_portal_url

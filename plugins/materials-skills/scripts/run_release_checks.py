@@ -9,8 +9,10 @@ directories, shared contracts, and representative visual assets.
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import json
 import subprocess
+import sys
 from pathlib import Path
 
 import yaml
@@ -217,6 +219,56 @@ def check_skill_basics(skill_name: str) -> list[str]:
     return issues
 
 
+def collect_materials_submission_template_issues() -> list[str]:
+    """Run the submission skill's declarative template validator."""
+    script = (
+        SKILLS_ROOT
+        / "materials-submission"
+        / "scripts"
+        / "validate_journal_templates.py"
+    )
+    if not script.exists():
+        return [f"missing {script.relative_to(REPO_ROOT)}"]
+    script_dir = str(script.parent)
+    if script_dir not in sys.path:
+        sys.path.insert(0, script_dir)
+    spec = importlib.util.spec_from_file_location(
+        "materials_submission_template_validator",
+        script,
+    )
+    if spec is None or spec.loader is None:
+        return ["could not load materials-submission template validator"]
+    module = importlib.util.module_from_spec(spec)
+    try:
+        spec.loader.exec_module(module)
+        return module.validate_templates()
+    except Exception as exc:
+        return [f"template validation error: {exc}"]
+
+
+def collect_materials_submission_rendering_issues() -> list[str]:
+    """Run the submission skill's template-driven rendering regression tests."""
+    skill_root = SKILLS_ROOT / "materials-submission"
+    test_script = skill_root / "scripts" / "test_template_driven_outputs.py"
+    if not test_script.exists():
+        return [f"missing {test_script.relative_to(REPO_ROOT)}"]
+    result = subprocess.run(
+        [sys.executable, str(test_script)],
+        cwd=skill_root,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode == 0:
+        return []
+    output = "\n".join(
+        part.strip()
+        for part in (result.stdout, result.stderr)
+        if part.strip()
+    )
+    return [f"template-driven rendering tests failed: {output}"]
+
+
 def collect_public_boundary_issues(skills_root: Path = SKILLS_ROOT) -> list[str]:
     """Keep internal tests, vendored experiments, and retired skills out of GitHub delivery."""
 
@@ -271,6 +323,14 @@ def main() -> int:
         issues = check_skill_basics(skill)
         if issues:
             all_issues[skill] = issues
+
+    submission_template_issues = collect_materials_submission_template_issues()
+    if submission_template_issues:
+        all_issues["materials_submission_templates"] = submission_template_issues
+
+    submission_rendering_issues = collect_materials_submission_rendering_issues()
+    if submission_rendering_issues:
+        all_issues["materials_submission_rendering"] = submission_rendering_issues
 
     # paper-production orchestrator check
     orchestrator_issues = collect_paper_production_orchestrator_issues(SKILLS_ROOT)

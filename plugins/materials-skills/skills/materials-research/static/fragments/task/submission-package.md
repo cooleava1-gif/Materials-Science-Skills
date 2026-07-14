@@ -2,6 +2,10 @@
 
 Goal: prepare journal-facing materials after the manuscript argument is stable.
 
+Hand off final assembly to `materials-submission`. Its required handoff is a
+`submission-package/` directory containing `submission-package.yaml`,
+`MANIFEST.md`, source-status stubs, and the journal-routed generated artifacts.
+
 Common deliverables:
 
 - Title alternatives.

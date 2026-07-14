@@ -31,7 +31,7 @@ Default status values for the workflow are `pass`, `fail`, `blocked`, and
 - `paper-gate-report-template.md`
 - `figure_contract.md`
 - `data/FAIR package manifest`
-- `submission checklist`
+- `submission-package/submission-package.yaml`
 
 ## Route A: WER-EA Mini-Review
 
@@ -92,11 +92,16 @@ planning, declaration checks, or final packaging for submission.
 | Figure and graphical abstract intake | materials-figure | figure package status, caption_boundary check, graphical abstract concept |
 | Data and declaration boundary | materials-data | data availability boundary, FAIR package status, declaration inputs |
 | Reviewer-risk regression | materials-reviewer; materials-response | unresolved weakness rows, revision proof, final reviewer-risk note |
-| Final assembly | materials-research | cover letter, highlights, declarations, final missing-input list, submission checklist |
+| Final assembly | materials-submission | `submission-package/` with `submission-package.yaml`, human-readable `MANIFEST.md`, generated artifacts, input statuses, and final missing-input list |
 
 Submission-package routing must keep live journal facts explicit. If scope,
 formatting, article type, declarations, or checklist items depend on current
 publisher guidance, mark them for live verification instead of guessing.
+
+Route C is implemented by `materials-submission`. When the user asks for
+cover-letter drafting, highlights, submission checklist, or final package
+assembly, route to `materials-submission` instead of duplicating the
+assembly logic in `materials-research`.
 
 ## Paper-Level Quality Gates
 

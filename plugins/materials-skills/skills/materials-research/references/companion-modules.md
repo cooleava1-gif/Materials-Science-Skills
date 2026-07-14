@@ -15,6 +15,7 @@
 | Data and FAIR | `materials-data` | raw/processed data organization, metadata, FAIR audits, dataset packages, data availability statements |
 | Design of experiments | `materials-doe` | DOE methodology, factorial/screening designs, response surface optimization, robustness testing, orthogonal arrays, factor-level planning |
 | Literature pipeline | `materials-literature-pipeline` | recurring discovery, candidate scoring, source-depth labels, digest notes, next-reading actions |
+| Submission package | `materials-submission` | cover letter, highlights, submission checklist, declaration boundary, and final package assembly for 10 supported journal templates |
 
 Routing rule:
 
@@ -23,6 +24,9 @@ Routing rule:
 3. Use `materials-literature-pipeline` when the user needs recurring discovery or a screened candidate pool before deep reading.
 4. Use a companion skill when the output format is already clear.
 5. Return to `materials-research` for final reviewer-risk audit before submission.
+
+The initial four-journal pilot was the first rollout of
+`materials-submission`; it is not the current support boundary.
 
 Preferred handoff sequence for a full manuscript cycle:
 

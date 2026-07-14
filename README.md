@@ -10,7 +10,7 @@ workflow instead of leaving each step as a separate prompt.
 配图、数据打包、实验设计、审稿模拟、回复信撰写、演讲准备、**论文转专利**
 串成一条工作流，而不是让每一步都成为孤立的提示。
 
-The bundle ships **13 skills** covering **29 material systems** across
+The bundle ships **14 skills** covering **29 material systems** across
 civil/construction, polymers, metals, ceramics, and functional/nano materials.
 Each system carries a narrative arc, figure scripts, reviewer criteria, and
 worked example packages where the coverage tier has reached `full`.
@@ -91,7 +91,7 @@ The bundle follows a **profile-first routing** protocol defined in
 On first use, the router asks the user once for their current materials
 research direction, saves it to a user-local file `.materials/profile.yaml`
 (not tracked by git), and uses it to set defaults for `material_family` and
-`domain` across all 13 skills. Later sessions skip the question and only
+`domain` across all 14 skills. Later sessions skip the question and only
 briefly remind the user which direction is active.
 
 | Layer | Source | Behaviour |
@@ -126,7 +126,7 @@ Codex Desktop users can add the same repository as a custom plugin marketplace:
 - Branch/ref: `main`
 - Plugin: `materials-skills`
 
-After installation, all 13 `materials-*` skills become available through the
+After installation, all 14 `materials-*` skills become available through the
 plugin as a complete bundle, together with the shared support directory. If
 the skills do not appear immediately, refresh the plugin page or start a new
 Codex session.
@@ -141,7 +141,7 @@ cd Materials-Science-Skills
 .\scripts\install.ps1
 ```
 
-The installer copies all 13 `materials-*` skills plus `_shared` into
+The installer copies all 14 `materials-*` skills plus `_shared` into
 `$CODEX_HOME\skills` if `CODEX_HOME` is set, or into `~\.codex\skills`
 otherwise. It also removes stale target directories before reinstalling so old
 files do not survive an update.
@@ -186,7 +186,7 @@ For the full walkthrough, see [install.md](install.md).
 
 ## Skills
 
-## Skill index (13 skills)
+## Skill index (14 skills)
 
 | Skill | Status | Purpose | Trigger keywords |
 |---|---|---|---|
@@ -203,6 +203,7 @@ For the full walkthrough, see [install.md](install.md).
 | [`materials-response`](plugins/materials-skills/skills/materials-response/README.md) | Beta | Point-by-point response, rebuttal package, action mapping | "response letter", "rebuttal", "reviewer comment" |
 | [`materials-html-deck`](plugins/materials-skills/skills/materials-html-deck/README.md) | Beta | Browser-native HTML academic deck generation with strict Playwright QA | "html deck", "academic deck", "slide deck", "paper to slides", "journal club" |
 | [`materials-paper-to-patent`](plugins/materials-skills/skills/materials-paper-to-patent/README.md) | Beta | Chinese invention-patent application, civil patent KB, claim validator | "patent", "claim", "invention disclosure" |
+| [`materials-submission`](plugins/materials-skills/skills/materials-submission/README.md) | Beta | Route C package assembly for 10 supported journal templates | "submission package", "cover letter", "highlights" |
 
 > **Status legend:** `Stable` = documented, installable, and covered by the public lightweight release gate. `Beta` = functional and documented, but still accumulating domain coverage depth.
 
@@ -518,7 +519,7 @@ Playwright screenshots, QA reports, speaker notes, and an asset manifest.
 
 ## Shared core — `_shared/`
 
-All 13 skills share a small set of protocol files under
+All 14 skills share a small set of protocol files under
 [`plugins/materials-skills/skills/_shared/`](plugins/materials-skills/skills/_shared/):
 
 | File | Purpose |
@@ -534,7 +535,7 @@ All 13 skills share a small set of protocol files under
 
 ## Quantitative summary (public delivery boundary)
 
-- **13 materials-* skills** plus shared contracts under `_shared`.
+- **14 materials-* skills** plus shared contracts under `_shared`.
 - **29 material systems** represented in the material registry.
 - **Lightweight figure preview boards** are shipped for public browsing; the generated atlas/gallery/showcase image corpus is intentionally not part of the installable skill bundle.
 - **Manifest-defined routing fragments** across task, domain, and journal axes.
@@ -586,9 +587,10 @@ requirements.
 
 - **Internal regression coverage** is maintained outside the public GitHub
   delivery; the public package keeps only the lightweight release gate.
-- **Submission end-to-end** is partially covered (cover letter + response
-  letter + data availability), but LaTeX-class templates for the 17 journal
-  families are not yet shipped.
+- **Submission end-to-end** is supported for 10 supported journal templates
+  through `materials-submission`. The initial four-journal pilot (CBM, CCC,
+  RMPD, JBE) is historical rollout context, not the current support boundary;
+  seven journal-format guides remain without submission templates.
 - **Grant writing** is out of scope for the current release; it would
   require a dedicated `materials-grant` skill.
 - **Lab execution** is out of scope; `materials-doe` plans experiments but
