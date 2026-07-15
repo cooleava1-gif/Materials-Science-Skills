@@ -1,15 +1,19 @@
-version: "1.0.0"
+version: "1.1.0"
 status: stable
+
+context_budget:
+  target_activation_bytes: 16384
+  max_activation_bytes: 18432
+  max_always_load: 3
+  max_skill_lines: 55
+  max_workflow_lines: 30
+  route_scenarios_file: evals/context-routes.yaml
+  required_route_axes: [review_depth, journal_family, review_scope, material_family, domain]
+  required_route_scenarios: [default-standard-full, quick-precheck-figures, methodology-asphalt, mechanism-polymers, paper-production-weakness-rows]
 
 always_load:
   - static/core/contract.md
   - ../_shared/core/direction-profile.md
-  - ../_shared/core/stance.md
-  - ../_shared/core/evidence-contract.md
-  - ../_shared/core/claim-strength-ladder.md
-  - ../_shared/core/ethics.md
-  - ../_shared/paper-production/weakness-routing.md
-  - static/core/reviewer-stance.md
   - static/core/workflow.md
 
 axes:
@@ -29,6 +33,9 @@ axes:
   journal_family:
     default: materials
     values:
+      materials:
+        path: static/core/workflow.md
+        triggers: ["materials journal", "generic materials journal"]
       CBM:
         path: references/editorial-criteria.md
         triggers: ["CBM", "Construction and Building Materials"]
@@ -114,6 +121,30 @@ axes:
 
 references:
   on_demand:
+    stance:
+      path: ../_shared/core/stance.md
+      when: A review needs detailed collaboration stance or uncertainty handling.
+    evidence-contract:
+      path: ../_shared/core/evidence-contract.md
+      when: A review audits claim-evidence alignment or evidence completeness.
+    claim-strength-ladder:
+      path: ../_shared/core/claim-strength-ladder.md
+      when: A review audits novelty, mechanism, durability, or application overclaims.
+    ethics:
+      path: ../_shared/core/ethics.md
+      when: A review raises integrity, attribution, authorship, or disclosure concerns.
+    weakness-routing:
+      path: ../_shared/paper-production/weakness-routing.md
+      when: A paper-production review needs structured revision routing rows.
+    mechanism-evidence:
+      path: references/mechanism-evidence-checklist.md
+      when: A review evaluates chemical, phase, morphology, rheology, or interface mechanisms.
+    asphalt-criteria:
+      path: references/asphalt-reviewer-criteria.md
+      when: A review targets asphalt, emulsified asphalt, tack coat, or pavement materials.
+    polymers-criteria:
+      path: references/polymers-reviewer-criteria.md
+      when: A review targets polymers, resins, rubbers, or polymer composites.
     functional-reviewer-criteria:
       path: references/functional-reviewer-criteria.md
       when: The manuscript targets functional, electronic, dielectric, piezoelectric, or semiconductor materials.

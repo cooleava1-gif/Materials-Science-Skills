@@ -99,4 +99,4 @@ route_scenarios:
       - response-output-contract
       - risk-audit
     target_bytes: 42000
-    max_bytes: 46000
+    max_bytes: 42000

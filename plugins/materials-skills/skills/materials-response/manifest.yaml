@@ -55,10 +55,10 @@ axes:
         path: static/core/workflow.md
         triggers: [mixed reviewer comments, multiple concern types]
       mechanism:
-        path: references/experiment-revision.md
+        path: static/fragments/comment_type/mechanism.md
         triggers: [mechanism, FTIR, SEM, fluorescence, XRD, TG, 机理, 显微]
       performance:
-        path: references/experiment-revision.md
+        path: static/fragments/comment_type/performance.md
         triggers: [strength, bonding, durability, viscosity, performance, 粘结, 耐久, 黏度]
       writing:
         path: references/language-bank.md

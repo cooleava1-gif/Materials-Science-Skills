@@ -108,6 +108,22 @@
         }
       ],
       "files": []
+    },
+    {
+      "id": "budgeted-reviewer-routing",
+      "prompt": "Run a pre-submission reviewer audit for a civil materials manuscript with a claimed mechanism and no confirmed revision proof.",
+      "expected_output": "The assistant should load the minimal reviewer core first, then load evidence, claim-strength, mechanism, or weakness-routing material only when the audit requires it. It must keep unsupported mechanism and completion claims visible as gaps rather than inventing proof.",
+      "assertions": [
+        {
+          "name": "shared_contracts_are_on_demand",
+          "description": "The default router does not treat shared stance, evidence, claim-strength, ethics, or weakness-routing files as always-load content."
+        },
+        {
+          "name": "evidence_and_weakness_rows_are_conditional",
+          "description": "Mechanism evidence and paper-production weakness rows are loaded or emitted only when the audit calls for them."
+        }
+      ],
+      "files": []
     }
   ]
 }

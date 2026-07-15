@@ -1,6 +1,6 @@
 ---
 name: materials-reviewer
-version: "1.0.0"
+version: "1.1.0"
 stability: stable
 description: Use when simulating peer review, auditing manuscript risk, or stress-testing claims for materials science and engineering research.
 ---
@@ -20,10 +20,10 @@ This skill is split into two layers:
 
 1. Read [manifest.yaml](manifest.yaml), then load every `always_load` file.
 2. Apply profile-first routing from `.materials/profile.yaml`; on first use, ask for direction once and save it locally.
-3. Detect `review_depth`, `journal_family`, `material_domain`, and `review_scope`.
-4. Load only the matching fragments.
+3. Detect `review_depth`, `journal_family`, `review_scope`, `material_family`, and `domain`.
+4. Load matching fragments, then named shared contracts or criteria on demand.
 5. Evaluate claim-evidence alignment, method robustness, and journal fit.
-6. Produce distinct reviewer perspectives + synthesis.
+6. Produce distinct reviewer perspectives + synthesis, including weakness-routing rows when the review is part of a paper-production loop.
 
 ## Gates
 

@@ -1,6 +1,6 @@
 # materials-reviewer
 
-**Version:** 1.0.0
+**Version:** 1.1.0
 
 **What it does** — Simulates 2-3 independent peer reviewers plus a
 cross-review synthesis before you submit or resubmit. It pressure-tests
@@ -14,6 +14,10 @@ pre-resubmission risk screen.
 **Built from** — A review-criteria system organized along five axes
 (originality, importance, interdisciplinary scope, technical validity,
 readability), plus scope and domain routing:
+
+The default core loads only the profile protocol, reviewer contract, and
+workflow. Detailed evidence, claim-strength, ethics, and paper-production
+rules are named on-demand routes.
 
 - `references/review-axes.md` — standard-depth review axes and scoring
 - `references/report-structure.md` — detailed referee report skeleton

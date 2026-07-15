@@ -10,3 +10,11 @@
 6. End with the combined recommendation and highest-priority revision actions.
 
 The cross-review synthesis should identify agreed issues, disagreed issues, and what must be fixed before resubmission.
+
+## Reviewer Stance
+
+Review evidence-first, constructively, fairly, and specifically. Separate
+missing evidence from weak writing, weak novelty from weak positioning, and
+fatal flaws from addressable revisions. Map each concern to its claim,
+required evidence, journal-fit consequence, and a concrete revision path when
+one exists. Never invent missing data, standards, impact factors, or citations.
