@@ -1,13 +1,31 @@
 version: "1.1.0"
 status: stable
 
+context_budget:
+  target_activation_bytes: 16384
+  max_activation_bytes: 18432
+  max_always_load: 3
+  max_skill_lines: 55
+  max_workflow_lines: 70
+  route_scenarios_file: evals/context-routes.yaml
+  required_route_axes:
+    - design_mode
+    - material_family
+    - domain
+    - output
+    - output_format
+  required_route_scenarios:
+    - default-classical-note
+    - taguchi-asphalt-matrix
+    - rsm-polymer-record
+    - constrained-mixture-matrix
+    - doe-to-data-handoff
+    - doe-to-writing-methods
+
 always_load:
   - static/core/contract.md
   - ../_shared/core/direction-profile.md
-  - static/core/stance.md
   - static/core/workflow.md
-  - ../_shared/core/stance.md
-  - ../_shared/core/evidence-contract.md
 
 axes:
   design_mode:
@@ -121,20 +139,15 @@ axes:
 
 references:
   on_demand:
-    - condition: user needs response surface methodology or central composite design or Box-Behnken
-      path: static/core/response-surface.md
-    - condition: user needs factor screening design or Plackett-Burman or fractional factorial
-      path: static/core/screening-designs.md
-    - condition: user needs mixture design or simplex lattice or simplex centroid
-      path: static/core/mixture-design.md
-    - condition: user needs a factor screening design or Plackett-Burman
+    evidence-contract:
+      path: ../_shared/core/evidence-contract.md
+      when: "The task audits claim support, statistical conclusions, or an evidence chain."
+    screening-factor-template:
       path: static/reference/factor-level-template.md
-    - condition: user needs response surface methodology or central composite design
+      when: "A screening design needs a reusable factor-level worksheet."
+    classical-validity:
       path: static/core/classical-doe.md
-    - condition: user needs a standard table for Taguchi orthogonal arrays
-      path: static/core/orthogonal-tables.md
-    - condition: user asks about sample size, replication, or randomization
-      path: static/core/classical-doe.md
+      when: "The user asks about sample size, replication, randomization, controls, power, or design validity."
 
 assets:
   - assets/templates
