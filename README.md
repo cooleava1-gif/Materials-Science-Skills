@@ -15,7 +15,7 @@ civil/construction, polymers, metals, ceramics, and functional/nano materials.
 Each system carries a narrative arc, figure scripts, reviewer criteria, and
 worked example packages where the coverage tier has reached `full`.
 
-本技能包发布 **13 个 skills**，覆盖 **29 个材料体系**，涵盖土木、聚合物、
+本技能包发布 **14 个 skills**，覆盖 **29 个材料体系**，涵盖土木、聚合物、
 金属、陶瓷、功能/纳米材料。每个体系都带有叙事主线、配图脚本、审稿标准和
 完整示例包（`full` 覆盖等级）。
 
