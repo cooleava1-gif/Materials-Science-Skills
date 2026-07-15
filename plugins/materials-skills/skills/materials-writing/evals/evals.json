@@ -140,6 +140,66 @@
         }
       ],
       "files": []
+    },
+    {
+      "id": "context-budget-and-on-demand-core",
+      "prompt": "Route a full manuscript writing request for a waterborne epoxy modified emulsified asphalt study. The request needs an evidence-first draft but does not ask for QA, scoring, or multi-round continuity.",
+      "expected_output": "The router must load the four default core files declared by manifest.yaml, keep the detailed shared stance out of the default context, and load deeper references only when the selected axes or task mode require them. The response must still preserve the no-invention rule, terminology lock, confirmation gate, and six-part output contract.",
+      "assertions": [
+        {
+          "name": "four_file_default_core",
+          "description": "The router follows the manifest context budget and loads contract, direction profile, workflow, and output format as the default core."
+        },
+        {
+          "name": "stance_is_on_demand",
+          "description": "The detailed shared stance is loaded only for evidence-placeholder, attribution, or never-invent guidance that needs it."
+        },
+        {
+          "name": "core_contracts_preserved",
+          "description": "Reducing the default context does not remove the confirmation gate, evidence boundaries, terminology lock, or structured output requirements."
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": "qa-missing-state-does-not-silently-continue",
+      "prompt": "Run a QA or scored multi-round revision for a manuscript project that has no foundation files and no state.json, and whose active project files cannot be edited directly.",
+      "expected_output": "The workflow must report the missing project inputs and stop before silently drafting, scoring, or continuing the loop, or return a project-level initialization/state patch when the user asks to initialize it. It must never create active state inside the skill package or silently drop state updates.",
+      "assertions": [
+        {
+          "name": "missing_state_is_explicit",
+          "description": "The response explicitly reports missing foundation files or state.json before continuing QA work."
+        },
+        {
+          "name": "no_silent_state_loss",
+          "description": "The response stops or returns a project-level state patch/init instruction instead of silently continuing without state."
+        },
+        {
+          "name": "package_state_is_not_created",
+          "description": "The workflow does not create active state inside the materials-writing skill package."
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": "companion-routing-triggers-preserved",
+      "prompt": "The user needs intensive reading of 20 source papers and then asks for an experiment-factor matrix for the manuscript.",
+      "expected_output": "The writing router must route source-paper-intensive reading to materials-reader and consume its reader-package/source_map, then route the experiment-matrix request to materials-doe and consume its doe-handoff. It must not pretend those artifacts exist or draft unsupported evidence.",
+      "assertions": [
+        {
+          "name": "reader_route_trigger",
+          "description": "Source-paper-intensive reading is explicitly routed to materials-reader."
+        },
+        {
+          "name": "doe_route_trigger",
+          "description": "Experiment-matrix or factor-design work is explicitly routed to materials-doe."
+        },
+        {
+          "name": "handoff_artifacts_remain_bounded",
+          "description": "The router names reader-package/source_map and doe-handoff as consumed artifacts and marks missing artifacts instead of inventing them."
+        }
+      ],
+      "files": []
     }
   ]
 }

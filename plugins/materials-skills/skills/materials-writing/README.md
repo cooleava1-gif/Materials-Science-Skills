@@ -32,6 +32,7 @@ The two material axes (`material_family` and `domain`) are what make the writing
 - A genuinely local single-paragraph edit can run the terminology and argument checks internally and proceed directly to the edit when the claim, evidence, and boundary are clear.
 - A single-section, full-manuscript, or multi-section job shows the one-sentence argument, plan, terminology lock, assumptions, and targeted questions before full prose.
 - QA or multi-round revision loads the content-first pipeline and state-machine references on demand; it does not add those references to the default core prompt.
+- The default core is context-budgeted to four files; the detailed shared stance is loaded on demand when its extra placeholder or attribution rules are needed.
 
 **File layout**
 
