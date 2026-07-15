@@ -116,6 +116,26 @@
         }
       ],
       "files": []
+    },
+    {
+      "id": "budgeted-data-routing",
+      "prompt": "Create an asphalt FAIR dataset package from an experiment-record.yaml supplied by materials-doe, with a later request for a data availability statement.",
+      "expected_output": "The assistant should load the minimal data core first, then load the experiment-record conversion rules, asphalt schema, and availability rules only for the relevant output. It must preserve validation-before-scaffolding, the data-package handoff contract, and visible missing-data boundaries without treating shared stance, ethics, or the legacy duplicate contract as always-load content.",
+      "assertions": [
+        {
+          "name": "shared_rules_are_on_demand",
+          "description": "The default router keeps operating stance, ethics, and the legacy data-contract entry outside always_load."
+        },
+        {
+          "name": "doe_and_domain_routes_are_conditional",
+          "description": "Experiment-record validation and conversion load only for DOE-backed input, while asphalt schema and availability rules load only for their relevant tasks."
+        },
+        {
+          "name": "data_package_contract_preserved",
+          "description": "The output retains raw versus processed separation, explicit units and replicate counts, validation-before-scaffolding, and the data-package handoff fields."
+        }
+      ],
+      "files": []
     }
   ]
 }

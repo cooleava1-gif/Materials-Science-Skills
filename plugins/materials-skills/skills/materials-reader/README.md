@@ -1,6 +1,6 @@
 # materials-reader
 
-**Version:** 1.2.0
+**Version:** 1.3.0
 
 **What it does** — The source-grounded reading engine for the bundle. Use it
 when the raw material is a paper, PDF, abstract, figure caption, or pasted
@@ -12,6 +12,11 @@ format (pdf-text, scanned-pdf, doi-arxiv, html, pasted-text) and the output
 type (full notes, literature matrix, evidence-chain audit, figure-anchored
 reading, journal-club reading, microstructure interpretation) and loads only
 the matching fragments.
+
+The default core is limited to the reader contract, direction profile, and
+workflow. Terminology and ethics rules are named on-demand routes; terminology
+must be loaded for each paper reading, including bilingual notes, translation,
+normalization, and intensive reader packages.
 
 **Built from** — A source-grounded reading engine with 14 reference
 protocols, schema-validated output packages, and reusable templates:

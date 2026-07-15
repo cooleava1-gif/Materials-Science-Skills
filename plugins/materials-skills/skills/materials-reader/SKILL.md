@@ -1,6 +1,6 @@
 ---
 name: materials-reader
-version: "1.2.0"
+version: "1.3.0"
 description: Use when reading, translating, extracting, or organizing full papers for materials science and engineering research.
 ---
 
@@ -20,7 +20,7 @@ This skill is split into two layers:
 1. Read [manifest.yaml](manifest.yaml), then load every `always_load` file.
 2. Apply profile-first routing from `.materials/profile.yaml`; on first use, ask for direction once and save it locally.
 3. Detect `source_format` and `output_type` from the user input.
-4. Load only the matching source and output fragments.
+4. Load matching source and output fragments. For each paper reading, load the terminology ledger before drafting outputs; load ethics only for attribution or AI-boundary work.
 5. For each paper, produce: bilingual Markdown notes, source_map.json, terminology ledger, figure grounding.
 6. Never interpret microstructure or mechanism claims without explicit evidence.
 

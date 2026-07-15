@@ -1,6 +1,6 @@
 # materials-data
 
-**Version:** 1.1.0
+**Version:** 1.2.0
 
 **What it does** — Packages the material behind a manuscript into a cleaner,
 FAIR-aware submission surface. It organizes raw and processed datasets, writes
@@ -9,6 +9,10 @@ runs FAIR audits, and scaffolds supplementary data packages for WER-EA,
 asphalt, cement/concrete, durability, and journal submission workflows.
 Missing measurements and missing metadata are flagged explicitly rather than
 papered over.
+
+The default core contains the data contract, direction profile, and workflow.
+Detailed collaboration stance, ethics, and the legacy data-contract entry are
+named on-demand routes.
 
 **Built from** — FAIR and dataset-package references, domain data schemas, and
 templates routed by task, domain, and journal:

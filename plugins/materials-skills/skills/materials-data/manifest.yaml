@@ -1,12 +1,19 @@
-version: "1.1.0"
+version: "1.2.0"
 status: stable
+
+context_budget:
+  target_activation_bytes: 16384
+  max_activation_bytes: 18432
+  max_always_load: 3
+  max_skill_lines: 55
+  max_workflow_lines: 12
+  route_scenarios_file: evals/context-routes.yaml
+  required_route_axes: [task, material_family, domain, journal, input_source]
+  required_route_scenarios: [default-manual-package, asphalt-fair-audit, doe-record-asphalt-package, ceramics-availability, thermal-template]
 
 always_load:
   - static/core/contract.md
   - ../_shared/core/direction-profile.md
-  - ../_shared/core/stance.md
-  - ../_shared/core/ethics.md
-  - static/core/data-contract.md
   - static/core/workflow.md
 
 axes:
@@ -120,6 +127,15 @@ axes:
 
 references:
   on_demand:
+    operating-stance:
+      path: ../_shared/core/stance.md
+      when: "Detailed collaboration stance, uncertainty handling, or shared placeholder conventions are needed."
+    ethics:
+      path: ../_shared/core/ethics.md
+      when: "Citation, source attribution, copyright, confidential-data, or AI-use boundaries need review."
+    data-contract:
+      path: static/core/data-contract.md
+      when: "A legacy integration explicitly requests the data contract file."
     availability-rules:
       path: static/fragments/data_task/availability-statement.md
       when: "The user needs data availability rules."

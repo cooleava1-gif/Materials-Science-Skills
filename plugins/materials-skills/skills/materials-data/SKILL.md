@@ -1,6 +1,6 @@
 ---
 name: materials-data
-version: "1.1.0"
+version: "1.2.0"
 stability: stable
 description: Use when organizing, auditing, packaging, or drafting data and FAIR materials for materials science and engineering manuscripts.
 ---
@@ -22,7 +22,7 @@ This skill is split into two layers:
 2. Apply profile-first routing from `.materials/profile.yaml`; on first use, ask for direction once and save it locally.
 3. Detect `input_source`. If the user provides `experiment-record.yaml`, validate it against `_shared/core/experiment-record-schema.yaml` before scaffolding the package.
 4. Detect `task`, `domain`, and `journal`.
-5. Load only the matching fragments.
+5. Load matching fragments, then named shared stance or ethics rules only when the task needs their specific guidance.
 6. Produce: experiment data template, FAIR audit, dataset package, data availability statement, or submission-ready dataset folder.
 7. Never invent measurements, replicate counts, standards, or environmental conditions.
 

@@ -40,6 +40,26 @@
         }
       ],
       "files": []
+    },
+    {
+      "id": "budgeted-reader-routing",
+      "prompt": "Build a bilingual reader package from a civil-materials PDF, then prepare a citation handoff with a terminology normalization question.",
+      "expected_output": "The assistant should load the minimal reader core first, then load the terminology ledger for each paper reading and source-grounding rules for the handoff. It must keep source anchors, missing-evidence flags, and reader-package outputs visible without loading ethics unless attribution, copyright, or AI-boundary work is requested.",
+      "assertions": [
+        {
+          "name": "shared_rules_are_on_demand",
+          "description": "The default router does not keep terminology, ethics, or the duplicate reader contract in always_load."
+        },
+        {
+          "name": "terminology_and_handoff_rules_are_conditional",
+          "description": "Each paper-reading route loads terminology normalization, and citation or figure handoff work loads source-grounding only when needed."
+        },
+        {
+          "name": "reader_package_evidence_contract_preserved",
+          "description": "The output retains bilingual notes, source_map.json, figure grounding, explicit source anchors, and visible missing-evidence boundaries."
+        }
+      ],
+      "files": []
     }
   ]
 }
