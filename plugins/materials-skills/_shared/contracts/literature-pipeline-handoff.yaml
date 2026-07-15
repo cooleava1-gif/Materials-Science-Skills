@@ -4,6 +4,8 @@ description: "Materials literature discovery digest with scoring, source depth, 
 produced_by: materials-literature-pipeline
 consumed_by:
   - materials-research
+  - materials-reader
+  - materials-citation
 
 artifacts:
   literature_candidate_table.csv:
@@ -41,5 +43,5 @@ templates:
 
 notes:
   score_breakdown: "Represented by the six numeric columns topic_fit, evidence_layer_score, method_relevance, material_system_proximity, source_quality, and actionability; do not add a JSON score_breakdown column."
-  evidence_boundary: "Metadata-only and abstract-screened candidates support discovery prioritization only, not manuscript claims."
+  evidence_boundary: "Every literature-pipeline candidate row remains candidate evidence at every source_depth and score, including full-text-read and data-extracted. Manuscript support must come from a separate source-anchored materials-reader or extraction artifact; the candidate row may link or route to it but never becomes manuscript evidence."
   research_state: "Consumers should write candidates to research-state source_map.candidates when a multi-skill workflow is active."

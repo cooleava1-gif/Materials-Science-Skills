@@ -116,6 +116,34 @@
         }
       ],
       "files": []
+    },
+    {
+      "id": "disclosure-light-claims-strict",
+      "prompt": "Analyze a source-grounded materials disclosure, then explain how the route changes for claims-only drafting and a complete patent package.",
+      "expected_output": "Disclosure analysis stays light and stops before formal claims. Claim-set and full-draft routes load the patent knowledge base, Chinese drafting guide, detailed stage gates, and claim checklist before formal Chinese claims or specification drafting. Unsupported features never enter formal claims, and needs-confirmation features become inventor questions. Any unresolved needs-confirmation item or inventor question forces overall status incomplete-draft until resolved; review-draft or completed package status is not allowed.",
+      "assertions": [
+        {
+          "name": "disclosure_analysis_stays_light",
+          "description": "Disclosure analysis does not load the full patent knowledge base or output package contract."
+        },
+        {
+          "name": "formal_claims_load_kb",
+          "description": "Claim-set and full-draft routes load patent_kb.yaml and the claim checklist before drafting."
+        },
+        {
+          "name": "formal_chinese_drafting_loads_guide",
+          "description": "Claim-set and full-draft routes load the Chinese drafting guide before formal Chinese claims or specification drafting."
+        },
+        {
+          "name": "unsupported_features_are_excluded",
+          "description": "Unsupported features are excluded from formal claims and needs-confirmation features become inventor questions."
+        },
+        {
+          "name": "unresolved_confirmation_blocks_completion",
+          "description": "Any unresolved needs-confirmation item or inventor question forces overall status incomplete-draft until resolved; review-draft or completed package status is not allowed."
+        }
+      ],
+      "files": []
     }
   ]
 }

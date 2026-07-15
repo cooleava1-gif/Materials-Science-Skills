@@ -342,6 +342,9 @@ handoffs:
     - handoff: doe-handoff
       from: materials-doe
       optional: true
+    - handoff: response-handoff
+      from: materials-response
+      optional: true
 release_checks:
   - scripts/run_release_checks.py --json
   - scripts/check_skill_architecture.py --json

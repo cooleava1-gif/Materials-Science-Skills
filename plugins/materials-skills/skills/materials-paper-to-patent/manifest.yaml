@@ -7,13 +7,28 @@ description: >
   invention type is process-material; supports algorithm/apparatus/mixed via
   manifest detection.
 
+context_budget:
+  target_activation_bytes: 20480
+  max_activation_bytes: 22528
+  max_always_load: 3
+  max_skill_lines: 55
+  max_workflow_lines: 40
+  route_scenarios_file: evals/context-routes.yaml
+  required_route_axes:
+    - source_format
+    - task_mode
+    - invention_type
+  required_route_scenarios:
+    - disclosure-analysis-light
+    - claim-set-with-kb
+    - reader-to-patent
+    - reader-figure-full-draft
+    - unsupported-feature-block
+
 always_load:
   - ../_shared/core/direction-profile.md
   - static/core/contract.md
-  - static/core/principles.md
   - static/core/workflow.md
-  - static/core/output-contract.md
-  - static/core/patent_kb.yaml
 
 axes:
   source_format:
@@ -86,16 +101,33 @@ axes:
 
 references:
   on_demand:
-    - condition: drafting or auditing Chinese claims and specification
+    principles:
+      path: static/core/principles.md
+      when: "The task needs the full evidence-translation and materials-honesty principles."
+    stage-gates:
+      path: references/stage-gates.md
+      when: "The task drafts or audits formal claims or a full patent package."
+    output-contract:
+      path: static/core/output-contract.md
+      when: "The task produces or audits the complete patent package."
+    patent-kb:
+      path: static/core/patent_kb.yaml
+      when: "The task drafts or validates formal claims."
+    cn-drafting-guide:
       path: references/cn-patent-drafting-guide.md
-    - condition: populating or validating the structured draft
+      when: "Chinese claims or specification language is drafted or audited."
+    draft-schema:
       path: references/draft-schema.md
-    - condition: learning transformations from paired paper-patent examples
+      when: "The structured draft is populated or validated."
+    corpus-patterns:
       path: references/corpus-derived-patterns.md
-    - condition: comparing a supplied paper with an existing patent
+      when: "Paired examples are used to study supported transformations."
+    corpus-pair-audit:
       path: references/corpus-pair-audit.md
-    - condition: running the civil claims validation engine
+      when: "A supplied paper is compared with an existing patent."
+    claim-checklist:
       path: references/claim-checklist.md
+      when: "Formal claims are drafted or validated."
 
 assets:
   - examples/civil-concrete-strengthening
@@ -116,7 +148,11 @@ quality_gates:
   - claims must stay inside the civil patent knowledge base
 
 handoffs:
-  provides: {}
+  provides:
+    patent-draft-handoff:
+      description: "Source-grounded patent draft state, claim support map, validation status, and inventor questions"
+      contract: ../../_shared/contracts/patent-draft-handoff.yaml
+      version: "1.0"
   consumes:
     - handoff: reader-package
       from: materials-reader

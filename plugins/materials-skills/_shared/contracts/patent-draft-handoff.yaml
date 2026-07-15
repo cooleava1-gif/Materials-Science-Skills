@@ -1,0 +1,37 @@
+name: patent-draft-handoff
+version: "1.0"
+description: "Source-grounded Chinese patent draft state with claim support and validation results"
+produced_by: materials-paper-to-patent
+consumed_by:
+  - materials-research
+
+required_fields:
+  - contract
+  - contract_version
+  - status
+  - source_map_path
+  - invention_type
+  - claim_feature_map_path
+  - support_states
+  - validation
+  - inventor_questions
+  - artifacts
+
+status_values:
+  - review-draft
+  - incomplete-draft
+  - blocked
+
+support_state_values:
+  - explicit
+  - inherent
+  - needs-confirmation
+  - unsupported
+
+validation_fields:
+  - draft
+  - claims
+  - package
+
+templates:
+  - ../../skills/materials-paper-to-patent/assets/templates/patent-draft-handoff-template.yaml

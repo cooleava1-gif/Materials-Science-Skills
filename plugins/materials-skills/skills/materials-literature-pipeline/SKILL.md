@@ -6,40 +6,36 @@ description: Use when setting up, running, or auditing a recurring materials lit
 
 # Materials Literature Pipeline
 
-Run a structured materials literature discovery pipeline. This skill turns broad search results into an evidence-aware candidate table and digest, then routes deep reading and citation gaps to the existing materials skills. It can also define local cron-style recurring runs, push-message formats, source/delivery degradation, four-step gap analysis, and review-compilation handoffs.
+Build recurring materials-literature watches and candidate-stage handoffs without
+confusing discovery priority with manuscript evidence.
 
-## Layered architecture
+## Routing
 
-This skill is split into two layers:
-
-- A static layer under `static/` with the workflow, scoring rubric, and contract.
-- A dynamic layer (this file plus `manifest.yaml`) that detects axes such as pipeline mode, material family, and output type.
-
-## Protocol
-
-1. Read `manifest.yaml`, then load every `always_load` file.
-2. Apply profile-first routing from `.materials/profile.yaml` when available.
-3. Detect `pipeline_mode`, `material_family`, and `output`.
-4. Define the search scope: topic, material system, time window, source databases, inclusion/exclusion rules.
-5. Build the candidate set: fetch or receive records, assign stable `candidate_id`, generate `dedup_key` from DOI/title+year, and deduplicate before scoring.
-6. Score each candidate independently on the six dimensions (topic fit, evidence layer, method relevance, material-system proximity, source quality, actionability). Store them as six numeric table fields, recalculate totals, and do not trust inherited scores.
-7. Label every candidate with `source_depth` (metadata-only, abstract-screened, full-text-read, or data-extracted), `next_action`, and `evidence_boundary`.
-8. Emit `literature_candidate_table.csv` and `literature_digest.md` with ranked candidates, source-depth caveats, and next-action routing.
-9. When the user asks for recurring operation, load `references/cron-operations.md` and verify the job is visible after creation; do not treat local cron as a cloud guarantee.
-10. When delivery is requested, load `references/push-format.md` and preserve score, source-depth, evidence-boundary, and next-action fields in the message.
-11. When a source, schedule, delivery, or archive step fails, load `references/degradation-strategy.md` and deliver a reduced but labeled result instead of silently dropping the run.
-12. When the user asks whether a topic is unexplored, load `references/gap-analysis.md` and run the four-step gap method.
-13. When pipeline outputs feed a review article, load `references/review-compilation-workflow.md` before routing to `materials-writing`.
-14. Route full-text reading to `materials-reader`, citation-gap auditing to `materials-citation`, and cross-stage orchestration to `materials-research`.
-15. Update or draft the shared research state `source_map` when the pipeline output feeds into a multi-skill workflow.
+1. Read `manifest.yaml` and its `always_load` core.
+2. Apply profile-first routing, then detect the `pipeline_mode`,
+   `material_family`, and `output` axes.
+3. In configure mode, define scope and operation without loading scoring unless
+   the user also asks to score, rank, calibrate, or audit candidates.
+4. In run or audit mode, load only the selected axis paths and matching
+   `references.on_demand` entries.
+5. Assign stable candidate IDs and deduplicate by DOI or normalized title plus
+   year before any scoring.
+6. Emit the candidate table, digest, and `literature-pipeline-handoff` required
+   by the request.
 
 ## Gates
 
-- **BLOCKING**: Metadata-only candidates must not be treated as evidence for manuscript claims. They are candidate evidence only.
-- **BLOCKING**: Scores must be recalculated from dimensions on every run; do not trust inherited or cached totals.
-- **BLOCKING**: A candidate with `topic_fit < 10` cannot rank in the top tier, regardless of journal prestige or other scores.
-- **BLOCKING**: Every top-tier candidate must have a `source_depth` label, `evidence_boundary`, and `next_action`.
+- Every candidate row remains candidate evidence at every `source_depth` and
+  score. Manuscript support requires a separate source-anchored reader or
+  extraction artifact; the row may link or route to it but is never promoted.
+- When scoring applies, recalculate totals from dimensions. A candidate with
+  `topic_fit < 10` cannot rank top tier, and every top-tier row requires
+  `source_depth`, `evidence_boundary`, and `next_action`.
 - Candidates flagged as `exclude` or `archive` must have a documented reason.
-- Any automated schedule is local/profile-bound until a list/manual-run verification proves it exists in the current environment.
-- A failed source, delivery channel, or archive write must be reported as degradation; never hide partial coverage or compensate by inflating scores.
-- When a multi-skill workflow is active, write candidates only to `research-state.source_map.candidates`; do not create a new database or downloader surface.
+- `next_action=read` routes through the handoff to `materials-reader`;
+  `next_action=cite-gap-audit` routes to `materials-citation`.
+- Automated schedules remain local/profile-bound until listed and manually
+  verified. Report degradation without hiding partial coverage or inflating
+  scores.
+- Persistent multi-skill candidates live only in
+  `research-state.source_map.candidates`.

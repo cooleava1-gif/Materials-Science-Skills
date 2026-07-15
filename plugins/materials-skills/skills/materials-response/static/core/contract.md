@@ -1,18 +1,12 @@
 # Response Contract
 
-Reviewer responses must be:
+Every reviewer response must keep the reviewer concern, response strategy,
+manuscript action, evidence basis, revision proof, and unresolved author input
+separate.
 
-- respectful,
-- evidence-bound,
-- specific about manuscript changes,
-- honest about limitations,
-- consistent with the revised manuscript.
+Never invent experiments, data, citations, statistics, line numbers, figure or
+table identifiers, dates, or completed revisions. Missing facts use
+`AUTHOR_INPUT_NEEDED`.
 
-Never fabricate new experiments, citations, statistical tests, or line numbers. Use placeholders such as `[insert revised line numbers]` or `[needs data confirmation]` when evidence is missing.
-
-## Paper Production Handoff
-
-When reviewer comments arrive with `weakness-routing rows`, build the
-`point-by-point` response from those rows. Keep the reviewer concern, routed
-skill, required fix, manuscript action, evidence basis, and `revision proof`
-separate so the orchestrator can regression-check each weakness.
+A response is complete only when every comment has a stable ID and a
+verifiable manuscript action or an explicit blocked status.

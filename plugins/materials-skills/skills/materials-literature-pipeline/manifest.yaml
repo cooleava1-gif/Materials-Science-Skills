@@ -1,12 +1,28 @@
 version: "1.1.0"
 status: beta
 
+context_budget:
+  target_activation_bytes: 18432
+  max_activation_bytes: 20480
+  max_always_load: 3
+  max_skill_lines: 55
+  max_workflow_lines: 50
+  route_scenarios_file: evals/context-routes.yaml
+  required_route_axes:
+    - pipeline_mode
+    - material_family
+    - output
+  required_route_scenarios:
+    - configure-without-scoring
+    - run-scored-digest
+    - pipeline-to-reader
+    - pipeline-to-citation
+    - research-pipeline-reader
+
 always_load:
+  - ../_shared/core/direction-profile.md
   - static/core/contract.md
   - static/core/workflow.md
-  - static/core/scoring.md
-  - ../_shared/core/direction-profile.md
-  - ../_shared/core/research-state-contract.md
 
 axes:
   pipeline_mode:
@@ -77,6 +93,12 @@ axes:
 
 references:
   on_demand:
+    scoring:
+      path: static/core/scoring.md
+      when: "Candidates are scored, ranked, calibrated, or audited."
+    research-state:
+      path: ../_shared/core/research-state-contract.md
+      when: "The pipeline participates in a persistent multi-skill research state."
     digest-template:
       path: assets/templates/literature-pipeline-digest.md
       when: "The user needs a digest."

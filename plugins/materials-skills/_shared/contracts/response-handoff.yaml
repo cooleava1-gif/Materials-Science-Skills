@@ -1,0 +1,38 @@
+name: response-handoff
+version: "1.0"
+description: "Reviewer-response rows with evidence basis, manuscript action, revision proof, and unresolved author input"
+produced_by: materials-response
+consumed_by:
+  - materials-research
+  - materials-writing
+  - materials-submission
+
+artifacts:
+  response_handoff.csv:
+    description: "One row per stable reviewer comment"
+    required: true
+    columns:
+      comment_id: { type: string, required: true }
+      concern_type: { type: string, required: true }
+      strategy: { type: string, required: true }
+      reviewer_comment: { type: string, required: true }
+      response: { type: string, required: true }
+      manuscript_action: { type: string, required: true }
+      evidence_basis: { type: string, required: false }
+      revision_proof: { type: string, required: false }
+      author_input_needed: { type: boolean, required: true }
+      status: { type: string, required: true }
+  response-package.md:
+    description: "Human-readable revision summary and point-by-point response"
+    required: true
+
+status_values:
+  - open
+  - blocked
+  - drafted
+  - revised
+  - regression-checked
+
+templates:
+  - ../../skills/materials-response/assets/templates/response-table-template.csv
+  - ../../skills/materials-response/assets/templates/response-package-template.md

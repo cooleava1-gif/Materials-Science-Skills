@@ -159,7 +159,10 @@ handoffs:
       description: "Citation matrix and claim-source mapping"
       contract: ../../_shared/contracts/citation-handoff.yaml
       version: "1.0"
-  consumes: []
+  consumes:
+    - handoff: literature-pipeline-handoff
+      from: materials-literature-pipeline
+      optional: true
 release_checks:
   - scripts/run_release_checks.py --json
   - scripts/check_skill_architecture.py --json

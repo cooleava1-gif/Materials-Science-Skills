@@ -160,6 +160,9 @@ handoffs:
     - handoff: gate-report
       from: materials-research
       optional: true
+    - handoff: response-handoff
+      from: materials-response
+      optional: true
 
 release_checks:
   - scripts/run_release_checks.py --json

@@ -1,2 +1,2 @@
-reviewer,comment_id,concern_type,reviewer_comment,response_strategy,manuscript_action,evidence_needed,risk_note
-Reviewer 1,1.1,mechanism,"[paste comment]","clarify and revise","[section/line change]","[FTIR/SEM/other evidence]","[risk]"
+comment_id,concern_type,strategy,reviewer_comment,response,manuscript_action,evidence_basis,revision_proof,author_input_needed,status
+1.1,mechanism,clarify and revise,"[reviewer comment]","[draft response]","[section or paragraph action]","[confirmed source or data]","",true,blocked

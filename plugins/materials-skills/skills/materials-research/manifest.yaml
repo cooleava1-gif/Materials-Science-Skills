@@ -707,6 +707,12 @@ handoffs:
   - handoff: literature-pipeline-handoff
     from: materials-literature-pipeline
     optional: true
+  - handoff: response-handoff
+    from: materials-response
+    optional: true
+  - handoff: patent-draft-handoff
+    from: materials-paper-to-patent
+    optional: true
   - handoff: gate-report
     from: materials-research
     optional: true
