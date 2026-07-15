@@ -15,7 +15,7 @@ Route research workflows across the materials skill bundle. This is the day-to-d
 
 ## Routing protocol
 
-1. Read [manifest.yaml](manifest.yaml), then load every file under `always_load` (currently direction-profile, stance, and workflow).
+1. Read [manifest.yaml](manifest.yaml), then load every file under `always_load` (currently direction-profile and workflow).
 2. Apply profile-first routing from `.materials/profile.yaml`; on first use, ask for direction once and save it locally.
 3. Detect the request axes - `task`, `journal`, `domain` - from the user input. Most axes are inferred from the manifest axis table.
 4. Load selected fragments. For each selected axis, read the mapped path declared in `manifest.yaml`; do not infer a fragment's contents from its trigger words. Load only the selected fragments and the on-demand references required by the task.
@@ -26,6 +26,9 @@ Load on demand: `_shared/core/evidence-contract.md` when building or auditing a 
 
 ## Gates
 
+- Do not invent citations, data, mechanisms, reviewer intent, journal facts,
+  experimental results, or completed actions. Mark missing evidence and route
+  the gap instead of filling it with confident prose.
 - Do not skip to writing or figures before research and citation are grounded.
 - Gate each stage on the previous stage output contract.
 - Recommend `materials-citation` first when literature gaps exist.
