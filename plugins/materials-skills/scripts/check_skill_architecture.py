@@ -272,6 +272,14 @@ def _line_count(path: Path) -> int:
     return len(path.read_text(encoding="utf-8").splitlines())
 
 
+def _context_size(path: Path) -> int:
+    """Return platform-independent UTF-8 context bytes, with a binary fallback."""
+    try:
+        return len(path.read_text(encoding="utf-8").encode("utf-8"))
+    except UnicodeDecodeError:
+        return path.stat().st_size
+
+
 def _budget_ints(budget: dict[str, Any]) -> tuple[dict[str, int], list[str]]:
     values: dict[str, int] = {}
     hard_failures: list[str] = []
@@ -529,10 +537,10 @@ def _route_scenario_reports(
                 if path.is_file():
                     unique_files[path.resolve()] = None
             skill_bytes[selected_skill] = sum(
-                path.stat().st_size for path in unique_files if path not in before
+                _context_size(path) for path in unique_files if path not in before
             )
 
-        activation_bytes = sum(path.stat().st_size for path in unique_files)
+        activation_bytes = sum(_context_size(path) for path in unique_files)
         route_warnings: list[str] = []
         if isinstance(target, int) and activation_bytes > target:
             route_warnings.append(
@@ -599,10 +607,10 @@ def _context_budget_report(
             continue
         path = _resolve_manifest_path(skills_root, skill_dir, path_text)
         if path and path.exists() and path.is_file():
-            always_load_bytes += path.stat().st_size
+            always_load_bytes += _context_size(path)
 
-    skill_bytes = skill_path.stat().st_size if skill_path.exists() else 0
-    manifest_bytes = manifest_path.stat().st_size if manifest_path.exists() else 0
+    skill_bytes = _context_size(skill_path) if skill_path.exists() else 0
+    manifest_bytes = _context_size(manifest_path) if manifest_path.exists() else 0
     activation_bytes = skill_bytes + manifest_bytes + always_load_bytes
     metrics = {
         "activation_bytes": activation_bytes,

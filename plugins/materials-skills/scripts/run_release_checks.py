@@ -269,6 +269,28 @@ def collect_materials_submission_rendering_issues() -> list[str]:
     return [f"template-driven rendering tests failed: {output}"]
 
 
+def collect_architecture_line_ending_issues() -> list[str]:
+    """Run cross-platform context-budget byte accounting regressions."""
+    test_script = Path(__file__).parent / "test_architecture_line_endings.py"
+    if not test_script.exists():
+        return [f"missing {test_script.relative_to(REPO_ROOT)}"]
+    result = subprocess.run(
+        [sys.executable, str(test_script)],
+        cwd=REPO_ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode == 0:
+        return []
+    output = "\n".join(
+        part.strip()
+        for part in (result.stdout, result.stderr)
+        if part.strip()
+    )
+    return [f"architecture line-ending tests failed: {output}"]
+
+
 def collect_public_boundary_issues(skills_root: Path = SKILLS_ROOT) -> list[str]:
     """Keep internal tests, vendored experiments, and retired skills out of GitHub delivery."""
 
@@ -331,6 +353,10 @@ def main() -> int:
     submission_rendering_issues = collect_materials_submission_rendering_issues()
     if submission_rendering_issues:
         all_issues["materials_submission_rendering"] = submission_rendering_issues
+
+    architecture_line_ending_issues = collect_architecture_line_ending_issues()
+    if architecture_line_ending_issues:
+        all_issues["architecture_line_endings"] = architecture_line_ending_issues
 
     # paper-production orchestrator check
     orchestrator_issues = collect_paper_production_orchestrator_issues(SKILLS_ROOT)
