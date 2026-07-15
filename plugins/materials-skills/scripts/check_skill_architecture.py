@@ -293,6 +293,281 @@ def _budget_ints(budget: dict[str, Any]) -> tuple[dict[str, int], list[str]]:
     return values, hard_failures
 
 
+def _route_on_demand_path(
+    manifest: dict[str, Any], selector: str
+) -> str | None:
+    references = manifest.get("references", {})
+    if not isinstance(references, dict):
+        return None
+    on_demand = references.get("on_demand", {})
+    if isinstance(on_demand, dict):
+        entry = on_demand.get(selector)
+        if isinstance(entry, str):
+            return entry
+        if isinstance(entry, dict) and isinstance(entry.get("path"), str):
+            return entry["path"]
+    elif isinstance(on_demand, list):
+        for entry in on_demand:
+            if not isinstance(entry, dict):
+                continue
+            path_text = entry.get("path")
+            if selector == path_text and isinstance(path_text, str):
+                return path_text
+    return None
+
+
+def _route_skill_payload(
+    skills_root: Path,
+    skill_name: str,
+    axes: Any,
+    on_demand: Any,
+) -> tuple[list[Path], list[str]]:
+    failures: list[str] = []
+    skill_dir = (skills_root / skill_name).resolve()
+    if not _is_relative_to(skill_dir, skills_root.resolve()) or not skill_dir.is_dir():
+        return [], [f"route skill {skill_name!r} does not exist under skills root"]
+
+    manifest_path = skill_dir / "manifest.yaml"
+    manifest = _read_yaml(manifest_path)
+    files = [skill_dir / "SKILL.md", manifest_path]
+    for path_text in manifest.get("always_load", []):
+        if not isinstance(path_text, str):
+            continue
+        resolved = _resolve_manifest_path(skills_root, skill_dir, path_text)
+        if resolved and resolved.is_file():
+            files.append(resolved)
+        else:
+            failures.append(f"{skill_name}: always_load path {path_text!r} is invalid")
+
+    if not isinstance(axes, dict):
+        failures.append(f"{skill_name}: route axes must be a mapping")
+        axes = {}
+    manifest_axes = manifest.get("axes", {})
+    if not isinstance(manifest_axes, dict):
+        manifest_axes = {}
+    for axis_name, value_name in axes.items():
+        if not isinstance(axis_name, str) or not isinstance(value_name, str):
+            failures.append(
+                f"{skill_name}: route axis names and values must be strings"
+            )
+            continue
+        axis = manifest_axes.get(axis_name)
+        if not isinstance(axis, dict):
+            failures.append(f"{skill_name}: route axis {axis_name!r} is not declared")
+            continue
+        values = axis.get("values", {})
+        value = values.get(value_name) if isinstance(values, dict) else None
+        if not isinstance(value, dict) or not isinstance(value.get("path"), str):
+            failures.append(
+                f"{skill_name}: route value {value_name!r} is not declared for axis {axis_name!r}"
+            )
+            continue
+        path_text = value["path"]
+        resolved = _resolve_manifest_path(skills_root, skill_dir, path_text)
+        if resolved and resolved.is_file():
+            files.append(resolved)
+        else:
+            failures.append(
+                f"{skill_name}: route path {path_text!r} for {axis_name}.{value_name} is invalid"
+            )
+
+    if not isinstance(on_demand, list):
+        failures.append(f"{skill_name}: route on_demand must be a list")
+        on_demand = []
+    for selector in on_demand:
+        if not isinstance(selector, str):
+            failures.append(f"{skill_name}: on_demand selectors must be strings")
+            continue
+        path_text = _route_on_demand_path(manifest, selector)
+        if path_text is None:
+            failures.append(f"{skill_name}: on_demand selector {selector!r} is not declared")
+            continue
+        resolved = _resolve_manifest_path(skills_root, skill_dir, path_text)
+        if resolved and resolved.is_file():
+            files.append(resolved)
+        else:
+            failures.append(
+                f"{skill_name}: on_demand path {path_text!r} for {selector!r} is invalid"
+            )
+    return files, failures
+
+
+def _route_scenario_reports(
+    skills_root: Path, skill_dir: Path, budget: dict[str, Any]
+) -> tuple[list[dict[str, Any]], list[str], list[str]]:
+    contract_failures: list[str] = []
+    required_names = budget.get("required_route_scenarios", [])
+    required_axes = budget.get("required_route_axes", [])
+    for field, value in (
+        ("required_route_scenarios", required_names),
+        ("required_route_axes", required_axes),
+    ):
+        if not isinstance(value, list) or any(not isinstance(item, str) for item in value):
+            contract_failures.append(f"context_budget.{field} must be a list of strings")
+    if contract_failures:
+        return [], [], contract_failures
+
+    scenarios = budget.get("route_scenarios", [])
+    scenarios_file = budget.get("route_scenarios_file")
+    if scenarios_file is not None:
+        if not isinstance(scenarios_file, str):
+            return [], [], contract_failures + [
+                "context_budget.route_scenarios_file must be a string"
+            ]
+        resolved = _resolve_manifest_path(skills_root, skill_dir, scenarios_file)
+        if not resolved or not resolved.is_file():
+            return [], [], contract_failures + [
+                f"context_budget.route_scenarios_file {scenarios_file!r} is invalid"
+            ]
+        scenario_data = _read_yaml(resolved)
+        if "__yaml_error__" in scenario_data:
+            return [], [], contract_failures + [
+                f"context_budget.route_scenarios_file: {scenario_data['__yaml_error__']}"
+            ]
+        scenarios = scenario_data.get("route_scenarios", [])
+    if scenarios == []:
+        missing = ", ".join(required_names)
+        if missing:
+            contract_failures.append(f"required route scenarios are missing: {missing}")
+        return [], [], contract_failures
+    if not isinstance(scenarios, list):
+        return [], [], contract_failures + [
+            "context_budget.route_scenarios must be a list"
+        ]
+
+    reports: list[dict[str, Any]] = []
+    warnings: list[str] = []
+    hard_failures: list[str] = list(contract_failures)
+    seen_names: set[str] = set()
+    for index, scenario in enumerate(scenarios):
+        prefix = f"context_budget.route_scenarios[{index}]"
+        scenario_failures: list[str] = []
+        if not isinstance(scenario, dict):
+            hard_failures.append(f"{prefix} must be a mapping")
+            continue
+        name = scenario.get("name")
+        if not isinstance(name, str) or not name.strip():
+            name = f"route-{index}"
+            scenario_failures.append(f"{prefix}.name must be a non-empty string")
+        elif name in seen_names:
+            scenario_failures.append(f"{prefix}.name {name!r} must be unique")
+        seen_names.add(name)
+
+        primary_axes = scenario.get("axes", {})
+        if isinstance(primary_axes, dict):
+            missing_axes = [axis for axis in required_axes if axis not in primary_axes]
+            if missing_axes:
+                scenario_failures.append(
+                    f"{prefix}.axes missing required axes: {', '.join(missing_axes)}"
+                )
+
+        target = scenario.get("target_bytes")
+        maximum = scenario.get("max_bytes")
+        for field, value in (("target_bytes", target), ("max_bytes", maximum)):
+            if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+                scenario_failures.append(f"{prefix}.{field} must be a non-negative integer")
+        if isinstance(target, int) and isinstance(maximum, int) and target > maximum:
+            scenario_failures.append(f"{prefix}.target_bytes must be <= max_bytes")
+
+        selections = [
+            {
+                "skill": skill_dir.name,
+                "axes": scenario.get("axes", {}),
+                "on_demand": scenario.get("on_demand", []),
+            }
+        ]
+        companions = scenario.get("companions", [])
+        if not isinstance(companions, list):
+            scenario_failures.append(f"{prefix}.companions must be a list")
+            companions = []
+        selections.extend(companion for companion in companions if isinstance(companion, dict))
+        if len(selections) != len(companions) + 1:
+            scenario_failures.append(f"{prefix}.companions entries must be mappings")
+        selected_skills: set[str] = set()
+        for selection in selections:
+            selected_skill = selection.get("skill")
+            if isinstance(selected_skill, str) and selected_skill in selected_skills:
+                scenario_failures.append(
+                    f"{prefix}: skill {selected_skill!r} is selected more than once"
+                )
+            elif isinstance(selected_skill, str):
+                selected_skills.add(selected_skill)
+            selection_axes = selection.get("axes", {})
+            selection_required_axes = selection.get("required_axes", [])
+            if not isinstance(selection_required_axes, list) or any(
+                not isinstance(axis, str) for axis in selection_required_axes
+            ):
+                scenario_failures.append(
+                    f"{prefix}: required_axes must be a list of strings"
+                )
+            elif isinstance(selection_axes, dict):
+                missing_selection_axes = [
+                    axis for axis in selection_required_axes if axis not in selection_axes
+                ]
+                if missing_selection_axes:
+                    scenario_failures.append(
+                        f"{prefix}: {selected_skill} missing required axes: "
+                        + ", ".join(missing_selection_axes)
+                    )
+
+        unique_files: dict[Path, None] = {}
+        skill_bytes: dict[str, int] = {}
+        for selection in selections:
+            selected_skill = selection.get("skill")
+            if not isinstance(selected_skill, str) or not selected_skill:
+                scenario_failures.append(f"{prefix}: each skill selection needs a skill name")
+                continue
+            files, failures = _route_skill_payload(
+                skills_root,
+                selected_skill,
+                selection.get("axes", {}),
+                selection.get("on_demand", []),
+            )
+            scenario_failures.extend(failures)
+            before = set(unique_files)
+            for path in files:
+                if path.is_file():
+                    unique_files[path.resolve()] = None
+            skill_bytes[selected_skill] = sum(
+                path.stat().st_size for path in unique_files if path not in before
+            )
+
+        activation_bytes = sum(path.stat().st_size for path in unique_files)
+        route_warnings: list[str] = []
+        if isinstance(target, int) and activation_bytes > target:
+            route_warnings.append(
+                f"route {name!r} bytes {activation_bytes} exceed target {target}"
+            )
+        if isinstance(maximum, int) and activation_bytes > maximum:
+            scenario_failures.append(
+                f"route {name!r} bytes {activation_bytes} exceed maximum {maximum}"
+            )
+        warnings.extend(route_warnings)
+        hard_failures.extend(scenario_failures)
+        reports.append(
+            {
+                "name": name,
+                "activation_bytes": activation_bytes,
+                "files": sorted(path.as_posix() for path in unique_files),
+                "file_count": len(unique_files),
+                "skill_bytes": skill_bytes,
+                "warnings": route_warnings,
+                "hard_failures": scenario_failures,
+            }
+        )
+    missing_names = [name for name in required_names if name not in seen_names]
+    unexpected_names = [name for name in seen_names if name not in required_names]
+    if required_names and missing_names:
+        hard_failures.append(
+            "required route scenarios are missing: " + ", ".join(missing_names)
+        )
+    if required_names and unexpected_names:
+        hard_failures.append(
+            "undeclared route scenarios are present: " + ", ".join(sorted(unexpected_names))
+        )
+    return reports, warnings, hard_failures
+
+
 def _context_budget_report(
     skills_root: Path, skill_dir: Path, manifest: dict[str, Any]
 ) -> dict[str, Any]:
@@ -339,8 +614,11 @@ def _context_budget_report(
         "workflow_lines": _line_count(workflow_path),
     }
 
-    warnings: list[str] = []
-    hard_failures: list[str] = list(schema_failures)
+    routes, route_warnings, route_failures = _route_scenario_reports(
+        skills_root, skill_dir, budget if isinstance(budget, dict) else {}
+    )
+    warnings: list[str] = list(route_warnings)
+    hard_failures: list[str] = list(schema_failures) + route_failures
 
     target = budget_values.get("target_activation_bytes")
     if target is not None and activation_bytes > target:
@@ -367,6 +645,7 @@ def _context_budget_report(
     return {
         "declared": True,
         "metrics": metrics,
+        "routes": routes,
         "warnings": warnings,
         "hard_failures": hard_failures,
     }

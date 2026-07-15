@@ -69,6 +69,10 @@ handoff for downstream skills:
 
 - Plans experiments and generates matrices only; never executes tests or
   analyzes collected data.
+- Loads only the selected design, material, domain, output, and output-format
+  routes; resolved files are applied once.
+- Loads companion skills only for an explicit handoff. Static route budgets in
+  `evals/context-routes.yaml` cover standalone and multi-skill workflows.
 - Factor list and level count must be confirmed before generating any matrix
   (blocking gate).
 - Design mode (classical, orthogonal, mix-design, screening, response-surface,
@@ -121,4 +125,5 @@ skills/materials-doe/
 **Validation**
 
 - Bundle verification: `python .\scripts\run_release_checks.py --json`
-- Architecture check: `python .\scripts\check_skill_architecture.py --json`
+- Focused route-budget check:
+  `python .\scripts\check_skill_architecture.py --skill materials-doe --json`

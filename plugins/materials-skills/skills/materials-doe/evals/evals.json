@@ -108,6 +108,26 @@
         }
       ],
       "files": []
+    },
+    {
+      "id": "doe-data-handoff-routing",
+      "prompt": "Create a Taguchi asphalt experiment matrix and then prepare a data-entry package from the resulting experiment record.",
+      "expected_output": "The assistant must first complete and verify the DOE route, emit the experiment record, and only then hand the record to materials-data for the data-entry package. It must not preload writing or figure workflows, and shared files selected by both skills must be applied once rather than treated as separate conflicting instructions.",
+      "assertions": [
+        {
+          "name": "doe_route_completed_first",
+          "description": "The factor table, Taguchi matrix, and orthogonality check are completed before the data handoff."
+        },
+        {
+          "name": "record_based_data_handoff",
+          "description": "The materials-data package is explicitly built from the DOE experiment record."
+        },
+        {
+          "name": "unrequested_skills_excluded",
+          "description": "Writing and figure workflows are not invoked because the prompt does not request them."
+        }
+      ],
+      "files": []
     }
   ]
 }

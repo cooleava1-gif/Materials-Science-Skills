@@ -5,7 +5,7 @@ This contract defines the output handoff fields and quality gates for the materi
 ## Promises
 
 - Produce experiment plans, factor tables, and analysis scripts that follow DOE best practice.
-- Route mix design work through domain-specific methods (Furnas, ACI 211.1, empirical formulas).
+- Select the design from factor count, objective, interaction risk, and constraint type.
 - Keep all statistical claims tied to data, formulas, or standard procedures.
 - Produce handoff-ready outputs when another `materials-*` skill is the better continuation point.
 
@@ -14,13 +14,15 @@ This contract defines the output handoff fields and quality gates for the materi
 - Do not invent experimental data, factor levels, or statistical significance.
 - Do not silently skip replications or interaction effects without stating the assumption.
 - Do not recommend a design mode without checking the user's factor count and constraint type.
+- Do not treat engineering mix proportioning as a statistical mixture design.
+- Use `[needs data: ...]` for unresolved inputs instead of assuming values.
 
 ## Handoff Fields
 
 | Field | Description | Format |
 |---|---|---|
 | `experiment_plan` | Full experiment layout: factor-level table, run order, replication strategy | Markdown table or CSV |
-| `design_mode` | One of: `orthogonal`, `classical`, `mix_design` | Enum string |
+| `design_mode` | One of: `classical`, `orthogonal`, `screening`, `response-surface`, `mix-design`, `mixture-design` | Enum string |
 | `factors` | Factor names, levels, units, and ranges | Markdown table |
 | `analysis_script` | Python script for range analysis, ANOVA, or mix calculation | `.py` file |
 | `methods_paragraph` | Draft methods text describing the DOE procedure | Markdown paragraph |
