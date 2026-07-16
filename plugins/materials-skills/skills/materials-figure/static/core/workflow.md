@@ -14,8 +14,18 @@ explicitly marked as conditional.
 ## 1. Build and validate the multi-figure storyboard (conditional)
 
 For a task spanning more than one figure, write `figure_storyboard.yaml` (see
-`assets/templates/figure-storyboard/`) and run `check_storyboard.py` before
-writing any individual figure contract. The storyboard gate verifies:
+`assets/templates/figure-storyboard/`) and run the storyboard gate before
+writing any individual figure contract. Use the canonical deterministic entry
+in storyboard-only mode:
+
+```powershell
+python scripts/run_validation_gates.py `
+  --storyboard figure_storyboard.yaml `
+  --json
+```
+
+With no package directories, the materials gate is explicitly skipped. The
+storyboard gate verifies:
 
 - narrative arc completeness and role coverage,
 - acyclic evidence dependencies (DAG),
@@ -53,8 +63,18 @@ figure work and the automatic table-plotting loop.
 ## 3. Validate materials-science claims (conditional)
 
 If the figure contains XRD peaks/phases, FTIR wavenumbers/functional groups, or
-performance values, load `static/core/materials_kb.yaml` and run
-`validate_materials_claims.py` against the figure package before plotting.
+performance values, load `static/core/materials_kb.yaml` and run the materials
+gate against each figure package before plotting. When both inputs are
+available after contracts and source data are ready, run the coordinator again
+so the combined gate executes storyboard first and then materials validation:
+
+```powershell
+python scripts/run_validation_gates.py `
+  --storyboard figure_storyboard.yaml `
+  --package-dir fig1 `
+  --package-dir fig2 `
+  --json
+```
 
 - Errors that contradict known material relations block plotting.
 - Values far outside typical ranges are warnings for review.
@@ -80,8 +100,9 @@ In LLM-as-artist mode, write plotting code directly from the validated contract
 and source data:
 
 ```text
-storyboard (if multi-figure) -> contract draft -> contract validation
-  -> materials validation (if applicable) -> Python backend check
+storyboard-only coordinator (if multi-figure) -> contract draft
+  -> contract validation -> combined coordinator (storyboard -> materials)
+  -> Python backend check
   -> source-anchor check -> plot.py -> exports
 ```
 

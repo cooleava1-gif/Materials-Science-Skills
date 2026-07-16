@@ -195,6 +195,20 @@ The `evidence_depends_on` graph must be a DAG. Cycles are errors by default.
 
 ### 5.1 Basic Usage
 
+For a combined deterministic storyboard/materials gate, use the coordinator:
+
+```bash
+python scripts/run_validation_gates.py \
+    --storyboard figure_storyboard.yaml \
+    --package-dir fig1 \
+    --package-dir fig2 \
+    --json
+```
+
+The coordinator runs the storyboard gate first, stops on storyboard errors,
+and continues to materials validation after storyboard warnings. The focused
+command below remains useful when only the storyboard needs inspection:
+
 ```bash
 # Basic validation
 python scripts/check_storyboard.py figure_storyboard.yaml
@@ -260,17 +274,20 @@ Write the storyboard **before** individual figure contracts when:
    - List figures in narrative order
    - Assign roles, claims, and dependencies
 
-2. Run check_storyboard.py
+2. Run run_validation_gates.py with the storyboard and available figure
+   package directories
    - Fix errors (missing fields, invalid roles, cycles)
    - Address warnings (missing roles, placeholder claims)
+   - Use check_storyboard.py directly for a storyboard-only inspection
 
 3. Write individual figure_contract.md files
    - Each contract must reference its dependencies
    - Each contract's evidence chain must not duplicate other figures' panels
 
-4. Run validate_materials_claims.py on each contract
+4. Review the coordinator's materials gate
    - Fix XRD/FTIR/performance errors
    - Address warnings
+   - Use validate_materials_claims.py directly for a single-package inspection
 
 5. Plot figures
    - Apply shared palette and style from target_journal preset
