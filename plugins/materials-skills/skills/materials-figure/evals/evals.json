@@ -200,6 +200,56 @@
         }
       ],
       "files": []
+    },
+    {
+      "id": "deterministic-validation-gates-both-pass",
+      "command": "python scripts/test_validation_gates.py --case both-pass",
+      "expected": "stdout contains 'PASS both-pass'"
+    },
+    {
+      "id": "deterministic-validation-gates-storyboard-fail",
+      "command": "python scripts/test_validation_gates.py --case storyboard-fail",
+      "expected": "stdout contains 'PASS storyboard-fail'"
+    },
+    {
+      "id": "deterministic-validation-gates-storyboard-warning",
+      "command": "python scripts/test_validation_gates.py --case storyboard-warning",
+      "expected": "stdout contains 'PASS storyboard-warning'"
+    },
+    {
+      "id": "deterministic-validation-gates-materials-fail",
+      "command": "python scripts/test_validation_gates.py --case materials-fail",
+      "expected": "stdout contains 'PASS materials-fail'"
+    },
+    {
+      "id": "deterministic-validation-gates-input-errors",
+      "command": "python scripts/test_validation_gates.py --case input-errors",
+      "expected": "stdout contains 'PASS input-errors'"
+    },
+    {
+      "id": "deterministic-validation-gates-regression-suite",
+      "command": "python scripts/test_validation_gates.py --case all",
+      "expected": "stdout contains 'PASS all'"
+    },
+    {
+      "id": "deterministic-validation-gates-storyboard-load-error",
+      "command": "python scripts/test_validation_gates.py --case storyboard-load-error",
+      "expected": "stdout contains 'PASS storyboard-load-error'"
+    },
+    {
+      "id": "deterministic-validation-gates-cli-both-pass",
+      "command": "python scripts/test_validation_gates.py --case cli-both-pass",
+      "expected": "stdout contains 'PASS cli-both-pass'"
+    },
+    {
+      "id": "deterministic-validation-gates-cli-materials-fail",
+      "command": "python scripts/test_validation_gates.py --case cli-materials-fail",
+      "expected": "stdout contains 'PASS cli-materials-fail'"
+    },
+    {
+      "id": "deterministic-validation-gates-warning-materials-fail",
+      "command": "python scripts/test_validation_gates.py --case warning-materials-fail",
+      "expected": "stdout contains 'PASS warning-materials-fail'"
     }
   ]
 }

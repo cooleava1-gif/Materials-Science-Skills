@@ -170,6 +170,7 @@ assets:
 
 scripts:
   - scripts
+  - scripts/run_validation_gates.py
   - scripts/validate_materials_claims.py
   - scripts/check_storyboard.py
 

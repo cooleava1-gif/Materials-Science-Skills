@@ -21,7 +21,7 @@ The router stays short on purpose. Update fragments and the manifest, not this f
 
 2. **Resolve the profile, backend, and axes.** Apply the precedence `explicit direction in the current request > saved .materials/profile.yaml > neutral/general fallback`. Read the saved profile before resolving `material_family` and `domain`; on first use, ask for the materials direction once and save it locally. Then read [manifest.yaml](manifest.yaml) for the axis table and apply the Python blocking gate before any rendering.
 
-3. **Run the workflow.** Follow [static/core/workflow.md](static/core/workflow.md) end-to-end: validate the storyboard first for multi-figure tasks, write the figure contract before any code, run materials validation when material entities are present, load the Python backend fragment, check source data anchors, then generate the figure package and run visual QA.
+3. **Run the workflow.** Follow [static/core/workflow.md](static/core/workflow.md) end-to-end: validate the storyboard first for multi-figure tasks, write the figure contract before any code, run the deterministic two-gate coordinator when storyboard and/or materials validation applies, load the Python backend fragment, check source data anchors, then generate the figure package and run visual QA.
 
 ## Blocking gate
 
@@ -31,4 +31,4 @@ The Python backend is mandatory. Before rendering, check Python and required plo
 
 Deep references under `references/` are not defaults. Open them on demand per the `references.on_demand` table in the manifest — for example `figure-package-protocol.md` to build a complete figure package, `characterization-figures.md` for XRD/FTIR/TG/SEM plotting patterns, `performance-figures.md` for strength/bonding/viscosity curves, `mechanism-figures.md` for mechanism schematics, `figure-qa-contract.md` before final delivery, and `figure-production-spec.md` for export DPI, TIFF/EPS/PDF, final size.
 
-When the figure contains materials-science entities (XRD peaks/phases, FTIR wavenumbers/functional groups, performance values), loading `static/core/materials_kb.yaml` and running `validate_materials_claims.py` are mandatory before plotting. Figures without those entities may skip this conditional gate. See [static/core/contract.md](static/core/contract.md) for the validation rules.
+When the figure contains materials-science entities (XRD peaks/phases, FTIR wavenumbers/functional groups, performance values), loading `static/core/materials_kb.yaml` and running the materials gate are mandatory before plotting. Use `scripts/run_validation_gates.py` as the deterministic entry when a storyboard and/or one or more figure packages are available: it runs storyboard first, stops on storyboard errors, and continues after storyboard warnings. Figures without those entities may skip the materials gate. See [static/core/contract.md](static/core/contract.md) for the validation rules.

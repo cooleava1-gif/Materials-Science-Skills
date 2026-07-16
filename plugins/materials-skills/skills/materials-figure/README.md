@@ -87,6 +87,7 @@ skills/materials-figure/
 ├── SKILL.md
 ├── manifest.yaml
 ├── scripts/
+│   ├── run_validation_gates.py      canonical storyboard/materials gate entry
 │   ├── validate_materials_claims.py   conditional materials knowledge validation
 │   ├── data_package_to_figure_handoff.py
 │   └── check_storyboard.py            multi-figure storyboard check
@@ -114,12 +115,27 @@ sintering curve.
 
 **Conditional validation tools**
 
+- Deterministic two-gate entry:
+  `plugins/materials-skills/skills/materials-figure/scripts/run_validation_gates.py`
+  (runs storyboard first, short-circuits on storyboard errors, and reports
+  structured JSON for one or more figure packages)
 - Materials knowledge validation:
   `plugins/materials-skills/skills/materials-figure/scripts/validate_materials_claims.py`
   (mandatory when the figure contains XRD, FTIR, or performance claims)
 - Multi-figure storyboard check:
   `plugins/materials-skills/skills/materials-figure/scripts/check_storyboard.py`
   (mandatory for multi-figure manuscript workflows)
+
+For a reproducible combined check:
+
+```powershell
+python .\plugins\materials-skills\skills\materials-figure\scripts\run_validation_gates.py `
+  --storyboard .\figure_storyboard.yaml `
+  --package-dir .\figures\fig1 `
+  --package-dir .\figures\fig2 `
+  --json
+```
+
 - Bundle verification:
   repo root: `python .\scripts\run_release_checks.py --json`
   plugin root: `python .\scripts\run_release_checks.py --json`

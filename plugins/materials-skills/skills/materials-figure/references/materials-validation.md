@@ -480,16 +480,23 @@ Run validation **after** writing the figure contract but **before** plotting:
 
 ### 6.3 Validation in Multi-Figure Workflows
 
-When using the multi-figure storyboard, validate each figure's contract individually:
+When using the multi-figure storyboard, use the deterministic coordinator so
+the storyboard gate runs before each figure-package materials check:
 
 ```bash
-for fig_dir in fig1 fig2 fig3 fig4; do
-    echo "Validating $fig_dir..."
-    python scripts/validate_materials_claims.py $fig_dir
-done
+python scripts/run_validation_gates.py \
+    --storyboard figure_storyboard.yaml \
+    --package-dir fig1 \
+    --package-dir fig2 \
+    --package-dir fig3 \
+    --package-dir fig4 \
+    --json
 ```
 
-The storyboard's `check_storyboard.py` does not validate materials claims — it validates narrative structure. Use both tools together for complete validation.
+The storyboard gate validates narrative structure and the materials gate
+validates scientific claims. Prefer `run_validation_gates.py` for automation;
+use `check_storyboard.py` or `validate_materials_claims.py` directly when
+diagnosing one gate in isolation.
 
 ---
 

@@ -17,5 +17,7 @@ The following scripts are retained as **archival references** required by the `f
 
 ## Active Scripts
 
+- `run_validation_gates.py` - Canonical deterministic entry that runs the
+  storyboard gate before the materials-claims gate and emits structured JSON
 - `check_storyboard.py` - Validates figure storyboard structure
 - `validate_materials_claims.py` - Validates materials-related claims in documentation
