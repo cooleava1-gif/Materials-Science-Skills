@@ -132,6 +132,46 @@
         }
       ],
       "files": []
+    },
+    {
+      "id": "deterministic-routing-valid-selections",
+      "command": "python scripts/check_routing_contract.py --case valid-selections",
+      "expected": "stdout contains 'PASS valid-selections'"
+    },
+    {
+      "id": "deterministic-routing-valid-selection-path",
+      "command": "python scripts/check_routing_contract.py --axis task --selection manuscript-writing",
+      "expected": "stdout contains 'static/fragments/task/manuscript-writing.md'"
+    },
+    {
+      "id": "deterministic-routing-missing-axis",
+      "command": "python scripts/check_routing_contract.py --axis missing-axis --selection value",
+      "expected": "exit code 2 stderr contains 'unknown axis: missing-axis'"
+    },
+    {
+      "id": "deterministic-routing-unknown-selection",
+      "command": "python scripts/check_routing_contract.py --axis task --selection missing-value",
+      "expected": "exit code 2 stderr contains 'unknown selection: task.missing-value'"
+    },
+    {
+      "id": "deterministic-routing-missing-selection",
+      "command": "python scripts/check_routing_contract.py --axis task",
+      "expected": "exit code 2 stderr contains '--axis and --selection must be provided together'"
+    },
+    {
+      "id": "deterministic-routing-manifest-files",
+      "command": "python scripts/check_routing_contract.py --case manifest-files",
+      "expected": "stdout contains 'PASS manifest-files'"
+    },
+    {
+      "id": "deterministic-routing-path-errors",
+      "command": "python scripts/check_routing_contract.py --case path-errors",
+      "expected": "stdout contains 'PASS path-errors'"
+    },
+    {
+      "id": "deterministic-routing-deterministic-output",
+      "command": "python scripts/check_routing_contract.py --case deterministic-output",
+      "expected": "stdout contains 'PASS deterministic-output'"
     }
   ]
 }
