@@ -14,12 +14,28 @@ import json
 import subprocess
 import sys
 from pathlib import Path
+from typing import Callable
 
 import yaml
 from skill_manifest import discover_skill_names
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SKILLS_ROOT = REPO_ROOT / "skills"
+EVAL_SMOKE_SCRIPT = Path(__file__).parent / "run_eval_smoke.py"
+
+
+def _load_eval_smoke_module():
+    spec = importlib.util.spec_from_file_location(
+        "_materials_plugin_run_eval_smoke",
+        EVAL_SMOKE_SCRIPT,
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(
+            f"Could not load plugin eval smoke runner: {EVAL_SMOKE_SCRIPT}"
+        )
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 FIGURE_HARD_WORKFLOW_FILES = [
     "static/core/contract.md",
@@ -332,6 +348,43 @@ def collect_public_boundary_issues(skills_root: Path = SKILLS_ROOT) -> list[str]
     return issues
 
 
+def _validate_eval_smoke_report(report: object) -> list[str] | None:
+    if not isinstance(report, dict):
+        return ["eval smoke runner returned a non-dict report"]
+
+    status = report.get("status")
+    if status != "pass" and status != "fail":
+        return ["eval smoke runner returned malformed report status"]
+
+    issues = report.get("issues")
+    if not isinstance(issues, list) or not all(
+        isinstance(issue, str) for issue in issues
+    ):
+        return ["eval smoke runner returned malformed issues data"]
+
+    if status == "pass":
+        return [] if not issues else [
+            "eval smoke runner returned pass report with issues"
+        ]
+    return issues or ["eval smoke runner returned fail report without issues"]
+
+
+def collect_eval_smoke_issues(
+    run_checks: Callable[..., object] | None = None,
+) -> list[str]:
+    if run_checks is None:
+        try:
+            run_checks = _load_eval_smoke_module().run_smoke_checks
+        except Exception as exc:
+            return [f"eval smoke runner load failed: {exc}"]
+    try:
+        report = run_checks(SKILLS_ROOT)
+    except Exception as exc:
+        return [f"eval smoke runner execution failed: {exc}"]
+    validated_issues = _validate_eval_smoke_report(report)
+    return validated_issues if validated_issues is not None else []
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--json", action="store_true", help="JSON output.")
@@ -345,6 +398,10 @@ def main() -> int:
         issues = check_skill_basics(skill)
         if issues:
             all_issues[skill] = issues
+
+    eval_smoke_issues = collect_eval_smoke_issues()
+    if eval_smoke_issues:
+        all_issues["eval_smoke"] = eval_smoke_issues
 
     submission_template_issues = collect_materials_submission_template_issues()
     if submission_template_issues:
