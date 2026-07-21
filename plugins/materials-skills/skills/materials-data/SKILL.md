@@ -5,34 +5,17 @@ stability: stable
 description: Use when organizing, auditing, packaging, or drafting data and FAIR materials for materials science and engineering manuscripts.
 ---
 
-# Materials Science Data And FAIR
+# Materials Science Data and FAIR Router
 
-Prepare materials datasets that a reviewer, co-author, or future you can reuse.
+Read `manifest.yaml` and all declared `always_load` files. Apply profile-first routing, then detect `input_source`, `task`, `material_family`, `domain`, and `journal`; load only the mapped fragments and conditional stance/ethics guidance.
 
-## Layered architecture
+If the input is `experiment-record.yaml`, validate it against `_shared/core/experiment-record-schema.yaml` before scaffolding. Produce only the requested experiment data template, FAIR audit, dataset package, data availability statement, or submission-ready dataset folder.
 
-This skill is split into two layers:
+Gates:
 
-- A **static layer** under `static/` that holds reusable content fragments.
-- A **dynamic layer** (this file plus [manifest.yaml](manifest.yaml)) that detects the request's axes and loads only the fragments needed for the current job.
+- Separate raw data, processed data, and figures. Keep units, test standards, sample IDs, mixture IDs, replicate counts, and environmental conditions explicit.
+- Never invent measurements, replicate counts, standards, environmental conditions, or missing rows.
+- A data availability statement must not claim public availability unless the files are present or a repository link is supplied.
+- Preserve provenance from the experiment record through the dataset package and its handoff; mark unresolved metadata instead of guessing.
 
-## Protocol
-
-1. Read [manifest.yaml](manifest.yaml), then load every `always_load` file.
-2. Apply profile-first routing from `.materials/profile.yaml`; on first use, ask for direction once and save it locally.
-3. Detect `input_source`. If the user provides `experiment-record.yaml`, validate it against `_shared/core/experiment-record-schema.yaml` before scaffolding the package.
-4. Detect `task`, `domain`, and `journal`.
-5. Load matching fragments, then named shared stance or ethics rules only when the task needs their specific guidance.
-6. Produce: experiment data template, FAIR audit, dataset package, data availability statement, or submission-ready dataset folder.
-7. Never invent measurements, replicate counts, standards, or environmental conditions.
-
-## Gates
-
-- Separate raw data, processed data, and figures.
-- Keep units, test standards, sample IDs, mixture IDs, replicate counts explicit.
-- Data availability statements must not claim public availability unless files are present or a repository link is supplied.
-
-## Tools
-
-- `scripts/build_fair_package.py` for deterministic scaffolding.
-- `scripts/audit_fair_dataset.py` for FAIR audits.
+Use `scripts/build_fair_package.py` for deterministic scaffolding and `scripts/audit_fair_dataset.py` for FAIR audits. Return the schema result, provenance status, missing inputs, and package paths so a downstream figure, writing, or submission skill can consume a bounded artifact.

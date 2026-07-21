@@ -1,16 +1,4 @@
-# Citation Contract
+# Citation Contract Compatibility Pointer
 
-Every citation recommendation must identify whether the source is confirmed, user-provided, or still to be searched.
-
-Do not fabricate:
-
-- author names,
-- paper titles,
-- DOI,
-- year,
-- journal,
-- page numbers,
-- citation counts,
-- impact factors.
-
-When live facts matter, search current sources before finalizing. When live search is unavailable, mark the row as `[search needed]`.
+The canonical citation contract is `contract.md` in this directory. This file is
+kept as a compatibility path for older references and is not default-loaded.

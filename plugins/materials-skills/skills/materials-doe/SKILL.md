@@ -6,7 +6,7 @@ description: Use when planning, generating, or auditing design-of-experiments ma
 
 # Materials Science Design of Experiments
 
-Plan and generate design-of-experiments matrices for materials research.
+Generate a verified design matrix only after confirming factor basis, levels, constraints, and response definitions.
 
 ## Routing protocol
 

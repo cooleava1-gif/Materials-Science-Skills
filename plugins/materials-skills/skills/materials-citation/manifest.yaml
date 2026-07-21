@@ -4,7 +4,6 @@ status: stable
 always_load:
   - static/core/contract.md
   - ../_shared/core/direction-profile.md
-  - static/core/citation-contract.md
   - static/core/workflow.md
 
 axes:

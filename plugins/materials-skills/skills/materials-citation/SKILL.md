@@ -5,27 +5,24 @@ stability: stable
 description: Use when searching, screening, organizing, or mapping literature and citations for materials science and engineering manuscripts.
 ---
 
-# Materials Science Citation
+# Materials Science Citation Router
 
-Build source-grounded literature search plans and claim-citation maps for materials manuscripts.
+Read `manifest.yaml` and `always_load` files. Apply profile-first routing, detect `task`, `journal_family`, `material_domain`, and `material_family`, then load only mapped fragments.
 
-## Layered architecture
+Return the requested search strategy, citation matrix, claim-source map, reference gap audit, or journal-specific source plan. Keep a citation gap visible when a source, DOI, full text, or claim anchor is unresolved.
 
-This skill is split into two layers:
+Evidence boundary:
 
-- A **static layer** under `static/` that holds reusable content fragments.
-- A **dynamic layer** (this file plus [manifest.yaml](manifest.yaml)) that detects the request's axes and loads only the fragments needed for the current job.
+- Do not invent papers, DOIs, impact factors, journal rules, citation counts, page locations, or experimental support.
+- Prefer primary research and authoritative reviews according to the claim's evidence role; metadata or a review is not direct proof of a mechanism or measured performance.
+- Separate mechanism citations from performance citations, and distinguish literature fact, source interpretation, and author data.
 
-## Protocol
+Asphalt search-plan minimum: for CBM-oriented waterborne-epoxy/emulsified-
+asphalt requests, keep CBM, JBE, and RMPD; include `waterborne epoxy`,
+`interlayer bonding`, and `moisture damage`; separate binder/emulsion,
+interface, mixture, construction, and service-condition layers; never replace
+a missing source with a plausible citation.
 
-1. Read [manifest.yaml](manifest.yaml), then load every `always_load` file.
-2. Apply profile-first routing from `.materials/profile.yaml`; on first use, ask for direction once and save it locally.
-3. Detect `task`, `journal_family`, and `material_domain`.
-4. Load only the matching fragment files.
-5. Produce: search strategy, citation matrix, claim-source map, reference gap audit, or journal-specific source plan.
-6. Do not invent papers, DOIs, impact factors, journal rules, or citation counts.
-
-## Gates
-
-- Prefer primary research and authoritative review articles over generic web summaries.
-- Separate mechanism citations from performance citations.
+Route intensive reading to `materials-reader`; recurring discovery/scoring/digest
+to `materials-literature-pipeline`. Return stable IDs, evidence roles, gaps, and
+the selected output contract.

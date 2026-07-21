@@ -5,28 +5,15 @@ stability: stable
 description: Use when simulating peer review, auditing manuscript risk, or stress-testing claims for materials science and engineering research.
 ---
 
-# Materials Science Reviewer
+# Materials Science Reviewer Router
 
-Simulate 2-3 independent reviewer reports with a cross-review synthesis.
+Read `manifest.yaml` and its `always_load` files. Apply profile-first routing, detect `review_depth`, `journal_family`, `review_scope`, `material_family`, and `domain`, then load the matching criteria and named shared contracts on demand.
 
-## Layered architecture
+Evaluate claim-evidence alignment, materials/method robustness, statistics and figure risks, and journal fit. Produce distinct reviewer perspectives plus a synthesis; include stable weakness-routing rows when the review is part of a paper-production loop.
 
-This skill is split into two layers:
+Gates:
 
-- A **static layer** under `static/` that holds reusable content fragments.
-- A **dynamic layer** (this file plus [manifest.yaml](manifest.yaml)) that detects the request's axes and loads only the fragments needed for the current job.
-
-## Protocol
-
-1. Read [manifest.yaml](manifest.yaml), then load every `always_load` file.
-2. Apply profile-first routing from `.materials/profile.yaml`; on first use, ask for direction once and save it locally.
-3. Detect `review_depth`, `journal_family`, `review_scope`, `material_family`, and `domain`.
-4. Load matching fragments, then named shared contracts or criteria on demand.
-5. Evaluate claim-evidence alignment, method robustness, and journal fit.
-6. Produce distinct reviewer perspectives + synthesis, including weakness-routing rows when the review is part of a paper-production loop.
-
-## Gates
-
-- Never invent experiments, citations, or data to support a critique.
-- Distinguish certain claims from speculative ones.
-- Flag overclaim and missing evidence specifically.
+- Never invent experiments, citations, data, reviewer intent, or missing manuscript details to support a critique.
+- Distinguish certain claims, supplied observations, and speculative interpretations.
+- Flag overclaim and missing evidence specifically, with the exact evidence or revision input needed.
+- Keep review findings separate from a response letter; route response drafting to `materials-response` only with a bounded review artifact.

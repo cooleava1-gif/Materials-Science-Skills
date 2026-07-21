@@ -103,6 +103,32 @@ briefly remind the user which direction is active.
 This is what makes the bundle work like an **operating system for materials
 research** instead of a set of disconnected skills.
 
+## Constraint-density candidate architecture
+
+The local 2026-07-21 candidate pass keeps the 14 entry points as short routers:
+frontmatter describes triggers, `SKILL.md` retains Skill-specific stop
+conditions and handoff requirements, `manifest.yaml` declares axes and paths,
+and core/reference files carry domain knowledge on demand. Scientific evidence
+boundaries remain explicit for WER-EA dosage denominators and curing stages,
+DOE mixture constraints, figure source anchors, patent claim support, stable
+IDs, and missing-input blocking.
+
+The candidate inventory and shared-layer decisions are recorded in
+[`reports/skill-simplification/final-report.md`](reports/skill-simplification/final-report.md)
+and [`reports/skill-simplification/final-inventory.json`](reports/skill-simplification/final-inventory.json).
+Historical pre-authentication note (superseded): the first deterministic
+validation pass recorded an authentication blocker before the Codex CLI relay
+was available. That note is retained only to explain the earlier audit trail;
+it is not the current evidence status.
+
+Current authenticated evidence is complete: baseline/current and no-Skill A/B
+covered 676 isolated runs, candidate C covered 338, and all 53 key scenarios
+were read across five fresh repetitions per variant. Three behavior gaps found
+in that review have separate targeted regression artifacts. The measured
+default activation reduction is 2.972%; the 30–45% aspiration is not claimed
+because evidence fidelity takes precedence over byte reduction. This remains a
+local, unreleased checkout with no remote changes.
+
 ## Installation
 
 ## Installation Paths
@@ -521,6 +547,13 @@ Playwright screenshots, QA reports, speaker notes, and an asset manifest.
 
 All 14 skills share a small set of protocol files under
 [`plugins/materials-skills/skills/_shared/`](plugins/materials-skills/skills/_shared/):
+
+The shared directory remains a set of single-purpose authorities rather than a
+default encyclopedia. Skills load only the profile protocol and their declared
+core by default; journal, domain, method, and language references stay
+manifest-routed. The citation contract is canonical in
+`materials-citation/static/core/contract.md`; its older compatibility path is
+not default-loaded.
 
 | File | Purpose |
 |---|---|

@@ -4,28 +4,16 @@ version: "1.3.0"
 description: Use when reading, translating, extracting, or organizing full papers for materials science and engineering research.
 ---
 
-# Materials Science Reader
+# Materials Science Reader Router
 
-Read and organize materials papers into structured bilingual notes with source anchors.
+Read `manifest.yaml` and its `always_load` files. Apply profile-first routing, detect `source_format`, `output_type`, `material_family`, and `domain`, then load the selected source, output, terminology, and ethics fragments.
 
-## Layered architecture
+For each paper, return bilingual Markdown notes when requested, `source_map.json`, a terminology ledger, and figure grounding. Keep every claim anchored to a page, paragraph, table, figure, or other supplied source location; metadata-only records must remain metadata-only.
 
-This skill is split into two layers:
+Evidence boundary:
 
-- A **static layer** under `static/` that holds reusable content fragments.
-- A **dynamic layer** (this file plus [manifest.yaml](manifest.yaml)) that detects the request's axes and loads only the fragments needed for the current job.
+- Distinguish what the paper says from what you infer. Separate abstract/metadata leads from full-text evidence.
+- Never interpret microstructure or mechanism claims without explicit evidence; flag overclaim risks in a confidence note.
+- If full text, caption, source page, or supplementary file is unavailable, mark the gap and request it instead of reconstructing content.
 
-## Protocol
-
-1. Read [manifest.yaml](manifest.yaml), then load every `always_load` file.
-2. Apply profile-first routing from `.materials/profile.yaml`; on first use, ask for direction once and save it locally.
-3. Detect `source_format` and `output_type` from the user input.
-4. Load matching source and output fragments. For each paper reading, load the terminology ledger before drafting outputs; load ethics only for attribution or AI-boundary work.
-5. For each paper, produce: bilingual Markdown notes, source_map.json, terminology ledger, figure grounding.
-6. Never interpret microstructure or mechanism claims without explicit evidence.
-
-## Gates
-
-- Source anchor every claim to page, paragraph, or figure.
-- Distinguish what the paper says from what you infer.
-- Flag overclaim risks in the confidence note.
+When the package feeds another skill, emit a bounded `reader-package` with stable IDs, source anchors, evidence status, and terminology decisions. Route claim-citation mapping to `materials-citation` and recurring discovery to `materials-literature-pipeline` rather than silently expanding the reader scope.

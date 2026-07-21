@@ -1,52 +1,30 @@
 ---
 name: materials-paper-to-patent
-description: Convert materials science papers, theses, technical reports, figures, or research manuscripts into evidence-grounded Chinese invention patent drafts. Use when an AI agent must extract patentable technical contributions, map every claimed feature to source evidence, preserve core formulas as editable Office Math, generate claim-aligned flowcharts, validate claims against a civil patent knowledge base (patent_kb.yaml), compare a paper with an existing patent, audit support and consistency, or deliver separate Chinese DOCX files for claims, specification, abstract, and abstract figure. Default invention type is process-material.
+description: Convert materials science papers, theses, technical reports, figures, or research manuscripts into evidence-grounded Chinese invention patent drafts. Use when extracting patentable contributions, mapping claimed features to source evidence, preserving formulas and ranges, generating claim-aligned figures, validating claims against patent_kb.yaml, auditing support, or delivering separate Chinese DOCX artifacts. Default invention type is process-material.
 ---
 
-# Materials Paper to Chinese Patent
+# Materials Paper to Chinese Patent Router
 
-Read `manifest.yaml` and every `always_load` file. Apply profile-first routing,
-detect the `source_format`, `task_mode`, and `invention_type` axes, state the
-detected values in one line, and load only the selected fragments and keyed
-on-demand references.
+Read `manifest.yaml` and its `always_load` files. Apply profile-first routing, detect `source_format`, `task_mode`, and `invention_type`, state the values, and load only selected fragments and keyed references.
 
-## Evidence Boundary
+Evidence boundary:
 
-Inspect the complete substantive source; stop if it cannot be inspected.
-Create stable P/E/F/C source IDs. Use only `explicit`, `inherent`,
-`needs-confirmation`, and `unsupported` support states. Unsupported features
-never enter formal claims. Turn needs-confirmation features into specific
-inventor questions outside claims, and do not invent legal or inventor facts.
-Across disclosure analysis and formal drafting, unresolved needs-confirmation
-items or inventor questions force overall status `incomplete-draft`; do not
-use `review-draft` or completed package status.
+- Inspect the complete substantive source; stop if it cannot be inspected. Create stable P/E/F/C source IDs and use only `explicit`, `inherent`, `needs-confirmation`, or `unsupported` support states.
+- Unsupported features never enter formal claims. Convert needs-confirmation features into inventor questions outside claims; never invent legal, inventor, jurisdiction, or experimental facts.
+- Unresolved confirmation items force overall status `incomplete-draft`; never label the package `review-draft` or complete.
+- Formal claims, specification, abstract, figure labels, and descriptions are Chinese. Preserve source-supported formulas as editable Office Math, disclosed ranges/units, claim-aligned figures, and claim-to-source mappings.
 
-## Route
+Algorithm/software gate:
 
-- `disclosure-analysis`: build the source map, inventories, and evidence
-  ledger without claims or specification; do not load `patent-kb` or
-  `output-contract`.
-- Before any formal claim or claim audit, load `patent-kb`, `stage-gates`, and
-  `claim-checklist`; load `cn-drafting-guide` for Chinese drafting.
-- `claim-set`: follow the detailed gates through claims and preserve every
-  claim-to-source mapping.
-- `full-draft`: also load `output-contract` and `draft-schema`, then complete
-  every detailed gate. Consume `reader-package` and `figure-handoff` when
-  supplied.
-- `paper-patent-audit`: load `corpus-pair-audit`; load the formal-claim
-  references above whenever claims are audited.
+- A pure algorithm/software prediction claim (`纯算法/软件预测`) is an Article 25 subject-matter risk under `《专利法》第二十五条`; model accuracy alone is not a patentable technical contribution.
+- Before formal claims, require a disclosed concrete technical feature such as a manufacturing/process step, sensor-controller loop, apparatus, or measurable technical effect. Otherwise block the claim and mark the feature `needs-confirmation`.
+- A quality-control or technical-process reframing is only a suggestion; never add undisclosed sensors, actuators, manufacturing steps, or effects.
 
-Formal claims, specification, abstract, figure labels, and descriptions are
-Chinese. Preserve source-supported formulas as editable Office Math, disclosed
-ranges and units, claim-aligned figures, and the output semantics declared by
-the selected fragments and references.
+Route requirements:
 
-## Validate and Hand Off
+- `disclosure-analysis`: source map, inventories, and evidence ledger only; do not load formal claim output.
+- `claim-set`: load `patent-kb`, `stage-gates`, `claim-checklist`, and `cn-drafting-guide` before formal claims.
+- `full-draft`: additionally load `output-contract` and `draft-schema`; consume `reader-package` and `figure-handoff` only when supplied.
+- `paper-patent-audit`: load `corpus-pair-audit` and the formal-claim references when claims are audited.
 
-Run `validate_patent_draft.py`, `validate_patent_claims.py` with the detected
-invention type, and `build_patent_package.py`. Resolve every `ERROR`, review
-warnings against the source, and label blocking gaps `incomplete-draft`.
-Emit the named `patent-draft-handoff` route to `materials-research` with the
-validated artifact paths and status; formal shared schema wiring is external
-to this router. The package is a drafting aid, not a legal opinion or filing
-guarantee.
+Run `validate_patent_draft.py`, `validate_patent_claims.py` for the detected invention type, and `build_patent_package.py`. Resolve every `ERROR`, review warnings against the source, label gaps `incomplete-draft`, and emit `patent-draft-handoff` to `materials-research` with validated artifact paths and status. This is a drafting aid, not a legal opinion or filing guarantee.

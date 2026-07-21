@@ -30,6 +30,15 @@ and this project follows [Semantic Versioning](https://semver.org/) loosely:
 - Route `materials-research` to `materials-literature-pipeline` only for
   recurring discovery, candidate scoring, and literature-digest triage before
   deep reading.
+- Refactor the 14 local Skill entry points toward constraint-dense routers:
+  generic workflow prose is reduced while evidence boundaries, material gates,
+  DOE constraints, source anchors, handoff schemas, and missing-input blockers
+  remain explicit. Authenticated A/B/C behavior evidence is now complete for
+  the local candidate, with the full campaign and targeted high-risk
+  regressions recorded under `reports/skill-simplification/`.
+- Converge the duplicate citation contract to
+  `materials-citation/static/core/contract.md`; keep the former path only as a
+  compatibility pointer and remove it from default loading.
 - Update release checks to require the literature-pipeline, research-state, and
   content-first QA assets added by this upgrade.
 - Clarify that literature-pipeline scores are discovery priorities only:
@@ -44,6 +53,10 @@ and this project follows [Semantic Versioning](https://semver.org/) loosely:
   references, and lightweight preview documentation.
 
 ### Documentation
+- Add the constraint-density candidate architecture, current inventory,
+  shared-layer decision record, authenticated behavior evidence summary, and
+  explicit unreleased-local status to the README and
+  `reports/skill-simplification/`.
 - Sync root `README.md` and 6 key skill READMEs (`materials-research`,
   `materials-figure`, `materials-writing`, `materials-data`,
   `materials-reviewer`, `materials-paper-to-patent`) to actual code: 14
