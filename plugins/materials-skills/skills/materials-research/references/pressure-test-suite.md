@@ -35,7 +35,7 @@ The suite intentionally includes more than three failure classes:
 ## Audit Command
 
 ```powershell
-python scripts/audit_pressure_assets.py --skill-root "$CODEX_HOME/skills/materials-research" --json
+python scripts/audit_pressure_assets.py --skill-root "<skills-dir>/materials-research" --json
 ```
 
 The audit should report `status: pass`, at least 12 pressure tests, at least 10 example files, all required modules covered, and no missing themes.

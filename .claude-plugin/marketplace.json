@@ -1,0 +1,21 @@
+{
+  "name": "materials-skills-marketplace",
+  "owner": {
+    "name": "Materials Science Skills contributors"
+  },
+  "description": "Full-cycle materials science and engineering research skills: literature pipelines, citation screening, research routing, manuscript writing, figures, FAIR data, DOE, reviewer simulation, reviewer responses, and HTML academic decks.",
+  "plugins": [
+    {
+      "name": "materials-skills",
+      "source": "./plugins/materials-skills",
+      "description": "Traceable materials paper-production workflows: routed research, evidence-grounded writing, figures, data, citations, and reviewer responses.",
+      "version": "1.1.0",
+      "author": {
+        "name": "Materials Science Skills contributors"
+      },
+      "homepage": "https://github.com/cooleava1-gif/Materials-Science-Skills",
+      "repository": "https://github.com/cooleava1-gif/Materials-Science-Skills",
+      "license": "MIT"
+    }
+  ]
+}

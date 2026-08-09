@@ -2,7 +2,30 @@
 
 This guide is for the polished, day-to-day use of the bundle: install it, run a
 five-minute workflow, verify the installed state, and avoid stale-skill drift
-between the plugin source and the local Codex installation.
+between the plugin source and the local installation.
+
+## Cross-platform installer (recommended)
+
+The one installer covers every supported agent and *materializes* each skill
+into a self-contained directory (both `_shared` trees merged in, references
+rewritten, Codex-only `agents/` dropped), then registers the
+`materials-academic-search` MCP server for the platform.
+
+```bash
+# preview first — prints the full plan, changes nothing
+python scripts/install_skills.py --target claude --dry-run
+
+# real installs
+python scripts/install_skills.py --target claude        # ~/.claude/skills/
+python scripts/install_skills.py --target opencode      # ~/.config/opencode/skills/
+python scripts/install_skills.py --target antigravity   # ~/.gemini/config/skills/
+python scripts/install_skills.py --target codex         # $CODEX_HOME/skills/ (no materialization)
+python scripts/install_skills.py --target generic --dest ./vendor/skills --no-mcp
+```
+
+Useful flags: `--dest PATH` (override location), `--mcp-dest PATH` (MCP config
+file), `--no-mcp`, `--force` (replace existing), `--repo-root PATH`. See
+`adapters/README.md` for per-platform notes.
 
 ## Option 1: Codex Plugin
 
@@ -47,7 +70,6 @@ Copy-Item -Recurse -Force .\plugins\materials-skills\_shared $codexHome
 
 If you want the local academic-search MCP, install the Python dependencies
 first:
-
 ```powershell
 python -m pip install -r .\plugins\materials-skills\skills\materials-citation\mcp\academic_search\requirements.txt
 ```

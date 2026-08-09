@@ -1,0 +1,10 @@
+{
+  "name": "materials-skills",
+  "description": "Full-cycle materials science and engineering research skills (experimental Antigravity distribution).",
+  "version": "1.1.0",
+  "author": {
+    "name": "Materials Science Skills contributors"
+  },
+  "repository": "https://github.com/cooleava1-gif/Materials-Science-Skills",
+  "license": "MIT"
+}

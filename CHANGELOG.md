@@ -10,6 +10,24 @@ and this project follows [Semantic Versioning](https://semver.org/) loosely:
 ## [Unreleased]
 
 ### Added
+- Add cross-platform adapters and installer (`scripts/install_skills.py`):
+  install the bundle on Claude Code (`--target claude`), OpenCode
+  (`--target opencode`), Antigravity (`--target antigravity`), Codex
+  (`--target codex`), or any SKILL.md-aware agent
+  (`--target generic --dest <dir>`). Non-codex targets *materialize* each
+  skill: both `_shared` trees are merged into `<skill>/_shared/`, all
+  relative references are rewritten to the merged tree, Codex-only
+  `agents/` is dropped, and every reference is re-verified after install.
+- Add a Claude Code plugin marketplace manifest
+  (`.claude-plugin/marketplace.json`) and plugin manifest
+  (`plugins/materials-skills/.claude-plugin/plugin.json`) for plugin-based
+  distribution without materialization.
+- Add `adapters/` per-platform READMEs (Claude Code, OpenCode, Antigravity)
+  covering install commands, skills locations, MCP registration, and
+  compatibility notes.
+- Add `scripts/test_install_skills.py` (12 pytest cases) covering
+  materialization, reference rewriting, MCP merging, dry-run purity, and
+  codex-layout preservation.
 - Add beta `materials-literature-pipeline` as the 14th skill for recurring
   materials literature discovery, candidate scoring, source-depth triage,
   digest delivery, degradation handling, gap analysis, and review-compilation
@@ -27,6 +45,11 @@ and this project follows [Semantic Versioning](https://semver.org/) loosely:
   validation checklist for content-first QA decisions.
 
 ### Changed
+- Neutralize platform coupling in the skill corpus: replace `$CODEX_HOME`
+  hard-coded paths in `materials-citation` and `materials-research`
+  references with platform-neutral `<skills-dir>` placeholders.
+- Update `README.md` and `install.md` with a multi-platform support matrix;
+  the Codex plugin/manual install paths remain unchanged.
 - Route `materials-research` to `materials-literature-pipeline` only for
   recurring discovery, candidate scoring, and literature-digest triage before
   deep reading.
