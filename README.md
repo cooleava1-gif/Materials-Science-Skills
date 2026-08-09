@@ -1,258 +1,40 @@
 # Materials Science Skills
 
-A full-cycle materials-science research skill bundle, portable across agent
-platforms (Claude Code, OpenCode, Antigravity, Codex, and any SKILL.md-aware
-agent). It connects routing, reading, citation, writing, polishing, figure
-production, data packaging, experiment design, peer review simulation,
-reviewer-response drafting, slide preparation, and **paper-to-patent
-conversion** into one workflow instead of leaving each step as a separate
-prompt.
+A full-cycle **materials-science research skill bundle** for AI coding agents:
+routing, reading, citation, writing, figures, data, DOE, peer review, reviewer
+responses, and paper-to-patent conversion in one evidence-gated workflow.
 
-材料科学研究的全流程技能包，可适配多个 agent 平台（Claude Code、OpenCode、
-Antigravity、Codex 及任意支持 SKILL.md 的 agent）。把路由、阅读、引文检索、
-写作、润色、配图、数据打包、实验设计、审稿模拟、回复信撰写、演讲准备、
-**论文转专利**串成一条工作流，而不是让每一步都成为孤立的提示。
+面向材料科学科研全流程的 Agent 技能包：从文献路由、阅读、引文、写作、配图、
+数据打包、实验设计到审稿模拟、回复信与论文转专利，以证据契约贯穿每一步。
 
-The bundle ships **14 skills** covering **29 material systems** across
-civil/construction, polymers, metals, ceramics, and functional/nano materials.
-Each system carries a narrative arc, figure scripts, reviewer criteria, and
-worked example packages where the coverage tier has reached `full`.
-
-本技能包发布 **14 个 skills**，覆盖 **29 个材料体系**，涵盖土木、聚合物、
-金属、陶瓷、功能/纳米材料。每个体系都带有叙事主线、配图脚本、审稿标准和
-完整示例包（`full` 覆盖等级）。
+**14 skills · 29 material systems · 17 journal format guides · 9 domain data schemas · 6+ agent platforms**
 
 <table>
   <tr>
-    <td align="center">
-      <b>Chart-Type Atlas — 21 figure families</b><br/>
-      <img width="720" alt="Chart-Type Atlas" src="docs/gallery/gallery_chart_atlas.png" />
-    </td>
+    <td><img width="720" alt="Chart-Type Atlas" src="docs/gallery/gallery_chart_atlas.png" /></td>
   </tr>
   <tr>
-    <td align="center">
-      <b>WER-EA Figures — dosage window, durability retention, evidence heatmap</b><br/>
-      <img width="720" alt="WER-EA Research Workflow" src="docs/gallery/gallery_wer_ea_workflow.png" />
-    </td>
+    <td><img width="720" alt="WER-EA Research Workflow" src="docs/gallery/gallery_wer_ea_workflow.png" /></td>
   </tr>
   <tr>
-    <td align="center">
-      <b>Cross-Material-System Figures — ceramics characterization + thermal performance</b><br/>
-      <img width="720" alt="Cross-Material-System Figures" src="docs/gallery/gallery_material_systems.png" />
-    </td>
+    <td><img width="720" alt="Cross-Material-System Figures" src="docs/gallery/gallery_material_systems.png" /></td>
   </tr>
 </table>
 
-## Platform support
+## Capabilities 能力一览
 
-One canonical source, thin platform adapters — see `adapters/README.md` for
-the full matrix and `install.md` for instructions.
-
-| Platform | Install | Skills location |
-|---|---|---|
-| Claude Code | `python scripts/install_skills.py --target claude` | `~/.claude/skills/` (or `.claude-plugin/` marketplace) |
-| OpenCode | `python scripts/install_skills.py --target opencode` | `~/.config/opencode/skills/` |
-| Antigravity | `python scripts/install_skills.py --target antigravity` | `~/.gemini/config/skills/` |
-| Codex | `python scripts/install_skills.py --target codex` (or `scripts/install.ps1`) | `$CODEX_HOME/skills/` |
-| Any SKILL.md agent | `python scripts/install_skills.py --target generic --dest <dir>` | anywhere |
-
-The installer materializes each skill into a self-contained directory (merging
-both `_shared` trees and rewriting relative references), registers the
-`materials-academic-search` MCP server per platform, and verifies every shared
-reference after install. Preview any install with `--dry-run`.
-
-## Quick Start
-
-Start with one of the bundled workflow prompts:
+`materials-research` 路由一切任务；每步输出经证据契约门控后交接给下一技能。
+`materials-research` routes every request; each stage is gated by its previous
+output contract before handoff.
 
 ```text
-Help me run a WER-EA mini-review workflow from screening to figure planning.
+research (router) → reader → citation / literature-pipeline
+                 → writing → polishing
+                 → figure → data → doe
+                 → reviewer → response / submission / html-deck / paper-to-patent
 ```
 
-For a local verification pass after installing or updating the bundle, run:
-
-```powershell
-python .\scripts\run_release_checks.py --json
-```
-
-## What the bundle does
-
-1. **Routes** your request to the right material domain and production skill
-   via a profile-first router (`materials-research`).
-2. **Reads** papers into source-anchored evidence packages
-   (`materials-reader`).
-3. **Searches** literature through an MCP-backed academic search server that
-   queries 7+ databases (`materials-citation`).
-4. **Writes** manuscript sections, review outlines, and argument chains
-   (`materials-writing`).
-5. **Polishes** prose with claim-strength calibration and overclaim reduction
-   (`materials-polishing`).
-6. **Draws** journal-ready figures from CSV data and reader handoffs in
-   LLM-driven workflow (`materials-figure`).
-7. **Packages** data with FAIR checks and journal-ready data-availability
-   statements across 9 domain schemas (`materials-data`).
-8. **Designs** experiments with factorial, Taguchi, and mixture matrices
-   (`materials-doe`).
-9. **Runs** literature discovery pipelines with materials-specific scoring,
-    source-depth labels, and next-reading actions (`materials-literature-pipeline`).
-10. **Reviews** drafts like a peer reviewer with 22 domain-specific criteria
-   (`materials-reviewer`).
-11. **Responds** to reviewer comments with point-by-point replies
-    (`materials-response`).
-12. **Presents** papers as verified browser-native HTML academic decks
-    (`materials-html-deck`).
-13. **Converts** papers into evidence-grounded Chinese invention-patent
-    applications, with a civil patent knowledge base and a claim-validation
-    engine (`materials-paper-to-patent`).
-
-## Profile-first routing
-
-The bundle follows a **profile-first routing** protocol defined in
-[`_shared/core/direction-profile.md`](plugins/materials-skills/skills/_shared/core/direction-profile.md).
-On first use, the router asks the user once for their current materials
-research direction, saves it to a user-local file `.materials/profile.yaml`
-(not tracked by git), and uses it to set defaults for `material_family` and
-`domain` across all 14 skills. Later sessions skip the question and only
-briefly remind the user which direction is active.
-
-| Layer | Source | Behaviour |
-|---|---|---|
-| 1 | Explicit direction in the current user request | Used immediately |
-| 2 | `.materials/profile.yaml` saved locally | Default fallback |
-| 3 | Neutral / general materials support | Last-resort fallback |
-
-This is what makes the bundle work like an **operating system for materials
-research** instead of a set of disconnected skills.
-
-## Constraint-density candidate architecture
-
-The local 2026-07-21 candidate pass keeps the 14 entry points as short routers:
-frontmatter describes triggers, `SKILL.md` retains Skill-specific stop
-conditions and handoff requirements, `manifest.yaml` declares axes and paths,
-and core/reference files carry domain knowledge on demand. Scientific evidence
-boundaries remain explicit for WER-EA dosage denominators and curing stages,
-DOE mixture constraints, figure source anchors, patent claim support, stable
-IDs, and missing-input blocking.
-
-The candidate inventory and shared-layer decisions are recorded in the
-`reports/skill-simplification/` artifacts (`final-report.md` and
-`final-inventory.json`), kept out of the public repository; the corresponding
-CHANGELOG entries summarize the design decisions.
-Historical pre-authentication note (superseded): the first deterministic
-validation pass recorded an authentication blocker before the Codex CLI relay
-was available. That note is retained only to explain the earlier audit trail;
-it is not the current evidence status.
-
-Current authenticated evidence is complete: baseline/current and no-Skill A/B
-covered 676 isolated runs, candidate C covered 338, and all 53 key scenarios
-were read across five fresh repetitions per variant. Three behavior gaps found
-in that review have separate targeted regression artifacts. The measured
-default activation reduction is 2.972%; the 30–45% aspiration is not claimed
-because evidence fidelity takes precedence over byte reduction.
-
-## Installation Paths
-
-### 1. Cross-platform installer (recommended)
-
-One canonical source, thin adapters per agent. From the repository root:
-
-```bash
-python scripts/install_skills.py --target claude --dry-run   # preview first
-python scripts/install_skills.py --target claude             # ~/.claude/skills/
-python scripts/install_skills.py --target opencode           # ~/.config/opencode/skills/
-python scripts/install_skills.py --target antigravity        # ~/.gemini/config/skills/
-python scripts/install_skills.py --target codex              # $CODEX_HOME/skills/
-python scripts/install_skills.py --target generic --dest <dir> --no-mcp
-```
-
-The installer materializes each skill into a self-contained directory (merging
-both `_shared` trees and rewriting relative references), registers the
-`materials-academic-search` MCP server per platform, and verifies every shared
-reference after install. See [`adapters/README.md`](adapters/README.md) for the
-full platform matrix and per-platform notes. Claude Code plugin distribution is
-also available via the bundled
-[`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json).
-
-### 2. Codex Plugin
-
-This repository includes Codex plugin packaging at `plugins/materials-skills/`,
-so Codex users can install the complete bundle from the plugin marketplace
-instead of copying each skill folder manually.
-
-CLI installation:
-
-```powershell
-codex plugin marketplace add https://github.com/cooleava1-gif/Materials-Science-Skills.git --ref main
-codex plugin add materials-skills@materials-skills
-```
-
-Codex Desktop users can add the same repository as a custom plugin marketplace:
-
-- Marketplace source: `https://github.com/cooleava1-gif/Materials-Science-Skills.git`
-- Branch/ref: `main`
-- Plugin: `materials-skills`
-
-After installation, all 14 `materials-*` skills become available through the
-plugin as a complete bundle, together with the shared support directory. If
-the skills do not appear immediately, refresh the plugin page or start a new
-Codex session.
-
-### 3. Manual Skills Install
-
-Clone the repo and run the installer:
-
-```powershell
-git clone https://github.com/cooleava1-gif/Materials-Science-Skills.git
-cd Materials-Science-Skills
-.\scripts\install.ps1
-```
-
-The installer copies all 14 `materials-*` skills plus `_shared` into
-`$CODEX_HOME\skills` if `CODEX_HOME` is set, or into `~\.codex\skills`
-otherwise. It also removes stale target directories before reinstalling so old
-files do not survive an update.
-
-If you need the manual fallback commands:
-
-```powershell
-$skillsDir = if ($env:CODEX_HOME) { Join-Path $env:CODEX_HOME "skills" } else { Join-Path $HOME ".codex\skills" }
-$codexHome = Split-Path -Parent $skillsDir
-New-Item -ItemType Directory -Force $skillsDir | Out-Null
-Copy-Item -Recurse -Force .\plugins\materials-skills\skills\materials-* $skillsDir
-Copy-Item -Recurse -Force .\plugins\materials-skills\skills\_shared $skillsDir
-Copy-Item -Recurse -Force .\plugins\materials-skills\_shared $codexHome
-```
-
-### 4. Optional Academic Search MCP
-
-If you want the local academic-search MCP, install the Python dependencies
-first:
-
-```powershell
-python -m pip install -r .\plugins\materials-skills\skills\materials-citation\mcp\academic_search\requirements.txt
-```
-
-Example Codex MCP configuration:
-
-```toml
-[mcp_servers."materials-academic-search"]
-command = "python"
-args = ["./skills/materials-citation/mcp/academic_search/server.py"]
-cwd = "plugins/materials-skills"
-```
-
-Optional environment variables:
-
-- `OPENALEX_API_KEY`
-- `SEMANTIC_SCHOLAR_API_KEY`
-- `MATERIALS_CONTACT_EMAIL`
-- `NCBI_API_KEY`
-
-For the full walkthrough, see [install.md](install.md).
-
-## Skills
-
-## Skill index (14 skills)
+### Skill index (14 skills)
 
 | Skill | Status | Purpose | Trigger keywords |
 |---|---|---|---|
@@ -267,414 +49,95 @@ For the full walkthrough, see [install.md](install.md).
 | [`materials-doe`](plugins/materials-skills/skills/materials-doe/README.md) | Stable | Factorial / Taguchi / mixture matrices, methods paragraph | "DOE", "experiment design", "orthogonal array" |
 | [`materials-reviewer`](plugins/materials-skills/skills/materials-reviewer/README.md) | Stable | 5-axis peer review, 22 domain criteria, desk-reject risk | "peer review", "desk-reject risk", "reviewer report" |
 | [`materials-response`](plugins/materials-skills/skills/materials-response/README.md) | Beta | Point-by-point response, rebuttal package, action mapping | "response letter", "rebuttal", "reviewer comment" |
-| [`materials-html-deck`](plugins/materials-skills/skills/materials-html-deck/README.md) | Beta | Browser-native HTML academic deck generation with strict Playwright QA | "html deck", "academic deck", "slide deck", "paper to slides", "journal club" |
+| [`materials-html-deck`](plugins/materials-skills/skills/materials-html-deck/README.md) | Beta | Browser-native HTML academic deck with strict Playwright QA | "html deck", "academic deck", "paper to slides", "journal club" |
 | [`materials-paper-to-patent`](plugins/materials-skills/skills/materials-paper-to-patent/README.md) | Beta | Chinese invention-patent application, civil patent KB, claim validator | "patent", "claim", "invention disclosure" |
 | [`materials-submission`](plugins/materials-skills/skills/materials-submission/README.md) | Beta | Route C package assembly for 10 supported journal templates | "submission package", "cover letter", "highlights" |
 
-> **Status legend:** `Stable` = documented, installable, and covered by the public lightweight release gate. `Beta` = functional and documented, but still accumulating domain coverage depth.
+> `Stable` = documented, installable, covered by the public release gate.
+> `Beta` = functional but still accumulating domain coverage.
 
----
+## Flagship highlights 旗舰亮点
 
-## materials-figure — the flagship
+- **`materials-figure`** — LLM-driven figure creation: validates a figure
+  contract and source-data anchor first, then the LLM writes `plot.py` and
+  ships a full package (`figure_contract.md → source_data.csv → plot.py →
+  SVG/PDF/PNG/TIFF → caption.md + qa_report.md`). Python-only backend.
+- **`materials-paper-to-patent`** — 论文转中文发明专利：三轴路由
+  （source_format / task_mode / invention_type），内置中国专利法第 22/26.3/
+  26.4/31.1/33 条知识库与 7 规则 claim 校验引擎，输出 DOCX 申请稿 +
+  flowchart.svg。
+- **`materials-research`** — 路由中枢：15 task / 36 domain / 20 journal
+  片段驱动，输出 6 阶段门控计划与 `coverage_tier`（full/partial/skeleton/
+  generic）报告。
+- **`materials-writing`** — 8 轴状态机写作（writing_mode / paper_type /
+  section / language / journal_family / material_family / domain /
+  input_source），`state.json` 追踪修订轮次与证据缺口。
+- **`materials-data`** — 9 套领域数据 schema（asphalt / cement-concrete /
+  ceramics / civil / functional / metals / nano / polymers /
+  thermal-insulation），FAIR 审计 + 期刊就绪的 data-availability 声明。
 
-**What it does** — Generates journal-ready multi-panel figures for materials
-manuscripts: mechanism maps, evidence heatmaps, dosage-window plots,
-characterization panels, review figures, and figure packages with source
-data, caption boundaries, and export QA. Python-only backend, SVG-first
-output, with PNG/PDF/TIFF export bundles.
+每个技能的关键规则、输出结构与完整文档见
+[docs/skills-index.md](docs/skills-index.md)。
 
-**LLM-driven figure creation** — This is no longer a fixed generator-script
-pipeline. The skill validates a figure contract and source-data anchor first;
-then the LLM writes `plot.py` directly from the contract, data, chart-atlas
-reference, legend rules, and reviewer-risk notes.
-
-```text
-figure_contract.md -> source_data.csv -> LLM writes plot.py
-  -> figure.svg / figure.pdf / figure.png / figure.tiff
-  -> caption.md + qa_report.md + asset_manifest.md
-```
-
-**Visual assets in the public repository** - lightweight preview boards are
-kept under `docs/gallery/` so the package stays readable and installable. The
-installable skill bundle does not ship generated atlas/gallery/showcase image
-directories.
-
-| Layer | Public boundary | Purpose |
-|---|---|---|
-| `docs/gallery/` | compact preview boards | Public visual proof of the workflow |
-| `assets/templates/` | figure contracts and package templates | Reusable delivery structure |
-| `examples/figure-packages/` | small runnable source packages | Local examples with CSV data and scripts |
-
-| ![Chart-Type Atlas](docs/gallery/gallery_chart_atlas.png) | ![WER-EA Research Workflow](docs/gallery/gallery_wer_ea_workflow.png) | ![Cross-Material-System Figures](docs/gallery/gallery_material_systems.png) |
-|---|---|---|
-
-**Figure package structure** — Every serious output is delivered as a figure
-package, not a loose image:
+## Quick Start 快速开始
 
 ```text
-figure-package/
-  figure_contract.md
-  source_data.csv
-  plot.py
-  figure.svg
-  figure.pdf
-  figure.png
-  figure.tiff
-  caption.md
-  qa_report.md
-  asset_manifest.md
+Help me run a WER-EA mini-review workflow from screening to figure planning.
 ```
 
-**Key rules enforced**
+四个完整工作流演示（WER-EA mini-review、实验手稿、修订循环、论文转
+HTML deck）见 [docs/workflows/README.md](docs/workflows/README.md)。
 
-- Python-only plotting backend; no silent fallback to another stack.
-- Figure contract written before plotting: core conclusion, evidence chain,
-  panel map, target journal, statistics/units/scale bars, claim boundary.
-- Caption boundaries separate measured from inferred claims.
-- Export bundle includes SVG, PDF, PNG, and TIFF when possible.
-- QA report covers Python backend exclusivity, export checks, and caption
-  boundary.
+安装或更新后做一次本地验证：
 
----
+```powershell
+python .\scripts\run_release_checks.py --json
+```
 
-## materials-paper-to-patent — Chinese invention-patent conversion
+## Platform support 平台支持
 
-**What it does** — Turns a materials research paper into an evidence-grounded
-Chinese invention-patent application draft. The default `invention_type` is
-`process-material` (配方/工艺/材料类发明专利), tuned for civil/construction
-materials, polymers, metals, ceramics, and functional materials.
-
-**Three-axis routing** — The skill is driven by three axes, with a default for
-each:
-
-| Axis | Values | Default |
+| Platform | Install | Skills location |
 |---|---|---|
-| `source_format` | `pdf-text` / `scanned-pdf` / `pasted-text` / `mixed-project` | `pdf-text` |
-| `task_mode` | `full-draft` / `claim-set` / `disclosure-analysis` / `paper-patent-audit` | `full-draft` |
-| `invention_type` | `process-material` / `device` / `system` / `mixture-formula` | `process-material` |
-
-**Civil patent knowledge base** — The skill ships a curated
-`static/core/patent_kb.yaml` covering Chinese Patent Law articles 22 / 26.3
-/ 26.4 / 31.1 / 33, CNIPA examination guidelines, 4 invention-type verb
-patterns, 9 claim anti-patterns (e.g. algorithm-software fall-back, missing
-technical features, unsupported overclaims), 7 unit-alias groups, and 6
-material-domain links (civil_cement_concrete, civil_asphalt, civil_insulation,
-ceramics_structural, polymer_composite, metal_alloy).
-
-**Claim-validation engine** — `scripts/validate_patent_claims.py` runs 7
-rule functions on every draft (independent-claim technical features,
-dependent-claim references, specification support, anti-patterns, unit
-consistency, invention-type alignment, claim-count limits). Output severity
-levels are `ERROR` (blocks submission) / `WARNING` (review before submit) /
-`INFO` (advisory).
-
-**Scripts** (9 total): PDF text extraction, project initialisation, claim
-auditing, structural validation, claim-content validation, package building,
-DOCX rendering, SVG flowchart rendering, and LaTeX→OMML math conversion.
-
-**Outputs** — `draft.json` (machine-readable structure), a complete DOCX
-application (description + claims + abstract + cover letter), and a
-`flowchart.svg` for the process diagram. Figure notes are produced as text;
-the actual figures are generated by `materials-figure`.
-
----
-
-## materials-research — the router
-
-**What it does** — The front door of the bundle. Detects task type, material
-domain, and journal family, then hands off to the right companion skill. Best
-for topic positioning, journal fit, paper strategy, reviewer-risk framing,
-and combined workflows such as mini-review + figure planning.
-
-**Fragment system** — manifest-defined fragments drive the routing decisions:
-
-| Axis | Count | Purpose |
-|---|---|---|
-| `task` | 15 | What the user wants to do (mini-review, evidence-audit, response, submission, …) |
-| `domain` | **36** | Which material sub-direction (asphalt, cement-concrete, ceramics, …) |
-| `journal` | 20 | Which target family (CBM, CCC, RMPD, JBE, ACS, nature-materials, …) |
-
-**Stage-gated plan** — Every router output is a 6-stage plan
-(positioning → reading → citation → writing → polishing → reviewer/response)
-with explicit handoff rows to companion skills, plus a `coverage_tier` report
-(`full` / `partial` / `skeleton` / `generic`).
-
-**Profile-first routing** — Honours the user-local
-`.materials/profile.yaml` set by the `_shared/core/direction-profile.md`
-protocol. See the *Profile-first routing* section above.
-
----
-
-## materials-writing — the 8-axis stateful manuscript engine
-
-**What it does** — Turns claims, results, notes, and outlines into argument
-chains, abstracts, introductions, results/discussion sections, conclusions,
-or review outlines while keeping missing evidence visible. It can initialize
-foundation files and project-level `state.json` for compose, revise, hybrid,
-and QA loops. Built for materials-science manuscripts across
-civil/construction, polymers, metals, ceramics, and functional/nano materials.
-
-**Eight-axis routing** — Drives writing mode, section template, phrase bank,
-and domain narrative simultaneously:
-
-| Axis | Examples |
-|---|---|
-| `writing_mode` | compose / revise / hybrid / qa |
-| `paper_type` | experimental / review / method / data-paper / case-study |
-| `section` | abstract / intro / R-D / conclusion / cover-letter |
-| `language` | zh / en |
-| `journal_family` | CBM / CCC / RMPD / JBE / nature-materials / acs-nano / … |
-| `material_family` | civil / polymer / metal / ceramic / functional / nano |
-| `domain` | WER-EA / asphalt / cement-concrete / ceramics / … |
-| `input_source` | manual / experiment-record |
-
-**Reference corpus** — narrative references, state-machine references, 5 section
-arcs (abstract claim arc, intro gap ladder, R-D evidence chain, conclusion
-boundary, review synthesis), domain phrase banks, and domain paragraph
-patterns.
-
-**Key rules enforced**
-
-- Argument chain before prose: claim → evidence → mechanism → boundary.
-- Foundation files before stateful drafting when continuity matters.
-- `state.json` tracks writing mode, round, scores, technical debts, stop status,
-  and artifacts.
-- Revision loops stop on round limit, low score gain, missing key evidence,
-  unresolved specialist conflict, or target reached.
-- Missing evidence stays visible as explicit gaps, not hidden hedging.
-- Section-aware tense and hedging: past tense for results, present for
-  established knowledge, hedged for inferred mechanisms.
-- Review outlines separate synthesis structure from borrowed structure.
-
----
-
-## materials-data — FAIR packaging with 9 domain schemas
-
-**What it does** — Raw/processed dataset organisation, metadata, FAIR
-checks, supplementary-data packaging, and journal-ready data-availability
-statements. Outputs a FAIR package with audit report, dataset README,
-metadata template, and a statement ready to paste into a submission.
-
-**Nine domain data schemas** — The skill ships ready-to-use column
-templates for:
-
-- `asphalt` — mix design, modifier dosage, performance window
-- `cement-concrete` — mix proportions, hydration, durability
-- `ceramics` — sintering, mechanical, Weibull reliability
-- `civil` — generic engineering measurement
-- `functional` — sensors, energy storage, smart materials
-- `metals` — composition, heat-treatment, mechanical response
-- `nano` — nanoparticle size, surface area, dispersion
-- `polymers` — formulation, processing, mechanical/thermal
-- `thermal-insulation` — thermal conductivity, density, fire resistance
-
-**Coverage** — Each schema includes the canonical CSV column order, FAIR
-metadata fields, and the data-availability statement template adapted for
-the most common target journals in that domain.
-
----
-
-## materials-reviewer — peer review with 22 domain criteria
-
-**What it does** — Simulates peer review before submission or resubmission.
-Checks novelty and evidence sufficiency, flags figure/statistics gaps, and
-produces reviewer-style reports with editorial criteria for the material
-domain. Outputs a desk-reject risk report so weak packages get routed back
-to reader, citation, writing, or figure work before submission.
-
-**Five review axes** — originality / importance / interdisciplinary /
-technical validity / readability.
-
-**Twenty-two domain-specific criteria** — One per material sub-direction,
-covering the typical reviewer concerns and desk-reject risk patterns in
-each:
-
-asphalt, cement, ceramics, construction-materials, civil-generic,
-waterproofing-sealants, timber-masonry, steel, geotechnical,
-nano, nano-thin-films, 2d-materials, nanocomposites, nanoparticles,
-photonic-optoelectronic, dielectrics-piezoelectrics, semiconductors,
-polymers, metals, insulation, functional, sustainability-durability.
-
----
-
-## materials-citation — search, screen, structure
-
-**What it does** — Literature search strategy, source screening, citation
-matrices, reference-gap audits, ID normalisation, and claim-source
-alignment. Its MCP-backed search tools query academic sources and export
-structured citation evidence with evidence layer, source role, source
-quality, reader anchor, figure handoff, and reviewer-risk fields.
-
-**MCP academic search** — The bundled MCP server queries Crossref, OpenAlex,
-Semantic Scholar, PubMed, arXiv, Scopus, and ScienceDirect, with domain
-classification for materials science. Exports BibTeX, CSL-JSON, RIS, and
-JSONL. A 13-test unit suite covers MCP adapters, search-plan generators, and
-fallback paths.
-
----
-
-## materials-reader
-
-**What it does** — Use when the raw material is a paper, PDF, abstract,
-figure caption, or pasted text. Produces standard reader packages,
-source-grounded notes, figure/table evidence maps,
-claim-evidence-mechanism-boundary matrices, and handoff rows for citation
-and figure skills. Has its own `evals.json` for end-to-end quality checks.
-
----
-
-## materials-polishing
-
-**What it does** — Use after text exists. Handles English polishing,
-Chinese-to-English academic rewriting, claim-strength control, overclaim
-reduction, and journal-tone tightening. Outputs polished text plus a
-claim-strength audit that flags overclaims and unsupported hedging. Ships
-22 references including a `claim-strength-ladder` (a quantitative ladder
-calibrating causal / associative / correlative / speculative claims) and
-domain-specific language rulebooks. Has its own `evals.json`.
-
----
-
-## materials-doe
-
-**What it does** — Design-of-experiments planning and matrix generation for
-materials science and engineering research. Supports classical
-factorial, Taguchi orthogonal array, and mixture/simplex designs with factor
-screening and response surface extensions.
-
-**Outputs**
-
-| Output | Description |
-|---|---|
-| Test matrix | Factor-level table in CSV or markdown |
-| Analysis strategy | Notes on ANOVA, S/N ratio, or RSM approach |
-| DOE handoff | Structured handoff for downstream skills |
-| Methods paragraph | Ready-to-paste experimental methods section |
-
-**Usage examples**
-
-- "Design an L9 orthogonal array for asphalt modifier dosage, curing time, and temperature"
-- "Generate a mix design matrix for three-component mortar system"
-- "Plan a factorial experiment for concrete durability factors"
-
-**Boundaries** — This skill plans experiments and generates matrices. It does
-not execute tests, analyse collected data, or produce manuscript text. For
-data analysis or figure production, hand off to `materials-data` or
-`materials-figure`.
-
----
-
-## materials-response
-
-**What it does** — After reviewer comments arrive, separates response tone
-from manuscript action, drafts point-by-point replies, and prevents
-unsupported promises such as claiming new experiments were completed. Outputs
-a response letter plus a rebuttal package with action items and risk flags.
-Has its own `evals.json`.
-
----
-
-## materials-html-deck
-
-**What it does** — `materials-html-deck` converts papers, reading notes,
-review matrices, and research outlines into browser-native HTML academic
-decks: retained `index.html`, per-slide HTML files, shared design tokens,
-Playwright screenshots, QA reports, speaker notes, and an asset manifest.
-
----
-
-## Shared core — `_shared/`
-
-All 14 skills share a small set of protocol files under
-[`plugins/materials-skills/skills/_shared/`](plugins/materials-skills/skills/_shared/):
-
-The shared directory remains a set of single-purpose authorities rather than a
-default encyclopedia. Skills load only the profile protocol and their declared
-core by default; journal, domain, method, and language references stay
-manifest-routed. The citation contract is canonical in
-`materials-citation/static/core/contract.md`; its older compatibility path is
-not default-loaded.
-
-| File | Purpose |
-|---|---|
-| `core/direction-profile.md` | Profile-first routing protocol (first-use question, `.materials/profile.yaml` storage) |
-| `core/claim-strength-ladder.md` | Quantitative claim-strength calibration (causal → associative → correlative → speculative) |
-| `core/evidence-contract.md` | Required fields for any claim evidence tuple (claim-id, source-id, evidence-layer, source-quality, …) |
-| `core/source-basis.md` | Source taxonomy and reliability tiers |
-| `core/stance.md` | How to handle disagreements, hedges, and uncertainty |
-| `core/terminology-ledger.md` | Canonical term normalisation across skills |
-| `core/ethics.md` | Ethics, attribution, and "do not fabricate" guardrails |
-| `journal-formats/` | **17 journal format guides** (CBM, CCC, RMPD, JBE, nature-materials, acs-nano, acta-materialia, advanced-materials, advanced-functional-materials, ceramics-international, energy-buildings, building-environment, jacers, jmca, nano-letters, progress-polymer-science, thermal-sciences) |
-
-## Quantitative summary (public delivery boundary)
-
-- **14 materials-* skills** plus shared contracts under `_shared`.
-- **29 material systems** represented in the material registry.
-- **Lightweight figure preview boards** are shipped for public browsing; the generated atlas/gallery/showcase image corpus is intentionally not part of the installable skill bundle.
-- **Manifest-defined routing fragments** across task, domain, and journal axes.
-- **17 journal format guides**.
-- **22 reviewer-criteria documents**.
-- **9 domain data schemas** for FAIR packaging.
-- **State-machine writing assets** in `materials-writing`.
-- **Public verification:** `python .\scripts\run_release_checks.py --json`.
-
-The public repository does not ship the internal Python regression suite or the full generated visual asset pack. Those are treated as maintainer-side validation assets.
-
-## Visual Gallery
-
-See [docs/gallery/README.md](docs/gallery/README.md) for editorial proof
-boards and figure-package previews.
-
-![WER-EA workflow preview](docs/gallery/gallery_wer_ea_workflow.png)
-
-## Four Workflow Entry Points
-
-| Entry | Best for |
-|---|---|
-| WER-EA mini-review | Systematic review + figure planning for asphalt emulsion materials |
-| Experimental manuscript | Evidence-gap audit before discussion drafting |
-| Revision loop | Post-review response + rebuttal package |
-| Paper to presentation | Journal-club HTML deck from a paper package |
-
-## Guided Demos
-
-See [docs/workflows/README.md](docs/workflows/README.md) for four concrete
-workflow demos: WER-EA mini-review, experimental manuscript, revision loop,
-and paper to presentation.
-
-## Outcome Showcases
-
-See [docs/showcases/README.md](docs/showcases/README.md) for submission,
-reviewer-response, and FAIR-data package outcomes. The material coverage
-dashboard is tracked in [docs/coverage-dashboard.md](docs/coverage-dashboard.md),
-and the concise skill index is in [docs/skills-index.md](docs/skills-index.md).
-
-## Scope
-
-This bundle structures materials research work with stronger evidence, routing,
-and packaging discipline. It does not replace deep reading, real experimental
-evidence, supervisor judgment, official journal instructions, or institutional
-requirements.
-
-## Roadmap (transparent gaps)
-
-- **Internal regression coverage** is maintained outside the public GitHub
-  delivery; the public package keeps only the lightweight release gate.
+| Claude Code | `python scripts/install_skills.py --target claude` | `~/.claude/skills/` (or `.claude-plugin/` marketplace) |
+| OpenCode | `python scripts/install_skills.py --target opencode` | `~/.config/opencode/skills/` |
+| Antigravity | `python scripts/install_skills.py --target antigravity` | `~/.gemini/config/skills/` |
+| Codex | `python scripts/install_skills.py --target codex` (or `scripts/install.ps1`) | `$CODEX_HOME/skills/` |
+| Any SKILL.md agent | `python scripts/install_skills.py --target generic --dest <dir>` | anywhere |
+
+## Installation 安装
+
+```bash
+python scripts/install_skills.py --target claude --dry-run   # preview first
+python scripts/install_skills.py --target claude
+```
+
+安装器会把每个 skill 物化为自包含目录（合并 `_shared` 树、重写相对引用）、
+按平台注册 `materials-academic-search` MCP，并在安装后校验全部引用。
+The installer materializes self-contained skills, registers the MCP server per
+platform, and verifies references. 详见 [install.md](install.md) 与
+[adapters/README.md](adapters/README.md)。
+
+## Documentation 文档导航
+
+- [docs/skills-index.md](docs/skills-index.md) — 14 技能细节、关键规则与输出结构
+- [docs/gallery/README.md](docs/gallery/README.md) — 配图能力图板
+- [docs/workflows/README.md](docs/workflows/README.md) — 四个端到端工作流演示
+- [docs/showcases/README.md](docs/showcases/README.md) — submission / reviewer-response / FAIR-data 成果展示
+- [docs/coverage-dashboard.md](docs/coverage-dashboard.md) — 29 材料体系覆盖度
+
+## Scope & Roadmap 边界与路线图
+
+- 本包强化科研工作的证据、路由与打包纪律，不替代深度阅读、真实实验证据、
+  导师判断、期刊官方要求或机构规定。
+- 公开仓库只随附轻量发布门；内部回归套件与完整配图资产为维护者侧资产。
 - **Submission end-to-end** is supported for 10 supported journal templates
   through `materials-submission`. The initial four-journal pilot (CBM, CCC,
   RMPD, JBE) is historical rollout context, not the current support boundary;
   seven journal-format guides remain without submission templates.
-- **Grant writing** is out of scope for the current release; it would
-  require a dedicated `materials-grant` skill.
-- **Lab execution** is out of scope; `materials-doe` plans experiments but
-  does not run them.
+- 基金写作（`materials-grant`）不在当前范围；`materials-doe` 只做实验设计，
+  不执行实验。
 
-## Acknowledgements
+## Acknowledgements 致谢
 
-The repository structure, skill-bundle packaging approach, and README layout
-of this project are inspired by [nature-skills](https://github.com/Yuan1z0825/nature-skills)
-by Yizhe Yuan. The Codex plugin marketplace distribution pattern, the
-per-skill detail section format, and the chart-type atlas concept in
-`materials-figure` draw on the design patterns established by nature-skills.
-We thank the nature-skills project for demonstrating a clean, reusable model
-for shipping academic skill bundles as Codex plugins.
+仓库结构与技能包打包方式受
+[nature-skills](https://github.com/Yuan1z0825/nature-skills)（Yizhe Yuan）启发。
