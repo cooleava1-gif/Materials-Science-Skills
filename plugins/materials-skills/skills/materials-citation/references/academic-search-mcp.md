@@ -6,9 +6,9 @@ This MCP is the upstream search and metadata-verification layer for `materials-c
 
 - Server name: `materials-academic-search`
 - Repository entry point: `plugins/materials-skills/skills/materials-citation/mcp/academic_search/server.py`
-- Installed skill entry point: `$CODEX_HOME/skills/materials-citation/mcp/academic_search/server.py`
+- Installed skill entry point: `<skills-dir>/materials-citation/mcp/academic_search/server.py` (where `<skills-dir>` is the platform's skills directory, e.g. `~/.claude/skills`, `~/.config/opencode/skills`, `~/.gemini/config/skills`, or `$CODEX_HOME/skills`)
 - Runtime: Python stdio JSON-RPC MCP, using `httpx` for scholarly APIs.
-- Registered in: `$CODEX_HOME/config.toml`
+- Registered in: the platform's MCP configuration (see `install.md`); the repository-level `.mcp.json` declares the server for IDE-based agents.
 
 ## What It Does
 

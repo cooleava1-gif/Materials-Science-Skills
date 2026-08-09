@@ -1,14 +1,17 @@
 # Materials Science Skills
 
-A full-cycle Codex skill bundle for materials science research. It connects
-routing, reading, citation, writing, polishing, figure production, data
-packaging, experiment design, peer review simulation, reviewer-response
-drafting, slide preparation, and **paper-to-patent conversion** into one
-workflow instead of leaving each step as a separate prompt.
+A full-cycle materials-science research skill bundle, portable across agent
+platforms (Claude Code, OpenCode, Antigravity, Codex, and any SKILL.md-aware
+agent). It connects routing, reading, citation, writing, polishing, figure
+production, data packaging, experiment design, peer review simulation,
+reviewer-response drafting, slide preparation, and **paper-to-patent
+conversion** into one workflow instead of leaving each step as a separate
+prompt.
 
-材料科学研究的全流程 Codex 技能包。把路由、阅读、引文检索、写作、润色、
-配图、数据打包、实验设计、审稿模拟、回复信撰写、演讲准备、**论文转专利**
-串成一条工作流，而不是让每一步都成为孤立的提示。
+材料科学研究的全流程技能包，可适配多个 agent 平台（Claude Code、OpenCode、
+Antigravity、Codex 及任意支持 SKILL.md 的 agent）。把路由、阅读、引文检索、
+写作、润色、配图、数据打包、实验设计、审稿模拟、回复信撰写、演讲准备、
+**论文转专利**串成一条工作流，而不是让每一步都成为孤立的提示。
 
 The bundle ships **14 skills** covering **29 material systems** across
 civil/construction, polymers, metals, ceramics, and functional/nano materials.
@@ -39,6 +42,24 @@ worked example packages where the coverage tier has reached `full`.
     </td>
   </tr>
 </table>
+
+## Platform support
+
+One canonical source, thin platform adapters — see `adapters/README.md` for
+the full matrix and `install.md` for instructions.
+
+| Platform | Install | Skills location |
+|---|---|---|
+| Claude Code | `python scripts/install_skills.py --target claude` | `~/.claude/skills/` (or `.claude-plugin/` marketplace) |
+| OpenCode | `python scripts/install_skills.py --target opencode` | `~/.config/opencode/skills/` |
+| Antigravity | `python scripts/install_skills.py --target antigravity` | `~/.gemini/config/skills/` |
+| Codex | `python scripts/install_skills.py --target codex` (or `scripts/install.ps1`) | `$CODEX_HOME/skills/` |
+| Any SKILL.md agent | `python scripts/install_skills.py --target generic --dest <dir>` | anywhere |
+
+The installer materializes each skill into a self-contained directory (merging
+both `_shared` trees and rewriting relative references), registers the
+`materials-academic-search` MCP server per platform, and verifies every shared
+reference after install. Preview any install with `--dry-run`.
 
 ## Quick Start
 
@@ -113,9 +134,10 @@ boundaries remain explicit for WER-EA dosage denominators and curing stages,
 DOE mixture constraints, figure source anchors, patent claim support, stable
 IDs, and missing-input blocking.
 
-The candidate inventory and shared-layer decisions are recorded in
-[`reports/skill-simplification/final-report.md`](reports/skill-simplification/final-report.md)
-and [`reports/skill-simplification/final-inventory.json`](reports/skill-simplification/final-inventory.json).
+The candidate inventory and shared-layer decisions are recorded in the
+`reports/skill-simplification/` artifacts (`final-report.md` and
+`final-inventory.json`), kept out of the public repository; the corresponding
+CHANGELOG entries summarize the design decisions.
 Historical pre-authentication note (superseded): the first deterministic
 validation pass recorded an authentication blocker before the Codex CLI relay
 was available. That note is retained only to explain the earlier audit trail;
@@ -126,14 +148,32 @@ covered 676 isolated runs, candidate C covered 338, and all 53 key scenarios
 were read across five fresh repetitions per variant. Three behavior gaps found
 in that review have separate targeted regression artifacts. The measured
 default activation reduction is 2.972%; the 30–45% aspiration is not claimed
-because evidence fidelity takes precedence over byte reduction. This remains a
-local, unreleased checkout with no remote changes.
-
-## Installation
+because evidence fidelity takes precedence over byte reduction.
 
 ## Installation Paths
 
-### 1. Codex Plugin (recommended)
+### 1. Cross-platform installer (recommended)
+
+One canonical source, thin adapters per agent. From the repository root:
+
+```bash
+python scripts/install_skills.py --target claude --dry-run   # preview first
+python scripts/install_skills.py --target claude             # ~/.claude/skills/
+python scripts/install_skills.py --target opencode           # ~/.config/opencode/skills/
+python scripts/install_skills.py --target antigravity        # ~/.gemini/config/skills/
+python scripts/install_skills.py --target codex              # $CODEX_HOME/skills/
+python scripts/install_skills.py --target generic --dest <dir> --no-mcp
+```
+
+The installer materializes each skill into a self-contained directory (merging
+both `_shared` trees and rewriting relative references), registers the
+`materials-academic-search` MCP server per platform, and verifies every shared
+reference after install. See [`adapters/README.md`](adapters/README.md) for the
+full platform matrix and per-platform notes. Claude Code plugin distribution is
+also available via the bundled
+[`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json).
+
+### 2. Codex Plugin
 
 This repository includes Codex plugin packaging at `plugins/materials-skills/`,
 so Codex users can install the complete bundle from the plugin marketplace
@@ -157,7 +197,7 @@ plugin as a complete bundle, together with the shared support directory. If
 the skills do not appear immediately, refresh the plugin page or start a new
 Codex session.
 
-### 2. Manual Skills Install
+### 3. Manual Skills Install
 
 Clone the repo and run the installer:
 
@@ -183,7 +223,7 @@ Copy-Item -Recurse -Force .\plugins\materials-skills\skills\_shared $skillsDir
 Copy-Item -Recurse -Force .\plugins\materials-skills\_shared $codexHome
 ```
 
-### 3. Optional Academic Search MCP
+### 4. Optional Academic Search MCP
 
 If you want the local academic-search MCP, install the Python dependencies
 first:
