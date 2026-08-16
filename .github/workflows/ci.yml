@@ -37,7 +37,7 @@ jobs:
 
       - name: Install MCP dependencies
         run: |
-          pip install httpx>=0.27,<1 pytest>=8.0,<9
+          pip install 'httpx>=0.27,<1' 'pytest>=8.0,<9'
           pip install -r plugins/materials-skills/skills/materials-citation/mcp/academic_search/requirements.txt
 
       - name: Run MCP unit tests
