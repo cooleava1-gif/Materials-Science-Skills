@@ -9,6 +9,17 @@ and this project follows [Semantic Versioning](https://semver.org/) loosely:
 
 ## [Unreleased]
 
+### Added — hybrid mode tool gate and fallback (2026-08-16, third session)
+- `materials-figure` 2.4.0: hybrid composition now requires a
+  **user-provided AI image model** (GPT Image 2 via OpenRouter or any
+  OpenAI-compatible endpoint, nanobanana / Gemini, or user-self-generated
+  assets from the decoration prompts). When no tool is available the
+  skill explains the requirement and falls back to full R/Python drawing
+  with procedural decoration approximations — first-class path, same
+  export bundle, no AI disclosure needed; it never fabricates
+  AI-generated provenance. Gate reworked (`ai-asset-gate`), workflow and
+  references updated, fallback eval added (25 total).
+
 ### Added — GPT Image 2 + R hybrid composition (2026-08-16, second session)
 - `materials-figure` 2.3.0: hybrid composition mode for publication-grade
   schematics and graphical abstracts — GPT Image 2 generates decoration

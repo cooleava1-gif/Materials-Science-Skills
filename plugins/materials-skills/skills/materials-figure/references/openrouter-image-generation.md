@@ -1,7 +1,13 @@
 # OpenRouter Image Generation (GPT Image 2 and OpenAI-compatible endpoints)
 
-Provider reference for the AI-schematic route. Adapted from nature-skills
-(Apache-2.0). Output is always a **draft**, never a data panel.
+Provider reference for the AI-schematic route — **one option among
+user-provided image models** (GPT Image 2 via OpenRouter, nanobanana /
+Gemini, or any OpenAI-compatible endpoint via `--api-url`; users may also
+generate assets in their own tool from the decoration prompts). Adapted
+from nature-skills (Apache-2.0). Output is always a **draft**, never a
+data panel. No AI tool available? Explain to the user and fall back to
+R/Python-only drawing per
+[hybrid-composition.md](hybrid-composition.md).
 
 ## When to use
 

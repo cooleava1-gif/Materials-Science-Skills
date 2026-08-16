@@ -1,6 +1,6 @@
 # materials-figure
 
-**Version:** 2.3.0
+**Version:** 2.4.0
 
 **What it does** — Generates journal-ready multi-panel figures for materials
 manuscripts: mechanism maps, evidence heatmaps, dosage-window plots,
@@ -186,7 +186,14 @@ This skill does not invent experiments, citations, measurements, journal facts, 
 
 Explicit OpenRouter / GPT Image 2 requests route to `references/ai-schematic-workflow.md` + `references/openrouter-image-generation.md` and `scripts/generate_openrouter_schematic.py` (dry-run first). Outputs are internal drafts with provenance and disclosure; never data panels.
 
-## Hybrid composition: GPT Image 2 + R (2.3.0)
+## Hybrid composition: user-provided AI model + R (2.3.0/2.4.0)
+
+Requires the **user to provide an AI image model** (GPT Image 2 via
+OpenRouter or any OpenAI-compatible endpoint, nanobanana / Gemini, or
+self-generated assets from the decoration prompts). Without a tool the
+skill explains this and falls back to full R/Python drawing with
+procedural decorations — same semantics, same export bundle, no AI
+disclosure needed.
 
 Layer-split composition for publication-grade schematics and graphical
 abstracts: GPT Image 2 generates decoration assets only (icons, gradients,

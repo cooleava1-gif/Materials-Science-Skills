@@ -1,5 +1,5 @@
 name: materials-figure
-version: 2.3.0
+version: 2.4.0
 status: stable
 description: >
   Declarative manifest for the static/dynamic split. SKILL.md uses this to
@@ -111,7 +111,7 @@ references:
       path: references/ai-schematic-workflow.md
     - condition: OpenRouter, GPT Image 2, or OpenAI-compatible image API call setup, payload review, or provenance record
       path: references/openrouter-image-generation.md
-    - condition: GPT Image 2 + R hybrid figure, layer split between AI decoration assets and R-drawn semantics, asset placement map, hybrid QA
+    - condition: AI image model + R hybrid figure, layer split between AI decoration assets and R-drawn semantics, asset placement map, hybrid QA, no-AI-tool fallback
       path: references/hybrid-composition.md
     - condition: R backend workflow, ggplot2/patchwork/ComplexHeatmap usage, renv record, R-specific export pitfalls
       path: references/r-backend.md

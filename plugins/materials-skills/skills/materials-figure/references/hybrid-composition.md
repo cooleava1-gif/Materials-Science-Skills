@@ -13,6 +13,26 @@ R stays the sole drawing backend (the exclusivity rule is preserved: AI
 assets are *inputs*, not a backend). Data panels are never part of this
 route.
 
+## AI tool requirement and fallback / 工具前置与兜底
+
+Hybrid composition requires the **user to provide an AI image model** —
+GPT Image 2 (OpenRouter or any OpenAI-compatible endpoint via
+`--api-url`), nanobanana / Gemini image models, or any tool the user can
+run. Check availability before promising a hybrid figure; if no tool is
+available, say so explicitly and offer the fallback below — never
+fabricate "AI-generated" assets or silently drop the decoration layer.
+
+| Situation | Action |
+|---|---|
+| API access provided (key/endpoint) | Generate assets with `generate_openrouter_schematic.py --asset-mode` (dry-run payload first); record provenance from `*_request_metadata.json` |
+| User generates assets themselves (e.g., nanobanana in their own UI) | Hand over `fig4_asset_prompt.txt`-style decoration prompts; user drops the PNGs into `assets/`; record tool + model + date manually in `asset_manifest.yaml`; the layer contract (no text/arrows/borders in assets) still applies |
+| No AI tool at all | Explain that hybrid needs a user-provided image model, then fall back to full R/Python drawing: procedural decoration approximations (soft radial-gradient discs via raster math or layered translucent circles, tint fills, simulated shadows) — same semantics, same export bundle; mark the figure R/Python-drawn, no AI disclosure needed |
+
+The fallback is a first-class path, not a degraded error: procedural
+decorations in R/Python keep the figure complete and submission-safe with
+zero policy gate. When a tool later becomes available, re-run only the
+asset step and swap the decoration layer via the placement map.
+
 ## Layer contract 图层契约
 
 | Element | Layer | Rule |

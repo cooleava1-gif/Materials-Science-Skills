@@ -34,10 +34,13 @@ ggsave("figure.tiff", plot, width = 86, units = "mm", dpi = 600, compression = "
   the same contract and QA rules as the Python backend
   (`static/core/contract.md`, `references/figure-qa-contract.md`).
 
-## Hybrid composition (GPT Image 2 + R)
+## Hybrid composition (AI image model + R)
 
 When the job is a hybrid figure, R is the sole drawing engine and AI assets
-are raster *inputs* placed below the semantics:
+are raster *inputs* placed below the semantics. A user-provided image model
+(GPT Image 2, nanobanana, …) is a precondition; without one, explain and
+draw the decorations procedurally in R (layered translucent circles for
+soft discs, tint fills for washes) instead:
 
 - Layer order: AI decoration first (`grid::rasterGrob(png::readPNG(...))`
   or `ggplot2::annotation_custom`), then every semantic element (text,

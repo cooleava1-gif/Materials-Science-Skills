@@ -108,10 +108,12 @@ defaults for `material_family` and `domain` across all 16 skills.
 - Key rules: exclusive plotting backend per package (Python default, R
   opt-in with persisted preference); an OpenRouter/GPT Image 2 AI-schematic
   route produces provenance-tracked internal drafts (never data panels);
-  a GPT Image 2 + R hybrid mode splits layers — AI decoration assets
-  (icons/gradients/shadows/translucent blocks) below, all text, borders,
-  arrows, and annotations as R vector above (`asset_manifest.yaml`
-  placement map + text-vector QA); contract written before plotting
+  a hybrid mode (user-provided AI image model required — GPT Image 2,
+  nanobanana, or self-generated assets) splits layers — AI decoration
+  assets below, all text, borders, arrows, and annotations as R vector
+  above (`asset_manifest.yaml` placement map + text-vector QA); with no
+  AI tool the skill explains and falls back to R/Python-only drawing
+  with procedural decorations; contract written before plotting
   (core conclusion, evidence chain, panel map, target journal,
   statistics/units/scale bars, claim boundary); caption boundaries separate
   measured from inferred claims; QA report covers backend exclusivity, export

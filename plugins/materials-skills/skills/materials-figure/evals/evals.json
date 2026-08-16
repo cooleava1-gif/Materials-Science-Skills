@@ -290,6 +290,26 @@
         }
       ],
       "files": []
+    },
+    {
+      "id": "hybrid-no-ai-tool-fallback",
+      "prompt": "帮我做一张 GPT Image 2 + R 混合机制图，但是我这边没有任何 AI 作图的 API key，也不会用 nanobanana 这些工具。",
+      "expected_output": "The assistant must state explicitly that hybrid composition requires a user-provided AI image model (GPT Image 2 via OpenRouter or any OpenAI-compatible endpoint, nanobanana/Gemini, or self-generated assets from the decoration prompts), then offer the fallback instead of failing: full R (or the selected backend) drawing with procedural decoration approximations — soft translucent discs, tint washes, simulated shadows — same semantic layer, same four-format export, no AI disclosure needed and no policy gate. The assistant must not fabricate AI-generated assets, claim the figure is AI-hybrid when it is not, or silently drop the decoration layer without telling the user. The placement-map path stays open: when a tool becomes available later, only the asset step re-runs.",
+      "assertions": [
+        {
+          "name": "tool_requirement_explained",
+          "description": "The user is told a hybrid figure needs a user-provided image model and what qualifies."
+        },
+        {
+          "name": "r_python_fallback_offered",
+          "description": "A complete R/Python-only drawing fallback with procedural decorations is offered, not an error."
+        },
+        {
+          "name": "no_fake_ai_provenance",
+          "description": "The assistant never claims AI generation without a tool and never invents assets."
+        }
+      ],
+      "files": []
     }
   ]
 }
