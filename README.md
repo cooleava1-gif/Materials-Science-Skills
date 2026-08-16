@@ -1,11 +1,14 @@
 # Materials Science Skills
 
 A full-cycle **materials-science research skill bundle** for AI coding agents:
-routing, reading, citation, writing, figures, data, DOE, peer review, reviewer
-responses, and paper-to-patent conversion in one evidence-gated workflow.
+routing, deep-reading cards, citation and reference verification, statistics
+reporting, writing, figures (incl. AI-model + R hybrid composition), data,
+DOE, peer review, reviewer responses, and paper-to-patent conversion in one
+evidence-gated workflow.
 
-面向材料科学科研全流程的 Agent 技能包：从文献路由、阅读、引文、写作、配图、
-数据打包、实验设计到审稿模拟、回复信与论文转专利，以证据契约贯穿每一步。
+面向材料科学科研全流程的 Agent 技能包：从文献路由、深读卡、引文与参考文献
+校验、统计报告、写作、配图（含 AI 模型 + R 混合合成）、数据打包、实验设计
+到审稿模拟、回复信与论文转专利，以证据契约贯穿每一步。中文请求可直达触发。
 
 **16 skills · 29 material systems · 17 journal format guides · 9 domain data schemas · 7+ agent platforms**
 
@@ -64,9 +67,10 @@ research (router) → reader → citation / literature-pipeline
   contract and source-data anchor first, then the LLM writes `plot.py` and
   ships a full package (`figure_contract.md → source_data.csv → plot.py →
   SVG/PDF/PNG/TIFF → caption.md + qa_report.md`). Python-default backend
-  (R opt-in), an OpenRouter/GPT Image 2 AI-schematic draft route, and a
-  GPT Image 2 + R hybrid composition mode (AI decorates, R draws all
-  semantics).
+  (R opt-in); a hybrid composition mode that requires a user-provided AI
+  image model (GPT Image 2, nanobanana, …) — AI decorates only, R draws
+  every text/border/arrow/annotation as vector, with a full R/Python
+  fallback (procedural decorations) when no tool is available.
 - **`materials-paper-to-patent`** — 论文转中文发明专利：三轴路由
   （source_format / task_mode / invention_type），内置中国专利法第 22/26.3/
   26.4/31.1/33 条知识库与 7 规则 claim 校验引擎，输出 DOCX 申请稿 +
