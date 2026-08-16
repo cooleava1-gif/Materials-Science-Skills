@@ -1,0 +1,8 @@
+interface:
+  display_name: "Materials Paper Card"
+  short_description: "Source-grounded 16-section deep-reading cards for materials papers."
+  brand_color: "#5A4E6B"
+  default_prompt: "Use $materials-paper-card to build a deep-reading card for this materials paper."
+
+policy:
+  allow_implicit_invocation: true

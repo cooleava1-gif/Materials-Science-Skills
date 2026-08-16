@@ -100,3 +100,6 @@ plugins/materials-skills/skills/materials-figure/assets/gallery/*.svg
 plugins/materials-skills/skills/materials-figure/assets/showcase-proof/*.png
 !plugins/materials-skills/skills/materials-figure/assets/showcase-proof/wer_ea_figure_proof_board.png
 plugins/materials-skills/skills/materials-figure/assets/materials4papers/**/figures/
+
+# session tooling artifacts
+.mindfs/

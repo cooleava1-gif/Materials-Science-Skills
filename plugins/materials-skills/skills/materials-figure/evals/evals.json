@@ -250,6 +250,26 @@
       "id": "deterministic-validation-gates-warning-materials-fail",
       "command": "python scripts/test_validation_gates.py --case warning-materials-fail",
       "expected": "stdout contains 'PASS warning-materials-fail'"
+    },
+    {
+      "id": "ai-schematic-route-draft-boundary",
+      "prompt": "用 GPT Image 2 帮我生成一张水性环氧改性乳化沥青界面粘结机制的图形摘要，直接可以投稿用的。",
+      "expected_output": "The assistant must follow the AI-schematic route: load ai-schematic-workflow.md and openrouter-image-generation.md, run generate_openrouter_schematic.py with --dry-run first to review the payload, and refuse to promise submission readiness — the journal policy gate must be verified and the output labeled internal design draft with provenance (request metadata + disclosure line). The assistant must also state that no quantitative values or fake micrographs will be generated and that data panels never use the image API.",
+      "assertions": [
+        {
+          "name": "dry_run_first",
+          "description": "The payload is reviewed via --dry-run before any API call."
+        },
+        {
+          "name": "submission_eligibility_not_promised",
+          "description": "The output is labeled an internal draft pending journal policy verification, not submission-ready."
+        },
+        {
+          "name": "no_fake_data_panels",
+          "description": "The route never generates quantitative values or fake experimental imagery."
+        }
+      ],
+      "files": []
     }
   ]
 }

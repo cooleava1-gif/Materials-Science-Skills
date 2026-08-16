@@ -7,6 +7,8 @@ description: >-
   for materials science and engineering manuscripts. Trigger for data
   availability statements, FAIR audits, repository packaging, dataset README
   drafting, experiment-record tables, and data-package handoffs.
+  Chinese triggers 中文触发：数据打包、数据集整理、FAIR审查、数据可用性声明.
+
 ---
 
 # Materials Science Data and FAIR Router

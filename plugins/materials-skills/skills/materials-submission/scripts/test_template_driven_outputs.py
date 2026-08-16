@@ -893,8 +893,8 @@ declaration_requirements:
 
         self.assertIn("10 supported journal templates", root_readme)
         self.assertIn("initial four-journal pilot", root_readme)
-        self.assertEqual(14, root_readme.count("| [`materials-"))
-        self.assertIn("Skill index (14 skills)", root_readme)
+        self.assertEqual(16, root_readme.count("| [`materials-"))
+        self.assertIn("Skill index (16 skills)", root_readme)
         self.assertIn("10 supported journal templates", companion)
         self.assertIn("| Final assembly | materials-submission |", orchestrator)
         self.assertIn("submission-package.yaml", orchestrator)

@@ -1,4 +1,4 @@
-version: 1.2.0
+version: 1.3.0
 status: stable
 # Minimal always_load: profile precedence and the core workflow. The detailed
 # shared stance, evidence contract, research-state contract, and weakness
@@ -111,6 +111,22 @@ axes:
         - reviewer
         - risk
         - 审稿
+      statistics-audit:
+        path: static/fragments/task/statistics-audit.md
+        triggers:
+        - statistics review
+        - p-value
+        - ANOVA
+        - multiple comparisons
+        - 统计审查
+        - 方差分析
+      deep-reading-card:
+        path: static/fragments/task/deep-reading-card.md
+        triggers:
+        - paper card
+        - deep reading
+        - 深读卡
+        - 论文精读卡片
   paper_stage:
     detect: Where is the manuscript or review workflow in the paper-production lifecycle?
     default: idea
@@ -565,6 +581,8 @@ companion_skills:
   figure: materials-figure
   data: materials-data
   doe: materials-doe
+  statistics: materials-statistics
+  paper_card: materials-paper-card
   literature_pipeline: materials-literature-pipeline
 assets: []
 scripts:

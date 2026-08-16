@@ -23,6 +23,8 @@ EXPECTED_SKILLS = {
     "materials-reviewer",
     "materials-submission",
     "materials-literature-pipeline",
+    "materials-statistics",
+    "materials-paper-card",
 }
 
 

@@ -96,6 +96,8 @@ ROUTES: dict[str, dict[str, str]] = {
     "materials-reviewer": {"review_depth": "standard", "journal_family": "CBM", "review_scope": "full-manuscript", "material_family": "civil", "domain": "civil"},
     "materials-submission": {"task": "full-package", "journal": "cbm", "article_type": "research-article"},
     "materials-literature-pipeline": {"pipeline_mode": "run", "material_family": "civil", "output": "candidate-table"},
+    "materials-statistics": {"task": "audit", "study_design": "between-group"},
+    "materials-paper-card": {"paper_type": "research"},
 }
 
 
@@ -127,6 +129,28 @@ SKILL_SPECS: dict[str, list[dict[str, Any]]] = {
         _eval("materials-figure", "materials_kb_xrd_peak_validation", "domain_boundary", _r("materials-figure", material_family="ceramics", domain="ceramics")),
         _eval("materials-figure", "package_completeness_check", "handoff_schema", _r("materials-figure"), key=True),
         _custom("materials-figure", "figure-deck-route-conflict", "route_conflict", "Create a journal figure and an HTML defense deck from the same incomplete source table; decide which artifacts this figure skill owns.", ["Keep the publication figure package and its evidence gates in scope, and route the HTML deck to materials-html-deck with a bounded source handoff."], _r("materials-figure")),
+    ],
+    "materials-statistics": [
+        _eval("materials-statistics", "pseudoreplication-specimen-readings", "overclaim_or_fabrication", _r("materials-statistics"), key=True),
+        _eval("materials-statistics", "multiple-comparisons-unnamed-correction", "overclaim_or_fabrication", _r("materials-statistics", task="rewrite")),
+        _eval("materials-statistics", "taguchi-snr-reporting-gap", "normal", _r("materials-statistics", task="audit", study_design="factorial-doe")),
+        _custom("materials-statistics", "sem-sd-caption-rewrite", "normal", "Rewrite the methods statistics text so SD versus SEM is declared once and the caption n matches the specimens actually tested.", ["Produce ready-to-paste text that declares the error-bar statistic and the independent-unit n without inventing values."], _r("materials-statistics", task="rewrite")),
+        _custom("materials-statistics", "missing-n-definition", "missing_input", "Audit our statistical analysis section but the manuscript excerpt contains no statement of how many specimens or readings were taken.", ["Mark the n definition AUTHOR_INPUT_NEEDED instead of assuming specimens or readings, and bound the audit to what the text supports."], _r("materials-statistics")),
+        _custom("materials-statistics", "missing-software-version", "missing_input", "Finalize the Statistical analysis subsection when the analysis software and its version have never been stated.", ["Request the software and version as AUTHOR_INPUT_NEEDED rather than inserting a plausible package name."], _r("materials-statistics", task="draft")),
+        _custom("materials-statistics", "ceramics-batch-boundary", "domain_boundary", "Audit Weibull statistics for a sintered alumina study while the supplied project statistics ledger only covers asphalt mixture ANOVA conventions.", ["State the domain mismatch and route the ceramics statistics conventions for author or standards input instead of reusing asphalt rules."], _r("materials-statistics", study_design="nested-repeated")),
+        _eval("materials-statistics", "figure-caption-error-bar-audit", "handoff_schema", _r("materials-statistics", task="figure-statistics")),
+        _custom("materials-statistics", "statistics-doe-route-conflict", "route_conflict", "Re-run and redesign the Taguchi matrix while also auditing the statistics section in one turn; decide what this skill owns.", ["Keep the reporting audit in scope and route matrix redesign to materials-doe without inventing either deliverable."], _r("materials-statistics", study_design="factorial-doe")),
+    ],
+    "materials-paper-card": [
+        _eval("materials-paper-card", "reported-not-verified-characterization", "overclaim_or_fabrication", _r("materials-paper-card"), key=True),
+        _custom("materials-paper-card", "invented-section-content-refusal", "overclaim_or_fabrication", "Complete Section 09 experiment-to-claim evidence for a paper whose methods and results were never supplied, filling each cell so the card looks finished.", ["Mark unsupported sections Not assessable from supplied material with reasons instead of inventing evidence."], _r("materials-paper-card")),
+        _eval("materials-paper-card", "idea-gates-enforced", "normal", _r("materials-paper-card")),
+        _custom("materials-paper-card", "full-paper-research-card", "normal", "Build the 16-section card for a supplied research paper with clear mix design, XRD/SEM evidence, and a stated limitations section.", ["Produce all 16 ordered sections, tie Section 09 claims to evidence locators, and keep Section 10 characterization reported-not-verified."], _r("materials-paper-card")),
+        _eval("materials-paper-card", "sixteen-sections-integrity-partial-source", "missing_input", _r("materials-paper-card")),
+        _custom("materials-paper-card", "abstract-only-card", "missing_input", "Only the abstract and figure captions are available; the user still wants the full deep-reading card now.", ["Ship a visibly partial card in source-limited mode with justified Not assessable sections and no page citations."], _r("materials-paper-card")),
+        _custom("materials-paper-card", "dataset-card-boundary", "domain_boundary", "Build a card for a data-descriptor paper using the experimental-research fragment and its evidence-chain expectations.", ["Classify the paper as datasets, load the datasets fragment, and adapt provenance expectations instead of forcing research-paper sections."], _r("materials-paper-card", paper_type="datasets")),
+        _eval("materials-paper-card", "reader-package-reuse", "handoff_schema", _r("materials-paper-card")),
+        _custom("materials-paper-card", "card-review-route-conflict", "route_conflict", "Produce a paper card that also grades the paper for journal acceptance in the same artifact.", ["Keep the analytic card in scope and route formal review scoring to materials-reviewer without mixing review language into the card."], _r("materials-paper-card")),
     ],
     "materials-writing": [
         _eval("materials-writing", "argument-chain-before-prose", "normal", _r("materials-writing")),

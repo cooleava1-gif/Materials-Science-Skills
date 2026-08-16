@@ -45,6 +45,6 @@ claude plugin install materials-skills@materials-skills-marketplace
 
 - Frontmatter is intentionally limited to `name`/`description`/`version`/
   `stability`; Claude ignores unknown fields, and `name` matches each
-  directory name (kebab-case), so all 14 skills are valid.
+  directory name (kebab-case), so all 16 skills are valid.
 - The Codex-only `agents/` directory is dropped by the installer
   (Option A) and ignored by Claude (Option B).

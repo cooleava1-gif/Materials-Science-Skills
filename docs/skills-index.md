@@ -1,7 +1,7 @@
 # Skills Index
 
-This index lists all 14 installable `materials-*` skills, their key rules and
-output structures. 本页收录全部 14 个技能的定位、关键规则与输出结构。
+This index lists all 16 installable `materials-*` skills, their key rules and
+output structures. 本页收录全部 16 个技能的定位、关键规则与输出结构。
 
 | Skill | Primary role | Typical handoff |
 |---|---|---|
@@ -9,11 +9,13 @@ output structures. 本页收录全部 14 个技能的定位、关键规则与输
 | `materials-reader` | Source-grounded reader package | citation, writing, figure |
 | `materials-citation` | Search strategy and citation matrix | reader, writing |
 | `materials-literature-pipeline` | Recurring discovery and source-depth triage | research, reader, citation |
+| `materials-paper-card` | Fixed 16-section deep-reading card | reader, citation, research |
 | `materials-writing` | Stateful manuscript sections and argument chains | polishing, reviewer |
 | `materials-polishing` | Claim-strength and language tightening | reviewer, response |
 | `materials-figure` | Figure contracts and publication plots | writing, data |
 | `materials-data` | FAIR dataset package | writing, figure |
 | `materials-doe` | Experiment design matrices | data, writing |
+| `materials-statistics` | Statistical reporting audit and drafting | doe, reviewer, polishing, response |
 | `materials-reviewer` | Simulated peer review and risk report | response, writing |
 | `materials-response` | Point-by-point rebuttal package | writing, polishing |
 | `materials-html-deck` | Slide-ready outline and verified HTML academic deck | figure |
@@ -26,7 +28,7 @@ The bundle follows a **profile-first routing** protocol defined in
 `_shared/core/direction-profile.md`. On first use, the router asks the user
 once for their current materials research direction, saves it to a user-local
 file `.materials/profile.yaml` (not tracked by git), and uses it to set
-defaults for `material_family` and `domain` across all 14 skills.
+defaults for `material_family` and `domain` across all 16 skills.
 
 | Layer | Source | Behaviour |
 |---|---|---|
@@ -40,7 +42,7 @@ defaults for `material_family` and `domain` across all 14 skills.
 
 - Front door of the bundle: detects task type, material domain, and journal
   family, then hands off to the right companion skill.
-- **Fragment system** (manifest-defined): `task` (15), `domain` (**36**),
+- **Fragment system** (manifest-defined): `task` (17), `domain` (**36**),
   `journal` (20) axes drive routing decisions.
 - Every output is a **6-stage gated plan** (positioning → reading → citation →
   writing → polishing → reviewer/response) with explicit handoff rows plus a
@@ -57,6 +59,10 @@ defaults for `material_family` and `domain` across all 14 skills.
 
 - Literature search strategy, source screening, citation matrices,
   reference-gap audits, ID normalisation, and claim-source alignment.
+- **Reference verification** (1.2.0): field-by-field multi-source cross-check
+  via the academic-search MCP — volume-year vs DOI-year conflicts,
+  hallucinated first authors, order anomalies, page drift — with a
+  structured OK/WARN/ERROR report and Zotero-style fix suggestions.
 - **MCP academic search**: queries Crossref, OpenAlex, Semantic Scholar,
   PubMed, arXiv, Scopus, and ScienceDirect with materials-domain
   classification; exports BibTeX, CSL-JSON, RIS, and JSONL. A 13-test unit
@@ -99,7 +105,10 @@ defaults for `material_family` and `domain` across all 14 skills.
   chart-atlas reference, legend rules, and reviewer-risk notes.
 - Pipeline: `figure_contract.md → source_data.csv → LLM writes plot.py →
   figure.svg/pdf/png/tiff → caption.md + qa_report.md + asset_manifest.md`.
-- Key rules: Python-only plotting backend; contract written before plotting
+- Key rules: exclusive plotting backend per package (Python default, R
+  opt-in with persisted preference); an OpenRouter/GPT Image 2 AI-schematic
+  route produces provenance-tracked internal drafts (never data panels);
+  contract written before plotting
   (core conclusion, evidence chain, panel map, target journal,
   statistics/units/scale bars, claim boundary); caption boundaries separate
   measured from inferred claims; QA report covers backend exclusivity, export
@@ -126,6 +135,46 @@ defaults for `material_family` and `domain` across all 14 skills.
 - Boundary: plans experiments and generates matrices; does not execute tests,
   analyse data, or produce manuscript text (hand off to `materials-data` /
   `materials-figure`).
+
+### materials-statistics — statistical reporting gate
+
+- Audits, revises, and drafts statistical reporting for materials
+  manuscripts: replicate and `n` definitions, design-matched tests
+  (factorial ANOVA with interactions, Taguchi S/N with a stated error term,
+  RSM with lack-of-fit, Scheffé mixture models), multiple-comparison
+  corrections, effect sizes with uncertainty, and figure-statistics
+  alignment (SD/SEM/CI declared, per-panel n, named corrections).
+- **Three blocking gates**: replication-gate (never infer n from reading,
+  image, or scan counts), invention-gate (never invent p-values, dfs, CIs,
+  software versions), boundary-gate (computation only on user-supplied data
+  with an explicit request).
+- Materials replication contexts: specimens vs repeated readings vs nested
+  batch subspecimens, durability repeated measures, semi-quantitative
+  microanalysis (XRD RIR / EDS), standards (ASTM / ISO / GB) that prescribe
+  replicate counts.
+- Outputs the core format (scope, P0/P1/P2 issues, ready-to-paste revision,
+  AUTHOR_INPUT_NEEDED, reviewer-risk note); hands design work to
+  `materials-doe`, re-plotting to `materials-figure`, wording to
+  `materials-polishing`, reply assembly to `materials-response`.
+
+### materials-paper-card — the 16-section deep-reading card
+
+- Turns one materials paper (PDF, DOI page, pasted text, or a
+  `materials-reader` package) into a source-grounded reading card with
+  fixed Sections 01-16: bibliographic position, research question,
+  background route, pain point, core insight, material system and
+  processing route, method logic, essential formulas,
+  experiment-to-claim evidence chain, characterization-chain reading,
+  conclusion boundaries, author-stated limitations, critical analysis,
+  learned knowledge, knowledge connections, gated research ideas.
+- **Three locator modes** (page-grounded / structure-grounded /
+  source-limited) plus context modes (paper-only / targeted external
+  check / externally verified) keep citations honest; unsupported
+  sections are `Not assessable`, never invented.
+- Materials-first: Section 06 (material system, mix design, processing)
+  and Section 10 (XRD / FTIR / SEM / TG chain, reported-not-verified).
+- Section 16 ideas pass gap / testability / boundary / reuse gates and
+  hand off to `materials-research`. Has its own `evals.json`.
 
 ### materials-reviewer — peer review with 22 domain criteria
 
@@ -183,7 +232,7 @@ defaults for `material_family` and `domain` across all 14 skills.
 
 ## Shared core — `_shared/`
 
-All 14 skills share a small set of protocol files under
+All 16 skills share a small set of protocol files under
 `plugins/materials-skills/skills/_shared/` — single-purpose authorities rather
 than a default encyclopedia; skills load only the profile protocol and their
 declared core by default.
@@ -201,7 +250,7 @@ declared core by default.
 
 ## Quantitative summary
 
-- **14** `materials-*` skills plus shared contracts under `_shared`
+- **16** `materials-*` skills plus shared contracts under `_shared`
 - **29** material systems in the material registry
 - **17** journal format guides · **22** reviewer-criteria documents ·
   **9** domain data schemas

@@ -1,7 +1,7 @@
 ---
 name: materials-doe
 version: "1.1.0"
-description: Use when planning, generating, or auditing design-of-experiments matrices for materials science and engineering research. Covers classical factorial, Taguchi orthogonal arrays, screening designs (Plackett-Burman, fractional factorial), response surface methodology (CCD, Box-Behnken), and mixture designs.
+description: Use when planning, generating, or auditing design-of-experiments matrices for materials science and engineering research. Covers classical factorial, Taguchi orthogonal arrays, screening designs (Plackett-Burman, fractional factorial), response surface methodology (CCD, Box-Behnken), and mixture designs. Chinese triggers 中文触发：实验设计、正交试验、响应面设计、配合比设计、因子设计.
 ---
 
 # Materials Science Design of Experiments

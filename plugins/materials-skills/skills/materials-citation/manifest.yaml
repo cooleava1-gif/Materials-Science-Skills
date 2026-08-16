@@ -1,4 +1,4 @@
-version: "1.1.0"
+version: "1.2.0"
 status: stable
 
 always_load:
@@ -10,6 +10,9 @@ axes:
   task:
     default: citation-map
     values:
+      reference-verify:
+        path: references/reference-verification.md
+        triggers: ["verify references", "reference verification", "DOI check", "参考文献校验", "逐条验证", "卷年冲突"]
       search-plan:
         path: references/journal-search-profiles.md
         triggers: ["search", "database", "keyword", "检索"]

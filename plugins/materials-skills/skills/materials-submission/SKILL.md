@@ -7,6 +7,8 @@ description: >-
   journals declared in journal-templates. Trigger for submission checklists,
   cover letter assembly, file manifest and format checks, and final
   pre-submission gate reports for CBM, CCC, JBE, RMPD, and related journals.
+  Chinese triggers 中文触发：投稿包、投稿信、highlights、期刊投稿材料.
+
 ---
 
 # Materials Submission Router

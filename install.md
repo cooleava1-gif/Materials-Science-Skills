@@ -252,3 +252,28 @@ If this is your first time with the bundle, open these in order:
 - Search results look strong but claims still feel weak:
   treat search outputs as screening inputs, then rebuild the evidence chain with
   the reader skill before writing.
+
+## npx skills compatibility / npx skills 兼容性
+
+The [skills.sh](https://skills.sh) CLI discovers and installs this bundle
+out of the box (verified with `skills` CLI on Node 24):
+
+```bash
+npx skills add cooleava1-gif/Materials-Science-Skills --list
+npx skills add cooleava1-gif/Materials-Science-Skills   --agent claude-code --skill '*' --yes --copy
+# valid agents include claude-code, codex, zcode, opencode, cursor, ...
+```
+
+**Boundary** 边界：`npx skills` copies raw skill directories; the two
+`_shared` trees stay referenced as `../_shared/...` /
+`../../_shared/...`, which do not resolve in that flat layout. Full
+self-contained installs (shared trees merged into each skill, references
+rewritten, MCP registered) come from `scripts/install_skills.py` — prefer
+it. A single-shared-tree restructure that would make raw copies
+self-contained is on the roadmap (203 cross-references affected).
+
+## Auto-update 自动更新
+
+Keep a dedicated clone and wire `scripts/autoupdate_skills.py` into a
+session-start hook (throttled, offline-safe, fast-forward only). Hooks for
+Claude Code, Codex, and other hosts: [docs/autoupdate.md](docs/autoupdate.md).

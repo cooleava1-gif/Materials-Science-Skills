@@ -6,6 +6,8 @@ description: >-
   materials science and engineering research. Trigger for figure-aware
   Chinese-English paper readers, deep-reading notes, method and data
   extraction, paper cards, and reader-package handoffs from PDFs.
+  Chinese triggers 中文触发：论文精读、文献阅读、读文献、论文笔记、证据链整理.
+
 ---
 
 # Materials Science Reader Router

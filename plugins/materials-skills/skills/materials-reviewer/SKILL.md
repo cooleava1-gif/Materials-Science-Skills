@@ -2,7 +2,7 @@
 name: materials-reviewer
 version: "1.1.0"
 stability: stable
-description: Use when simulating peer review, auditing manuscript risk, or stress-testing claims for materials research. Trigger for referee reports, desk-reject prechecks, methodology and statistics audits, claim-evidence checks, and journal-tier calibration from domain journals to flagship titles.
+description: Use when simulating peer review, auditing manuscript risk, or stress-testing claims for materials research. Trigger for referee reports, desk-reject prechecks, methodology/statistics audits, claim-evidence checks, and journal-tier calibration from domain journals to flagship titles. Chinese triggers 中文触发：模拟审稿、审稿意见模拟、拒稿风险、投稿前审查.
 ---
 route:
   detect: [review_depth, journal_family, review_scope, material_family, domain, journal_tier]

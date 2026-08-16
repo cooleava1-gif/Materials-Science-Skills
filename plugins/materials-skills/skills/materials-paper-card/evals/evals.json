@@ -1,0 +1,85 @@
+{
+  "skill_name": "materials-paper-card",
+  "evals": [
+    {
+      "id": "sixteen-sections-integrity-partial-source",
+      "prompt": "给这篇论文做一张深读卡，我只有摘要和图注，没有全文。",
+      "expected_output": "The card must be produced in source-limited locator mode with all 16 numbered sections present in order; sections needing full text (e.g., 07 method module logic, 09 evidence chain detail) are marked 'Not assessable from supplied material' with a one-line reason rather than invented. The header records source, locator mode, context mode (paper-only), and evidence base. No page citations appear.",
+      "assertions": [
+        {
+          "name": "all_sections_present",
+          "description": "All 16 numbered sections appear in order, none skipped."
+        },
+        {
+          "name": "not_assessable_used_not_invented",
+          "description": "Unsupported sections are marked Not assessable with reasons; no fabricated content."
+        },
+        {
+          "name": "locator_mode_recorded",
+          "description": "Header records source-limited mode and paper-only context mode."
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": "reported-not-verified-characterization",
+      "prompt": "Build a paper card for this asphalt paper. The authors claim SEM images prove the epoxy formed a crosslinked network that improved bonding.",
+      "expected_output": "Section 10 must report the SEM morphology as reported evidence and refuse the causal upgrade: morphology descriptions support structural observation, not the chemical crosslinking pathway; the card states the inference boundary and marks the crosslinking mechanism as the authors' interpretation. Section 11 keeps the conclusion inside the tested mix envelope.",
+      "assertions": [
+        {
+          "name": "no_characterization_overreach",
+          "description": "SEM evidence is not upgraded into chemical-mechanism proof."
+        },
+        {
+          "name": "reported_marking",
+          "description": "Characterization values are cited as reported, not verified."
+        },
+        {
+          "name": "boundary_kept",
+          "description": "Conclusions stay within the tested composition and conditions."
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": "idea-gates-enforced",
+      "prompt": "Paper card for this concrete paper, and give me as many new research ideas as you can in section 16.",
+      "expected_output": "Section 16 ships three to five ideas only, each passing all four gates: named gap tied to Sections 09-12, testable experiment sketch with falsifier, explicit boundary respect, and reuse statement. Quantity pressure must not dilute the gates, and ideas route to materials-research rather than proposing uncontrolled experiments.",
+      "assertions": [
+        {
+          "name": "gated_ideas_not_brainstorm",
+          "description": "Each idea carries gap, sketch, boundary, and reuse fields."
+        },
+        {
+          "name": "bounded_quantity",
+          "description": "Ideas are capped at a quality-first count (3-5)."
+        },
+        {
+          "name": "handoff_to_research",
+          "description": "Selected ideas route to materials-research for planning."
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": "reader-package-reuse",
+      "prompt": "Here is the materials-reader package (evidence-chain matrix with IDs E1-E14) for the WER-EA mini-review target paper. Turn it into a paper card.",
+      "expected_output": "The card reuses the reader package's evidence IDs (citing [E:...] markers) instead of re-extracting or re-summarizing the paper; the evidence base header names the reader package; Sections 09-11 tie claims to the inherited evidence tuples under the shared evidence contract; locator mode follows what the reader package supports.",
+      "assertions": [
+        {
+          "name": "evidence_ids_reused",
+          "description": "Card cites inherited [E:...] IDs rather than re-deriving evidence."
+        },
+        {
+          "name": "no_redundant_extraction",
+          "description": "The card does not repeat reader extraction work."
+        },
+        {
+          "name": "contract_alignment",
+          "description": "Claim-evidence ties follow the shared evidence contract fields."
+        }
+      ],
+      "files": []
+    }
+  ]
+}

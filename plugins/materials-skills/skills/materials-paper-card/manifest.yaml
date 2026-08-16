@@ -1,0 +1,75 @@
+version: 1.0.0
+status: beta
+
+# Minimal always_load: contract, stance, workflow, output format.
+context_budget:
+  target_activation_bytes: 25600
+  max_activation_bytes: 28672
+  max_always_load: 5
+  max_skill_lines: 70
+  max_workflow_lines: 120
+
+always_load:
+  - static/core/contract.md
+  - static/core/stance.md
+  - static/core/workflow.md
+  - static/core/output-format.md
+  - ../_shared/core/direction-profile.md
+
+axes:
+  paper_type:
+    detect: |
+      Classify by argument and evidence structure, not discipline alone:
+      research (experimental/computational study), review (survey or
+      meta-analysis), methods-short (method or communication note),
+      datasets (data/resource paper). One primary type only.
+    default: research
+    values:
+      research:
+        path: static/fragments/paper_type/research.md
+        triggers: ["research article", "experimental study", "研究论文"]
+      review:
+        path: static/fragments/paper_type/review.md
+        triggers: ["review", "survey", "综述"]
+      methods-short:
+        path: static/fragments/paper_type/methods-short.md
+        triggers: ["communication", "short paper", "方法简报"]
+      datasets:
+        path: static/fragments/paper_type/datasets.md
+        triggers: ["data descriptor", "resource paper", "数据论文"]
+
+references:
+  on_demand:
+    card-schema:
+      path: references/card-schema.md
+      when: "Drafting the final paper-card.md: exact section rules, citation markers, and the delivery QA checklist."
+    evidence-and-provenance:
+      path: references/evidence-and-provenance.md
+      when: "Sections 09-13 make analytical or externally verified claims."
+    research-idea-gates:
+      path: references/research-idea-gates.md
+      when: "Writing Section 16 testable research ideas."
+    evidence-contract:
+      path: ../_shared/core/evidence-contract.md
+      when: "A card claim must be tied to a shared evidence tuple or its layer is disputed."
+    claim-strength:
+      path: ../_shared/core/claim-strength-ladder.md
+      when: "Sections 09-13 need claim-strength calibration."
+    reader-handoff:
+      path: ../materials-reader/static/core/contract.md
+      when: "A materials-reader package supplies the evidence base."
+
+assets: []
+scripts: []
+quality_gates:
+  - release gate must report no issues for this skill
+  - all 16 sections present and ordered; Not assessable justified
+handoffs:
+  provides: {}
+  consumes:
+    - handoff: reader-package
+      from: materials-reader
+      optional: true
+release_checks:
+  - scripts/run_release_checks.py --json
+  - scripts/check_skill_architecture.py --json

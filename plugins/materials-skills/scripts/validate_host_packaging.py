@@ -24,7 +24,7 @@ SKILLS_ROOT = PLUGIN_ROOT / "skills"
 
 HOST_NAME_RE = re.compile(r"^[a-z0-9][a-z0-9._-]{0,127}$")
 MAX_DESCRIPTION_CHARS = 1024
-MIN_BUNDLE_SKILLS = 14
+MIN_BUNDLE_SKILLS = 16
 
 
 def _read_json(path: Path) -> tuple[object, str | None]:

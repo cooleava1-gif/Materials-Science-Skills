@@ -1,0 +1,8 @@
+interface:
+  display_name: "Materials Statistics"
+  short_description: "Audit and draft statistical reporting for materials manuscripts."
+  brand_color: "#3E5A6B"
+  default_prompt: "Use $materials-statistics to audit the statistical reporting in this manuscript section."
+
+policy:
+  allow_implicit_invocation: true

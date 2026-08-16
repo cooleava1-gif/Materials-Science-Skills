@@ -1,5 +1,5 @@
 name: materials-figure
-version: 2.1.0
+version: 2.2.0
 status: stable
 description: >
   Declarative manifest for the static/dynamic split. SKILL.md uses this to
@@ -20,19 +20,31 @@ always_load:
 axes:
   backend:
     detect: |
-      BLOCKING GATE. The Python backend is mandatory for all figure drawing,
-      previewing, exporting, and visual QA. Before rendering, check Python and
-      required plotting packages (matplotlib, numpy, PIL; seaborn for
-      heatmaps/statistical plots). If the runtime or packages are unavailable,
-      stop before rendering and report the exact blocker. Do not generate mock
-      data, write plotting scripts, create previews, or render placeholder
-      figures until the claim, source-data anchor, and figure contract are
-      clear.
+      BLOCKING GATE with persisted preference. Python is the default backend
+      for all figure drawing, previewing, exporting, and visual QA; R
+      (ggplot2/patchwork/ComplexHeatmap) is opt-in only via an explicit user
+      request or the saved preference from scripts/figure_backend.py get
+      (set r / set python; MATERIALS_FIGURE_BACKEND env overrides). Resolve:
+      explicit request > saved preference > ask once ("Python or R? I will
+      remember this as your default.") and save before proceeding. Once
+      selected, the backend is exclusive for the whole figure package — never
+      mix Python and R panels in one package. Before rendering, check the
+      selected runtime and required packages (python: matplotlib, numpy, PIL;
+      seaborn for statistical plots; r: ggplot2, patchwork, svglite). If the
+      runtime or packages are unavailable, stop before rendering and report
+      the exact blocker. Do not generate mock data, write plotting scripts,
+      create previews, or render placeholder figures until the claim,
+      source-data anchor, and figure contract are clear. The AI-schematic
+      route (references/ai-schematic-workflow.md) skips this gate because no
+      data are plotted.
     default: python
     values:
       python:
         path: static/fragments/backend/python.md
         triggers: ["Python", "matplotlib", "pyplot", "seaborn"]
+      r:
+        path: static/fragments/backend/r.md
+        triggers: ["R", "ggplot2", "patchwork", "ComplexHeatmap"]
     multi: false
 
   material_family:
@@ -92,6 +104,12 @@ axes:
 
 references:
   on_demand:
+    - condition: AI-generated graphical abstract, mechanism schematic, or concept illustration planning, generation, revision, or audit
+      path: references/ai-schematic-workflow.md
+    - condition: OpenRouter, GPT Image 2, or OpenAI-compatible image API call setup, payload review, or provenance record
+      path: references/openrouter-image-generation.md
+    - condition: R backend workflow, ggplot2/patchwork/ComplexHeatmap usage, renv record, R-specific export pitfalls
+      path: references/r-backend.md
     - condition: figure contains XRD peaks/phases, FTIR wavenumbers/functional groups, or performance values requiring validation against known material relations
       path: static/core/materials_kb.yaml
     - condition: create a complete figure package or audit a package

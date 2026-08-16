@@ -80,11 +80,15 @@ python scripts/run_validation_gates.py `
 - Values far outside typical ranges are warnings for review.
 - Figures without materials-science entities skip this stage.
 
-## 4. Load the Python backend
+## 4. Load the plotting backend
 
-Load `static/fragments/backend/python.md` and follow its execution rules.
-Before rendering, confirm Python and the packages required by the requested
-figure family. Do not use an alternate plotting backend.
+Resolve the backend: explicit request > saved preference
+(`python scripts/figure_backend.py get`) > ask once and save. Default is
+Python — load `static/fragments/backend/python.md`. An explicit R request
+loads `static/fragments/backend/r.md` instead. Before rendering, confirm the
+selected runtime and its packages. The selected backend is exclusive for the
+whole package; never mix backends inside one figure package. The AI-schematic
+route (no data plotted) skips this stage.
 
 ## 5. Check source data and anchors
 
@@ -102,12 +106,12 @@ and source data:
 ```text
 storyboard-only coordinator (if multi-figure) -> contract draft
   -> contract validation -> combined coordinator (storyboard -> materials)
-  -> Python backend check
-  -> source-anchor check -> plot.py -> exports
+  -> backend check (python default, r opt-in)
+  -> source-anchor check -> plot.py / plot.R -> exports
 ```
 
-The LLM writes `plot.py` using matplotlib or other Python plotting libraries
-that run under the Python backend, following the contract and source data.
+The LLM writes `plot.py` (matplotlib) or `plot.R` (ggplot2) under the
+selected exclusive backend, following the contract and source data.
 
 Stop for human clarification only when the source table lacks numeric response
 columns, the scientific claim cannot be inferred safely, or the QA report has

@@ -1,6 +1,6 @@
 # materials-citation
 
-**Version:** 1.1.0
+**Version:** 1.2.0
 
 **What it does** — The literature-screening and claim-source mapping layer for
 materials manuscripts. It builds search strategies, screens candidate records
@@ -139,3 +139,7 @@ python .\scripts\run_release_checks.py --json
 ## Boundaries
 
 This skill does not invent experiments, citations, measurements, journal facts, private file paths, or completed actions. Time-sensitive journal or legal facts should be checked against official sources before submission or filing.
+
+## Reference verification (1.2.0)
+
+Field-by-field multi-source verification via the academic-search MCP: volume-year vs DOI-year conflicts, hallucinated first authors, order anomalies, page drift — structured OK/WARN/ERROR report with Zotero-style fix suggestions. 逐条多源交叉校验：卷年冲突、编造作者、顺序异常、页码偏差。

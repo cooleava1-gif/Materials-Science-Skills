@@ -1,19 +1,21 @@
 ---
 name: materials-citation
-version: "1.1.0"
+version: "1.2.0"
 stability: stable
 description: >-
   Use when searching, screening, verifying, or mapping literature and citations
   for materials science and engineering manuscripts. Trigger for literature
   search, DOI and reference verification, citation gap audits, claim-citation
   mapping, and journal-specific reference formatting or export requests.
+  Chinese triggers 中文触发：文献检索、引文矩阵、参考文献筛查、文献引用分析.
+
 ---
 
 # Materials Science Citation Router
 
 Read `manifest.yaml` and `always_load` files. Apply profile-first routing, detect `task`, `journal_family`, `material_domain`, and `material_family`, then load only mapped fragments.
 
-Return the requested search strategy, citation matrix, claim-source map, reference gap audit, or journal-specific source plan. Keep a citation gap visible when a source, DOI, full text, or claim anchor is unresolved.
+Return the requested search strategy, citation matrix, claim-source map, reference gap audit, journal-specific source plan, or field-by-field reference verification (references/reference-verification.md via the academic-search MCP). Keep a citation gap visible when a source, DOI, full text, or claim anchor is unresolved.
 
 Evidence boundary:
 

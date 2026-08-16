@@ -9,6 +9,59 @@ and this project follows [Semantic Versioning](https://semver.org/) loosely:
 
 ## [Unreleased]
 
+### Added — nature-skills benchmark upgrade (2026-08-16)
+- Add `materials-statistics` as the 15th skill: statistical-reporting
+  audit/revision/drafting for materials manuscripts — replicate and `n`
+  definitions (specimens vs repeated readings, pseudoreplication),
+  design-matched tests (factorial ANOVA, Taguchi S/N with stated error
+  term, RSM with lack-of-fit, Scheffé mixture), multiple-comparison
+  corrections, effect sizes with uncertainty, figure-statistics alignment,
+  and reviewer-facing risk; wired into the research router
+  (`statistics-audit` task fragment, companion map) with its own evals.
+- Add `materials-paper-card` as the 16th skill: source-grounded
+  16-section deep-reading cards (bibliographic position → material system
+  and processing route → characterization-chain reading → conclusion
+  boundaries → gated testable research ideas), three locator modes, and
+  reader-package evidence reuse; wired into the router
+  (`deep-reading-card` task fragment) with its own evals.
+- Add reference verification to `materials-citation` (1.2.0):
+  field-by-field multi-source cross-check via the academic-search MCP —
+  volume-year vs DOI-year conflicts, hallucinated first authors, author
+  order anomalies, page drift, journal renames — structured OK/WARN/ERROR
+  report with Zotero-style fix suggestions (adapted from nature-skills'
+  ref-verifier patterns).
+- Add an AI-schematic route to `materials-figure` (2.2.0): explicit
+  OpenRouter / GPT Image 2 requests route through a policy-gated workflow
+  (`references/ai-schematic-workflow.md`,
+  `references/openrouter-image-generation.md`,
+  `scripts/generate_openrouter_schematic.py` with dry-run-first mode);
+  outputs are provenance-tracked internal drafts, never data panels.
+- Add an opt-in R backend to `materials-figure` (2.2.0):
+  ggplot2/patchwork/ComplexHeatmap with persisted preference
+  (`scripts/figure_backend.py`, `MATERIALS_FIGURE_BACKEND` override),
+  exclusive-per-package rule, and `references/r-backend.md`; Python stays
+  the default.
+- Add bilingual (EN+中文) trigger keywords to all skill descriptions for
+  reliable Chinese-language invocation.
+- Add `scripts/autoupdate_skills.py` + `docs/autoupdate.md`: throttled,
+  offline-safe, fast-forward-only session-start auto-update for claude /
+  opencode / antigravity / zcode / codex / dsh destinations, with drift
+  repair, per-destination state/locks, and hook snippets for Claude Code
+  and Codex (8 pytest cases).
+- Verify and document `npx skills` compatibility: discovery and install
+  work out of the box (`npx skills add <repo> --list/--copy`); the flat
+  copy does not resolve the two `_shared` trees — boundary documented in
+  install.md with the single-shared-tree restructure on the roadmap.
+
+### Changed
+- `materials-research` 1.3.0: two new task fragments
+  (`statistics-audit`, `deep-reading-card`), companion-skill and
+  companion-module entries for the two new skills; task axis now 17
+  values.
+- Skill-count invariants across README, skills-index, host-packaging
+  validation (MIN_BUNDLE_SKILLS 16), and submission docs tests updated
+  14 → 16.
+
 ### Added
 - Add cross-platform adapters and installer (`scripts/install_skills.py`):
   install the bundle on Claude Code (`--target claude`), OpenCode

@@ -1,6 +1,6 @@
 ---
 name: materials-paper-to-patent
-description: Convert materials science papers, theses, technical reports, figures, or research manuscripts into evidence-grounded Chinese invention patent drafts. Use when extracting patentable contributions, mapping claimed features to source evidence, preserving formulas and ranges, generating claim-aligned figures, validating claims against patent_kb.yaml, auditing support, or delivering separate Chinese DOCX artifacts. Default invention type is process-material.
+description: Convert materials science papers, theses, technical reports, figures, or research manuscripts into evidence-grounded Chinese invention patent drafts. Use when extracting patentable contributions, mapping claimed features to source evidence, preserving formulas and ranges, generating claim-aligned figures, validating claims against patent_kb.yaml, auditing support, or delivering separate Chinese DOCX artifacts. Default invention type is process-material. Chinese triggers 中文触发：论文转专利、发明专利申请、权利要求撰写、专利交底.
 ---
 
 # Materials Paper to Chinese Patent Router

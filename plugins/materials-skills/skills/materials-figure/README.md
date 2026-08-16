@@ -1,11 +1,11 @@
 # materials-figure
 
-**Version:** 2.1.0
+**Version:** 2.2.0
 
 **What it does** — Generates journal-ready multi-panel figures for materials
 manuscripts: mechanism maps, evidence heatmaps, dosage-window plots,
 characterization panels, review figures, and figure packages with source
-data, caption boundaries, and export QA. Python-only backend, SVG-first
+data, caption boundaries, and export QA. Python-default backend (R opt-in), SVG-first
 output, with PNG/PDF/TIFF export bundles. The skill treats figures as evidence
 packages with source-anchored data, certainty-tier legends, and claim
 boundaries instead of as loose images.
@@ -48,13 +48,13 @@ The LLM generates `figure_contract.md`, `source_data.csv`, `plot.py`, `figure.sv
 
 **Key rules enforced**
 
-- Python-only plotting backend; no silent fallback to another stack.
+- Exclusive plotting backend per package: Python default, R (ggplot2) opt-in via persisted preference; no silent fallback or mixing.
 - Figure contract written before plotting with eight required fields: core
-  conclusion, evidence chain, archetype, Python backend, journal/export
+  conclusion, evidence chain, archetype, selected backend, journal/export
   contract, statistics/image integrity, claim boundary, and reviewer risks.
 - Caption boundaries separate measured from inferred claims.
 - Export bundle includes SVG, PDF, PNG, and TIFF when possible.
-- QA report covers Python backend exclusivity, export checks, and caption
+- QA report covers backend exclusivity, export checks, and caption
   boundary.
 - WER-EA mechanism claims stay bounded by real evidence; the skill does not
   let pretty visuals overrule the scientific logic. If the evidence chain or
@@ -181,3 +181,7 @@ python .\scripts\run_release_checks.py --json
 ## Boundaries
 
 This skill does not invent experiments, citations, measurements, journal facts, private file paths, or completed actions. Time-sensitive journal or legal facts should be checked against official sources before submission or filing.
+
+## AI-schematic route (2.2.0)
+
+Explicit OpenRouter / GPT Image 2 requests route to `references/ai-schematic-workflow.md` + `references/openrouter-image-generation.md` and `scripts/generate_openrouter_schematic.py` (dry-run first). Outputs are internal drafts with provenance and disclosure; never data panels.

@@ -7,6 +7,8 @@ description: >-
   section drafting from abstract to conclusion, experimental and review
   papers, cover letters, highlights, Chinese-to-English drafting, and
   journal-specific manuscript structure for CBM, CCC, JBE, and RMPD.
+  Chinese triggers 中文触发：论文写作、撰写论文、初稿撰写、摘要写作、引言写作、结果与讨论.
+
 ---
 
 # Materials Science Writing Router

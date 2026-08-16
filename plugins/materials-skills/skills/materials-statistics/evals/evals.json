@@ -1,0 +1,85 @@
+{
+  "skill_name": "materials-statistics",
+  "evals": [
+    {
+      "id": "pseudoreplication-specimen-readings",
+      "prompt": "Audit this methods text: 'Three specimens per mix were tested. Each specimen was measured five times and the fifteen values per mix were compared with a t-test (p < 0.05 considered significant). The results prove mix B outperforms mix A.'",
+      "expected_output": "The audit must flag pseudoreplication as P0: fifteen readings per mix are repeated measurements of three specimens, so n = 3 per mix, not 15. The fix must average within-specimen readings and test between specimens, or use a nested/mixed model with specimen as a random factor. The word 'prove' must be downgraded to a statistical statement of difference with effect magnitude. Output must use the core output format with AUTHOR_INPUT_NEEDED only for facts not derivable from the text.",
+      "assertions": [
+        {
+          "name": "pseudoreplication_flagged_p0",
+          "description": "The specimen-vs-reading hierarchy is corrected and the issue is labelled P0."
+        },
+        {
+          "name": "corrected_test_proposed",
+          "description": "A defensible alternative (within-specimen averaging, nested/mixed model, or nonparametric equivalent with stated limits) is offered."
+        },
+        {
+          "name": "no_invented_values",
+          "description": "No p-values, means, or CIs are fabricated while rewriting."
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": "multiple-comparisons-unnamed-correction",
+      "prompt": "Revise for our CBM submission: 'The compressive strength of the five mixes was analysed by ANOVA and pairwise t-tests. Mix 3 was significantly higher than the others (p < 0.05).'",
+      "expected_output": "The revision must name a post-hoc correction (Tukey HSD for all pairwise comparisons, or Dunnett if only vs control) instead of bare pairwise t-tests, state n as independently cast specimens, add effect magnitude with uncertainty to the Mix 3 claim, and keep journal-appropriate engineering wording. Software and version must be requested as AUTHOR_INPUT_NEEDED rather than invented.",
+      "assertions": [
+        {
+          "name": "correction_named",
+          "description": "A specific multiple-comparison procedure replaces uncorrected pairwise t-tests."
+        },
+        {
+          "name": "effect_size_with_uncertainty",
+          "description": "The significance-only claim is converted to magnitude plus uncertainty language or an explicit request for the values."
+        },
+        {
+          "name": "software_not_invented",
+          "description": "Software/version is requested, not fabricated."
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": "taguchi-snr-reporting-gap",
+      "prompt": "Check the statistics in this Taguchi section: 'An L9 orthogonal array was used. S/N ratios were computed and ANOVA showed factor A was most important (63% contribution). The optimal combination A2B1C3 was selected.'",
+      "expected_output": "The audit must require: the S/N variant and its formula, the repetition structure behind each S/N value, the ANOVA error term (pooled columns or replicates), and a statement that the additive-model optimum is a prediction until a confirmation experiment is run. Percentage contribution without an error term is flagged. The response stays within reporting fixes and does not re-plan the matrix.",
+      "assertions": [
+        {
+          "name": "sn_variant_and_error_term_required",
+          "description": "The S/N formula variant and the ANOVA error term are both demanded."
+        },
+        {
+          "name": "confirmation_experiment_boundary",
+          "description": "The optimum is explicitly labelled a prediction pending confirmation trials."
+        },
+        {
+          "name": "no_matrix_replanning",
+          "description": "The skill does not redesign the experiment; matrix changes are handed off to materials-doe."
+        }
+      ],
+      "files": []
+    },
+    {
+      "id": "figure-caption-error-bar-audit",
+      "prompt": "审稿人质疑我们的图注统计：'Bars show the average of three tests; error bars show the error. * indicates significant difference.' 请帮我修改这个图注并回复审稿人。",
+      "expected_output": "The response must rewrite the caption to state SD/SEM/CI explicitly, define n as three independently cast specimens (not three readings if the design says specimens), name the test and correction behind the star, and provide a polite reviewer-response paragraph in English acknowledging the ambiguity. Any fact not in the supplied text becomes AUTHOR_INPUT_NEEDED.",
+      "assertions": [
+        {
+          "name": "error_bar_meaning_stated",
+          "description": "The rewritten caption declares the error-bar statistic explicitly."
+        },
+        {
+          "name": "n_as_independent_units",
+          "description": "The caption n is expressed as independent specimens with the reading/specimen split clarified."
+        },
+        {
+          "name": "reviewer_reply_english_polite",
+          "description": "A courteous English reviewer-response paragraph accompanies the fixed caption."
+        }
+      ],
+      "files": []
+    }
+  ]
+}

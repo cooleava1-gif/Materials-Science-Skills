@@ -4,6 +4,8 @@ version: "1.3.0"
 stability: stable
 description: >-
   Use when polishing, restructuring, proofreading, translating, or calibrating materials-science and engineering manuscript prose while preserving data, units, evidence strength, author meaning, and journal terminology. Trigger for academic writing, Chinese-to-English, claim-strength, grammar, clarity, section, and weakness-routing requests.
+  Chinese triggers 中文触发：论文润色、学术英语润色、中译英、语法修改、表达强度校准.
+
 ---
 
 # Materials Science Polishing Router

@@ -5,6 +5,7 @@
 | Need | Companion skill | Use when |
 |---|---|---|
 | Full paper reading | `materials-reader` | reading PDFs, pasted papers, DOI/HTML, evidence-chain audits, literature matrices, journal-club notes |
+| Deep-reading paper cards | `materials-paper-card` | fixed 16-section single-paper cards, characterization-chain reading, conclusion boundaries, gated research ideas |
 | Literature search and citation mapping | `materials-citation` | building search strategies, citation matrices, reference gap audits, claim-source maps |
 | From-scratch manuscript drafting | `materials-writing` | paper argument chains, abstracts, introductions, results/discussion drafting, review-paper outlines |
 | English polishing | `materials-polishing` | polishing abstracts, introductions, results/discussions, cover letters, Chinese-to-English text, claim-strength audits |
@@ -14,6 +15,7 @@
 | Figures | `materials-figure` | figure plans, SVG plots, figure packages, data-to-caption work |
 | Data and FAIR | `materials-data` | raw/processed data organization, metadata, FAIR audits, dataset packages, data availability statements |
 | Design of experiments | `materials-doe` | DOE methodology, factorial/screening designs, response surface optimization, robustness testing, orthogonal arrays, factor-level planning |
+| Statistics reporting | `materials-statistics` | replicate and n audits, ANOVA/Taguchi/RSM reporting, multiple-comparison corrections, figure-statistics alignment, statistical reviewer comments |
 | Literature pipeline | `materials-literature-pipeline` | recurring discovery, candidate scoring, source-depth labels, digest notes, next-reading actions |
 | Submission package | `materials-submission` | cover letter, highlights, submission checklist, declaration boundary, and final package assembly for 10 supported journal templates |
 
@@ -23,7 +25,7 @@ Routing rule:
 2. Use `materials-doe` when the experiment-design task requires formal DOE methodology (factorial, RSM, Taguchi, robustness).
 3. Use `materials-literature-pipeline` when the user needs recurring discovery or a screened candidate pool before deep reading.
 4. Use a companion skill when the output format is already clear.
-5. Return to `materials-research` for final reviewer-risk audit before submission.
+6. Return to `materials-research` for final reviewer-risk audit before submission.
 
 The initial four-journal pilot was the first rollout of
 `materials-submission`; it is not the current support boundary.
@@ -36,8 +38,10 @@ Preferred handoff sequence for a full manuscript cycle:
 4. `materials-doe` for experiment design and factor-level planning (when applicable).
 5. `materials-writing` for argument chain and first complete draft.
 6. `materials-research` for manuscript logic and journal fit.
-7. `materials-polishing` for English.
-8. `materials-data` for FAIR packaging and data availability statements.
-9. `materials-figure` and `materials-html-deck` for visual outputs.
-10. `materials-reviewer` for simulated peer review before submission.
-11. `materials-response` after peer review.
+7. `materials-statistics` for statistical reporting audits before review.
+8. `materials-paper-card` for deep-reading cards of key references during the reading stage.
+8. `materials-polishing` for English.
+9. `materials-data` for FAIR packaging and data availability statements.
+10. `materials-figure` and `materials-html-deck` for visual outputs.
+11. `materials-reviewer` for simulated peer review before submission.
+12. `materials-response` after peer review.

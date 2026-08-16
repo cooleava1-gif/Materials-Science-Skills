@@ -7,7 +7,7 @@ responses, and paper-to-patent conversion in one evidence-gated workflow.
 面向材料科学科研全流程的 Agent 技能包：从文献路由、阅读、引文、写作、配图、
 数据打包、实验设计到审稿模拟、回复信与论文转专利，以证据契约贯穿每一步。
 
-**14 skills · 29 material systems · 17 journal format guides · 9 domain data schemas · 7+ agent platforms**
+**16 skills · 29 material systems · 17 journal format guides · 9 domain data schemas · 7+ agent platforms**
 
 <table>
   <tr>
@@ -29,24 +29,26 @@ output contract before handoff.
 
 ```text
 research (router) → reader → citation / literature-pipeline
-                 → writing → polishing
+                 → writing → polishing → statistics
                  → figure → data → doe
                  → reviewer → response / submission / html-deck / paper-to-patent
 ```
 
-### Skill index (14 skills)
+### Skill index (16 skills)
 
 | Skill | Status | Purpose | Trigger keywords |
 |---|---|---|---|
 | [`materials-research`](plugins/materials-skills/skills/materials-research/README.md) | Stable | Profile-first router, stage-gated plan, coverage_tier report | "materials research", "topic routing", "workflow plan" |
 | [`materials-reader`](plugins/materials-skills/skills/materials-reader/README.md) | Stable | Source-anchored reader package, evidence-chain matrix | "reader package", "evidence chain", "paper notes" |
-| [`materials-citation`](plugins/materials-skills/skills/materials-citation/README.md) | Stable | MCP-backed search, citation matrix, reference-gap audit | "citation matrix", "literature screening", "reference gap" |
+| [`materials-citation`](plugins/materials-skills/skills/materials-citation/README.md) | Stable | MCP-backed search, citation matrix, reference-gap audit, reference verification | "citation matrix", "literature screening", "reference gap" |
 | [`materials-literature-pipeline`](plugins/materials-skills/skills/materials-literature-pipeline/README.md) | Beta | Recurring discovery, candidate scoring, source-depth labels, digest handoff | "literature pipeline", "daily digest", "candidate scoring" |
+| [`materials-paper-card`](plugins/materials-skills/skills/materials-paper-card/README.md) | Beta | Source-grounded 16-section deep-reading cards, characterization-chain reading, gated research ideas | "paper card", "deep reading", "深读卡" |
 | [`materials-writing`](plugins/materials-skills/skills/materials-writing/README.md) | Stable | 8-axis stateful manuscript drafting, foundation files, section arcs | "manuscript draft", "review outline", "argument chain" |
 | [`materials-polishing`](plugins/materials-skills/skills/materials-polishing/README.md) | Stable | Claim-strength audit, overclaim reduction, journal-tone tightening | "polish", "claim strength", "academic tone" |
 | [`materials-figure`](plugins/materials-skills/skills/materials-figure/README.md) | Stable | LLM-driven figure contract + plot, representative atlas/gallery samples | "figure", "publication plot", "mechanism map" |
 | [`materials-data`](plugins/materials-skills/skills/materials-data/README.md) | Stable | FAIR package, 9 domain schemas, data availability statement | "FAIR package", "data availability", "dataset" |
 | [`materials-doe`](plugins/materials-skills/skills/materials-doe/README.md) | Stable | Factorial / Taguchi / mixture matrices, methods paragraph | "DOE", "experiment design", "orthogonal array" |
+| [`materials-statistics`](plugins/materials-skills/skills/materials-statistics/README.md) | Beta | Replicate/n audits, ANOVA/Taguchi/RSM reporting, multiple-comparison fixes, figure-statistics alignment | "statistics review", "p-value", "方差分析", "图注统计" |
 | [`materials-reviewer`](plugins/materials-skills/skills/materials-reviewer/README.md) | Stable | 5-axis peer review, 22 domain criteria, desk-reject risk | "peer review", "desk-reject risk", "reviewer report" |
 | [`materials-response`](plugins/materials-skills/skills/materials-response/README.md) | Beta | Point-by-point response, rebuttal package, action mapping | "response letter", "rebuttal", "reviewer comment" |
 | [`materials-html-deck`](plugins/materials-skills/skills/materials-html-deck/README.md) | Beta | Browser-native HTML academic deck with strict Playwright QA | "html deck", "academic deck", "paper to slides", "journal club" |
@@ -61,12 +63,13 @@ research (router) → reader → citation / literature-pipeline
 - **`materials-figure`** — LLM-driven figure creation: validates a figure
   contract and source-data anchor first, then the LLM writes `plot.py` and
   ships a full package (`figure_contract.md → source_data.csv → plot.py →
-  SVG/PDF/PNG/TIFF → caption.md + qa_report.md`). Python-only backend.
+  SVG/PDF/PNG/TIFF → caption.md + qa_report.md`). Python-default backend
+  (R opt-in) plus an OpenRouter/GPT Image 2 AI-schematic draft route.
 - **`materials-paper-to-patent`** — 论文转中文发明专利：三轴路由
   （source_format / task_mode / invention_type），内置中国专利法第 22/26.3/
   26.4/31.1/33 条知识库与 7 规则 claim 校验引擎，输出 DOCX 申请稿 +
   flowchart.svg。
-- **`materials-research`** — 路由中枢：15 task / 36 domain / 20 journal
+- **`materials-research`** — 路由中枢：17 task / 36 domain / 20 journal
   片段驱动，输出 6 阶段门控计划与 `coverage_tier`（full/partial/skeleton/
   generic）报告。
 - **`materials-writing`** — 8 轴状态机写作（writing_mode / paper_type /
@@ -113,6 +116,7 @@ python scripts/install_skills.py --target claude --dry-run   # preview first
 python scripts/install_skills.py --target claude
 python scripts/install_skills.py --target zcode              # or the .zcode-plugin marketplace
 python scripts/sync_dsh_skills.py                            # dsh: project .dsh/skills/
+python scripts/autoupdate_skills.py --target claude           # session-start auto-update
 ```
 
 安装器会把每个 skill 物化为自包含目录（合并 `_shared` 树、重写相对引用）、
@@ -123,11 +127,12 @@ platform, and verifies references. 详见 [install.md](install.md) 与
 
 ## Documentation 文档导航
 
-- [docs/skills-index.md](docs/skills-index.md) — 14 技能细节、关键规则与输出结构
+- [docs/skills-index.md](docs/skills-index.md) — 16 技能细节、关键规则与输出结构
 - [docs/gallery/README.md](docs/gallery/README.md) — 配图能力图板
 - [docs/workflows/README.md](docs/workflows/README.md) — 四个端到端工作流演示
 - [docs/showcases/README.md](docs/showcases/README.md) — submission / reviewer-response / FAIR-data 成果展示
 - [docs/coverage-dashboard.md](docs/coverage-dashboard.md) — 29 材料体系覆盖度
+- [docs/autoupdate.md](docs/autoupdate.md) — 会话启动自动更新（节流/离线安全/仅快进）
 
 ## Scope & Roadmap 边界与路线图
 

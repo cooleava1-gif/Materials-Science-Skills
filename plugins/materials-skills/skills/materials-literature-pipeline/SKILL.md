@@ -1,7 +1,7 @@
 ---
 name: materials-literature-pipeline
 version: "1.1.0"
-description: Use when setting up, running, or auditing a recurring materials literature discovery workflow with candidate scoring, evidence-layer labels, deduplication, digest notes, and next-reading actions.
+description: Use when setting up, running, or auditing a recurring materials literature discovery workflow with candidate scoring, evidence-layer labels, deduplication, digest notes, and next-reading actions. Chinese triggers 中文触发：文献追踪、文献日报、每日文献、候选文献筛选.
 ---
 
 # Materials Literature Pipeline Router

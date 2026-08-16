@@ -1,12 +1,14 @@
 ---
 name: materials-research
-version: "1.2.0"
+version: "1.3.0"
 description: >-
   Use when planning, scoping, or routing a materials research workflow across
   skills. Trigger for research positioning,
   novelty and gap analysis, mini-reviews, evidence audits, topic selection,
   and multi-skill pipeline orchestration across civil, polymers, metals,
   ceramics, functional, and nano families.
+  Chinese triggers 中文触发：材料科研、科研选题、文献综述规划、实验方案规划、投稿策略.
+
 ---
 
 # Materials Science Research Router
@@ -35,5 +37,5 @@ session_guard:
     legacy: entries missing key or scope are cold; never match by path alone
   routing_change:
     if: detected domain, material_family, or task differs from active_routing
-    then: clear warm entries for changed axis owned by this scope; reload; update active_routing; emit "[routing: <old> → <new>]"
+    then: clear warm entries for changed axis owned by this scope; reload; update active_routing; emit routing change
   contract: ../_shared/core/session-context-contract.md

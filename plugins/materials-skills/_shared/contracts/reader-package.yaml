@@ -8,6 +8,7 @@ consumed_by:
   - materials-doe
   - materials-research
   - materials-paper-to-patent
+  - materials-paper-card
 
 artifacts:
   notes.md:

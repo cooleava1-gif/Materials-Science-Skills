@@ -7,6 +7,8 @@ description: >-
   response letters for materials science and engineering manuscripts. Trigger
   for rebuttal letters, cover letters for revised manuscripts, revision
   change-lists, and strategy for hostile or conflicting reviewer comments.
+  Chinese triggers 中文触发：审稿回复、回复信、逐条回复审稿人、修改说明.
+
 ---
 
 1. Read `manifest.yaml` paths from disk, including `always_load`.

@@ -112,6 +112,26 @@
         }
       ],
       "files": []
+    },
+    {
+      "id": "reference-verification-volume-year-conflict",
+      "prompt": "帮我逐条校验这份参考文献：其中一条是 Zhang et al., 'Waterborne epoxy modified asphalt', CBM, DOI 10.1016/j.conbuildmat.2024.xxxxx, 卷 449 (2025)，页码 138001-138012。",
+      "expected_output": "The verification follows references/reference-verification.md: query the DOI via the academic-search MCP, compare fields, and resolve the volume-year vs DOI-year pattern — the DOI string year (2024) is the manuscript year while the journal volume year is 2025, so the citation year is 2025 (WARN with fix, not ERROR). The output uses the structured report table with severity, suggested fix, and never silently rewrites the entry; author-order and first-author hallucination checks are also stated for the entry.",
+      "assertions": [
+        {
+          "name": "volume_year_rule_applied",
+          "description": "The journal volume year wins over the DOI-string year."
+        },
+        {
+          "name": "structured_severity_report",
+          "description": "Output carries the OK/WARN/ERROR table with per-entry fixes."
+        },
+        {
+          "name": "no_silent_rewrite",
+          "description": "Fixes are suggested, not silently applied."
+        }
+      ],
+      "files": []
     }
   ]
 }

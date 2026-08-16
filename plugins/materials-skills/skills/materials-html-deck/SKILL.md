@@ -7,6 +7,8 @@ description: >-
   science papers, notes, figures, data, or slide outlines. Trigger for paper
   presentation decks, journal-club slides, defense and progress-report decks,
   and self-contained HTML slide exports with embedded figures.
+  Chinese triggers 中文触发：组会汇报、学术报告、HTML幻灯片、论文转报告页.
+
 ---
 
 # Materials HTML Deck Router

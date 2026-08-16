@@ -1,0 +1,97 @@
+version: 1.0.0
+status: beta
+
+# Minimal always_load: contract, stance, workflow, and output format. The
+# failure-mode, DOE, figure, and reviewer material loads on demand.
+context_budget:
+  target_activation_bytes: 25600
+  max_activation_bytes: 28672
+  max_always_load: 5
+  max_skill_lines: 70
+  max_workflow_lines: 120
+
+always_load:
+  - static/core/contract.md
+  - static/core/stance.md
+  - static/core/workflow.md
+  - static/core/output-format.md
+  - ../_shared/core/direction-profile.md
+
+axes:
+  task:
+    detect: |
+      Identify the statistics deliverable: audit an existing statistical
+      section or results paragraph, rewrite it, draft a new one, support a
+      reviewer response, align figure statistics, or run a bounded check on
+      user-supplied summary data.
+    default: audit
+    values:
+      audit:
+        path: references/statistical-reporting.md
+        triggers: ["statistics review", "audit", "统计审查", "统计审查报告"]
+      rewrite:
+        path: references/statistical-reporting.md
+        triggers: ["revise statistics", "rewrite", "修改统计", "统计分析小节"]
+      draft:
+        path: references/statistical-reporting.md
+        triggers: ["draft statistical analysis", "write methods statistics", "起草统计", "撰写统计分析"]
+      reviewer-response:
+        path: references/reviewer-checklist.md
+        triggers: ["reviewer comment", "rebuttal statistics", "审稿人统计意见", "回复统计问题"]
+      figure-statistics:
+        path: references/figure-statistics.md
+        triggers: ["error bar", "figure legend statistics", "significance marker", "图注统计", "误差棒"]
+      data-backed-check:
+        path: references/common-failure-modes.md
+        triggers: ["check my analysis", "verify statistics from data", "验算", "核对统计"]
+
+  study_design:
+    detect: |
+      Identify the design behind the statistics: how factors, levels,
+      replicates, and repeats are organised. If the text does not say, ask
+      once and record the answer; never guess the hierarchy.
+    default: between-group
+    values:
+      between-group:
+        path: references/common-failure-modes.md
+        triggers: ["control group", "t-test", "组间比较"]
+      factorial-doe:
+        path: references/doe-statistics.md
+        triggers: ["factorial", "orthogonal array", "Taguchi", "S/N ratio", "正交实验", "方差分析"]
+      response-surface:
+        path: references/doe-statistics.md
+        triggers: ["RSM", "central composite", "regression model", "响应面", "回归模型"]
+      mixture:
+        path: references/doe-statistics.md
+        triggers: ["mixture design", "proportion of components", "配合比", "混料设计"]
+      nested-repeated:
+        path: references/common-failure-modes.md
+        triggers: ["repeated measures", "nested specimens", "repeated readings", "重复测量", "多测点"]
+
+references:
+  on_demand:
+    evidence-contract:
+      path: ../_shared/core/evidence-contract.md
+      when: "A statistical claim must be tied to a source tuple or the evidence layer is disputed."
+    claim-strength:
+      path: ../_shared/core/claim-strength-ladder.md
+      when: "Significance wording drifts toward causal or importance claims."
+    terminology-ledger:
+      path: ../_shared/core/terminology-ledger.md
+      when: "SD/SEM/CI notation or statistical abbreviations are inconsistent across sections."
+    doe-handoff:
+      path: ../materials-doe/static/core/contract.md
+      when: "The design underlying the statistics must be re-planned or extended."
+
+assets: []
+scripts: []
+quality_gates:
+  - release gate must report no issues for this skill
+  - claims must stay inside the skill evidence contract
+  - n definitions must be traceable to supplied text or marked AUTHOR_INPUT_NEEDED
+handoffs:
+  provides: {}
+  consumes: []
+release_checks:
+  - scripts/run_release_checks.py --json
+  - scripts/check_skill_architecture.py --json
