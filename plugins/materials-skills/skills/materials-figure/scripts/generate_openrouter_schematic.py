@@ -5,7 +5,10 @@ Adapted from nature-skills' generate_openrouter_schematic.py (Apache-2.0),
 retargeted to the materials-figure AI-schematic route: the composed prompt
 scaffold carries materials constraints, outputs are draft schematics, and
 the request metadata doubles as the provenance record required by
-references/ai-schematic-workflow.md.
+references/ai-schematic-workflow.md. --asset-mode switches the scaffold to
+hybrid-composition decoration assets (icons/gradients/shadows, transparent
+background, no text) consumed by the R layer per
+references/hybrid-composition.md.
 """
 
 from __future__ import annotations
@@ -61,24 +64,42 @@ def build_prompt(args: argparse.Namespace) -> str:
             "--abstract/--abstract-file, or --panel-map."
         )
 
-    style = args.style or (
-        "Create a clean scientific graphical abstract / mechanism schematic "
-        "for a materials-science research paper (e.g., cement hydration, "
-        "asphalt interface bonding, corrosion protection, coating barrier, "
-        "sintering densification). Use a flat vector-like visual language, "
-        "restrained journal palette, clear hierarchy, simple arrows, and "
-        "minimal short labels. Keep the background uncluttered."
-    )
+    if args.asset_mode:
+        style = args.style or (
+            "Generate flat decoration assets for a scientific figure: "
+            "minimal icons, smooth gradients, soft shadows, and "
+            "semi-transparent color blocks, isolated on a fully transparent "
+            "background. Flat vector-like style, restrained journal palette, "
+            "generous spacing so each element can be cropped individually "
+            "for placement in an R-composed figure."
+        )
+        constraints = (
+            "Decoration-only constraints: absolutely no text, letters, "
+            "numbers, arrows, borders, dashed boxes, leader lines, labels, "
+            "faces, logos, or data-like patterns. Do not imply quantitative "
+            "information. These elements decorate a figure whose semantic "
+            "layer (all text, annotations, arrows) is drawn separately in "
+            "vector form."
+        )
+    else:
+        style = args.style or (
+            "Create a clean scientific graphical abstract / mechanism schematic "
+            "for a materials-science research paper (e.g., cement hydration, "
+            "asphalt interface bonding, corrosion protection, coating barrier, "
+            "sintering densification). Use a flat vector-like visual language, "
+            "restrained journal palette, clear hierarchy, simple arrows, and "
+            "minimal short labels. Keep the background uncluttered."
+        )
 
-    constraints = (
-        "Scientific constraints: show only the materials, phases, and "
-        "mechanisms described below; do not invent quantitative values, "
-        "p-values, fake micrographs, spectra, institutional logos, journal "
-        "marks, or unsupported experimental claims. Use conceptual visual "
-        "elements rather than fake data panels. Text labels must be short "
-        "and easy to redraw later. This image is an internal design draft, "
-        "not experimental data."
-    )
+        constraints = (
+            "Scientific constraints: show only the materials, phases, and "
+            "mechanisms described below; do not invent quantitative values, "
+            "p-values, fake micrographs, spectra, institutional logos, journal "
+            "marks, or unsupported experimental claims. Use conceptual visual "
+            "elements rather than fake data panels. Text labels must be short "
+            "and easy to redraw later. This image is an internal design draft, "
+            "not experimental data."
+        )
 
     return "\n\n".join([style, constraints, *content_blocks])
 
@@ -114,6 +135,9 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
     for key, value in optional_fields.items():
         if value is not None:
             payload[key] = value
+
+    if args.asset_mode and payload.get("background") is None:
+        payload["background"] = "transparent"
 
     if args.reference_image:
         payload["input_references"] = [
@@ -202,7 +226,10 @@ def save_outputs(response: dict[str, Any], payload: dict[str, Any], args: argpar
     # Provenance record required by references/ai-schematic-workflow.md:
     # tool, model, full request payload, usage, and saved-file list.
     metadata = {
-        "route": "materials-figure/ai-schematic",
+        "route": (
+            "materials-figure/hybrid-asset" if args.asset_mode
+            else "materials-figure/ai-schematic"
+        ),
         "status": "internal design draft - submission eligibility unverified",
         "api_url": args.api_url,
         "model": args.model,
@@ -212,6 +239,10 @@ def save_outputs(response: dict[str, Any], payload: dict[str, Any], args: argpar
         "created": response.get("created"),
         "saved_files": saved,
         "disclosure_line": (
+            "Decoration assets in this figure were generated with an "
+            f"AI image model ({args.model}); all text, annotations, and "
+            "structural lines were drawn in R by the authors."
+            if args.asset_mode else
             "The schematic draft in this figure was generated with an "
             f"AI image model ({args.model}) and redrawn/reviewed by the "
             "authors; it contains no experimental data."
@@ -239,6 +270,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--prompt-file")
     parser.add_argument("--style")
     parser.add_argument("--raw", action="store_true", help="Use prompt text without the schematic scaffold.")
+    parser.add_argument("--asset-mode", action="store_true", help="Compose hybrid-composition decoration assets (icons/gradients/shadows, transparent background, no text) for the R layer.")
     parser.add_argument("--reference-image", action="append", help="Path, URL, or data URL for image-to-image guidance.")
     parser.add_argument("--outdir", default="ai_schematic")
     parser.add_argument("--basename")

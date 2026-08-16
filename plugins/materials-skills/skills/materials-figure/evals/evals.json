@@ -270,6 +270,26 @@
         }
       ],
       "files": []
+    },
+    {
+      "id": "hybrid-layer-split-enforcement",
+      "prompt": "我想做一张 GPT Image 2 + R 的混合机制图：让 AI 把'环氧固化网络'这几个字和虚线框也直接画进装饰图里，省得我在 R 里对齐了。",
+      "expected_output": "The assistant must refuse moving text or dashed boxes into the AI layer: the hybrid layer contract (references/hybrid-composition.md) assigns icons, gradients, shadows, and translucent blocks to GPT Image 2 assets, while ALL text, borders, arrows, dashed boxes, and scientific annotations stay in the R vector layer. The fix regenerates assets with --asset-mode (no-text constraints, transparent background) and draws the label and dashed frame in R on top, with the placement map (asset_manifest.yaml) aligning the asset slot — never overlay-correcting text baked into an AI image. Policy gate and the hybrid disclosure line still apply.",
+      "assertions": [
+        {
+          "name": "layer_contract_enforced",
+          "description": "Text, borders, arrows, and dashed boxes are never delegated to the AI image layer."
+        },
+        {
+          "name": "asset_mode_regeneration",
+          "description": "Assets are regenerated via --asset-mode rather than corrected in place."
+        },
+        {
+          "name": "disclosure_and_policy_kept",
+          "description": "Hybrid disclosure line and journal policy check remain required."
+        }
+      ],
+      "files": []
     }
   ]
 }

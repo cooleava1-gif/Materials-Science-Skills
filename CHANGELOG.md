@@ -9,6 +9,19 @@ and this project follows [Semantic Versioning](https://semver.org/) loosely:
 
 ## [Unreleased]
 
+### Added — GPT Image 2 + R hybrid composition (2026-08-16, second session)
+- `materials-figure` 2.3.0: hybrid composition mode for publication-grade
+  schematics and graphical abstracts — GPT Image 2 generates decoration
+  assets only (icons, gradients, shadows, semi-transparent blocks;
+  `--asset-mode` with transparent background and no-text constraints by
+  construction), R draws every semantic element (all text, borders,
+  arrows, dashed boxes, scientific annotations) as vector on top.
+  Ships `references/hybrid-composition.md` (layer contract, R compositing
+  patterns, `asset_manifest.yaml` placement map, text-vector/z-order/
+  alignment/palette QA additions, AI-free fallback, hybrid disclosure),
+  an asset-mode variant of `generate_openrouter_schematic.py` (dry-run
+  verified), and a layer-split enforcement eval.
+
 ### Added — nature-skills benchmark upgrade (2026-08-16)
 - Add `materials-statistics` as the 15th skill: statistical-reporting
   audit/revision/drafting for materials manuscripts — replicate and `n`

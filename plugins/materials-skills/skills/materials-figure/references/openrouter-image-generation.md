@@ -45,6 +45,26 @@ URL / data URL for image-to-image guidance), geometry options
 (`--aspect-ratio 16:9`, `--resolution 2K`, `--quality high`,
 `--output-format png`, `--background`, `--n`).
 
+## Asset mode (hybrid composition)
+
+For GPT Image 2 + R hybrid figures, add `--asset-mode`: the scaffold
+switches to a decoration-asset prompt (flat icons, gradients, soft
+shadows, semi-transparent blocks; **no text, no arrows, no borders, no
+data-like patterns**) and defaults the background to transparent:
+
+```bash
+python scripts/generate_openrouter_schematic.py \
+  --prompt "droplet and crosslink-network icons, soft gradient blocks, #2F5A72 #C4622D palette" \
+  --asset-mode --dry-run
+python scripts/generate_openrouter_schematic.py \
+  --prompt "..." --asset-mode --outdir ai_schematic --basename decor_icons
+```
+
+Assets land in the usual output dir with the provenance metadata; record
+slot placements in `asset_manifest.yaml` per
+[hybrid-composition.md](hybrid-composition.md). Render at 2K+ so the
+raster layer survives 600-dpi print export.
+
 Outputs land in `--outdir` (default `ai_schematic/`): the image plus
 `<basename>_request_metadata.json` holding the full request payload,
 response usage, and saved-file list — the provenance record the AI-schematic

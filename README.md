@@ -64,7 +64,9 @@ research (router) → reader → citation / literature-pipeline
   contract and source-data anchor first, then the LLM writes `plot.py` and
   ships a full package (`figure_contract.md → source_data.csv → plot.py →
   SVG/PDF/PNG/TIFF → caption.md + qa_report.md`). Python-default backend
-  (R opt-in) plus an OpenRouter/GPT Image 2 AI-schematic draft route.
+  (R opt-in), an OpenRouter/GPT Image 2 AI-schematic draft route, and a
+  GPT Image 2 + R hybrid composition mode (AI decorates, R draws all
+  semantics).
 - **`materials-paper-to-patent`** — 论文转中文发明专利：三轴路由
   （source_format / task_mode / invention_type），内置中国专利法第 22/26.3/
   26.4/31.1/33 条知识库与 7 规则 claim 校验引擎，输出 DOCX 申请稿 +

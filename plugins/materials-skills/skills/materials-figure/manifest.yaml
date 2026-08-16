@@ -1,5 +1,5 @@
 name: materials-figure
-version: 2.2.0
+version: 2.3.0
 status: stable
 description: >
   Declarative manifest for the static/dynamic split. SKILL.md uses this to
@@ -28,7 +28,10 @@ axes:
       explicit request > saved preference > ask once ("Python or R? I will
       remember this as your default.") and save before proceeding. Once
       selected, the backend is exclusive for the whole figure package — never
-      mix Python and R panels in one package. Before rendering, check the
+      mix Python and R panels in one package. For GPT Image 2 + R hybrid
+      figures, R stays the sole drawing backend and AI assets enter as
+      decoration inputs (references/hybrid-composition.md). Before
+      rendering, check the
       selected runtime and required packages (python: matplotlib, numpy, PIL;
       seaborn for statistical plots; r: ggplot2, patchwork, svglite). If the
       runtime or packages are unavailable, stop before rendering and report
@@ -108,6 +111,8 @@ references:
       path: references/ai-schematic-workflow.md
     - condition: OpenRouter, GPT Image 2, or OpenAI-compatible image API call setup, payload review, or provenance record
       path: references/openrouter-image-generation.md
+    - condition: GPT Image 2 + R hybrid figure, layer split between AI decoration assets and R-drawn semantics, asset placement map, hybrid QA
+      path: references/hybrid-composition.md
     - condition: R backend workflow, ggplot2/patchwork/ComplexHeatmap usage, renv record, R-specific export pitfalls
       path: references/r-backend.md
     - condition: figure contains XRD peaks/phases, FTIR wavenumbers/functional groups, or performance values requiring validation against known material relations

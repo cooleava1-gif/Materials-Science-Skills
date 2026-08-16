@@ -1,22 +1,22 @@
 ---
 name: materials-figure
 description: >-
-  Use when creating, revising, auditing, polishing submission-grade materials-science figures, multi-panel plots, mechanism schematics, evidence maps, or journal SVG/PDF/TIFF outputs for materials, construction materials, or civil engineering research. Trigger for XRD, FTIR, TG/DTG, SEM, performance curves, bonding, rheology, and figure-package QA requests. Do not use for dashboards or Illustrator/Figma-first infographics.
+  Use when creating, revising, auditing, polishing submission-grade materials-science figures, multi-panel plots, mechanism schematics, evidence maps, journal SVG/PDF/TIFF outputs for materials, construction materials, or civil engineering research. Trigger for XRD, FTIR, TG/DTG, SEM, performance curves, bonding, rheology, and figure-package QA requests. Do not use for dashboards or Illustrator/Figma-first infographics.
   Chinese triggers 中文触发：论文配图、科研绘图、出版级图表、多面板图、机制示意图.
-version: "2.2.0"
+version: "2.3.0"
 stability: stable
 ---
 
 route:
   priority: explicit_request > .materials/profile.yaml > neutral_fallback
   load: manifest axes only
-  ai_schematic: AI-image request (OpenRouter/GPT Image 2) → ai-schematic-workflow.md + openrouter-image-generation.md + scripts/generate_openrouter_schematic.py (--dry-run first); skips backend gate
+  ai_schematic: AI-image request (OpenRouter/GPT Image 2) → ai-schematic-workflow.md + openrouter-image-generation.md + generate_openrouter_schematic.py; skips backend gate; hybrid → hybrid-composition.md
 
 gates:  # ordered
   - id: backend-gate
     if: backend runtime or required plotting packages are absent
     then: report the exact missing dependency; halt before rendering
-    backend_rule: python default; r opt-in via scripts/figure_backend.py (explicit request or saved preference); selected backend exclusive
+    backend_rule: python default; r opt-in via scripts/figure_backend.py (explicit or saved choice); selected backend exclusive
 
   - id: contract-gate
     if: the figure contract or source-data anchor is missing
@@ -24,15 +24,15 @@ gates:  # ordered
 
   - id: materials-kb-gate  # the materials gate
     if: materials-science entities appear — XRD phases, FTIR wavenumbers, performance values
-    then: load static/core/materials_kb.yaml; wrong assignment blocks plotting; warnings stay visible
+    then: load static/core/materials_kb.yaml; wrong assignment blocks plotting; warnings visible
 
   - id: storyboard-gate
     if: request covers multiple figures
     then: validate storyboard as DAG before individual contracts
 
-  - id: ai-schematic-gate
-    if: AI-generated schematic, graphical abstract, or mechanism illustration requested
-    then: label output internal draft with provenance + disclosure; never data panels
+  - id: ai-asset-gate
+    if: AI imagery requested (standalone or hybrid)
+    then: standalone → internal draft; hybrid → AI decorates, backend draws semantics; policy gate + disclosure + no data panels
 
   - id: mock-data-gate
     if: data is mock data, template-only, or illustrative

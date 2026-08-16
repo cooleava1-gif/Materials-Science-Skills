@@ -88,7 +88,11 @@ Python — load `static/fragments/backend/python.md`. An explicit R request
 loads `static/fragments/backend/r.md` instead. Before rendering, confirm the
 selected runtime and its packages. The selected backend is exclusive for the
 whole package; never mix backends inside one figure package. The AI-schematic
-route (no data plotted) skips this stage.
+route (no data plotted) skips this stage. Hybrid composition (GPT Image 2
+decoration assets + R semantics) keeps R as the drawing backend here and
+follows `references/hybrid-composition.md` for the layer split. Hybrid composition (GPT Image 2
+decoration assets + R semantics) keeps R as the drawing backend here and
+follows `references/hybrid-composition.md` for the layer split.
 
 ## 5. Check source data and anchors
 

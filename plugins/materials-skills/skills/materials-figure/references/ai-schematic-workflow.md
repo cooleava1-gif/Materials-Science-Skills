@@ -79,6 +79,14 @@ in `--dry-run` first to review the assembled payload.
 - Data-driven panels (XRD, FTIR, SEM plates, performance curves) always go
   through the plotting pipeline and its Python/R backend gate, never through
   the image API.
-- This route skips the backend gate because no data are plotted.
+- This route (standalone draft) skips the backend gate because no data are
+  plotted.
 - Mixing: an AI mechanism draft may sit beside plotted panels only if each
   panel's origin (plotted vs AI draft) is stated in the caption.
+- **Asset mode → hybrid composition**: when the goal is a publication-grade
+  composite (not a draft), AI generates decoration assets only (icons,
+  gradients, shadows, translucent blocks) and R draws every semantic
+  element. Switch to
+  [hybrid-composition.md](hybrid-composition.md) and drive generation with
+  `--asset-mode`; the bounded role below tightens to "decoration only, no
+  text, no arrows, no borders in the AI image".

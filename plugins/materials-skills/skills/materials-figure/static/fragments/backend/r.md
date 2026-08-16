@@ -34,7 +34,24 @@ ggsave("figure.tiff", plot, width = 86, units = "mm", dpi = 600, compression = "
   the same contract and QA rules as the Python backend
   (`static/core/contract.md`, `references/figure-qa-contract.md`).
 
+## Hybrid composition (GPT Image 2 + R)
+
+When the job is a hybrid figure, R is the sole drawing engine and AI assets
+are raster *inputs* placed below the semantics:
+
+- Layer order: AI decoration first (`grid::rasterGrob(png::readPNG(...))`
+  or `ggplot2::annotation_custom`), then every semantic element (text,
+  borders, arrows, dashed boxes, annotations) drawn in R on top.
+- Text, arrows, borders, and scientific annotations are **never** baked
+  into the AI image — regenerate an asset rather than correcting it.
+- Keep the plot script renderable with assets replaced by plain
+  rectangles (AI-free fallback for reviewers).
+- Full contract, placement map (`asset_manifest.yaml`), and QA:
+  `references/hybrid-composition.md`.
+
 ## Reference files (load on demand)
 
 - `references/r-backend.md` — full R workflow, package versions, export
   matrix, common pitfalls vs the Python defaults
+- `references/hybrid-composition.md` — GPT Image 2 + R layer-split
+  composition, placement map, hybrid QA additions
