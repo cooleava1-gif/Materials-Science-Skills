@@ -8,6 +8,7 @@ Targets
 claude       personal skills   -> ~/.claude/skills/
 opencode     global skills     -> ~/.config/opencode/skills/
 antigravity  global skills     -> ~/.gemini/config/skills/
+zcode        personal skills   -> ~/.zcode/skills/
 codex        Codex home        -> $CODEX_HOME/skills/ (+ $CODEX_HOME/_shared)
 generic      --dest directory  -> self-contained copy anywhere
 
@@ -30,7 +31,8 @@ The ``materials-academic-search`` server (Python stdio, shipped inside
 claude  -> merge into ``--mcp-dest`` (default ``<cwd>/.mcp.json``, mcpServers)
 opencode-> merge into ``~/.config/opencode/opencode.json`` (mcp field)
 codex   -> merge into ``--mcp-dest`` (default ``<cwd>/.mcp.json``, mcpServers)
-antigravity/generic -> informational only (mechanism not yet standardized)
+antigravity/generic/zcode -> informational only (no standardized global
+config; ZCode MCP ships via the .zcode-plugin manifest instead)
 Pass ``--no-mcp`` to skip MCP registration entirely.
 """
 
@@ -93,6 +95,8 @@ def default_target_dir(target: str) -> Path:
         return home / ".config" / "opencode" / "skills"
     if target == "antigravity":
         return home / ".gemini" / "config" / "skills"
+    if target == "zcode":
+        return home / ".zcode" / "skills"
     if target == "codex":
         base = Path(os.environ.get("CODEX_HOME", str(home / ".codex")))
         return base / "skills"
@@ -321,10 +325,11 @@ def merge_into_opencode_config(path: Path, entry: dict, dry_run: bool) -> list[s
 def register_mcp(target: str, repo_root: Path, mcp_dest: Path | None,
                  dry_run: bool) -> list[str]:
     """Register the MCP server for the given target. Returns action log."""
-    if target == "antigravity" or target == "generic":
+    if target == "antigravity" or target == "generic" or target == "zcode":
         return [
-            "mcp: skipped for antigravity/generic (no standardized global config); "
-            "register the server manually, see adapters/README.md"
+            "mcp: skipped for antigravity/generic/zcode (no standardized global "
+            "config); ZCode users get the server via the .zcode-plugin manifest, "
+            "others register manually, see adapters/README.md"
         ]
     entry = mcp_entry(repo_root)
     if target == "opencode":
@@ -432,7 +437,7 @@ def build_parser() -> argparse.ArgumentParser:
         epilog=__doc__,
     )
     p.add_argument("--target", required=True,
-                   choices=["claude", "opencode", "antigravity", "codex", "generic"],
+                   choices=["claude", "opencode", "antigravity", "zcode", "codex", "generic"],
                    help="Agent platform to install for.")
     p.add_argument("--dest", type=Path, default=None,
                    help="Install destination (overrides the platform default).")

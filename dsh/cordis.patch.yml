@@ -1,0 +1,33 @@
+# deepseek-harness (dsh) overlay: zero-copy skills + academic-search MCP.
+#
+# Works with profiles whose host plane owns local skill discovery, such as
+# the shipped `headless` profile. Launch dsh from the repository root so the
+# relative paths below resolve:
+#
+#   dsh --profile headless --patch ./dsh/cordis.patch.yml "<task>"
+#
+# The skill-filesystem row points dsh at the plugin skills tree directly, so
+# no copy into .dsh/skills is needed and the same source tree powers every
+# host. The mcp row registers the academic-search MCP server, whose tools
+# appear as mcp__materials-academic-search__*; it needs the Python
+# dependencies from
+# plugins/materials-skills/skills/materials-citation/mcp/academic_search/requirements.txt
+#
+# Web profile note: dsh-web-app disables the host skill rows because agent
+# presets own local skill discovery there. For the web UI, use
+# `python scripts/sync_dsh_skills.py` instead (project .dsh/skills is part of
+# every preset's default discovery roots).
+- id: skill-filesystem
+  config:
+    customSkillDirs:
+      - ./plugins/materials-skills/skills
+- insert:
+    - id: materials-academic-search
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: materials-academic-search
+        transport: stdio
+        command: python
+        args:
+          - ./plugins/materials-skills/skills/materials-citation/mcp/academic_search/server.py
+        cwd: .

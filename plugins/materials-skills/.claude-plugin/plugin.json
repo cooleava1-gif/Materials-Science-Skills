@@ -19,5 +19,14 @@
     "literature-pipeline",
     "manuscript",
     "html-deck"
-  ]
+  ],
+  "skills": "./skills",
+  "mcpServers": {
+    "materials-academic-search": {
+      "command": "python",
+      "args": [
+        "$CLAUDE_PLUGIN_ROOT/skills/materials-citation/mcp/academic_search/server.py"
+      ]
+    }
+  }
 }

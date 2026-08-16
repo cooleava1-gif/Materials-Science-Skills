@@ -43,6 +43,24 @@ and this project follows [Semantic Versioning](https://semver.org/) loosely:
   hybrid/QA writing loops.
 - Add anchored `materials-writing` evaluation rubric, stopping rules, and
   validation checklist for content-first QA decisions.
+- Add ZCode support: a `--target zcode` install path in the cross-platform
+  installer (`~/.zcode/skills/`) and a `.zcode-plugin/plugin.json` manifest
+  (skills bundle plus inline `materials-academic-search` MCP server resolved
+  through `${ZCODE_PLUGIN_ROOT}`) for plugin-marketplace installation.
+- Add deepseek-harness (dsh) support: `scripts/sync_dsh_skills.py` for
+  layout-preserving sync into project/user skill roots, a zero-copy
+  `dsh/cordis.patch.yml` overlay (customSkillDirs plus an inserted
+  `@deepseek-ai/dsh-mcp-client` row), and dsh invocation-policy keys on
+  `_shared/SKILL.md` (`disable-model-invocation`, `user-invocable`) so the
+  shared support skill stays out of dsh catalogs. Verified end-to-end on dsh
+  0.1.0-rc.6: 14 skills discovered, MCP tools registered.
+- Add cross-host packaging validation (`validate_host_packaging.py`) to the
+  release gate: Claude and ZCode manifests, the marketplace pair (root and
+  `.claude-plugin/` copies must stay identical), SKILL.md frontmatter
+  compatibility (name pattern, 1024-char description cap), and dsh-specific
+  checks (kebab-case names, `_shared` invocation policy, sync script and
+  overlay presence).
+- Add `adapters/zcode/` and `adapters/dsh/` per-platform READMEs.
 
 ### Changed
 - Neutralize platform coupling in the skill corpus: replace `$CODEX_HOME`
@@ -50,6 +68,9 @@ and this project follows [Semantic Versioning](https://semver.org/) loosely:
   references with platform-neutral `<skills-dir>` placeholders.
 - Update `README.md` and `install.md` with a multi-platform support matrix;
   the Codex plugin/manual install paths remain unchanged.
+- Declare the Claude plugin's MCP server inline in
+  `plugins/materials-skills/.claude-plugin/plugin.json` (`$CLAUDE_PLUGIN_ROOT`
+  args) instead of relying on the plugin-root `.mcp.json`.
 - Route `materials-research` to `materials-literature-pipeline` only for
   recurring discovery, candidate scoring, and literature-digest triage before
   deep reading.

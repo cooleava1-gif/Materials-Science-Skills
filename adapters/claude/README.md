@@ -34,8 +34,10 @@ claude plugin install materials-skills@materials-skills-marketplace
 ```
 
 - Plugin skills are namespaced: `/materials-skills:materials-research`.
-- MCP inside the plugin root: `.mcp.json` is picked up from the plugin
-  directory (paths can use `${CLAUDE_PLUGIN_ROOT}`).
+- MCP: the manifest declares `materials-academic-search` inline in
+  `mcpServers` with args resolved through `$CLAUDE_PLUGIN_ROOT`; the
+  plugin-root `.mcp.json` remains the Codex configuration and is not used
+  here.
 - `claude plugin validate ./plugins/materials-skills` to sanity-check the
   manifest and skill frontmatter.
 

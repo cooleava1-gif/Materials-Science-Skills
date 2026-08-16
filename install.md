@@ -19,8 +19,12 @@ python scripts/install_skills.py --target claude --dry-run
 python scripts/install_skills.py --target claude        # ~/.claude/skills/
 python scripts/install_skills.py --target opencode      # ~/.config/opencode/skills/
 python scripts/install_skills.py --target antigravity   # ~/.gemini/config/skills/
+python scripts/install_skills.py --target zcode         # ~/.zcode/skills/
 python scripts/install_skills.py --target codex         # $CODEX_HOME/skills/ (no materialization)
 python scripts/install_skills.py --target generic --dest ./vendor/skills --no-mcp
+
+# deepseek-harness (dsh): layout-preserving sync instead of materialization
+python scripts/sync_dsh_skills.py                       # project .dsh/skills/
 ```
 
 Useful flags: `--dest PATH` (override location), `--mcp-dest PATH` (MCP config
@@ -65,6 +69,45 @@ Copy-Item -Recurse -Force .\plugins\materials-skills\skills\materials-* $skillsD
 Copy-Item -Recurse -Force .\plugins\materials-skills\skills\_shared $skillsDir
 Copy-Item -Recurse -Force .\plugins\materials-skills\_shared $codexHome
 ```
+
+## Option 3: ZCode Plugin
+
+ZCode probes `.zcode-plugin/plugin.json` before the Codex and Claude
+manifests, and the repository ships one at
+`plugins/materials-skills/.zcode-plugin/plugin.json`. In the client, open
+**Settings → Plugin Management → Discover**, add a marketplace with the `+`
+button pointing at the repository
+(`https://github.com/cooleava1-gif/Materials-Science-Skills.git`, ref `main`),
+then install `materials-skills`. A local checkout directory works as a
+marketplace source too.
+
+What this gives you:
+
+- the `materials-*` skill bundle and the `_shared` support folder
+- the academic-search MCP server, launched via `${ZCODE_PLUGIN_ROOT}` and
+  auto-connected as `plugin:materials-skills:materials-academic-search`
+
+## Option 4: DeepSeek Harness (dsh)
+
+Sync the bundle into the project skills root (works for the `web` and
+`headless` profiles):
+
+```powershell
+python .\scripts\sync_dsh_skills.py
+```
+
+Use `--user` for the user-level `<dshHome>\skills` root. Alternatively, for
+headless/CLI profiles only, boot with the zero-copy overlay from the
+repository root:
+
+```powershell
+dsh --profile headless --patch .\dsh\cordis.patch.yml "<task>"
+```
+
+The overlay points dsh at the plugin skills tree and registers the
+academic-search MCP server (`mcp__materials-academic-search__*` tools). dsh is
+a developer preview (`0.1.0-rc.x`); pin the rc version you validated against.
+See `adapters/dsh/README.md` for details.
 
 ## Optional Academic Search MCP
 

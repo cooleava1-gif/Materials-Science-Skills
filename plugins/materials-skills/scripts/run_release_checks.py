@@ -538,6 +538,22 @@ def main() -> int:
     if experiment_record_issues:
         all_issues["experiment_record_contract"] = experiment_record_issues
 
+    # cross-host packaging validation (Claude Code plugin, marketplace,
+    # SKILL.md frontmatter compatibility)
+    try:
+        spec_host = importlib.util.spec_from_file_location(
+            "validate_host_packaging",
+            Path(__file__).parent / "validate_host_packaging.py",
+        )
+        if spec_host and spec_host.loader:
+            mod_host = importlib.util.module_from_spec(spec_host)
+            spec_host.loader.exec_module(mod_host)
+            for key, vals in mod_host.validate_host_packaging().items():
+                if vals:
+                    all_issues.setdefault(key, []).extend(vals)
+    except Exception as exc:
+        all_issues["host_packaging"] = [f"host packaging validation error: {exc}"]
+
     strategic_upgrade_issues = check_strategic_upgrade_files()
     if strategic_upgrade_issues:
         all_issues["strategic_upgrade"] = strategic_upgrade_issues

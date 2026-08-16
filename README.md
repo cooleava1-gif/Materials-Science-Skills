@@ -7,7 +7,7 @@ responses, and paper-to-patent conversion in one evidence-gated workflow.
 面向材料科学科研全流程的 Agent 技能包：从文献路由、阅读、引文、写作、配图、
 数据打包、实验设计到审稿模拟、回复信与论文转专利，以证据契约贯穿每一步。
 
-**14 skills · 29 material systems · 17 journal format guides · 9 domain data schemas · 6+ agent platforms**
+**14 skills · 29 material systems · 17 journal format guides · 9 domain data schemas · 7+ agent platforms**
 
 <table>
   <tr>
@@ -101,7 +101,9 @@ python .\scripts\run_release_checks.py --json
 | Claude Code | `python scripts/install_skills.py --target claude` | `~/.claude/skills/` (or `.claude-plugin/` marketplace) |
 | OpenCode | `python scripts/install_skills.py --target opencode` | `~/.config/opencode/skills/` |
 | Antigravity | `python scripts/install_skills.py --target antigravity` | `~/.gemini/config/skills/` |
+| ZCode | `python scripts/install_skills.py --target zcode` (or `.zcode-plugin/` marketplace) | `~/.zcode/skills/` |
 | Codex | `python scripts/install_skills.py --target codex` (or `scripts/install.ps1`) | `$CODEX_HOME/skills/` |
+| deepseek-harness (dsh) | `python scripts/sync_dsh_skills.py` (or `--patch ./dsh/cordis.patch.yml`) | project `.dsh/skills/` |
 | Any SKILL.md agent | `python scripts/install_skills.py --target generic --dest <dir>` | anywhere |
 
 ## Installation 安装
@@ -109,6 +111,8 @@ python .\scripts\run_release_checks.py --json
 ```bash
 python scripts/install_skills.py --target claude --dry-run   # preview first
 python scripts/install_skills.py --target claude
+python scripts/install_skills.py --target zcode              # or the .zcode-plugin marketplace
+python scripts/sync_dsh_skills.py                            # dsh: project .dsh/skills/
 ```
 
 安装器会把每个 skill 物化为自包含目录（合并 `_shared` 树、重写相对引用）、

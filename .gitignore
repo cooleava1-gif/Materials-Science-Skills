@@ -35,6 +35,9 @@ reviewer-response.md
 submission-package.md
 README.zh-CN.local.md
 
+# Generated deepseek-harness skill sync target (see scripts/sync_dsh_skills.py)
+.dsh/
+
 # Internal maintainer docs (local only)
 AGENTS.md
 BRANCH-POLICY.md

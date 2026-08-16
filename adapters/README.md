@@ -12,7 +12,9 @@ Adapters add thin platform shells on top; the installer
 | Claude Code | `--target claude` | `~/.claude/skills/` | `.mcp.json` (`mcpServers`) | `.claude-plugin/` marketplace (Option B) |
 | OpenCode | `--target opencode` | `~/.config/opencode/skills/` | `opencode.json` `mcp` field | none (skills dir only) |
 | Antigravity | `--target antigravity` | `~/.gemini/config/skills/` | manual (not yet standardized) | experimental `plugin.json` |
+| ZCode | `--target zcode` | `~/.zcode/skills/` | plugin manifest (`${ZCODE_PLUGIN_ROOT}` MCP) | `.zcode-plugin/` plugin |
 | Codex (original) | `--target codex` (or `scripts/install.ps1`) | `$CODEX_HOME/skills/` | `.mcp.json` / `config.toml` | `.codex-plugin/` plugin |
+| deepseek-harness (dsh) | `scripts/sync_dsh_skills.py` | project `.dsh/skills/` or `<dshHome>/skills` | cordis patch overlay (`dsh/cordis.patch.yml`) | none (developer preview) |
 | Any SKILL.md agent | `--target generic --dest <dir>` | anywhere | manual | none |
 
 ## How the installer makes skills portable
@@ -34,20 +36,24 @@ Adapters add thin platform shells on top; the installer
 python scripts/install_skills.py --target claude --dry-run    # preview only
 python scripts/install_skills.py --target claude              # real install
 python scripts/install_skills.py --target opencode --force    # replace existing
+python scripts/install_skills.py --target zcode               # ~/.zcode/skills/
 python scripts/install_skills.py --target generic --dest ./vendor/skills --no-mcp
+python scripts/sync_dsh_skills.py                             # dsh: project .dsh/skills/
 ```
 
 Options: `--dest PATH` (override location), `--mcp-dest PATH` (MCP config
 file), `--no-mcp`, `--force`, `--dry-run`, `--repo-root PATH`.
 
-See `claude/`, `opencode/`, `antigravity/` for per-platform notes and
-troubleshooting.
+See `claude/`, `opencode/`, `antigravity/`, `zcode/`, `dsh/` for per-platform
+notes and troubleshooting.
 
 ## Compatibility notes
 
 - Frontmatter is limited to `name`/`description`/`version`/`stability`; the
-  three new platforms tolerate unknown fields (OpenCode ignores them by spec),
-  and `description` is the shared trigger mechanism everywhere.
+  supported non-Codex platforms tolerate unknown fields (OpenCode ignores
+  them by spec), and `description` is the shared trigger mechanism
+  everywhere. deepseek-harness additionally honors `disable-model-invocation`
+  and `user-invocable` policies (set on `_shared`).
 - Behavioral contracts (`manifest.yaml` routing, stage gates, handoffs) are
   executed by the model reading the files, not by any platform — agent
   capability determines how strictly they are followed.
