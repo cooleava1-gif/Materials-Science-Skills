@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  release-checks:
+    name: Release Checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install core dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run release checks
+        run: python scripts/run_release_checks.py --json
+
+  mcp-tests:
+    name: MCP Academic Search Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install MCP dependencies
+        run: |
+          pip install httpx>=0.27,<1 pytest>=8.0,<9
+          pip install -r plugins/materials-skills/skills/materials-citation/mcp/academic_search/requirements.txt
+
+      - name: Run MCP unit tests
+        working-directory: plugins/materials-skills
+        run: python -m pytest skills/materials-citation/mcp/ -v --tb=short
