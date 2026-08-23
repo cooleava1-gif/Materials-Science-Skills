@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{TITLE}}</title>
+  <style>
+    :root {
+      --paper: #f4efe3;
+      --panel: rgba(255, 252, 245, 0.88);
+      --panel-strong: #fffdf8;
+      --ink: #1f1b18;
+      --muted: #6b6258;
+      --accent: #8f3d28;
+      --accent-soft: rgba(143, 61, 40, 0.12);
+      --line: rgba(31, 27, 24, 0.12);
+      --shadow: 0 18px 40px rgba(40, 28, 20, 0.14);
+      --tooltip-shadow: 0 18px 42px rgba(20, 16, 12, 0.18);
+      --content-width: min(920px, calc(100vw - 32px));
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(143, 61, 40, 0.12), transparent 28%),
+        radial-gradient(circle at top right, rgba(114, 86, 52, 0.12), transparent 22%),
+        linear-gradient(180deg, #efe4cd 0%, var(--paper) 100%);
+      font-family: "Source Han Serif SC", "Noto Serif SC", "Songti SC", serif;
+      line-height: 1.9;
+    }
+
+    .shell {
+      width: var(--content-width);
+      margin: 0 auto;
+      padding: 40px 0 72px;
+    }
+
+    .masthead {
+      padding: 32px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(255, 253, 248, 0.92), rgba(247, 240, 227, 0.86));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.1rem, 4vw, 3.7rem);
+      line-height: 1.12;
+    }
+
+    .subtitle {
+      margin: 16px 0 0;
+      max-width: 48rem;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .meta {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    .meta span {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(31, 27, 24, 0.08);
+    }
+
+    main {
+      margin-top: 26px;
+      padding: 34px clamp(18px, 3vw, 42px) 44px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    article {
+      font-size: 1.07rem;
+    }
+
+    section + section {
+      margin-top: 34px;
+      padding-top: 26px;
+      border-top: 1px solid rgba(31, 27, 24, 0.08);
+    }
+
+    h2,
+    h3 {
+      margin: 0 0 16px;
+      line-height: 1.3;
+    }
+
+    h2 {
+      font-size: 1.55rem;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      color: var(--accent);
+      font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    p {
+      margin: 0 0 18px;
+    }
+
+    .sentence {
+      position: relative;
+      border-radius: 0.35em;
+      padding: 0 0.08em;
+      transition: background-color 160ms ease, color 160ms ease;
+      cursor: help;
+      outline: none;
+    }
+
+    .sentence:hover,
+    .sentence:focus-visible {
+      background: var(--accent-soft);
+    }
+
+    .sentence:focus-visible {
+      box-shadow: 0 0 0 2px rgba(143, 61, 40, 0.28);
+    }
+
+    figure {
+      margin: 28px 0;
+      padding: 18px;
+      border-radius: 22px;
+      background: var(--panel-strong);
+      border: 1px solid rgba(31, 27, 24, 0.08);
+    }
+
+    figure img,
+    figure svg {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto;
+      border-radius: 14px;
+    }
+
+    figcaption,
+    caption {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      background: var(--panel-strong);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    th,
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(31, 27, 24, 0.08);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+      font-weight: 600;
+      background: rgba(143, 61, 40, 0.08);
+    }
+
+    .tooltip {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      max-width: min(38rem, calc(100vw - 24px));
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(31, 27, 24, 0.08);
+      background: rgba(28, 24, 20, 0.94);
+      color: #f9f5ed;
+      box-shadow: var(--tooltip-shadow);
+      font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.55;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 140ms ease, transform 140ms ease;
+    }
+
+    .tooltip.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .tooltip-label {
+      display: block;
+      margin-bottom: 6px;
+      color: #f2c8bc;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .note {
+      margin-top: 28px;
+      padding: 16px 18px;
+      border-left: 4px solid var(--accent);
+      background: rgba(255, 255, 255, 0.52);
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 720px) {
+      .shell {
+        padding: 20px 0 42px;
+      }
+
+      .masthead,
+      main {
+        border-radius: 22px;
+      }
+
+      .meta {
+        gap: 8px;
+      }
+
+      article {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="masthead">
+      <p class="eyebrow">中文阅读版 · 悬停查看英文原文</p>
+      <h1>{{TITLE}}</h1>
+      <p class="subtitle">{{SUBTITLE}}</p>
+      <div class="meta">{{META}}</div>
+    </header>
+
+    <main>
+      <article>
+        {{ARTICLE_BODY}}
+      </article>
+
+      <aside class="note">
+        将鼠标悬停（或用键盘 Tab 聚焦）任意中文句子，即可查看该句对应的英文原文；按 Esc 或移开光标即可关闭。图表、标题与章节层级均已保留。
+      </aside>
+    </main>
+  </div>
+
+  <div class="tooltip" id="sentence-tooltip" aria-hidden="true">
+    <span class="tooltip-label">英文原文</span>
+    <div id="sentence-tooltip-text"></div>
+  </div>
+
+  <script>
+    const tooltip = document.getElementById("sentence-tooltip");
+    const tooltipText = document.getElementById("sentence-tooltip-text");
+    let activeSentence = null;
+
+    function setTooltipPosition(target) {
+      const rect = target.getBoundingClientRect();
+      const tooltipRect = tooltip.getBoundingClientRect();
+      const top = Math.max(12, rect.top - tooltipRect.height - 12);
+      const left = Math.min(
+        window.innerWidth - tooltipRect.width - 12,
+        Math.max(12, rect.left + rect.width / 2 - tooltipRect.width / 2)
+      );
+      tooltip.style.top = `${top}px`;
+      tooltip.style.left = `${left}px`;
+    }
+
+    function showTooltip(target) {
+      const source = target.getAttribute("data-source");
+      if (!source) {
+        return;
+      }
+
+      activeSentence = target;
+      tooltipText.textContent = source;
+      tooltip.setAttribute("aria-hidden", "false");
+      tooltip.classList.add("is-visible");
+      setTooltipPosition(target);
+    }
+
+    function hideTooltip() {
+      activeSentence = null;
+      tooltip.classList.remove("is-visible");
+      tooltip.setAttribute("aria-hidden", "true");
+    }
+
+    document.addEventListener("pointerover", (event) => {
+      const sentence = event.target.closest(".sentence[data-source]");
+      if (sentence) {
+        showTooltip(sentence);
+      }
+    });
+
+    document.addEventListener("focusin", (event) => {
+      const sentence = event.target.closest(".sentence[data-source]");
+      if (sentence) {
+        showTooltip(sentence);
+      }
+    });
+
+    document.addEventListener("pointerout", (event) => {
+      const leavingSentence = event.target.closest(".sentence[data-source]");
+      if (leavingSentence && leavingSentence === activeSentence) {
+        hideTooltip();
+      }
+    });
+
+    document.addEventListener("focusout", (event) => {
+      const leavingSentence = event.target.closest(".sentence[data-source]");
+      if (leavingSentence && leavingSentence === activeSentence) {
+        hideTooltip();
+      }
+    });
+
+    document.addEventListener("click", (event) => {
+      const sentence = event.target.closest(".sentence[data-source]");
+      if (!sentence && activeSentence) {
+        hideTooltip();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        hideTooltip();
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      if (activeSentence) {
+        setTooltipPosition(activeSentence);
+      }
+    });
+
+    window.addEventListener("scroll", () => {
+      if (activeSentence) {
+        setTooltipPosition(activeSentence);
+      }
+    }, { passive: true });
+  </script>
+</body>
+</html>

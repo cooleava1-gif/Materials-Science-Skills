@@ -182,23 +182,29 @@ python .\scripts\run_release_checks.py --json
 
 This skill does not invent experiments, citations, measurements, journal facts, private file paths, or completed actions. Time-sensitive journal or legal facts should be checked against official sources before submission or filing.
 
-## AI-schematic route (2.2.0)
+## AI-schematic route (2.2.0, hybrid default 2.6.0)
 
-Explicit OpenRouter / GPT Image 2 requests route to `references/ai-schematic-workflow.md` + `references/openrouter-image-generation.md` and `scripts/generate_openrouter_schematic.py` (dry-run first). Outputs are internal drafts with provenance and disclosure; never data panels.
+Conceptual / schematic figures (mechanism maps, interface schematics, TOC,
+covers) default to **R hybrid composition** (2.6.0): a user-provided AI
+image model generates watermark-free decoration assets only, and R draws
+every semantic element as editable vector — see
+`references/hybrid-composition.md`. Standalone AI drafts and explicit
+OpenRouter / GPT Image 2 requests route to
+`references/ai-schematic-workflow.md` + `references/openrouter-image-generation.md`
+and `scripts/generate_openrouter_schematic.py` (dry-run first). Outputs are
+internal drafts with provenance and disclosure; never data panels.
 
-## Hybrid composition: user-provided AI model + R (2.3.0/2.4.0)
+## Hybrid composition: AI decoration + R semantics (2.3.0/2.4.0, default 2.6.0)
 
-Requires the **user to provide an AI image model** (GPT Image 2 via
-OpenRouter or any OpenAI-compatible endpoint, nanobanana / Gemini, or
-self-generated assets from the decoration prompts). Without a tool the
-skill explains this and falls back to full R/Python drawing with
-procedural decorations — same semantics, same export bundle, no AI
-disclosure needed.
-
-Layer-split composition for publication-grade schematics and graphical
-abstracts: GPT Image 2 generates decoration assets only (icons, gradients,
-shadows, semi-transparent blocks — `--asset-mode`, transparent background,
-no text by construction); R draws every semantic element (all text,
-borders, arrows, dashed boxes, annotations) as crisp vector on top, with an
-`asset_manifest.yaml` placement map, AI-free fallback rendering, text-vector
-QA, and the hybrid disclosure line. See `references/hybrid-composition.md`.
+Layer-split composition is the default route for publication-grade
+schematics and graphical abstracts: a user-provided image model (GPT Image 2
+via OpenRouter or any OpenAI-compatible endpoint, nanobanana / Gemini, or
+self-generated assets from the decoration prompts) generates decoration
+assets only (icons, gradients, shadows, semi-transparent blocks — `--asset-mode`,
+transparent background, watermark-stripped, no text by construction); R draws
+every semantic element (all text, borders, arrows, dashed boxes, annotations)
+as crisp vector on top, with an `asset_manifest.yaml` placement map, AI-free
+procedural fallback, text-vector QA, and the hybrid disclosure line. Without
+a tool the skill explains this and falls back to full R/Python drawing with
+procedural decorations — same semantics, same export bundle, no AI disclosure
+needed. See `references/hybrid-composition.md`.

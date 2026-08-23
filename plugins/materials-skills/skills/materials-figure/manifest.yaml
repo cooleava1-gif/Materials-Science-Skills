@@ -1,12 +1,15 @@
 name: materials-figure
-version: 2.4.0
+version: 2.6.0
 status: stable
 description: >
   Declarative manifest for the static/dynamic split. SKILL.md uses this to
   decide which fragments to load for a given figure request. The main axis is
   the Python backend (mandatory for all figure work), which is a blocking gate:
   it must be checked before any figure is drawn. The large body of design,
-  API, pattern, and QA material stays in on-demand references.
+  API, pattern, and QA material stays in on-demand references. Conceptual and
+  schematic figures default to R hybrid composition: a user-provided AI image
+  model supplies watermark-free decoration assets only, while R draws every
+  semantic element as editable vector.
 
 # Minimal always_load: the profile protocol, figure contract, operating stance,
 # and 8-step workflow. materials_kb.yaml loads on demand only when a figure
@@ -107,12 +110,12 @@ axes:
 
 references:
   on_demand:
-    - condition: AI-generated graphical abstract, mechanism schematic, or concept illustration planning, generation, revision, or audit
+    - condition: default route for conceptual/schematic figures — R hybrid composition with AI decoration assets + R-drawn semantics, layer contract, placement map, watermark cleanup, no-AI-tool fallback
+      path: references/hybrid-composition.md
+    - condition: standalone AI-draft generation (quick draft requested explicitly), graphical abstract, mechanism schematic, or concept illustration planning, generation, revision, or audit
       path: references/ai-schematic-workflow.md
     - condition: OpenRouter, GPT Image 2, or OpenAI-compatible image API call setup, payload review, or provenance record
       path: references/openrouter-image-generation.md
-    - condition: AI image model + R hybrid figure, layer split between AI decoration assets and R-drawn semantics, asset placement map, hybrid QA, no-AI-tool fallback
-      path: references/hybrid-composition.md
     - condition: R backend workflow, ggplot2/patchwork/ComplexHeatmap usage, renv record, R-specific export pitfalls
       path: references/r-backend.md
     - condition: figure contains XRD peaks/phases, FTIR wavenumbers/functional groups, or performance values requiring validation against known material relations

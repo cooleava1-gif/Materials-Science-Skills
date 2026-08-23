@@ -9,6 +9,28 @@ and this project follows [Semantic Versioning](https://semver.org/) loosely:
 
 ## [Unreleased]
 
+### Added — R hybrid default route and watermark policy (2026-08-23)
+- `materials-figure` 2.6.0: conceptual/schematic figures now **default to R
+  hybrid composition** — a user-provided AI image model generates
+  watermark-stripped, transparent decoration assets only, while R draws every
+  text, border, arrow, and annotation as editable vector. A standalone AI
+  draft is produced only on explicit request. A dedicated **watermark policy**
+  (strip provider provenance blocks, prefer PNG+transparent, QA watermark
+  check) is enforced before any asset enters a composite; the no-AI-tool
+  procedural R/Python fallback remains first-class.
+- `materials-reader` 1.4.0: new **interactive bilingual HTML reading page**
+  output for full-paper translation — Chinese-first page with sentence-level
+  hover/focus reveal of the aligned English source, figures/tables/captions/
+  hierarchy preserved, built from
+  `assets/templates/bilingual-reader-template.html` per
+  `references/bilingual-html-reader.md`. Reuses the reader's `source_map.json`
+  and terminology ledger; an output format, not a separate skill.
+- Docs refreshed: root README, `docs/skills-index.md`, `docs/workflows`
+  (+ new bilingual-reading demo), `docs/showcases` (added submission-package,
+  reviewer-response, hybrid-mechanism-figure, bilingual-html-reader pages),
+  `docs/gallery` boards regenerated from the shipped `materials4papers`
+  examples.
+
 ### Added — hybrid mode tool gate and fallback (2026-08-16, third session)
 - `materials-figure` 2.4.0: hybrid composition now requires a
   **user-provided AI image model** (GPT Image 2 via OpenRouter or any
