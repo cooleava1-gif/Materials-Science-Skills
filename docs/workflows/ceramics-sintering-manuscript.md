@@ -29,7 +29,9 @@ peer review with rebuttal.
    introduction, experimental, results, and discussion sections.
 6. `materials-figure` generates sintering trajectory plots, XRD
    Rietveld-refinement patterns, and SEM micrographs with grain-size
-   distributions.
+   distributions (data plots via the Python/R backend); any densification
+   mechanism schematic uses the default R hybrid route (AI decoration assets,
+   R vector semantics).
 7. `materials-reviewer` simulates a JACerS peer review, flagging
    phase-purity concerns, missing impedance spectroscopy, and
    grain-size statistics.

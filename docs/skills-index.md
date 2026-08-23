@@ -54,6 +54,13 @@ defaults for `material_family` and `domain` across all 16 skills.
 - Produces standard reader packages, source-grounded notes, figure/table
   evidence maps, claim-evidence-mechanism-boundary matrices, and handoff rows
   for citation and figure skills. Has its own `evals.json`.
+- **Interactive bilingual HTML reading page** (1.4.0): for full-paper
+  translation requests ("生成中文版", "全文翻译", "可交互双语网页") it emits a
+  Chinese-first page built from `assets/templates/bilingual-reader-template.html`
+  following `references/bilingual-html-reader.md` — sentence-level English-Chinese
+  alignment with hover/focus to reveal the English source, figures/tables/
+  captions/hierarchy preserved. It is an output format of the reader, reusing
+  the same `source_map.json` and terminology ledger, not a separate skill.
 
 ### materials-citation — search, screen, structure
 
@@ -106,13 +113,15 @@ defaults for `material_family` and `domain` across all 16 skills.
 - Pipeline: `figure_contract.md → source_data.csv → LLM writes plot.py →
   figure.svg/pdf/png/tiff → caption.md + qa_report.md + asset_manifest.md`.
 - Key rules: exclusive plotting backend per package (Python default, R
-  opt-in with persisted preference); an OpenRouter/GPT Image 2 AI-schematic
-  route produces provenance-tracked internal drafts (never data panels);
-  a hybrid mode (user-provided AI image model required — GPT Image 2,
-  nanobanana, or self-generated assets) splits layers — AI decoration
-  assets below, all text, borders, arrows, and annotations as R vector
-  above (`asset_manifest.yaml` placement map + text-vector QA); with no
-  AI tool the skill explains and falls back to R/Python-only drawing
+  opt-in with persisted preference) for data plots; **conceptual/schematic
+  figures default to R hybrid composition** (2.6.0) — a user-provided AI
+  image model (GPT Image 2, nanobanana, or self-generated assets) generates
+  watermark-stripped, transparent decoration assets only, while R draws
+  every text, border, arrow, and annotation as editable vector
+  (`asset_manifest.yaml` placement map + text-vector + watermark QA); a
+  standalone AI draft is produced only on explicit request (OpenRouter/GPT
+  Image 2 AI-schematic route, provenance-tracked, never data panels); with
+  no AI tool the skill explains and falls back to R/Python-only drawing
   with procedural decorations; contract written before plotting
   (core conclusion, evidence chain, panel map, target journal,
   statistics/units/scale bars, claim boundary); caption boundaries separate

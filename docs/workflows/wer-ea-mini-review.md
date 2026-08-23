@@ -17,7 +17,11 @@ Help me run a WER-EA mini-review workflow from screening to figure planning.
 2. `materials-citation` builds the search plan and citation matrix.
 3. `materials-reader` maps claims, mechanisms, figures, and source anchors.
 4. `materials-writing` drafts the review arc and evidence gaps.
-5. `materials-figure` plans the dosage-window, durability, and heatmap figures.
+5. `materials-figure` plans the dosage-window, durability, and heatmap figures
+   (data plots via the Python/R backend).
+6. For the interface/mechanism schematic, `materials-figure` uses the default
+   R hybrid route: AI decoration assets (watermark-stripped) below, R vector
+   semantics above.
 
 ## Expected Artifacts
 

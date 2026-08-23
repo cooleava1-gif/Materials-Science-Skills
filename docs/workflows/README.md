@@ -13,6 +13,7 @@ should appear.
 | [Experimental pipeline](experimental-pipeline.md) | Closed DOE -> record -> data -> figure loop | doe -> data -> figure |
 | [Revision loop](revision-loop.md) | Reviewer comments and rebuttal planning | reviewer -> response -> writing -> polishing |
 | [Paper to presentation](paper-to-presentation.md) | Journal-club outline and HTML deck creation | materials-html-deck |
+| [Paper to bilingual reading](paper-to-bilingual-reading.md) | Chinese-first interactive bilingual HTML reading page | materials-reader |
 | [Ceramics Sintering Manuscript](ceramics-sintering-manuscript.md) | YSZ sintering experiment to JACerS submission pipeline | doe -> data -> citation -> reader -> writing -> figure -> reviewer -> response |
 
 Run `python .\scripts\run_release_checks.py --json` after changing skill or

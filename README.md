@@ -42,13 +42,13 @@ research (router) → reader → citation / literature-pipeline
 | Skill | Status | Purpose | Trigger keywords |
 |---|---|---|---|
 | [`materials-research`](plugins/materials-skills/skills/materials-research/README.md) | Stable | Profile-first router, stage-gated plan, coverage_tier report | "materials research", "topic routing", "workflow plan" |
-| [`materials-reader`](plugins/materials-skills/skills/materials-reader/README.md) | Stable | Source-anchored reader package, evidence-chain matrix | "reader package", "evidence chain", "paper notes" |
+| [`materials-reader`](plugins/materials-skills/skills/materials-reader/README.md) | Stable | Source-anchored reader package, evidence-chain matrix, interactive bilingual HTML reading page | "reader package", "evidence chain", "paper notes", "生成中文版", "全文翻译", "可交互双语网页" |
 | [`materials-citation`](plugins/materials-skills/skills/materials-citation/README.md) | Stable | MCP-backed search, citation matrix, reference-gap audit, reference verification | "citation matrix", "literature screening", "reference gap" |
 | [`materials-literature-pipeline`](plugins/materials-skills/skills/materials-literature-pipeline/README.md) | Beta | Recurring discovery, candidate scoring, source-depth labels, digest handoff | "literature pipeline", "daily digest", "candidate scoring" |
 | [`materials-paper-card`](plugins/materials-skills/skills/materials-paper-card/README.md) | Beta | Source-grounded 16-section deep-reading cards, characterization-chain reading, gated research ideas | "paper card", "deep reading", "深读卡" |
 | [`materials-writing`](plugins/materials-skills/skills/materials-writing/README.md) | Stable | 8-axis stateful manuscript drafting, foundation files, section arcs | "manuscript draft", "review outline", "argument chain" |
 | [`materials-polishing`](plugins/materials-skills/skills/materials-polishing/README.md) | Stable | Claim-strength audit, overclaim reduction, journal-tone tightening | "polish", "claim strength", "academic tone" |
-| [`materials-figure`](plugins/materials-skills/skills/materials-figure/README.md) | Stable | LLM-driven figure contract + plot, representative atlas/gallery samples | "figure", "publication plot", "mechanism map" |
+| [`materials-figure`](plugins/materials-skills/skills/materials-figure/README.md) | Stable | Figure contract + plot; conceptual figures default to R hybrid (AI decoration + R vector), watermark-stripped | "figure", "publication plot", "mechanism map", "机理图", "TOC" |
 | [`materials-data`](plugins/materials-skills/skills/materials-data/README.md) | Stable | FAIR package, 9 domain schemas, data availability statement | "FAIR package", "data availability", "dataset" |
 | [`materials-doe`](plugins/materials-skills/skills/materials-doe/README.md) | Stable | Factorial / Taguchi / mixture matrices, methods paragraph | "DOE", "experiment design", "orthogonal array" |
 | [`materials-statistics`](plugins/materials-skills/skills/materials-statistics/README.md) | Beta | Replicate/n audits, ANOVA/Taguchi/RSM reporting, multiple-comparison fixes, figure-statistics alignment | "statistics review", "p-value", "方差分析", "图注统计" |
@@ -66,11 +66,19 @@ research (router) → reader → citation / literature-pipeline
 - **`materials-figure`** — LLM-driven figure creation: validates a figure
   contract and source-data anchor first, then the LLM writes `plot.py` and
   ships a full package (`figure_contract.md → source_data.csv → plot.py →
-  SVG/PDF/PNG/TIFF → caption.md + qa_report.md`). Python-default backend
-  (R opt-in); a hybrid composition mode that requires a user-provided AI
-  image model (GPT Image 2, nanobanana, …) — AI decorates only, R draws
-  every text/border/arrow/annotation as vector, with a full R/Python
-  fallback (procedural decorations) when no tool is available.
+  SVG/PDF/PNG/TIFF → caption.md + qa_report.md`). Data plots go through the
+  Python-default backend (R opt-in). Conceptual/schematic figures default to
+  **R hybrid composition**: a user-provided AI image model (GPT Image 2,
+  nanobanana, …) generates watermark-free decoration assets only, while R
+  draws every text/border/arrow/annotation as editable vector; a full
+  R/Python fallback (procedural decorations) covers the no-AI-tool case, and
+  a standalone AI draft is produced only on explicit request.
+- **`materials-reader`** — source-grounded deep reading plus a new
+  **interactive bilingual HTML reading page** (1.4.0): for full-paper
+  translation requests it emits a Chinese-first page where every sentence
+  reveals its aligned English source on hover/focus, preserving figures,
+  tables, captions, and section hierarchy — reusing the same source anchors
+  and terminology ledger as the Markdown reader package.
 - **`materials-paper-to-patent`** — 论文转中文发明专利：三轴路由
   （source_format / task_mode / invention_type），内置中国专利法第 22/26.3/
   26.4/31.1/33 条知识库与 7 规则 claim 校验引擎，输出 DOCX 申请稿 +

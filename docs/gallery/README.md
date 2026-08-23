@@ -2,7 +2,10 @@
 
 Representative visual samples for the public Materials Science Skills package.
 The gallery is intentionally compact: it shows the figure style and workflow
-surface without shipping the full internal generated image corpus.
+surface without shipping the full internal generated image corpus. Data plots
+are produced by the Python/R backend; conceptual/schematic figures follow the
+default R hybrid route (AI decoration assets + R vector semantics,
+watermark-stripped).
 
 ## Composite Overviews
 
